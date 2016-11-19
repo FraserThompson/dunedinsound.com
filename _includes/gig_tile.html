@@ -1,0 +1,24 @@
+{% if tile.incoming %}
+<div class="col-xs-12 tile-wrap even-darker disabled {{class}}" style="background-color: {{ page.colors | sample }}">
+	<a class="box gridItem {{category}}">
+{% else %}
+<div class="col-xs-12 tile-wrap darker {{class}}" style="background-color: {{ page.colors | sample }}">
+	<a class="box gridItem {{category}}" href="{{ tile.url | prepend: site.baseurl }}">
+{% endif %}
+    <div class="tile-title">
+    	<h4><span class="label label-default">{{tile.date | date: "%d %b %Y"}}</span></h4>
+      	<center><h1 class="name">{{ tile.title }}</h1></center>
+      	{% if tile.incoming %}
+      		<center><p>Coming Soon</p></center>
+      	{% else %}
+	      	<center>
+	      	{% for band in tile.media %}
+				{% assign machine_name = band[0] | downcase | replace:' ', '_' | replace: "'", "" %}
+	      		<span href="{{ tile.url | prepend: site.baseurl }}#{{machine_name}}">{{band[0]}}</span>{% if forloop.last == false %} - {% endif %}
+	      	{% endfor %}
+	      	</center>
+      	{% endif %}
+    </div>
+    <div class="tile b-lazy" data-src="/assets/img/{{tile.title | url_encode | replace: '+', '%20'}}/cover.jpg"  style="background-color: #0A0A0A"></div>
+	</a>
+</div>

@@ -1,0 +1,63 @@
+---
+layout: default
+---
+
+{% assign machine_name = page.title | downcase | replace:' ', '_' | replace: "'", "" %}
+
+<article class="band container-fluid">
+  <header class="post-header row">
+    <div class="banner">
+    {% for file in site.static_files %}
+        {% if file.path contains machine_name and file.path contains "(Medium)" %}
+          {% assign image = file.path | replace: "'", "&#39;" | replace: "+", "%2B" | replace: " ", "%20" %}
+          <div class="banner b-lazy" data-src="{{image}}"></div>
+          {% break %}
+        {% endif %}
+    {% endfor %}
+    </div>
+    <div class="text">
+      <p>&nbsp;</p>
+      <h1 class="huge-header">{{page.title}}</h1>
+      {% if page.facebook %} <center><a href="{{page.facebook}}" target="_blank" style="color: lightblue;">[Facebook]</a></center> {% endif %}
+      {% if page.bandcamp %} <center><a href="{{page.bandcamp}}" target="_blank" style="color: orange;">[Bandcamp]</a></center> {% endif %}
+      {% if page.soundcloud %} <center><a href="{{page.soundcloud}}" target="_blank" style="color: orange;">[Soundcloud]</a></center> {% endif %}
+    </div>
+  </header>
+  <div class="row tiles">
+    {% assign name = page.title | replace:' ','_' | downcase %}
+    {% for post in site.categories[name] %}
+
+      {% assign gig_image = "" %}
+      {% assign path = post.title | append: '/' | append: name %}
+
+      {% capture gig_images %}
+        {% for image in site.static_files %}
+            {% if image.path contains path and image.path contains "(Medium)" %}
+              {% assign gig_image = image.path | replace: "'", "&#39;" | replace: "+", "%2B" | replace: " ", "%20" %}
+              {{ image.path | append: ","}}
+            {% endif %}
+        {% endfor %}
+      {% endcapture %}
+
+      {% assign gig_images_list = gig_images | split: "," %}
+
+        <div class="col-sm-12 col-md-6 col-lg-4 tile-wrap smaller darker" style="height: 40vh; background-color: black;">
+          <a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
+            <div class="tile-title">
+              <h4><span class="label label-default">{{post.date | date: "%d %b %Y"}}</span></h4>
+              <h4 style="margin-top: 10px;">{{post.title}}</h4>
+              <h5>{{ post.venue }}</h5>
+              <h5>
+              {% if gig_images_list.size > 1%}<span> {{gig_images_list.size | minus: 1}} 📷</span>{% endif %}
+              {% if post.media[page.title].mp3 %}<span> {{post.media[page.title].mp3.size}} 🎧</span>{% endif %}
+              {% if post.media[page.title].vid %}<span> {{post.media[page.title].vid.size}} 📹</span>{% endif %}
+              </h5>
+            </div>
+            <div class="tile b-lazy" data-src="{{gig_image}}">
+            </div>
+          </a>
+        </div>
+    {% endfor %}
+  </div>
+
+</article>

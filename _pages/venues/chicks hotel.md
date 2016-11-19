@@ -1,0 +1,10 @@
+---
+title: Chicks Hotel
+permalink: "/venues/chicks_hotel/"
+layout: venue
+parent: Venues
+lat: -45.8149806
+lng: 170.6217522
+facebook: https://www.facebook.com/ChicksHotel/
+---
+

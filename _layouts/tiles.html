@@ -1,0 +1,61 @@
+---
+layout: default
+---
+
+{% assign category = page.title | downcase %}
+
+<div class="container-fluid {{category}}">
+  {% if page.sortable %}
+  <div class="sorting left" style="opacity: 0.8; width: 30vw;">
+    <div class="input-group" style='width: 100%;'>
+      <input type="text" class="quicksearch form-control" id="quicksearch" placeholder="Search" autofocus>
+    </div>
+  </div>
+  <div class="sorting right" onmouseenter="this.style.opacity = 1;" onmouseleave="this.style.opacity = 0.3;">
+    <div class="btn-group sort-by-button-group" data-toggle="buttons">
+      <label class="btn btn-default active" data-sort-value="name" >
+        <input type="radio" name="options" id="option1" autocomplete="off" checked> Name
+      </label>
+      <label class="btn btn-default" data-sort-value="date">
+        <input type="radio" name="options" id="option2" autocomplete="off"> Newest
+      </label>
+    </div>
+  </div>
+ {% endif %}
+  <div class="row sorted-tiles">
+    {% for tile in site[page.source] %}
+
+      {% assign type = tile.url | split: '/' %}
+
+      {% if type[1] == category and tile.order == null %}
+        {% assign machine_name = tile.title | downcase | replace:' ', '_' | replace: "'", "" %}
+
+        {% assign image = page.placeholder %}
+
+        {% for file in site.static_files %}
+          {% if file.path contains machine_name and file.path contains "(Small)" %}
+            {% assign image = file.path | replace: "'", "&#39;" | replace: "+", "%2B" | replace: " ", "%20" %}
+          {% endif %}
+        {% endfor %}
+
+        {% for post in site.categories[machine_name] limit: 1 %}
+          {% assign last_gig = post.date %}
+        {% endfor %}
+          <div class="{{page.spacing}} tile-wrap">
+            <a class="post-link gridItem {{category}} box" href="{{ tile.url | prepend: site.baseurl }}">
+              <div class="tile-title bottom">
+                <h4 class="name">{{ tile.title }} {% if tile.origin %} ({{tile.origin}}) {% endif %}</h4>
+                {% if category == "artists" %}
+                <p class="date" style="display: none;">{{last_gig}}</p>
+                {% endif %}
+                {% if category == "venues" %}
+                <h5><span class="numberOfGigs">{{ site.posts | where: "venue", tile.title | size}}</span> gigs</h5>
+                {% endif %}
+              </div>
+              <div class="tile b-lazy" data-src='{{image}}'></div>
+            </a>
+          </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

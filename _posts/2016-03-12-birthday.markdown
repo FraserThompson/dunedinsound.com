@@ -1,0 +1,20 @@
+---
+title: Bo's Birthday
+date: 2016-03-12 05:00:00 Z
+categories:
+- the_vortz
+- the_rothmans
+layout: post
+parent: Gigs
+media:
+  The Vortz:
+    mp3:
+    - title: Full set
+      link: the_vortz/The Vortz Live at Inch Bar.mp3
+  The Rothmans:
+    mp3:
+    - title: Full show
+      link: rothmans/The Rothmans live at Inch Bar.mp3
+venue: Inch Bar
+---
+

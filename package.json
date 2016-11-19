@@ -1,0 +1,24 @@
+{
+  "name": "dunedinsound",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-responsive-images": "^0.1.9"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FraserThompson/FraserThompson.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FraserThompson/FraserThompson.github.io/issues"
+  },
+  "homepage": "https://github.com/FraserThompson/FraserThompson.github.io#readme"
+}

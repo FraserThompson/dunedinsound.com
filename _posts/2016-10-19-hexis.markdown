@@ -1,0 +1,45 @@
+---
+title: dance.happy.doom.crew presents Hexis
+date: 2016-10-19 07:00:00 Z
+categories:
+    - yung_nat$
+    - slitzkrieg
+    - meth_christ
+    - machina_rex
+    - hexis
+layout: post
+parent: Gigs
+venue: Crown Hotel
+image: https://files.dunedinsound.com/assets/img/dance.happy.doom.crew%20presents%20Hexis/cover.jpg
+media:
+    Yung Nat$:
+        mp3:
+            - title: Full set
+              link: yung_nat$/dance%20happy%20doom%20crew%20presents%20Hexis - Yung Nat$.mp3
+        vid:
+            - link:  NyGx9Kcw1dQ
+
+    Slitzkrieg:
+        mp3:
+            - title: Full set
+              link: slitzkrieg/dance%20happy%20doom%20crew%20presents%20Hexis - Slitzkrieg.mp3
+        vid:
+            - link: 0Aa8fa0kJ-0
+    Meth Christ:
+        mp3:
+            - title: Full set
+              link: meth_christ/dance%20happy%20doom%20crew%20presents%20Hexis - Meth Christ.mp3
+        vid:
+            - link: OvMwAIfTj6c
+            - link: EuUe6FW97AA
+    Machina Rex:
+        - nothing
+    Hexis:
+        mp3:
+            - title: Full set
+              link: hexis/dance%20happy%20doom%20crew%20presents%20Hexis - Hexis.mp3
+        vid:
+            - link: ZQaVeiDAU-Q
+            - link: ydYp-HBxKFw
+---
+

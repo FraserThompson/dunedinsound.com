@@ -1,0 +1,21 @@
+---
+title: Robbie Burns 11-09-2014
+date: 2014-09-11 05:00:00 Z
+categories:
+  - clones
+  - jay_kill_rolling
+  - sloth_vegas
+layout: post
+parent: Gigs
+media:
+  Jay Kill Rolling:
+    vid:
+      - link: Q7BRdaKl5lk
+  Sloth Vegas:
+    vid:
+      - link: 1cMjYXubCHI
+  Clones:
+    - nothing
+venue: Robbie Burns
+---
+

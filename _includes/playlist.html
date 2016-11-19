@@ -1,0 +1,24 @@
+<ul id="playlist" style="padding: 0px;">
+    {% for band in page.media %}
+        <li class="indentMore">
+        {% assign machine_name = band[0] | downcase | replace:" ", "_" %}
+        {% for page in site.pages %}
+            {% if page.title == band[0] %}
+                {% assign facebook = page.facebook %}
+                {% assign bandcamp = page.bandcamp %}
+                {% break %}
+            {% endif %}
+        {% endfor %}
+        {% assign gigs_number = site.categories[machine_name].size %}
+        {% if band[1].mp3[0].link %}
+        <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-mp3="/assets/audio/{{band[1].mp3[0].link}}" data-facebook="{{facebook}}" data-bandcamp="{{bandcamp}}" data-artist="{{band[0]}}" data-machinename='{{ machine_name }}' data-numberofgigs="{{ gigs_number }}">
+            {{forloop.index}}. {{band[0]}}
+        </a>
+        {% else %}
+            <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-facebook="{{facebook}}" data-bandcamp="{{bandcamp}}" data-artist="{{band[0]}}" data-machinename='{{ machine_name }}' data-numberofgigs="{{ gigs_number }}">
+            {{forloop.index}}. {{band[0]}}
+        </a>
+        {% endif %}
+        </li>
+    {% endfor %}
+</ul>

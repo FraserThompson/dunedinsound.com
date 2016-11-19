@@ -1,0 +1,37 @@
+---
+title: Dunedin Gig Archives
+timezone: UTC
+collections:
+  posts:
+    title: Posts
+    output: true
+  uploads:
+    title: Uploads
+    output: true
+defaults:
+- scope:
+    path: ''
+    type: posts
+  values:
+    layout: post
+    parent: Gigs
+    description: Photos, audio and video.
+email: me@fpt.nz
+description: |
+  Rare and unofficial recordings of cool local bands since 2014.
+baseurl: ''
+url: http://dunedinsound.com
+permalink: "/gigs/:title/"
+exclude: 
+#- assets/img
+- assets/mp3
+include:
+- _pages
+- _pages/artists
+- _pages/venues
+sass:
+  style: compressed
+markdown: kramdown
+gems:
+- jemoji
+- jekyll-seo-tag

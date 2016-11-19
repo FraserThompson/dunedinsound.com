@@ -1,0 +1,57 @@
+<!--[if lte IE 9]>
+<div class="notification"><h3>This site won't work very well in your browser, get a newer one like <a href="https://www.google.com/chrome/">Google Chrome</a> or <a href="https://www.mozilla.org/en-US/firefox/new/">Mozilla Firefox</a>.</h3>
+<![endif]-->
+
+<script type="text/javascript" src="/assets/js/main.js"></script>
+
+{% if page.layout == "post" %}
+	<script type="text/javascript">
+		document.addEventListener("DOMContentLoaded", function(event) {
+    		post.waveformInit();
+    	});
+	</script>
+	<script type="text/javascript" src="/assets/js/videos.js"></script>
+{% endif %}
+
+
+{% if page.sortable %}
+	<script type="text/javascript">
+		document.addEventListener("DOMContentLoaded", function(event) {
+			sortingInit();
+		});
+	</script>
+{% endif %}
+
+{% if page.title == "Gigs" %}
+	<script type="text/javascript">
+		document.addEventListener("DOMContentLoaded", function(event) {
+			gigsInit();
+		});
+	</script>
+{% endif %}
+
+{% if page.title == "Get" %}
+	<script type="text/javascript" src="/assets/js/waveform_generate.js"></script>
+{% endif %}
+
+{% if page.parent == "Venues" %}
+	<script>
+		var map_el = document.getElementById('map');
+		var map = L.map('map', {center: [map_el.dataset.lat, map_el.dataset.lng], zoom: 18, zoomControl: false});
+		L.Icon.Default.imagePath = '/assets/js/images';
+		L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnJhc2VydGhvbXBzb24iLCJhIjoiY2llcnF2ZXlhMDF0cncwa21yY2tyZjB5aCJ9.iVxJbdbZiWVfHItWtZfKPQ', {
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		}).addTo(map);
+		L.marker([map_el.dataset.lat, map_el.dataset.lng]).addTo(map);
+	</script>
+{% endif %}
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75343662-1', 'auto');
+  ga('send', 'pageview');
+</script>

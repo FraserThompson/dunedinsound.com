@@ -1,0 +1,59 @@
+<div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+		<div class="sidebar-brand">
+			<center><a href="/">{{site.title}}</a></center>
+		</div>
+		<div id="navigation-wrapper">
+			<ul class="sidebar-nav">
+			{% assign page_url_parts = page.url | split: '/' %}
+			{% if layout.type %} {% assign pages_or_posts = layout.type %} {% else %} {% assign pages_or_posts = "pages" %} {% endif %}
+			{% assign sorted_pages = site.pages | sort: "order" %}
+
+			{% for parent in sorted_pages %}
+				{% assign node_url_parts = parent.permalink | split: '/' %}
+				{% if parent.order %}
+					{% if page.url == parent.url or page.parent == parent.title or layout.parent == parent.title %}
+						<li class="active">
+					{% else %}
+						<li>
+					{% endif %}
+
+					<a href='{{parent.url}}'>{{parent.title}}</a></li>
+					{% if page.parent == parent.title %}
+						{% for node in site[pages_or_posts] %}
+							{% if node.parent == parent.title %}
+								{% if node.url == page.url or node.title == page.band %}
+								<li class="indent active">
+								{% else %}
+								<li class="indent darken-bg">
+								{% endif %}
+									<a href='{{node.url}}'>{{node.title}}</a>
+								{% if page.layout == "post" and node.title == page.title %}
+									{% include playlist.html %}
+								{% endif %}
+								</li>
+								{% if page.layout == "post" and node.title == page.band %}
+									{% for node2 in site.posts %}
+										{% if node2.layout == "post" and node2.band == page.band %}
+											{% if node2.title == page.title %}
+											<li class="indentMore active">
+											{% else %}
+											<li class="indentMore">
+											{% endif %}
+												<a href='{{node2.url}}'>{{node2.title}}</a>
+											</li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+			</ul>
+		</div>
+        <a class="guy" href="/about">What is this?<span class="hi">?????</span></a>
+    </div>
+</div>
+<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">&#9776; Menu</a>

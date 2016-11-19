@@ -1,0 +1,20 @@
+---
+title: Karl and Jacks Birthday House Show
+date: 2015-03-07 05:00:00 Z
+categories:
+- agent_ewok
+- astro_children
+layout: post
+parent: Gigs
+media:
+  Agent Ewok:
+    mp3:
+    - title: Full audio
+      link: agent_ewok/Agent Ewok at Karl and Jacks Birthday Show.mp3
+  Astro Children:
+    mp3:
+    - title: Full show
+      link: astrochildren/Astrochildren - 2015 Garage.mp3
+venue: Garage
+---
+
