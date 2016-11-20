@@ -156,7 +156,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('images', ['responsive_images', 'imageinfo']);
-  grunt.registerTask('production_build', ['responsive_images', 'imageinfo', 'jekyll', 'copy']);
+  grunt.registerTask('production-build', ['responsive_images', 'imageinfo', 'jekyll', 'sync']);
   grunt.registerTask('deploy', ['responsive_images', 'imageinfo', 'jekyll', 'sync', 'exec']);
 
 };
