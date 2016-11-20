@@ -17,14 +17,22 @@ defaults:
     parent: Gigs
     description: Photos, audio and video.
 email: me@fpt.nz
+asset_url: http://dunedinsound.com
+keep_files:
+- /assets/img/**
+- /assets/audio/**
 description: |
   Rare and unofficial recordings of cool local bands since 2014.
 baseurl: ''
 url: http://dunedinsound.com
 permalink: "/gigs/:title/"
 exclude: 
-#- assets/img
-- assets/mp3
+- assets/img
+- assets/audio
+- s3_website.yml
+- Gruntfile.js
+- package.json
+- node_modules
 include:
 - _pages
 - _pages/artists

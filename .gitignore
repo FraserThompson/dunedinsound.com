@@ -1,4 +1,6 @@
 _site
+_site_dev
+_data
 .sass-cache
 .jekyll-metadata
 originals

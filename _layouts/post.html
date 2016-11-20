@@ -2,7 +2,6 @@
 layout: default
 type: posts
 ---
-
 <nav class="navbar navbar-default navbar-fixed-top header" id="header">
 	<div class="col-md-12 col-lg-11 no-padding">
 		<div class="audio-section">
@@ -61,19 +60,13 @@ type: posts
 	 	<div class="pic row">
 			{% for band in page.categories %}
 	 		<div id="{{band}}_photo" style="display: none;">
-		 	{% assign path = page.title | append: '/' | append: band %}
-		 	{% for gig_image in site.static_files %}
-				{% if gig_image.extname == ".jpg" or gig_image.extname == ".JPG" %}
-					{% if gig_image.path contains path and gig_image.path contains "(Medium)" %}
-						{% assign full_pic = gig_image.path | replace: "(Medium)","" | replace: "'", "&#39;" | replace: "+", "%2B" | replace: " ", "%20"%}
-						{% assign gig_image_escaped = gig_image.path | replace: "'", "&#39;" | replace: "+", "%2B" | replace: " ", "%20" %}
-						<div class= "col-xs-12 col-md-6" style="padding: 0;">
-							<div class="box">
-								<a href="{{ full_pic }}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{gig_image_escaped}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
-							</div>
-						</div>
-					{% endif %}
-				{% endif %}
+		 	{% for gig_image in site.data.images.gigs[page.title][band]['images'] %}
+				{% assign full_pic = gig_image | replace: " (Medium)","" %}
+				<div class= "col-xs-12 col-md-6" style="padding: 0;">
+					<div class="box">
+						<a href="{{site.asset_url}}/{{full_pic}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
+					</div>
+				</div>
 			{% endfor %}
 			</div>
 	{% endfor %}

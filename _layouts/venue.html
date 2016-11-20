@@ -3,12 +3,6 @@ layout: default
 ---
 
 {% assign machine_name = page.title | downcase | replace:' ', '_' | replace: "'", "" %}
-  {% for file in site.static_files %}
-    {% if file.path contains machine_name and file.path contains "(Medium)" %}
-          {% assign image = file.path | replace: "'", "&#39;" | replace: "+", "%2B" | replace: " ", "%20" %}
-      {% break %}
-    {% endif %}
-  {% endfor %}
 
 <article class="post container-fluid">
 
@@ -23,23 +17,8 @@ layout: default
     </header>
 
   <div class="row tiles">
-    {% assign gig_image = "" %}
     {% for post in site.posts %}
         {% if post.venue and post.venue == page.title %}
-
-            {% capture gig_image %}/assets/img/thumb.png{% endcapture %}
-            {% assign path = post.band | replace:' ','_' | downcase | append: '/' | append: post.title %}
-
-            {% capture gig_images %}
-                {% for image in site.static_files %}
-                    {% if image.path contains path and image.path contains "(Medium)" %}
-                      {% capture gig_image %}{{image.path | replace: "'", "&#39;" | replace: "+", "%2B" | replace: " ", "%20"}}{% endcapture %}
-                      {{ image.path | append: ","}}
-                    {% endif %}
-                {% endfor %}
-            {% endcapture %}
-
-            {% assign gig_images_list = gig_images | split: "," %}
 
             <div class="col-sm-6 col-md-3 col-lg-3 tile-wrap smaller" style="height: 40vh; background-color: black;">
                 <a class="box" href="{{ post.url }}">
@@ -52,7 +31,7 @@ layout: default
                         {% endfor %}
                         </h5>
                     </div>
-                    <div class="tile b-lazy" data-src="{{gig_image}}"></div>
+                    <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title}}/cover.jpg"></div>
                 </a>
             </div>
          {% endif %}     

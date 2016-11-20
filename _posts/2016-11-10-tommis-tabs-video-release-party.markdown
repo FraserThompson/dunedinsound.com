@@ -1,5 +1,5 @@
 ---
-title: Tommi's Tabs Video Release Party
+title: Tommis Tabs Video Release Party
 date: 2016-11-10 07:00:00 Z
 categories:
     - the_sham
@@ -7,7 +7,7 @@ categories:
 layout: post
 parent: Gigs
 venue: Robbie Burns
-image: /assets/img/Tommi%27s%20Tabs%20Video%20Release%20Party/cover.jpg
+image: /assets/img/Tommis%20Tabs%20Video%20Release%20Party/cover.jpg
 media:
     The Sham:
         mp3:

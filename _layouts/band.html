@@ -7,13 +7,7 @@ layout: default
 <article class="band container-fluid">
   <header class="post-header row">
     <div class="banner">
-    {% for file in site.static_files %}
-        {% if file.path contains machine_name and file.path contains "(Medium)" %}
-          {% assign image = file.path | replace: "'", "&#39;" | replace: "+", "%2B" | replace: " ", "%20" %}
-          <div class="banner b-lazy" data-src="{{image}}"></div>
-          {% break %}
-        {% endif %}
-    {% endfor %}
+        <div class="banner b-lazy" data-src="{{site.asset_url}}/{{site.data.images.artists[machine_name][0]}}"></div>
     </div>
     <div class="text">
       <p>&nbsp;</p>
@@ -24,22 +18,10 @@ layout: default
     </div>
   </header>
   <div class="row tiles">
+
     {% assign name = page.title | replace:' ','_' | downcase %}
+
     {% for post in site.categories[name] %}
-
-      {% assign gig_image = "" %}
-      {% assign path = post.title | append: '/' | append: name %}
-
-      {% capture gig_images %}
-        {% for image in site.static_files %}
-            {% if image.path contains path and image.path contains "(Medium)" %}
-              {% assign gig_image = image.path | replace: "'", "&#39;" | replace: "+", "%2B" | replace: " ", "%20" %}
-              {{ image.path | append: ","}}
-            {% endif %}
-        {% endfor %}
-      {% endcapture %}
-
-      {% assign gig_images_list = gig_images | split: "," %}
 
         <div class="col-sm-12 col-md-6 col-lg-4 tile-wrap smaller darker" style="height: 40vh; background-color: black;">
           <a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
@@ -48,12 +30,12 @@ layout: default
               <h4 style="margin-top: 10px;">{{post.title}}</h4>
               <h5>{{ post.venue }}</h5>
               <h5>
-              {% if gig_images_list.size > 1%}<span> {{gig_images_list.size | minus: 1}} 📷</span>{% endif %}
+              {% if site.data.images.gigs[post.title][machine_name]['count'] > 1%}<span> {{site.data.images.gigs[post.title][machine_name]['count']}} 📷</span>{% endif %}
               {% if post.media[page.title].mp3 %}<span> {{post.media[page.title].mp3.size}} 🎧</span>{% endif %}
               {% if post.media[page.title].vid %}<span> {{post.media[page.title].vid.size}} 📹</span>{% endif %}
               </h5>
             </div>
-            <div class="tile b-lazy" data-src="{{gig_image}}">
+            <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title}}/cover.jpg">
             </div>
           </a>
         </div>
