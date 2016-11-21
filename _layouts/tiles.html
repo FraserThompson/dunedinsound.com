@@ -52,7 +52,7 @@ layout: default
                 <h5><span class="numberOfGigs">{{ site.posts | where: "venue", tile.title | size}}</span> gigs</h5>
                 {% endif %}
               </div>
-              <div class="tile b-lazy" data-src='{{site.asset_url}}/{{site.data.images.artists[machine_name][0]}}'></div>
+              <div class="tile b-lazy" data-src='{{ site.asset_url}}/{{site.data.images.artists[machine_name][0] | escape }}'></div>
             </a>
           </div>
       {% endif %}
