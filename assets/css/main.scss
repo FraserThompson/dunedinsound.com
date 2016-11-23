@@ -278,11 +278,6 @@ h1 {
 	right: 0px;
 }
 
-.left {
-	left: 0px;
-	top: 50px;
-}
-
 @media screen and (max-width: 1920px) {
 	.huge-header {
 		font-size: 8em !important;
@@ -891,10 +886,20 @@ h1 {
 	width: 100px;
 }
 
+.left {
+	left: 80px;
+	top: 0px;
+}
+
 /* Desktop size */
 @media (min-width:1200px) {
 	h1 {
 		font-size: 4em !important;
+	}
+
+	.left {
+		left: 0px;
+		top: 50px;
 	}
 
 	.extra-links {

@@ -10,7 +10,11 @@ type: posts
 				<span id="pause" style="display: none">❙❙</span>
 			</button>
 			<div id="waveform_wrapper">
+				{% if page.media[0].link %}
 				<div id="waveform" data-mp3="{{page.media[0].link}}"></div>
+				{% else %}
+				<div id="waveform" data-mp3="/assets/mp3/{{page.title | url_encode }} - {{page.media[0]}}.mp3"></div>
+				{% endif %}
 				<div class="length-wrapper">
 					<span id="currentTime"></span><span id="length"></span>
 				</div>
@@ -60,7 +64,7 @@ type: posts
 	 	<div class="pic row">
 			{% for band in page.categories %}
 	 		<div id="{{band}}_photo" style="display: none;">
-		 	{% for gig_image in site.data.images.gigs[page.title][band]['images'] %}
+		 	{% for gig_image in site.data.media.gigs[page.title][band]['images'] %}
 				{% assign full_pic = gig_image | replace: " (Medium)","" %}
 				<div class= "col-xs-12 col-md-6" style="padding: 0;">
 					<div class="box">

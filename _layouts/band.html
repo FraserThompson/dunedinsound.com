@@ -7,7 +7,7 @@ layout: default
 <article class="band container-fluid">
   <header class="post-header row">
     <div class="banner">
-        <div class="banner b-lazy" data-src="{{site.asset_url}}/{{site.data.images.artists[machine_name][0]}}"></div>
+        <div class="banner b-lazy" data-src="{{site.asset_url}}/{{site.data.media.artists[machine_name][0]}}"></div>
     </div>
     <div class="text">
       <p>&nbsp;</p>
@@ -30,7 +30,7 @@ layout: default
               <h4 style="margin-top: 10px;">{{post.title}}</h4>
               <h5>{{ post.venue }}</h5>
               <h5>
-              {% if site.data.images.gigs[post.title][machine_name]['count'] > 1%}<span> {{site.data.images.gigs[post.title][machine_name]['count']}} 📷</span>{% endif %}
+              {% if site.data.media.gigs[post.title][machine_name]['count'] > 1%}<span> {{site.data.media.gigs[post.title][machine_name]['count']}} 📷</span>{% endif %}
               {% if post.media[page.title].mp3 %}<span> {{post.media[page.title].mp3.size}} 🎧</span>{% endif %}
               {% if post.media[page.title].vid %}<span> {{post.media[page.title].vid.size}} 📹</span>{% endif %}
               </h5>

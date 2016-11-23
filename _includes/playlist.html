@@ -14,6 +14,10 @@
         <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-mp3="{{site.asset_url}}/assets/audio/{{band[1].mp3[0].link}}" data-facebook="{{facebook}}" data-bandcamp="{{bandcamp}}" data-artist="{{band[0]}}" data-machinename='{{ machine_name }}' data-numberofgigs="{{ gigs_number }}">
             {{forloop.index}}. {{band[0]}}
         </a>
+        {% else if band[1].mp3[0].title %}
+        <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-mp3="{{site.asset_url}}/assets/audio/{{machine_name}}/{{page.title}} - {{band[0]}}.mp3" data-facebook="{{facebook}}" data-bandcamp="{{bandcamp}}" data-artist="{{band[0]}}" data-machinename='{{ machine_name }}' data-numberofgigs="{{ gigs_number }}">
+            {{forloop.index}}. {{band[0]}}
+        </a>
         {% else %}
             <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-facebook="{{facebook}}" data-bandcamp="{{bandcamp}}" data-artist="{{band[0]}}" data-machinename='{{ machine_name }}' data-numberofgigs="{{ gigs_number }}">
             {{forloop.index}}. {{band[0]}}

@@ -180,6 +180,7 @@ post.waveformInit = function() {
             if (jsons[currentTrack]) {
                 player.legacy.style.display = "none";
                 player.waveform_wrapper.style.opacity = "1";
+                buttons.playPause.style.display = "block";
                 player.currentTime.innerHTML = "";
 
                 wavesurfer.load(player.links[currentTrack].dataset.mp3, JSON.parse(jsons[currentTrack]));
@@ -194,6 +195,7 @@ post.waveformInit = function() {
                     if (data) {
                         jsons[currentTrack] = data;
                         player.legacy.style.display = "none";
+                        buttons.playPause.style.display = "block";
                         player.waveform_wrapper.style.opacity = "1";
                         player.currentTime.innerHTML = "";
 

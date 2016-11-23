@@ -100,10 +100,10 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('imageinfo', function(){
+  grunt.registerTask('index-media', function(){
     var done = this.async();
-    glob('assets/img/**/*.{jpg,JPG}', {}, function(err, files){
-      var existingYml = fs.readFileSync("_data/images.yml").toString();
+    glob('assets/**/**/*.{jpg,JPG,mp3}', {}, function(err, files){
+      var existingYml = fs.readFileSync("_data/media.yml").toString();
 
       // this demarcates auto-generated values
       // from manually added values for things like
@@ -111,7 +111,7 @@ module.exports = function(grunt) {
       var a = existingYml.split("#!#!#!#!#");
       existingYml = a[0].trim();
 
-      var data = { 'gigs': {}, 'artists': {} };
+      var data = { 'gigs': {}, 'artists': {}, 'audio': {} };
       files.forEach(function(file){
         var path_components = file.split('/')
         var gig = path_components[2];
@@ -142,21 +142,20 @@ module.exports = function(grunt) {
 
           data['artists'][band].push(file);
         }
-
       });
 
       var yamlString = YAML.stringify(data);
       var yamlHeading = "\n\n\n#!#!#!#!# Do not edit below this line.\n";
       yamlHeading += "# Generated automatically using `grunt imageinfo` on " + new Date() + "\n\n";
       
-      fs.writeFileSync("_data/images.yml", existingYml + yamlHeading + yamlString);
+      fs.writeFileSync("_data/media.yml", existingYml + yamlHeading + yamlString);
       console.log('done');
       done();
     });
   });
 
-  grunt.registerTask('images', ['responsive_images', 'imageinfo']);
-  grunt.registerTask('production-build', ['responsive_images', 'imageinfo', 'jekyll', 'sync']);
-  grunt.registerTask('deploy', ['responsive_images', 'imageinfo', 'jekyll', 'sync', 'exec']);
+  grunt.registerTask('images', ['responsive_images', 'index-media']);
+  grunt.registerTask('production-build', ['responsive_images', 'index-media', 'jekyll', 'sync']);
+  grunt.registerTask('deploy', ['responsive_images', 'index-media', 'jekyll', 'sync', 'exec']);
 
 };
