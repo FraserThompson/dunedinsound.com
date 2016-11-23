@@ -17,7 +17,7 @@ defaults:
     parent: Gigs
     description: Photos, audio and video.
 email: me@fpt.nz
-asset_url: 
+asset_url: http://dunedinsound.com
 keep_files:
 - assets/img
 - assets/audio
