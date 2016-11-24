@@ -15,6 +15,7 @@ media:
   Lucy Hunter:
     mp3:
     - title: Full set
+      nodownload: true
       link: lucy_hunter/Miss June x Astro Children TOUR Dunedin with Tongueflower
         and Lucy Hunter - Lucy Hunter.mp3
   Tongueflower:

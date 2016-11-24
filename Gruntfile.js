@@ -9,9 +9,22 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jekyll');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-sync');
+  grunt.loadNpmTasks('grunt-uncss');
 
   // Project configuration.
   grunt.initConfig({
+    uncss: {
+      dist: {
+        options: {
+          htmlroot: '_site',
+          ignoreSheets : [/fonts.googleapis/, 'perfect-scrollbar.min.css', 'leaflet.css', 'main.css'],
+
+        },
+        files: {
+          'assets/css/bootstrap_uncss.scss': ['_site/index.html', '_site/gigs/**/index.html', '_site/artists/**/index.html', '_site/venues/**/index.html', '_site/about/index.html']
+        }
+      }
+    },
     responsive_images: {
       images: {
         options: {
@@ -79,7 +92,8 @@ module.exports = function(grunt) {
       dist: {
         options: {
           config: '_config.yml',
-          raw: "asset_url: ''\n"
+          raw: "asset_url: ''\n" +
+               "JEKYLL_ENV: 'production'\n"
         }
       }
     },
@@ -156,6 +170,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('images', ['responsive_images', 'index-media']);
   grunt.registerTask('production-build', ['responsive_images', 'index-media', 'jekyll', 'sync']);
+  grunt.registerTask('code-deploy', ['jekyll', 'exec']);
   grunt.registerTask('deploy', ['responsive_images', 'index-media', 'jekyll', 'sync', 'exec']);
 
 };
