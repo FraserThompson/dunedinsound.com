@@ -174,21 +174,19 @@ post.waveformInit = function() {
 
         if (player.links[currentTrack].dataset.mp3) {
 
+            buttons.download.style.opacity = "1";
             buttons.download.href = player.links[currentTrack].dataset.mp3;
-                         
+
             if (player.links[currentTrack].dataset.nodownload == "true") {
                 buttons.download.style.opacity = "0";
-            } else {
-                buttons.download.style.opacity = "1";
             }
-
+            
             // if we've already fetched the json 
             if (jsons[currentTrack]) {
                 player.legacy.style.display = "none";
                 player.waveform_wrapper.style.opacity = "1";
                 buttons.playPause.style.display = "block";
                 player.currentTime.innerHTML = "";
-   
 
                 wavesurfer.load(player.links[currentTrack].dataset.mp3, JSON.parse(jsons[currentTrack]));
                 if (play) {
@@ -229,7 +227,7 @@ post.waveformInit = function() {
             }
         } else {
             buttons.playPause.style.display = "none";
-            buttons.download.style.display = "none";
+            buttons.download.style.opacity = "0";
             player.waveform_wrapper.style.opacity = "0";
         }
 

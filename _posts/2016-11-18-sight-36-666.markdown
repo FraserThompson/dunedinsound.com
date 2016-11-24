@@ -1,0 +1,39 @@
+---
+title: "SIGHT #36 666"
+date: 2016-11-18 07:00:00 Z
+categories:
+    - grvdggr
+    - perry_buoy
+    - bolton_strid
+    - wilton_carpet
+    - cakewithcontactmic
+    - henry_william_meung
+layout: post
+parent: Gigs
+venue: None Gallery
+image: /assets/img/SIGHT%20%2336%20666/cover.jpg
+media:
+    grvdggr:
+        mp3:
+            - title: Full set
+    perry buoy:
+        vid:
+            - link: W0JvAV7EKug
+    bolton strid:
+        mp3:
+            - title: Full set
+        vid:
+            - link: 0JTbXvzLhHo
+    wilton carpet:
+        mp3:
+            - title: Full set
+    cakewithcontactmic:
+        mp3:
+            - title: Full set
+        vid:
+            - link: 5vkIlm0Lyds
+    henry william meung:
+        mp3:
+            - title: Full set
+---
+

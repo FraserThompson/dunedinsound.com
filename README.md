@@ -34,3 +34,10 @@ Previously I was letting Jekyll take care of the assets and iterating site.stati
 I'm using s3_website for deployment which makes things much easier. It can be deployed with ```s3_website push``` if there's an s3_website.yml which I haven't included in this repo.
 
 I also have the responsive_images node module for minification of images. So if I put images in the _originals directory with the folder structure I want they will be compressed and sent to assets/img with some nice alternate file sizes.
+
+### Grunt tasks
+
+* deploy: Does a full deploy, resizes images, syncs new media, builds with jekyll
+* code-deploy: Just builds jekyll then deploys, no asset stuff
+* production-build: Resizes images, syncs assets, builds with jekyll but doesn't deploy to S3
+* images: Resizes images and generates the media info for them
