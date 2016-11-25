@@ -50,18 +50,14 @@ post.waveformInit = function() {
             }
         },
         show: function() {
-            return function() {
-                buttons.playPause.style.display = "block";
-                player.waveform_wrapper.style.opacity = "1";
-                player.currentTime.innerHTML = "";
-            }
+            buttons.playPause.style.display = "block";
+            player.waveform_wrapper.style.opacity = "1";
+            player.currentTime.innerHTML = "";
         },
         hide: function() {
-            return function() {
-                buttons.playPause.style.display = "none";
-                buttons.download.style.opacity = "0";
-                player.waveform_wrapper.style.opacity = "0";
-            }
+            buttons.playPause.style.display = "none";
+            buttons.download.style.opacity = "0";
+            player.waveform_wrapper.style.opacity = "0";
         },
         redraw: function() {
             return debounce(function() {
@@ -255,6 +251,7 @@ post.waveformInit = function() {
 
             }
         } else {
+            if (DEBUG) { console.log ('No MP3, hiding player.'); }
             player.hide();
         }
 
