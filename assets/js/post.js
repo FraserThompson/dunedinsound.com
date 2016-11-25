@@ -1,28 +1,89 @@
 var post = post || {};
 
 post.waveformInit = function() {
-
+    var DEBUG = false;
     var threshold = window.innerHeight * 1.5;
-    var backToTop = document.getElementById('back-to-top');
-    var header = document.getElementById('header');
 
     var jsons = {};
     var bandIndexes = {};
 
+    /* DOM Elements */
+    var backToTop = document.getElementById('back-to-top');
+    var header = document.getElementById('header');
+    var navbar = document.getElementById('navigation-wrapper');
+    var nav_wrapper = document.getElementById("wrapper");
+    var menu_toggle = document.getElementById("menu-toggle");
+
     var player = {
         waveform: document.getElementById('waveform'),
         waveform_wrapper: document.getElementById('waveform_wrapper'),
-        legacy: document.getElementById('player'),
         length: document.getElementById('length'),
         currentTime: document.getElementById('currentTime'),
-        links: document.querySelectorAll('#playlist a')
-    }
-    
-    for (i = 0; i < player.links.length; i++) {
-        bandIndexes[player.links[i].dataset.machinename] = i;
+        links: document.querySelectorAll('#playlist a'),
+        play: function () {
+            return function() {
+                buttons.play.style.display = 'none';
+                buttons.pause.style.display = '';
+            }
+        },
+        pause: function () {
+            return function() {
+                buttons.play.style.display = '';
+                buttons.pause.style.display = 'none';
+            }
+        },
+        updateDuration: function () {
+            return function() {
+                player.waveform.style.opacity = 1;
+                var time = wavesurfer.getDuration();
+                var mins = ~~(time / 60);
+                var secs = ("0" + ~~(time % 60)).slice(-2);
+                player.length.innerHTML = mins + ":" + secs;
+            }
+        },
+        updateTime: function () {
+            return function() {
+                var time = wavesurfer.getCurrentTime();
+                var mins = ~~(time / 60);
+                var secs = ("0" + ~~(time % 60)).slice(-2);
+                player.currentTime.innerHTML = mins + ":" + secs + "/";
+            }
+        },
+        show: function() {
+            return function() {
+                buttons.playPause.style.display = "block";
+                player.waveform_wrapper.style.opacity = "1";
+                player.currentTime.innerHTML = "";
+            }
+        },
+        hide: function() {
+            return function() {
+                buttons.playPause.style.display = "none";
+                buttons.download.style.opacity = "0";
+                player.waveform_wrapper.style.opacity = "0";
+            }
+        },
+        redraw: function() {
+            return debounce(function() {
+                if (!wavesurfer.isPlaying()) {
+                    wavesurfer.empty();
+                    wavesurfer.drawBuffer();
+                }
+            }, 500)
+        }
     }
 
-    var currentTrack = location.hash ? bandIndexes[(location.hash.split('#')[1])] : 0;
+    var wavesurfer = WaveSurfer.create({
+        container: player.waveform,
+        waveColor: 'violet',
+        height: "75",
+        hideScrollbar: true,
+        normalize: true,
+        pixelRatio: "1",
+        progressColor: '#BCFA88',
+        barWidth: '2',
+        backend: 'MediaElement'
+    })
 
     var buttons = {
         playPause: document.getElementById('playPause'),
@@ -35,20 +96,16 @@ post.waveformInit = function() {
         artist: document.getElementById('artistButton')
     }
 
-    var scrollToGig = function () {
-        var container = document.getElementById('navigation-wrapper');
-        var gigLinkTop = document.getElementsByClassName('active')[1].getBoundingClientRect().top;
-        var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-
-        if (gigLinkTop > windowHeight - 120) {
-            console.log('scrolling to: ' + gigLinkTop);
-            container.scrollTop = gigLinkTop;
-            Ps.update(container);
-        }
+    // Map bandnames to indexes
+    for (i = 0; i < player.links.length; i++) {
+        bandIndexes[player.links[i].dataset.machinename] = i;
     }
 
-    scrollToGig();
+    var currentTrack = location.hash ? bandIndexes[(location.hash.split('#')[1])] : 0;
 
+    /* helper functions */
+
+    // Debounces a function so it'll only be run a sensible amount of times per second
     var debounce = function (func, wait, immediate) {
         var timeout;
         return function() {
@@ -64,6 +121,7 @@ post.waveformInit = function() {
         };
     };
 
+    // Loads JSON from a remote 
     var loadJSON = function (filename, callback) {   
 
         var xobj = new XMLHttpRequest();
@@ -88,41 +146,23 @@ post.waveformInit = function() {
         xobj.send(null);
     };
 
-    var play = function () {
-        return function() {
-            buttons.play.style.display = 'none';
-            buttons.pause.style.display = '';
-        }
-    };
+    // Scrolls the sidebar so the selected gig is on the screen
+    var scrollToGig = function () {
+        var gigLinkTop = document.getElementsByClassName('active')[1].getBoundingClientRect().top;
+        var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
-    var pause = function () {
-        return function() {
-            buttons.play.style.display = '';
-            buttons.pause.style.display = 'none';
-        }
-    };
-
-    var updateDuration = function () {
-        return function() {
-            player.waveform.style.opacity = 1;
-            var time = wavesurfer.getDuration();
-            var mins = ~~(time / 60);
-            var secs = ("0" + ~~(time % 60)).slice(-2);
-            player.length.innerHTML = mins + ":" + secs;
-        }
-    };
-
-    var updateTime = function () {
-        return function() {
-            var time = wavesurfer.getCurrentTime();
-            var mins = ~~(time / 60);
-            var secs = ("0" + ~~(time % 60)).slice(-2);
-            player.currentTime.innerHTML = mins + ":" + secs + "/";
+        if (gigLinkTop > windowHeight - 120) {
+            navbar.scrollTop = gigLinkTop;
+            Ps.update(container);
         }
     }
 
+    /* Updates the DOM when a new song if selected */
     var setCurrentSong = function (index, play) {
 
+        if (DEBUG) { console.log ('Setting current song to ' + index) }
+
+        /* images */
         // hide the old
         player.links[currentTrack].classList.remove('active');
         var photos = document.getElementById(player.links[currentTrack].dataset.machinename + "_photo");
@@ -141,10 +181,10 @@ post.waveformInit = function() {
 
         blazy.revalidate();
 
+        /* social links */
         var facebook = player.links[currentTrack].dataset.facebook;
         var bandcamp = player.links[currentTrack].dataset.bandcamp;
         var otherGigs = player.links[currentTrack].dataset.numberofgigs > 1;
-
 
         if (!facebook && !bandcamp && !otherGigs) {
             buttons.moreFromArtist.style.display = "none";
@@ -172,22 +212,39 @@ post.waveformInit = function() {
             }
         }
 
+        /* audio */
+        // if they have an mp3
         if (player.links[currentTrack].dataset.mp3) {
 
-            buttons.download.style.opacity = "1";
-            buttons.download.href = player.links[currentTrack].dataset.mp3;
-
-            if (player.links[currentTrack].dataset.nodownload == "true") {
+            // Download button
+            if (player.links[currentTrack].dataset.nodownload != "true") {
+                buttons.download.style.opacity = "1";
+                buttons.download.href = player.links[currentTrack].dataset.mp3;
+            } else {
                 buttons.download.style.opacity = "0";
             }
-            
-            // if we've already fetched the json 
-            if (jsons[currentTrack]) {
-                player.legacy.style.display = "none";
-                player.waveform_wrapper.style.opacity = "1";
-                buttons.playPause.style.display = "block";
-                player.currentTime.innerHTML = "";
+             
+            if (!jsons[currentTrack]) {
 
+                loadJSON(player.links[currentTrack].dataset.mp3, function(data, filename) {
+                    jsons[currentTrack] = data;
+                    
+                    if (DEBUG) { console.log ('Downloaded JSON for :' + player.links[currentTrack].dataset.mp3); }
+
+                    player.show();
+
+                    wavesurfer.load(filename, JSON.parse(data));
+                    if (play) { 
+                        setTimeout(function() {
+                            wavesurfer.play(); 
+                            history.pushState(null, null, '#' + player.links[currentTrack].dataset.machinename ); 
+                        }, 1000);
+                    };
+                });
+
+            } else {     
+
+                player.show();
                 wavesurfer.load(player.links[currentTrack].dataset.mp3, JSON.parse(jsons[currentTrack]));
                 if (play) {
                     setTimeout(function() {
@@ -195,61 +252,20 @@ post.waveformInit = function() {
                         history.pushState(null, null, '#' + player.links[currentTrack].dataset.machinename ); 
                     }, 1000);
                 };
-            } else {
-                loadJSON(player.links[currentTrack].dataset.mp3, function(data, filename) {
-                    if (data) {
-                        jsons[currentTrack] = data;
-                        player.legacy.style.display = "none";
-                        buttons.playPause.style.display = "block";
-                        player.waveform_wrapper.style.opacity = "1";
-                        player.currentTime.innerHTML = "";
 
-                        wavesurfer.load(filename, JSON.parse(data));
-                        if (play) { 
-                            setTimeout(function() {
-                                wavesurfer.play(); 
-                                history.pushState(null, null, '#' + player.links[currentTrack].dataset.machinename ); 
-                            }, 1000);
-                        };
-                    } else {
-                        buttons.playPause.style.display = "none";
-                        player.waveform_wrapper.style.opacity = "0";
-                        player.legacy.style.display = "inline-block";
-
-                        var s = document.createElement("source");
-                        s.type = "audio/mpeg";
-                        s.src = player.links[currentTrack].dataset.mp3;
-                        s.innerHTML = null;
-                        player.legacy.innerHTML = "";
-                        player.legacy.appendChild(s);
-                    }
-                });
             }
         } else {
-            buttons.playPause.style.display = "none";
-            buttons.download.style.opacity = "0";
-            player.waveform_wrapper.style.opacity = "0";
+            player.hide();
         }
 
     };
 
-    var wavesurfer = WaveSurfer.create({
-        container: player.waveform,
-        waveColor: 'violet',
-        height: "75",
-        hideScrollbar: true,
-        normalize: true,
-        pixelRatio: "1",
-        progressColor: '#BCFA88',
-        barWidth: '2',
-        backend: 'MediaElement'
-    });
-
-    wavesurfer.on('play', play());
-    wavesurfer.on('pause', pause());
-    wavesurfer.on('ready', updateDuration());
-    wavesurfer.on('audioprocess', updateTime());
-    wavesurfer.on('seek', updateTime());
+    /* event listeners */
+    wavesurfer.on('play', player.play());
+    wavesurfer.on('pause', player.pause());
+    wavesurfer.on('ready', player.updateDuration());
+    wavesurfer.on('audioprocess', player.updateTime());
+    wavesurfer.on('seek', player.updateTime());
     wavesurfer.on('finish', function () {
         setCurrentSong((currentTrack + 1) % player.links.length, true);
     });
@@ -262,8 +278,8 @@ post.waveformInit = function() {
         link.addEventListener('click', function (e) {
             //e.preventDefault();
             if (window.innerWidth < 1200) {
-                document.getElementById("wrapper").classList.toggle("toggled");
-                document.getElementById("menu-toggle").classList.toggle("toggled");
+                nav_wrapper.classList.toggle("toggled");
+                menu_toggle.classList.toggle("toggled");
             }
             setCurrentSong(index, false);
         });
@@ -286,14 +302,9 @@ post.waveformInit = function() {
         }
     });
 
-    var redraw = debounce(function() {
-        if (!wavesurfer.isPlaying()) {
-            wavesurfer.empty();
-            wavesurfer.drawBuffer();
-        }
-    }, 500)
+    window.addEventListener("resize", player.redraw());
 
-    window.addEventListener("resize", redraw);
-
+    // Start it up
+    scrollToGig();
     setCurrentSong(currentTrack, false);
 };
