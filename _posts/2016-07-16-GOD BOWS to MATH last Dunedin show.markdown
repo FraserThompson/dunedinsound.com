@@ -9,7 +9,7 @@ layout: post
 description: Few technical hitches with this one, also forgot my camera. Quality suffers.
 parent: Gigs
 venue: The Attic
-image: https://files.dunedinsound.com/assets/img/GOD%20BOWS%20to%20MATH%20last%20Dunedin%20show/cover.jpg
+image: https://dunedinsound.com/assets/img/GOD%20BOWS%20to%20MATH%20last%20Dunedin%20show/cover.jpg
 media:
   Idiot Prayer:
     mp3:

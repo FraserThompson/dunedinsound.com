@@ -7,7 +7,7 @@ categories:
 layout: post
 parent: Gigs
 venue: Refuel
-image: https://files.dunedinsound.com/assets/img/Chesta%20Hedron%20live%20at%20Refuel/cover.jpg
+image: https://dunedinsound.com/assets/img/Chesta%20Hedron%20live%20at%20Refuel/cover.jpg
 media:
     The Rothmans:
         mp3:

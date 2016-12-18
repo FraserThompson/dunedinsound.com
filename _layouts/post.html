@@ -42,7 +42,7 @@ type: posts
 
 	{% for band in page.media %}
 		{% if band[1].vid %}
-		{% assign machine_name = band[0] | downcase | replace:" ", "_" %}
+		{% assign machine_name = band[0] | downcase | replace:" ", "_"  | replace: ",", "" | replace: "!", "" %}
 		<div id="{{machine_name}}_video" class="container-fluid no-padding" style="display: none;">
 			<div class="vid row">
 				{% for vid in band[1].vid %}

@@ -9,7 +9,7 @@ categories:
 layout: post
 parent: Gigs
 venue: The Dungeon
-image: https://files.dunedinsound.com/assets/img/The%20last%20gig%20at%20The%20Dungeon/cover.jpg
+image: https://dunedinsound.com/assets/img/The%20last%20gig%20at%20The%20Dungeon/cover.jpg
 media:
     Hoot:
         mp3:

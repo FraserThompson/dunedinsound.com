@@ -8,7 +8,7 @@ categories:
 - soda_boyz
 layout: post
 parent: Gigs
-image: https://files.dunedinsound.com/assets/img/Yukon%20Era%20%2B%20Soda%20Boyz%20Double%20Release%20Tour/cover.jpg
+image: https://dunedinsound.com/assets/img/Yukon%20Era%20%2B%20Soda%20Boyz%20Double%20Release%20Tour/cover.jpg
 media:
   The Rothmans:
     mp3:

@@ -11,7 +11,7 @@ categories:
 layout: post
 parent: Gigs
 venue: Crown Hotel
-image: https://files.dunedinsound.com/assets/img/FUCK%20Cancer%20Fundraising%20and%20solidarity%20gig/cover.jpg
+image: https://dunedinsound.com/assets/img/FUCK%20Cancer%20Fundraising%20and%20solidarity%20gig/cover.jpg
 media:
   Turbulent Juice:
     mp3:

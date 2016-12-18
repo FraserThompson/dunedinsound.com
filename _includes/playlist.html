@@ -1,7 +1,7 @@
 <ul id="playlist" style="padding: 0px;">
     {% for band in page.media %}
         <li class="indentMore">
-        {% assign machine_name = band[0] | downcase | replace:" ", "_" %}
+        {% assign machine_name = band[0] | downcase | replace:" ", "_" | replace: ",", "" | replace: "!", "" %}
         {% for page in site.pages %}
             {% if page.title == band[0] %}
                 {% assign facebook = page.facebook %}

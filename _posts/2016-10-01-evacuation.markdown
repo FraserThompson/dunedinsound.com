@@ -13,7 +13,7 @@ categories:
 layout: post
 parent: Gigs
 venue: Crown Hotel
-image: https://files.dunedinsound.com/assets/img/Dunedin%20City%20Hardcore%20Evacuation/cover.jpg
+image: https://dunedinsound.com/assets/img/Dunedin%20City%20Hardcore%20Evacuation/cover.jpg
 media:
     Turbulent Juice:
         mp3:

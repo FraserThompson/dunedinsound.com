@@ -10,6 +10,25 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-sync');
   grunt.loadNpmTasks('grunt-uncss');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+
+  grunt.registerTask('simple_copy', 'Copy files simply.', function() {
+    var done = this.async();
+
+    glob(grunt.config('simple_copy.src'), {}, function(err, matches) {
+      if (err){
+        grunt.log.write('Error! ' + err);
+      } else {
+        matches.forEach(function(file) {
+          var fileName = file.split('/')[1];
+          grunt.log.write('Copying: ' + file + ' to ' + grunt.config('simple_copy.dest'));
+          fs.createReadStream(file).pipe(fs.createWriteStream(grunt.config('simple_copy.dest') + fileName));
+        })
+      }
+      done();
+    })
+
+  });
 
   // Project configuration.
   grunt.initConfig({
@@ -45,7 +64,7 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          src: ['**/*.JPG'],
+          src: ['**/*.{JPG,jpg}'],
           cwd: '_originals/',
           dest: 'assets/img'
         }]
@@ -102,7 +121,27 @@ module.exports = function(grunt) {
         command: 's3_website push',
         stdout: true,
         stderr: true
+      },
+      vagrant_up: {
+        command: 'vagrant up',
+        stdout: true,
+        stderr: true
+      },
+      vagrant_audio: {
+        command: 'vagrant ssh -c /vagrant/convert.sh',
+        stdout: true,
+        stderr: true,
+        options: {
+          maxBuffer: 1024 * 1024 * 64
+        }
       }
+    },
+    copy: {
+      audio: {
+        files: [
+          {expand: true, cwd: '_originals/audio', src: ['**/*.{mp3,json}'], dest: 'assets/audio'},
+        ]
+      },
     },
     sync: {
       main: {
@@ -169,8 +208,9 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('images', ['responsive_images', 'index-media']);
+  grunt.registerTask('audio', ['exec:vagrant_up', 'exec:vagrant_audio', 'copy:audio']);
   grunt.registerTask('production-build', ['responsive_images', 'index-media', 'jekyll', 'sync']);
-  grunt.registerTask('code-deploy', ['jekyll', 'exec']);
-  grunt.registerTask('deploy', ['responsive_images', 'index-media', 'jekyll', 'sync', 'exec']);
+  grunt.registerTask('code-deploy', ['jekyll', 'exec:s3_push']);
+  grunt.registerTask('deploy', ['responsive_images', 'index-media', 'jekyll', 'sync', 'exec:s3_push']);
 
 };

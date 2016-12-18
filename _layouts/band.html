@@ -2,12 +2,12 @@
 layout: default
 ---
 
-{% assign machine_name = page.title | downcase | replace:' ', '_' | replace: "'", "" %}
+{% assign machine_name = page.title | downcase | replace:' ', '_' | replace: "'", "" | replace: ",", "" | replace: "!", "" %}
 
 <article class="band container-fluid">
   <header class="post-header row">
     <div class="banner">
-        <div class="banner b-lazy" data-src="{{site.asset_url}}/{{site.data.media.artists[machine_name][0]}}"></div>
+        <div class="banner b-lazy" data-src="{{site.asset_url}}/{{site.data.media.artists[machine_name][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}"></div>
     </div>
     <div class="text">
       <p>&nbsp;</p>
@@ -19,7 +19,7 @@ layout: default
   </header>
   <div class="row tiles">
 
-    {% assign name = page.title | replace:' ','_' | downcase %}
+    {% assign name = page.title | replace:' ','_' | downcase | replace: ",", "" | replace: "!", ""  %}
 
     {% for post in site.categories[name] %}
 
@@ -35,7 +35,7 @@ layout: default
               {% if post.media[page.title].vid %}<span> {{post.media[page.title].vid.size}} 📹</span>{% endif %}
               </h5>
             </div>
-            <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title}}/cover.jpg">
+            <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}/cover.jpg">
             </div>
           </a>
         </div>

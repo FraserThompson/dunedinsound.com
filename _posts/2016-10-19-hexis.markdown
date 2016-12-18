@@ -10,7 +10,7 @@ categories:
 layout: post
 parent: Gigs
 venue: Crown Hotel
-image: https://files.dunedinsound.com/assets/img/dance.happy.doom.crew%20presents%20Hexis/cover.jpg
+image: https://dunedinsound.com/assets/img/dance.happy.doom.crew%20presents%20Hexis/cover.jpg
 media:
     Yung Nat$:
         mp3:

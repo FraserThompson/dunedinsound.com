@@ -28,13 +28,13 @@ layout: default
       {% assign type = tile.url | split: '/' %}
 
       {% if type[1] == category and tile.order == null %}
-        {% assign machine_name = tile.title | downcase | replace:' ', '_' | replace: "'", "" %}
+        {% assign machine_name = tile.title | downcase | replace:' ', '_' | replace: "'", ""  | replace: ",", "" | replace: "!", "" %}
 
         {% assign image = page.placeholder %}
 
         {% for file in site.static_files %}
           {% if file.path contains machine_name and file.path contains "(Small)" %}
-            {% assign image = file.path | replace: "'", "&#39;" | replace: "+", "%2B" | replace: " ", "%20" %}
+            {% assign image = file.path | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
           {% endif %}
         {% endfor %}
 
@@ -52,7 +52,7 @@ layout: default
                 <h5><span class="numberOfGigs">{{ site.posts | where: "venue", tile.title | size}}</span> gigs</h5>
                 {% endif %}
               </div>
-              <div class="tile b-lazy" data-src='{{ site.asset_url}}/{{site.data.media.artists[machine_name][0] | escape }}'></div>
+              <div class="tile b-lazy" data-src='{{ site.asset_url}}/{{site.data.media.artists[machine_name][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}'></div>
             </a>
           </div>
       {% endif %}

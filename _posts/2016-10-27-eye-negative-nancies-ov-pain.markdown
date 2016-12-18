@@ -8,7 +8,7 @@ layout: post
 parent: Gigs
 venue: None Gallery
 displayed_description: Apologies for not recording Eye, it was getting a bit late and I had work the next day like a big lame loser. Next Time.
-image: https://files.dunedinsound.com/assets/img/Eye%2C%20Negative%20Nancies%2C%20Ov%20Pain/cover.jpg
+image: https://dunedinsound.com/assets/img/Eye%2C%20Negative%20Nancies%2C%20Ov%20Pain/cover.jpg
 media:
     Ov Pain:
         mp3:

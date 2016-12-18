@@ -10,7 +10,7 @@ layout: post
 parent: Gigs
 displayed_description: I had some issues with my recording rig so the sound quality
   is a little below my usual standard unfortunately.
-image: https://files.dunedinsound.com/assets/img/Miss%20June%20x%20Astro%20Children%20TOUR%20Dunedin%20with%20Tongueflower%20and%20Lucy%20Hunter/astro_children/P1060292%20(Small).jpg
+image: https://dunedinsound.com/assets/img/Miss%20June%20x%20Astro%20Children%20TOUR%20Dunedin%20with%20Tongueflower%20and%20Lucy%20Hunter/astro_children/P1060292%20(Small).jpg
 media:
   Lucy Hunter:
     mp3:

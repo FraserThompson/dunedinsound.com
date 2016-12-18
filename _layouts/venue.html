@@ -31,7 +31,7 @@ layout: default
                         {% endfor %}
                         </h5>
                     </div>
-                    <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title}}/cover.jpg"></div>
+                    <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}/cover.jpg"></div>
                 </a>
             </div>
          {% endif %}     

@@ -41,3 +41,4 @@ I also have the responsive_images node module for minification of images. So if 
 * code-deploy: Just builds jekyll then deploys, no asset stuff
 * production-build: Resizes images, syncs assets, builds with jekyll but doesn't deploy to S3
 * images: Resizes images and generates the media info for them
+* audio: Launches the vagrant VM, runs convert.sh to trim silence and export mp3's and waveforms, then copies the results into the assets folder.

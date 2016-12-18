@@ -18,7 +18,7 @@ media:
             - title: Full set
     perry buoy:
         vid:
-            - link: W0JvAV7EKug
+            - link: vIGKvvaVJXM
     bolton strid:
         mp3:
             - title: Full set

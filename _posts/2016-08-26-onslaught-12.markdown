@@ -17,7 +17,7 @@ description: Sorry, I didn't go to everything because I'm lame.
 layout: post
 parent: Gigs
 venue: Dunedin Musicians Club
-image: https://files.dunedinsound.com/assets/img/Onslaught%2012/cover.jpg
+image: https://dunedinsound.com/assets/img/Onslaught%2012/cover.jpg
 media:
     Suicide Bombers:
         mp3:
