@@ -148,8 +148,7 @@ post.waveformInit = function() {
         var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
         if (gigLinkTop > windowHeight - 120) {
-            navbar.scrollTop = gigLinkTop;
-            Ps.update(container);
+            navbar.scrollTop = gigLinkTop - 80;
         }
     }
 

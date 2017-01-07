@@ -1,6 +1,3 @@
-var container = document.getElementById('navigation-wrapper');
-Ps.initialize(container);
-
 var button = document.getElementById("menu-toggle");
 
 button.addEventListener("click", function(e) {

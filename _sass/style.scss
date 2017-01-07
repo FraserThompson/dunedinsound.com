@@ -621,7 +621,21 @@ h1 {
 
 #navigation-wrapper {
 	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
 	position: relative;
+}
+
+#navigation-wrapper::-webkit-scrollbar {
+  width: 5px;
+}
+ 
+#navigation-wrapper::-webkit-scrollbar-track {
+  background: #ddd;
+}
+ 
+#navigation-wrapper::-webkit-scrollbar-thumb {
+  background: #666; 
 }
 
 #wrapper.toggled #sidebar-wrapper {
