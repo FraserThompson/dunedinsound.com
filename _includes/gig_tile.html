@@ -7,7 +7,11 @@
 {% endif %}
     <div class="tile-title">
     	<h4><span class="label label-default">{{tile.date | date: "%d %b %Y"}}</span></h4>
-      	<center><h1 class="name">{{ tile.title }}</h1></center>
+		{% if class == "feature" %}
+      		<center><h1 class="name">{{ tile.title }}</h1></center>
+		{% else %}
+			  <center><h2>{{ tile.title }}</h2></center>
+		{% endif %}
       	{% if tile.incoming %}
       		<center><p>Coming Soon</p></center>
       	{% else %}
