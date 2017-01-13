@@ -626,15 +626,15 @@ h1 {
 	position: relative;
 }
 
-#navigation-wrapper::-webkit-scrollbar {
+.nice-scrollbar::-webkit-scrollbar {
   width: 5px;
 }
  
-#navigation-wrapper::-webkit-scrollbar-track {
+.nice-scrollbar::-webkit-scrollbar-track {
   background: #ddd;
 }
  
-#navigation-wrapper::-webkit-scrollbar-thumb {
+.nice-scrollbar::-webkit-scrollbar-thumb {
   background: #666; 
 }
 
@@ -928,6 +928,8 @@ h1 {
 
 	.gig-sorting {
 		display: block;
+		overflow: auto;
+		height: 100%;
 	}
 
     #wrapper {

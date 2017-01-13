@@ -19,7 +19,17 @@ npm install
 
 ```grunt deploy``` minifies images in the _originals folder (if any), generates an image index to _data/images.yml, syncs assets from /assets/audio and /assets/img into the _site folder, and then pushes it to S3.
 
-### Asset workflow
+### Processing Assets
+
+Images from a gig go in _originals/img/[gig name] and then in subdirectories for each artist. There needs to be a gig cover named cover.jpg in the gig directory and artist covers named band_cover.jpg in each artist directory.
+
+Audio goes in _originals/audio and then subdirectories for each artist. They need to be WAV files which are named like this: Gig Name - Band Name.wav.
+
+Then run ```grunt images``` to process the images followed by ```grunt audio``` to process the audio.
+
+Once pushed the contents of the _original folder can be deleted.
+
+#### More explanation
 
 Because Jekyll serve gets really slow when copying multiple gigabytes of assets when building/serving I've had to roll my own solution.
 
@@ -29,16 +39,10 @@ For deployment, the large assets are synced manually from /assets/img and /asset
 
 Previously I was letting Jekyll take care of the assets and iterating site.static_files in a for loop to find the images the page needed (eg. for each image in static files display the ones where the post title is in the path). This wasn't great because it meant my build times were like 30 seconds. With this new solution I can just run grunt imageinfo whenever images change and my layouts will access the object they need in YAML structure instead of having to iterate over the complete set multiple times.
 
-### Deployment workflow
-
-I'm using s3_website for deployment which makes things much easier. It can be deployed with ```s3_website push``` if there's an s3_website.yml which I haven't included in this repo.
-
-I also have the responsive_images node module for minification of images. So if I put images in the _originals directory with the folder structure I want they will be compressed and sent to assets/img with some nice alternate file sizes.
-
 ### Grunt tasks
 
-* deploy: Does a full deploy, resizes images, syncs new media, builds with jekyll
-* code-deploy: Just builds jekyll then deploys, no asset stuff
+* deploy: Runs s3_website push to push the current _site directory to S3.
+* code-deploy: Builds jekyll then deploys, no asset stuff
 * production-build: Resizes images, syncs assets, builds with jekyll but doesn't deploy to S3
 * images: Resizes images and generates the media info for them
 * audio: Launches the vagrant VM, runs convert.sh to trim silence and export mp3's and waveforms, then copies the results into the assets folder.

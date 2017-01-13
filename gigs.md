@@ -12,7 +12,7 @@ order: 1
 ---
 
 <div id="gigs" data-spy="scroll" data-target="#sorting-nav">
-    <div class="gig-sorting" id="sorting-nav">
+    <div class="gig-sorting nice-scrollbar" id="sorting-nav">
         <ul class="nav nav-custom nav-stacked" role="navigation">
         {% for post in site.posts  %}
             {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}

@@ -4,7 +4,7 @@
 		<div class="sidebar-brand">
 			<center><a href="/">{{site.title}}</a></center>
 		</div>
-		<div id="navigation-wrapper">
+		<div id="navigation-wrapper" class="nice-scrollbar">
 			<ul class="sidebar-nav">
 			{% assign page_url_parts = page.url | split: '/' %}
 			{% if layout.type %} {% assign pages_or_posts = layout.type %} {% else %} {% assign pages_or_posts = "pages" %} {% endif %}

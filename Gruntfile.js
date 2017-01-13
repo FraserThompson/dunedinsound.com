@@ -65,7 +65,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           src: ['**/*.{JPG,jpg}'],
-          cwd: '_originals/',
+          cwd: '_originals/img',
           dest: 'assets/img'
         }]
       },
@@ -83,7 +83,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           src: ['**/cover.jpg'],
-          cwd: '_originals/',
+          cwd: '_originals/img',
           dest: 'assets/img'
         }]
       },
@@ -102,7 +102,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           src: ['**/band_cover.jpg'],
-          cwd: '_originals/',
+          cwd: '_originals/img',
           dest: 'assets/img'
         }]
       }
@@ -211,6 +211,6 @@ module.exports = function(grunt) {
   grunt.registerTask('audio', ['exec:vagrant_up', 'exec:vagrant_audio', 'copy:audio']);
   grunt.registerTask('production-build', ['responsive_images', 'index-media', 'jekyll', 'sync']);
   grunt.registerTask('code-deploy', ['jekyll', 'exec:s3_push']);
-  grunt.registerTask('deploy', ['responsive_images', 'index-media', 'jekyll', 'sync', 'exec:s3_push']);
+  grunt.registerTask('deploy', ['exec:s3_push']);
 
 };
