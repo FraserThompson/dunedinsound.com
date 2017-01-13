@@ -19,13 +19,17 @@ footer {
 	margin-top: 60px;
 }
 
-h2, h3, h4, h5, h6, p {
+h3, h4, h5, h6, p {
 	font-family: $main-font;
 }
 
 h1 {
 	font-family: $header-font;
 	font-size: 3em;
+}
+
+h2 {
+	font-family: $header-font;
 }
 
 .footer-content {
@@ -400,7 +404,10 @@ h1 {
 .gigs {
 	
 	.tile-wrap {
-		height: 60vh;
+		height: 30vh;
+		h1 {
+			font-size: 2em;
+		}
 	}
 	.tile-wrap.feature {
 		height: 90vh;
@@ -468,13 +475,10 @@ h1 {
 }
 
 .guy {
-	margin-top: auto;
-	margin-bottom: 50px;
-	padding-top: 20px;
 	z-index: 1000;
 	color: green;
 	transition: all 0.25s ease-in-out;
-    height : 1px;
+    height : 50px;
 	text-decoration: none;
 	padding-left: 15px;
 	font-size: 14px;
@@ -981,7 +985,6 @@ h1 {
 	.tile-title {
 		text-align: left !important;
 		padding-top: 10px;
-		font-size: 1.5em;
 
 		h4 {
 			text-align: left !important;
