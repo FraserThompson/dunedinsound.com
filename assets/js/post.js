@@ -186,24 +186,24 @@ post.waveformInit = function() {
         } else {
             buttons.moreFromArtist.style.display = "block";
             if (facebook) {
-                buttons.facebook.style.display = "block";
+                buttons.facebook.parentNode.style.display = "block";
                 buttons.facebook.href = facebook;
             } else {
-                buttons.facebook.style.display = "none";
+                buttons.facebook.parentNode.style.display = "none";
             }
 
             if (bandcamp) {
-                buttons.bandcamp.style.display = "block";
+                buttons.bandcamp.parentNode.style.display = "block";
                 buttons.bandcamp.href = bandcamp;
             } else {
-                buttons.bandcamp.style.display = "none";
+                buttons.bandcamp.parentNode.style.display = "none";
             }
 
             if (otherGigs) {
-                buttons.artist.style.display = "block";
+                buttons.artist.parentNode.style.display = "block";
                 buttons.artist.href = "/artists/" + player.links[currentTrack].dataset.machinename;
             } else {
-                buttons.artist.style.display = "none";
+                buttons.artist.parentNode.style.display = "none";
             }
         }
 

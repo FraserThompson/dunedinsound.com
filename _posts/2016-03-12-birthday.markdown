@@ -2,11 +2,16 @@
 title: Bo's Birthday
 date: 2016-03-12 05:00:00 Z
 categories:
+- boaz_anema
 - the_vortz
 - the_rothmans
 layout: post
 parent: Gigs
 media:
+  Boaz Anema:
+    mp3:
+      - title: Full set
+        link: boaz_anema/Bo's Birthday - Boaz Anema.mp3
   The Vortz:
     mp3:
     - title: Full set

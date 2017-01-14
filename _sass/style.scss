@@ -728,6 +728,11 @@ h2 {
     -moz-transition: padding-left 0.5s ease;
     -o-transition: padding-left 0.5s ease;
     transition: padding-left 0.5s ease;
+
+	.glyphicon {
+		 font-size: 18px;
+		 padding-left: 10px;
+	}
 }
 
 #menu-toggle.toggled {
