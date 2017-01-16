@@ -300,6 +300,8 @@ post.waveformInit = function() {
 
     window.addEventListener("resize", player.redraw());
 
+    baguetteBox.run('.pic');
+
     // Start it up
     scrollToGig();
     setCurrentSong(currentTrack, false);

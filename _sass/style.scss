@@ -723,7 +723,7 @@ h2 {
 	padding-left: 0px;
 	position: fixed;
 	display: initial;
-	z-index: 2000;
+	z-index: 2001;
 	-webkit-transition: padding-left 0.5s ease;
     -moz-transition: padding-left 0.5s ease;
     -o-transition: padding-left 0.5s ease;
@@ -878,6 +878,9 @@ h2 {
 /* Really tiny */
 @media (max-width: 420px) {
 
+	h2 {
+		font-size: 20px;
+	}
 	.navbar-brand {
 		white-space: nowrap;
 	  	overflow: hidden;

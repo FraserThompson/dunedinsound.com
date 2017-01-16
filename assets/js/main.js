@@ -6,6 +6,7 @@
 {% include_relative vendor/bootstrap-native.min.js %}
 {% include_relative vendor/wavesurfer.min.js %}
 {% include_relative vendor/isotope.pkgd.min.js %}
+{% include_relative vendor/baguetteBox.min.js %}
 {% include_relative navbar.js %}
 {% include_relative gigs.js %}
 {% include_relative post.js %}

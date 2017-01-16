@@ -54,12 +54,12 @@ module.exports = function(grunt) {
             quality: 80,
             rename: false,
             suffix: " (Medium)",
-            width: 1024
+            width: 600
           },{
             name: "large",
-            quality: 90,
+            quality: 85,
             rename: false,
-            width: 2048
+            width: 1600
           }]
         },
         files: [{
