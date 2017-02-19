@@ -1,0 +1,71 @@
+<!-- Sidebar -->
+<div class="sidebar-wrapper left">
+	{% include playlist.html %}
+	{% for band in page.media %}
+		{% assign machine_name = band[0] | downcase | replace:" ", "_" | replace: ",", "" | replace: "!", "" %}
+		<!--{% for page in site.pages %}
+			{% if page.title == band[0] %}
+				{% assign facebook = page.facebook %}
+				{% assign bandcamp = page.bandcamp %}
+				{% break %}
+			{% endif %}
+		{% endfor %}-->
+
+		{% assign gigs_number = site.categories[machine_name].size %}
+		{% assign gigs_not_displayed = site.categories[machine_name].size | minus: 2 %}
+		{% assign photos_number = site.data.media.gigs[page.title][machine_name]['count'] %}
+		{% if gigs_number > 1 %}
+			<div id="moreFrom_{{machine_name}}" class="moreFrom" {% cycle ' style="background-color: black;"', 'style="background-color:black"'%}>
+				<!--<div class="btn-group-vertical btn-group-justified" role="group" aria-label="social-links">
+					<a title="Facebook" class="btn btn-facebook" href="{{facebook}}" target="_blank">Facebook</a>
+					<a title="Bandcamp" class="btn btn-bandcamp"  href="{{bandcamp}}" target="_blank">Bandcamp</a>
+				</div>-->
+				<div style="padding-top: 10px;">
+					<p>More from <a title="More gigs from {{band[0]}}" href="/artists/{{machine_name}}" target="_blank">{{band[0]}}</a></p>
+				</div>
+				{% for post in site.categories[machine_name] | limit: 2 %}
+					{% unless post.title == page.title %}
+						<div class="tile-wrap" style="height: 120px; background-color: black; width: 100%;">
+							<a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
+								<div class="tile-title" style="width: 250px; height: 120px; text-overflow: ellipsis; padding-right: 20px;">
+									<p><span class="label label-default">{{post.date | date: "%d %b %Y"}}</span></p>
+									<p>{{post.title}}</p>
+									<p><small>{{ post.venue }}</small></p>
+								</div>
+								<div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][machine_name]['images'][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}">
+								</div>
+							</a>
+						</div>
+					{% endunless %}
+				{% endfor %}
+				
+				{% if gigs_not_displayed > 0 %} 
+					<a style="float:right; padding-right: 10px;" title="More gigs from {{band[0]}}" href="/artists/{{machine_name}}" target="_blank"><small> + {{gigs_not_displayed}} more </small></a>
+				{% endif %}
+			</div>
+		{% endif %}
+	{% endfor %}
+	<!--<p style="padding-left: 15px;"><a title="More gigs" href="/venues/{{page.venue}}" target="_blank">More from {{page.venue}}</a></p>-->
+	<div style="padding-top: 10px; padding-left: 10px;">
+		<p>Other recent gigs</p>
+	</div>
+	<ul class="sidebar-nav">
+		{% for node in site.posts | limit: 20 %}
+			{% unless node.url == page.url or node.title == page.band %}
+			<li>
+				<a href='{{node.url}}'>{{node.title}}</a>
+			</li>
+			{% endunless %}
+		{% endfor %}
+		<li>
+			<a href="/gigs"><small>More...</small></a>
+		</li>
+	</ul>
+
+
+</div>
+
+<a href="#menu-toggle" type="button" class="btn btn-default" id="menu-toggle">
+<span class="sr-only">Toggle navigation</span>
+<span class="glyphicon glyphicon-menu-hamburger"></span>
+</a>

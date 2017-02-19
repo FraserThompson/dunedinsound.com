@@ -1,10 +1,10 @@
 _site
 _site_dev
 _data
+_originals
 .sass-cache
 .vagrant
 .jekyll-metadata
-originals
 node_modules
 assets/audio
 assets/img

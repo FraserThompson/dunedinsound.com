@@ -5,7 +5,7 @@ var sortingInit = function() {
 
   var iso = new Isotope( '.sorted-tiles', {
     itemSelector: '.tile-wrap',
-    layoutMode: 'fitRows',
+    percentPosition: true,
     getSortData: {
       name: '.name',
      date: function (elem) {

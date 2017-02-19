@@ -1,0 +1,20 @@
+---
+layout: compress
+---
+
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+  <body>
+    {% include header.html %}
+    <div class="page-wrapper" style="position:relative;" >
+      {% include sidebar_left.html %}
+      <div class="page-content">
+          {{ content }}
+      </div>
+      {% include footer.html %}
+    </div>
+  </body>
+</html>

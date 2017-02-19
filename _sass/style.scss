@@ -1,13 +1,25 @@
 @import url('https://fonts.googleapis.com/css?family=Hammersmith+One|PT+Sans');
 
-$header-height: 80px;
+$header-height: 60px;
+$sidebar-width: 250px;
 $main-font: 'PT Sans', sans-serif;
 $header-font: 'Hammersmith One', sans-serif;
+$highlight-color: white;
+$highlight-text-color: black;
 
 body {
 	background-color: #222222;
 	font-family: $main-font;
 	overflow-x: hidden;
+	height: 100%;
+	width: 100%;
+}
+
+.page-wrapper {
+	top: $header-height;
+	height: 100%;
+	width: 100%;
+	position: absolute;
 }
 
 a {
@@ -51,26 +63,28 @@ h2 {
 }
 
 .playlist-item {
+	padding-left: 25px;
 	&:hover,
 	&:focus,
 	&.focus,
 	&:active,
 	&.active {
-		background-color: #EE82EE !important;
+		background-color: rgba(255,255,255,0.1) !important;
 		background-image: none;
 	}
 }
 
 .btn-success {
-	background-color: #C736C7 !important;
+	background-color: $highlight-color;
+	color: $highlight-text-color;
 	background-image: none;
-	border-color: #C736C7 !important;
+	border-color: #222222 !important;
 	&:hover,
 	&:focus,
 	&.focus,
 	&:active,
 	&.active {
-		background-color: #EE82EE !important;
+		background-color: #555555 !important;
 		background-image: none;
 	}
 }
@@ -89,26 +103,51 @@ h2 {
 	}
 }
 
+.facebookColor {
+	color: #4267b2;
+}
+
+.btn-facebook {
+	background-color: #4267b2 !important;
+	background-image: none;
+	border-color: #4267b2 !important;
+	&:hover,
+	&:focus,
+	&.focus,
+	&:active,
+	&.active {
+		background-color: #365899 !important;
+		background-image: none;
+	}
+}
+
+.btn-bandcamp {
+	background-color: #477987 !important;
+	background-image: none;
+	border-color: #104351 !important;
+	&:hover,
+	&:focus,
+	&.focus,
+	&:active,
+	&.active {
+		background-color: #285E6D !important;
+		background-image: none;
+	}
+}
+
 /* Waveform stuff */
 #waveform {
 	opacity: 0;
     -webkit-transition: opacity 250ms ease-in-out;
    -moz-transition: opacity 250ms ease-in-out;
-     -o-transition: opacity 250ms ease-in-out;
         transition: opacity 250ms ease-in-out;
 }
 
-#waveform_wrapper {
-	width: 97%;
-	float: right;
-}
-
 .length-wrapper {
-	float: right;
 	background: rgba(0, 0, 0, 0.6);
 	z-index: 5;
-	position: relative;
-	margin-top: -45px;
+	position: absolute;
+	top: 20px;
 }
 
 /* Headers */
@@ -120,7 +159,7 @@ h2 {
 }
     
 .post-header {
-	height: 60vh;
+	height: 55vh;
 	.text {
 	    position: absolute;
 	    z-index: 100;
@@ -129,14 +168,15 @@ h2 {
 	}
 
 	.banner {
-		 overflow: none;
-
+		overflow: none;
 		width: 100%; 
 		height: 100%;
 		background-size: cover; 
 		background-position: center;
+		background-attachment: fixed;
+
 		.overlay {
-			width: 85%;
+			width: 100%;
 			margin: 0 auto;
 			position: absolute;
 			top: 0px;
@@ -153,23 +193,43 @@ h2 {
 	margin-bottom: 0px !important;
 }
 
+.playButton {
+	position: absolute;
+	left: 0px;
+	border-radius: 50%;
+
+	&.playing {
+		color: white !important;
+		background-color: orange !important;
+		background-image: none;
+		border-color: darkorange !important;
+	}
+}
+
+.downloadButton {
+	text-indent: 5px;
+	position: absolute;
+	left: 220px;
+
+	&:hover {
+		color: #cccccc !important;
+	}
+}
+
 .header {
-	height: 100px;
+	margin-bottom: 0px;
+	height: $header-height;
+	position: absolute;
+	top: 0px;
+	width: 100%;
 	background-color: rgba(0,0,0,1) !important;
 	background-image: none !important;
 	-webkit-transition: background-color 0.5s ease;
     -moz-transition: background-color 0.5s ease;
-    -o-transition: background-color 0.5s ease;
     transition: background-color 0.5s ease;
 
 	&.dimmed {
 		background-color: rgba(0,0,0,0.3) !important;
-	}
-
-	.container-fluid {
-		height: 100%;
-		display: flex;
-		align-items: flex-end;
 	}
 
 	.playButton {
@@ -201,10 +261,6 @@ h2 {
 		background-color: black !important;
 	}
 
-	.navbar-nav>li {
-		float: left;
-	}
-
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:active {
@@ -216,7 +272,9 @@ h2 {
 	margin: 0 auto;
 	float: none;
 }
-
+.playlist-item.playing::before {
+	content: "\025B6";
+}
 /* Tiles */
 .b-lazy {
     -webkit-transition: opacity 250ms ease-in-out;
@@ -242,8 +300,8 @@ h2 {
 	color: white;
 	position: absolute;
 	opacity: 0.5;
-	content: "📷";
-	font-size: 25em;
+	content: "\01F4F7";
+	font-size: 10em;
 }
 
 .tile {
@@ -417,12 +475,11 @@ h2 {
 	}
 }
 
-.gig {
-	padding-top: 140px;
-}
-
-.audio-section {
+#waveform_wrapper {
 	height: $header-height;
+	left: $sidebar-width;
+	right: 220px;
+	position: absolute;
 }
 
 .gig-sorting {
@@ -575,8 +632,7 @@ h2 {
 
 .sidebar-nav {
     top: 0;
-    width: 250px;
-    height: 85vh;
+    width: $sidebar-width;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -588,8 +644,13 @@ h2 {
   		overflow: hidden;
     }
 
+	&.lighter {
+		background-color: #222222;
+	}
+
 	a.active {
-		background-color: rgba(238, 130, 238, 0.7);
+		background-color: $highlight-color !important;
+		color: $highlight-text-color !important;
 	}
 }
 
@@ -601,31 +662,44 @@ h2 {
     transition: padding-left 0.5s ease;
 }
 
-#sidebar-wrapper {
+.sidebar-wrapper {
     z-index: 3000;
-    position: fixed;
-    height: 100%;
-    left: 250px;
-	display: flex;
-	flex-direction: column;
+	background-color:black;
     width: 0;
-    overflow-y: hidden;
+	float: left;
+	height: 100%;
  	overflow-x: hidden;
- 	margin-left: -250px;
-    background: #000;
     -webkit-transition: width 0.5s ease;
     -moz-transition: width 0.5s ease;
-    -o-transition: width 0.5s ease;
     transition: width 0.5s ease;
 
-    .toggled {
-	    padding-left: 250px;
+	// .left {
+ 	// 	margin-left: -250px;
+	// 	left: 250px;
+		
+	// 	.toggled {
+	// 		padding-left: 250px;
+	// 	}
+	// }
+
+	// .right {
+	// 	margin-right: 250px;
+	// 	right: -250px;
+
+	// 	.toggled {
+	// 		padding-right: 250px;
+	// 	}
+	// }
+
+	.moreFrom {
+		background-color: black;
+		padding-left: 10px; 
+		padding-bottom: 20px;
 	}
 }
 
-#navigation-wrapper {
+.navigation-wrapper {
 	height: 100%;
-	overflow-y: auto;
 	overflow-x: hidden;
 	position: relative;
 }
@@ -642,8 +716,8 @@ h2 {
   background: #666; 
 }
 
-#wrapper.toggled #sidebar-wrapper {
-    width: 250px;
+#wrapper.toggled .sidebar-wrapper {
+    width: $sidebar-width;
 }
 
 #wrapper.toggled .page-content {
@@ -794,8 +868,7 @@ h2 {
 }
 
 .page-content {
-	width: 100%;
-	position: absolute;
+	margin-left: $sidebar-width;
 	padding: 0px;
 }
 
@@ -815,7 +888,7 @@ h2 {
   cursor: pointer;
   background: #ccc no-repeat center center / cover; 
   padding-bottom: 56.25%; /* 16:9 */
-  height: 0px;
+  height: 0;
   clear:both;
 
   h4 {
@@ -894,15 +967,20 @@ h2 {
 		margin: 0px;
     }
 
-	.gig {
-		padding-top: 0px;
-	}
-
 }
 
 #header {
 	padding-top: 50px;
 	height: 140px;
+}
+
+.header-title {
+	line-height: $header-height/2;
+	height: $header-height;
+	font-size: 18px;
+	display: inline-block;
+	color: white;
+	padding: 15px 15px;
 }
 
 .extra-links {
@@ -912,25 +990,11 @@ h2 {
 	width: 100px;
 }
 
-.left {
-	left: 80px;
-	top: 0px;
-}
-
 /* Desktop size */
 @media (min-width:1200px) {
 
-	.gig {
-		padding-top: $header-height;
-	}
-
 	h1 {
 		font-size: 4em !important;
-	}
-
-	.left {
-		left: 0px;
-		top: 50px;
 	}
 
 	.extra-links {
@@ -944,14 +1008,6 @@ h2 {
 		height: 100%;
 	}
 
-    #wrapper {
-        padding-left: 250px;
-    }
-
-    .navbar-fixed-top {
-		left: 250px;
-	}
-
 	#header {
 		padding-top: 0px;
 		height: $header-height;
@@ -960,10 +1016,6 @@ h2 {
 
     .header {
 		height: $header-height;
-
-		.container-fluid {
-			align-items: center;
-		}
 
 		.navbar-text {
 			line-height: $header-height;
@@ -977,15 +1029,16 @@ h2 {
 		}
 
 		a {
-			height: $header-height;
 			line-height: $header-height / 2;
+			height: $header-height;
 		}
 	}
-
-
-	.left {
-		left: 250px;
-		top: 0px;
+	
+	.navbar-header {
+		a {
+			line-height: $header-height / 2;
+			height: $header-height;
+		}
 	}
 
 	.tile-wrap {
@@ -1011,17 +1064,17 @@ h2 {
         padding-left: 0;
     }
 
-    #sidebar-wrapper {
-        width: 250px;
+    .sidebar-wrapper {
+		width: $sidebar-width;
     }
 
-    #wrapper.toggled #sidebar-wrapper {
+    #wrapper.toggled .sidebar-wrapper {
         width: 0;
     }
 
    	.page-content {
-        padding: 0px 0px 0px 250px;
-        position: relative;
+		margin-left: $sidebar-width;
+        padding: 0px 0px 0px 0px;
     }
 
     #wrapper.toggled .page-content {
@@ -1035,7 +1088,6 @@ h2 {
 		    position: absolute;
 		    z-index: 100;
 		    top: 0px;
-		    margin-left: -132px;
 		    width: 100%;
 		}
 

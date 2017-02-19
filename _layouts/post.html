@@ -1,87 +1,55 @@
 ---
-layout: default
+layout: gig
 type: posts
 ---
-<nav class="navbar navbar-default navbar-fixed-top header" id="header">
-	<div class="col-md-12 col-lg-11 no-padding">
-		<div class="audio-section">
-			<button title="Play/Pause" class="btn btn-success playButton" id="playPause">
-				<span id="play">▶</span>
-				<span id="pause" style="display: none">❙❙</span>
-			</button>
-			<div id="waveform_wrapper">
-				{% if page.media[0].link %}
-				<div id="waveform" data-mp3="{{page.media[0].link}}"></div>
-				{% else %}
-				<div id="waveform" data-mp3="/assets/mp3/{{page.title | url_encode }} - {{page.media[0]}}.mp3"></div>
-				{% endif %}
-				<div class="length-wrapper">
-					<span id="currentTime"></span><span id="length"></span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-12 col-lg-1 extra-links">
-		<ul class="nav navbar-nav navbar-right" style="width: 100px;">
-			<li><a title="Download MP3" id="downloadButton" href="" target="_blank"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></li>
-			<li class="dropdown" id="moreFromArtist" style="z-index: 999;">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" style="z-index: 999;" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
-			<ul class="dropdown-menu" style="right: 0; left: initial;">
-				<li><a title="Artist Facebook" href="" id="facebookButton" target="_blank">Facebook</a></li>
-				<li><a title="Artist Bandcamp" href="" id="bandcampButton" target="_blank">Bandcamp</a></li>
-				<li><a title="Artist Page" href="" id="artistButton" target="_blank">Other gigs</a></li>
-			</ul>
-			</li>
-		</ul>
-	</div>
-</nav>
+
 <div class="container-fluid gig">
+	<div class="row">
 	{% if page.displayed_description %}
 		<p>{{page.displayed_description}}</p>
 	{% endif %}
-
 	{% for band in page.media %}
 		{% if band[1].vid %}
+		{% assign odd_or_even_vids = band[1].vid | size | modulo:2  %}
 		{% assign machine_name = band[0] | downcase | replace:" ", "_"  | replace: ",", "" | replace: "!", "" %}
-		<div id="{{machine_name}}_video" class="container-fluid no-padding" style="display: none;">
-			<div class="vid row">
-				{% for vid in band[1].vid %}
-					<div class="col-sm-12 col-md-6 no-padding">
-						<div class="youtube" id="{{vid.link}}" data-params="vq=hd720">
-							{% if vid.title %} <h4>{{vid.title}}</h4> {% endif %}
-						</div>
-					</div>
-				{% endfor %}
-			</div>
-		</div>
-		{% endif %}
-	{% endfor %}
-
-	<div class="container-fluid no-padding">
-	 	<div class="pic row">
-			{% for band in page.categories %}
-	 		<div id="{{band}}_photo" style="display: none;">
-		 	{% for gig_image in site.data.media.gigs[page.title][band]['images'] %}
-				{% assign full_pic = gig_image | replace: " (Medium)","" %}
-				<div class= "col-xs-12 col-md-6 col-lg-4" style="padding: 0;">
-					<div class="box">
-						<a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
+		<div class="vid" id="{{machine_name}}_video" style="display: none;">
+			{% for vid in band[1].vid %}
+				<div class="col-sm-12 col-md-6 no-padding">
+					<div class="youtube" id="{{vid.link}}" data-params="vq=hd720">
+						{% if vid.title %} <h4>{{vid.title}}</h4> {% endif %}
 					</div>
 				</div>
 			{% endfor %}
-			</div>
-	{% endfor %}
+			{% if odd_or_even_vids != 0 %}
+				{% for gig_image in site.data.media.gigs[page.title][machine_name]['images'] limit: 1 %}
+					{% assign full_pic = gig_image | replace: " (Medium)","" %}
+					<div class= "col-sm-12 col-md-6 no-padding">
+						<div class="box" style="height: 0; padding-bottom: 56.25%">
+							<a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
+						</div>
+					</div>
+				{% endfor %}
+			{% endif %}
 		</div>
+		{% endif %}
+	{% endfor %}
+	{% for band in page.categories %}
+		<div id="{{band}}_photo" class="pic" style="display: none;">
+		{% for gig_image in site.data.media.gigs[page.title][band]['images'] %}
+			{% assign full_pic = gig_image | replace: " (Medium)","" %}
+			<div class= "col-xs-12 col-sm-6 col-lg-4 no-padding">
+				<div class="box">
+					<a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
+				</div>
+			</div>
+		{% endfor %}
+		</div>
+	{% endfor %}
 	</div>
-
 </div>
 
 <div class="back-to-top" id="back-to-top">
 	<a href="#" title="Back to top" onClick="window.scrollTo(0, 0);" style="color: white;">🔝</a>
 </div>
 
-<footer id="footer">
-	<div class="footer-content">
-		<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
-	</div>
-</footer>
+{% include footer_copyright.html %}

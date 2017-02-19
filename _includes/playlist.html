@@ -1,29 +1,30 @@
-<ul id="playlist" style="padding: 0px;">
+<ul class="sidebar-nav lighter" id="playlist" style="padding: 0px;">
     {% for band in page.media %}
-        <li class="indentMore">
+        <li>
         {% assign machine_name = band[0] | downcase | replace:" ", "_" | replace: ",", "" | replace: "!", "" %}
-        {% for page in site.pages %}
-            {% if page.title == band[0] %}
-                {% assign facebook = page.facebook %}
-                {% assign bandcamp = page.bandcamp %}
-                {% break %}
-            {% endif %}
-        {% endfor %}
-        {% assign gigs_number = site.categories[machine_name].size %}
+        {% assign photos_number = site.data.media.gigs[page.title][machine_name]['count'] %}
         {% if band[1].mp3[0] %}
             {% if band[1].mp3[0].link %}
-                <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-nodownload="{{band[1].mp3[0].nodownload}}" data-mp3="{{site.asset_url}}/assets/audio/{{band[1].mp3[0].link}}" data-facebook="{{facebook}}" data-bandcamp="{{bandcamp}}" data-artist="{{band[0]}}" data-machinename='{{ machine_name }}' data-numberofgigs="{{ gigs_number }}">
-                    {{forloop.index}}. {{band[0]}}
+                <button title="Play/Pause" class="btn btn-success playButton" data-index="{{ forloop.index }}">
+                    <span class="play">▶</span>
+                    <span class="pause" style="display: none">❙❙</span>
+                </button>
+                <a class="downloadButton" title="Download MP3" href="{{site.asset_url}}/assets/audio/{{band[1].mp3[0].link}}" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
+                <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-nodownload="{{band[1].mp3[0].nodownload}}" data-mp3="{{site.asset_url}}/assets/audio/{{band[1].mp3[0].link}}" data-artist="{{band[0]}}" data-machinename="{{ machine_name }}" data-numberofphotos="{{ photos_number }}">
+                    {{band[0]}}
                 </a>
             {% else if band[1].mp3[0].title %}
-                <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-nodownload="{{band[1].mp3[0].nodownload}}" data-mp3="{{site.asset_url}}/assets/audio/{{machine_name}}/{{page.title | url_encode | replace: '%2F', '/' | replace: '+', '%20'}} - {{band[0]}}.mp3" data-facebook="{{facebook}}" data-bandcamp="{{bandcamp}}" data-artist="{{band[0]}}" data-machinename='{{ machine_name }}' data-numberofgigs="{{ gigs_number }}">
-                    {{forloop.index}}. {{band[0]}}
+                <button title="Play/Pause" class="btn btn-success playButton" data-index="{{ forloop.index }}">
+                    <span class="play">▶</span>
+                    <span class="pause" style="display: none">❙❙</span>
+                </button>
+                <a class="downloadButton" title="Download MP3" href="{{site.asset_url}}/assets/audio/{{machine_name}}/{{page.title | url_encode | replace: '%2F', '/' | replace: '+', '%20'}} - {{band[0]}}.mp3" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
+                <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-nodownload="{{band[1].mp3[0].nodownload}}" data-mp3="{{site.asset_url}}/assets/audio/{{machine_name}}/{{page.title | url_encode | replace: '%2F', '/' | replace: '+', '%20'}} - {{band[0]}}.mp3" data-artist="{{band[0]}}" data-machinename="{{ machine_name }}" data-numberofphotos="{{ photos_number }}">
+                    {{band[0]}}
                 </a>
             {% endif %}
         {% else %}
-            <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-facebook="{{facebook}}" data-bandcamp="{{bandcamp}}" data-artist="{{band[0]}}" data-machinename='{{ machine_name }}' data-numberofgigs="{{ gigs_number }}">
-            {{forloop.index}}. {{band[0]}}
-        </a>
+        <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-artist="{{band[0]}}" data-machinename='{{ machine_name }}'>{{band[0]}}</a>
         {% endif %}
         </li>
     {% endfor %}

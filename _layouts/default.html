@@ -8,11 +8,10 @@ layout: compress
   {% include head.html %}
 
   <body>
-  {% include sidebar.html %}
-    <div id="page-content" class="page-content" style="padding-right: 0px; overflow-x: hidden;">
-      	{{ content }}
-    </div>
-
+    {% include header.html %}
+      <div class="page-wrapper">
+          {{ content }}
+      </div>
     {% include footer.html %}
   </body>
 </html>

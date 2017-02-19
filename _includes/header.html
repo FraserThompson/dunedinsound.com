@@ -1,7 +1,41 @@
-<div class="sorting left" onmouseenter="this.style.opacity = 1;" onmouseleave="this.style.opacity = 0.3;">
-	<div class="btn-group" data-toggle="buttons">
-	    <a class="btn btn-default active" href="/" type="radio" name="options" id="option1" autocomplete="off" checked> Gigs</a>
-	    <a class="btn btn-default" href="/artists/" type="radio" name="options" id="option2" autocomplete="off"> Artists</a>
-	    <a  class="btn btn-default" href="/venues/" type="radio" name="options" id="option3" autocomplete="off"> Venues</a>
-	</div>
-</div>
+{% if page.layout == "post" %}
+    {% include player.html %}
+{% endif %}
+<nav class="header navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      {% if page.layout == "post" %}
+        <a class="navbar-brand">{{ page.title }}</a>
+      {% else %}
+        <a class="navbar-brand" href="/">DunedinSound</a>
+      {% endif %}
+    </div>
+<!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="text-align: center">
+      <ul class="nav navbar-nav navbar-right">
+        {% if page.parent == "Gigs" or page.title == "Gigs" %}
+        <li class="active"><a href="/">Gigs <span class="sr-only">(current)</span></a></li>
+        {% else %}
+        <li><a href="/">Gigs</a></li>
+        {% endif %}
+        {% if page.parent == "Artists" or page.title == "Artists" %}
+        <li class="active"><a href="/artists/">Artists <span class="sr-only">(current)</span></a></li>
+        {% else %}
+        <li><a href="/artists/">Artists</a></li>
+        {% endif %}
+        {% if page.parent == "Venues" or page.title == "Venues" %}
+		    <li class="active"><a href="/venues/">Venues <span class="sr-only">(current)</span></a></li>
+        {% else %}
+        <li><a href="/venues/">Venues</a></li>
+        {% endif %}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

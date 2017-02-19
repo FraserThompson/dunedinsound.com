@@ -1,21 +1,21 @@
 ---
-title: "No Broadcast with Triumphs & Kahu"
-date: 2017-01-07 09:00:00 Z
+title: "The Ruby Suns at None Gallery"
+date: 2017-01-26 09:00:00 Z
 categories:
-    - kahu
-    - triumphs
-    - no_broadcast
+    - stef_animal
+    - death_and_the_maiden
+    - the_ruby_suns
 layout: post
 parent: Gigs
-venue: Crown Hotel
-image: /assets/img/No%20Broadcast%20with%20Triumphs%20%26%20Kahu/cover.jpg
+venue: None Gallery
+image: /assets/img/The%20Ruby%20Suns%20at%20None%20Gallery/cover.jpg
 media:
-    Kahu:
+    Stef Animal:
         mp3:
             -   title: Full set
         vid:
             -   link: X8Ufk7tCzwE
-    Triumphs:
+    Death and the Maiden:
         mp3:
             -   title: Full set
         vid:
@@ -23,7 +23,7 @@ media:
             -   title: Solid Bones
                 link: JI3SGGC-9Vk
             -   link: g_zGy1dZWOk
-    No Broadcast:
+    The Ruby Suns:
         mp3:
             -   title: Full set
         vid:

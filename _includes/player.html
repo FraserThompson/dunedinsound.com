@@ -1,0 +1,13 @@
+<div id="waveform_wrapper">
+    <div class="length-wrapper" style="left: 0px;">
+        <span id="currentTime"></span>
+    </div>
+    {% if page.media[0].link %}
+    <div id="waveform" data-mp3="{{page.media[0].link}}"></div>
+    {% else %}
+    <div id="waveform" data-mp3="/assets/mp3/{{page.title | url_encode }} - {{page.media[0]}}.mp3"></div>
+    {% endif %}
+    <div class="length-wrapper" style="right: 0px;">
+        <span id="length"></span>
+    </div>
+</div>

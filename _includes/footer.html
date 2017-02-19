@@ -5,12 +5,14 @@
 <script type="text/javascript" src="/assets/js/main.js"></script>
 
 {% if page.layout == "post" %}
+	<script type="text/javascript" src="/assets/js/post.js"></script>
+	<script type="text/javascript" src="/assets/js/navbar.js"></script>
+	<script type="text/javascript" src="/assets/js/videos.js"></script>
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(event) {
     		post.waveformInit();
     	});
 	</script>
-	<script type="text/javascript" src="/assets/js/videos.js"></script>
 {% endif %}
 
 
@@ -22,13 +24,13 @@
 	</script>
 {% endif %}
 
-{% if page.title == "Gigs" %}
+<!--{% if page.title == "Gigs" %}
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(event) {
 			gigsInit();
 		});
 	</script>
-{% endif %}
+{% endif %}-->
 
 {% if page.title == "Get" %}
 	<script type="text/javascript" src="/assets/js/waveform_generate.js"></script>
