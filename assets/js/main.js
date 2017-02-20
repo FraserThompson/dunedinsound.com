@@ -10,4 +10,6 @@
 {% include_relative gigs.js %}
 {% include_relative images.js %}
 {% include_relative talkinglol.js %}
+{% include_relative isotope.js %}
+{% include_relative searching.js %}
 {% include_relative sorting.js %}

@@ -15,22 +15,29 @@
 	</script>
 {% endif %}
 
-
-{% if page.sortable %}
+{% if page.sortable or page.searchable %}
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(event) {
-			sortingInit();
+			isotopeConfig.isotopeInit();
 		});
 	</script>
 {% endif %}
 
-<!--{% if page.title == "Gigs" %}
+{% if page.sortable %}
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(event) {
-			gigsInit();
+			isotopeConfig.sortingInit();
 		});
 	</script>
-{% endif %}-->
+{% endif %}
+
+{% if page.searchable %}
+	<script type="text/javascript">
+		document.addEventListener("DOMContentLoaded", function(event) {
+			isotopeConfig.searchingInit();
+		});
+	</script>
+{% endif %}
 
 {% if page.title == "Get" %}
 	<script type="text/javascript" src="/assets/js/waveform_generate.js"></script>

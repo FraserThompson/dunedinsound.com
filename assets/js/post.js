@@ -12,6 +12,7 @@ post.waveformInit = function() {
     var navbar = document.getElementById('navigation-wrapper');
     var nav_wrapper = document.getElementById("wrapper");
     var menu_toggle = document.getElementById("menu-toggle");
+    var navbar_brand = document.getElementsByClassName("navbar-brand")[0];
 
     var player = {
         waveform: document.getElementById('waveform'),
@@ -76,6 +77,8 @@ post.waveformInit = function() {
         },
         setCurrentSong: function (index) {
 
+            navbar_brand.classList.add("slim");
+
             if (index == player.currentSong) {
                 wavesurfer.playPause();
                 return;
@@ -117,7 +120,6 @@ post.waveformInit = function() {
 
             Array.prototype.forEach.call(player.buttons.playPause, function (button, index) {
                 button.addEventListener('click', function (e) {
-                    console.log(index);
                     player.setCurrentSong(index);
                 });
             });
@@ -209,15 +211,6 @@ post.waveformInit = function() {
         xobj.send(null);
     };
 
-    // Scrolls the sidebar so the selected gig is on the screen
-    var scrollToGig = function () {
-        var gigLinkTop = document.getElementsByClassName('active')[1].getBoundingClientRect().top;
-        var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-
-        if (gigLinkTop > windowHeight - 120) {
-            navbar.scrollTop = gigLinkTop - 80;
-        }
-    }
 
     /* Updates the DOM when a new song if selected */
     var displayBand = function (index) {
@@ -242,37 +235,27 @@ post.waveformInit = function() {
         blazy.revalidate();
     };
 
-    // Scroll
-    // window.addEventListener("scroll", function() {
+    window.addEventListener("scroll", function() {
 
-    //     if ((document.documentElement.scrollTop || document.body.scrollTop) > threshold){
-    //         backToTop.classList.add('visible');
-    //     } else {
-    //         backToTop.classList.remove('visible');
-    //     }
-
-    //     if ((document.documentElement.scrollTop || document.body.scrollTop) > 200){
-    //         header.classList.add('dimmed');
-    //         player.waveform_wrapper.classList.add('dimmed');
-    //     } else {
-    //         header.classList.remove('dimmed');
-    //         player.waveform_wrapper.classList.remove('dimmed');
-    //     }
-    // });
+        if ((document.documentElement.scrollTop || document.body.scrollTop) > threshold){
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
 
     window.addEventListener("resize", player.redraw());
 
     // Setup the lightbox thing
     baguetteBox.run('.pic', { onChange: function(currentIndex, imagesCount) {
-        if (currentIndex == photoIndexes[currentBand]) {
-            displayBand(currentBand + 1)
-        } else if (currentIndex < photoIndexes[parseInt(currentBand) - 1]) {
-            displayBand(currentBand - 1)
-        }
+        // if (currentIndex == photoIndexes[currentBand]) {
+        //     displayBand(currentBand + 1)
+        // } else if (currentIndex < photoIndexes[parseInt(currentBand) - 1]) {
+        //     displayBand(currentBand - 1)
+        // }
     }});
 
     // Start it up
-    // scrollToGig();
     player.attachEventHandlers();
     displayBand(currentBand);
 };

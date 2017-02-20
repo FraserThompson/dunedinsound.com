@@ -17,8 +17,15 @@
         <a class="navbar-brand" href="/">DunedinSound</a>
       {% endif %}
     </div>
-<!-- Collect the nav links, forms, and other content for toggling -->
+    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="text-align: center">
+      {% if page.layout == "tiles" and page.searchable == true %}
+        <div class="search navbar-form">
+          <div class="input-group">
+            <input type="text" class="quicksearch form-control" id="quicksearch" placeholder="Search" autofocus>
+          </div>
+        </div>
+      {% endif %}
       <ul class="nav navbar-nav navbar-right">
         {% if page.parent == "Gigs" or page.title == "Gigs" %}
         <li class="active"><a href="/">Gigs <span class="sr-only">(current)</span></a></li>

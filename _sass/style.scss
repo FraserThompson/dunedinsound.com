@@ -7,8 +7,14 @@ $header-font: 'Hammersmith One', sans-serif;
 $highlight-color: white;
 $highlight-text-color: black;
 
+@mixin hover-grow($scale) {
+	-moz-transform: scale($scale,$scale);
+    -webkit-transform: scale($scale,$scale);
+    transform: scale($scale,$scale);
+}
+
 body {
-	background-color: #222222;
+	background-color: black;
 	font-family: $main-font;
 	overflow-x: hidden;
 	height: 100%;
@@ -20,6 +26,16 @@ body {
 	height: 100%;
 	width: 100%;
 	position: absolute;
+}
+
+.navbar-brand {
+	overflow:hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
+	&.slim {
+		width: 240px;
+	}
 }
 
 a {
@@ -57,9 +73,21 @@ h2 {
 }
 
 .hover-grow:hover span {
-	-moz-transform: scale(1.1,1.1);
-    -webkit-transform: scale(1.1,1.1);
-    transform: scale(1.1,1.1);
+	@include hover-grow(1.1);
+}
+
+.hover-img {
+	overflow: hidden;
+}
+
+.hover-img img {
+	-webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.hover-img:hover img {
+	@include hover-grow(1.04);
 }
 
 .playlist-item {
@@ -193,6 +221,11 @@ h2 {
 	margin-bottom: 0px !important;
 }
 
+.navbar a, .nav.navbar-nav a {
+	line-height: 30px;
+	height: 60px;
+}
+
 .playButton {
 	position: absolute;
 	left: 0px;
@@ -324,10 +357,31 @@ h2 {
 	overflow: hidden;
 }
 
+.search {
+	margin-top: 10px;
+	left: $sidebar-width;
+	right: $sidebar-width;
+	position: absolute;
+
+	.input-group {
+		width: 100%;
+	}
+
+	input {
+		background-color: #333333;
+		color: white;
+	}
+
+	input:focus {
+		border-color: white;
+	}
+}
+
 .sorting {
-	position: fixed;
+	position: absolute;
+	left: 0px;
 	z-index: 2000;
-	opacity: 0.4;
+	opacity: 1;
 	-webkit-transition: opacity 200ms ease-in-out;
     -moz-transition: opacity 200ms ease-in-out;
     transition: opacity 200ms ease-in-out;
@@ -401,25 +455,19 @@ h2 {
 
 
 	&:not(.disabled):hover .tile {
-	    -moz-transform: scale(1.03,1.03);
-	    -webkit-transform: scale(1.03,1.03);
-	    transform: scale(1.03,1.03);
+	@include hover-grow(1.03);
 	}
 
 	&:not(.disabled):hover .tile-title {
 		opacity: 1;
-		-moz-transform: scale(1.02,1.02);
-	    -webkit-transform: scale(1.02,1.02);
-	    transform: scale(1.02,1.02);
+		@include hover-grow(1.02);
 	    text-decoration: none !important;
 	}
 }
 
 .tile-wrap.smaller {
 	&:hover .tile {
-	    -moz-transform: scale(1.05,1.05);
-	    -webkit-transform: scale(1.05,1.05);
-	    transform: scale(1.05,1.05);
+		@include hover-grow(1.05);
 	    text-decoration: none;
 	}
 }
@@ -870,6 +918,7 @@ h2 {
 .page-content {
 	margin-left: $sidebar-width;
 	padding: 0px;
+	background-color: #222222;
 }
 
 .darken-bg {

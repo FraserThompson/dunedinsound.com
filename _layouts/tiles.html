@@ -6,12 +6,7 @@ layout: default
 
 <div class="container-fluid {{category}}">
   {% if page.sortable %}
-  <div class="sorting left" style="opacity: 0.8; width: 30vw;">
-    <div class="input-group" style='width: 100%;'>
-      <input type="text" class="quicksearch form-control" id="quicksearch" placeholder="Search" autofocus>
-    </div>
-  </div>
-  <div class="sorting right" onmouseenter="this.style.opacity = 1;" onmouseleave="this.style.opacity = 0.3;">
+  <div class="sorting left">
     <div class="btn-group sort-by-button-group" data-toggle="buttons">
       <label class="btn btn-default active" data-sort-value="name" >
         <input type="radio" name="options" id="option1" autocomplete="off" checked> Name
@@ -46,10 +41,13 @@ layout: default
               <div class="tile-title bottom">
                 <h4 class="name">{{ tile.title }} {% if tile.origin %} ({{tile.origin}}) {% endif %}</h4>
                 {% if category == "artists" %}
-                <p class="date" style="display: none;">{{last_gig}}</p>
+                  <p class="date" style="display: none;">{{last_gig}}</p>
                 {% endif %}
                 {% if category == "venues" %}
-                <h5><span class="numberOfGigs">{{ site.posts | where: "venue", tile.title | size}}</span> gigs</h5>
+                  <h5><span class="numberOfGigs">{{ site.posts | where: "venue", tile.title | size}}</span> gigs</h5>
+                {% endif %}
+                {% if category == "artists" %}
+                  <h5><span class="numberOfGigs">{{ site.categories[machine_name].size }}</span> gigs</h5>
                 {% endif %}
               </div>
               <div class="tile b-lazy" data-src='{{ site.asset_url}}/{{site.data.media.artists[machine_name][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}'></div>

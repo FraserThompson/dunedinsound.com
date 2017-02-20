@@ -37,7 +37,7 @@ type: posts
 		<div id="{{band}}_photo" class="pic" style="display: none;">
 		{% for gig_image in site.data.media.gigs[page.title][band]['images'] %}
 			{% assign full_pic = gig_image | replace: " (Medium)","" %}
-			<div class= "col-xs-12 col-sm-6 col-lg-4 no-padding">
+			<div class= "col-xs-12 col-sm-6 col-lg-4 no-padding hover-img">
 				<div class="box">
 					<a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
 				</div>
