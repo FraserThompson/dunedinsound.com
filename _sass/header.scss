@@ -1,0 +1,123 @@
+.navbar-brand {
+	overflow:hidden;
+	white-space: nowrap;
+    float: right;
+	text-overflow: ellipsis;
+
+	&.slim {
+		width: auto;
+	}
+}
+
+.search {
+	margin-top: 10px;
+	left: $sidebar-width;
+	right: $sidebar-width;
+	position: absolute;
+
+	.input-group {
+		width: 100%;
+	}
+
+	input {
+		background-color: #333333;
+		color: white;
+	}
+
+	input:focus {
+		border-color: white;
+	}
+}
+
+.navbar-toggle {
+    float: left !important;
+}
+
+.sorting {
+	position: absolute;
+	left: 0px;
+	z-index: 2000;
+	opacity: 1;
+	-webkit-transition: opacity 200ms ease-in-out;
+    -moz-transition: opacity 200ms ease-in-out;
+    transition: opacity 200ms ease-in-out;
+}
+
+.header .navbar-nav {
+	margin-bottom: 0px !important;
+}
+
+.navbar a, .nav.navbar-nav a {
+	line-height: 30px;
+	height: 60px;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:active {
+	background-color: rgba(0,0,0,0.3) !important;
+}
+
+.header {
+	margin-bottom: 0px;
+	height: $header-height;
+    position: fixed;
+    z-index: 9000;
+	top: 0px;
+	width: 100%;
+	background-color: rgba(0,0,0,1) !important;
+	background-image: none !important;
+	-webkit-transition: background-color 0.5s ease;
+    -moz-transition: background-color 0.5s ease;
+    transition: background-color 0.5s ease;
+
+	&.dimmed {
+		background-color: rgba(0,0,0,0.3) !important;
+	}
+
+	.playButton {
+		position: absolute; 
+		z-index: 20; 
+		top: 20px;
+		border-radius: 50%;
+		font-size: 20px;
+		padding: 0px;
+		width: 38px;
+		height: 38px;
+	}
+
+	.brand {
+		cursor: pointer;
+		margin-left: 0px !important;
+		padding-left: 0px !important;
+	}
+
+	.navbar-text {
+		line-height: 20px;
+		position: absolute;
+		right: 15px;
+		top: 0px;
+		margin: 0px;
+	}
+
+	.dropdown-menu {
+		background-color: black !important;
+	}
+
+}
+
+#header {
+	padding-top: 50px;
+	height: 140px;
+}
+
+#navbar-collapse {
+	padding-right: 0px !important;
+}
+
+.header-title {
+	line-height: $header-height/2;
+	height: $header-height;
+	font-size: 18px;
+	display: inline-block;
+	color: white;
+	padding: 15px 15px;
+}

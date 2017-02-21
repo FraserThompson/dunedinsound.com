@@ -1,0 +1,63 @@
+.gigs {
+	
+	.tile-wrap {
+		height: 30vh;
+		h1 {
+			font-size: 2em;
+		}
+	}
+	.tile-wrap.feature {
+		height: 90vh;
+	}
+	.col-xs-12 {
+		padding: 0px;
+	}
+}
+
+.gig-sorting {
+	display: none;
+	opacity: 0;
+	visibility: hidden;
+	position: fixed;
+	right: 0px;
+	top: 0px;
+	z-index: 5000;
+
+	background-color: rgba(0,0,0,0.4);
+	-webkit-transition: opacity 0.5s ease;
+    -moz-transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
+
+	&.visible {
+		visibility: visible;
+	  	opacity: 1;
+	}
+}
+
+.nav-custom {
+	a {
+		border-left: 2px solid rgba(0, 0, 0, 0);
+		box-sizing: border-box;
+		color: #999999;
+	}
+
+	li {
+		box-sizing: border-box;
+		border-left: 2px solid rgba(0, 0, 0, 0);
+	}
+
+	.year > a {
+		font-weight: bold;
+		font-size: 16px;
+		border-left: 2px solid white;
+
+	}
+
+	li.active {
+		border-left: 2px solid green;
+	}
+
+	li.active > a {
+		color: white !important;
+	}
+}

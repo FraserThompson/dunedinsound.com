@@ -1,0 +1,20 @@
+#waveform {
+	opacity: 1;
+    -webkit-transition: opacity 250ms ease-in-out;
+   -moz-transition: opacity 250ms ease-in-out;
+        transition: opacity 250ms ease-in-out;
+}
+
+.length-wrapper {
+	background: rgba(0, 0, 0, 0.6);
+	z-index: 5;
+	position: absolute;
+	top: 20px;
+}
+
+#waveform_wrapper {
+	height: $header-height;
+    width: 100%;
+    top: $header-height;
+	position: absolute;
+}

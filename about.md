@@ -18,7 +18,7 @@ Why not just put stuff on Facebook like everyone else?
 --------------------------
 I don't think Facebook is designed for long term storage, also the interface sucks and makes it impossible to find anything again. I decided to make a more permanent and easy to use archive, the idea being that artists/fans will be able to access it decades from now.
 
-What equipment do you use? (uh oh, nerd alert)
+What equipment do you use?
 ---------------------------
 * Panasonic G6 micro four-thirds camera with vintage M42 mount lenses, usually an Asahi Pentax 50mm 1.4 (the one with the radioactive element). Btw, if you have any M42 mount lenses you want to sell then hit me up.
 * Custom binaural headset comprised of two electret microphones shoved into a pair of earplugs and wired up to a battery box. They go in my ears.

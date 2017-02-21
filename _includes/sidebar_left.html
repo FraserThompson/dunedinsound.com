@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<div class="sidebar-wrapper left">
+<div class="sidebar-wrapper left" id="sidebar">
 	{% include playlist.html %}
 	{% for band in page.media %}
 		{% assign machine_name = band[0] | downcase | replace:" ", "_" | replace: ",", "" | replace: "!", "" %}
@@ -58,14 +58,7 @@
 			{% endunless %}
 		{% endfor %}
 		<li>
-			<a href="/gigs"><small>More...</small></a>
+			<a href="/"><small>More...</small></a>
 		</li>
 	</ul>
-
-
 </div>
-
-<a href="#menu-toggle" type="button" class="btn btn-default" id="menu-toggle">
-<span class="sr-only">Toggle navigation</span>
-<span class="glyphicon glyphicon-menu-hamburger"></span>
-</a>

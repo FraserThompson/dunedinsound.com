@@ -1,0 +1,134 @@
+.b-lazy {
+    -webkit-transition: opacity 250ms ease-in-out;
+       -moz-transition: opacity 250ms ease-in-out;
+         -o-transition: opacity 250ms ease-in-out;
+            transition: opacity 250ms ease-in-out;
+             max-width: 100%;
+               opacity: 0;
+}
+.b-lazy.b-loaded {
+               opacity: 1;
+}
+
+.b-lazy.b-error {
+	opacity: 1;
+}
+
+.loading {
+	width: 100%;
+}
+.loading::before {
+	float: left;
+	color: white;
+	position: absolute;
+	opacity: 0.5;
+	content: "\01F4F7";
+	font-size: 10em;
+}
+
+.tile {
+	-webkit-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+
+    -moz-transform: scale(1,1);
+    -webkit-transform: scale(1,1);
+    transform: scale(1,1);
+	width: 100%;
+	height: 100%;
+
+	background-size: cover;
+	background-color: black;
+	background-position: center;
+}
+
+.tiles {
+	overflow: hidden;
+}
+
+.tile-wrap {
+	overflow: hidden;
+	padding: 0;
+	height: 200px;
+
+	.tile-title {
+		position: absolute;
+		width: 100%;
+		opacity: 0.8;
+		z-index: 1;
+		text-align: center;
+		transition: all 300ms ease-in-out;
+
+		h5, h4, h3, p, span {
+			text-shadow: 1px 1px black;
+		}
+
+		h4 {
+			text-align: center;
+		}
+
+	}
+
+	&.disabled {
+		.tile-title {
+			opacity: 0.5;
+		}
+	}
+
+	&.feature {
+		height: 90vh !important;
+	}
+
+	&.thinner {
+		height: 30vh !important;
+	}
+
+	.bottom {
+		bottom: 10px;
+	}
+
+
+	&:not(.disabled):hover .tile {
+	@include hover-grow(1.03);
+	}
+
+	&:not(.disabled):hover .tile-title {
+		opacity: 1;
+		@include hover-grow(1.02);
+	    text-decoration: none !important;
+	}
+}
+
+.tile-wrap.smaller {
+	&:hover .tile {
+		@include hover-grow(1.05);
+	    text-decoration: none;
+	}
+}
+
+
+.darker .tile {
+	&:before {
+    content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-color: black;
+		opacity: 0.4;
+  }
+}
+
+.even-darker .tile {
+	&:before {
+    content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-color: black;
+		opacity: 0.8;
+  }
+}

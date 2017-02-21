@@ -10,46 +10,40 @@ type: posts
 	{% endif %}
 	{% for band in page.media %}
 		{% if band[1].vid %}
-		{% assign odd_or_even_vids = band[1].vid | size | modulo:2  %}
-		{% assign machine_name = band[0] | downcase | replace:" ", "_"  | replace: ",", "" | replace: "!", "" %}
-		<div class="vid" id="{{machine_name}}_video" style="display: none;">
-			{% for vid in band[1].vid %}
-				<div class="col-sm-12 col-md-6 no-padding">
-					<div class="youtube" id="{{vid.link}}" data-params="vq=hd720">
-						{% if vid.title %} <h4>{{vid.title}}</h4> {% endif %}
-					</div>
-				</div>
-			{% endfor %}
-			{% if odd_or_even_vids != 0 %}
-				{% for gig_image in site.data.media.gigs[page.title][machine_name]['images'] limit: 1 %}
-					{% assign full_pic = gig_image | replace: " (Medium)","" %}
-					<div class= "col-sm-12 col-md-6 no-padding">
-						<div class="box" style="height: 0; padding-bottom: 56.25%">
-							<a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
+			{% assign number_of_vids = band[1].vid | size %}
+			{% assign machine_name = band[0] | downcase | replace:" ", "_"  | replace: ",", "" | replace: "!", "" %}
+			<div class="vid" id="{{machine_name}}_video" style="display: none;">
+				{% for vid in band[1].vid %}
+					<div class="col-sm-12 col-md-6 no-padding {% if number_of_vids == 1 %} col-sm-offset-0 col-lg-offset-3 {% endif %}">
+						<div class="youtube" id="{{vid.link}}" data-params="vq=hd720">
+							{% if vid.title %} <h4>{{vid.title}}</h4> {% endif %}
 						</div>
 					</div>
 				{% endfor %}
-			{% endif %}
-		</div>
+			</div>
 		{% endif %}
 	{% endfor %}
 	{% for band in page.categories %}
+		{% assign number_of_pics = site.data.media.gigs[page.title][band]['images'] | size %}
 		<div id="{{band}}_photo" class="pic" style="display: none;">
-		{% for gig_image in site.data.media.gigs[page.title][band]['images'] %}
-			{% assign full_pic = gig_image | replace: " (Medium)","" %}
-			<div class= "col-xs-12 col-sm-6 col-lg-4 no-padding hover-img">
-				<div class="box">
-					<a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
+			{% if number_of_pics == 0 %}
+				<h3> <center>Audio only</center> </h3>
+			{% endif %}
+			{% for gig_image in site.data.media.gigs[page.title][band]['images'] %}
+				{% assign full_pic = gig_image | replace: " (Medium)","" %}
+				<div class= "col-xs-12 col-sm-6 {% if number_of_pics < 3 %} col-lg-6 {% else %} col-lg-4 {% endif %} no-padding hover-img">
+					<div class="box">
+						<a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
+					</div>
 				</div>
-			</div>
-		{% endfor %}
+			{% endfor %}
 		</div>
 	{% endfor %}
 	</div>
 </div>
 
 <div class="back-to-top" id="back-to-top">
-	<a href="#" title="Back to top" onClick="window.scrollTo(0, 0);" style="color: white;">🔝</a>
+	<a href="#" data-toggle="collapse" data-target="#navbar-collapse" title="Back to top" onClick="window.scrollTo(0, 0);" style="color: white;">🔝</a>
 </div>
 
 {% include footer_copyright.html %}

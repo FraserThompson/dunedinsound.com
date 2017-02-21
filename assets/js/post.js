@@ -10,9 +10,8 @@ post.waveformInit = function() {
     var backToTop = document.getElementById('back-to-top');
     var header = document.getElementById('header');
     var navbar = document.getElementById('navigation-wrapper');
-    var nav_wrapper = document.getElementById("wrapper");
-    var menu_toggle = document.getElementById("menu-toggle");
     var navbar_brand = document.getElementsByClassName("navbar-brand")[0];
+    var selectedArtist = document.getElementById("selectedArtist");
 
     var player = {
         waveform: document.getElementById('waveform'),
@@ -75,37 +74,34 @@ post.waveformInit = function() {
                 }
             }, 500)
         },
-        setCurrentSong: function (index) {
+        load: function (index, cb) {
+            if (!jsons[index]) {
+                loadJSON(player.links[index].dataset.mp3, function(data, filename) {
+                    jsons[index] = data;
+                    wavesurfer.load(filename, JSON.parse(data));
+                    cb();
+                });
+            } else {
+                wavesurfer.load(player.links[index].dataset.mp3, JSON.parse(jsons[index]));
+                cb();
+            }
+        },
+        setCurrentSong: function (index, dontplay) {
 
             navbar_brand.classList.add("slim");
 
-            if (index == player.currentSong) {
+            if (!dontplay && index == player.currentSong) {
                 wavesurfer.playPause();
                 return;
             }
 
             if (player.currentSong >= 0) player.stop(player.currentSong);
             player.currentSong = index;
-            player.play(player.currentSong);
 
-            if (!jsons[player.currentSong]) {
-                loadJSON(player.links[player.currentSong].dataset.mp3, function(data, filename) {
-                    jsons[player.currentSong] = data;
-
-                    player.show();
-
-                    wavesurfer.load(filename, JSON.parse(data));
-                    setTimeout(function() {
-                        wavesurfer.play(); 
-                    }, 500);
-                });
-            } else {     
+            player.load(player.currentSong, function() {
                 player.show();
-                wavesurfer.load(player.links[player.currentSong].dataset.mp3, JSON.parse(jsons[player.currentSong]));
-                setTimeout(function() {
-                    wavesurfer.play();
-                }, 500);
-            }
+                if (!dontplay) wavesurfer.play();
+            });
         },
         attachEventHandlers: function() {
 
@@ -126,10 +122,6 @@ post.waveformInit = function() {
 
             Array.prototype.forEach.call(player.links, function (link, index) {
                 link.addEventListener('click', function (e) {
-                    if (window.innerWidth < 1200) {
-                        nav_wrapper.classList.toggle("toggled");
-                        menu_toggle.classList.toggle("toggled");
-                    }
                     displayBand(index);
                 });
             });
@@ -212,10 +204,9 @@ post.waveformInit = function() {
     };
 
 
-    /* Updates the DOM when a new song if selected */
-    var displayBand = function (index) {
+    /* Updates the DOM when a new band is selected */
+    var displayBand = function (index, first) {
 
-        /* images */
         // hide the old
         player.links[currentBand].classList.remove('active');
         var photos = document.getElementById(player.links[currentBand].dataset.machinename + "_photo");
@@ -224,13 +215,21 @@ post.waveformInit = function() {
         if (videos) { videos.style.display = "none"; }
 
         currentBand = index;
-
+        
+        // show the player by default if no photos
+        if (player.links[currentBand].dataset.numberofphotos == 0) {
+            player.setCurrentSong(currentBand, true);
+        } else if (first) {
+            player.load(currentBand, function() {});
+        }
         // show the new
         player.links[currentBand].classList.add('active');
         var photos = document.getElementById(player.links[currentBand].dataset.machinename + "_photo")
         if (photos) { photos.style.display = "block"; }
         var videos = document.getElementById(player.links[currentBand].dataset.machinename + "_video")
         if (videos) { videos.style.display = "block"; }
+
+        selectedArtist.innerHTML = player.links[currentBand].dataset.artist;
 
         blazy.revalidate();
     };
@@ -257,5 +256,5 @@ post.waveformInit = function() {
 
     // Start it up
     player.attachEventHandlers();
-    displayBand(currentBand);
+    displayBand(currentBand, true);
 };

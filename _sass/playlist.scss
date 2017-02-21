@@ -1,0 +1,34 @@
+.playlist-item {
+	padding-left: 25px;
+	&:hover,
+	&:focus,
+	&.focus,
+	&:active,
+	&.active {
+		background-color: rgba(255,255,255,0.1) !important;
+		background-image: none;
+	}
+}
+
+.playButton {
+	position: absolute;
+	left: 0px;
+	border-radius: 50%;
+
+	&.playing {
+		color: white !important;
+		background-color: orange !important;
+		background-image: none;
+		border-color: darkorange !important;
+	}
+}
+
+.downloadButton {
+	text-indent: 5px;
+	position: absolute;
+	left: 220px;
+
+	&:hover {
+		color: #cccccc !important;
+	}
+}
