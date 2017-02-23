@@ -13,11 +13,11 @@
       {% if page.layout == "post" %}
         <a class="navbar-brand nohover">{{ page.title }}</a>
       {% else %}
-        <a class="navbar-brand" href="/">DunedinSound</a>
+        <a class="navbar-brand hidden-xs" href="/"hidden-xs>DunedinSound</a>
       {% endif %}
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="navbar-collapse" style="text-align: center">
+    <div id="top-nav" style="text-align: center">
       {% if page.layout == "tiles" and page.searchable == true %}
         <div class="search navbar-form">
           <div class="input-group">
@@ -29,7 +29,6 @@
         <li class="{% if page.parent == 'Gigs' or page.title == 'Gigs' %}active{% endif %}"><a href="/">Gigs</a></li>
         <li class="{% if page.parent == 'Artists' or page.title == 'Artists' %}active{% endif %}"><a href="/artists/">Artists</a></li>
 		    <li class="{% if page.parent == 'Venues' or page.title == 'Venues' %}active{% endif %}"><a href="/venues/">Venues</a></li>
-        <li class="{% if page.title == 'About' %}active{% endif %}"><a href="/About/" class="no-padding-left-right">❓</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

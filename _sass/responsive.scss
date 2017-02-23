@@ -14,55 +14,6 @@
 		font-size: 4em !important;
 	}
 
-	.gig-sorting {
-		display: block;
-		overflow: auto;
-		height: 100%;
-	}
-
-	#header {
-		padding-top: 0px;
-		height: $header-height;
-	}
-
-
-    .header {
-		height: $header-height;
-        z-index: 0;
-	    position: absolute;
-
-		.navbar-text {
-			line-height: $header-height;
-			top: auto;
-		}
-	}
-
-	.nav.navbar-nav {
-		li {
-			height: $header-height
-		}
-
-		a {
-			line-height: $header-height / 2;
-			height: $header-height;
-		}
-	}
-	
-	.navbar-header {
-		a {
-			line-height: $header-height / 2;
-			height: $header-height;
-		}
-	}
-
-    #waveform_wrapper {
-        opacity: 0;
-        width: auto;
-        top: 0px;
-	    left: $sidebar-width;
-        right: 220px;
-    }
-
 	.tile-wrap {
 		height: 350px;
 	}
@@ -82,21 +33,6 @@
         display: none;
     }
 
-    #wrapper.toggled {
-        padding-left: 0;
-    }
-
-    .sidebar-wrapper {
-        position: absolute;
-        top: 0px;
-        float: left;
-        width: $sidebar-width;
-    }
-
-    #wrapper.toggled .sidebar-wrapper {
-        width: 0;
-    }
-
     .page-content {
         margin-left: $sidebar-width;
         padding: 0px 0px 0px 0px;
@@ -105,18 +41,6 @@
     #post-page {
         top: $header-height;
     }
-
-    .navbar-brand {
-        float: left;
-        &.slim {
-            width: 240px;
-        }
-    }
-    #wrapper.toggled .page-content {
-        position: relative;
-        margin-right: 0;
-    }
-
 
 	.post-header {
 		.text {

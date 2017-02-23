@@ -4,7 +4,7 @@ layout: default
 
 {% assign machine_name = page.title | downcase | replace:' ', '_' | replace: "'", "" | replace: ",", "" | replace: "!", "" %}
 
-<article class="band container-fluid">
+<article class="band container-fluid cover-the-top" id="band">
   <header class="post-header row">
     <div class="banner">
         <div class="banner b-lazy" data-src="{{site.asset_url}}/{{site.data.media.artists[machine_name][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}"></div>

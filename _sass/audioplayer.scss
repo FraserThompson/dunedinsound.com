@@ -15,6 +15,16 @@
 #waveform_wrapper {
 	height: $header-height;
     width: 100%;
-    top: $header-height;
+    top: ($header-height * 2) - 20;
 	position: absolute;
+}
+
+@media (min-width:768px) {
+    #waveform_wrapper {
+        opacity: 0;
+        width: auto;
+        top: 0px;
+	    left: $sidebar-width;
+        right: 220px;
+    }
 }

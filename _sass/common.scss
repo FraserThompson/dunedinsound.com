@@ -14,7 +14,7 @@ $highlight-text-color: black;
 }
 
 body {
-	background-color: black;
+	background-color: #222222;
 	font-family: $main-font;
 	overflow-x: hidden;
 	height: 100%;
@@ -32,6 +32,7 @@ body {
 
 .page-content {
 	padding: 0px;
+	min-height: 100vh;
 	background-color: #222222;
 }
 
@@ -39,7 +40,7 @@ body {
 	top: $header-height;
 	height: 100%;
 	width: 100%;
-	position: absolute;
+	position: relative;
 }
 
 .no-margin-padding {
@@ -56,13 +57,23 @@ body {
 	padding-right: 0px !important;
 }
 
+.cover-the-top {
+	top: -20px;
+	position: relative;
+	z-index: 9006;
+}
+
+
 a {
    outline: 0;
 }
 
 footer {
-	height: 100px;
+	z-index: 9999;
 	margin-top: 60px;
+	background-color: black;
+	height: 300px;
+	border-top: 40px solid white;
 }
 
 h3, h4, h5, h6, p {
@@ -148,11 +159,6 @@ h2 {
 	}
 }
 
-.footer-content {
-	margin: 15px;
-	position: absolute;
-	bottom: 0px;
-}
 .hover-grow span {
 	-webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
@@ -200,4 +206,10 @@ h2 {
 .trippy2:hover {
 	text-decoration: none;
 	transform: skewY(10deg) scaleY(5) scaleX(10) rotateZ(360deg) translateX(0px);
+}
+@media (min-width:768px) {
+	.cover-the-top {
+		position: static;
+		z-index: auto;
+	}
 }

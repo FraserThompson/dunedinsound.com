@@ -2,6 +2,7 @@ var post = post || {};
 
 post.waveformInit = function() {
     var threshold = window.innerHeight * 1.5;
+    var headerHeight = 60;
 
     var jsons = {};
     var bandIndexes = {};
@@ -12,6 +13,7 @@ post.waveformInit = function() {
     var navbar = document.getElementById('navigation-wrapper');
     var navbar_brand = document.getElementsByClassName("navbar-brand")[0];
     var selectedArtist = document.getElementById("selectedArtist");
+    var sidebarWrapper = document.getElementsByClassName("sidebar-wrapper")[0];
 
     var player = {
         waveform: document.getElementById('waveform'),
@@ -241,6 +243,13 @@ post.waveformInit = function() {
         } else {
             backToTop.classList.remove('visible');
         }
+
+        if ((document.documentElement.scrollTop || document.body.scrollTop) > (headerHeight)){
+            sidebarWrapper.classList.add("scrolled");
+        } else {
+            sidebarWrapper.classList.remove("scrolled"); 
+        }
+
     });
 
     window.addEventListener("resize", player.redraw());

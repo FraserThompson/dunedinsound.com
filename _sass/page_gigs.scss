@@ -15,13 +15,10 @@
 }
 
 .gig-sorting {
-	display: none;
-	opacity: 0;
-	visibility: hidden;
 	position: fixed;
-	right: 0px;
-	top: 0px;
+	width: 100px;
 	z-index: 5000;
+	left: 0px;
 
 	background-color: rgba(0,0,0,0.4);
 	-webkit-transition: opacity 0.5s ease;
@@ -60,4 +57,14 @@
 	li.active > a {
 		color: white !important;
 	}
+}
+
+@media (min-width:768px) {
+	// .gig-sorting {
+	// 	display: block;
+	// 	position: static;
+	// 	z-index: auto;
+	// 	overflow: auto;
+	// 	height: 100%;
+	// }
 }
