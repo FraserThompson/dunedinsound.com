@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Hammersmith+One|PT+Sans');
+@import url('https://fonts.googleapis.com/css?family=Hammersmith+One|Work+Sans');
 
 $header-height: 60px;
 $sidebar-width: 250px;
-$main-font: 'PT Sans', sans-serif;
+$main-font: 'Work Sans', sans-serif;
 $header-font: 'Hammersmith One', sans-serif;
 $highlight-color: white;
 $highlight-text-color: black;
@@ -48,6 +48,10 @@ body {
 	padding: 0 !important;
 }
 
+.no-margin {
+	margin: 0 !important;
+}
+
 .no-padding {
 	padding: 0 !important;
 }
@@ -71,23 +75,31 @@ a {
 footer {
 	z-index: 9999;
 	margin-top: 60px;
-	background-color: black;
 	height: 300px;
 	border-top: 40px solid white;
+	background-color: black;
+
+	.container {
+		background-color: black;
+	}
+
+	.footer-content {
+		margin-top: 80px;
+	}
 }
 
-h3, h4, h5, h6, p {
+ h4, h5, h6, p {
 	font-family: $main-font;
 }
 
-h1 {
+h1, h2, h3 {
 	font-family: $header-font;
+}
+
+h1 {
 	font-size: 3em;
 }
 
-h2 {
-	font-family: $header-font;
-}
 
 .fill-height
 {

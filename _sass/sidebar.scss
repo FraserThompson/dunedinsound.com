@@ -27,7 +27,6 @@
 	background-color:black;
     width: $sidebar-width;
     position: fixed;
-	min-height: 100vh;
     top: ($header-height * 3) - 20;
 	height: 0;
  	overflow-x: hidden;
@@ -46,7 +45,7 @@
 	}
 
     &.in {
-        height: 100%;
+        height: 80%;
     }
 }
 
@@ -139,10 +138,10 @@
     }
 
     .sidebar-wrapper {
-        position: absolute;
-        top: 0px;
+        position: static;
 		height: auto;
         float: left;
+		min-height: 100vh;
         width: $sidebar-width;
 
 		&.scrolled {

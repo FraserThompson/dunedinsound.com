@@ -1,16 +1,16 @@
 {% if tile.incoming %}
-<div class="col-xs-12 tile-wrap even-darker disabled {{class}}" style="background-color: {{ page.colors | sample }}">
+<div class="{{sizing}} tile-wrap even-darker disabled {{class}}" style="background-color: {{ page.colors | sample }}">
 	<a class="box gridItem {{category}}">
 {% else %}
-<div class="col-xs-12 tile-wrap darker {{class}}" style="background-color: {{ page.colors | sample }}">
+<div class="{{sizing}} tile-wrap darker {{class}}" style="background-color: {{ page.colors | sample }}">
 	<a class="box gridItem {{category}}" href="{{ tile.url | prepend: site.baseurl }}">
 {% endif %}
+    <span class="label label-default">{{tile.date | date: "%d %b %Y"}}</span>
     <div class="tile-title">
-    	<h4><span class="label label-default">{{tile.date | date: "%d %b %Y"}}</span></h4>
 		{% if class == "feature" %}
       		<center><h1 class="name">{{ tile.title }}</h1></center>
 		{% else %}
-			  <center><h2>{{ tile.title }}</h2></center>
+			  <center><h3>{{ tile.title }}</h3></center>
 		{% endif %}
       	{% if tile.incoming %}
       		<center><p>Coming Soon</p></center>

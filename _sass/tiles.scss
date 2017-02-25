@@ -52,11 +52,21 @@
 	padding: 0;
 	height: 200px;
 
+	.label {
+		z-index: 4000;
+		position: absolute;
+		font-size: 14px;
+		margin: 15px;
+		top: 0px;
+	}
+
 	.tile-title {
 		position: absolute;
 		width: 100%;
 		opacity: 0.8;
 		z-index: 1;
+		min-height: 30%;
+		padding: 15px;
 		text-align: center;
 		transition: all 300ms ease-in-out;
 
@@ -70,6 +80,13 @@
 
 	}
 
+	&.bottom {
+		.tile-title {
+			bottom: 0px;
+			background-color: #111111;
+		}
+	}
+
 	&.disabled {
 		.tile-title {
 			opacity: 0.5;
@@ -77,11 +94,32 @@
 	}
 
 	&.feature {
-		height: 90vh !important;
+		height: 96vh !important;
+	}
+
+
+	&.small {
+
+		height: 120px;
+		background-color: black;
+
+		.label {
+			top: auto;
+			margin: 0px;
+			font-size: inherit;
+		}
+
+		.tile-title{
+			width: 250px; 
+			height: 120px; 
+			text-overflow: ellipsis;
+			padding-right: 20px;
+			min-height: 120px;
+		}
 	}
 
 	&.thinner {
-		height: 30vh !important;
+		height: 32vh !important;
 	}
 
 	.bottom {

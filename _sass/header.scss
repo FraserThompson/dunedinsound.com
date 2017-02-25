@@ -207,6 +207,9 @@
 	.navbar-brand {
         float: left;
         &.slim {
+			padding: 0px;
+			white-space: pre-wrap;
+			letter-spacing: -2px;
             width: 240px;
         }
     }

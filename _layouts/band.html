@@ -23,10 +23,10 @@ layout: default
 
     {% for post in site.categories[name] %}
 
-        <div class="col-sm-12 col-md-6 col-lg-4 tile-wrap smaller darker" style="height: 35vh; background-color: black;">
+        <div class="col-sm-12 col-md-6 col-lg-4 tile-wrap smaller bottom" style="height: 35vh; background-color: black;">
           <a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
+            <span class="label label-default">{{post.date | date: "%d %b %Y"}}</span>
             <div class="tile-title">
-              <h4><span class="label label-default">{{post.date | date: "%d %b %Y"}}</span></h4>
               <h4 style="margin-top: 10px;">{{post.title}}</h4>
               <h5>{{ post.venue }}</h5>
               <h5>

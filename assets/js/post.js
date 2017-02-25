@@ -124,6 +124,7 @@ post.waveformInit = function() {
 
             Array.prototype.forEach.call(player.links, function (link, index) {
                 link.addEventListener('click', function (e) {
+                    sidebarWrapper.classList.remove('in');
                     displayBand(index);
                 });
             });
