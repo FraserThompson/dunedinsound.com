@@ -8,7 +8,7 @@ categories:
     - knee_splitter
     - humanoid_shell
     - abschaumer
-    - meth_christ
+    - methchrist
     - machina_rex
 layout: post
 parent: Gigs
@@ -50,10 +50,10 @@ media:
         mp3:
             - title: Full set
               link: knee_splitter/Dunedin City Hardcore Evacuation - Knee Splitter.mp3
-    Meth Christ:
+    Methchrist:
         mp3:
             - title: Full set
-              link: meth_christ/Dunedin City Hardcore Evacuation - Meth Christ.mp3
+              link: methchrist/Dunedin City Hardcore Evacuation - Methchrist.mp3
         vid:
             - link: MwpAbWRFobQ
     Machina Rex:

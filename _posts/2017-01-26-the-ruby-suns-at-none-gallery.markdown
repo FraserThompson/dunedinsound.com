@@ -13,21 +13,18 @@ media:
     Stef Animal:
         mp3:
             -   title: Full set
-        vid:
-            -   link: X8Ufk7tCzwE
     Death and the Maiden:
         mp3:
             -   title: Full set
         vid:
-            -   link: QpNqmupfUNY
-            -   title: Solid Bones
-                link: JI3SGGC-9Vk
-            -   link: g_zGy1dZWOk
+            -   link: vpzgkn68MlM
+            -   link: hd8Yfm1kKO4
     The Ruby Suns:
         mp3:
             -   title: Full set
         vid:
-            -   link: nZOchgKrIXU
-            -   link: Mr7wmawo1kM
+            -   link: dXYxWnGMA_4
+            -   title: Faith (George Michael cover)
+                link: 0gFULWI2uio
 ---
 

@@ -25,14 +25,6 @@ layout: default
       {% if type[1] == category and tile.order == null %}
         {% assign machine_name = tile.title | downcase | replace:' ', '_' | replace: "'", ""  | replace: ",", "" | replace: "!", "" %}
 
-        {% assign image = page.placeholder %}
-
-        {% for file in site.static_files %}
-          {% if file.path contains machine_name and file.path contains "(Small)" %}
-            {% assign image = file.path | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
-          {% endif %}
-        {% endfor %}
-
         {% for post in site.categories[machine_name] limit: 1 %}
           {% assign last_gig = post.date %}
         {% endfor %}
@@ -50,7 +42,7 @@ layout: default
                   <h5><span class="numberOfGigs">{{ site.categories[machine_name].size }}</span> gigs</h5>
                 {% endif %}
               </div>
-              <div class="tile b-lazy" data-src='{{ site.asset_url}}/{{site.data.media.artists[machine_name][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}'></div>
+              <div class="tile b-lazy" data-src='{{ site.asset_url}}/{{site.data.media.artists[machine_name]["small"][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}'></div>
             </a>
           </div>
       {% endif %}

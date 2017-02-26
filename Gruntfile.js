@@ -51,7 +51,7 @@ module.exports = function(grunt) {
           concurrency: "3",
           sizes: [{
             name: "medium",
-            quality: 75,
+            quality: 80,
             rename: false,
             suffix: " (Medium)",
             width: 500
@@ -96,7 +96,7 @@ module.exports = function(grunt) {
             suffix: " (Small)",
             quality: 80,
             rename: false,
-            width: 512
+            width: 500
           }]
         },
         files: [{
@@ -173,6 +173,10 @@ module.exports = function(grunt) {
         // Gig images
         if (file.indexOf("(Medium)") !== -1) {
 
+          if (!(band in data['artists'])) {
+            data['artists'][band] = {'small': [], 'medium': []};
+          }
+
           if (!(gig in data['gigs'])) {
             data['gigs'][gig] = {};
           }
@@ -180,6 +184,8 @@ module.exports = function(grunt) {
           if (!(band in data['gigs'][gig])) {
             data['gigs'][gig][band] = {};
           }
+
+          data['artists'][band]['medium'].push(file);
 
           data['gigs'][gig][band]['images'] = data['gigs'][gig][band]['images'] || []
           data['gigs'][gig][band]['images'].push(file);
@@ -190,10 +196,10 @@ module.exports = function(grunt) {
         if (file.indexOf("(Small)") !== -1) {
 
           if (!(band in data['artists'])) {
-            data['artists'][band] = [];
+            data['artists'][band] = {'small': [], 'medium': []};
           }
 
-          data['artists'][band].push(file);
+          data['artists'][band]['small'].push(file);
         }
       });
 
