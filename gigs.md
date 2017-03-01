@@ -55,7 +55,7 @@ order: 1
 
                     {% assign type = tile.url | split: '/' %}
                     {% assign class = "bottom" %}
-                    {% assign sizing = "col-xs-3" %}
+                    {% assign sizing = "col-xs-6 col-md-4 col-lg-3" %}
 
                     {% unless forloop.index < 5 %}
                     

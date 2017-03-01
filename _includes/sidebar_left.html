@@ -46,7 +46,7 @@
 		{% for post in venue_gigs limit: 3 %}
 			{% unless post.title == page.title %}
 				<div class="tile-wrap small">
-					<a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
+					<a class="tile-link box" href="{{ post.url }}">
 						<span class="label label-default">{{post.date | date: "%d %b %Y"}}</span>
 						<div class="tile-title">
 							<h5>{{post.title}}</h5>
