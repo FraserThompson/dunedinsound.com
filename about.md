@@ -30,6 +30,6 @@ No, I do it because I enjoy doing it.
 
 I've got something to say
 --------------------------
-Want uncompressed images or copies of videos? Or something else? You can contact me here: <a href="mailto:me@fpt.nz">me@fpt.nz</a>
+Want uncompressed images or copies of videos? Or something else? You can contact me here: <a href="mailto:fraser@dunedinsound.com">fraser@dunedinsound.com</a>
 
 <h2>Okay <a onmouseover="speak();" class="trippy" href="/">cool</a></h2>
