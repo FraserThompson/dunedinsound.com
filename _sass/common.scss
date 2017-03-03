@@ -21,9 +21,6 @@ body {
 	width: 100%;
 }
 
-.col-md-offset-3-right {
-	margin-right: 25%;
-}
 
 .right {
 	right: 0px;
@@ -79,10 +76,13 @@ a {
 
 footer {
 	z-index: 9999;
-	margin-top: 60px;
 	height: 300px;
 	border-top: 40px solid white;
 	background-color: black;
+
+	&.margin-top {
+		margin-top: 60px;
+	}
 
 	.container {
 		background-color: black;
@@ -225,6 +225,11 @@ h1 {
 	transform: skewY(10deg) scaleY(5) scaleX(10) rotateZ(360deg) translateX(0px);
 }
 @media (min-width:768px) {
+	
+	.col-md-offset-3-right {
+		margin-right: 25%;
+	}
+
 	.cover-the-top {
 		position: static;
 		z-index: auto;
