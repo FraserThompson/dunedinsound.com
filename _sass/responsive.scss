@@ -42,21 +42,4 @@
         padding: 0px 0px 0px 0px;
     }
 
-    #post-page {
-        top: $header-height;
-    }
-
-	.post-header {
-		.text {
-		    position: absolute;
-		    z-index: 100;
-		    top: 0px;
-		    width: 100%;
-		}
-
-		.banner {
-			 overflow: auto;
-		}
-
-	}
 }

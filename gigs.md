@@ -1,7 +1,7 @@
 ---
 title: Gigs
 permalink: "/"
-layout: default
+layout: default-slim-header
 colors: 
     - "#212121"
     - "#141414"
@@ -10,7 +10,7 @@ colors:
 order: 1
 ---
 
-<div class="cover-the-top" id="gigs" >
+<div id="gigs" >
     <div class="container-fluid gigs">
         <div class="row">
             <div class="col-xs-12 col-sm-8">
@@ -46,11 +46,11 @@ order: 1
                         <div class="row year-title" style="padding-left: 15px; padding-right: 15px;">
                             <h2>{{site.posts[4].date  | date: "%Y"}}</h2>
                         </div>
-                        <div class="row month-container" style="padding-left: 15px; padding-right: 15px; background-color: {% cycle "#212121", "#141414" %}">
+                        <div class="row month-container">
                             <div class="col-xs-12 month-title">
                                 <h3>{{site.posts[4].date | date: "%B"}}</h3>
                             </div>
-                            <div class="col-xs-12">
+                            <div class="col-xs-12 no-padding-left-right">
                 {% for tile in site.posts %}
 
                     {% assign type = tile.url | split: '/' %}
@@ -76,20 +76,20 @@ order: 1
                                     <div class="row year-title" style="padding-left: 15px; padding-right: 15px;">
                                         <h2>{{ next_year }}</h2>
                                     </div>
-                                    <div class="row month-container" style="padding-left: 15px; padding-right: 15px; background-color: {% cycle "#212121", "#141414" %}">
+                                    <div class="row month-container">
                                         <div class="col-xs-12 month-title">
                                             <h3>{{ next_month }}</h3>
                                         </div>
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-12 no-padding-left-right">
                         {% else %}
                             {% if next_month != this_month %}
                                 </div>
                                 </div>
-                                <div class="row month-container" style="padding-left: 15px; padding-right: 15px; background-color: {% cycle "#212121", "#141414" %}">
-                                    <div class="col-xs-12">
+                                <div class="row month-container">
+                                    <div class="col-xs-12 month-title">
                                         <h3>{{ next_month }}</h3>
                                     </div>
-                                    <div class="col-xs-12">
+                                    <div class="col-xs-12 no-padding-left-right">
                             {% endif %}
                         {% endif %}
 

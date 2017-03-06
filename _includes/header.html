@@ -1,10 +1,9 @@
 {% if page.layout == "post" %}
     {% include player.html %}
 {% endif %}
-<nav class="header navbar navbar-default">
+<nav class="header navbar navbar-default {% if page.layout == 'default-slim-header' or page.parent == 'Artists' or page.parent == 'Venues' %} slimmed {% endif %}">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
+    <div class="navbar-header {% if page.layout != 'post' %} hidden-xs {% endif %}">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
           <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
@@ -16,7 +15,6 @@
         <a class="navbar-brand hidden-xs" href="/"hidden-xs>DunedinSound</a>
       {% endif %}
     </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div id="top-nav" style="text-align: center">
       {% if page.layout == "tiles" and page.searchable == true %}
         <div class="search navbar-form">
@@ -30,6 +28,6 @@
         <li class="{% if page.parent == 'Artists' or page.title == 'Artists' %}active{% endif %}"><a href="/artists/">Artists</a></li>
 		    <li class="{% if page.parent == 'Venues' or page.title == 'Venues' %}active{% endif %}"><a href="/venues/">Venues</a></li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>

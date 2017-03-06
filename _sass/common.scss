@@ -38,10 +38,14 @@ body {
 }
 
 .page-wrapper {
-	top: $header-height;
+	margin-top: ($header-height * 2) - 20;
+
+	&.slimmed-header {
+		margin-top: $header-height - 20;
+	}
+
 	height: 100%;
 	width: 100%;
-	position: relative;
 }
 
 .no-margin-padding {
@@ -79,10 +83,6 @@ footer {
 	border-top: 40px solid white;
 	background-color: black;
 
-	&.margin-top {
-		margin-top: 60px;
-	}
-
 	.container {
 		background-color: black;
 	}
@@ -98,10 +98,6 @@ footer {
 
 h1, h2, h3 {
 	font-family: $header-font;
-}
-
-h1 {
-	font-size: 3em;
 }
 
 
@@ -224,6 +220,15 @@ h1 {
 	transform: skewY(10deg) scaleY(5) scaleX(10) rotateZ(360deg) translateX(0px);
 }
 @media (min-width:768px) {
+
+	.page-wrapper {
+		margin-top: $header-height;
+
+		&.slimmed-header {
+			margin-top: $header-height;
+		}
+
+	}
 	
 	.col-md-offset-3-right {
 		margin-right: 25%;

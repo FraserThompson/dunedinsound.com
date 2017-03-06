@@ -92,6 +92,19 @@
     -moz-transition: background-color 0.5s ease;
     transition: background-color 0.5s ease;
 
+	&.slimmed {
+		height: $header-height - 20;
+
+		#top-nav {
+			height: 50px;
+			li>a {
+				height: 50px;
+				line-height: 25px;
+			}
+		}
+
+	}
+
 	&.dimmed {
 		background-color: rgba(0,0,0,0.3) !important;
 	}
@@ -214,3 +227,18 @@
         }
     }
 }
+
+@media (min-width:768px) {
+	.header {
+		&.slimmed {
+			height: $header-height;
+			#top-nav {
+				li>a{
+					height: $header-height;
+					line-height: $header-height / 2;
+				}
+			}
+		}
+	}
+}
+
