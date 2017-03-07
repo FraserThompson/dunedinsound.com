@@ -35,9 +35,12 @@
 			</div>
 		{% endif %}
 	{% endfor %}
+
+	{% assign venue_machine_name = page.venue | downcase | replace:" ", "_" | replace: ",", "" | replace: "!", "" %}
+
 	<div id="moreFrom_{{venue}}" class="moreFrom" style='background-color: {% cycle "black", "#111111" %}'>
 		<div style="padding-top: 10px;">
-			<p>More at <a title="More gigs at {{venue}}" href="/venues/{{page.venue}}" target="_blank">{{page.venue}}</a></p>
+			<p>More at <a title="More gigs at {{venue}}" href="/venues/{{venue_machine_name}}" target="_blank">{{page.venue}}</a></p>
 		</div>
 		{% assign venue_gigs = site.posts | where: "venue", page.venue  %}
 		{% assign gigs_number = venue_gigs | size %}
@@ -59,7 +62,7 @@
 		{% endfor %}
 		
 		{% if gigs_not_displayed > 0 %} 
-			<a style="float:right; padding-right: 10px;" title="More gigs at {{page.venue}}" href="/venues/{{page.venue}}" target="_blank"><small> + {{gigs_not_displayed}} more </small></a>
+			<a style="float:right; padding-right: 10px;" title="More gigs at {{page.venue}}" href="/venues/{{venue_machine_name}}" target="_blank"><small> + {{gigs_not_displayed}} more </small></a>
 		{% endif %}
 	</div>
 	<div style="padding-top: 10px; padding-left: 10px;">

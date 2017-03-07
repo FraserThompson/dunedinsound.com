@@ -47,6 +47,11 @@
 	overflow: hidden;
 }
 
+.sorted-tiles {
+	position: relative;
+	min-height: 90vh;
+}
+
 .tile-wrap {
 	overflow: hidden;
 	padding: 0;
@@ -95,6 +100,11 @@
 
 	&.feature {
 		height: 96vh !important;
+
+		.tile-title {
+			bottom: 20px;
+			min-height: auto;
+		}
 	}
 
 
