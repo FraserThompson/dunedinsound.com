@@ -1,9 +1,4 @@
 .gig-sorting {
-	position: fixed;
-	width: 100px;
-	z-index: 5000;
-	left: 0px;
-
 	background-color: rgba(0,0,0,0.4);
 	-webkit-transition: opacity 0.5s ease;
     -moz-transition: opacity 0.5s ease;
@@ -13,6 +8,11 @@
 		visibility: visible;
 	  	opacity: 1;
 	}
+}
+
+#more {
+	position: static;
+	height: 100%;
 }
 
 .nav-custom {
@@ -44,13 +44,11 @@
 }
 
 @media (min-width:768px) {
-	// .gig-sorting {
-	// 	display: block;
-	// 	position: static;
-	// 	z-index: auto;
-	// 	overflow: auto;
-	// 	height: 100%;
-	// }
+	#more {
+		position: relative;
+		overflow: auto;
+		height: 96vh;
+	}
 }
 
 .year-title {

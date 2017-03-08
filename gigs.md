@@ -26,77 +26,15 @@ order: 1
                 {% endfor %}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-4">
+        <div class="col-xs-12 col-sm-4" id="more">
             <div class="row sorted-tiles">
-                {% for tile in site.posts limit: 4 %}
-
+                {% for tile in site.posts%}
                     {% assign type = tile.url | split: '/' %}
                     {% assign class = "bottom thinner" %}
-
                     {% unless forloop.first %}
                         {% include gig_tile.html %}
                     {% endunless %}
                 {% endfor %}
             </div>
         </div>
-        <div class="col-xs-12" id="more">
-            <div class="row sorted-tiles no-margin">
-                <div class="row year-container">
-                    <div class="col-xs-12">
-                        <div class="row year-title" style="padding-left: 15px; padding-right: 15px;">
-                            <h2>{{site.posts[4].date  | date: "%Y"}}</h2>
-                        </div>
-                        <div class="row month-container">
-                            <div class="col-xs-12 month-title">
-                                <h3>{{site.posts[4].date | date: "%B"}}</h3>
-                            </div>
-                            <div class="col-xs-12 no-padding-left-right">
-                {% for tile in site.posts %}
-
-                    {% assign type = tile.url | split: '/' %}
-                    {% assign class = "bottom" %}
-                    {% assign sizing = "col-xs-6 col-md-4 col-lg-3" %}
-
-                    {% unless forloop.index < 5 %}
-                    
-                        {% capture this_year %}{{ tile.date | date: "%Y" }}{% endcapture %}
-                        {% capture this_month %}{{ tile.date | date: "%B" }}{% endcapture %}
-                        {% capture next_year %}{{ tile.previous.date | date: "%Y" }}{% endcapture %}
-                        {% capture next_month %}{{ tile.previous.date | date: "%B" }}{% endcapture %}
-
-                        {% include gig_tile.html %}
-
-                        {% if next_year != this_year %}
-                            </div>
-                            </div>
-                            </div>
-                            </div>
-                            <div class="row year-container">
-                                <div class="col-xs-12">
-                                    <div class="row year-title" style="padding-left: 15px; padding-right: 15px;">
-                                        <h2>{{ next_year }}</h2>
-                                    </div>
-                                    <div class="row month-container">
-                                        <div class="col-xs-12 month-title">
-                                            <h3>{{ next_month }}</h3>
-                                        </div>
-                                        <div class="col-xs-12 no-padding-left-right">
-                        {% else %}
-                            {% if next_month != this_month %}
-                                </div>
-                                </div>
-                                <div class="row month-container">
-                                    <div class="col-xs-12 month-title">
-                                        <h3>{{ next_month }}</h3>
-                                    </div>
-                                    <div class="col-xs-12 no-padding-left-right">
-                            {% endif %}
-                        {% endif %}
-
-                    {% endunless %}
-
-                {% endfor %}
-            </div>
-        </div> 
-    </div>
 </div>
