@@ -167,6 +167,18 @@
 		padding-top: 0px;
 		height: $header-height;
 	}
+	
+	.header {
+		&.slimmed {
+			height: $header-height;
+			#top-nav {
+				li>a{
+					height: $header-height;
+					line-height: $header-height / 2;
+				}
+			}
+		}
+	}
 
 	.search {
 		margin-top: 10px;
@@ -184,6 +196,11 @@
 			line-height: $header-height;
 			top: auto;
 		}
+	}
+
+	.fixed {
+		position: fixed !important;
+		z-index: 9000;
 	}
 
 	#top-nav {
@@ -227,18 +244,3 @@
         }
     }
 }
-
-@media (min-width:768px) {
-	.header {
-		&.slimmed {
-			height: $header-height;
-			#top-nav {
-				li>a{
-					height: $header-height;
-					line-height: $header-height / 2;
-				}
-			}
-		}
-	}
-}
-
