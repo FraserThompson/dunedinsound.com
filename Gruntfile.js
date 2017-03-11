@@ -54,7 +54,7 @@ module.exports = function(grunt) {
             quality: 80,
             rename: false,
             suffix: " (Medium)",
-            width: 500
+            width: 800
           },{
             name: "large",
             quality: 85,
