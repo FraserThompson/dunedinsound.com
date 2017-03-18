@@ -18,7 +18,7 @@ r(function(){
     var nb_videos = videos.length;
     for (var i=0; i<nb_videos; i++) {
         // Based on the YouTube ID, we can easily find the thumbnail image
-        videos[i].style.backgroundImage = 'url(http://i.ytimg.com/vi/' + videos[i].id + '/hqdefault.jpg)';
+        videos[i].style.backgroundImage = 'url(http://i.ytimg.com/vi/' + videos[i].id + '/maxresdefault.jpg)';
 
         // Overlay the Play icon to make it look like a video player
         var play = document.createElement("div");
