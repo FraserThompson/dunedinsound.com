@@ -64,7 +64,7 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          src: ['**/*.{JPG,jpg}'],
+          src: ['**/*{!cover,!band_cover}.{JPG,jpg}'],
           cwd: '_originals/img',
           dest: 'assets/img'
         }]
@@ -92,11 +92,11 @@ module.exports = function(grunt) {
           engine: "gm",
           concurrency: "3",
           sizes: [{
-            name: "small",
+            name: "medium",
             suffix: " (Small)",
-            quality: 80,
+            quality: 75,
             rename: false,
-            width: 500
+            width: 1024
           }]
         },
         files: [{

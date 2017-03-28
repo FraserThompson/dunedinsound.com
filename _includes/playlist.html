@@ -24,7 +24,13 @@
                 </a>
             {% endif %}
         {% else %}
-        <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-artist="{{band[0]}}" data-machinename='{{ machine_name }}'>{{band[0]}}</a>
+        <button title="Play/Pause" class="btn btn-success playButton" style="display: none;" data-index="{{ forloop.index }}">
+            <span class="play">▶</span>
+            <span class="pause" style="display: none">❙❙</span>
+        </button>
+        <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-artist="{{band[0]}}" data-machinename="{{ machine_name }}" data-numberofphotos="{{ photos_number }}">
+                    {{band[0]}}
+        </a>
         {% endif %}
         </li>
     {% endfor %}
