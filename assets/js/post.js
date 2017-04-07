@@ -232,6 +232,10 @@ post.waveformInit = function() {
         var videos = document.getElementById(player.links[currentBand].dataset.machinename + "_video")
         if (videos) { videos.style.display = "block"; }
 
+        if (!wavesurfer.isPlaying()) {
+            player.load(currentBand, function() {});
+        }
+
         selectedArtist.innerHTML = player.links[currentBand].dataset.artist;
 
         blazy.revalidate();
