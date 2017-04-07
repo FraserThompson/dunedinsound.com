@@ -1,6 +1,6 @@
 ---
 title: "Boaz Anema at Dog With Two Tails"
-date: 2017-01-07 07:00:00 Z
+date: 2017-01-12 07:00:00 Z
 categories:
     - boaz_anema
 layout: post
