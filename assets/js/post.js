@@ -324,7 +324,7 @@ post.waveformInit = function() {
     
     }, afterHide: function() {
         var youtube_embed = document.getElementById("youtube_container");
-        youtube_embed.parentNode.removeChild(youtube_embed);
+        youtube_embed.outerHTML = "";
     }});
 
     // Start it up

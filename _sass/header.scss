@@ -212,6 +212,7 @@
 		position: static;
 
 		li>a{
+			margin-right: 0px;
 			height: $header-height;
 			line-height: $header-height / 2;
 		}
