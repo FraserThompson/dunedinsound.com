@@ -1,5 +1,9 @@
 <div id="waveform_wrapper">
-    <div class="length-wrapper" style="left: 0px;">
+    <button title="Play/Pause" id="universalPlayButton" class="btn btn-success">
+        <span class="play">▶</span>
+        <span class="pause" style="display: none">❙❙</span>
+    </button>
+    <div class="length-wrapper" style="left: 40px;">
         <span id="currentTime"></span>
     </div>
     {% if page.media[0].link %}

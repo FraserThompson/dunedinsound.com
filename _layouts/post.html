@@ -16,9 +16,12 @@ type: posts
 			<div class="vid" id="{{machine_name}}_video" style="display: none;">
 				{% for vid in band[1].vid %}
 					<div class="col-xs-12 col-sm-6 {% if number_of_pics <= 6 %} col-md-6 col-lg-6 {% else %} col-md-4 col-lg-4 {% endif %} no-padding">
-						<div class="youtube" id="{{vid.link}}" data-params="vq=hd720">
-							{% if vid.title %} <h4>{{vid.title}}</h4> {% endif %}
+						<a href="http://i.ytimg.com/vi/{{vid.link}}/maxresdefault.jpg">
+						<div class="box youtube" id="{{vid.link}}">
+							<h4>{% if vid.title %}Video: {{vid.title}}{% endif %}</h4>
+							<img src="http://i.ytimg.com/vi/{{vid.link}}/maxresdefault.jpg" width="100%" height="auto" style="margin: 0; padding: 0;" alt="{{vid.link}}"/>
 						</div>
+						</a>
 					</div>
 				{% endfor %}
 			</div>

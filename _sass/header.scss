@@ -42,6 +42,7 @@
 	}
 
 	li>a {
+		margin-right: -6px;
 		height: $header-height - 20;
 		line-height: ($header-height - 20) / 2;
 	}
@@ -96,10 +97,10 @@
 		height: $header-height - 20;
 
 		#top-nav {
-			height: 50px;
+			height: 40px;
 			li>a {
-				height: 50px;
-				line-height: 25px;
+				height: 40px;
+				line-height: 20px;
 			}
 		}
 

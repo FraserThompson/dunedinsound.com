@@ -69,22 +69,37 @@
 	}
 }
 
-/* START Fast & Agile YouTube Embed by Schoberg.net */
-.youtube { /* continer (responsive) */
+
+.youtube {
   position: relative;
   cursor: pointer;
-  background: #ccc no-repeat center center / cover; 
+  background: black no-repeat center center / cover; 
   padding-bottom: 74.9%; /* 4:3 */
   height: 0;
   clear:both;
 
   h4 {
+    color: #c8c8c8;
+    position: absolute;
+    top: 0px;
 	  padding: 15px;
 	  margin: 0px !important;
   }
+
+  img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 
-.youtube::before { /* play bubble */
+.youtube:hover {
+  h4 {
+    color: white;
+  }
+}
+
+.youtube::before {
   content: '';
   background: rgba(255, 255, 255, .6);
   height: 80px;
@@ -100,7 +115,7 @@
   z-index:1;
 }
 
-.youtube:hover::before { /* play bubble hover */
+.youtube:hover::before {
   background: rgba(238, 238, 238, .8);
   box-shadow: 0 0 10px 3px rgba(51, 51, 51, .8);
   width: 100px;
@@ -108,7 +123,7 @@
   margin: -50px 0 0 -50px;
 }
 
-.youtube::after { /* Play Triangle */
+.youtube::after {
   content: '';
   width: 0;
   height: 0;
@@ -125,15 +140,21 @@
   width: 0;
   z-index:2;
 } 
-.youtube iframe{ /* youtube embed (responsive) */
-  width:100%;
-  height:100%;
-  position:absolute;
-  top:0;
-  left:0;
-  z-index:3;
+
+#youtube_embed{
+    position: absolute;
+    top: -50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
-/* END Fast & Agile YouTube Embed by Schoberg.net */
+
+#youtube_container{
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+}
 
 @media (min-width:768px) {
 

@@ -5,7 +5,7 @@ categories:
     - tenzin_choegyal
 layout: post
 parent: Gigs
-venue: Crown Hotel
+venue: Refuel
 image: /assets/img/Tenzin%20Choegyal%20at%20ReFuel/cover.jpg
 media:
     Tenzin Choegyal:

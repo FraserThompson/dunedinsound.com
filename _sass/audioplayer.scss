@@ -1,3 +1,18 @@
+#universalPlayButton {
+    position: absolute;
+	left: 0px;
+	border-radius: 50%;
+    z-index: 5;
+    top: 10px;
+
+	&.playing {
+		color: white !important;
+		background-color: orange !important;
+		background-image: none;
+		border-color: darkorange !important;
+	}
+}
+
 #waveform {
 	opacity: 1;
     -webkit-transition: opacity 250ms ease-in-out;

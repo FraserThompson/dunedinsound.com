@@ -26,19 +26,41 @@ post.waveformInit = function() {
             playPause: document.getElementsByClassName('playButton'),
             play: document.getElementById('play'),
             pause: document.getElementById('pause'),
+            universalPlayButton: document.getElementById('universalPlayButton')
         },
+        paused: false,
         play: function (index) {
+            player.paused = false;
+
+            player.buttons.universalPlayButton.classList.remove("paused");
+            player.buttons.universalPlayButton.classList.add("playing");
+            player.buttons.universalPlayButton.children[0].style.display = "none";
+            player.buttons.universalPlayButton.children[1].style.display = "";
+
             player.buttons.playPause[index || player.currentSong].classList.remove("paused");
             player.buttons.playPause[index || player.currentSong].classList.add("playing");
             player.buttons.playPause[index || player.currentSong].children[0].style.display = "none";
             player.buttons.playPause[index || player.currentSong].children[1].style.display = "";
         },
         pause: function (index) {
+            player.paused = true;
+
+            player.buttons.universalPlayButton.classList.add("paused");
+            player.buttons.universalPlayButton.children[0].style.display = "";
+            player.buttons.universalPlayButton.children[1].style.display = "none";
+
             player.buttons.playPause[index || player.currentSong].classList.add("paused");
             player.buttons.playPause[index || player.currentSong].children[0].style.display = "";
             player.buttons.playPause[index || player.currentSong].children[1].style.display = "none";
         },
         stop: function (index) {
+            player.paused = false;
+
+            player.buttons.universalPlayButton.classList.remove("playing");
+            player.buttons.universalPlayButton.classList.remove("paused");
+            player.buttons.universalPlayButton.children[0].style.display = "";
+            player.buttons.universalPlayButton.children[1].style.display = "none"; 
+
             player.buttons.playPause[index || player.currentSong].classList.remove("playing");
             player.buttons.playPause[index || player.currentSong].classList.remove("paused");
             player.buttons.playPause[index || player.currentSong].children[0].style.display = "";
@@ -77,10 +99,15 @@ post.waveformInit = function() {
             }, 500)
         },
         load: function (index, cb) {
+
+            player.paused = false;
+
             if (!jsons[index]) {
                 loadJSON(player.links[index].dataset.mp3, function(data, filename) {
                     jsons[index] = data;
-                    wavesurfer.load(filename, JSON.parse(data));
+                    if (data){
+                        wavesurfer.load(filename, JSON.parse(data));
+                    }
                     cb();
                 });
             } else {
@@ -127,6 +154,13 @@ post.waveformInit = function() {
                     sidebarWrapper.classList.remove('in');
                     displayBand(index);
                 });
+            });
+
+            player.buttons.universalPlayButton.addEventListener('click', function(event) {
+                if (player.currentSong == -1) {
+                    player.currentSong = currentBand;
+                }
+                wavesurfer.playPause();
             });
         }
     }
@@ -232,7 +266,7 @@ post.waveformInit = function() {
         var videos = document.getElementById(player.links[currentBand].dataset.machinename + "_video")
         if (videos) { videos.style.display = "block"; }
 
-        if (!wavesurfer.isPlaying()) {
+        if (!wavesurfer.isPlaying() && !player.paused) {
             player.load(currentBand, function() {});
         }
 
@@ -260,12 +294,37 @@ post.waveformInit = function() {
     window.addEventListener("resize", player.redraw());
 
     // Setup the lightbox thing
-    baguetteBox.run('.pic', { onChange: function(currentIndex, imagesCount) {
-        // if (currentIndex == photoIndexes[currentBand]) {
-        //     displayBand(currentBand + 1)
-        // } else if (currentIndex < photoIndexes[parseInt(currentBand) - 1]) {
-        //     displayBand(currentBand - 1)
-        // }
+    baguetteBox.run('.pic');
+
+    baguetteBox.run('.vid', {onChange: function (currentIndex) {
+        var lightbox = document.getElementById('baguetteBox-figure-' + currentIndex);
+
+        var youtube_embed = document.getElementById("youtube_embed");
+        if (youtube_embed) { youtube_embed.parentNode.removeChild(youtube_embed); }
+
+        var img = lightbox.getElementsByTagName('img')[0]
+        img.style.display = "block";
+
+        var container = document.createElement("div");
+        var iframe = document.createElement("iframe");
+
+        var iframe_url = "https://www.youtube.com/embed/" + img.alt + "?autoplay=1&autohide=1&vq=hd720";
+
+        iframe.setAttribute("id", "youtube_embed");
+        iframe.setAttribute("src", iframe_url);
+        iframe.setAttribute("frameborder",'0');
+        iframe.setAttribute("allowfullscreen", "yes");
+
+        container.setAttribute("id", "youtube_container");
+
+        img.style.display = "none"
+        
+        container.appendChild(iframe);
+        lightbox.appendChild(container);
+    
+    }, afterHide: function() {
+        var youtube_embed = document.getElementById("youtube_container");
+        youtube_embed.parentNode.removeChild(youtube_embed);
     }});
 
     // Start it up
