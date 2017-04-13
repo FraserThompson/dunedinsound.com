@@ -14,28 +14,30 @@ media:
         mp3:
             -   title: Full set
         vid:
-            -   title: Koizilla at ReFuel Pint Night 4/12/17 - 1
+            -   title: Koizilla at ReFuel Pint Night 12/4/17 - 1
                 link: BgEWJlYG24U
 
-            -   title: Koizilla at ReFuel Pint Night 4/12/17 - Hot Water
+            -   title: Koizilla at ReFuel Pint Night 12/4/17 - Hot Water
                 link: i42Fll23CQw
 
-            -   title: Koizilla at ReFuel Pint Night 4/12/17 - 3
+            -   title: Koizilla at ReFuel Pint Night 12/4/17 - 3
                 link: QH-P1VjJf4Y
     Anarchy Drive:
         mp3:
             -   title: Full set
         vid: 
-            -   title: Anarchy Drive at ReFuel Pint Night 4/12/17 - 1
+            -   title: Anarchy Drive at ReFuel Pint Night 12/4/17 - 1
                 link: nVPzRb4Fo5g
 
-            -   title: Anarchy Drive at ReFuel Pint Night 4/12/17 - 2
+            -   title: Anarchy Drive at ReFuel Pint Night 12/4/17 - 2
                 link: hYEW2b9SFIg
     Yung Nat$:
         mp3:
             -   title: Full set
         vid:
-            -   title: Yung Nat$ at ReFuel Pint Night 4/12/17
+            -   title: Yung Nat$ at ReFuel Pint Night 12/4/17 - 1
                 link: iScNKmngRLY
+            -   title: Yung Nat$ at ReFuel Pint Night 12/4/17 - 2
+                link: VYx-dVLtQPQ
 ---
 
