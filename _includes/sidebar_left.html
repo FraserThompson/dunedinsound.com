@@ -41,7 +41,7 @@
 	{% assign gigs_number = venue_gigs | size %}
 	{% assign gigs_not_displayed = gigs_number | minus: 2 %}
 
-	{% if venue_gigs > 1 %}
+	{% if venue_gigs.size > 1 %}
 	<div id="moreFrom_{{venue}}" class="moreFrom" style='background-color: {% cycle "black", "#111111" %}'>
 		<div style="padding-top: 10px;">
 			<p>More at <a title="More gigs at {{venue}}" href="/venues/{{venue_machine_name}}" target="_blank">{{page.venue}}</a></p>
