@@ -29,6 +29,8 @@
 
 .post-header {
 	height: 50vh;
+	overflow:hidden;
+	
 	.text {
 	    position: absolute;
 	    z-index: 100;
