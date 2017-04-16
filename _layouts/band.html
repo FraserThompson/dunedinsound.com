@@ -7,16 +7,39 @@ layout: default-slim-header
 <article class="band container-fluid" id="band">
   <header class="post-header row">
     <div class="banner">
-        <div class="banner b-lazy" data-src="{{site.asset_url}}/{{site.data.media.artists[machine_name]['medium'][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}"></div>
+
+        {% assign number_images = site.data.media.artists[machine_name]['medium'] | size %}
+        {% assign images = site.data.media.artists[machine_name]['medium'] | sample: 4 %}
+
+        {% if number_images > 4 %}
+          {% for image in images %}
+          <div class="col-xs-12 col-md-6 col-lg-3" style="height: 100%; padding: 0px;">
+            <div class="banner b-lazy" data-src="{{site.asset_url}}/{{image | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}"></div>
+          </div>
+          {% endfor %}
+        {% else %}
+          {% for image in site.data.media.artists[machine_name]['medium'] limit: 1 %}
+          <div class="col-sm-12" style="height: 100%; padding: 0px;">
+            <div class="banner b-lazy" data-src="{{site.asset_url}}/{{image | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}"></div>
+          </div>
+          {% endfor %}
+        {% endif %}
     </div>
     <div class="text">
       <p>&nbsp;</p>
       <h1 class="huge-header">{{page.title}}</h1>
-      {% if page.facebook %} <center><a href="{{page.facebook}}" target="_blank" class="facebookColor">[Facebook]</a></center> {% endif %}
-      {% if page.bandcamp %} <center><a href="{{page.bandcamp}}" target="_blank" style="color: #477987;">[Bandcamp]</a></center> {% endif %}
-      {% if page.soundcloud %} <center><a href="{{page.soundcloud}}" target="_blank" style="color: orange;">[Soundcloud]</a></center> {% endif %}
+      <div class="social-links"><center>
+        {% if page.facebook %}<a href="{{page.facebook}}" target="_blank" class="btn-facebook">Facebook</a>{% endif %}
+        {% if page.bandcamp %}<a href="{{page.bandcamp}}" target="_blank" class="btn-bandcamp">Bandcamp</a>{% endif %}
+        {% if page.soundcloud %}<a href="{{page.soundcloud}}" target="_blank" class="btn-soundcloud">Soundcloud</a>{% endif %}
+      </center></div>
     </div>
   </header>
+  <div class="divider row" style="background-color: black; color: white;">
+    <div class="col-xs-12">
+      <h3>Past Gigs</h3>
+    </div>
+  </div>
   <div class="row tiles">
 
     {% assign name = page.title | replace:' ','_' | downcase | replace: ",", "" | replace: "!", ""  %}

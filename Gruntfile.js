@@ -92,11 +92,11 @@ module.exports = function(grunt) {
           engine: "gm",
           concurrency: "3",
           sizes: [{
-            name: "medium",
+            name: "small",
             suffix: " (Small)",
             quality: 75,
             rename: false,
-            width: 1024
+            width: 400
           }]
         },
         files: [{
@@ -123,7 +123,7 @@ module.exports = function(grunt) {
         stderr: true
       },
       vagrant_up: {
-        command: 'vagrant up',
+        command: 'vagrant up --provider hyperv',
         stdout: true,
         stderr: true
       },

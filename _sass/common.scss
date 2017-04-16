@@ -175,6 +175,20 @@ h3 {
 	}
 }
 
+.btn-soundcloud {
+	background-color: orange !important;
+	background-image: none;
+	border-color: orangered !important;
+	&:hover,
+	&:focus,
+	&.focus,
+	&:active,
+	&.active {
+		background-color: #ce8500 !important;
+		background-image: none;
+	}
+}
+
 .hover-grow span {
 	-webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
