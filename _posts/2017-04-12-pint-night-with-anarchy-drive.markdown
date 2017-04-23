@@ -4,7 +4,7 @@ date: 2017-04-12 09:00:00 Z
 categories:
     - koizilla
     - anarchy_drive
-    - yung_nat$
+    - yung_natz
 layout: post
 parent: Gigs
 venue: Refuel

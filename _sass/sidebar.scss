@@ -27,12 +27,12 @@
 	background-color:black;
     width: $sidebar-width;
     position: fixed;
-    top: ($header-height * 3) - 20;
 	height: 0;
  	overflow-x: hidden;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     transition: all 0.5s ease;
+	overflow-y: auto;
 
 	&.scrolled {
 		top: ($header-height * 2) - 20 !important;
@@ -138,11 +138,10 @@
     }
 
     .sidebar-wrapper {
-        position: static;
-		height: auto;
+		height: 100vh;
         float: left;
-		min-height: 100vh;
         width: $sidebar-width;
+		top: $header-height;
 
 		&.scrolled {
 			top: 0px !important;

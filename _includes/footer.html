@@ -28,8 +28,17 @@
 	<script type="text/javascript" src="/assets/js/post.js"></script>
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(event) {
+			var container = document.getElementById('sidebar');
+			Ps.initialize(container, {
+				suppressScrollX: true
+			});
     		post.waveformInit();
     	});
+		
+		document.addEventListener('ps-scroll-down', function () {
+			blazy.revalidate();
+		})
+
 	</script>
 {% endif %}
 

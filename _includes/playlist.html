@@ -1,36 +1,27 @@
 <ul class="sidebar-nav lighter" id="playlist" style="padding: 0px;">
     {% for band in page.media %}
         <li>
-        {% assign machine_name = band[0] | downcase | replace:" ", "_" | replace: ",", "" | replace: "!", "" %}
+        {% assign machine_name = band[0] | downcase | machine_name %}
         {% assign photos_number = site.data.media.gigs[page.title][machine_name]['count'] %}
+
         {% if band[1].mp3[0] %}
+
             {% if band[1].mp3[0].link %}
-                <button title="Play/Pause" class="btn btn-success playButton" data-index="{{ forloop.index }}">
-                    <span class="play">▶</span>
-                    <span class="pause" style="display: none">❙❙</span>
-                </button>
-                <a class="downloadButton" title="Download MP3" href="{{site.asset_url}}/assets/audio/{{band[1].mp3[0].link}}" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
-                <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-nodownload="{{band[1].mp3[0].nodownload}}" data-mp3="{{site.asset_url}}/assets/audio/{{band[1].mp3[0].link}}" data-artist="{{band[0]}}" data-machinename="{{ machine_name }}" data-numberofphotos="{{ photos_number }}">
-                    {{band[0]}}
-                </a>
-            {% else if band[1].mp3[0].title %}
-                <button title="Play/Pause" class="btn btn-success playButton" data-index="{{ forloop.index }}">
-                    <span class="play">▶</span>
-                    <span class="pause" style="display: none">❙❙</span>
-                </button>
-                <a class="downloadButton" title="Download MP3" href="{{site.asset_url}}/assets/audio/{{machine_name}}/{{page.title | url_encode | replace: '%2F', '/' | replace: '+', '%20'}} - {{band[0]}}.mp3" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
-                <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-nodownload="{{band[1].mp3[0].nodownload}}" data-mp3="{{site.asset_url}}/assets/audio/{{machine_name}}/{{page.title | url_encode | replace: '%2F', '/' | replace: '+', '%20'}} - {{band[0]}}.mp3" data-artist="{{band[0]}}" data-machinename="{{ machine_name }}" data-numberofphotos="{{ photos_number }}">
-                    {{band[0]}}
-                </a>
+                {% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: band[1].mp3[0].link %}
+            {% elsif band[1].mp3[0].title %}
+                {% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band[0] | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
             {% endif %}
+
+            <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-mp3="{{mp3_link}}" data-artist="{{band[0]}}" data-machinename="{{ machine_name }}" data-numberofphotos="{{ photos_number }}">
+                <span class="play-pause" data-index="{{ forloop.index }}">
+                    <span class="play" style="display: none">▶</span>
+                    <span class="pause" style="display: none">❙❙</span>
+                </span>
+                {{band[0]}}
+            </a>
+
         {% else %}
-        <button title="Play/Pause" class="btn btn-success playButton" style="display: none;" data-index="{{ forloop.index }}">
-            <span class="play">▶</span>
-            <span class="pause" style="display: none">❙❙</span>
-        </button>
-        <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-artist="{{band[0]}}" data-machinename="{{ machine_name }}" data-numberofphotos="{{ photos_number }}">
-                    {{band[0]}}
-        </a>
+            <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-artist="{{band[0]}}" data-machinename="{{ machine_name }}" data-numberofphotos="{{ photos_number }}">{{band[0]}}</a>
         {% endif %}
         </li>
     {% endfor %}

@@ -155,6 +155,12 @@
 	}
 }
 
+.box {
+	width: 100%;
+	padding-bottom: 74.9%;
+	height: 0;
+}
+
 .tile-wrap.smaller {
 	&:hover .tile {
 		@include hover-grow(1.05);

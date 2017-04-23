@@ -21,7 +21,15 @@ body {
 	width: 100%;
 }
 
+.link {
+	color: black;
+	
+}
 
+.link:hover {
+	text-decoration: none;
+	color: #333;
+}
 .right {
 	right: 0px;
 }
@@ -38,7 +46,7 @@ body {
 }
 
 .page-wrapper {
-	margin-top: ($header-height * 2) - 20;
+	margin-top: $header-height - 20;
 
 	&.slimmed-header {
 		margin-top: $header-height - 20;

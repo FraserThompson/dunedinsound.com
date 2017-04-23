@@ -2,7 +2,7 @@
 layout: default-slim-header
 ---
 
-{% assign machine_name = page.title | downcase | replace:' ', '_' | replace: "'", "" %}
+{% assign machine_name = page.title| downcase | machine_name %}
 
 <article class="post container-fluid" id="venue">
 

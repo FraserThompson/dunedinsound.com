@@ -3,7 +3,7 @@ title: "Methchrist, Yung Nat$, OPC, Boognish at The Crown"
 date: 2017-02-24 09:00:00 Z
 categories:
     - boognish
-    - yung_nat$
+    - yung_natz
     - methchrist
     - old_psychiatrists_club 
 layout: post

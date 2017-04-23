@@ -1,5 +1,5 @@
 .playlist-item {
-	padding-left: 25px;
+
 	&:hover,
 	&:focus,
 	&.focus,
@@ -11,9 +11,10 @@
 }
 
 .playButton {
-	position: absolute;
-	left: 0px;
 	border-radius: 50%;
+	position: absolute;
+	left: 3px;
+	font-size: 16px;
 
 	&.playing {
 		color: white !important;
@@ -24,11 +25,9 @@
 }
 
 .downloadButton {
-	text-indent: 5px;
-	position: absolute;
-	left: 220px;
+	color: white;
 
 	&:hover {
-		color: #cccccc !important;
+		color: orange !important;
 	}
 }

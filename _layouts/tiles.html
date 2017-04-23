@@ -23,12 +23,14 @@ layout: default
       {% assign type = tile.url | split: '/' %}
 
       {% if type[1] == category and tile.order == null %}
-        {% assign machine_name = tile.title | downcase | replace:' ', '_' | replace: "'", ""  | replace: ",", "" | replace: "!", "" %}
+
+        {% assign machine_name = tile.title | downcase | machine_name %}
 
         {% for post in site.categories[machine_name] limit: 1 %}
           {% assign last_gig = post.date %}
         {% endfor %}
-          <div class="{{page.spacing}} tile-wrap bottom">
+
+        <div class="{{page.spacing}} tile-wrap bottom">
             <a class="post-link gridItem {{category}} box" href="{{ tile.url | prepend: site.baseurl }}">
               <div class="tile-title bottom">
                 <h4 class="name">{{ tile.title }} {% if tile.origin %} ({{tile.origin}}) {% endif %}</h4>

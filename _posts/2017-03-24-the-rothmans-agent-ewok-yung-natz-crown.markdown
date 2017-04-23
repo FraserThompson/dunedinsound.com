@@ -4,7 +4,7 @@ date: 2017-03-24 09:00:00 Z
 categories:
     - resident_good
     - m.i.l
-    - yung_nat$
+    - yung_natz
     - agent_ewok
     - the_rothmans
     - sewage

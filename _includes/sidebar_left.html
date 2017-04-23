@@ -19,7 +19,7 @@
 							<a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
 								<span class="label label-default">{{post.date | date: "%d %b %Y"}}</span>
 								<div class="tile-title">
-									<h5>{{post.title}}</h5>
+									<h5 style="margin-bottom: 2px;">{{post.title}}</h5>
 									<p><small>{{ post.venue }}</small></p>
 								</div>
 								<div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][machine_name]['images'][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}">

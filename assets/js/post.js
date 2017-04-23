@@ -22,6 +22,7 @@ post.waveformInit = function() {
         currentTime: document.getElementById('currentTime'),
         links: document.querySelectorAll('#playlist .playlist-item'),
         currentSong: -1,
+        playPause: document.getElementsByClassName('play-pause'),
         buttons: {
             playPause: document.getElementsByClassName('playButton'),
             play: document.getElementById('play'),
@@ -29,42 +30,51 @@ post.waveformInit = function() {
             universalPlayButton: document.getElementById('universalPlayButton')
         },
         paused: false,
-        play: function (index) {
+        setPlayButtonState: function (element, state) {
+            if (state == "playing") {
+                element.classList.remove("paused");
+                element.classList.add("playing");
+                element.children[0].style.display = "none";
+                element.children[1].style.display = "";
+            } else if (state == "paused") {
+                element.classList.add("paused");
+                element.children[0].style.display = "";
+                element.children[1].style.display = "none";
+            } else if (state == "stopped") {
+                element.classList.remove("playing");
+                element.classList.remove("paused");
+                element.children[0].style.display = "";
+                element.children[1].style.display = "none"; 
+            } else if (state == "really stopped") {
+                element.classList.remove("playing");
+                element.classList.remove("paused");
+                element.children[0].style.display = "none";
+                element.children[1].style.display = "none"; 
+            }
+        },
+        play: function () {
             player.paused = false;
 
-            player.buttons.universalPlayButton.classList.remove("paused");
-            player.buttons.universalPlayButton.classList.add("playing");
-            player.buttons.universalPlayButton.children[0].style.display = "none";
-            player.buttons.universalPlayButton.children[1].style.display = "";
+            player.setPlayButtonState(player.buttons.universalPlayButton, "playing");
+            player.setPlayButtonState(player.buttons.playPause[player.currentSong], "playing");
+            player.setPlayButtonState(player.playPause[player.currentSong], "paused");
 
-            player.buttons.playPause[index || player.currentSong].classList.remove("paused");
-            player.buttons.playPause[index || player.currentSong].classList.add("playing");
-            player.buttons.playPause[index || player.currentSong].children[0].style.display = "none";
-            player.buttons.playPause[index || player.currentSong].children[1].style.display = "";
         },
-        pause: function (index) {
+        pause: function () {
             player.paused = true;
 
-            player.buttons.universalPlayButton.classList.add("paused");
-            player.buttons.universalPlayButton.children[0].style.display = "";
-            player.buttons.universalPlayButton.children[1].style.display = "none";
+            player.setPlayButtonState(player.buttons.universalPlayButton, "paused");
+            player.setPlayButtonState(player.buttons.playPause[player.currentSong], "paused");
+            player.setPlayButtonState(player.playPause[player.currentSong], "playing");
 
-            player.buttons.playPause[index || player.currentSong].classList.add("paused");
-            player.buttons.playPause[index || player.currentSong].children[0].style.display = "";
-            player.buttons.playPause[index || player.currentSong].children[1].style.display = "none";
         },
-        stop: function (index) {
+        stop: function () {
             player.paused = false;
 
-            player.buttons.universalPlayButton.classList.remove("playing");
-            player.buttons.universalPlayButton.classList.remove("paused");
-            player.buttons.universalPlayButton.children[0].style.display = "";
-            player.buttons.universalPlayButton.children[1].style.display = "none"; 
+            player.setPlayButtonState(player.buttons.universalPlayButton, "stopped");
+            player.setPlayButtonState(player.buttons.playPause[player.currentSong], "stopped");
+            player.setPlayButtonState(player.playPause[player.currentSong], "really stopped");
 
-            player.buttons.playPause[index || player.currentSong].classList.remove("playing");
-            player.buttons.playPause[index || player.currentSong].classList.remove("paused");
-            player.buttons.playPause[index || player.currentSong].children[0].style.display = "";
-            player.buttons.playPause[index || player.currentSong].children[1].style.display = "none";
         },
         updateDuration: function () {
             return function() {
@@ -102,15 +112,13 @@ post.waveformInit = function() {
 
             player.paused = false;
 
-            if (!jsons[index]) {
+            if (player.links[index].dataset.mp3 && !jsons[index]) {
                 loadJSON(player.links[index].dataset.mp3, function(data, filename) {
                     jsons[index] = data;
-                    if (data){
-                        wavesurfer.load(filename, JSON.parse(data));
-                    }
+                    if (data) wavesurfer.load(filename, JSON.parse(data));
                     cb();
                 });
-            } else {
+            } else if(player.links[index].dataset.mp3) {
                 wavesurfer.load(player.links[index].dataset.mp3, JSON.parse(jsons[index]));
                 cb();
             }
@@ -124,7 +132,14 @@ post.waveformInit = function() {
                 return;
             }
 
-            if (player.currentSong >= 0) player.stop(player.currentSong);
+            if (player.currentSong >= 0) {
+                player.stop(player.currentSong);
+
+                player.setPlayButtonState(player.buttons.playPause[player.currentSong], "stopped")
+                player.setPlayButtonState(player.playPause[player.currentSong], "really stopped")
+
+            }
+
             player.currentSong = index;
 
             player.load(player.currentSong, function() {
@@ -145,7 +160,7 @@ post.waveformInit = function() {
 
             Array.prototype.forEach.call(player.buttons.playPause, function (button, index) {
                 button.addEventListener('click', function (e) {
-                    player.setCurrentSong(index);
+                    player.setCurrentSong(this.dataset.index);
                 });
             });
 
@@ -240,16 +255,8 @@ post.waveformInit = function() {
         xobj.send(null);
     };
 
-
     /* Updates the DOM when a new band is selected */
     var displayBand = function (index, first) {
-
-        // hide the old
-        player.links[currentBand].classList.remove('active');
-        var photos = document.getElementById(player.links[currentBand].dataset.machinename + "_photo");
-        if (photos) { photos.style.display = "none"; }
-        var videos = document.getElementById(player.links[currentBand].dataset.machinename + "_video")
-        if (videos) { videos.style.display = "none"; }
 
         currentBand = index;
         
@@ -259,12 +266,6 @@ post.waveformInit = function() {
         } else if (first) {
             player.load(currentBand, function() {});
         }
-        // show the new
-        player.links[currentBand].classList.add('active');
-        var photos = document.getElementById(player.links[currentBand].dataset.machinename + "_photo")
-        if (photos) { photos.style.display = "block"; }
-        var videos = document.getElementById(player.links[currentBand].dataset.machinename + "_video")
-        if (videos) { videos.style.display = "block"; }
 
         if (!wavesurfer.isPlaying() && !player.paused) {
             player.load(currentBand, function() {});
@@ -283,18 +284,12 @@ post.waveformInit = function() {
             backToTop.classList.remove('visible');
         }
 
-        if ((document.documentElement.scrollTop || document.body.scrollTop) > (headerHeight)){
-            sidebarWrapper.classList.add("scrolled");
-        } else {
-            sidebarWrapper.classList.remove("scrolled"); 
-        }
-
     });
 
     window.addEventListener("resize", player.redraw());
 
     // Setup the lightbox thing
-    baguetteBox.run('.pic');
+    baguetteBox.run('.gig-media');
 
     baguetteBox.run('.vid', {onChange: function (currentIndex) {
         var lightbox = document.getElementById('baguetteBox-figure-' + currentIndex);
@@ -326,6 +321,25 @@ post.waveformInit = function() {
         var youtube_embed = document.getElementById("youtube_container");
         youtube_embed.outerHTML = "";
     }});
+
+    // Scrolling
+    smoothScroll.init({
+        selector: '.playlist-item',
+        speed: 500,
+        selectorHeader: '.header',
+        easing: 'easeInOutCubic'
+    });
+
+    gumshoe.init({
+        selector: '.playlist-item',
+        selectorHeader: '.header',
+        activeClass: 'active',
+        scrollDelay: false,
+        offset: +10,
+        callback: function (nav) {
+            if (nav) selectedArtist.innerHTML = nav.nav.dataset.artist;
+        }
+    });
 
     // Start it up
     player.attachEventHandlers();

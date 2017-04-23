@@ -29,9 +29,11 @@
 
 #waveform_wrapper {
 	height: $header-height;
+	opacity: 0;
     width: 100%;
-    top: ($header-height * 2) - 20;
-	position: absolute;
+	z-index: 1001;
+	position: fixed;
+    bottom: 0px;
 }
 
 @media (min-width:768px) {

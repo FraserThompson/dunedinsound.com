@@ -7,7 +7,7 @@ categories:
     - tyrannosaurus_wreck
     - scumbeat
     - knee_splitter
-    - yung_nat$
+    - yung_natz
     - log_horn_breed
     - moral_turpentine
     - ayn_randy
@@ -42,7 +42,7 @@ media:
     Yung Nat$:
         mp3:
             - title: Full set
-              link: yung_nat$/Onslaught 12 - Yung Nat$.mp3
+              link: yung_natz/Onslaught 12 - Yung Nat$.mp3
     Log Horn Breed:
         mp3:
             - title: Full set

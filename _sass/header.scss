@@ -2,6 +2,7 @@
 	overflow:hidden;
 	white-space: nowrap;
     float: right;
+	width: 50%;
 	text-overflow: ellipsis;
 
 	&.slim {
@@ -190,8 +191,7 @@
 
     .header {
 		height: $header-height;
-        z-index: 0;
-	    position: absolute;
+        z-index: 1000;
 
 		.navbar-text {
 			line-height: $header-height;
@@ -238,6 +238,7 @@
 
 	.navbar-brand {
         float: left;
+		width: auto;
         &.slim {
 			padding: 0px;
 			white-space: pre-wrap;
