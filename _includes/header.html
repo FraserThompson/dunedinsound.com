@@ -10,7 +10,7 @@
           <span id="selectedArtist" style="font-size: 18px; padding-left: 10px;"></span>
       </button>
       {% if page.layout == "post" %}
-        <a class="navbar-brand nohover">{{ page.title }} <small>{{ page.date | date: "%D" }}</small></a>
+        <a class="navbar-brand nohover">{{ page.title }} <small>{{ page.date | date: "%d/%m/%y" }}</small></a>
       {% else %}
         <a class="navbar-brand hidden-xs" href="/"hidden-xs>DunedinSound</a>
       {% endif %}

@@ -46,3 +46,18 @@ Previously I was letting Jekyll take care of the assets and iterating site.stati
 * production-build: Resizes images, syncs assets, builds with jekyll but doesn't deploy to S3
 * images: Resizes images and generates the media info for them
 * audio: Launches the vagrant VM, runs convert.sh to trim silence and export mp3's and waveforms, then copies the results into the assets folder.
+
+### Provisioning a VM which can generate waveforms
+
+The included Vagrantfile uses Hyper-V so you'll have to be running Windows and have it enabled. You'll also need to make a public network interface in the Hyper-V config and choose to use it when Vagrant asks at `vagrant up`.
+
+Gotcha: When it prompts you for SMB password/user don't type them for like 10 minutes or it'll give you some error about locks. Apparently it takes longer to get ready.
+
+Then run these inside the VM:
+
+```
+sudo apt-get update
+sudo apt-get install cifs-utils ruby-dev lame sox libsndfile1-dev
+sudo gem install json-waveform -- --with-cflags=-Wno-error=format-security
+sudo mount -t cifs -o username=Fraser,uid=$USER,gid=$USER //FRASER-FRASER/dev2 ~/sync
+```

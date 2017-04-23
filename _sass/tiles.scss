@@ -11,6 +11,10 @@
 
 .b-lazy.b-error {
 	background-color: #888888;
+	background: -webkit-linear-gradient(#888888, black);
+    background: -o-linear-gradient(#888888, black);
+    background: -moz-linear-gradient(#888888, black);
+    background: linear-gradient(#888888, black); 
 	opacity: 1;
 }
 

@@ -11,7 +11,7 @@
 		{% if gigs_number > 1 %}
 			<div id="moreFrom_{{machine_name}}" class="moreFrom" style='background-color: {% cycle "black", "#111111" %}'>
 				<div style="padding-top: 10px;">
-					<p>More from <a title="More gigs from {{band[0]}}" href="/artists/{{machine_name}}" target="_blank">{{band[0]}}</a></p>
+					<p>More from <a title="More gigs from {{band[0]}}" href="/artists/{{machine_name}}">{{band[0]}}</a></p>
 				</div>
 				{% for post in site.categories[machine_name] | limit: 2 %}
 					{% unless post.title == page.title %}
@@ -30,7 +30,7 @@
 				{% endfor %}
 				
 				{% if gigs_not_displayed > 0 %} 
-					<a style="float:right; padding-right: 10px;" title="More gigs from {{band[0]}}" href="/artists/{{machine_name}}" target="_blank"><small> + {{gigs_not_displayed}} more </small></a>
+					<a style="float:right; padding-right: 10px;" title="More gigs from {{band[0]}}" href="/artists/{{machine_name}}"><small> + {{gigs_not_displayed}} more </small></a>
 				{% endif %}
 			</div>
 		{% endif %}
@@ -44,7 +44,7 @@
 	{% if venue_gigs.size > 1 %}
 	<div id="moreFrom_{{venue}}" class="moreFrom" style='background-color: {% cycle "black", "#111111" %}'>
 		<div style="padding-top: 10px;">
-			<p>More at <a title="More gigs at {{venue}}" href="/venues/{{venue_machine_name}}" target="_blank">{{page.venue}}</a></p>
+			<p>More at <a title="More gigs at {{venue}}" href="/venues/{{venue_machine_name}}">{{page.venue}}</a></p>
 		</div>
 
 		{% for post in venue_gigs limit: 3 %}
@@ -63,7 +63,7 @@
 		{% endfor %}
 		
 		{% if gigs_not_displayed > 0 %} 
-			<a style="float:right; padding-right: 10px;" title="More gigs at {{page.venue}}" href="/venues/{{venue_machine_name}}" target="_blank"><small> + {{gigs_not_displayed}} more </small></a>
+			<a style="float:right; padding-right: 10px;" title="More gigs at {{page.venue}}" href="/venues/{{venue_machine_name}}"><small> + {{gigs_not_displayed}} more </small></a>
 		{% endif %}
 	</div>
 	{% endif %}

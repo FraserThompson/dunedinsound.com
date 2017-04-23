@@ -128,7 +128,7 @@ module.exports = function(grunt) {
         stderr: true
       },
       vagrant_audio: {
-        command: 'vagrant ssh -c /vagrant/convert.sh',
+        command: 'vagrant ssh -c /home/vagrant/sync/dunedinsound/convert.sh',
         stdout: true,
         stderr: true,
         options: {
