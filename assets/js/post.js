@@ -45,7 +45,7 @@ var loadJSON = function (filename, callback) {
 post.waveformInit = function() {
     const WAVEFORM_HEIGHT = "50";
     const HEADER_HEIGHT = 60;
-    const WAVEFORM_COLOR = "#555";
+    const WAVEFORM_COLOR = "#cccccc";
 
     var threshold = window.innerHeight * 1.5;
 
@@ -137,19 +137,21 @@ post.waveformInit = function() {
                 }
             }, 500)
         },
-        load: function (index, cb) {
+        load: function (index, prelim, cb) {
 
             player.paused = false;
 
-            if (player.artists[index].dataset.mp3 && !jsons[index]) {
+            if (player.artists[index].dataset.mp3) {
                 loadJSON(player.artists[index].dataset.mp3, function(data, filename) {
-                    jsons[index] = data;
-                    if (data) wavesurfer[index].load(filename, JSON.parse(data));
+                    if (!prelim) {
+                        wavesurfer[index].load(filename, JSON.parse(data), "metadata");
+                        jsons[index] = true;
+                    } else {
+                        wavesurfer[index].load("/assets/audio/empty.mp3", JSON.parse(data), "metadata");
+                        jsons[index] = false;
+                    }
                     if (cb) cb();
                 });
-            } else if(player.artists[index].dataset.mp3) {
-                wavesurfer[index].load(player.artists[index].dataset.mp3, JSON.parse(jsons[index]));
-                if (cb) cb();
             }
         },
         setCurrentSong: function (index) {
@@ -157,15 +159,26 @@ post.waveformInit = function() {
                 wavesurfer[player.currentSong].stop();
                 player.stop(player.currentSong)();
             }
+
             wavesurfer[index].playPause();
             player.currentSong = index;
+
         },
         attachEventHandlers: function() {
 
             /* The playbuttons */
             Array.prototype.forEach.call(player.buttons.playPause, function (button, index) {
                 button.addEventListener('click', function (e) {
-                    player.setCurrentSong(this.dataset.index);
+                    var index = this.dataset.index;
+
+                    if (!jsons[index]){
+                        player.load(index, false, function() {
+                            player.setCurrentSong(index);
+                        });
+                    } else {
+                        player.setCurrentSong(index);
+                    }
+
                 });
             });
 
@@ -207,7 +220,7 @@ post.waveformInit = function() {
                 player.setCurrentSong((player.currentSong + 1) % player.artists.length);
             });
 
-            player.load(i);
+            player.load(i, true);
         } else {
             wavesurfer[i] = null;
         }

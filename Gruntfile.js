@@ -51,10 +51,10 @@ module.exports = function(grunt) {
           concurrency: "3",
           sizes: [{
             name: "medium",
-            quality: 70,
+            quality: 30,
             rename: false,
             suffix: " (Medium)",
-            width: 600
+            width: 400
           },{
             name: "large",
             quality: 85,
