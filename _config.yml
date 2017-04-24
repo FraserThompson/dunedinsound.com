@@ -33,6 +33,8 @@ exclude:
 - Gruntfile.js
 - package.json
 - node_modules
+- README.md
+- docker
 include:
 - _pages
 - _pages/artists
@@ -42,4 +44,3 @@ sass:
 markdown: kramdown
 gems:
 - jemoji
-- jekyll-seo-tag

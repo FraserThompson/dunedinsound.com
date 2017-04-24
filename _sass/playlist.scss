@@ -10,20 +10,6 @@
 	}
 }
 
-.playButton {
-	border-radius: 50%;
-	position: absolute;
-	left: 3px;
-	font-size: 16px;
-
-	&.playing {
-		color: white !important;
-		background-color: orange !important;
-		background-image: none;
-		border-color: darkorange !important;
-	}
-}
-
 .downloadButton {
 	color: white;
 

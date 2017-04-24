@@ -3,7 +3,7 @@
 	left: 0px;
 	border-radius: 50%;
     z-index: 5;
-    top: 10px;
+    top: 100px;
 
 	&.playing {
 		color: white !important;
@@ -13,35 +13,49 @@
 	}
 }
 
-#waveform {
+.waveform {
 	opacity: 1;
     -webkit-transition: opacity 250ms ease-in-out;
-   -moz-transition: opacity 250ms ease-in-out;
-        transition: opacity 250ms ease-in-out;
+   	-moz-transition: opacity 250ms ease-in-out;
+    transition: opacity 250ms ease-in-out;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .length-wrapper {
 	background: rgba(0, 0, 0, 0.6);
-	z-index: 5;
+	color: #c8c8c8;
+	z-index: 10;
 	position: absolute;
-	top: 20px;
+	bottom: 20px;
 }
 
 #waveform_wrapper {
-	height: $header-height;
-	opacity: 0;
-    width: 100%;
-	z-index: 1001;
-	position: fixed;
-    bottom: 0px;
+	height: 60px;
+	opacity: 1;
+	width: 100%
 }
 
 @media (min-width:768px) {
     #waveform_wrapper {
-        opacity: 0;
-        width: auto;
-        top: 0px;
-	    left: $sidebar-width;
-        right: 220px;
+        opacity: 1;
     }
+}
+
+.playButton {
+	border-radius: 50%;
+	position: absolute;
+	left: 3px;
+	z-index: 5;
+	top: 10px;
+	font-size: 16px;
+	background-color: #999;
+
+	&.playing {
+		color: white !important;
+		background-color: orange !important;
+		background-image: none;
+		border-color: darkorange !important;
+	}
 }

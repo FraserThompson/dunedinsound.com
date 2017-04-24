@@ -1,35 +1,76 @@
 var post = post || {};
 
+/* helper functions */
+// Debounces a function so it'll only be run a sensible amount of times per second
+var debounce = function (func, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+};
+
+// Loads JSON from a remote 
+var loadJSON = function (filename, callback) {   
+
+    var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+
+    xobj.open('GET', filename + ".json", true);
+
+    xobj.onload = function() {
+            var status = xobj.status;
+            if (status == 200) {
+            callback(xobj.responseText, filename);
+            } else {
+            console.log(status);
+            callback(null);
+            }
+    };
+
+    xobj.onerror = function() {
+        callback(null);
+    }
+    
+    xobj.send(null);
+};
+
 post.waveformInit = function() {
+    const WAVEFORM_HEIGHT = "50";
+    const HEADER_HEIGHT = 60;
+    const WAVEFORM_COLOR = "#555";
+
     var threshold = window.innerHeight * 1.5;
-    var headerHeight = 60;
 
-    var jsons = {};
-    var bandIndexes = {};
+    var jsons = {}; // for caching the json files we get
+    var bandIndexes = {}; // mapping machine names to index numbers
+    var photoIndexes = []; // counting photos for each band
+    var wavesurfer = []; // all the wavesurfer objects
 
-    /* DOM Elements */
+    /* General DOM Elements */
     var backToTop = document.getElementById('back-to-top');
-    var header = document.getElementById('header');
-    var navbar = document.getElementById('navigation-wrapper');
     var navbar_brand = document.getElementsByClassName("navbar-brand")[0];
     var selectedArtist = document.getElementById("selectedArtist");
     var sidebarWrapper = document.getElementsByClassName("sidebar-wrapper")[0];
 
+    /* Player methods and elements */
     var player = {
-        waveform: document.getElementById('waveform'),
-        waveform_wrapper: document.getElementById('waveform_wrapper'),
-        length: document.getElementById('length'),
-        currentTime: document.getElementById('currentTime'),
-        links: document.querySelectorAll('#playlist .playlist-item'),
+        waveforms: document.getElementsByClassName('waveform'),
+        length: document.getElementsByClassName('length'),
+        currentTime: document.getElementsByClassName('currentTime'),
+        artists: document.querySelectorAll('#playlist .playlist-item'),
         currentSong: -1,
         playPause: document.getElementsByClassName('play-pause'),
         buttons: {
             playPause: document.getElementsByClassName('playButton'),
-            play: document.getElementById('play'),
-            pause: document.getElementById('pause'),
-            universalPlayButton: document.getElementById('universalPlayButton')
         },
-        paused: false,
         setPlayButtonState: function (element, state) {
             if (state == "playing") {
                 element.classList.remove("paused");
@@ -52,59 +93,47 @@ post.waveformInit = function() {
                 element.children[1].style.display = "none"; 
             }
         },
-        play: function () {
-            player.paused = false;
-
-            player.setPlayButtonState(player.buttons.universalPlayButton, "playing");
-            player.setPlayButtonState(player.buttons.playPause[player.currentSong], "playing");
-            player.setPlayButtonState(player.playPause[player.currentSong], "paused");
-
-        },
-        pause: function () {
-            player.paused = true;
-
-            player.setPlayButtonState(player.buttons.universalPlayButton, "paused");
-            player.setPlayButtonState(player.buttons.playPause[player.currentSong], "paused");
-            player.setPlayButtonState(player.playPause[player.currentSong], "playing");
-
-        },
-        stop: function () {
-            player.paused = false;
-
-            player.setPlayButtonState(player.buttons.universalPlayButton, "stopped");
-            player.setPlayButtonState(player.buttons.playPause[player.currentSong], "stopped");
-            player.setPlayButtonState(player.playPause[player.currentSong], "really stopped");
-
-        },
-        updateDuration: function () {
+        play: function (index) {
             return function() {
-                player.waveform.style.opacity = 1;
-                var time = wavesurfer.getDuration();
-                var mins = ~~(time / 60);
-                var secs = ("0" + ~~(time % 60)).slice(-2);
-                player.length.innerHTML = mins + ":" + secs;
+                player.setPlayButtonState(player.buttons.playPause[index], "playing");
+                player.setPlayButtonState(player.playPause[index], "paused");
             }
         },
-        updateTime: function () {
+        pause: function (index) {
             return function() {
-                var time = wavesurfer.getCurrentTime();
-                var mins = ~~(time / 60);
-                var secs = ("0" + ~~(time % 60)).slice(-2);
-                player.currentTime.innerHTML = mins + ":" + secs;
+                player.setPlayButtonState(player.buttons.playPause[index], "paused");
+                player.setPlayButtonState(player.playPause[index], "playing");
             }
         },
-        show: function() {
-            player.waveform_wrapper.style.opacity = "1";
-            player.currentTime.innerHTML = "";
+        stop: function (index) {
+            return function() {
+                player.setPlayButtonState(player.buttons.playPause[index], "stopped");
+                player.setPlayButtonState(player.playPause[index], "really stopped");
+            }
         },
-        hide: function() {
-            player.waveform_wrapper.style.opacity = "0";
+        updateDuration: function (index) {
+            return function() {
+                var time = wavesurfer[index].getDuration();
+                var mins = ~~(time / 60);
+                var secs = ("0" + ~~(time % 60)).slice(-2);
+                player.length[index].innerHTML = mins + ":" + secs;
+            }
+        },
+        updateTime: function (index) {
+            return function() {
+                var time = wavesurfer[index].getCurrentTime();
+                var mins = ~~(time / 60);
+                var secs = ("0" + ~~(time % 60)).slice(-2);
+                player.currentTime[index].innerHTML = mins + ":" + secs;
+            }
         },
         redraw: function() {
             return debounce(function() {
-                if (!wavesurfer.isPlaying()) {
-                    wavesurfer.empty();
-                    wavesurfer.drawBuffer();
+                for (var i = 0; i < wavesurfer.length; i++) {
+                    if (wavesurfer[i] && !wavesurfer[i].isPlaying()) {
+                        wavesurfer[i].empty();
+                        wavesurfer[i].drawBuffer();
+                    }
                 }
             }, 500)
         },
@@ -112,95 +141,78 @@ post.waveformInit = function() {
 
             player.paused = false;
 
-            if (player.links[index].dataset.mp3 && !jsons[index]) {
-                loadJSON(player.links[index].dataset.mp3, function(data, filename) {
+            if (player.artists[index].dataset.mp3 && !jsons[index]) {
+                loadJSON(player.artists[index].dataset.mp3, function(data, filename) {
                     jsons[index] = data;
-                    if (data) wavesurfer.load(filename, JSON.parse(data));
-                    cb();
+                    if (data) wavesurfer[index].load(filename, JSON.parse(data));
+                    if (cb) cb();
                 });
-            } else if(player.links[index].dataset.mp3) {
-                wavesurfer.load(player.links[index].dataset.mp3, JSON.parse(jsons[index]));
-                cb();
+            } else if(player.artists[index].dataset.mp3) {
+                wavesurfer[index].load(player.artists[index].dataset.mp3, JSON.parse(jsons[index]));
+                if (cb) cb();
             }
         },
-        setCurrentSong: function (index, dontplay) {
-
-            navbar_brand.classList.add("slim");
-
-            if (!dontplay && index == player.currentSong) {
-                wavesurfer.playPause();
-                return;
+        setCurrentSong: function (index) {
+            if (player.currentSong != -1 && index != player.currentSong) {
+                wavesurfer[player.currentSong].stop();
+                player.stop(player.currentSong)();
             }
-
-            if (player.currentSong >= 0) {
-                player.stop(player.currentSong);
-
-                player.setPlayButtonState(player.buttons.playPause[player.currentSong], "stopped")
-                player.setPlayButtonState(player.playPause[player.currentSong], "really stopped")
-
-            }
-
+            wavesurfer[index].playPause();
             player.currentSong = index;
-
-            player.load(player.currentSong, function() {
-                player.show();
-                if (!dontplay) wavesurfer.play();
-            });
         },
         attachEventHandlers: function() {
 
-            wavesurfer.on('play', player.play);
-            wavesurfer.on('pause', player.pause);
-            wavesurfer.on('ready', player.updateDuration());
-            wavesurfer.on('audioprocess', player.updateTime());
-            wavesurfer.on('seek', player.updateTime());
-            wavesurfer.on('finish', function () {
-                player.setCurrentSong((player.currentSong + 1) % player.links.length);
-            });
-
+            /* The playbuttons */
             Array.prototype.forEach.call(player.buttons.playPause, function (button, index) {
                 button.addEventListener('click', function (e) {
                     player.setCurrentSong(this.dataset.index);
                 });
             });
 
-            Array.prototype.forEach.call(player.links, function (link, index) {
+            /* The sidebar artist links */
+            Array.prototype.forEach.call(player.artists, function (link, index) {
                 link.addEventListener('click', function (e) {
                     sidebarWrapper.classList.remove('in');
                     displayBand(index);
                 });
             });
-
-            player.buttons.universalPlayButton.addEventListener('click', function(event) {
-                if (player.currentSong == -1) {
-                    player.currentSong = currentBand;
-                }
-                wavesurfer.playPause();
-            });
         }
     }
 
-    var wavesurfer = WaveSurfer.create({
-        container: player.waveform,
-        waveColor: 'orange',
-        height: "60",
-        hideScrollbar: true,
-        normalize: true,
-        pixelRatio: "1",
-        progressColor: '#BCFA88',
-        barWidth: '2',
-        backend: 'MediaElement'
-    })
+    /* Initialize bands */
+    for (i = 0; i < player.artists.length; i++) {
 
-    // Map bandnames to indexes
-    for (i = 0; i < player.links.length; i++) {
-        bandIndexes[player.links[i].dataset.machinename] = i;
-    }
+        bandIndexes[player.artists[i].dataset.machinename] = i;
 
-    // Map photo counts to bands
-    var photoIndexes = [];
-    for (i = 0; i < player.links.length; i++ ){
-        photoIndexes[i] = parseInt(player.links[i].dataset.numberofphotos);
+        if (player.artists[i].dataset.mp3) {
+            
+            wavesurfer[i] = WaveSurfer.create({
+                container: player.waveforms[i],
+                waveColor: WAVEFORM_COLOR,
+                height: WAVEFORM_HEIGHT,
+                hideScrollbar: true,
+                normalize: true,
+                pixelRatio: "1",
+                progressColor: 'orange',
+                barWidth: '2',
+                backend: 'MediaElement'
+            });
+
+            wavesurfer[i].on('play', player.play(i));
+            wavesurfer[i].on('pause', player.pause(i));
+            wavesurfer[i].on('ready', player.updateDuration(i));
+            wavesurfer[i].on('audioprocess', player.updateTime(i));
+            wavesurfer[i].on('seek', player.updateTime(i));
+            wavesurfer[i].on('finish', function () {
+                player.setCurrentSong((player.currentSong + 1) % player.artists.length);
+            });
+
+            player.load(i);
+        } else {
+            wavesurfer[i] = null;
+        }
+
+        photoIndexes[i] = parseInt(player.artists[i].dataset.numberofphotos);
         if (i > 0) {
             j = i - 1;
             do {
@@ -212,117 +224,20 @@ post.waveformInit = function() {
 
     var currentBand = location.hash ? bandIndexes[(location.hash.split('#')[1])] : 0;
 
-    /* helper functions */
-
-    // Debounces a function so it'll only be run a sensible amount of times per second
-    var debounce = function (func, wait, immediate) {
-        var timeout;
-        return function() {
-            var context = this, args = arguments;
-            var later = function() {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
-            };
-            var callNow = immediate && !timeout;
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-            if (callNow) func.apply(context, args);
-        };
-    };
-
-    // Loads JSON from a remote 
-    var loadJSON = function (filename, callback) {   
-
-        var xobj = new XMLHttpRequest();
-            xobj.overrideMimeType("application/json");
-
-        xobj.open('GET', filename + ".json", true);
-
-        xobj.onload = function() {
-              var status = xobj.status;
-              if (status == 200) {
-                callback(xobj.responseText, filename);
-              } else {
-                console.log(status);
-                callback(null);
-              }
-        };
-
-        xobj.onerror = function() {
-            callback(null);
-        }
-        
-        xobj.send(null);
-    };
-
-    /* Updates the DOM when a new band is selected */
     var displayBand = function (index, first) {
-
-        currentBand = index;
-        
-        // show the player by default if no photos
-        if (player.links[currentBand].dataset.numberofphotos == 0) {
-            player.setCurrentSong(currentBand, true);
-        } else if (first) {
-            player.load(currentBand, function() {});
-        }
-
-        if (!wavesurfer.isPlaying() && !player.paused) {
-            player.load(currentBand, function() {});
-        }
-
-        selectedArtist.innerHTML = player.links[currentBand].dataset.artist;
-
+        selectedArtist.innerHTML = player.artists[currentBand].dataset.artist;
         blazy.revalidate();
     };
 
+    /* Scroll stuff */
     window.addEventListener("scroll", function() {
-
         if ((document.documentElement.scrollTop || document.body.scrollTop) > threshold){
             backToTop.classList.add('visible');
         } else {
             backToTop.classList.remove('visible');
         }
-
     });
 
-    window.addEventListener("resize", player.redraw());
-
-    // Setup the lightbox thing
-    baguetteBox.run('.gig-media');
-
-    baguetteBox.run('.vid', {onChange: function (currentIndex) {
-        var lightbox = document.getElementById('baguetteBox-figure-' + currentIndex);
-
-        var youtube_embed = document.getElementById("youtube_embed");
-        if (youtube_embed) { youtube_embed.parentNode.removeChild(youtube_embed); }
-
-        var img = lightbox.getElementsByTagName('img')[0]
-        img.style.display = "block";
-
-        var container = document.createElement("div");
-        var iframe = document.createElement("iframe");
-
-        var iframe_url = "https://www.youtube.com/embed/" + img.alt + "?autoplay=1&autohide=1&vq=hd720";
-
-        iframe.setAttribute("id", "youtube_embed");
-        iframe.setAttribute("src", iframe_url);
-        iframe.setAttribute("frameborder",'0');
-        iframe.setAttribute("allowfullscreen", "yes");
-
-        container.setAttribute("id", "youtube_container");
-
-        img.style.display = "none"
-        
-        container.appendChild(iframe);
-        lightbox.appendChild(container);
-    
-    }, afterHide: function() {
-        var youtube_embed = document.getElementById("youtube_container");
-        youtube_embed.outerHTML = "";
-    }});
-
-    // Scrolling
     smoothScroll.init({
         selector: '.playlist-item',
         speed: 500,
@@ -335,13 +250,49 @@ post.waveformInit = function() {
         selectorHeader: '.header',
         activeClass: 'active',
         scrollDelay: false,
-        offset: +10,
         callback: function (nav) {
             if (nav) selectedArtist.innerHTML = nav.nav.dataset.artist;
         }
     });
 
+    window.addEventListener("resize", player.redraw());
+
+    /* Lightbox stuff */
+    baguetteBox.run('.gig-media', {onChange: function (currentIndex) {
+
+        var lightbox = document.getElementById('baguetteBox-figure-' + currentIndex);
+        var img = lightbox.getElementsByTagName('img')[0]
+
+        var youtube_embed = document.getElementById("youtube_container");
+        if (youtube_embed) youtube_embed.parentNode.removeChild(youtube_embed);
+
+        if (img.alt != "image") {
+
+            img.style.display = "block";
+
+            var container = document.createElement("div");
+            var iframe = document.createElement("iframe");
+
+            var iframe_url = "https://www.youtube.com/embed/" + img.alt + "?autoplay=1&autohide=1&vq=hd720";
+
+            iframe.setAttribute("id", "youtube_embed");
+            iframe.setAttribute("src", iframe_url);
+            iframe.setAttribute("frameborder",'0');
+            iframe.setAttribute("allowfullscreen", "yes");
+
+            container.setAttribute("id", "youtube_container");
+
+            img.style.display = "none"
+            
+            container.appendChild(iframe);
+            lightbox.appendChild(container);
+        }
+
+    }, afterHide: function() {
+        var youtube_embed = document.getElementById("youtube_container");
+        if (youtube_embed) youtube_embed.outerHTML = "";
+    }});
+
     // Start it up
     player.attachEventHandlers();
-    displayBand(currentBand, true);
 };

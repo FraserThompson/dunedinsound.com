@@ -12,7 +12,7 @@ type: posts
 		{% assign machine_name = band[0] | downcase | machine_name %}
 		
 		<div class="divider row" id="{{machine_name}}" style="background-color: white; color: black;">
-			<div class="col-xs-12" style="height: 40px;">
+			<div class="col-xs-12" style="height: 40px; padding-left: 10px;">
 				{% if band[1].mp3[0] %}
 
 					{% if band[1].mp3[0].link %}
@@ -21,20 +21,28 @@ type: posts
 						{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band[0] | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
 					{% endif %}
 
-					<button title="Play/Pause" class="btn btn-success play-pause playButton" data-index="{{ forloop.index | minus: 1 }}">
-						<span class="play">▶</span>
-						<span class="pause" style="display: none">❙❙</span>
-					</button>
+					<h4 style="text-shadow: none;">
+						<a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band[0]}}</a> 
 
-					<h4 style="padding-left: 30px; text-shadow: none;"><a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band[0]}}</a> {% unless band[1].mp3[0].nodownload %}
-						<a class="downloadButton" title="Download MP3" href="{{mp3_link}}" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
-					{% endunless %}</h4>
+						{% unless band[1].mp3[0].nodownload %}
+							<a class="downloadButton" title="Download MP3" href="{{mp3_link}}" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
+						{% endunless %}
+					</h4>
 
 				{% else %}
 					<h4 style="text-shadow: none;"><a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band[0]}}</a></h4>
+					{% include player.html %}
 				{% endif %}
 			</div>
 		</div>
+
+		{% if band[1].mp3[0] %}
+		<div class="row">
+			<div class="col-xs-12" style="background-color: #111;">
+				{% include player.html %}
+			</div>
+		</div>
+		{% endif %}
 
 		<div class="row gig-media">
 
@@ -43,7 +51,7 @@ type: posts
 			{% if number_of_pics == 0 and number_of_vids == 0 %}
 				<h3> <center>Audio only</center> </h3>
 			{% endif %}
-
+			
 			{% if band[1].vid %}
 				{% assign number_of_vids = band[1].vid | size %}
 					{% for vid in band[1].vid %}
@@ -57,7 +65,6 @@ type: posts
 						</div>
 					{% endfor %}
 			{% endif %}
-
 			{% for gig_image in site.data.media.gigs[page.title][machine_name]['images'] %}
 				{% assign full_pic = gig_image | replace: " (Medium)","" %}
 				<div class= "col-xs-6 col-sm-4 col-md-4 col-lg-4 no-padding hover-img">
@@ -66,7 +73,7 @@ type: posts
 					</div>
 				</div>
 			{% endfor %}
-		</div>
+	</div>
 	{% endfor %}
 
 </div>

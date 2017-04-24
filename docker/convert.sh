@@ -1,5 +1,5 @@
 #!/bin/bash
-for file in /home/vagrant/sync/dunedinsound/_originals/audio/**/*.wav
+for file in /root/audio/**/*.wav
 do
     cd "$(dirname "$file")"
     # Seperate title from extension

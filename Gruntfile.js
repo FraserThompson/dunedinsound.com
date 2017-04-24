@@ -122,13 +122,8 @@ module.exports = function(grunt) {
         stdout: true,
         stderr: true
       },
-      vagrant_up: {
-        command: 'vagrant up --provider hyperv',
-        stdout: true,
-        stderr: true
-      },
-      vagrant_audio: {
-        command: 'vagrant ssh -c /home/vagrant/sync/dunedinsound/convert.sh',
+      docker_audio: {
+        command: 'docker-compose up',
         stdout: true,
         stderr: true,
         options: {
@@ -214,7 +209,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('images', ['responsive_images', 'index-media']);
-  grunt.registerTask('audio', ['exec:vagrant_up', 'exec:vagrant_audio', 'copy:audio']);
+  grunt.registerTask('audio', ['exec:docker_audio', 'copy:audio']);
   grunt.registerTask('production-build', ['responsive_images', 'index-media', 'jekyll', 'sync']);
   grunt.registerTask('code-deploy', ['jekyll', 'exec:s3_push']);
   grunt.registerTask('deploy', ['exec:s3_push']);

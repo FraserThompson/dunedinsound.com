@@ -1,5 +1,5 @@
 var blazy = new Blazy({
-	offset: 500,
+	offset: 250,
   success: function(element){
     setTimeout(function(){
       var parent = element.parentNode;

@@ -3,13 +3,13 @@
 	{% include playlist.html %}
 	{% for band in page.media %}
 
-		{% assign machine_name = band[0] | downcase | replace:" ", "_" | replace: ",", "" | replace: "!", "" %}
+		{% assign machine_name = band[0] | downcase | machine_name %}
 		{% assign gigs_number = site.categories[machine_name].size %}
 		{% assign gigs_not_displayed = site.categories[machine_name].size | minus: 2 %}
 		{% assign photos_number = site.data.media.gigs[page.title][machine_name]['count'] %}
 		
 		{% if gigs_number > 1 %}
-			<div id="moreFrom_{{machine_name}}" class="moreFrom" style='background-color: {% cycle "black", "#111111" %}'>
+			<div id="moreFrom_{{machine_name}}" class="moreFrom" style='background-color: black'>
 				<div style="padding-top: 10px;">
 					<p>More from <a title="More gigs from {{band[0]}}" href="/artists/{{machine_name}}">{{band[0]}}</a></p>
 				</div>
@@ -36,13 +36,13 @@
 		{% endif %}
 	{% endfor %}
 
-	{% assign venue_machine_name = page.venue | downcase | replace:" ", "_" | replace: ",", "" | replace: "!", "" %}
+	{% assign venue_machine_name = page.venue | downcase | machine_name %}
 	{% assign venue_gigs = site.posts | where: "venue", page.venue  %}
 	{% assign gigs_number = venue_gigs | size %}
 	{% assign gigs_not_displayed = gigs_number | minus: 2 %}
 
 	{% if venue_gigs.size > 1 %}
-	<div id="moreFrom_{{venue}}" class="moreFrom" style='background-color: {% cycle "black", "#111111" %}'>
+	<div id="moreFrom_{{venue}}" class="moreFrom" style='background-color: black'>
 		<div style="padding-top: 10px;">
 			<p>More at <a title="More gigs at {{venue}}" href="/venues/{{venue_machine_name}}">{{page.venue}}</a></p>
 		</div>

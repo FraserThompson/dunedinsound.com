@@ -1,6 +1,3 @@
-{% if page.layout == "post" %}
-    {% include player.html %}
-{% endif %}
 <nav class="header navbar navbar-default {% if page.layout == 'default-slim-header' or page.parent == 'Artists' or page.parent == 'Venues' %} slimmed {% endif %} {% if page.layout == 'tiles' %} fixed {% endif %}">
   <div class="container-fluid">
     <div class="navbar-header {% if page.layout != 'post' %} hidden-xs {% endif %}">
@@ -12,7 +9,7 @@
       {% if page.layout == "post" %}
         <a class="navbar-brand nohover">{{ page.title }} <small>{{ page.date | date: "%d/%m/%y" }}</small></a>
       {% else %}
-        <a class="navbar-brand hidden-xs" href="/"hidden-xs>DunedinSound</a>
+        <a class="navbar-brand hidden-xs" href="/"hidden-xs>Dunedin Gig Archives</a>
       {% endif %}
     </div>
     <div id="top-nav" style="text-align: center">

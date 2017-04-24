@@ -21,11 +21,16 @@ npm install
 
 ### Processing Assets
 
+#### Images
 Images from a gig go in _originals/img/[gig name] and then in subdirectories for each artist. There needs to be a gig cover named cover.jpg in the gig directory and artist covers named band_cover.jpg in each artist directory.
+
+Then run `grunt images` to process images.
+
+#### Audio
 
 Audio goes in _originals/audio and then subdirectories for each artist. They need to be WAV files which are named like this: Gig Name - Band Name.wav.
 
-Then run ```grunt images``` to process the images followed by ```grunt audio``` to process the audio.
+Then run `grunt audio` to process the audio.
 
 Once pushed the contents of the _original folder can be deleted.
 
