@@ -10,6 +10,7 @@ type: posts
 	{% for band in page.media %}
 
 		{% assign machine_name = band[0] | downcase | machine_name %}
+		{% assign mp3_link = "" %}
 		
 		<div class="divider row" id="{{machine_name}}" style="background-color: white; color: black;">
 			<div class="col-xs-12" style="height: 40px; padding-left: 10px;">
