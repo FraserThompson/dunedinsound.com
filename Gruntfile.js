@@ -51,10 +51,10 @@ module.exports = function(grunt) {
           concurrency: "3",
           sizes: [{
             name: "medium",
-            quality: 30,
+            quality: 40,
             rename: false,
             suffix: " (Medium)",
-            width: 400
+            width: 600
           },{
             name: "large",
             quality: 85,
@@ -64,7 +64,7 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          src: ['**/*.JPG'],
+          src: ['**/*.jpg'],
           cwd: '_originals/img',
           dest: 'assets/img'
         }]
@@ -96,7 +96,7 @@ module.exports = function(grunt) {
             suffix: " (Small)",
             quality: 75,
             rename: false,
-            width: 400
+            width: 600
           }]
         },
         files: [{
@@ -129,6 +129,11 @@ module.exports = function(grunt) {
         options: {
           maxBuffer: 1024 * 1024 * 64
         }
+      },
+      dev: {
+        command: 'jekyll serve --limit 3',
+        stdout: true,
+        stderr: true
       }
     },
     copy: {
@@ -213,5 +218,5 @@ module.exports = function(grunt) {
   grunt.registerTask('production-build', ['responsive_images', 'index-media', 'jekyll', 'sync']);
   grunt.registerTask('code-deploy', ['jekyll', 'exec:s3_push']);
   grunt.registerTask('deploy', ['exec:s3_push']);
-
+  grunt.registerTask('dev', ['exec:dev']);
 };

@@ -262,6 +262,7 @@ post.waveformInit = function() {
         selector: '.playlist-item',
         selectorHeader: '.header',
         activeClass: 'active',
+        offset: +10,
         scrollDelay: false,
         callback: function (nav) {
             if (nav) selectedArtist.innerHTML = nav.nav.dataset.artist;

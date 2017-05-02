@@ -159,6 +159,10 @@
 	width: 100%;
 	padding-bottom: 74.9%;
 	height: 0;
+
+	&.threebytwo {
+		padding-bottom: 66.66% !important;
+	}
 }
 
 .tile-wrap.smaller {
