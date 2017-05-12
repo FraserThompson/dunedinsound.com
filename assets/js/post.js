@@ -97,6 +97,7 @@ post.waveformInit = function() {
         },
         play: function (index) {
             return function() {
+                player.currentSong = index;
                 player.players[index].children[3].style.display = "none";
                 player.setPlayButtonState(player.buttons.playPause[index], "playing");
                 player.setPlayButtonState(player.playPause[playerIndexes[index]], "paused");
@@ -214,7 +215,7 @@ post.waveformInit = function() {
         wavesurfer[i].on('audioprocess', player.updateTime(i));
         wavesurfer[i].on('seek', player.updateTime(i));
         wavesurfer[i].on('finish', function () {
-            player.setCurrentSong((player.currentSong + 1) % player.artists.length);
+            player.playButtonClick((player.currentSong + 1) % player.players.length)();
         });
 
         player.players[i].childNodes[1].addEventListener('click', player.playButtonClick(i));
