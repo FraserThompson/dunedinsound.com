@@ -16,33 +16,48 @@ type: posts
 			<div class="col-xs-12" style="height: 40px; padding-left: 10px;">
 				{% if band[1].mp3[0] %}
 
-					{% if band[1].mp3[0].link %}
-						{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: band[1].mp3[0].link %}
-					{% elsif band[1].mp3[0].title %}
-						{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band[0] | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
-					{% endif %}
 
 					<h4 style="text-shadow: none;">
-						<a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band[0]}}</a> 
+						<a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band[0]}}</a>
 
-						{% unless band[1].mp3[0].nodownload %}
-							<a class="downloadButton" title="Download MP3" href="{{mp3_link}}" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
-						{% endunless %}
+						{% for mp3 in band[1].mp3 %}
+
+							{% if mp3.link %}
+								{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: mp3.link %}
+							{% elsif mp3.title %}
+								{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band[0] | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+							{% endif %}
+
+							{% unless mp3.nodownload %}
+								<a class="downloadButton" title="Download MP3" href="{{mp3_link}}" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
+							{% endunless %}
+
+						{% endfor %}
+
 					</h4>
 
 				{% else %}
 					<h4 style="text-shadow: none;"><a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band[0]}}</a></h4>
-					{% include player.html %}
 				{% endif %}
 			</div>
 		</div>
 
 		{% if band[1].mp3[0] %}
-		<div class="row">
-			<div class="col-xs-12" style="background-color: #111;">
-				{% include player.html %}
-			</div>
-		</div>
+
+			{% assign bandindex = forloop.index %}
+
+			{% for mp3 in band[1].mp3 %}
+				{% if mp3.link %}
+					{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: mp3.link %}
+				{% elsif mp3.title %}
+					{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band[0] | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+				{% endif %}
+				<div class="row">
+					<div class="col-xs-12 no-padding" style="background-color: #111;">
+						{% include player.html %}
+					</div>
+				</div>
+			{% endfor %}
 		{% endif %}
 
 		<div class="row gig-media">
@@ -56,7 +71,7 @@ type: posts
 			{% if band[1].vid %}
 				{% assign number_of_vids = band[1].vid | size %}
 					{% for vid in band[1].vid %}
-						<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 no-padding">
+						<div class="col-xs-6 {% if number_of_pics <= 8 %} col-sm-6 col-md-6 col-lg-4 {% elsif number_of_pics <= 12 %} col-sm-4 col-md-4 col-lg-3 {% else %} col-sm-4 col-md-4 col-lg-3 {% endif %} no-padding">
 							<a href="http://i.ytimg.com/vi/{{vid.link}}/maxresdefault.jpg">
 							<div class="box youtube {{page.aspectratio}}" id="{{vid.link}}">
 								<h4>{% if vid.title %}Video: {{vid.title}}{% endif %}</h4>
@@ -68,7 +83,7 @@ type: posts
 			{% endif %}
 			{% for gig_image in site.data.media.gigs[page.title][machine_name]['images'] %}
 				{% assign full_pic = gig_image | replace: " (Medium)","" %}
-				<div class= "col-xs-6 col-sm-4 col-md-4 col-lg-3 no-padding hover-img">
+				<div class= "col-xs-6 {% if number_of_pics <= 8 %} col-sm-6 col-md-6 col-lg-4 {% elsif number_of_pics <= 12 %} col-sm-4 col-md-4 col-lg-3 {% else %} col-sm-4 col-md-4 col-lg-3 {% endif %} no-padding hover-img">
 					<div class="box {{page.aspectratio}}">
 						<a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
 					</div>

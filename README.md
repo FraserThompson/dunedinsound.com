@@ -32,7 +32,11 @@ Audio goes in _originals/audio and then subdirectories for each artist. They nee
 
 Then run `grunt audio` to process the audio.
 
+You can also process MP3 files in the same way and it'll handle it.
+
 Once pushed the contents of the _original folder can be deleted.
+
+Protip: Copy the directory structure from images with `xcopy "./_originals/img/[gig title]" "./_originals/audio" /t /e`
 
 #### More explanation
 

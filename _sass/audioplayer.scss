@@ -31,6 +31,23 @@
 	bottom: 20px;
 }
 
+.title-wrapper {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	color: white;
+	bottom: 0px;
+	background: rgba(0,0,0, 0.6);
+	height: 60px;
+
+	h4 {
+		line-height: 60px;
+		height: 60px;
+		vertical-align: middle;
+		margin: 0px
+	}
+}
+
 #waveform_wrapper {
 	height: 60px;
 	opacity: 1;

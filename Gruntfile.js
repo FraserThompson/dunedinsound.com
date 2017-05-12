@@ -51,10 +51,10 @@ module.exports = function(grunt) {
           concurrency: "3",
           sizes: [{
             name: "medium",
-            quality: 40,
+            quality: 60,
             rename: false,
             suffix: " (Medium)",
-            width: 600
+            width: 800
           },{
             name: "large",
             quality: 85,
@@ -94,7 +94,7 @@ module.exports = function(grunt) {
           sizes: [{
             name: "small",
             suffix: " (Small)",
-            quality: 75,
+            quality: 60,
             rename: false,
             width: 600
           }]
@@ -123,7 +123,7 @@ module.exports = function(grunt) {
         stderr: true
       },
       docker_audio: {
-        command: 'docker-compose up',
+        command: 'docker-compose up --build',
         stdout: true,
         stderr: true,
         options: {

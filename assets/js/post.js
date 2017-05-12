@@ -50,6 +50,7 @@ post.waveformInit = function() {
     var threshold = window.innerHeight * 1.5;
 
     var jsons = {}; // for caching the json files we get
+    var playerIndexes = [];
     var bandIndexes = {}; // mapping machine names to index numbers
     var photoIndexes = []; // counting photos for each band
     var wavesurfer = []; // all the wavesurfer objects
@@ -63,6 +64,7 @@ post.waveformInit = function() {
     /* Player methods and elements */
     var player = {
         waveforms: document.getElementsByClassName('waveform'),
+        players: document.getElementsByClassName('player'),
         length: document.getElementsByClassName('length'),
         currentTime: document.getElementsByClassName('currentTime'),
         artists: document.querySelectorAll('#playlist .playlist-item'),
@@ -95,20 +97,34 @@ post.waveformInit = function() {
         },
         play: function (index) {
             return function() {
+                player.players[index].children[3].style.display = "none";
                 player.setPlayButtonState(player.buttons.playPause[index], "playing");
-                player.setPlayButtonState(player.playPause[index], "paused");
+                player.setPlayButtonState(player.playPause[playerIndexes[index]], "paused");
             }
         },
         pause: function (index) {
             return function() {
+                player.players[index].children[3].style.display = "block";
                 player.setPlayButtonState(player.buttons.playPause[index], "paused");
-                player.setPlayButtonState(player.playPause[index], "playing");
+                player.setPlayButtonState(player.playPause[playerIndexes[index]], "playing");
             }
         },
         stop: function (index) {
             return function() {
+                player.players[index].children[3].style.display = "block";
                 player.setPlayButtonState(player.buttons.playPause[index], "stopped");
-                player.setPlayButtonState(player.playPause[index], "really stopped");
+                player.setPlayButtonState(player.playPause[playerIndexes[index]], "really stopped");
+            }
+        },
+        playButtonClick: function(i) {
+            return function() {
+                if (!jsons[i]){
+                    player.load(i, false, function() {
+                        player.setCurrentSong(i);
+                    });
+                } else {
+                    player.setCurrentSong(i);
+                }
             }
         },
         updateDuration: function (index) {
@@ -141,8 +157,8 @@ post.waveformInit = function() {
 
             player.paused = false;
 
-            if (player.artists[index].dataset.mp3) {
-                loadJSON(player.artists[index].dataset.mp3, function(data, filename) {
+            if (player.players[index].dataset.mp3) {
+                loadJSON(player.players[index].dataset.mp3, function(data, filename) {
                     if (!prelim) {
                         wavesurfer[index].load(filename, JSON.parse(data), "metadata");
                         jsons[index] = true;
@@ -165,23 +181,6 @@ post.waveformInit = function() {
 
         },
         attachEventHandlers: function() {
-
-            /* The playbuttons */
-            Array.prototype.forEach.call(player.buttons.playPause, function (button, index) {
-                button.addEventListener('click', function (e) {
-                    var index = this.dataset.index;
-
-                    if (!jsons[index]){
-                        player.load(index, false, function() {
-                            player.setCurrentSong(index);
-                        });
-                    } else {
-                        player.setCurrentSong(index);
-                    }
-
-                });
-            });
-
             /* The sidebar artist links */
             Array.prototype.forEach.call(player.artists, function (link, index) {
                 link.addEventListener('click', function (e) {
@@ -192,49 +191,42 @@ post.waveformInit = function() {
         }
     }
 
-    /* Initialize bands */
-    for (i = 0; i < player.artists.length; i++) {
-
-        bandIndexes[player.artists[i].dataset.machinename] = i;
-
-        if (player.artists[i].dataset.mp3) {
+    /* Initialize players */
+    for (var i = 0; i < player.players.length; i++) {
             
-            wavesurfer[i] = WaveSurfer.create({
-                container: player.waveforms[i],
-                waveColor: WAVEFORM_COLOR,
-                height: WAVEFORM_HEIGHT,
-                hideScrollbar: true,
-                normalize: true,
-                pixelRatio: "1",
-                progressColor: 'orange',
-                barWidth: '2',
-                backend: 'MediaElement'
-            });
+        wavesurfer[i] = WaveSurfer.create({
+            container: player.waveforms[i],
+            waveColor: WAVEFORM_COLOR,
+            height: WAVEFORM_HEIGHT,
+            hideScrollbar: true,
+            normalize: true,
+            pixelRatio: "1",
+            progressColor: 'orange',
+            barWidth: '2',
+            backend: 'MediaElement'
+        });
 
-            wavesurfer[i].on('play', player.play(i));
-            wavesurfer[i].on('pause', player.pause(i));
-            wavesurfer[i].on('ready', player.updateDuration(i));
-            wavesurfer[i].on('audioprocess', player.updateTime(i));
-            wavesurfer[i].on('seek', player.updateTime(i));
-            wavesurfer[i].on('finish', function () {
-                player.setCurrentSong((player.currentSong + 1) % player.artists.length);
-            });
+        playerIndexes[i] = player.players[i].dataset.bandindex - 1;
 
-            player.load(i, true);
-        } else {
-            wavesurfer[i] = null;
-        }
+        wavesurfer[i].on('play', player.play(i));
+        wavesurfer[i].on('pause', player.pause(i));
+        wavesurfer[i].on('ready', player.updateDuration(i));
+        wavesurfer[i].on('audioprocess', player.updateTime(i));
+        wavesurfer[i].on('seek', player.updateTime(i));
+        wavesurfer[i].on('finish', function () {
+            player.setCurrentSong((player.currentSong + 1) % player.artists.length);
+        });
 
-        photoIndexes[i] = parseInt(player.artists[i].dataset.numberofphotos);
-        if (i > 0) {
-            j = i - 1;
-            do {
-                photoIndexes[i] = photoIndexes[i] + parseInt(photoIndexes[j]);
-                j = j - 1;
-            } while(j > 0)
-        }
+        player.players[i].childNodes[1].addEventListener('click', player.playButtonClick(i));
+        player.load(i, true);
+
     }
 
+    // Map bandnames to indexes for interpretion of hash
+    for (i = 0; i < player.artists.length; i++) {
+        bandIndexes[player.artists[i].dataset.machinename] = i;
+    }
+    
     var currentBand = location.hash ? bandIndexes[(location.hash.split('#')[1])] : 0;
 
     var displayBand = function (index, first) {
@@ -255,7 +247,13 @@ post.waveformInit = function() {
         selector: '.playlist-item',
         speed: 500,
         selectorHeader: '.header',
-        easing: 'easeInOutCubic'
+        easing: 'easeInOutCubic',
+        before: function() {
+            blazy.destroy();
+        },
+        after: function() {
+            blazy.revalidate();
+        }
     });
 
     gumshoe.init({

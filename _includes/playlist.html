@@ -1,29 +1,15 @@
 <ul class="sidebar-nav lighter" id="playlist" style="padding: 0px;">
     {% for band in page.media %}
         <li>
-        {% assign machine_name = band[0] | downcase | machine_name %}
-        {% assign photos_number = site.data.media.gigs[page.title][machine_name]['count'] %}
-
-        {% if band[1].mp3[0] %}
-
-            {% if band[1].mp3[0].link %}
-                {% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: band[1].mp3[0].link %}
-            {% elsif band[1].mp3[0].title %}
-                {% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band[0] | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
-            {% endif %}
-
-            <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-mp3="{{mp3_link}}" data-artist="{{band[0]}}" data-machinename="{{ machine_name }}" data-numberofphotos="{{ photos_number }}">
+            {% assign machine_name = band[0] | downcase | machine_name %}
+            {% assign photos_number = site.data.media.gigs[page.title][machine_name]['count'] %}
+            <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-artist="{{band[0]}}" data-machinename="{{ machine_name }}" data-numberofphotos="{{ photos_number }}">
                 <span class="play-pause" data-index="{{ forloop.index }}">
                     <span class="play" style="display: none">▶</span>
                     <span class="pause" style="display: none">❙❙</span>
                 </span>
                 {{band[0]}}
             </a>
-
-        {% else %}
-            <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-artist="{{band[0]}}" data-machinename="{{ machine_name }}" data-numberofphotos="{{ photos_number }}">{{band[0]}}</a>
-            <span class="play-pause" data-index="{{ forloop.index }}" style="height: 0; opacity: 0; width: 0;"></span>
-        {% endif %}
         </li>
     {% endfor %}
 </ul>
