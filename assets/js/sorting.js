@@ -10,9 +10,6 @@ isotopeConfig.sortingInit = function() {
     }
     var sortValue = event.target.getAttribute('data-sort-value');
     isotopeConfig.iso.arrange({ sortBy: sortValue });
-    setTimeout(function() {
-      blazy.revalidate();
-    }, 500);    
   });
 
 }

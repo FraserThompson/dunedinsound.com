@@ -98,7 +98,9 @@ post.waveformInit = function() {
         play: function (index) {
             return function() {
                 player.currentSong = index;
-                player.players[index].children[3].style.display = "none";
+                player.players[index].children[1].style.display = "block"; // current time
+                player.players[index].children[3].style.display = "none"; // title overlay
+                player.players[index].children[4].style.display = "block"; // total length
                 player.setPlayButtonState(player.buttons.playPause[index], "playing");
                 player.setPlayButtonState(player.playPause[playerIndexes[index]], "paused");
             }
@@ -112,7 +114,9 @@ post.waveformInit = function() {
         },
         stop: function (index) {
             return function() {
-                player.players[index].children[3].style.display = "block";
+                player.players[index].children[1].style.display = "none"; // current time
+                player.players[index].children[3].style.display = "block"; // title overlay
+                player.players[index].children[4].style.display = "none"; // total length
                 player.setPlayButtonState(player.buttons.playPause[index], "stopped");
                 player.setPlayButtonState(player.playPause[playerIndexes[index]], "really stopped");
             }

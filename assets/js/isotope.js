@@ -11,14 +11,23 @@ isotopeConfig.isotopeInit = function() {
       name: '.name',
       date: function (elem) {
         return Date.parse(elem.querySelector('.date') ? elem.querySelector('.date').textContent : "");
+      },
+      numberOfGigs: function (elem) {
+        return elem.querySelector('.numberOfGigs') ? elem.querySelector('.numberOfGigs').textContent : "";
       }
     },
     sortAscending: {
       name: true,
-      date: false
+      date: false,
+      numberOfGigs: false
     }
   });
 
+
+  isotopeConfig.iso.on( 'arrangeComplete', function() {
+      blazy.revalidate();
+  });
+  
   isotopeConfig.filterFunction = function (elem) {
     return isotopeConfig.qsRegex ? elem.querySelector('.name').innerHTML.match( isotopeConfig.qsRegex ) : true;
   }
