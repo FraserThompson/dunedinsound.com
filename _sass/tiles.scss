@@ -63,10 +63,11 @@
 	.label {
 		background-color: white;
 		color: black;
-		z-index: 4000;
+		z-index: 999;
 		position: absolute;
 		font-size: 14px;
-		margin: 15px;
+		margin-top: 15px;
+		margin-left: 0px;
 		top: 0px;
 	}
 
@@ -204,6 +205,10 @@
 	.tile-wrap {
 		.tile-title {
 			width: 80%;
+		}
+
+		.label {
+			margin-left: 15px;
 		}
 	}
 
