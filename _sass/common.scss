@@ -87,16 +87,22 @@ a {
 
 footer {
 	z-index: 9999;
-	height: 300px;
+	height: 360px;
 	border-top: 40px solid white;
 	background-color: black;
+
+	&.post {
+		.container {
+			margin-left: 0px;
+		}
+	}
 
 	.container {
 		background-color: black;
 	}
 
 	.footer-content {
-		margin-top: 80px;
+		margin-top: 130px;
 	}
 }
 
@@ -246,6 +252,14 @@ h3 {
 	transform: skewY(10deg) scaleY(5) scaleX(10) rotateZ(360deg) translateX(0px);
 }
 @media (min-width:768px) {
+
+	footer {
+		&.post {
+			.container {
+				margin-left: 250px;
+			}
+		}
+	}
 
 	.page-wrapper {
 		margin-top: $header-height;

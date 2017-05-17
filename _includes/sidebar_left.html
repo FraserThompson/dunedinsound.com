@@ -52,7 +52,7 @@
 				<div class="tile-wrap small">
 					<a class="tile-link box" href="{{ post.url }}">
 						<span class="label label-default">{{post.date | date: "%d %b %Y"}}</span>
-						<div class="tile-title">
+						<div class="tile-title" style="margin-top: 70px;">
 							<h5>{{post.title}}</h5>
 						</div>
 						<div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}/cover.jpg">
