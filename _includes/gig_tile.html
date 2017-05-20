@@ -5,8 +5,8 @@
 <div class="{{sizing}} tile-wrap darker {{class}}" style="background-color: {{ page.colors | sample }}">
 	<a class="box gridItem {{category}}" href="{{ tile.url | prepend: site.baseurl }}">
 {% endif %}
-    <span class="label label-default">{{tile.date | date: "%d %b %Y"}} </span>
     <div class="tile-title">
+		<h4><small>{{tile.date | date: "%d %b %Y"}}</small></h4>
 		{% if class == "feature" %}
       		<h1 class="name">{{ tile.title }}</h1>
 		{% else %}

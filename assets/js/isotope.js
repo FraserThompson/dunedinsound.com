@@ -13,7 +13,7 @@ isotopeConfig.isotopeInit = function() {
         return Date.parse(elem.querySelector('.date') ? elem.querySelector('.date').textContent : "");
       },
       numberOfGigs: function (elem) {
-        return elem.querySelector('.numberOfGigs') ? elem.querySelector('.numberOfGigs').textContent : "";
+        return elem.querySelector('.numberOfGigs') ? parseInt(elem.querySelector('.numberOfGigs').textContent) : "";
       }
     },
     sortAscending: {

@@ -33,6 +33,14 @@ layout: default
           {% assign last_gig = post.date %}
         {% endfor %}
 
+        {% assign number_of_small_photos = site.data.media.artists[machine_name]["small"] | size %}
+
+        {% if number_of_small_photos > 0 %}
+          {% assign tile_background = site.asset_url | append: "/" | append: site.data.media.artists[machine_name]["small"][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+        {% else %}
+          {% assign tile_background = site.asset_url | append: "/" | append: site.data.media.artists[machine_name]["medium"][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+        {% endif %}
+
         <div class="{{page.spacing}} tile-wrap bottom">
             <a class="post-link gridItem {{category}} box" href="{{ tile.url | prepend: site.baseurl }}">
               <div class="tile-title bottom">
@@ -47,7 +55,7 @@ layout: default
                   <h5><span class="numberOfGigs">{{ site.categories[machine_name].size }}</span> gigs</h5>
                 {% endif %}
               </div>
-              <div class="tile b-lazy" data-src='{{ site.asset_url}}/{{site.data.media.artists[machine_name]["small"][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}'></div>
+              <div class="tile b-lazy" data-src='{{tile_background}}'></div>
             </a>
           </div>
       {% endif %}

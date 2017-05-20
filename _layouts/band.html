@@ -26,14 +26,15 @@ layout: default-slim-header
         {% endif %}
     </div>
     <div class="text">
-      <p>&nbsp;</p>
+      <center>
       <h1 class="huge-header">{{page.title}}</h1>
-      <div class="social-links"><center>
-        {% if page.facebook %}<a href="{{page.facebook}}" target="_blank" style="color: black;">Facebook</a>{% endif %}
-        {% if page.bandcamp %}<a href="{{page.bandcamp}}" target="_blank" style="color: black;">Bandcamp</a>{% endif %}
-        {% if page.soundcloud %}<a href="{{page.soundcloud}}" target="_blank" style="color: black;">Soundcloud</a>{% endif %}
-        {% if page.website %}<a href="{{page.website}}" target="_blank" style="color: black;">Website</a>{% endif %}
-      </center></div>
+      <div class="social-links">
+        {% if page.facebook %}<a href="{{page.facebook}}" target="_blank">Facebook</a>{% endif %}
+        {% if page.bandcamp %}<a href="{{page.bandcamp}}" target="_blank">Bandcamp</a>{% endif %}
+        {% if page.soundcloud %}<a href="{{page.soundcloud}}" target="_blank">Soundcloud</a>{% endif %}
+        {% if page.website %}<a href="{{page.website}}" target="_blank">Website</a>{% endif %}
+      </div>
+      </center>
     </div>
   </header>
   <div class="divider row" style="background-color: black; color: #c8c8c8;">
@@ -46,9 +47,9 @@ layout: default-slim-header
 
         <div class="col-sm-12 col-md-6 col-lg-4 tile-wrap smaller bottom" style="height: 35vh; background-color: black;">
           <a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
-            <span class="label label-default">{{post.date | date: "%d %b %Y"}}</span>
             <div class="tile-title">
-              <h4 style="margin-top: 10px;">{{post.title}}</h4>
+              <h4><small>{{post.date | date: "%d %b %Y"}}</small></h4>
+              <h4>{{post.title}}</h4>
               <h5>{{ post.venue }}</h5>
               <h5>
               {% if site.data.media.gigs[post.title][machine_name]['count'] > 1%}<span> {{site.data.media.gigs[post.title][machine_name]['count']}} 📷</span>{% endif %}

@@ -9,12 +9,14 @@ layout: default-slim-header
     <header class="post-header row">
       <div class="banner">
         <div id="map" style="height: 100%; width: 100%; background-color: #222222;" data-lat="{{page.lat}}" data-lng="{{page.lng}}"></div>
-        <div class="overlay">
+        <div class="text">
+            <center>
             <h1 class="huge-header">{{page.title}}</h1>
-            <div class="social-links"><center>
-                {% if page.facebook %}<a href="{{page.facebook}}" target="_blank" class="btn-facebook">Facebook</a>{% endif %}
-                {% if page.website %}<a href="{{page.website}}" target="_blank" class="btn-primary">Website</a>{% endif %}
-            </center></div>
+            <div class="social-links">
+                {% if page.facebook %}<a href="{{page.facebook}}" target="_blank">Facebook</a>{% endif %}
+                {% if page.website %}<a href="{{page.website}}" target="_blank">Website</a>{% endif %}
+            </div>
+            </center>
         </div>
       </div>
     </header>
@@ -29,8 +31,8 @@ layout: default-slim-header
 
                 <div class="col-sm-6 col-md-3 col-lg-3 tile-wrap smaller bottom" style="height: 35vh; background-color: black;">
                     <a class="box" href="{{ post.url }}">
-                        <span class="label label-default">{{post.date | date: "%d %b %Y"}}</span>
                         <div class="tile-title">
+                            <h4><small>{{post.date | date: "%d %b %Y"}}</small></h4>
                             <h4>{{post.title}}</h4>
                             <h5>
                             {% for band in post.media %}
