@@ -2,12 +2,12 @@
 title: Open Mic 20-08-14
 date: 2014-08-20 05:00:00 Z
 categories:
-- mentalist_collective
-- wolfman_stuey
+  - the_mentalist_collective
+  - wolfman_stuey
 layout: post
 parent: Gigs
 media:
-  Mentalist Collective:
+  The Mentalist Collective:
     vid:
     - link: W7QQYm2EScI
   Wolfman Stuey:

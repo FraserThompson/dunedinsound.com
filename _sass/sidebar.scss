@@ -143,6 +143,7 @@
         float: left;
         width: $sidebar-width;
 		top: $header-height;
+		padding-bottom: 80px;
 
 		&.scrolled {
 			top: 0px !important;

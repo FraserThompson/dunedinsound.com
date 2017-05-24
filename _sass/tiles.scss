@@ -85,6 +85,10 @@
 			text-shadow: 1px 1px black;
 		}
 
+		h3 {
+			margin-top: 5px;
+		}
+
 	}
 
 	&.bottom {
@@ -122,12 +126,13 @@
 		}
 
 		.tile-title{
-			width: 250px;
+			width: 230px;
 			padding-left: 5px;
 			height: 60px;
 			margin-top: 60px;
 			padding-right: 20px;
 			min-height: 60px;
+			background: rgba(0,0,0,0.8);
 
 			h4 {
 				margin: 0px;
@@ -138,6 +143,7 @@
 				white-space: nowrap;
 				overflow: hidden;
 				margin-top: 0px;
+				margin-bottom: 0px;
 			}
 		}
 	}

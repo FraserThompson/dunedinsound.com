@@ -1,6 +1,6 @@
 ---
-title: Mentalist Collective
-permalink: "/artists/mentalist_collective/"
+title: The Mentalist Collective
+permalink: "/artists/the_mentalist_collective/"
 layout: band
 parent: Artists
 bandcamp: https://thementalistcollective.bandcamp.com/

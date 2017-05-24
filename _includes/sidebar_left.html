@@ -18,7 +18,7 @@
 						<div class="tile-wrap small">
 							<a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
 								<div class="tile-title">
-									<h4><small>{{post.date | date: "%d %b %Y"}}</small></h4>
+									<h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>
 									<h5 style="margin-bottom: 2px;">{{post.title}}</h5>
 									<p><small>{{ post.venue }}</small></p>
 								</div>
@@ -52,7 +52,7 @@
 				<div class="tile-wrap small">
 					<a class="tile-link box" href="{{ post.url }}">
 						<div class="tile-title" style="margin-top: 70px;">
-							<h4><small>{{post.date | date: "%d %b %Y"}}</small></h4>
+							<h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>
 							<h5>{{post.title}}</h5>
 						</div>
 						<div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}/cover.jpg">
