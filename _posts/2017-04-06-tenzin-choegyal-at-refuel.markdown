@@ -10,7 +10,7 @@ image: /assets/img/Tenzin%20Choegyal%20at%20ReFuel/cover.jpg
 media:
     Tenzin Choegyal:
         mp3:
-            -   title: Full set
+            -   title: Partial set
         vid:
             -   title: Tenzin Cheogyal at ReFuel 1
                 link: FZupZuSK8r8

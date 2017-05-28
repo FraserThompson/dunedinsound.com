@@ -25,11 +25,13 @@ media:
             -   title: I should have stayed home
                 link: q7m-s50zvBo
     Neverender:
+        subtitle: 2nd Place
         mp3:
             -   title: Full set
         vid:
             -   link: WUAjTuGeRig
     Chugging Syrup:
+        subtitle: Wildcard
         mp3:
             -   title: Full set
         vid:

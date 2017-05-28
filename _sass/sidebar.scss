@@ -20,6 +20,12 @@
 		background-color: $highlight-color !important;
 		color: $highlight-text-color !important;
 	}
+
+	li {
+		small {
+			color: hotpink;
+		}
+	}
 }
 
 .sidebar-wrapper {

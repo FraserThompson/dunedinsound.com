@@ -14,6 +14,7 @@ image: /assets/img/OUSA%20Battle%20of%20the%20Bands%202017%20Heat%202/cover.jpg
 aspectratio: threebytwo
 media:
     Black Boy Peaches:
+        subtitle: 2nd Place
         mp3:
             -   title: Partial set
         vid:
@@ -24,6 +25,7 @@ media:
         vid:
             -   link: u2oeeJ3hrsI
     The Vortz:
+        subtitle: 1st Place
         mp3:
             -   title: Full set
         vid:
@@ -35,6 +37,7 @@ media:
         vid:
             -   link: BSOQf-2GXc8
     Fuzz Lightyear:
+        subtitle: Wildcard
         mp3:
             -   title: Full set
         vid:

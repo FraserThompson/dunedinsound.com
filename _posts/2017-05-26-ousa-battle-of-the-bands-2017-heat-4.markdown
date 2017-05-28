@@ -21,6 +21,7 @@ media:
         vid:
             -   link: PveTYkozNjs
     Milpool.:
+        subtitle: Wildcard
         mp3:
             -   title: Full set
         vid:
@@ -38,11 +39,13 @@ media:
         vid:
             -   link: AT8q6vGTNXc
     They Were a Loner:
+        subtitle: 2nd Place
         mp3:
             -   title: Full set
         vid:
             -   link: tpBdM0vugtE
     Jack Berry Band:
+        subtitle: 1st Place
         mp3:
             -   title: Full set
         vid:
