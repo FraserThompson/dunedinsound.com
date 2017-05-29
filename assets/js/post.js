@@ -308,6 +308,16 @@ post.waveformInit = function() {
     }, afterHide: function() {
         var youtube_embed = document.getElementById("youtube_container");
         if (youtube_embed) youtube_embed.outerHTML = "";
+    }, captions: function(element) {
+        var img = element.getElementsByTagName('img')[0];
+
+        if (img.alt == "image") {
+            var taken = "Taken at " + img.dataset.date;
+            var download = "<a href='" + img.src + "' download>Download</a>";
+            return "<p>" + taken + " " + download + "</p>";
+        } else {
+            return null;
+        }
     }});
 
     // Start it up

@@ -22,7 +22,8 @@ media:
         mp3:
             -   title: Full set
         vid:
-            -   link: wwkWYNDcs7s
+            -   title: Full set
+                link: wwkWYNDcs7s
     Certainty:
         mp3:
             -   title: Full set

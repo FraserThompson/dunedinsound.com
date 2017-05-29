@@ -44,3 +44,4 @@ sass:
 markdown: kramdown
 gems:
 - jemoji
+- jekyll-exiftag
