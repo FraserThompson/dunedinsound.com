@@ -13,7 +13,7 @@ npm install
 
 ### Developing
 
-```jekyll serve``` will build the site to _site without images/audio and watch it locally.
+```jekyll serve``` will build the site to _site without images/audio and watch it locally. If the generation time is really long you can limit posts to just the latest with ```jekyll serve --limit_posts 1```.
 
 ### Deploying
 

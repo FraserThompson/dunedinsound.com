@@ -23,6 +23,5 @@ media:
     Opposite Sex:
         mp3:
             - title: Full set
-              nodownload: true
 ---
 
