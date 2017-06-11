@@ -3,6 +3,10 @@
 	-webkit-transition: opacity 0.5s ease;
     -moz-transition: opacity 0.5s ease;
     transition: opacity 0.5s ease;
+	height: 100%;
+	position: fixed;
+	width: 100px;
+	left: 0;
 
 	&.visible {
 		visibility: visible;
@@ -13,6 +17,14 @@
 #more {
 	position: static;
 	height: 100%;
+}
+
+.tiles.container-fluid.gigs {
+	padding-left: 115px;
+
+	.tile-wrap .post-link .tile-title {
+		width: 100%;
+	}
 }
 
 .nav-custom {

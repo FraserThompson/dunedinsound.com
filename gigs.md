@@ -28,7 +28,7 @@ order: 1
         </div>
         <div class="col-xs-12 col-sm-4" id="more">
             <div class="row sorted-tiles">
-                {% for tile in site.posts%}
+                {% for tile in site.posts %}
                     {% assign type = tile.url | split: '/' %}
                     {% assign class = "bottom thinner" %}
                     {% unless forloop.first %}
