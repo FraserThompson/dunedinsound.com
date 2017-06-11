@@ -2,7 +2,7 @@
 title: "The BLUES Zealand Tour with File Folder"
 date: 2017-06-09 08:30:00 Z
 categories:
-    - l$d_fundraiser
+    - lzd_fundraiser
     - ov_pain
     - the_blues
     - file_folder

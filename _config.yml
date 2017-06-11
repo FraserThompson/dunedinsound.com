@@ -5,6 +5,9 @@ collections:
   posts:
     title: Posts
     output: true
+  blog_posts:
+    title: Blog
+    output: true
 defaults:
 - scope:
     path: ''
@@ -13,6 +16,14 @@ defaults:
     layout: post
     parent: Gigs
     description: Photos, audio and video.
+- scope:
+    path: ''
+    type: blog_posts
+  values:
+    permalink: "/blog/:title/"
+    layout: blog_post
+    parent: Blog
+    description: Dunedinsound.com blog.
 email: fraser@dunedinsound.com
 asset_url:
 keep_files:
