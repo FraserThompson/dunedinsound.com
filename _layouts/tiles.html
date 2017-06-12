@@ -28,10 +28,6 @@ layout: default
 
         {% assign machine_name = tile.title | downcase | machine_name %}
 
-        {% for post in site.categories[machine_name] limit: 1 %}
-          {% assign last_gig = post.date %}
-        {% endfor %}
-
         {% assign number_of_small_photos = site.data.media.artists[machine_name]["small"] | size %}
 
         {% if number_of_small_photos > 0 %}
@@ -40,12 +36,17 @@ layout: default
           {% assign tile_background = site.asset_url | append: "/" | append: site.data.media.artists[machine_name]["medium"][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
         {% endif %}
 
-          <div class="{{page.spacing}} tile-wrap bottom">
+          <div class="isotope-item {{page.spacing}} tile-wrap bottom">
               <a class="post-link gridItem {{category}} box" href="{{ tile.url | prepend: site.baseurl }}">
                 <div class="tile-title bottom">
                   <h4 class="name">{{ tile.title }} {% if tile.origin %} ({{tile.origin}}) {% endif %}</h4>
 
                   {% if category == "artists" %}
+
+                    {% for post in site.categories[machine_name] limit: 1 %}
+                      {% assign last_gig = post.date %}
+                    {% endfor %}
+
                     <p class="date" style="display: none;">{{last_gig}}</p>
                     <h5><span class="numberOfGigs">{{ site.categories[machine_name].size }}</span> gigs</h5>
                   {% endif %}

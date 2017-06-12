@@ -58,7 +58,7 @@
 	</script>
 {% endif %}
 
-{% if page.searchable %}
+{% if page.searchable and page.title != "Gigs" %}
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(event) {
 			isotopeConfig.searchingInit();
@@ -84,11 +84,9 @@
 
 {% if page.title == "Gigs" %}
 	<script type="text/javascript">
-		var container = document.getElementById('more');
-		Ps.initialize(container);
-		document.addEventListener('ps-scroll-down', function () {
-			blazy.revalidate();
-		})
+		document.addEventListener("DOMContentLoaded", function(event) {
+			gigsInit();
+		});
 	</script>
 {% endif %}
 

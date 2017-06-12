@@ -1,8 +1,8 @@
 {% if tile.incoming %}
-<div class="{{sizing}} tile-wrap even-darker disabled {{class}}" style="background-color: {{ page.colors | sample }}">
+<div class="isotope-item {{sizing}} tile-wrap even-darker disabled {{class}}" style="background-color: {{ page.colors | sample }}" id="{{id}}">
 	<a class="box gridItem {{category}}">
 {% else %}
-<div class="{{sizing}} tile-wrap darker {{class}}" style="background-color: {{ page.colors | sample }}">
+<div class="isotope-item {{sizing}} tile-wrap darker {{class}}" style="background-color: {{ page.colors | sample }}" id="{{id}}">
 	<a class="box gridItem {{category}}" href="{{ tile.url | prepend: site.baseurl }}">
 {% endif %}
 	{% if class == "feature" %}
@@ -13,16 +13,23 @@
 		{% if class == "feature" %}
       		<h1 class="name">{{ tile.title }}</h1>
 		{% else %}
-			  <h3>{{ tile.title }}</h3>
+			  <h3 class="name">{{ tile.title }}</h3>
 		{% endif %}
       	{% if tile.incoming %}
       		<p>Coming Soon</p>
       	{% else %}
 
-	      	{% for band in tile.media %}
+		  	{% assign band_quantity = tile.media | size %}
+			{% assign band_quantity_minus_one = band_quantity | minus: 1 %}
+
+	      	{% for band in tile.media limit: 8 %}
         		{% assign machine_name = band[0] | downcase | machine_name %}
-	      		<span href="{{ tile.url | prepend: site.baseurl }}#{{machine_name}}">{{band[0]}}</span>{% if forloop.last == false %} - {% endif %}
+	      		<span href="{{ tile.url | prepend: site.baseurl }}#{{machine_name}}">{% if band_quantity == forloop.index %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false %}, {% endif %}</span>
 	      	{% endfor %}
+
+			{% if band_quantity >= 8 %}
+				<span>and more</span>
+			{% endif %}
 
       	{% endif %}
     </div>

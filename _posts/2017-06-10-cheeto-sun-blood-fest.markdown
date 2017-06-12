@@ -26,8 +26,11 @@ media:
         mp3:
             -   title: Full set
         vid:
-            -   link: b5GwtWEGVKo
-            -   link: nQ-GX_mLLKI
-            -   link: MM4vwz7fy20
+            -   title: Amtryptamine
+                link: b5GwtWEGVKo
+            -   title: Like a King
+                link: nQ-GX_mLLKI
+            -   title: Jam
+                link: MM4vwz7fy20
 ---
 

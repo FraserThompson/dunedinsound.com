@@ -13,7 +13,7 @@
       {% endif %}
     </div>
     <div id="top-nav" style="text-align: center">
-      {% if page.layout == "tiles" and page.searchable == true %}
+      {% if page.searchable == true %}
         <div class="search navbar-form">
           <div class="input-group">
             <input type="text" class="quicksearch form-control" id="quicksearch" placeholder="Search" autofocus>
@@ -21,7 +21,8 @@
         </div>
       {% endif %}
       <ul class="nav navbar-nav navbar-right">
-        <li class="{% if page.parent == 'Gigs' or page.title == 'Gigs' %}active{% endif %}"><a href="/">Gigs</a></li>
+        <li class="{% if page.parent == 'Home' or page.title == 'Home' %}active{% endif %}"><a href="/">Home</a></li>
+        <li class="{% if page.parent == 'Gigs' or page.title == 'Gigs' %}active{% endif %}"><a href="/gigs/">Gigs</a></li>
         <li class="{% if page.parent == 'Artists' or page.title == 'Artists' %}active{% endif %}"><a href="/artists/">Artists</a></li>
 		    <li class="{% if page.parent == 'Venues' or page.title == 'Venues' %}active{% endif %}"><a href="/venues/">Venues</a></li>
       </ul>
