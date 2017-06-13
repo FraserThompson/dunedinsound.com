@@ -25,8 +25,6 @@ order: 1
 
         {% assign machine_name = tile.title | downcase | machine_name %}
 
-        {% assign tile_background = site.asset_url | append: "/assets/img/" | append: tile.title | url_encode | replace: '+', '%20' | replace: '%2F', '/' | append: "/cover.jpg" %}
-
         {% capture this_year %}{{ tile.date | date: "%Y" }}{% endcapture %}
         {% capture this_month %}{{ tile.date | date: "%B" }}{% endcapture %}
         {% capture next_year %}{{ tile.previous.date | date: "%Y" }}{% endcapture %}

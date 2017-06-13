@@ -78,6 +78,13 @@ module.exports = function(grunt) {
             quality: 80,
             rename: false,
             width: 1024
+          },
+          {
+            name: "small",
+            suffix: " (Small)",
+            quality: 60,
+            rename: false,
+            width: 600
           }]
         },
         files: [{

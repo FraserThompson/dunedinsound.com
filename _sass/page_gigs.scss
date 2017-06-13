@@ -4,10 +4,10 @@
     -moz-transition: opacity 0.5s ease;
     transition: opacity 0.5s ease;
 	height: 95vh;
-	overflow-x: none;
+	overflow-x: hidden;
 	overflow-y: auto;
 	position: fixed;
-	width: 100px;
+	width: 110px;
 	left: 0;
 
 	&.visible {
@@ -22,7 +22,7 @@
 }
 
 .tiles.container-fluid.gigs {
-	padding-left: 115px;
+	padding-left: 125px;
 
 	.tile-wrap .post-link .tile-title {
 		width: 100%;
@@ -48,7 +48,7 @@
 	}
 
 	li.year-active {
-		border-left: 2px solid green;
+		border-left: 4px solid green;
 	}
 
 	li.year-active > a {
