@@ -3,7 +3,9 @@
 	-webkit-transition: opacity 0.5s ease;
     -moz-transition: opacity 0.5s ease;
     transition: opacity 0.5s ease;
-	height: 100%;
+	height: 95vh;
+	overflow-x: none;
+	overflow-y: auto;
 	position: fixed;
 	width: 100px;
 	left: 0;
@@ -43,11 +45,14 @@
 		font-weight: bold;
 		font-size: 16px;
 		border-left: 2px solid white;
-
 	}
 
-	li.active {
+	li.year-active {
 		border-left: 2px solid green;
+	}
+
+	li.year-active > a {
+		color: white !important;
 	}
 
 	li.active > a {

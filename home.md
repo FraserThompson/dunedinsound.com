@@ -26,7 +26,7 @@ order: 1
                 {% endfor %}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-4" id="more">
+        <div class="col-xs-12 col-sm-4" id="more" style="background-color: black;">
             <div class="row sorted-tiles">
                 {% for tile in site.posts limit: 4 %}
                     {% assign type = tile.url | split: '/' %}
@@ -36,6 +36,6 @@ order: 1
                     {% endunless %}
                 {% endfor %}
             </div>
-            <a href="/gigs/"><h4>see {{site.posts | size | minus: 4}} more gigs </h4></a>
+            <a href="/gigs/" style="float:right;"><h5>older gigs</h5></a>
         </div>
 </div>

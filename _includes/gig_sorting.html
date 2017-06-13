@@ -7,9 +7,9 @@
       {% capture next_month %}{{ post.previous.date | date: "%B" }}{% endcapture %}
 
       {% if forloop.first %}
-      <li id="y{{ this_year }}-ref" class="year"><a class="sidebar-link" href="#y{{this_year}}">{{this_year}}</a>
+      <li id="y{{ this_year }}-ref" class="year" data-year="{{this_year}}"><a class="sidebar-link" data-year="{{this_year}}" href="#y{{this_year}}">{{this_year}}</a>
           <ul class="nav nav-custom nav-stacked">
-              <li id="{{ this_month }}{{ this_year }}-ref"><a class="sidebar-link"  href="#{{this_month}}{{this_year}}">{{ this_month }}</a></li>
+              <li id="{{ this_month }}{{ this_year }}-ref"><a class="sidebar-link" data-year="{{this_year}}" href="#{{this_month}}{{this_year}}">{{ this_month }}</a></li>
       {% endif %}
       {% if forloop.last %}
       </ul>
@@ -18,12 +18,12 @@
           {% if this_year != next_year %}
               </ul>
               </li>
-              <li id="y{{ next_year }}-ref" class="year"><a class="sidebar-link" href="#y{{next_year}}">{{next_year}}</a>
+              <li id="y{{ next_year }}-ref" class="year" data-year="{{next_year}}"><a class="sidebar-link" data-year="{{next_year}}" href="#y{{next_year}}">{{next_year}}</a>
                   <ul class="nav nav-custom nav-stacked">
-                  <li id="{{ next_month }}{{ next_year }}-ref"><a class="sidebar-link" href="#{{next_month}}{{next_year}}">{{ next_month }}</a></li>
+                  <li id="{{ next_month }}{{ next_year }}-ref"><a class="sidebar-link" data-year="{{next_year}}" href="#{{next_month}}{{next_year}}">{{ next_month }}</a></li>
           {% else %}    
               {% if this_month != next_month %}
-                  <li id="{{ next_month }}{{ this_year }}-ref"><a class="sidebar-link"  href="#{{next_month}}{{next_year}}">{{ next_month }}</a></li>
+                  <li id="{{ next_month }}{{ this_year }}-ref"><a class="sidebar-link" data-year="{{next_year}}"  href="#{{next_month}}{{next_year}}">{{ next_month }}</a></li>
               {% endif %}
           {% endif %}
       {% endif %}
