@@ -50,20 +50,21 @@
 
 	li.year-active {
 		border-left: 2px solid green;
-		background-color: #222 !important;
-	}
+		background-color: #222;
 
-	li.year-active > a {
-		color: white !important;
+		> a {
+			background-color: white;
+			color: black;
+		}
 	}
 
 	li.active {
-		background-color: white;
+		background: rgba(0,0,0,0.4);
+		> a {
+			color: white;
+		}
 	}
 
-	li.active > a {
-		color: black;
-	}
 }
 
 @media (min-width:768px) {

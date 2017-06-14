@@ -1,7 +1,7 @@
 ---
 title: Gigs
 permalink: "/gigs/"
-layout: default-slim-header
+layout: default
 searchable: true
 colors: 
     - "#212121"
@@ -13,7 +13,7 @@ order: 1
 
 <div class="tiles container-fluid gigs">
 
-  {% assign sizing = "col-xs-6" %}
+  {% assign sizing = "col-xs-12 col-sm-6 col-lg-4" %}
   {% assign class = "bottom thinner full-width" %}
 
   {% include gig_sorting.html %}
