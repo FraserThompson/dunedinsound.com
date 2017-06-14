@@ -27,6 +27,7 @@ order: 1
             </div>
         </div>
         <div class="col-xs-12 col-sm-4" id="more" style="background-color: black;">
+            <span class="label label-default">RECENT GIGS</span>
             <div class="row sorted-tiles">
                 {% for tile in site.posts limit: 4 %}
                     {% assign type = tile.url | split: '/' %}

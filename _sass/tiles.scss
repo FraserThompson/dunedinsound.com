@@ -66,21 +66,21 @@
 
 }
 
+.label {
+	background-color: white;
+	color: black;
+	z-index: 999;
+	position: absolute;
+	font-size: 14px;
+	margin-top: 15px;
+	margin-left: 0px;
+	top: 0px;
+}
+
 .tile-wrap {
 	overflow: hidden;
 	padding: 0;
 	height: 200px;
-
-	.label {
-		background-color: white;
-		color: black;
-		z-index: 999;
-		position: absolute;
-		font-size: 14px;
-		margin-top: 15px;
-		margin-left: 0px;
-		top: 0px;
-	}
 
 	.tile-title {
 		position: absolute;

@@ -13,7 +13,7 @@ order: 1
 
 <div class="tiles container-fluid gigs">
 
-  {% assign sizing = "col-xs-6 col-md-4 col-lg-3" %}
+  {% assign sizing = "col-xs-6" %}
   {% assign class = "bottom thinner full-width" %}
 
   {% include gig_sorting.html %}
@@ -31,34 +31,29 @@ order: 1
         {% capture next_month %}{{ tile.previous.date | date: "%B" }}{% endcapture %}
 
         {% if forloop.first %}
-
-          <div class="isotope-item col-xs-12 divider inverted" id="y{{this_year}}">
-            <h3>{{this_year}}</h3>
-          </div>
-          <div class="isotope-item col-xs-12 divider" id="{{this_month}}{{this_year}}">
-            <h4>{{this_month}}</h4>
-          </div>
-
+          {% capture id %}y{{this_year}}{% endcapture %}
+          {% assign year_change = true %}
         {% endif %}
 
         {% include gig_tile.html %}
 
+        {% if year_change %}
+          {% capture id %}{{this_month}}{{this_year}}{% endcapture %}
+        {% else %}
+          {% capture id %}{% endcapture %}
+        {% endif %}
+
+        {% assign year_change = false %}
+
         {% if forloop.last != true and this_year != next_year %}
 
-            <div class="isotope-item col-xs-12 divider inverted" id="y{{next_year}}">
-              <h3>{{next_year}}</h3>
-            </div>
-
-            <div class="isotope-item col-xs-12 divider" id="{{next_month}}{{next_year}}">
-              <h4>{{next_month}}</h4>
-            </div>
+            {% assign year_change = true %}
+            {% capture id %}y{{next_year}}{% endcapture %}
 
         {% else %}    
             {% if forloop.last != true and this_month != next_month %}
-            
-              <div class="isotope-item col-xs-12 divider" id="{{next_month}}{{this_year}}">
-                <h4>{{next_month}}</h4>
-              </div>
+
+              {% capture id %}{{next_month}}{{this_year}}{% endcapture %}
 
             {% endif %}
         {% endif %}

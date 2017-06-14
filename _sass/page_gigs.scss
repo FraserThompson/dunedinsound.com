@@ -1,5 +1,5 @@
 .gig-sorting {
-	background-color: rgba(0,0,0,0.4);
+	background-color: black;
 	-webkit-transition: opacity 0.5s ease;
     -moz-transition: opacity 0.5s ease;
     transition: opacity 0.5s ease;
@@ -37,6 +37,7 @@
 	}
 
 	li {
+		width: 100%;
 		box-sizing: border-box;
 		border-left: 2px solid rgba(0, 0, 0, 0);
 	}
@@ -48,15 +49,20 @@
 	}
 
 	li.year-active {
-		border-left: 4px solid green;
+		border-left: 2px solid green;
+		background-color: #222 !important;
 	}
 
 	li.year-active > a {
 		color: white !important;
 	}
 
+	li.active {
+		background-color: white;
+	}
+
 	li.active > a {
-		color: white !important;
+		color: black;
 	}
 }
 

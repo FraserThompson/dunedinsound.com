@@ -2,8 +2,6 @@ var isotopeConfig = isotopeConfig || {};
 
 var gigsInit = function() {
 
-    var dividers = document.getElementsByClassName('divider');
-
     smoothScroll.init({
         selector: '.sidebar-link',
         speed: 500,
@@ -69,22 +67,16 @@ var gigsInit = function() {
                 isotopeConfig.iso = null;
             }
 
-            // If we were searching show the dividers again
+            // If we were searching revalidate
             if (searching == 1){
-                for (var i = 0; i < dividers.length; i++) {
-                    dividers[i].style.display = "block";
-                }
                 searching = 0;
                 blazy.revalidate();
             }
 
         } else {
 
-            // If we're searching hide the dividers
+            // If we're searching init isotope
             if (searching == 0) {
-                for (var i = 0; i < dividers.length; i++) {
-                    dividers[i].style.display = "none";
-                }
                 isotopeInit();
                 searching = 1;
             }
