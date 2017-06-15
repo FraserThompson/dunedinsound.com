@@ -27,6 +27,10 @@
 	.tile-wrap .post-link .tile-title {
 		width: 100%;
 	}
+
+	.tile {
+		filter: blur(1px);
+	}
 }
 
 .nav-custom {
@@ -71,6 +75,14 @@
 	#more {
 		position: relative;
 		overflow: hidden;
+	}
+	
+	.gig-sorting {
+		width: 250px;
+	}
+
+	.tiles.container-fluid.gigs {
+		padding-left: 265px;
 	}
 }
 

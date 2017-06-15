@@ -13,12 +13,12 @@ order: 1
 
 <div class="tiles container-fluid gigs">
 
-  {% assign sizing = "col-xs-12 col-sm-6 col-lg-4" %}
+  {% assign sizing = "col-xs-12" %}
   {% assign class = "bottom thinner full-width" %}
 
   {% include gig_sorting.html %}
 
-  <div class="row sorted-tiles">
+  <div class="row sorted-tiles" id="y{{ site.time | date: '%Y' }}">
     {% for tile in site.posts %}
 
       {% assign type = tile.url | split: '/' %}
@@ -31,8 +31,7 @@ order: 1
         {% capture next_month %}{{ tile.previous.date | date: "%B" }}{% endcapture %}
 
         {% if forloop.first %}
-          {% capture id %}y{{this_year}}{% endcapture %}
-          {% assign year_change = true %}
+          {% capture id %}{{this_month}}{{this_year}}{% endcapture %}
         {% endif %}
 
         {% include gig_tile.html %}

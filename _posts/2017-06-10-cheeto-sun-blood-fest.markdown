@@ -29,7 +29,7 @@ media:
             -   title: Amtryptamine
                 link: b5GwtWEGVKo
             -   title: Like a King
-                link: nQ-GX_mLLKI
+                link: CIOg82uRbL0
             -   title: Jam
                 link: MM4vwz7fy20
 ---

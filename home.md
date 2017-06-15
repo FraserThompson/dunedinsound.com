@@ -37,6 +37,5 @@ order: 1
                     {% endunless %}
                 {% endfor %}
             </div>
-            <a href="/gigs/" style="float:right;"><h5>older gigs</h5></a>
         </div>
 </div>

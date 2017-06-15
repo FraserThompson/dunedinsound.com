@@ -1,0 +1,23 @@
+---
+layout: compress
+---
+
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+  <body>
+    {% include header.html %}
+      <div class="page-wrapper blog">
+        <div class="container" style="min-height: 80vh;">
+          <div class="row">
+            <div class="col-xs-12">
+              {{ content }}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% include footer.html %}
+  </body>
+</html>

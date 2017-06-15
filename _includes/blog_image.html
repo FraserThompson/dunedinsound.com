@@ -1,0 +1,6 @@
+{% assign filename = include.src | split: '.' %}
+
+{% assign medium_image = filename[0] | append: " (Medium)." | append: filename[1] %}
+
+<a href="/assets/img/blog/{{page.filename}}/{{include.src}}"><img src="/assets/img/blog/{{page.filename}}/{% if include.medium != 'false' %}{{ medium_image }}{% else %}{{ include.src }}{% endif %}" alt="{{ include.description }}" /></a>
+<p><small>Above: {{include.description}}</small></p>
