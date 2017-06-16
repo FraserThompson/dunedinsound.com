@@ -1,7 +1,3 @@
-#post-page {
-    top: ($header-height);
-}
-
 #back-to-top {
 	visibility: hidden;
   	opacity: 0;
@@ -82,7 +78,8 @@
     color: #c8c8c8;
     position: absolute;
     top: 0px;
-	  padding: 15px;
+    padding: 10px;
+    z-index: 5;
 	  margin: 0px !important;
   }
 
@@ -154,11 +151,4 @@
     width: 80%;
     height: 0;
     padding-bottom: 56.25%;
-}
-
-@media (min-width:768px) {
-
-    #post-page {
-        top: 0px;
-    }
 }

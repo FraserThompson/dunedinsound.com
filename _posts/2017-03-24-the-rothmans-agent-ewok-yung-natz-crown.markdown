@@ -3,8 +3,8 @@ title: "The Rothmans, Agent Ewok, M.I.L and Yung Nats at The Crown"
 date: 2017-03-24 09:00:00 Z
 categories:
     - resident_good
-    - m.i.l
-    - yung_nat$
+    - mil
+    - yung_natz
     - agent_ewok
     - the_rothmans
     - sewage

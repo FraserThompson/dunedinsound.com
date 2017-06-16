@@ -13,7 +13,7 @@ npm install
 
 ### Developing
 
-```jekyll serve``` will build the site to _site without images/audio and watch it locally.
+```jekyll serve``` will build the site to _site without images/audio and watch it locally. If the generation time is really long you can limit posts to just the latest with ```jekyll serve --limit_posts 1```.
 
 ### Deploying
 
@@ -21,13 +21,22 @@ npm install
 
 ### Processing Assets
 
+#### Images
 Images from a gig go in _originals/img/[gig name] and then in subdirectories for each artist. There needs to be a gig cover named cover.jpg in the gig directory and artist covers named band_cover.jpg in each artist directory.
+
+Then run `grunt images` to process images.
+
+#### Audio
 
 Audio goes in _originals/audio and then subdirectories for each artist. They need to be WAV files which are named like this: Gig Name - Band Name.wav.
 
-Then run ```grunt images``` to process the images followed by ```grunt audio``` to process the audio.
+Then run `grunt audio` to process the audio.
+
+You can also process MP3 files in the same way and it'll handle it.
 
 Once pushed the contents of the _original folder can be deleted.
+
+Protip: Copy the directory structure from images with `xcopy "./_originals/img/[gig title]" "./_originals/audio" /t /e`
 
 #### More explanation
 

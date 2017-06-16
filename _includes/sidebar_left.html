@@ -3,13 +3,13 @@
 	{% include playlist.html %}
 	{% for band in page.media %}
 
-		{% assign machine_name = band[0] | downcase | replace:" ", "_" | replace: ",", "" | replace: "!", "" %}
+		{% assign machine_name = band[0] | downcase | machine_name %}
 		{% assign gigs_number = site.categories[machine_name].size %}
 		{% assign gigs_not_displayed = site.categories[machine_name].size | minus: 2 %}
 		{% assign photos_number = site.data.media.gigs[page.title][machine_name]['count'] %}
 		
 		{% if gigs_number > 1 %}
-			<div id="moreFrom_{{machine_name}}" class="moreFrom" style='background-color: {% cycle "black", "#111111" %}'>
+			<div id="moreFrom_{{machine_name}}" class="moreFrom" style='background-color: black'>
 				<div style="padding-top: 10px;">
 					<p>More from <a title="More gigs from {{band[0]}}" href="/artists/{{machine_name}}">{{band[0]}}</a></p>
 				</div>
@@ -17,9 +17,9 @@
 					{% unless post.title == page.title %}
 						<div class="tile-wrap small">
 							<a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
-								<span class="label label-default">{{post.date | date: "%d %b %Y"}}</span>
 								<div class="tile-title">
-									<h5>{{post.title}}</h5>
+									<h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>
+									<h5 style="margin-bottom: 2px;">{{post.title}}</h5>
 									<p><small>{{ post.venue }}</small></p>
 								</div>
 								<div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][machine_name]['images'][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}">
@@ -36,13 +36,13 @@
 		{% endif %}
 	{% endfor %}
 
-	{% assign venue_machine_name = page.venue | downcase | replace:" ", "_" | replace: ",", "" | replace: "!", "" %}
+	{% assign venue_machine_name = page.venue | downcase | machine_name %}
 	{% assign venue_gigs = site.posts | where: "venue", page.venue  %}
 	{% assign gigs_number = venue_gigs | size %}
 	{% assign gigs_not_displayed = gigs_number | minus: 2 %}
 
 	{% if venue_gigs.size > 1 %}
-	<div id="moreFrom_{{venue}}" class="moreFrom" style='background-color: {% cycle "black", "#111111" %}'>
+	<div id="moreFrom_{{venue}}" class="moreFrom" style='background-color: black'>
 		<div style="padding-top: 10px;">
 			<p>More at <a title="More gigs at {{venue}}" href="/venues/{{venue_machine_name}}">{{page.venue}}</a></p>
 		</div>
@@ -51,8 +51,8 @@
 			{% unless post.title == page.title %}
 				<div class="tile-wrap small">
 					<a class="tile-link box" href="{{ post.url }}">
-						<span class="label label-default">{{post.date | date: "%d %b %Y"}}</span>
 						<div class="tile-title">
+							<h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>
 							<h5>{{post.title}}</h5>
 						</div>
 						<div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}/cover.jpg">
@@ -67,19 +67,4 @@
 		{% endif %}
 	</div>
 	{% endif %}
-	<div style="padding-top: 10px; padding-left: 10px;">
-		<p>Other recent gigs</p>
-	</div>
-	<ul class="sidebar-nav">
-		{% for node in site.posts | limit: 15 %}
-			{% unless node.url == page.url or node.title == page.band %}
-			<li>
-				<a href='{{node.url}}'>{{node.title}}</a>
-			</li>
-			{% endunless %}
-		{% endfor %}
-		<li>
-			<a href="/#more"><small>More...</small></a>
-		</li>
-	</ul>
 </div>

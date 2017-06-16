@@ -53,22 +53,34 @@
 .sorted-tiles {
 	position: relative;
 	min-height: 80vh;
+
+	.divider {
+		color: black;
+		background-color: white;
+
+		&.inverted {
+			color: white;
+			background-color: black;
+		}
+	}
+
+}
+
+.label {
+	background-color: white;
+	color: black;
+	z-index: 999;
+	position: absolute;
+	font-size: 14px;
+	margin-top: 15px;
+	margin-left: 0px;
+	top: 0px;
 }
 
 .tile-wrap {
 	overflow: hidden;
 	padding: 0;
 	height: 200px;
-
-	.label {
-		background-color: white;
-		color: black;
-		z-index: 4000;
-		position: absolute;
-		font-size: 14px;
-		margin: 15px;
-		top: 0px;
-	}
 
 	.tile-title {
 		position: absolute;
@@ -77,10 +89,16 @@
 		z-index: 1;
 		min-height: 20%;
 		padding-bottom: 15px;
+		padding-top: 0px;
+		padding-left: 10px;
 		transition: all 300ms ease-in-out;
 
 		h5, h4, h3, p, span {
 			text-shadow: 1px 1px black;
+		}
+
+		h3, h1 {
+			margin-top: 5px;
 		}
 
 	}
@@ -99,14 +117,13 @@
 	}
 
 	&.feature {
-		height: 96vh !important;
+		height: 90vh !important;
 
 		.tile-title {
 			bottom: 60px;
 			min-height: auto;
 		}
 	}
-
 
 	&.small {
 
@@ -116,21 +133,28 @@
 		.label {
 			top: auto;
 			margin: 5px;
-			font-size: inherit;
+			font-size: 85%;
 		}
 
 		.tile-title{
-			width: 250px;
+			width: 230px;
 			padding-left: 5px;
 			height: 60px;
 			margin-top: 60px;
 			padding-right: 20px;
-			min-height: 60px;
+			min-height: 50px;
+			background: rgba(0,0,0,0.8);
+
+			h4 {
+				margin: 0px;
+			}
 
 			h5 {
 				text-overflow: ellipsis;
 				white-space: nowrap;
 				overflow: hidden;
+				margin-top: 0px;
+				margin-bottom: 0px;
 			}
 		}
 	}
@@ -139,25 +163,44 @@
 		height: 30vh !important;
 	}
 
+	&.eventhinner {
+		height: 10vh !important;
+
+		.tile-title {
+			width: 100%;
+			height: 10vh;
+		}
+	}
+
 	.bottom {
 		bottom: 10px;
 	}
 
 
 	&:not(.disabled):hover .tile {
-	@include hover-grow(1.03);
+	@include hover-grow(1.02);
 	}
 
 	&:not(.disabled):hover .tile-title {
 		opacity: 1;
-		@include hover-grow(1.02);
+		@include hover-grow(1.01);
 	    text-decoration: none !important;
+	}
+}
+
+.box {
+	width: 100%;
+	padding-bottom: 74.9%;
+	height: 0;
+
+	&.threebytwo {
+		padding-bottom: 66.66% !important;
 	}
 }
 
 .tile-wrap.smaller {
 	&:hover .tile {
-		@include hover-grow(1.05);
+		@include hover-grow(1.04);
 	    text-decoration: none;
 	}
 }
@@ -191,9 +234,31 @@
 
 @media (min-width:768px) {
 
+
 	.tile-wrap {
+		
+		height: 350px;
+
+		&.full-width {
+			.tile-title {
+				width: 100% !important;
+			}
+		}
+
 		.tile-title {
+			text-align: left !important;
+			padding-top: 10px;
+
+			h4 {
+				text-align: left !important;
+			}
+
+			padding-left: 15px;
 			width: 80%;
+		}
+
+		.label {
+			margin-left: 15px;
 		}
 	}
 

@@ -5,7 +5,7 @@ categories:
 - turbulent_juice
 - machina_rex
 - agent_ewok
-- yung_nat$
+- yung_natz
 - knee_splitter
 - satanhatesjohnkeyandsodowe
 layout: post
@@ -29,7 +29,7 @@ media:
     - link: o6CfKHn9mco
     mp3:
     - title: Full set
-      link: yung_nat$/FUCK Cancer - Yung Natz.mp3
+      link: yung_natz/FUCK Cancer - Yung Natz.mp3
   Knee Splitter:
     vid:
     - link: I4koiJ_EJyI

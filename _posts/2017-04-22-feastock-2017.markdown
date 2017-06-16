@@ -18,13 +18,29 @@ venue: Feastock
 image: /assets/img/Feastock%202017/cover.jpg
 media:
     Jo Little and Jared Smith:
+        mp3:
+            -   title: Full set
     Elan Vital:
+        mp3:
+            -   title: Full set
     Oleh:
+        mp3:
+            -   title: Full set
     Ambulant:
+        mp3:
+            -   title: Full set
     Otepuni Moonshine:
+        mp3:
+            -   title: Full set
     Julian Temple Band:
+        mp3:
+            -   title: Full set
     Killergrams:
+        mp3:
+            -   title: Full set
     The Shambles:
+        mp3:
+            -   title: Full set
     Tiny Pieces of Eight:
     Space Bats, Attack!:
 ---

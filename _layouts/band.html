@@ -2,7 +2,7 @@
 layout: default-slim-header
 ---
 
-{% assign machine_name = page.title | downcase | replace:' ', '_' | replace: "'", "" | replace: ",", "" | replace: "!", "" %}
+{% assign machine_name = page.title | downcase | machine_name %}
 
 <article class="band container-fluid" id="band">
   <header class="post-header row">
@@ -26,32 +26,30 @@ layout: default-slim-header
         {% endif %}
     </div>
     <div class="text">
-      <p>&nbsp;</p>
+      <center>
       <h1 class="huge-header">{{page.title}}</h1>
-      <div class="social-links"><center>
-        {% if page.facebook %}<a href="{{page.facebook}}" target="_blank" class="btn-facebook">Facebook</a>{% endif %}
-        {% if page.bandcamp %}<a href="{{page.bandcamp}}" target="_blank" class="btn-bandcamp">Bandcamp</a>{% endif %}
-        {% if page.soundcloud %}<a href="{{page.soundcloud}}" target="_blank" class="btn-soundcloud">Soundcloud</a>{% endif %}
-        {% if page.website %}<a href="{{page.website}}" target="_blank" class="btn-primary">Website</a>{% endif %}
-      </center></div>
+      <div class="social-links">
+        {% if page.facebook %}<a href="{{page.facebook}}" target="_blank">Facebook</a>{% endif %}
+        {% if page.bandcamp %}<a href="{{page.bandcamp}}" target="_blank">Bandcamp</a>{% endif %}
+        {% if page.soundcloud %}<a href="{{page.soundcloud}}" target="_blank">Soundcloud</a>{% endif %}
+        {% if page.website %}<a href="{{page.website}}" target="_blank">Website</a>{% endif %}
+      </div>
+      </center>
     </div>
   </header>
-  <div class="divider row" style="background-color: black; color: white;">
+  <div class="divider row" style="background-color: black; color: #c8c8c8;">
     <div class="col-xs-12">
-      <h3>Past Gigs</h3>
+      <h4>Past Gigs</h4>
     </div>
   </div>
   <div class="row tiles">
-
-    {% assign name = page.title | replace:' ','_' | downcase | replace: ",", "" | replace: "!", ""  %}
-
-    {% for post in site.categories[name] %}
+    {% for post in site.categories[machine_name] %}
 
         <div class="col-sm-12 col-md-6 col-lg-4 tile-wrap smaller bottom" style="height: 35vh; background-color: black;">
           <a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
-            <span class="label label-default">{{post.date | date: "%d %b %Y"}}</span>
             <div class="tile-title">
-              <h4 style="margin-top: 10px;">{{post.title}}</h4>
+              <h4><small>{{post.date | date: "%d %b %Y"}}</small></h4>
+              <h4>{{post.title}}</h4>
               <h5>{{ post.venue }}</h5>
               <h5>
               {% if site.data.media.gigs[post.title][machine_name]['count'] > 1%}<span> {{site.data.media.gigs[post.title][machine_name]['count']}} 📷</span>{% endif %}

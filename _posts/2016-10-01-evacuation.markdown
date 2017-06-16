@@ -3,7 +3,7 @@ title: Dunedin City Hardcore Evacuation
 date: 2016-10-01 07:00:00 Z
 categories:
     - turbulent_juice
-    - yung_nat$
+    - yung_natz
     - slitzkrieg
     - knee_splitter
     - humanoid_shell
@@ -24,7 +24,7 @@ media:
     Yung Nat$:
         mp3:
             - title: Full set
-              link: yung_nat$/Dunedin City Hardcore Evacuation - Yung Nat$.mp3
+              link: yung_natz/Dunedin City Hardcore Evacuation - Yung Nat$.mp3
         vid:
             - link: -A9ugUuDDDw
     Humanoid Shell:

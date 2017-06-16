@@ -1,17 +1,20 @@
-<div id="waveform_wrapper">
-    <button title="Play/Pause" id="universalPlayButton" class="btn btn-success">
+<div id="waveform_wrapper" class="player" data-mp3="{{mp3_link}}" data-machinename="{{machine_name}}" data-bandindex="{{bandindex}}">
+
+    <button title="Play/Pause" class="btn btn-success play-pause playButton" data-index="{{ forloop.index | minus: 1 }}">
         <span class="play">▶</span>
         <span class="pause" style="display: none">❙❙</span>
     </button>
-    <div class="length-wrapper" style="left: 40px;">
-        <span id="currentTime"></span>
+
+    <div class="length-wrapper" style="left: 40px; display: none;">
+        <span class="currentTime"></span>
     </div>
-    {% if page.media[0].link %}
-    <div id="waveform" data-mp3="{{page.media[0].link}}"></div>
-    {% else %}
-    <div id="waveform" data-mp3="/assets/mp3/{{page.title | url_encode }} - {{page.media[0]}}.mp3"></div>
-    {% endif %}
-    <div class="length-wrapper" style="right: 0px;">
-        <span id="length"></span>
+    
+    <div class="waveform" id="waveform_{{machine_name}}"></div>
+
+    <div class="title-wrapper">
+        <h4>{{mp3.title}}</h4>
+    </div>
+    <div class="length-wrapper" style="right: 0px; display: none;">
+        <span class="length"></span>
     </div>
 </div>

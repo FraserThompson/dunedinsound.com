@@ -5,14 +5,14 @@ categories:
 - agent_ewok
 - ilill
 - triumphs
-- yung_nat$
+- yung_natz
 layout: post
 parent: Gigs
 media:
   Yung Nat$:
     mp3:
     - title: Full set
-      link: yung_nat$/Ilill%20and%20Machina%20Rex%20NZ%20Tour%20-%20Yung%20Nat$.mp3
+      link: yung_natz/Ilill%20and%20Machina%20Rex%20NZ%20Tour%20-%20Yung%20Nat$.mp3
     vid:
     - link: ihw3vH4PEDw
   Agent Ewok:

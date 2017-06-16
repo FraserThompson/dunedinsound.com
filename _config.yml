@@ -5,8 +5,8 @@ collections:
   posts:
     title: Posts
     output: true
-  uploads:
-    title: Uploads
+  blog_posts:
+    title: Blog
     output: true
 defaults:
 - scope:
@@ -16,7 +16,15 @@ defaults:
     layout: post
     parent: Gigs
     description: Photos, audio and video.
-email: me@fpt.nz
+- scope:
+    path: ''
+    type: blog_posts
+  values:
+    permalink: "/blog/:title/"
+    layout: blog_post
+    parent: Blog
+    description: Dunedinsound.com blog.
+email: fraser@dunedinsound.com
 asset_url:
 keep_files:
 - assets/img
@@ -33,6 +41,8 @@ exclude:
 - Gruntfile.js
 - package.json
 - node_modules
+- README.md
+- docker
 include:
 - _pages
 - _pages/artists
@@ -42,4 +52,4 @@ sass:
 markdown: kramdown
 gems:
 - jemoji
-- jekyll-seo-tag
+- jekyll-exiftag

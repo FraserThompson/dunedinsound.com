@@ -1,7 +1,7 @@
 <!--[if lte IE 9]>
 <div class="notification"><h3>This site won't work very well in your browser, get a newer one like <a href="https://www.google.com/chrome/">Google Chrome</a> or <a href="https://www.mozilla.org/en-US/firefox/new/">Mozilla Firefox</a>.</h3>
 <![endif]-->
-<footer id="footer">
+<footer id="footer" class="{% if page.layout == 'post' %}post{% endif %}">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-6">
@@ -28,8 +28,17 @@
 	<script type="text/javascript" src="/assets/js/post.js"></script>
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(event) {
+			var container = document.getElementById('sidebar');
+			Ps.initialize(container, {
+				suppressScrollX: true
+			});
     		post.waveformInit();
     	});
+		
+		document.addEventListener('ps-scroll-down', function () {
+			blazy.revalidate();
+		})
+
 	</script>
 {% endif %}
 
@@ -49,7 +58,7 @@
 	</script>
 {% endif %}
 
-{% if page.searchable %}
+{% if page.searchable and page.title != "Gigs" %}
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(event) {
 			isotopeConfig.searchingInit();
@@ -75,11 +84,9 @@
 
 {% if page.title == "Gigs" %}
 	<script type="text/javascript">
-		var container = document.getElementById('more');
-		Ps.initialize(container);
-		document.addEventListener('ps-scroll-down', function () {
-			blazy.revalidate();
-		})
+		document.addEventListener("DOMContentLoaded", function(event) {
+			gigsInit();
+		});
 	</script>
 {% endif %}
 

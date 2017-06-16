@@ -21,7 +21,19 @@ body {
 	width: 100%;
 }
 
+.container {
+	width: 50em;
+}
 
+.link {
+	color: black;
+	
+}
+
+.link:hover {
+	text-decoration: none;
+	color: #333;
+}
 .right {
 	right: 0px;
 }
@@ -38,7 +50,7 @@ body {
 }
 
 .page-wrapper {
-	margin-top: ($header-height * 2) - 20;
+	margin-top: $header-height + 40;
 
 	&.slimmed-header {
 		margin-top: $header-height - 20;
@@ -79,16 +91,22 @@ a {
 
 footer {
 	z-index: 9999;
-	height: 300px;
+	height: 360px;
 	border-top: 40px solid white;
 	background-color: black;
+
+	&.post {
+		.container {
+			margin-left: 0px;
+		}
+	}
 
 	.container {
 		background-color: black;
 	}
 
 	.footer-content {
-		margin-top: 80px;
+		margin-top: 130px;
 	}
 }
 
@@ -238,6 +256,14 @@ h3 {
 	transform: skewY(10deg) scaleY(5) scaleX(10) rotateZ(360deg) translateX(0px);
 }
 @media (min-width:768px) {
+
+	footer {
+		&.post {
+			.container {
+				margin-left: 250px;
+			}
+		}
+	}
 
 	.page-wrapper {
 		margin-top: $header-height;

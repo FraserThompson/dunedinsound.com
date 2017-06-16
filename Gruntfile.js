@@ -51,7 +51,7 @@ module.exports = function(grunt) {
           concurrency: "3",
           sizes: [{
             name: "medium",
-            quality: 80,
+            quality: 60,
             rename: false,
             suffix: " (Medium)",
             width: 800
@@ -64,7 +64,7 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          src: ['**/*.JPG'],
+          src: ['**/*.{JPG,jpg}'],
           cwd: '_originals/img',
           dest: 'assets/img'
         }]
@@ -78,6 +78,13 @@ module.exports = function(grunt) {
             quality: 80,
             rename: false,
             width: 1024
+          },
+          {
+            name: "small",
+            suffix: " (Small)",
+            quality: 60,
+            rename: false,
+            width: 600
           }]
         },
         files: [{
@@ -94,9 +101,9 @@ module.exports = function(grunt) {
           sizes: [{
             name: "small",
             suffix: " (Small)",
-            quality: 75,
+            quality: 60,
             rename: false,
-            width: 400
+            width: 600
           }]
         },
         files: [{
@@ -122,18 +129,18 @@ module.exports = function(grunt) {
         stdout: true,
         stderr: true
       },
-      vagrant_up: {
-        command: 'vagrant up --provider hyperv',
-        stdout: true,
-        stderr: true
-      },
-      vagrant_audio: {
-        command: 'vagrant ssh -c /home/vagrant/sync/dunedinsound/convert.sh',
+      docker_audio: {
+        command: 'docker-compose up --build',
         stdout: true,
         stderr: true,
         options: {
           maxBuffer: 1024 * 1024 * 64
         }
+      },
+      dev: {
+        command: 'jekyll serve --limit 3',
+        stdout: true,
+        stderr: true
       }
     },
     copy: {
@@ -171,7 +178,7 @@ module.exports = function(grunt) {
         var band = path_components[3];
 
         // Gig images
-        if (file.indexOf("(Medium)") !== -1) {
+        if (gig != "blog" && file.indexOf("(Medium)") !== -1) {
 
           if (!(band in data['artists'])) {
             data['artists'][band] = {'small': [], 'medium': []};
@@ -193,7 +200,7 @@ module.exports = function(grunt) {
         }
 
         // Artist images
-        if (file.indexOf("(Small)") !== -1) {
+        if (gig != "blog" && file.indexOf("(Small)") !== -1) {
 
           if (!(band in data['artists'])) {
             data['artists'][band] = {'small': [], 'medium': []};
@@ -214,9 +221,9 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('images', ['responsive_images', 'index-media']);
-  grunt.registerTask('audio', ['exec:vagrant_up', 'exec:vagrant_audio', 'copy:audio']);
+  grunt.registerTask('audio', ['exec:docker_audio', 'copy:audio']);
   grunt.registerTask('production-build', ['responsive_images', 'index-media', 'jekyll', 'sync']);
   grunt.registerTask('code-deploy', ['jekyll', 'exec:s3_push']);
   grunt.registerTask('deploy', ['exec:s3_push']);
-
+  grunt.registerTask('dev', ['exec:dev']);
 };

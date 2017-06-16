@@ -2,40 +2,49 @@
 layout: default-slim-header
 ---
 
-{% assign machine_name = page.title | downcase | replace:' ', '_' | replace: "'", "" %}
+{% assign machine_name = page.title| downcase | machine_name %}
 
 <article class="post container-fluid" id="venue">
 
     <header class="post-header row">
       <div class="banner">
         <div id="map" style="height: 100%; width: 100%; background-color: #222222;" data-lat="{{page.lat}}" data-lng="{{page.lng}}"></div>
-        <div class="overlay">
+        <div class="text">
+            <center>
             <h1 class="huge-header">{{page.title}}</h1>
-            {% if page.facebook %} <center><a class="facebookColor" href="{{page.facebook}}">[Facebook]</a></center> {% endif %}
+            <div class="social-links">
+                {% if page.facebook %}<a href="{{page.facebook}}" target="_blank">Facebook</a>{% endif %}
+                {% if page.website %}<a href="{{page.website}}" target="_blank">Website</a>{% endif %}
+            </div>
+            </center>
         </div>
       </div>
     </header>
+    <div class="divider row" style="background-color: black; color: #c8c8c8;">
+        <div class="col-xs-12">
+        <h4>Past Gigs</h4>
+        </div>
+    </div>
+    <div class="row tiles">
+        {% for post in site.posts %}
+            {% if post.venue and post.venue == page.title %}
 
-  <div class="row tiles">
-    {% for post in site.posts %}
-        {% if post.venue and post.venue == page.title %}
-
-            <div class="col-sm-6 col-md-3 col-lg-3 tile-wrap smaller bottom" style="height: 35vh; background-color: black;">
-                <a class="box" href="{{ post.url }}">
-                    <span class="label label-default">{{post.date | date: "%d %b %Y"}}</span>
-                    <div class="tile-title">
-                        <h4>{{post.title}}</h4>
-                        <h5>
-                        {% for band in post.media %}
-                            <span>{{band[0]}}</span>{% if forloop.last == false %}, {% endif %}
-                        {% endfor %}
-                        </h5>
-                    </div>
-                    <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}/cover.jpg"></div>
-                </a>
-            </div>
-         {% endif %}     
-    {% endfor %}
-  </div>
+                <div class="col-sm-6 col-md-3 col-lg-3 tile-wrap smaller bottom" style="height: 35vh; background-color: black;">
+                    <a class="box" href="{{ post.url }}">
+                        <div class="tile-title">
+                            <h4><small>{{post.date | date: "%d %b %Y"}}</small></h4>
+                            <h4>{{post.title}}</h4>
+                            <h5>
+                            {% for band in post.media %}
+                                <span>{{band[0]}}</span>{% if forloop.last == false %}, {% endif %}
+                            {% endfor %}
+                            </h5>
+                        </div>
+                        <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}/cover.jpg"></div>
+                    </a>
+                </div>
+            {% endif %}     
+        {% endfor %}
+    </div>
 
 </article>

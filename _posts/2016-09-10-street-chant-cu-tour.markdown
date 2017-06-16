@@ -18,6 +18,12 @@ media:
         vid:
             - link: l6zCCWAkS3Y
     Kane Strang:
+        mp3:
+            - title: Full set
+              link: kane_strang/Street Chant CU New Zealand Tour - Kane Strang.mp3
+        vid:
+            - link: ivkHlpPSkCY
+            - link: -XVoRuGZ2do
     Street Chant:
         mp3:
             - title: Full set
@@ -29,7 +35,6 @@ media:
     Opposite Sex:
         mp3:
             - title: Full set
-              nodownload: true
               link: opposite_sex/Street Chant CU New Zealand Tour - Opposite Sex.mp3
         vid:
             - link: a8Pdrb4tSSs

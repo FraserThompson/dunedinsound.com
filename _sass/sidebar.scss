@@ -20,6 +20,12 @@
 		background-color: $highlight-color !important;
 		color: $highlight-text-color !important;
 	}
+
+	li {
+		small {
+			color: hotpink;
+		}
+	}
 }
 
 .sidebar-wrapper {
@@ -27,12 +33,12 @@
 	background-color:black;
     width: $sidebar-width;
     position: fixed;
-    top: ($header-height * 3) - 20;
 	height: 0;
  	overflow-x: hidden;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     transition: all 0.5s ease;
+	overflow-y: auto;
 
 	&.scrolled {
 		top: ($header-height * 2) - 20 !important;
@@ -41,6 +47,7 @@
 	.moreFrom {
 		background-color: black;
 		padding-left: 10px; 
+		padding-right: 10px;
 		padding-bottom: 20px;
 	}
 
@@ -138,11 +145,11 @@
     }
 
     .sidebar-wrapper {
-        position: static;
-		height: auto;
+		height: 100vh;
         float: left;
-		min-height: 100vh;
         width: $sidebar-width;
+		top: $header-height;
+		padding-bottom: 80px;
 
 		&.scrolled {
 			top: 0px !important;

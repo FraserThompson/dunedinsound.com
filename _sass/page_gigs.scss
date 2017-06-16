@@ -1,8 +1,14 @@
 .gig-sorting {
-	background-color: rgba(0,0,0,0.4);
+	background-color: black;
 	-webkit-transition: opacity 0.5s ease;
     -moz-transition: opacity 0.5s ease;
     transition: opacity 0.5s ease;
+	height: 95vh;
+	overflow-x: hidden;
+	overflow-y: auto;
+	position: fixed;
+	width: 110px;
+	left: 0;
 
 	&.visible {
 		visibility: visible;
@@ -15,6 +21,18 @@
 	height: 100%;
 }
 
+.tiles.container-fluid.gigs {
+	padding-left: 125px;
+
+	.tile-wrap .post-link .tile-title {
+		width: 100%;
+	}
+
+	.tile {
+		filter: blur(1px);
+	}
+}
+
 .nav-custom {
 	a {
 		border-left: 2px solid rgba(0, 0, 0, 0);
@@ -23,6 +41,7 @@
 	}
 
 	li {
+		width: 100%;
 		box-sizing: border-box;
 		border-left: 2px solid rgba(0, 0, 0, 0);
 	}
@@ -31,23 +50,39 @@
 		font-weight: bold;
 		font-size: 16px;
 		border-left: 2px solid white;
+	}
 
+	li.year-active {
+		border-left: 2px solid green;
+		background-color: #222;
+
+		> a {
+			background-color: white;
+			color: black;
+		}
 	}
 
 	li.active {
-		border-left: 2px solid green;
+		background: rgba(0,0,0,0.4);
+		> a {
+			color: white;
+		}
 	}
 
-	li.active > a {
-		color: white !important;
-	}
 }
 
 @media (min-width:768px) {
 	#more {
 		position: relative;
-		overflow: auto;
-		height: 96vh;
+		overflow: hidden;
+	}
+	
+	.gig-sorting {
+		width: 250px;
+	}
+
+	.tiles.container-fluid.gigs {
+		padding-left: 265px;
 	}
 }
 

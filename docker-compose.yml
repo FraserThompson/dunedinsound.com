@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+    machine:
+        build: ./docker
+        volumes:
+            - ./_originals/audio:/root/audio
