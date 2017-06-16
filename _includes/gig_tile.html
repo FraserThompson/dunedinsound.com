@@ -1,11 +1,11 @@
-<div class="isotope-item {{sizing}} tile-wrap darker {{class}}" style="background-color: {{ page.colors | sample }}" id="{{id}}">
-	<a class="box gridItem {{category}}" href="{{ tile.url | prepend: site.baseurl }}">
-	{% if class == "feature" %}
+<div class="isotope-item {{include.sizing}} tile-wrap darker {% if include.class != false %}{{include.class}}{% endif %}" style="background-color: {{ page.colors | sample }}" id="{{include.id}}">
+	<a class="box gridItem {{include.category}}" href="{{ tile.url | prepend: site.baseurl }}">
+	{% if include.class == "feature" %}
 		<span class="label label-default">LATEST GIG</span>
 	{% endif %}
     <div class="tile-title">
 		<h4><small>{{tile.date | date: "%d %b %Y"}}</small></h4>
-		{% if class == "feature" %}
+		{% if include.class == "feature" %}
       		<h1 class="name">{{ tile.title }}</h1>
 		{% else %}
 			  <h3 class="name">{{ tile.title }}</h3>
@@ -28,6 +28,6 @@
 		{% endif %}
 
     </div>
-    <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{tile.title | url_encode | replace: '+', '%20'}}/cover{% unless class == 'feature' %} (Small){% endunless %}.jpg"  style="background-color: #0A0A0A"></div>
+    <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{tile.title | url_encode | replace: '+', '%20'}}/cover{% unless include.class == 'feature' %} (Small){% endunless %}.jpg"  style="background-color: #0A0A0A"></div>
 	</a>
 </div>

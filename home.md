@@ -18,10 +18,8 @@ order: 1
                 {% for tile in site.posts limit: 1 %}
 
                     {% assign type = tile.url | split: '/' %}
-                    {% assign class = "feature" %}
-                    {% assign sizing = "col-xs-12" %}
 
-                    {% include gig_tile.html %}
+                    {% include gig_tile.html class="feature" sizing="col-xs-12" category="home" %}
                     
                 {% endfor %}
             </div>
@@ -31,9 +29,9 @@ order: 1
             <div class="row sorted-tiles">
                 {% for tile in site.posts limit: 4 %}
                     {% assign type = tile.url | split: '/' %}
-                    {% assign class = "bottom thinner" %}
+
                     {% unless forloop.first %}
-                        {% include gig_tile.html %}
+                        {% include gig_tile.html class="bottom thinner" sizing="col-xs-12" category="home" %}
                     {% endunless %}
                 {% endfor %}
             </div>

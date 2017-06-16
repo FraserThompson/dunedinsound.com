@@ -178,12 +178,12 @@
 
 
 	&:not(.disabled):hover .tile {
-	@include hover-grow(1.03);
+	@include hover-grow(1.02);
 	}
 
 	&:not(.disabled):hover .tile-title {
 		opacity: 1;
-		@include hover-grow(1.02);
+		@include hover-grow(1.01);
 	    text-decoration: none !important;
 	}
 }
@@ -200,7 +200,7 @@
 
 .tile-wrap.smaller {
 	&:hover .tile {
-		@include hover-grow(1.05);
+		@include hover-grow(1.04);
 	    text-decoration: none;
 	}
 }

@@ -28,7 +28,7 @@ media:
                 link: DNeA8lWybO4
             -   title: Forbidden Reservoir
                 link: 66Z_C7rKsic
-    The Blues:
+    The BLUES:
         mp3:
             -   title: Full set
         vid:
