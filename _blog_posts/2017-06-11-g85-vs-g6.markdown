@@ -5,6 +5,7 @@ tags:
     - tech
     - photography
 image: /assets/img/blog/2017-06-11-g85-vs-g6/cover (Medium).JPG
+author: Fraser
 filename: 2017-06-11-g85-vs-g6
 ---
 The Panasonic G6 was the first camera I ever bought back in 2013. It was popular with people like me who wanted decent video quality but didn't want to fork out the extra for a more pro-oriented GH series camera such as the GH3. A few weeks ago I bought a G85 to replace it. Was it worth it?
@@ -31,15 +32,21 @@ There were also numerous other little improvements to the design. The sensor whi
 
 ### Sharpness
 
-Sharpness is improved fairly significantly. These are JPEGs straight out of the camera using the standard colour profile at ISO 800 F1.7 A Mode on my Panasonic 25mm 1.7. As you can see overall color rendering is different, it tends to auto white balance a little differently and expose slightly brighter.
+Sharpness is improved fairly significantly. These are JPEGs straight out of the camera using the standard colour profile with my Panasonic 25mm 1.7. As you can see overall color rendering is different, it tends to auto white balance a little differently and expose slightly brighter.
 
-{% include blog_image.html src="g6_sharpness.JPG" description="G6" %}
-{% include blog_image.html src="g85_sharpness.JPG" description="G85" %}
+{% include blog_image.html src="g6_sharpness.JPG" description="G6 ISO800 F1.7" %}
+{% include blog_image.html src="g85_sharpness.JPG" description="G85 ISO800 F1.7" %}
 
 The difference in sharpnes is more obvious when you really start pixel peeping.
 
 {% include blog_image.html src="g6_sharpness_100.JPG" description="G6 Crop" medium="false" %}
 {% include blog_image.html src="g85_sharpness_100.JPG" description="G85 Crop" medium="false" %}
+
+{% include blog_image.html src="g6_sharpness_2.JPG" description="G6 ISO200 F2.8" %}
+{% include blog_image.html src="g85_sharpness_2.JPG" description="G85 ISO200 F2.8" %}
+
+{% include blog_image.html src="g6_sharpness_2_100.JPG" description="G6" %}
+{% include blog_image.html src="g85_sharpness_2_100.JPG" description="G85" %}
 
 ### High ISO
 
@@ -109,4 +116,6 @@ Does it address my issue with the G6? Not completely. High ISO performance is st
 
 Also it keeps many of the things which made the G6 great: The microphone port, HDMI out, a pretty good "intelligent auto" mode which manages to make pictures look decent without any effort.
 
- Overall I'm reasonably happy with my purchase, bu it's a pretty difficult value proposition to someone who already has a G6. To be honest the sensible choice would be waiting until the next generation. That new GH5 sensor is bound to end up trickling down to the cheaper models soon enough, and that should provide much more tangible image quality benefits.
+ Overall I'm reasonably happy with my purchase, but it's a pretty difficult value proposition to someone who already has a G6. To be honest the sensible choice would be waiting until the next generation. That new GH5 sensor is bound to end up trickling down to the cheaper models soon enough, and that should provide much more tangible image quality benefits.
+
+ If I were to start again today I'd probably buy Sony. Sony's been making huge improvements in video, their A6500 has similar if not better quality to a Panasonic plus the benefits of a bigger APS-C sensor and significantly faster autofocus. Switching camera mounts now would mean replacing all my lenses which would be expensive, so for now I'm sticking with Panasonic.
