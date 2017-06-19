@@ -1,0 +1,10 @@
+<div class="row">
+    {% assign images = include.images | split: '//' %}
+
+    {% for image in images %}
+        {% assign split = image | split: '|' %}
+        {% assign src = split[0] %}
+        {% assign description = split[1] %}
+        {% include blog_image.html src=src description=description col=include.col medium=include.medium %}
+    {% endfor %}
+</div>

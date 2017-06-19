@@ -34,65 +34,56 @@ There were also numerous other little improvements to the design. The sensor whi
 
 Sharpness is improved fairly significantly. These are JPEGs straight out of the camera using the standard colour profile with my Panasonic 25mm 1.7. As you can see overall color rendering is different, it tends to auto white balance a little differently and expose slightly brighter.
 
-{% include blog_image.html src="g6_sharpness.JPG" description="G6 ISO800 F1.7" %}
-{% include blog_image.html src="g85_sharpness.JPG" description="G85 ISO800 F1.7" %}
+
+{% include blog_images.html images="g6_sharpness.JPG|G6 ISO800 F1.7//g85_sharpness.JPG|G85 ISO800 F1.7" %}
 
 The difference in sharpnes is more obvious when you really start pixel peeping.
 
-{% include blog_image.html src="g6_sharpness_100.JPG" description="G6 Crop" medium="false" %}
-{% include blog_image.html src="g85_sharpness_100.JPG" description="G85 Crop" medium="false" %}
+{% include blog_images.html images="g6_sharpness_100.JPG|G6 Crop//g85_sharpness_100.JPG|G85 Crop" col="col-xs-12 col-sm-6" medium="false" %}
 
-{% include blog_image.html src="g6_sharpness_2.JPG" description="G6 ISO200 F2.8" %}
-{% include blog_image.html src="g85_sharpness_2.JPG" description="G85 ISO200 F2.8" %}
+{% include blog_images.html images="g6_sharpness_2.JPG|G6 ISO200 F2.8//g85_sharpness_2.JPG|G85 ISO200 F2.8" %}
 
-{% include blog_image.html src="g6_sharpness_2_100.JPG" description="G6" %}
-{% include blog_image.html src="g85_sharpness_2_100.JPG" description="G85" %}
+{% include blog_images.html images="g6_sharpness_2_100.JPG|G6 Crop//g85_sharpness_2_100.JPG|G85 Crop" col="col-xs-12 col-sm-6" %}
 
 ### High ISO
 
 It's also quite a bit cleaner at high ISOs.
 
-{% include blog_image.html src="g6_1600.JPG" description="G6 ISO1600" %}
-{% include blog_image.html src="g85_1600.JPG" description="G85 ISO1600" %}
+{% include blog_images.html images="g6_1600.JPG|G6 ISO1600//g85_1600.JPG|G85 ISO1600" %}
 
-{% include blog_image.html src="g6_1600_100.JPG" description="G6 ISO1600 Crop" %}
-{% include blog_image.html src="g85_1600_100.JPG" description="G85 ISO1600 Crop" %}
+{% include blog_images.html images="g6_1600_100.JPG|G6 ISO1600 Crop//g85_1600_100.JPG|G85 ISO1600 Crop" col="col-xs-12 col-sm-6" %}
 
 I would say this is point that the G6 becomes unusable, but the G85 is clean enough in a pinch.
 
-{% include blog_image.html src="g6_3200.JPG" description="G6 ISO3200" %}
-{% include blog_image.html src="g85_3200.JPG" description="G85 ISO3200" %}
+{% include blog_images.html images="g6_3200.JPG|G6 ISO3200//g85_3200.JPG|G85 ISO3200" %}
 
-{% include blog_image.html src="g6_3200_100.JPG" description="G6 ISO3200 Crop" %}
-{% include blog_image.html src="g85_3200_100.JPG" description="G85 ISO3200 Crop" %}
+{% include blog_images.html images="g6_3200_100.JPG|G6 ISO3200 Crop//g85_3200_100.JPG|G85 ISO3200 Crop" col="col-xs-12 col-sm-6" %}
 
-At this point the image really begins to break down in both cameras.
+At this point the image really begins to break down in both cameras, but noticeably moreso in the G6.
 
-{% include blog_image.html src="g6_6400.JPG" description="G6 ISO6400" %}
-{% include blog_image.html src="g85_6400.JPG" description="G85 ISO6400" %}
+{% include blog_images.html images="g6_6400.JPG|G6 ISO6400//g85_6400.JPG|G85 ISO6400" %}
 
-{% include blog_image.html src="g6_6400_100.JPG" description="G6 ISO6400 Crop" %}
-{% include blog_image.html src="g85_6400_100.JPG" description="G85 ISO6400 Crop" %}
+{% include blog_images.html images="g6_6400_100.JPG|G6 ISO6400 Crop//g85_6400_100.JPG|G85 ISO6400 Crop" col="col-xs-12 col-sm-6" %}
 
 This is really pushing it, I don't think I'll ever need to go up to 12800 but it's interesting to see how much better the G85 handles it.
 
-{% include blog_image.html src="g6_12800.JPG" description="G6 ISO12800" %}
-{% include blog_image.html src="g85_12800.JPG" description="G85 ISO12800" %}
+{% include blog_images.html images="g6_12800.JPG|G6 ISO12800//g85_12800.JPG|G85 ISO12800" %}
 
-{% include blog_image.html src="g6_12800_100.JPG" description="G6 ISO12800 Crop" %}
-{% include blog_image.html src="g85_12800_100.JPG" description="G85 ISO12800 Crop" %}
+{% include blog_images.html images="g6_12800_100.JPG|G6 ISO12800 Crop//g85_12800_100.JPG|G85 ISO12800 Crop" col="col-xs-12 col-sm-6" %}
 
 And just for reference this is what an image at ISO25600 looks like on the G85:
 
-{% include blog_image.html src="g85_25600.JPG" description="G85 ISO25600" %}
+{% include blog_images.html images="g85_25600.JPG|G85 ISO25600" %}
 
 ## Colours
 
-The Cinema D and Cinema V colour profiles are welcome additions. Cinema D gives you a flatter image which is good for grading (to be honest it's fine straight out of the camera too) and V gives a more dynamic image. They've also added highlight controls so you can bring up the shadows or whatever, but I've found this introduces too much noise. 
+The Cinema D and Cinema V colour profiles are welcome additions. Cinema D gives you a flatter image which is good for grading (to be honest it's fine straight out of the camera too) and V gives a more dynamic image. They've also added highlight controls so you get fine-grained control over shadows and highlights but I've found playing with this too much introduces a lot of noise. 
 
-{% include blog_image.html src="standard.jpg" description="G85 Standard Profile" %}
-{% include blog_image.html src="cinev.jpg" description="G85 Cine V Profile" %}
-{% include blog_image.html src="cined.jpg" description="G85 Cine D Profile"%}
+{% include blog_images.html images="standard.jpg|G85 Standard Profile//cinev.jpg|G85 Cine V Profile//cined.jpg|G85 Cine D Profile" %}
+
+In practice I don't like to do too much grading in post since it just takes ages. Instead I've been trying to get it right in camera on location. Some venues play nicer with cine D and others prefer cine V in my experience, it depends on lighting conditions. I almost always leave noise reduction and sharpness on default too since I don't want to do noise reduction in post (because it hugely increases my rendering times) and lowering sharpness kills focus peaking (which is essential on a manual focus F1.4 lens).
+
+I would have liked a proper log profile for extra flexibility in post, but this is reserved for the GH5 it seems (and even then it's a paid extra). I guess it's a bit much to expect at this pricepoint. 
 
 ## Autofocus
 
@@ -100,22 +91,32 @@ The Cinema D and Cinema V colour profiles are welcome additions. Cinema D gives 
 
 ## Stabilisation
 
-Stabilisation is just awesome. I shoot mostly handheld, so I'm used to handheld 'jitters' in my videos no matter how still I try to hold it. The in body stabilisation takes away those jitters. It still looks handheld but it's much easier to watch. There's also the option of electronic stabilisation which crops the video and bins pixels in realtime to make it even smoother, but to me this looks a little too smooth and artificial.
+Stabilisation is just awesome. I shoot mostly handheld, with a fairly telephotp vintage lens so I'm used to handheld 'jitters' in my videos no matter how still I try to hold it. The in body stabilisation takes away those jitters. It still looks handheld but it's much easier to watch, and a cheaper (and more portable) alternative to getting a handheld gimble. There's also the option of electronic stabilisation which crops the video and bins pixels in realtime to make it even smoother, but to me this looks a little too smooth and artificial.
 
-[insert stabilisation comparison]
+Compare this:
+
+{% include youtube_video.html link="mhDKH7xcYKk" title="G85 Stabilisation" vanilla="true" %}
+
+To this:
+
+{% include youtube_video.html link="I4koiJ_EJyI" title="G6 No Stabilisation" start="11" vanilla="true" %}
+
+Both were shot handheld on an 80mm equivalent lens, the first on the G85 with stabilisation and the second on the G6 without.
 
 ## 4k
 
-I haven't been able to test 4K video yet because my SD card isn't fast enough. I'm hoping that 4k video will mean a better noise profile, so even if I end up downscaling it to 1080p the footage looks nicer.
+The 4k test footage I've taken looks amazing. Not only sharpness but at high ISOs it's MUCH cleaner. There's a slight crop due to the way it uses the sensor but nothing drastic.
 
-It would be nice if Panasonic had allowed for higher bitrates in 1080p. 28mbps at 50fps is just a tad low, but I guess they want to encourage pro users to get the GH5 which allows for 200mbps video.
+Here's a 1080p video which compares ISO 3200 and 6400 at 1080p and downscaled 4k:
+
+{% include youtube_video.html link="tKclCZpXimw" title="G85 4k vs 1080p at high ISO" vanilla="true" %}
+
+4k at ISO 6400 basically looks cleaner than 1080p at ISO 3200. Unfortunately 4k maxes out at 30fps so I have to choose between sharp video and smooth motion... A tough choice since I really like how 50fps looks and I think it will hold up better over time.
 
 ## Conclusion
 
-Does it address my issue with the G6? Not completely. High ISO performance is still pretty bad, as is typical for micro four thirds cameras, but things are definitely improved. The things which make it worth it to me are small things I didn't know I needed. The general feel of the camera, placement of buttons, dials, etc. In use it feels much quicker and I'm more confident I'll be able to get the shot.
+Does it address my issue with the G6? Not completely. High ISO performance is greatly improved, but still not ideal. The things which make it worth it to me are small things I didn't know I needed. The general feel of the camera, placement of buttons, dials, etc. In use it feels much quicker and I'm more confident I'll be able to get the shot. It's an iterative improvement.
 
 Also it keeps many of the things which made the G6 great: The microphone port, HDMI out, a pretty good "intelligent auto" mode which manages to make pictures look decent without any effort.
 
- Overall I'm reasonably happy with my purchase, but it's a pretty difficult value proposition to someone who already has a G6. To be honest the sensible choice would be waiting until the next generation. That new GH5 sensor is bound to end up trickling down to the cheaper models soon enough, and that should provide much more tangible image quality benefits.
-
- If I were to start again today I'd probably buy Sony. Sony's been making huge improvements in video, their A6500 has similar if not better quality to a Panasonic plus the benefits of a bigger APS-C sensor and significantly faster autofocus. Switching camera mounts now would mean replacing all my lenses which would be expensive, so for now I'm sticking with Panasonic.
+Overall I'm reasonably happy with my purchase, but it's a difficult value proposition to someone who already has a G6. Unless you REALLY value in body stabilisation or 4k to be honest the sensible choice would be waiting until the next generation. That new GH5 sensor is bound to end up trickling down to the cheaper models soon enough, and that should provide much more tangible image quality benefits.

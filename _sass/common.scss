@@ -22,7 +22,12 @@ body {
 }
 
 .container {
-	width: 50em;
+	max-width: 60em;
+}
+
+.row.deep {
+	margin-left: -30px;
+	margin-right: -30px;
 }
 
 .link {

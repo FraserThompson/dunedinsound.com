@@ -72,12 +72,7 @@ type: posts
 				{% assign number_of_vids = band[1].vid | size %}
 					{% for vid in band[1].vid %}
 						<div class="col-xs-6 {% if number_of_pics <= 8 %} col-sm-6 col-md-6 col-lg-4 {% elsif number_of_pics <= 12 %} col-sm-4 col-md-4 col-lg-3 {% else %} col-sm-4 col-md-4 col-lg-3 {% endif %} no-padding">
-							<a href="http://i.ytimg.com/vi/{{vid.link}}/maxresdefault.jpg">
-							<div class="box youtube {{page.aspectratio}}" id="{{vid.link}}">
-								<h4>Video{% if vid.title %}: {{vid.title}}{% endif %}</h4>
-								<img src="http://i.ytimg.com/vi/{{vid.link}}/maxresdefault.jpg" width="100%" height="auto" style="margin: 0; padding: 0;" alt="{{vid.link}}"/>
-							</div>
-							</a>
+							{% include youtube_video.html link=vid.link title=vid.title aspectratio=page.aspectratio %}
 						</div>
 					{% endfor %}
 			{% endif %}
