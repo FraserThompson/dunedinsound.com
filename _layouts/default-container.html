@@ -8,9 +8,9 @@ layout: compress
   {% include head.html %}
 
   <body>
-  {% include header.html %}
-    <div class="page-wrapper" style="background-color: #222222;">
-      <div class="container" style="min-height: 80vh;">
+    {% include header.html slim="true" not_fixed="true" %}
+    <div class="page-wrapper" style="{% if page.type != 'blog' %} background-color: #222222; {% else %} background-color: white; {% endif %}">
+      <div class="container {{page.type}}" style="min-height: 80vh;">
         <div class="row">
           <div class="col-xs-12">
               {{ content }}

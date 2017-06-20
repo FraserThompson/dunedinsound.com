@@ -1,25 +1,22 @@
 .blog {
-    background-color: #f6f6f6;
-    
-    .container {
-         background-color: white; 
-         color: black;
+    background-color: white;
+    color: black;
 
-         ul, p{
-            font-size: 18px;
-         }
+    ul, p{
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
 
-         ul, p, h1, h2, h3, h4 {
-            max-width: 720px;
-            margin-left: auto;
-            margin-right: auto;
-         }
-
+    ul, p, h1, h2, h3, h4 {
+        max-width: 740px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     h1, h2, h3, h4, a {
         color: black;
     }
+
 }
 
 .label-blog {
@@ -29,5 +26,30 @@
 }
 
 .blog-header {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+}
+.blog-image-header {
+    background-color: mediumslateblue;
+    h5 {
+        color: white;
+    }
+}
+.blog-footer {
+    min-height: 300px;
+}
+
+.no-padding h5 {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: white;
+}
+
+.pattern1 {
+    background: 
+    radial-gradient(circle at 100% 50%, transparent 20%, rgba(255,255,255,.3) 21%, rgba(255,255,255,.3) 34%, transparent 35%, transparent),
+    radial-gradient(circle at 0% 50%, transparent 20%, rgba(255,255,255,.3) 21%, rgba(255,255,255,.3) 34%, transparent 35%, transparent) 0 -50px;
+    background-color: slategray;
+    background-size:75px 100px;
+    width: 100%;
 }

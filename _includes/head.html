@@ -8,9 +8,9 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
 	<meta property="og:title" content="{{ page.title }}"/> 
 	<meta name="description" content="Photos, audio and video."/> 
-	<meta property="og:description" content="Photos, audio and video."/> 
+	<meta property="og:description" content="{% if page.description %} {{page.description}} {% else %} Photos, audio and video. {% endif %}"/> 
 	<meta property="og:url" content="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}"/>
-	<meta property="og:site_name" content="Dunedin Gig Archives"/>
+	<meta property="og:site_name" content="Dunedin Gig Archives {% if page.type == 'blog' %} - Blog {% endif %}"/>
 	<meta property="og:image" content="{{ page.image }}"/> 
 	<meta property="og:type" content="article"/>
 </head>

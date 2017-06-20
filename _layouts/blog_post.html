@@ -3,13 +3,18 @@ layout: blog
 ---
 
 <div class="row blog-image-header">
-    <img src="/assets/img/blog/{{page.filename}}/cover (Medium).JPG" style="width: 100%;" alt="Cover">
+    <a href="/blog"><h5 style="font-weight: bolder;">Back to latest posts</h5></a>
+    {% if post.image %}
+        <img src="/assets/img/blog/{{page.filename}}/cover (Medium).JPG" style="width: 100%;" alt="Cover">
+    {% else %}
+        <div class="pattern1" style="height: 300px;"></div>
+    {% endif %}
 </div>
 
 <div class="row blog-header">
     <div class="col-xs-12">
         <h1>{{page.title}}</h1>
-        <h4>By {{page.author}} on {{page.date | date_to_long_string}}</h4>
+        <h3>By {{page.author}} on {{page.date | date_to_long_string}}</h3>
         <p>
         {% for tag in page.tags %}
             <small class="label label-blog">{{tag}}</small>
@@ -19,3 +24,11 @@ layout: blog
 </div>
 
 {{content}}
+
+<hr>
+
+<div class="row blog-footer">
+    <h3>Related Posts</h3>
+    <p><small>nothing, here's a cat</small></p>
+    <center><img src="http://loremflickr.com/320/240/cat"></center>
+</div>

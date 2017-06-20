@@ -3,7 +3,7 @@
 
 <div class="image" class="{% if include.col != blank %}{{include.col}}{% else %} col-xs-12 {% endif %} no-padding">
     <a href="/assets/img/blog/{{page.filename}}/{{include.src}}">
-        <img src="/assets/img/blog/{{page.filename}}/{% if include.medium != 'false' %}{{ medium_image }}{% else %}{{ include.src }}{% endif %}" alt="{{ include.description }}" style="width: 100%;"/>
+        <img src="/assets/img/blog/{{page.filename}}/{% if include.medium == blank %}{{ medium_image }}{% else %}{{ include.src }}{% endif %}" alt="{{ include.description }}" style="width: 100%;"/>
     </a>
-    <h5>Above: {{include.description}}</h5>
+    <h5>{{include.description}}</h5>
 </div>

@@ -22,10 +22,12 @@ defaults:
   values:
     permalink: "/blog/:title/"
     layout: blog_post
+    type: blog
     parent: Blog
     description: Dunedinsound.com blog.
 email: fraser@dunedinsound.com
 asset_url:
+excerpt_separator: "<!-- more -->"
 keep_files:
 - assets/img
 - assets/audio

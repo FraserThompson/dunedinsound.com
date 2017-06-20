@@ -22,7 +22,7 @@ body {
 }
 
 .container {
-	max-width: 60em;
+	max-width: 1000px;
 }
 
 .row.deep {
@@ -55,10 +55,19 @@ body {
 }
 
 .page-wrapper {
-	margin-top: $header-height + 40;
+
+	&.gig-wrapper {
+		position:relative; 
+		background-color: black; 
+		min-height: 100vh;
+	}
 
 	&.slimmed-header {
 		margin-top: $header-height - 20;
+	}
+
+	&.fixed-header {
+		margin-top: $header-height + 40;
 	}
 
 	height: 100%;
@@ -271,7 +280,10 @@ h3 {
 	}
 
 	.page-wrapper {
-		margin-top: $header-height;
+
+		&.fixed-header{
+			margin-top: $header-height;
+		}
 
 		&.slimmed-header {
 			margin-top: $header-height;

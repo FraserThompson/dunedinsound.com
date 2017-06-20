@@ -9,8 +9,15 @@ layout: compress
 
   <body>
     {% include header.html %}
-      <div class="page-wrapper" style="background-color: #222222;">
+      <div class="page-wrapper fixed-header {% if page.layout == 'post' %} gig-wrapper {% endif %}" style="background-color: #222222;">
+        {% if page.layout == "post" %}
+          {% include sidebar_left.html %}
+          <div class="page-content">
+              {{ content }}
+          </div>
+        {% else %}
           {{ content }}
+        {% endif %}
       </div>
     {% include footer.html %}
   </body>
