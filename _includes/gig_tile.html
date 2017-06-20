@@ -15,9 +15,12 @@
 		{% assign band_quantity_minus_one = band_quantity | minus: 1 %}
 
 		<span class="artistNames">
-		{% for band in tile.media limit: 8 %}
-			{% assign machine_name = band[0] | downcase | machine_name %}
-			<span href="{{ tile.url | prepend: site.baseurl }}#{{machine_name}}">{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false %}, {% endif %}</span>
+		{% for band in tile.media %}
+			{% if forloop.index < 8 %}
+				<span>{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false and forloop.index != 7 %}, {% endif %}</span>
+			{% else %}
+				<span style="display: none;">{{band[0]}} </span>
+			{% endif %}
 		{% endfor %}
 		</span>
 
