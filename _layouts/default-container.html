@@ -9,6 +9,18 @@ layout: compress
 
   <body>
     {% include header.html slim="true" not_fixed="true" %}
+    {% if page.author %}
+      <div class="blog-image-header">
+          <div class="divider-purple">
+            <a href="/blog"><h5>Back to latest posts</h5></a>
+          </div>
+          {% if page.image %}
+              <div style="width: 100%; height: 50vh; background-image: url('/assets/img/blog/{{page.filename}}/cover.JPG'); background-size: cover; background-position: center;"></div>
+          {% else %}
+              <div class="pattern1" style="height: 300px;"></div>
+          {% endif %}
+      </div>
+    {% endif %}
     <div class="page-wrapper" style="{% if page.type != 'blog' %} background-color: #222222; {% else %} background-color: white; {% endif %}">
       <div class="container {{page.type}}" style="min-height: 80vh;">
         <div class="row">
@@ -18,7 +30,16 @@ layout: compress
           </div>
         </div>
     </div>
-
+    {% if page.author %}
+      <div class="divider-purple">
+        <a href="/blog"><h5>Back to latest posts</h5></a>
+      </div>
+      <div class="blog-footer">
+          <h3>Related Posts</h3>
+          <p><small>nothing, here's a cat</small></p>
+          <center><img src="http://loremflickr.com/320/240/cat"></center>
+      </div>
+    {% endif %}
     {% include footer.html %}
   </body>
 </html>

@@ -1,16 +1,16 @@
 ---
 title: Blog
 permalink: "/blog/"
-layout: blog
+layout: default-container
 type: blog
 order: 4
 ---
 
 <div class="row">
-    {% for post in site.blog_posts %}
+    {% for post in site.blog_posts reversed%}
         <div class="col-xs-12">
             <a href="{{ post.url | prepend: site.baseurl }}">
-                <h1>{{post.title}}</h1>
+                <h2>{{post.title}}</h2>
             </a>
                 <h3>By {{post.author}} on {{post.date | date_to_long_string}}
                     {% for tag in post.tags %}
