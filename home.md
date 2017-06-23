@@ -7,6 +7,7 @@ colors:
     - "#141414"
     - "#292929"
     - "#0A0A0A"
+description: "Check out rare and unofficial photos, bootlegs and videos of gigs in Dunedin from 2014 until now!"
 order: 1
 ---
 

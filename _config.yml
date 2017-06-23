@@ -15,7 +15,6 @@ defaults:
   values:
     layout: post
     parent: Gigs
-    description: Photos, audio and video.
 - scope:
     path: ''
     type: blog_posts
@@ -24,7 +23,6 @@ defaults:
     layout: blog_post
     type: blog
     parent: Blog
-    description: Dunedinsound.com blog.
 email: fraser@dunedinsound.com
 asset_url:
 excerpt_separator: "<!-- more -->"
