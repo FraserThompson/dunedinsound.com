@@ -7,6 +7,9 @@
 	<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
 	<meta property="og:title" content="{{ page.title }}"/>
+
+	{% assign url = page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url %}
+
 	{% if page.description %}
 		{% assign description = page.description %}
 	{% elsif page.layout == "post" %} 
@@ -17,9 +20,67 @@
 	{% else %}
 		{% assign description = "Rare and unofficial photos, audio and video of gigs in Dunedin, New Zealand." %}
 	{% endif %}
+
+	{% if page.layout == "blog_post" %}
+		<script type="application/ld+json">
+			{
+			"@context": "http://schema.org",
+			"@type": "NewsArticle",
+			"mainEntityOfPage": {
+				"@type": "WebPage",
+				"@id": "{{url}}"
+			},
+			"headline": "{{page.title}}",
+			"image": {
+				"@type": "ImageObject",
+				"url": "{{page.image |prepend: site.baseurl | prepend: site.url}}",
+				"height": 800,
+				"width": 450
+			},
+			"datePublished": "{{page.date}}",
+			"dateModified": "{{page.date}}",
+			"author": {
+				"@type": "Person",
+				"name": "{{page.author}}"
+			},
+			"publisher": {
+				"@type": "Organization",
+				"name": "Dunedinsound.com"
+			},
+			"description": "{{description}}"
+			}
+		</script>
+	{% elsif page.layout == "band" %}
+		<script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "MusicGroup",
+			"url": "{{url}}",
+			"name": "{{page.title}}",
+			"sameAs": "{% if page.website %} {{page.website}} {% elsif page.bandcamp %} {{page.bandcamp}} {% elsif page.facebook %} {{page.facebook}} {% elsif page.soundcloud %} {{page.soundcloud}} {% endif %}",
+			"description": "{{page.title}} is a music artist from {% if page.origin %}{{page.origin}}{% else %}Dunedin, New Zealand{% endif %}.",
+			"potentialAction": {
+				"@type": "ListenAction",
+				"target": [
+				{
+					"@type": "EntryPoint",
+					"urlTemplate": "{% if page.bandcamp %} {{page.bandcamp}} {% elsif page.soundcloud %} {{page.soundcloud}} {% endif %}",
+					"actionPlatform": [
+					"http://schema.org/DesktopWebPlatform",
+					"http://schema.org/IOSPlatform",
+					"http://schema.org/AndroidPlatform"
+					],
+					"InLanguage": "USD"
+				}
+				]
+			}
+		}
+		</script>
+	{% endif %}
+
 	<meta name="description" content="{{description}}"/> 
 	<meta property="og:description" content="{{description}}"/> 
-	<meta property="og:url" content="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}"/>
+	<meta property="og:url" content="{{ url }}"/>
 	<meta property="og:site_name" content="Dunedin Gig Archives{% if page.type == 'blog' %} - Blog {% endif %}"/>
 	<meta property="og:image" content="{{ page.image }}"/> 
 	<meta property="og:type" content="article"/>
