@@ -9,3 +9,4 @@ node_modules
 assets/audio
 assets/img
 s3_website.yml
+Gemfile.lock

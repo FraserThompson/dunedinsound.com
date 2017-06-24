@@ -41,6 +41,7 @@ exclude:
 - Gruntfile.js
 - package.json
 - node_modules
+- Gemfile
 - README.md
 - docker
 include:
