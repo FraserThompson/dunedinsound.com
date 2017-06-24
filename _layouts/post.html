@@ -71,7 +71,7 @@ type: posts
 			{% if band[1].vid %}
 				{% assign number_of_vids = band[1].vid | size %}
 					{% for vid in band[1].vid %}
-						<div class="col-xs-6 {% if number_of_pics <= 8 %} col-sm-6 col-md-6 col-lg-4 {% elsif number_of_pics <= 12 %} col-sm-4 col-md-4 col-lg-3 {% else %} col-sm-4 col-md-4 col-lg-3 {% endif %} no-padding">
+						<div class="col-xs-4 {% if number_of_pics <= 8 %} col-xs-6 col-sm-6 col-md-6 col-lg-4 {% elsif number_of_pics <= 12 %} col-sm-4 col-md-4 col-lg-3 {% else %} col-sm-4 col-md-4 col-lg-3 {% endif %} no-padding">
 							{% include youtube_video.html link=vid.link title=vid.title aspectratio=page.aspectratio %}
 						</div>
 					{% endfor %}
@@ -86,7 +86,7 @@ type: posts
 					{% exiftag date_time_original,{{directory}},{{filename}} %}
 				{% endcapture %}
 
-				<div class= "col-xs-6 {% if number_of_pics <= 8 %} col-sm-6 col-md-6 col-lg-4 {% elsif number_of_pics <= 12 %} col-sm-4 col-md-4 col-lg-3 {% else %} col-sm-4 col-md-4 col-lg-3 {% endif %} no-padding hover-img">
+				<div class= "col-xs-4 {% if number_of_pics <= 8 %} col-xs-6 col-sm-6 col-md-6 col-lg-4 {% elsif number_of_pics <= 12 %} col-sm-4 col-md-4 col-lg-3 {% else %} col-sm-4 col-md-4 col-lg-3 {% endif %} no-padding hover-img">
 					<div class="box {{page.aspectratio}}">
 						<a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" data-date="{{image_date | date: '%r'}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
 					</div>

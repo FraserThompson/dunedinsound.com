@@ -271,6 +271,19 @@ h3 {
 }
 @media (min-width:768px) {
 
+	h1 {
+		font-size: 4em !important;
+	}
+
+    #menu-toggle {
+        display: none;
+    }
+
+    .page-content {
+        margin-left: $sidebar-width;
+        padding: 0px 0px 0px 0px;
+    }
+
 	footer {
 		&.post {
 			.container {
@@ -298,5 +311,17 @@ h3 {
 	.cover-the-top {
 		position: static;
 		z-index: auto;
+	}
+}
+
+/* Really tiny */
+@media (max-width: 420px) {
+
+	h2 {
+		font-size: 20px;
+	}
+
+	h3 {
+		font-size: 18px;
 	}
 }

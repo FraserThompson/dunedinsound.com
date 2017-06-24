@@ -1,13 +1,5 @@
 .navbar-brand {
-	overflow:hidden;
-	white-space: nowrap;
-    float: right;
-	width: 50%;
-	text-overflow: ellipsis;
-
-	&.slim {
-		width: auto;
-	}
+	display:none;
 }
 
 .search {
@@ -239,6 +231,7 @@
 	}
 
 	.navbar-brand {
+		display: block;
         float: left;
 		width: auto;
         &.slim {

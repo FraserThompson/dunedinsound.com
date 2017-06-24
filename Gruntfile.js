@@ -49,6 +49,7 @@ module.exports = function(grunt) {
         options: {
           engine: "gm",
           concurrency: "3",
+          customIn: ['-interlace', 'line', '-sampling-factor', '4:2:0'],
           sizes: [{
             name: "medium",
             quality: 60,
@@ -73,6 +74,7 @@ module.exports = function(grunt) {
         options: {
           engine: "gm",
           concurrency: "3",
+          customIn: ['-interlace', 'line', '-sampling-factor', '4:2:0'],
           sizes: [{
             name: "medium",
             quality: 80,
@@ -98,6 +100,7 @@ module.exports = function(grunt) {
         options: {
           engine: "gm",
           concurrency: "3",
+          customIn: ['-interlace', 'line', '-sampling-factor', '4:2:0'],
           sizes: [{
             name: "small",
             suffix: " (Small)",

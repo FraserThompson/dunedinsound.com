@@ -79,6 +79,7 @@
     position: absolute;
     top: 0px;
     padding: 10px;
+    font-size: 14px;
     z-index: 5;
 	  margin: 0px !important;
   }
@@ -99,10 +100,10 @@
 .youtube::before {
   content: '';
   background: rgba(255, 255, 255, .6);
-  height: 80px;
-  width: 80px;
+  height: 50px;
+  width: 50px;
   display:block;
-  margin: -40px 0 0 -40px;
+  margin: -25px 0 0 -25px;
   border-radius: 100px;
   position: absolute;
   top: 50%;
@@ -115,9 +116,9 @@
 .youtube:hover::before {
   background: rgba(238, 238, 238, .8);
   box-shadow: 0 0 10px 3px rgba(51, 51, 51, .8);
-  width: 100px;
-  height: 100px;
-  margin: -50px 0 0 -50px;
+  width: 70px;
+  height: 70px;
+  margin: -35px 0 0 -35px;
 }
 
 .youtube::after {
@@ -127,8 +128,8 @@
   line-height:0px;
   display:block;
   border-style: solid;
-  border-width: 20px 0 20px 40px;
-  margin: -20px 0 0 -15px;
+  border-width: 15px 0 15px 25px;
+  margin: -15px 0 0 -10px;
   border-color: transparent transparent transparent #333;
   position: absolute;
   top: 50%;
@@ -151,4 +152,12 @@
     width: 80%;
     height: 0;
     padding-bottom: 56.25%;
+}
+
+@media (min-width:768px) {
+	.gig  {		
+		.divider {
+			height: auto;
+		}
+	}
 }

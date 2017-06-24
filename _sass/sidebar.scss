@@ -35,9 +35,9 @@
     position: fixed;
 	height: 0;
  	overflow-x: hidden;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    -webkit-transition: height 0.25s ease;
+    -moz-transition: height 0.25s ease;
+    transition: height 0.25s ease;
 	overflow-y: auto;
 
 	&.scrolled {
