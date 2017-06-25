@@ -15,7 +15,8 @@ layout: compress
             <a href="/blog"><h5>Back to latest posts</h5></a>
           </div>
           {% if page.image %}
-              <div style="width: 100%; height: 50vh; background-image: url('/assets/img/blog/{{page.filename}}/cover.JPG'); background-size: cover; background-position: center;"></div>
+              {% assign full_image = page.image | replace: " (Medium)","" %}
+              <div style="width: 100%; height: 50vh; background-image: url('{{full_image}}'); background-size: cover; background-position: center;"></div>
           {% else %}
               <div class="pattern1" style="height: 300px;"></div>
           {% endif %}
