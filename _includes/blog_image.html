@@ -1,9 +1,12 @@
 {% assign filename = include.src | split: '.' %}
-{% assign medium_image = filename[0] | append: " (Medium)." | append: filename[1] %}
+{% assign medium_image = filename[0] | append: " (Medium)." | append: filename[1] | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+{% assign full_image = include.src | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
 
-<div class="image" class="{% if include.col != blank %}{{include.col}}{% else %} col-xs-12 {% endif %} no-padding">
-    <a href="/assets/img/blog/{{page.filename}}/{{include.src}}">
-        <img src="/assets/img/blog/{{page.filename}}/{% if include.medium == blank %}{{ medium_image }}{% else %}{{ include.src }}{% endif %}" alt="{{ include.description }}" style="width: 100%;"/>
-    </a>
+<div class="{% if include.col != blank %}{{include.col}}{% else %} col-xs-12 {% endif %} no-padding">
+    <div class="box">
+        <a target="_blank" class="loading" href="/assets/img/blog/{{page.filename}}/{{full_image}}">
+            <img width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy" data-src="/assets/img/blog/{{page.filename}}/{% if include.medium == blank %}{{medium_image}}{% else %}{{full_image}}{% endif %}" alt="{% if include.description %}{{ include.description }}{% else %} {% endif %}"/>
+        </a>
+    </div>
     <h5>{{include.description}}</h5>
 </div>

@@ -181,7 +181,7 @@ module.exports = function(grunt) {
         var band = path_components[3];
 
         // Gig images
-        if (gig != "blog" && file.indexOf("(Medium)") !== -1) {
+        if (file.indexOf('cover') == -1 && file.indexOf("(Medium)") !== -1) {
 
           if (!(band in data['artists'])) {
             data['artists'][band] = {'small': [], 'medium': []};
@@ -203,7 +203,7 @@ module.exports = function(grunt) {
         }
 
         // Artist images
-        if (gig != "blog" && file.indexOf("(Small)") !== -1) {
+        if (file.indexOf("(Small)") !== -1) {
 
           if (!(band in data['artists'])) {
             data['artists'][band] = {'small': [], 'medium': []};

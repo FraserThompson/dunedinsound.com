@@ -72,10 +72,6 @@
 	</script>
 {% endif %}
 
-{% if page.title == "Get" %}
-	<script type="text/javascript" src="/assets/js/waveform_generate.js"></script>
-{% endif %}
-
 {% if page.parent == "Venues" %}
 	<script>
 		var map_el = document.getElementById('map');
@@ -92,6 +88,20 @@
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(event) {
 			gigsInit();
+		});
+	</script>
+{% endif %}
+
+{% if page.author %}
+	<script type="text/javascript">
+		document.addEventListener("DOMContentLoaded", function(event) {
+			baguetteBox.run('.blog-post',{
+				captions: function(element) {
+					var img = element.getElementsByTagName('img')[0];
+					var download = "<a href='" + img.src + "'>Download</a>";
+					return "<p>" + img.alt + " " + download + "</p>";
+				}
+			});
 		});
 	</script>
 {% endif %}

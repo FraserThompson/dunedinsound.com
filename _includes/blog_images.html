@@ -1,10 +1,24 @@
 <div class="row">
-    {% assign images = include.images | split: '//' %}
+    {% if include.images != "indexed-media" %}
 
-    {% for image in images %}
-        {% assign split = image | split: '|' %}
-        {% assign src = split[0] %}
-        {% assign description = split[1] %}
-        {% include blog_image.html src=src description=description col=include.col medium=include.medium %}
-    {% endfor %}
+        {% assign images = include.images | split: '//' %}
+
+        {% for image in images %}
+            {% assign split = image | split: '|' %}
+            {% assign src = split[0] %}
+            {% assign description = split[1] %}
+            {% include blog_image.html src=src description=description col=include.col medium=include.medium %}
+        {% endfor %}
+
+    {% else %}
+
+        {% for image in site.data.media.gigs['blog'][page.filename]['images'] %}
+			
+				{% assign src = image | split: '/' | last | replace: " (Medium)","" %}
+
+                {% include blog_image.html src=src col=include.col medium=include.medium %}
+        
+        {% endfor %}
+        
+    {% endif %}
 </div>
