@@ -7,7 +7,11 @@
           <span id="selectedArtist" style="font-size: 18px; padding-left: 10px;"></span>
       </button>
       {% if page.layout == "post" %}
-        <a class="navbar-brand nohover">{{ page.title }} <small>{{ page.date | date: "%d/%m/%y" }}</small></a>
+        <button title="Play whole gig" class="btn btn-success big hidden-xs" id="universalPlayButton">
+            <span class="play">▶</span>
+            <span class="pause" style="display: none">❙❙</span>
+        </button>
+        <a style="margin-left: 25px;" class="navbar-brand nohover hidden-xs">{{ page.title }} <small>{{ page.date | date: "%d/%m/%y" }}</small></a>
       {% else %}
         <a class="navbar-brand hidden-xs" href="/"hidden-xs>Dunedin Gig Archives</a>
       {% endif %}

@@ -72,7 +72,12 @@ post.waveformInit = function() {
         playPause: document.getElementsByClassName('play-pause'),
         buttons: {
             playPause: document.getElementsByClassName('playButton'),
+            universalPlayButton: document.getElementById('universalPlayButton')
         },
+        /* 
+        Sets the state of a play button
+        Params: element to set, state to set it to
+        */
         setPlayButtonState: function (element, state) {
             if (state == "playing") {
                 element.classList.remove("paused");
@@ -95,43 +100,54 @@ post.waveformInit = function() {
                 element.children[1].style.display = "none"; 
             }
         },
+        /* 
+        Sets the current song and the state of the DOM items when playing. Called whenever wavesurfer plays.
+        Params: index of the player to play.
+        */
         play: function (index) {
             return function() {
+                var state = "playing";
                 player.currentSong = index;
                 player.players[index].children[1].style.display = "block"; // current time
                 player.players[index].children[3].style.display = "none"; // title overlay
                 player.players[index].children[4].style.display = "block"; // total length
-                player.setPlayButtonState(player.buttons.playPause[index], "playing");
+                player.setPlayButtonState(player.buttons.playPause[index], state);
+                player.setPlayButtonState(player.buttons.universalPlayButton, state);
                 player.setPlayButtonState(player.playPause[playerIndexes[index]], "paused");
             }
         },
+        /* 
+        Sets the state of the DOM items when paused. Called whenever wavesurfer pauses.
+        Params: index of the player to pause.
+        */
         pause: function (index) {
             return function() {
+                var state = "paused";
                 player.players[index].children[3].style.display = "block";
-                player.setPlayButtonState(player.buttons.playPause[index], "paused");
+                player.setPlayButtonState(player.buttons.playPause[index], state);
+                player.setPlayButtonState(player.buttons.universalPlayButton, state);
                 player.setPlayButtonState(player.playPause[playerIndexes[index]], "playing");
             }
         },
+        /* 
+        Sets the state of the DOM items when stopped. Called whenever wavesurfer stops.
+        Params: index of the player to stop.
+        */
         stop: function (index) {
             return function() {
+                var state = "stopped"
                 player.players[index].children[1].style.display = "none"; // current time
                 player.players[index].children[3].style.display = "block"; // title overlay
                 player.players[index].children[4].style.display = "none"; // total length
-                player.setPlayButtonState(player.buttons.playPause[index], "stopped");
+                player.setPlayButtonState(player.buttons.playPause[index], state);
+                player.setPlayButtonState(player.buttons.universalPlayButton, state);
                 player.setPlayButtonState(player.playPause[playerIndexes[index]], "really stopped");
             }
         },
-        playButtonClick: function(i) {
-            return function() {
-                if (!jsons[i]){
-                    player.load(i, false, function() {
-                        player.setCurrentSong(i);
-                    });
-                } else {
-                    player.setCurrentSong(i);
-                }
-            }
-        },
+        /* 
+        Updates the duration as it plays.
+        Params: index of the player to update.
+        */
         updateDuration: function (index) {
             return function() {
                 var time = wavesurfer[index].getDuration();
@@ -140,6 +156,10 @@ post.waveformInit = function() {
                 player.length[index].innerHTML = mins + ":" + secs;
             }
         },
+        /* 
+        Updates the total time of a player.
+        Params: index of the player to update.
+        */
         updateTime: function (index) {
             return function() {
                 var time = wavesurfer[index].getCurrentTime();
@@ -148,6 +168,9 @@ post.waveformInit = function() {
                 player.currentTime[index].innerHTML = mins + ":" + secs;
             }
         },
+        /* 
+        Redraws all players. Called on browser resize.
+        */
         redraw: function() {
             return debounce(function() {
                 for (var i = 0; i < wavesurfer.length; i++) {
@@ -158,12 +181,16 @@ post.waveformInit = function() {
                 }
             }, 500)
         },
+        /* 
+        Loads a song into a player. Downloads JSON if necessary. 
+        Params: Index of the player, if prelim is set it'll just load the JSON and an empty mp3, cb is the callback
+        */
         load: function (index, prelim, cb) {
 
-            player.paused = false;
+            this.paused = false;
 
-            if (player.players[index].dataset.mp3) {
-                loadJSON(player.players[index].dataset.mp3, function(data, filename) {
+            if (this.players[index].dataset.mp3) {
+                loadJSON(this.players[index].dataset.mp3, function(data, filename) {
                     if (!prelim) {
                         wavesurfer[index].load(filename, JSON.parse(data), "metadata");
                         jsons[index] = true;
@@ -175,30 +202,40 @@ post.waveformInit = function() {
                 });
             }
         },
+        /* 
+        Loads the song into the player and calls setCurrentSong() on it. Called when a play button is clicked.
+        Params: index of the song to play
+        */
+        playButtonClick: function(i, universal) {
+            return function() {
+                var index = universal ? (player.currentSong != -1 ? player.currentSong : 0) : i;
+                if (!jsons[index]){
+                    player.load(index, false, function() {
+                        player.setCurrentSong(index);
+                    });
+                } else {
+                    player.setCurrentSong(index);
+                }
+            }
+        },
+        /* 
+        Sets the current song and plays it.
+        Params: index of the song to play
+        */
         setCurrentSong: function (index) {
-            if (player.currentSong != -1 && index != player.currentSong) {
+            if (this.currentSong != -1 && index != this.currentSong) {
                 wavesurfer[player.currentSong].stop();
-                player.stop(player.currentSong)();
+                this.stop(this.currentSong)();
             }
 
             wavesurfer[index].playPause();
-            player.currentSong = index;
-
-        },
-        attachEventHandlers: function() {
-            /* The sidebar artist links */
-            Array.prototype.forEach.call(player.artists, function (link, index) {
-                link.addEventListener('click', function (e) {
-                    sidebarWrapper.classList.remove('in');
-                    displayBand(index);
-                });
-            });
         }
     }
 
     /* Initialize players */
     for (var i = 0; i < player.players.length; i++) {
-            
+        
+        // Create the object
         wavesurfer[i] = WaveSurfer.create({
             container: player.waveforms[i],
             waveColor: WAVEFORM_COLOR,
@@ -211,6 +248,7 @@ post.waveformInit = function() {
             backend: 'MediaElement'
         });
 
+        // Map the band index to the player index
         playerIndexes[i] = player.players[i].dataset.bandindex - 1;
 
         wavesurfer[i].on('play', player.play(i));
@@ -219,25 +257,48 @@ post.waveformInit = function() {
         wavesurfer[i].on('audioprocess', player.updateTime(i));
         wavesurfer[i].on('seek', player.updateTime(i));
         wavesurfer[i].on('finish', function () {
-            player.playButtonClick((player.currentSong + 1) % player.players.length)();
+            if ((player.currentSong + 1) <= player.players.length) {
+                player.playButtonClick(player.currentSong + 1)();
+            } else {
+                player.stop(player.currentSong);
+            }
         });
 
+        // Add event listeners to the play button
         player.players[i].childNodes[1].addEventListener('click', player.playButtonClick(i));
+
+        // Load the JSON waveform into the player
         player.load(i, true);
 
     }
 
-    // Map bandnames to indexes for interpretion of hash
+    /* Listener for the universal play button */
+    player.buttons.universalPlayButton.addEventListener('click', player.playButtonClick(null, true));
+
+    /* Map bandnames to indexes for interpretion of the URL hash */
     for (i = 0; i < player.artists.length; i++) {
         bandIndexes[player.artists[i].dataset.machinename] = i;
     }
     
+    /* Obtain the current band from the URL or set it to 0 */
     var currentBand = location.hash ? bandIndexes[(location.hash.split('#')[1])] : 0;
 
+    /* Switches to a band. Used on clicking the sidebar links. */
     var displayBand = function (index, first) {
         selectedArtist.innerHTML = player.artists[currentBand].dataset.artist;
         blazy.revalidate();
     };
+
+    /* The sidebar artist links */
+    Array.prototype.forEach.call(player.artists, function (link, index) {
+        link.addEventListener('click', function (e) {
+            sidebarWrapper.classList.remove('in');
+            displayBand(index);
+        });
+    });
+
+    /* Redraw the players on resize */
+    window.addEventListener("resize", player.redraw());
 
     /* Scroll stuff */
     window.addEventListener("scroll", function() {
@@ -271,8 +332,6 @@ post.waveformInit = function() {
             if (nav) selectedArtist.innerHTML = nav.nav.dataset.artist;
         }
     });
-
-    window.addEventListener("resize", player.redraw());
 
     /* Lightbox stuff */
     baguetteBox.run('.gig-media', {onChange: function (currentIndex) {
@@ -320,6 +379,4 @@ post.waveformInit = function() {
         }
     }});
 
-    // Start it up
-    player.attachEventHandlers();
 };
