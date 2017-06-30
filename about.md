@@ -2,7 +2,7 @@
 title: About
 permalink: "/about/"
 position: 0
-layout: default-container
+layout: blog_post
 exclude: true
 ---
 
@@ -20,13 +20,22 @@ I don't think Facebook is designed for long term storage, also the interface suc
 
 What equipment do you use?
 ---------------------------
-* Panasonic G6 micro four-thirds camera with vintage M42 mount lenses, usually an Asahi Pentax 50mm 1.4 (the one with the radioactive element). Btw, if you have any M42 mount lenses you want to sell then hit me up.
-* Custom binaural headset comprised of two electret microphones shoved into a pair of earplugs and wired up to a battery box. They go in my ears.
+* Panasonic G85 micro four-thirds camera with vintage M42 mount lenses, usually an Asahi Pentax 50mm 1.4 (the one with the radioactive element).
+* Custom binaural headset: Two electret microphones shoved into a pair of earplugs and wired up to a battery box. They go in my ears.
 * Roland R-05 portable recorder. Built in mics are okay as a backup.
 
 Are you making money off this?
 ------------------------------
-No, I do it because I enjoy doing it.
+No, I do it because I enjoy doing it. 
+
+It does cost money to host all this stuff, if you want to help pay for that then you can donate via PayPal:
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="LK663KWSMN8VA">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
 
 I've got something to say
 --------------------------
