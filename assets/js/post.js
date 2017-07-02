@@ -336,7 +336,7 @@ post.waveformInit = function() {
     });
 
     /* Lightbox stuff */
-    baguetteBox.run('.hover-img', {onChange: function (currentIndex) {
+    baguetteBox.run('.gig-media', {onChange: function (currentIndex) {
 
         var lightbox = document.getElementById('baguetteBox-figure-' + currentIndex);
         var img = lightbox.getElementsByTagName('img')[0]
@@ -373,9 +373,9 @@ post.waveformInit = function() {
         var img = element.getElementsByTagName('img')[0];
 
         if (img.alt == "image") {
-            var taken = "Taken at " + img.dataset.date;
-            var download = "<a href='" + img.src + "' download>Download</a>";
-            return "<p>" + taken + " " + download + "</p>";
+            var taken =  "Taken at " + img.dataset.date;
+            var download = "<a href='" + img.dataset.downloadlink + "' download>Download</a>";
+            return "<p>" + img.dataset.artist + ": " + taken + " " + download + "</p>";
         } else {
             return null;
         }
