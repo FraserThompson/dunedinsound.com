@@ -6,6 +6,7 @@ categories:
 layout: post
 parent: Gigs
 venue: Refuel
+audio: false
 media:
   Barabajagal:
   - nothing

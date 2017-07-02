@@ -2,8 +2,10 @@
 layout: default
 type: posts
 ---
-
-<div class="container-fluid gig" id="gig">
+{% if site.data.media.gigs[page.title]['_header'] %}
+	{% assign new_layout = true %}
+{% endif %}
+<div class="container-fluid gig {% if new_layout == true %} new-layout {% endif %}" id="gig">
 	{% if page.displayed_description %}
 		<p>{{page.displayed_description}}</p>
 	{% endif %}
@@ -11,61 +13,56 @@ type: posts
 
 		{% assign machine_name = band[0] | downcase | machine_name %}
 		{% assign mp3_link = "" %}
+
+		<div class="row gig-media">
 		
-		<div class="divider row" id="{{machine_name}}" style="background-color: white; color: black;">
-			<div class="col-xs-12" style="height: 40px; padding-left: 10px;">
-				{% if band[1].mp3[0] %}
+			<div class="divider row" id="{{machine_name}}" style="background-color: white; color: black;">
+				<div class="col-xs-12" style="height: 40px; padding-left: 30px; padding-right: 30px;">
+					{% if band[1].mp3[0] %}
+						<h4 style="text-shadow: none;">
+							<a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band[0]}}</a>
 
+							{% for mp3 in band[1].mp3 %}
 
-					<h4 style="text-shadow: none;">
-						<a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band[0]}}</a>
+								{% if mp3.link %}
+									{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: mp3.link %}
+								{% elsif mp3.title %}
+									{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band[0] | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+								{% endif %}
 
-						{% for mp3 in band[1].mp3 %}
+								{% unless mp3.nodownload %}
+									<a class="downloadButton" title="Download MP3" href="{{mp3_link}}" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
+								{% endunless %}
 
-							{% if mp3.link %}
-								{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: mp3.link %}
-							{% elsif mp3.title %}
-								{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band[0] | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
-							{% endif %}
+							{% endfor %}
 
-							{% unless mp3.nodownload %}
-								<a class="downloadButton" title="Download MP3" href="{{mp3_link}}" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
-							{% endunless %}
-
-						{% endfor %}
-
-					</h4>
-
-				{% else %}
-					<h4 style="text-shadow: none;"><a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band[0]}}</a></h4>
-				{% endif %}
+						</h4>
+					{% else %}
+						<h4 style="text-shadow: none;"><a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band[0]}}</a></h4>
+					{% endif %}
+				</div>
 			</div>
-		</div>
 
-		{% if band[1].mp3[0] %}
+			{% if band[1].mp3[0] %}
 
-			{% assign bandindex = forloop.index %}
+				{% assign bandindex = forloop.index %}
 
-			{% for mp3 in band[1].mp3 %}
-				{% if mp3.link %}
-					{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: mp3.link %}
-				{% elsif mp3.title %}
-					{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band[0] | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
-				{% endif %}
-				<div class="row">
+				{% for mp3 in band[1].mp3 %}
+					{% if mp3.link %}
+						{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: mp3.link %}
+					{% elsif mp3.title %}
+						{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band[0] | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+					{% endif %}
 					<div class="col-xs-12 no-padding" style="background-color: #111;">
 						{% include player.html %}
 					</div>
-				</div>
-			{% endfor %}
-		{% endif %}
-
-		<div class="row gig-media">
+				{% endfor %}
+			{% endif %}
 
 			{% assign number_of_pics = site.data.media.gigs[page.title][machine_name]['images'] | size %}
 		
 			{% if number_of_pics == 0 and number_of_vids == 0 %}
-				<h3> <center>Audio only</center> </h3>
+				<h3><center>Audio only</center> </h3>
 			{% endif %}
 			
 			{% if band[1].vid %}
@@ -92,7 +89,7 @@ type: posts
 					</div>
 				</div>
 			{% endfor %}
-	</div>
+		</div>
 	{% endfor %}
 
 </div>

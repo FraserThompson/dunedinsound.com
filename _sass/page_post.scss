@@ -154,10 +154,34 @@
     padding-bottom: 56.25%;
 }
 
+.gig .divider {
+	overflow: hidden;
+}
+
+.new-layout .divider {
+  top: $header-height - 10px;
+	position: sticky;
+	z-index: 8999;
+}
+
+.arrow {
+  position: absolute;
+  display: none;
+  z-index: 9001;
+  font-size: 4em;
+  top: 60px;
+
+  &.left {
+    left: 15px;
+  }
+
+  &.right {
+    right: 15px;
+  }
+}
+
 @media (min-width:768px) {
-	.gig  {		
-		.divider {
-			height: auto;
-		}
-	}
+  .new-layout .divider {
+    top: $header-height;
+  }
 }

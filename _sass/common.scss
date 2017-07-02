@@ -63,7 +63,7 @@ body {
 	}
 
 	&.slimmed-header {
-		margin-top: $header-height - 20;
+		margin-top: $header-height - 20 !important;
 	}
 
 	&.fixed-header {
@@ -136,12 +136,21 @@ h3 {
 	font-size: 20px;
 }
 
+.divider {
+	color: black;
+	background-color: white;
 
-.fill-height
-{
+	&.inverted {
+		color: white;
+		background-color: black;
+	}
+}
+
+.fill-height {
   display: flex;
   flex-direction: column;
 }
+
 .fill-height > div {
   flex: 1;
 }
@@ -299,7 +308,7 @@ h3 {
 		}
 
 		&.slimmed-header {
-			margin-top: $header-height;
+			margin-top: $header-height !important;
 		}
 
 	}

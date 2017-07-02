@@ -1,0 +1,38 @@
+<div class="container-fluid">
+    <div class="post-header row" style="height: 70vh;">
+        {% if page.title == site.posts[0].title %}
+            <span class="label label-default" style="margin-left: 15px;">LATEST GIG</span>
+        {% endif %}
+        
+        {% if page.next %}
+        <div class="arrow left">
+            <a href="{{page.next.url}}" title="Next gig"><</a>
+        </div>
+        {% endif %}
+
+        <div class="banner">
+            {% for image in site.data.media.gigs[page.title]['_header']['images'] %}
+                {% assign full_pic = image | replace: " (Medium)","" %}
+                {% assign directory = "assets/img/" | append: page.title | append: "/" | append: '_header' %}
+                {% assign filename = full_pic | split: '/' | last %}
+                <div class ="col-xs-12 col-sm-4 no-padding" style="height: 100%;">
+                    <a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading">
+                        <div class="banner b-lazy" data-src="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}"></div>
+                    <a/>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="text">
+            <center>
+                <h2 class="huge-header">{{page.title}}</h2>
+                {% include playlist.html orientation="horizontal" %}
+                <small>{{ page.date | date: "%d/%m/%y" }} at {{page.venue}}</small>
+            </center>
+        </div>
+        {% if page.previous %}
+            <div class="arrow right">
+                <a href="{{page.previous.url}}" title="Previous gig">></a>
+            </div>
+        {% endif %}
+    </div>
+</div>

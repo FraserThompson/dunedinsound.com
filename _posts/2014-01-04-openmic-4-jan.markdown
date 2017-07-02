@@ -5,6 +5,7 @@ categories:
 - barabajagal
 layout: post
 parent: Gigs
+audio: false
 media:
   Barabajagal:
     vid:

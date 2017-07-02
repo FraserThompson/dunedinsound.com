@@ -5,6 +5,7 @@ categories:
 - jared
 - wolfman_stuey
 layout: post
+audio: false
 parent: Gigs
 media:
   Jared:

@@ -5,6 +5,7 @@ categories:
 - sloth_vegas
 - barabajagal
 layout: post
+audio: false
 parent: Gigs
 media:
   Barabajagal:

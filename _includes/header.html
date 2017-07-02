@@ -1,4 +1,4 @@
-<nav class="header navbar navbar-default {% if include.slim or page.layout == 'default-slim-header' or page.parent == 'Artists' or page.parent == 'Venues' %} slimmed {% endif %} {% unless include.not_fixed %} fixed {% endunless %}">
+<nav class="header navbar navbar-default {% if include.slim or page.layout == 'default-slim-header' or page.parent == 'Artists' or page.parent == 'Venues' or new_layout == true %} slimmed {% endif %} {% unless include.not_fixed %} fixed {% endunless %} ">
   <div class="container-fluid">
     <div class="navbar-header {% if page.layout != 'post' %} hidden-xs {% endif %}">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar" aria-expanded="false">
@@ -6,11 +6,13 @@
           <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
           <span id="selectedArtist" style="font-size: 18px; padding-left: 10px;"></span>
       </button>
-      {% if page.layout == "post" %}
+      {% if page.layout == "post" and new_layout != true %}
+        {% if page.audio != false %}
         <button title="Play whole gig" class="btn btn-success big hidden-xs" id="universalPlayButton">
             <span class="play">▶</span>
             <span class="pause" style="display: none">❙❙</span>
         </button>
+        {% endif %}
         <a style="margin-left: 25px;" class="navbar-brand nohover hidden-xs">{{ page.title }} <small>{{ page.date | date: "%d/%m/%y" }}</small></a>
       {% else %}
         <a class="navbar-brand hidden-xs" href="/"hidden-xs>Dunedin Gig Archives</a>

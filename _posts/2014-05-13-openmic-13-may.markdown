@@ -6,6 +6,7 @@ categories:
 - sloth_vegas
 - barabajagal
 layout: post
+audio: false
 parent: Gigs
 media:
   Shamus of Berry Fame:

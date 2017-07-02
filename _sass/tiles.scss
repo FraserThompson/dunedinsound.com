@@ -56,17 +56,6 @@
 .sorted-tiles {
 	position: relative;
 	min-height: 80vh;
-
-	.divider {
-		color: black;
-		background-color: white;
-
-		&.inverted {
-			color: white;
-			background-color: black;
-		}
-	}
-
 }
 
 .label {

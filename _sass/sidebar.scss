@@ -5,6 +5,14 @@
     padding: 0;
     list-style: none;
 
+	&.horizontal {
+		background-color: rgba(0,0,0,0);
+		width: auto;
+		li {
+			display: inline-block;
+		}
+	}
+
     a {
     	padding-right: 10px;
 		text-overflow: ellipsis;
@@ -147,6 +155,7 @@
     .sidebar-wrapper {
 		height: 100vh;
         float: left;
+		position:sticky;
         width: $sidebar-width;
 		top: $header-height;
 		padding-bottom: 80px;

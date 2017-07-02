@@ -5,6 +5,7 @@ categories:
 - sloth_vegas
 layout: post
 parent: Gigs
+audio: false
 media:
   Sloth Vegas:
     vid:

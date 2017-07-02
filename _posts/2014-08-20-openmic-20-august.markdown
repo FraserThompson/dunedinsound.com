@@ -5,6 +5,7 @@ categories:
   - the_mentalist_collective
   - wolfman_stuey
 layout: post
+audio: false
 parent: Gigs
 media:
   The Mentalist Collective:

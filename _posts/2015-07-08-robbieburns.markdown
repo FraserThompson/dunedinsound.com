@@ -5,6 +5,7 @@ categories:
 - the_rothmans
 layout: post
 parent: Gigs
+audio: false
 venue: Robbie Burns
 media:
   The Rothmans:

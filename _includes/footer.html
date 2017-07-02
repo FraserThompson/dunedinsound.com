@@ -35,9 +35,11 @@
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(event) {
 			var container = document.getElementById('sidebar');
-			Ps.initialize(container, {
-				suppressScrollX: true
-			});
+			if (container ){
+				Ps.initialize(container, {
+					suppressScrollX: true
+				});
+			}
     		post.waveformInit();
     	});
 		

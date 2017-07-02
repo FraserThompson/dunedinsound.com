@@ -1,4 +1,4 @@
-<ul class="sidebar-nav lighter" id="playlist" style="padding: 0px;">
+<ul class="sidebar-nav {{include.background}} {{include.orientation}}" id="playlist" style="padding: 0px;">
     {% for band in page.media %}
         <li>
             {% assign machine_name = band[0] | downcase | machine_name %}

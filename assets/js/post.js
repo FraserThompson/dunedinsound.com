@@ -273,7 +273,9 @@ post.waveformInit = function() {
     }
 
     /* Listener for the universal play button */
-    player.buttons.universalPlayButton.addEventListener('click', player.playButtonClick(null, true));
+    if (player.buttons.universalPlayButton) {
+        player.buttons.universalPlayButton.addEventListener('click', player.playButtonClick(null, true));
+    }
 
     /* Map bandnames to indexes for interpretion of the URL hash */
     for (i = 0; i < player.artists.length; i++) {
@@ -334,7 +336,7 @@ post.waveformInit = function() {
     });
 
     /* Lightbox stuff */
-    baguetteBox.run('.gig-media', {onChange: function (currentIndex) {
+    baguetteBox.run('.hover-img', {onChange: function (currentIndex) {
 
         var lightbox = document.getElementById('baguetteBox-figure-' + currentIndex);
         var img = lightbox.getElementsByTagName('img')[0]
