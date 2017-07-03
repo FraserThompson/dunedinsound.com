@@ -161,6 +161,10 @@
 .new-layout .divider {
   top: $header-height - 10px;
 	position: sticky;
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: -o-sticky;
 	z-index: 8999;
 }
 

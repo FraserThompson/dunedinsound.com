@@ -4,8 +4,8 @@
 
 <div class="image {% if include.col != blank %}{{include.col}}{% else %} col-xs-12 {% endif %} no-padding">
     <div class="box">
-        <a target="_blank" class="loading" href="/assets/img/blog/{{page.filename}}/{{full_image}}">
-            <img width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy" data-src="/assets/img/blog/{{page.filename}}/{% if include.medium == blank %}{{medium_image}}{% else %}{{full_image}}{% endif %}" alt="{% if include.description %}{{ include.description }}{% else %} {% endif %}"/>
+        <a target="_blank" class="loading" href="{% if include.absolute_src != 'true' %}/assets/img/blog/{{page.filename}}/{% endif %}{{full_image}}">
+            <img width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy" data-src="{% if  include.absolute_src != 'true' %}/assets/img/blog/{{page.filename}}/{% endif %}{% if include.medium == blank %}{{medium_image}}{% else %}{{full_image}}{% endif %}" alt="{% if include.description %}{{ include.description }}{% else %} {% endif %}"/>
         </a>
     </div>
     <h5>{{include.description}}</h5>

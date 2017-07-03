@@ -39,41 +39,41 @@ There were also numerous other little improvements to the design. The sensor whi
 
 Sharpness is improved fairly significantly. These are JPEGs straight out of the camera using the standard colour profile with my Panasonic 25mm 1.7. You can also see that overall color rendering is different, it tends to auto white balance a little differently and expose slightly brighter.
 
-{% include blog_images.html images="g6_sharpness.JPG|G6 ISO800 F1.7//g85_sharpness.JPG|G85 ISO800 F1.7" %}
+{% include blog_images.html images="g6_sharpness.JPG|G6 ISO800 F1.7\\g85_sharpness.JPG|G85 ISO800 F1.7" %}
 
 The difference in sharpness is more obvious when you really start pixel peeping.
 
-{% include blog_images.html images="g6_sharpness_100.JPG|G6 Crop//g85_sharpness_100.JPG|G85 Crop" col="col-xs-12 col-sm-6" medium="false" %}
+{% include blog_images.html images="g6_sharpness_100.JPG|G6 Crop\\g85_sharpness_100.JPG|G85 Crop" col="col-xs-12 col-sm-6" medium="false" %}
 
-{% include blog_images.html images="g6_sharpness_2.JPG|G6 ISO200 F2.8//g85_sharpness_2.JPG|G85 ISO200 F2.8" %}
+{% include blog_images.html images="g6_sharpness_2.JPG|G6 ISO200 F2.8\\g85_sharpness_2.JPG|G85 ISO200 F2.8" %}
 
-{% include blog_images.html images="g6_sharpness_2_100.JPG|G6 Crop//g85_sharpness_2_100.JPG|G85 Crop" col="col-xs-12 col-sm-6" %}
+{% include blog_images.html images="g6_sharpness_2_100.JPG|G6 Crop\\g85_sharpness_2_100.JPG|G85 Crop" col="col-xs-12 col-sm-6" %}
 
 ### High ISO
 
 It's also quite a bit cleaner at high ISOs.
 
-{% include blog_images.html images="g6_1600.JPG|G6 ISO1600//g85_1600.JPG|G85 ISO1600" %}
+{% include blog_images.html images="g6_1600.JPG|G6 ISO1600\\g85_1600.JPG|G85 ISO1600" %}
 
-{% include blog_images.html images="g6_1600_100.JPG|G6 ISO1600 Crop//g85_1600_100.JPG|G85 ISO1600 Crop" col="col-xs-12 col-sm-6" %}
+{% include blog_images.html images="g6_1600_100.JPG|G6 ISO1600 Crop\\g85_1600_100.JPG|G85 ISO1600 Crop" col="col-xs-12 col-sm-6" %}
 
 I would say this is point that the G6 becomes unusable, but the G85 is clean enough in a pinch.
 
-{% include blog_images.html images="g6_3200.JPG|G6 ISO3200//g85_3200.JPG|G85 ISO3200" %}
+{% include blog_images.html images="g6_3200.JPG|G6 ISO3200\\g85_3200.JPG|G85 ISO3200" %}
 
-{% include blog_images.html images="g6_3200_100.JPG|G6 ISO3200 Crop//g85_3200_100.JPG|G85 ISO3200 Crop" col="col-xs-12 col-sm-6" %}
+{% include blog_images.html images="g6_3200_100.JPG|G6 ISO3200 Crop\\g85_3200_100.JPG|G85 ISO3200 Crop" col="col-xs-12 col-sm-6" %}
 
 At this point the image really begins to break down in both cameras, but noticeably moreso in the G6.
 
-{% include blog_images.html images="g6_6400.JPG|G6 ISO6400//g85_6400.JPG|G85 ISO6400" %}
+{% include blog_images.html images="g6_6400.JPG|G6 ISO6400\\g85_6400.JPG|G85 ISO6400" %}
 
-{% include blog_images.html images="g6_6400_100.JPG|G6 ISO6400 Crop//g85_6400_100.JPG|G85 ISO6400 Crop" col="col-xs-12 col-sm-6" %}
+{% include blog_images.html images="g6_6400_100.JPG|G6 ISO6400 Crop\\g85_6400_100.JPG|G85 ISO6400 Crop" col="col-xs-12 col-sm-6" %}
 
 This is really pushing it, I don't think I'll ever need to go up to 12800 but it's interesting to see how much better the G85 handles it.
 
-{% include blog_images.html images="g6_12800.JPG|G6 ISO12800//g85_12800.JPG|G85 ISO12800" %}
+{% include blog_images.html images="g6_12800.JPG|G6 ISO12800\\g85_12800.JPG|G85 ISO12800" %}
 
-{% include blog_images.html images="g6_12800_100.JPG|G6 ISO12800 Crop//g85_12800_100.JPG|G85 ISO12800 Crop" col="col-xs-12 col-sm-6" %}
+{% include blog_images.html images="g6_12800_100.JPG|G6 ISO12800 Crop\\g85_12800_100.JPG|G85 ISO12800 Crop" col="col-xs-12 col-sm-6" %}
 
 And just for reference this is what an image at ISO25600 looks like on the G85:
 
@@ -83,7 +83,7 @@ And just for reference this is what an image at ISO25600 looks like on the G85:
 
 The Cinema D and Cinema V colour profiles are welcome additions. Cinema D gives you a flatter image which is good for grading (to be honest it's fine straight out of the camera too) and V provides a more dynamic image. They've also added highlight controls so you get fine-grained control over shadows and highlights but I've found playing with this too much introduces a lot of noise. 
 
-{% include blog_images.html images="standard.jpg|G85 Standard Profile//cinev.jpg|G85 Cine V Profile//cined.jpg|G85 Cine D Profile" %}
+{% include blog_images.html images="standard.jpg|G85 Standard Profile\\cinev.jpg|G85 Cine V Profile\\cined.jpg|G85 Cine D Profile" %}
 
 In practice I don't like to do too much grading in post because of how time consuming it is. Instead I've been trying to get the colours right in camera on location. Some venues play nicer with cine D and others prefer cine V in my experience, it depends on lighting conditions. I almost always leave noise reduction and sharpness at their defaults too since I don't want to do noise reduction in post (because it hugely increases my rendering times) and lowering sharpness kills focus peaking (which is essential on a manual focus F1.4 lens).
 

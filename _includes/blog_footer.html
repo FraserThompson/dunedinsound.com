@@ -1,0 +1,21 @@
+<div class="container-fluid">
+    <div class="row divider-purple">
+        <div class="col-xs-12">
+            <a href="/blog"><h5>Back to latest posts</h5></a>
+        </div>
+    </div>
+    <div class="blog-footer row">
+        <div class="col-xs-12">
+            <h3>Related Posts</h3>
+        </div>
+        
+        <div class="col-xs-12">
+        {% if page.media %}
+            {% include related_gigs.html horizontal="true" tile_height="col-xs-4 col-sm-3" %}
+        {% else %}
+            <p><small>nothing, here's a cat</small></p>
+            <center><img src="http://loremflickr.com/320/240/cat"></center>
+        {% endif %}
+        </div>
+    </div>
+</div>

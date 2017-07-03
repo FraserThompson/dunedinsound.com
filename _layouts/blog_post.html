@@ -13,9 +13,14 @@ layout: default-container
             <small class="label label-blog">{{tag}}</small>
         {% endfor %}
         </p>
+        <div class="text-wrapper">
+            {% include social_buttons.html %}
+        </div>
     </div>
 </div>
 
 <div class="row blog-post">
-    {{content}}
+    <div class="col-xs-12">
+        {{content}}
+    </div>
 </div>

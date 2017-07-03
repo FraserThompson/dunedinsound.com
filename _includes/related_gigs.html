@@ -1,20 +1,19 @@
 {% for band in page.media %}
-
     {% assign machine_name = band[0] | downcase | machine_name %}
     {% assign gigs_number = site.categories[machine_name].size %}
     {% assign gigs_not_displayed = site.categories[machine_name].size | minus: 2 %}
     {% assign photos_number = site.data.media.gigs[page.title][machine_name]['count'] %}
     
     {% if gigs_number > 1 %}
-        <div id="moreFrom_{{machine_name}}" class="moreFrom" style='background-color: black'>
+        <div id="moreFrom_{{machine_name}} {% if include.horizontal %} row {% endif %}" class="moreFrom">
             <div style="padding-top: 10px;">
-                <p>More from <a title="More gigs from {{band[0]}}" href="/artists/{{machine_name}}">{{band[0]}}</a></p>
+                <p>Gigs featuring <a title="More gigs from {{band[0]}}" href="/artists/{{machine_name}}">{{band[0]}}</a></p>
             </div>
             {% for post in site.categories[machine_name] | limit: 2 %}
                 {% unless post.title == page.title %}
-                    <div class="tile-wrap {{include.tile_height}}" style="{% unless include.tile_height %} max-width: 260px; {% endunless %}">
+                    <div class="tile-wrap {{include.tile_height}}">
                         <a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
-                            <div class="tile-title" style="{% unless include.tile_height %} bottom: 0px; max-width: 250px; {% endunless %}">
+                            <div class="tile-title" style="{% if include.horizontal %} bottom: 0px; max-width: 250px; {% endif %}">
                                 <h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>
                                 <h5 style="margin-bottom: 2px;">{{post.title}}</h5>
                                 <p><small>{{ post.venue }}</small></p>
@@ -33,34 +32,36 @@
     {% endif %}
 {% endfor %}
 
-{% assign venue_machine_name = page.venue | downcase | machine_name %}
-{% assign venue_gigs = site.posts | where: "venue", page.venue  %}
-{% assign gigs_number = venue_gigs | size %}
-{% assign gigs_not_displayed = gigs_number | minus: 2 %}
+{% if page.venue %}
+    {% assign venue_machine_name = page.venue | downcase | machine_name %}
+    {% assign venue_gigs = site.posts | where: "venue", page.venue  %}
+    {% assign gigs_number = venue_gigs | size %}
+    {% assign gigs_not_displayed = gigs_number | minus: 2 %}
 
-{% if venue_gigs.size > 1 %}
-<div id="moreFrom_{{venue}}" class="moreFrom" style='background-color: black'>
-    <div style="padding-top: 10px;">
-        <p>More at <a title="More gigs at {{venue}}" href="/venues/{{venue_machine_name}}">{{page.venue}}</a></p>
+    {% if venue_gigs.size > 1 %}
+    <div id="moreFrom_{{venue}}" class="moreFrom">
+        <div style="padding-top: 10px;">
+            <p>Gigs at <a title="More gigs at {{venue}}" href="/venues/{{venue_machine_name}}">{{page.venue}}</a></p>
+        </div>
+
+        {% for post in venue_gigs limit: 3 %}
+            {% unless post.title == page.title %}
+                <div class="tile-wrap {{include.tile_height}}">
+                    <a class="tile-link box" href="{{ post.url }}">
+                        <div class="tile-title" style="{% if include.horizontal %} bottom: 0px; max-width: 250px; {% endif %}">
+                            <h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>
+                            <h5>{{post.title}}</h5>
+                        </div>
+                        <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}/cover.jpg">
+                        </div>
+                    </a>
+                </div>
+            {% endunless %}
+        {% endfor %}
+        
+        {% if gigs_not_displayed > 0 %} 
+            <a style="float:right; padding-right: 10px;" title="More gigs at {{page.venue}}" href="/venues/{{venue_machine_name}}"><small> + {{gigs_not_displayed}} more </small></a>
+        {% endif %}
     </div>
-
-    {% for post in venue_gigs limit: 3 %}
-        {% unless post.title == page.title %}
-            <div class="tile-wrap {{include.tile_height}}" style="{% unless include.tile_height %} max-width: 260px; {% endunless %}">
-                <a class="tile-link box" href="{{ post.url }}">
-                    <div class="tile-title" style="{% unless include.tile_height %} bottom: 0px; max-width: 250px; {% endunless %}">
-                        <h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>
-                        <h5>{{post.title}}</h5>
-                    </div>
-                    <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}/cover.jpg">
-                    </div>
-                </a>
-            </div>
-        {% endunless %}
-    {% endfor %}
-    
-    {% if gigs_not_displayed > 0 %} 
-        <a style="float:right; padding-right: 10px;" title="More gigs at {{page.venue}}" href="/venues/{{venue_machine_name}}"><small> + {{gigs_not_displayed}} more </small></a>
     {% endif %}
-</div>
 {% endif %}
