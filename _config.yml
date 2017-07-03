@@ -21,7 +21,6 @@ defaults:
   values:
     permalink: "/blog/:title/"
     layout: blog_post
-    type: blog
     parent: Blog
 email: fraser@dunedinsound.com
 asset_url:

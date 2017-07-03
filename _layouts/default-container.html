@@ -12,8 +12,8 @@ layout: compress
     {% if page.author %}
       {% include blog_header.html %}
     {% endif %}
-    <div class="page-wrapper" style="{% if page.type != 'blog' %} background-color: #222222; {% else %} background-color: white; {% endif %}">
-      <div class="container {{page.type}}" style="min-height: 80vh;">
+    <div class="page-wrapper" style="{% if page.parent != 'Blog' and page.title != 'Blog' %} background-color: #222222; {% else %} background-color: white; {% endif %}">
+      <div class="container {% if page.parent == 'Blog' or page.title == 'Blog' %}blog{% endif %}" style="min-height: 80vh;">
         <div class="row">
           <div class="col-xs-12">
               {{ content }}

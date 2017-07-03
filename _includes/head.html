@@ -81,7 +81,7 @@
 	<meta name="description" content="{{description}}"/> 
 	<meta property="og:description" content="{{description}}"/> 
 	<meta property="og:url" content="{{ url }}"/>
-	<meta property="og:site_name" content="Dunedin Gig Archives{% if page.type == 'blog' %} - Blog {% endif %}"/>
+	<meta property="og:site_name" content="Dunedin Gig Archives{% if page.parent == 'Blog' %} - Blog {% endif %}"/>
 	<meta property="og:image" content="{{ page.image }}"/> 
 	<meta property="og:type" content="article"/>
 </head>

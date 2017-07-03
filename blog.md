@@ -2,8 +2,7 @@
 title: Blog
 permalink: "/blog/"
 layout: default-container
-type: blog
-description: "Dunedinsound.com blog - What's going on in the Dunedin music scene, as well as photography, web development and other interesting (ish) articles."
+description: "Dunedinsound.com blog - What's going on in the Dunedin music scene and other interesting stuff."
 order: 4
 ---
 
