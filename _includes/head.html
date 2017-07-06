@@ -1,4 +1,4 @@
-<head>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -80,8 +80,9 @@
 
 	<meta name="description" content="{{description}}"/> 
 	<meta property="og:description" content="{{description}}"/> 
+	<meta property="og:title" content="{{ page.title }}"/>
 	<meta property="og:url" content="{{ url }}"/>
 	<meta property="og:site_name" content="Dunedin Gig Archives{% if page.parent == 'Blog' %} - Blog {% endif %}"/>
-	<meta property="og:image" content="{{ page.image }}"/> 
+	<meta property="og:image" content="{{ page.image | url_encode | replace: '%2F', '/' | replace: '+', '%20' | prepend: site.baseurl | prepend: site.url }}"/> 
 	<meta property="og:type" content="article"/>
 </head>
