@@ -10,6 +10,7 @@ layout: post
 parent: Gigs
 venue: Crown Hotel
 image: /assets/img/A%20VERY%20great%20gig/cover.jpg
+layout_version: '2.0'
 media:
     The Rothmans:
         mp3:

@@ -45,7 +45,7 @@ var loadJSON = function (filename, callback) {
 post.waveformInit = function() {
     const WAVEFORM_HEIGHT = "50";
     const HEADER_HEIGHT = 60;
-    const WAVEFORM_COLOR = "#cccccc";
+    const WAVEFORM_COLOR = "white";
 
     var threshold = window.innerHeight * 1.5;
 
@@ -314,7 +314,6 @@ post.waveformInit = function() {
     smoothScroll.init({
         selector: '.playlist-item',
         speed: 500,
-        selectorHeader: '.header',
         easing: 'easeInOutCubic',
         before: function() {
             blazy.destroy();
@@ -326,9 +325,8 @@ post.waveformInit = function() {
 
     gumshoe.init({
         selector: '.playlist-item',
-        selectorHeader: '.header',
         activeClass: 'active',
-        offset: +10,
+        offset: 0,
         scrollDelay: false,
         callback: function (nav) {
             if (nav) selectedArtist.innerHTML = nav.nav.dataset.artist;

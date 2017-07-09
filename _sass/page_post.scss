@@ -159,13 +159,21 @@
 }
 
 .new-layout .divider {
-  top: $header-height - 10px;
+  top: -1px;
 	position: sticky;
   position: -webkit-sticky;
   position: -moz-sticky;
   position: -ms-sticky;
   position: -o-sticky;
 	z-index: 8999;
+}
+
+.overlay-container {
+  position: sticky;
+  top: 0px;
+  margin-top: -100px;
+  width: 100%;
+  z-index: 9001;
 }
 
 .arrow {
@@ -184,8 +192,30 @@
   }
 }
 
-@media (min-width:768px) {
-  .new-layout .divider {
-    top: $header-height;
-  }
+.gig-nav a {
+    width: 100px;
+    height: 70vh;
+    position: absolute;
+    top: 0px;
+
+	  opacity: 0.3;
+    z-index: 9;
+    cursor: pointer;
+
+    transition: opacity .2s;
+
+    color: #FFF;
+    font-size: 156pt;
+    text-align: center;
+    line-height: 60vh;
+    text-shadow: 0px 0px 15px rgb(119, 119, 119);
+
+    &:hover {
+      text-decoration: none;
+    }
+
 }
+
+.gig-nav a:hover { opacity: 1; }
+
+.gig-nav .next { right: 0; }

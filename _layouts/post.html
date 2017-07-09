@@ -2,16 +2,19 @@
 layout: default
 type: posts
 ---
-{% if site.data.media.gigs[page.title]['_header'] %}
-	{% assign new_layout = true %}
-{% endif %}
+  {% if page.layout == "post" %}
+    {% if page.layout_version == "2.0" %}
+      {% assign new_layout = true %}
+    {% endif %}
+  {% endif %}
 <div class="container-fluid gig {% if new_layout == true %} new-layout {% endif %}" id="gig">
 	{% if page.displayed_description %}
 		<p>{{page.displayed_description}}</p>
 	{% endif %}
 	{% for band in page.media %}
 
-		{% assign machine_name = band[0] | downcase | machine_name %}
+		{% assign band_name = band[0] %}
+		{% assign machine_name = band_name | downcase | machine_name %}
 		{% assign mp3_link = "" %}
 
 		<div class="row">
@@ -20,14 +23,14 @@ type: posts
 				<div class="col-xs-12" style="height: 40px; padding-left: 30px; padding-right: 30px;">
 					{% if band[1].mp3[0] %}
 						<h4 style="text-shadow: none;">
-							<a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band[0]}}</a>
+							<a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band_name}}</a>
 
 							{% for mp3 in band[1].mp3 %}
 
 								{% if mp3.link %}
 									{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: mp3.link %}
 								{% elsif mp3.title %}
-									{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band[0] | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+									{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band_name | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
 								{% endif %}
 
 								{% unless mp3.nodownload %}
@@ -38,7 +41,7 @@ type: posts
 
 						</h4>
 					{% else %}
-						<h4 style="text-shadow: none;"><a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band[0]}}</a></h4>
+						<h4 style="text-shadow: none;"><a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band_name}}</a></h4>
 					{% endif %}
 				</div>
 			</div>
@@ -51,25 +54,41 @@ type: posts
 					{% if mp3.link %}
 						{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: mp3.link %}
 					{% elsif mp3.title %}
-						{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band[0] | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+						{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band_name | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
 					{% endif %}
 					<div class="col-xs-12 no-padding" style="background-color: #111;">
-						{% include player.html %}
+						{% include player.html band=band_name mp3_title=mp3.title mp3_link=mp3_link machine_name=machine_name band_index=bandindex %}
 					</div>
 				{% endfor %}
 			{% endif %}
 
 			{% assign number_of_pics = site.data.media.gigs[page.title][machine_name]['images'] | size %}
-		
-			{% if number_of_pics == 0 and number_of_vids == 0 %}
-				<h3><center>Audio only</center> </h3>
+
+ 			{% if number_of_pics <= 8 %}
+				{% assign image_size_class = "col-xs-4 col-sm-6 col-md-6 col-lg-4" %}
+ 			{% elsif number_of_pics <= 12 %}
+			 	{% assign image_size_class = "col-xs-4 col-sm-4 col-md-4 col-lg-3" %}
+		 	{% else %}
+			 	{% assign image_size_class = "col-xs-4 col-sm-4 col-md-4 col-lg-3" %}
 			{% endif %}
-			
+
 			<div class="gig-media">
 			{% if band[1].vid %}
 				{% assign number_of_vids = band[1].vid | size %}
+
+					{% if number_of_vids == 3 %}
+						{% assign vid_size_class = "col-xs-4 col-sm-6 col-md-6 col-lg-4" %}
+					{% elsif number_of_vids == 2 %}
+						{% assign vid_size_class = "col-xs-4 col-sm-6 col-md-6 col-lg-6" %}
+					{% else %}
+						{% assign vid_size_class = image_size_class %}
+					{% endif %}
+					{% if number_of_pics == 0 and number_of_vids == 0 %}
+						<h3><center>Audio only</center> </h3>
+					{% endif %}
+
 					{% for vid in band[1].vid %}
-						<div class="col-xs-4 {% if number_of_pics <= 8 %} col-xs-6 col-sm-6 col-md-6 col-lg-4 {% elsif number_of_pics <= 12 %} col-sm-4 col-md-4 col-lg-3 {% else %} col-sm-4 col-md-4 col-lg-3 {% endif %} no-padding">
+						<div class="{{vid_size_class}} no-padding">
 							{% include youtube_video.html link=vid.link title=vid.title aspectratio=page.aspectratio %}
 						</div>
 					{% endfor %}
@@ -84,9 +103,9 @@ type: posts
 					{% exiftag date_time_original,{{directory}},{{filename}} %}
 				{% endcapture %}
 
-				<div class= "col-xs-4 {% if number_of_pics <= 8 %} col-xs-6 col-sm-6 col-md-6 col-lg-4 {% elsif number_of_pics <= 12 %} col-sm-4 col-md-4 col-lg-3 {% else %} col-sm-4 col-md-4 col-lg-3 {% endif %} no-padding hover-img">
+				<div class= "{{image_size_class}} no-padding hover-img">
 					<div class="box {{page.aspectratio}}">
-						<a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" data-artist="{{band[0]}}" data-downloadlink="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" data-date="{{image_date | date: '%r'}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
+						<a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" data-artist="{{band_name}}" data-downloadlink="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" data-date="{{image_date | date: '%r'}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
 					</div>
 				</div>
 			{% endfor %}

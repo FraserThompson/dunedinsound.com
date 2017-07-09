@@ -9,6 +9,7 @@ colors:
     - "#292929"
     - "#0A0A0A"
 order: 1
+fixed_header: true
 description: "Check out rare and unofficial photos, videos and bootlegs of gigs in Dunedin, New Zealand from 2014 until now!"
 ---
 

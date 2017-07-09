@@ -5,7 +5,7 @@ layout: compress
 <!DOCTYPE html>
 <html>
   {% if page.layout == "post" %}
-    {% if site.data.media.gigs[page.title]['_header'] %}
+    {% if page.layout_version == "2.0" %}
       {% assign new_layout = true %}
     {% endif %}
   {% endif %}
@@ -13,7 +13,7 @@ layout: compress
 
   <body>
     {% include header.html %}
-      <div class="page-wrapper fixed-header {% if page.layout == 'post' %} gig-wrapper {% endif %} {% if new_layout == true %} slimmed-header {% endif %}" style="background-color: #222222;">
+      <div class="page-wrapper {% if page.layout == 'post' %} gig-wrapper {% endif %} {% if page.fixed_header %} fixed-header {% endif %}" style="background-color: #222222;">
         {% if page.layout == "post" %}
           {% if new_layout == true %}
             {% include gig_header.html %}

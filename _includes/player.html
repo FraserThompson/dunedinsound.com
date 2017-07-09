@@ -1,6 +1,6 @@
-<div id="waveform_wrapper" class="player" data-mp3="{{mp3_link}}" data-machinename="{{machine_name}}" data-bandindex="{{bandindex}}">
+<div id="waveform_wrapper" class="player" data-mp3="{{include.mp3_link}}" data-machinename="{{include.machine_name}}" data-bandindex="{{include.band_index}}">
 
-    <button title="Play/Pause" class="btn btn-success play-pause playButton" data-index="{{ forloop.index | minus: 1 }}">
+    <button title="Play/Pause" class="btn btn-success play-pause playButton" data-index="{{ include.band_index | minus: 1 }}">
         <span class="play">▶</span>
         <span class="pause" style="display: none">❙❙</span>
     </button>
@@ -9,10 +9,10 @@
         <span class="currentTime"></span>
     </div>
     
-    <div class="waveform" id="waveform_{{machine_name}}"></div>
+    <div class="waveform" id="waveform_{{include.machine_name}}"></div>
 
     <div class="title-wrapper">
-        <h5>{{band[0]}}: {{mp3.title}}</h5>
+        <h5>{{include.band}}: {{include.mp3_title}}</h5>
     </div>
     <div class="length-wrapper" style="right: 0px; display: none;">
         <span class="length"></span>

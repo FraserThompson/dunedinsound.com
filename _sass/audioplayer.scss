@@ -20,7 +20,7 @@
 	position: absolute;
 	width: 100%;
 	text-align: center;
-	color: white;
+	color: orange;
 	bottom: 0px;
 	background: rgba(0,0,0, 0.6);
 	height: 60px;
@@ -29,6 +29,7 @@
 		line-height: 60px;
 		height: 60px;
 		vertical-align: middle;
+		text-shadow: 1px 1px black;
 		margin: 0px
 	}
 }
