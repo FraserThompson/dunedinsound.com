@@ -19,48 +19,40 @@ type: posts
 
 		<div class="row">
 		
-			<div class="divider row" id="{{machine_name}}" style="background-color: white; color: black;">
-				<div class="col-xs-12" style="height: 40px; padding-left: 30px; padding-right: 30px;">
-					{% if band[1].mp3[0] %}
-						<h4 style="text-shadow: none;">
-							<a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band_name}}</a>
-
-							{% for mp3 in band[1].mp3 %}
-
-								{% if mp3.link %}
-									{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: mp3.link %}
-								{% elsif mp3.title %}
-									{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band_name | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
-								{% endif %}
-
-								{% unless mp3.nodownload %}
-									<a class="downloadButton" title="Download MP3" href="{{mp3_link}}" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
-								{% endunless %}
-
-							{% endfor %}
-
-						</h4>
-					{% else %}
-						<h4 style="text-shadow: none;"><a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band_name}}</a></h4>
-					{% endif %}
-				</div>
-			</div>
-
-			{% if band[1].mp3[0] %}
-
-				{% assign bandindex = forloop.index %}
-
+			<div class="divider" id="{{machine_name}}" style="background-color: white; color: black;">
+				
 				{% for mp3 in band[1].mp3 %}
+
 					{% if mp3.link %}
 						{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: mp3.link %}
 					{% elsif mp3.title %}
 						{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band_name | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
 					{% endif %}
-					<div class="col-xs-12 no-padding" style="background-color: #111;">
-						{% include player.html band=band_name mp3_title=mp3.title mp3_link=mp3_link machine_name=machine_name band_index=bandindex %}
-					</div>
+
+					{% assign bandindex = forloop.index %}
+					{% assign title = "Play " | append: band_name | append: " - " | append: band[1].mp3[0].title %}
+					{% include player_playbutton.html band_index=bandindex title=title mp3=mp3_link band_name=band_name %}
+
 				{% endfor %}
-			{% endif %}
+
+				<div class="col-xs-12" style="height: 40px; margin-left: 30px; margin-right: 30px;">
+					<h4 style="text-shadow: none;"><a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band_name}}</a>
+						{% for mp3 in band[1].mp3 %}
+
+							{% if mp3.link %}
+								{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: mp3.link %}
+							{% elsif mp3.title %}
+								{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band_name | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+							{% endif %}
+
+							{% unless mp3.nodownload %}
+								<a class="downloadButton" title="Download MP3" href="{{mp3_link}}" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
+							{% endunless %}
+
+						{% endfor %}
+					</h4>
+				</div>
+			</div>
 
 			{% assign number_of_pics = site.data.media.gigs[page.title][machine_name]['images'] | size %}
 

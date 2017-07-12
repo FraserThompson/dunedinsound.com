@@ -36,7 +36,7 @@
             <center>
                 <h2 class="huge-header">{{page.title}}</h2>
                 {% include playlist.html orientation="horizontal" %}
-                <small>{{ page.date | date: "%d/%m/%y" }} at <a href="/venues/{{venue_machine_name}}">{{page.venue}}</a></small>
+                <small>{{ page.date | date: "%d/%m/%y" }} at <a class="link light" href="/venues/{{venue_machine_name}}">{{page.venue}}</a></small>
             </center>
         </div>
         <div class="gig-nav">
@@ -44,8 +44,44 @@
                 <a href="{{page.previous.url}}" class="prev" title="Previous gig">&#x2039;</a>
             {% endif %}
             {% if page.next %}
-                <a href="{{page.previous.url}}" class="next" title="Previous gig">&#x203a;</a>
+                <a href="{{page.previous.url}}" class="next" title="Next gig">&#x203a;</a>
             {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid header sticky">
+    <div class="row">
+        <div class="col-xs-2">
+            <h3>{{page.title}}</h3>
+        </div>
+        <div class="col-xs-9">
+            {% if page.audio != false %}
+
+                {% for band in page.media limit: 1%}
+
+                    {% assign band_name = band[0] %}
+                    {% assign machine_name = band_name | downcase | machine_name %}
+                    {% assign mp3_link = "" %}
+
+					{% for mp3 in band[1].mp3 %}
+
+						{% if mp3.link %}
+							{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: mp3.link %}
+						{% elsif mp3.title %}
+							{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band_name | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+						{% endif %}
+
+					{% endfor %}
+
+                {% endfor %}
+
+                {% include player.html band_index="1" mp3_link=mp3_link machine_name=machine_name playbutton="true" playbuttonclass="big" band_name=band_name universal="true" %}
+
+            {% endif %}
+        </div>
+        <div class="col-xs-1">
+            {% include player_info.html band_name=band_name next_band="Whatever" %}
         </div>
     </div>
 </div>

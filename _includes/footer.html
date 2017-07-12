@@ -25,7 +25,11 @@
 <script type="text/javascript" src="/assets/js/main.js"></script>
 
 {% if page.layout == "post" %}
-	<script type="text/javascript" src="/assets/js/post.js"></script>
+	{% if page.layout_version != "2.0" %}
+		<script type="text/javascript" src="/assets/js/post.js"></script>
+	{% else %}
+		<script type="text/javascript" src="/assets/js/post2.js"></script>
+	{% endif %}
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(event) {
 			var container = document.getElementById('sidebar');
@@ -42,6 +46,7 @@
 		})
 
 	</script>
+
 {% endif %}
 
 {% if page.sortable or page.searchable %}

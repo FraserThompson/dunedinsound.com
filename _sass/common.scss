@@ -32,12 +32,19 @@ body {
 
 .link {
 	color: black;
+
+	&.light {
+		color: white;
+	}
 	
 }
 
 .link:hover {
 	text-decoration: none;
 	color: #333;
+	&.light {
+		color: pink;
+	}
 }
 .right {
 	right: 0px;
@@ -153,6 +160,11 @@ h3 {
 
 .fill-height > div {
   flex: 1;
+}
+
+.sticky {
+	position: sticky;
+	top: 0px;
 }
 
 .btn-success {

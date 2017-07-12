@@ -156,16 +156,19 @@
 
 .gig .divider {
 	overflow: hidden;
+  .playButton {
+    top: 3px;
+  }
 }
 
 .new-layout .divider {
-  top: -1px;
+  top: 60px;
 	position: sticky;
   position: -webkit-sticky;
   position: -moz-sticky;
   position: -ms-sticky;
   position: -o-sticky;
-	z-index: 8999;
+	z-index: 999;
 }
 
 .overlay-container {

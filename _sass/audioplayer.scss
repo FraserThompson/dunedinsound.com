@@ -63,7 +63,12 @@
 	&.big {
 		font-size: 16px;
 		width: 40px;
-		top: 8px;
+		top: 11px;
+	}
+
+	&:hover {
+		color: black;
+		background-color: lightgray !important;
 	}
 
 	&.playing {
