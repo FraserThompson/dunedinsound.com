@@ -1,7 +1,7 @@
 ---
 title: Home
 permalink: "/"
-layout: default-slim-header
+layout: default
 colors: 
     - "#212121"
     - "#141414"

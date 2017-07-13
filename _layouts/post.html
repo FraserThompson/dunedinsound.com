@@ -2,11 +2,11 @@
 layout: default
 type: posts
 ---
-  {% if page.layout == "post" %}
-    {% if page.layout_version == "2.0" %}
-      {% assign new_layout = true %}
-    {% endif %}
-  {% endif %}
+
+{% if page.layout_version == "2.0" %}
+	{% assign new_layout = true %}
+{% endif %}
+
 <div class="container-fluid gig {% if new_layout == true %} new-layout {% endif %}" id="gig">
 	{% if page.displayed_description %}
 		<p>{{page.displayed_description}}</p>
@@ -69,9 +69,9 @@ type: posts
 				{% assign number_of_vids = band[1].vid | size %}
 
 					{% if number_of_vids == 3 %}
-						{% assign vid_size_class = "col-xs-4 col-sm-6 col-md-6 col-lg-4" %}
+						{% assign vid_size_class = "col-xs-12 col-sm-4 col-md-4 col-lg-4" %}
 					{% elsif number_of_vids == 2 %}
-						{% assign vid_size_class = "col-xs-4 col-sm-6 col-md-6 col-lg-6" %}
+						{% assign vid_size_class = "col-xs-12 col-sm-6 col-md-6 col-lg-6" %}
 					{% else %}
 						{% assign vid_size_class = image_size_class %}
 					{% endif %}
