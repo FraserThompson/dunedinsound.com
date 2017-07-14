@@ -30,7 +30,7 @@ type: posts
 					{% endif %}
 
 					{% assign title = "Play " | append: band_name | append: " - " | append: band[1].mp3[0].title %}
-					{% include player_playbutton.html title=title mp3=mp3_link band_name=band_name %}
+					{% include player_playbutton.html player="_global" title=title mp3=mp3_link band_name=band_name %}
 
 				{% endfor %}
 
