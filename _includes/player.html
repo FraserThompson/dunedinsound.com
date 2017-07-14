@@ -1,7 +1,7 @@
-<div id="waveform_wrapper" class="player" data-mp3="{{include.mp3_link}}" data-machinename="{{include.machine_name}}" data-bandindex="{{include.band_index}}">
+<div id="waveform_wrapper" class="player" data-mp3="{{include.mp3_link}}" data-machinename="{{include.machine_name}}" data-player-id="{{include.player_id}}">
 
     {% if include.playbutton %}
-        {% include player_playbutton.html mp3=include.mp3_link band_index=include.band_index band_name=include.band_name class=include.playbuttonclass universal=include.universal title=include.title %}
+        {% include player_playbutton.html player_id=include.player_id mp3=include.mp3_link band_index=include.band_index band_name=include.band_name class=include.playbuttonclass universal=include.universal title=include.title %}
     {% endif %}
 
     <div class="length-wrapper" style="left: 40px;">
