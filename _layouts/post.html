@@ -29,9 +29,8 @@ type: posts
 						{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band_name | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
 					{% endif %}
 
-					{% assign bandindex = forloop.index %}
 					{% assign title = "Play " | append: band_name | append: " - " | append: band[1].mp3[0].title %}
-					{% include player_playbutton.html band_index=bandindex title=title mp3=mp3_link band_name=band_name %}
+					{% include player_playbutton.html title=title mp3=mp3_link band_name=band_name %}
 
 				{% endfor %}
 
