@@ -6,7 +6,7 @@ categories:
 - tongueflower
 - miss_june
 - astro_children
-layout: post
+
 parent: Gigs
 displayed_description: I had some issues with my recording rig so the sound quality
   is a little below my usual standard unfortunately.

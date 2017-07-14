@@ -6,7 +6,7 @@ categories:
     - hermann_doose
     - the_rothmans
     - space_bats_attack
-layout: post
+
 parent: Gigs
 venue: The Attic
 image: /assets/img/Rothmans%20EP%20Fundraiser/cover.jpg

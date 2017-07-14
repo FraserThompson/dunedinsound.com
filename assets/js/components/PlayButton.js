@@ -1,11 +1,11 @@
 class PlayButton {
 
-    constructor(element, player) {
+    constructor(element) {
         this.element = element;
-        this.player = player;
+        this.id = element.dataset.playerid;
+        this.mp3 = element.dataset.mp3 || null;
         this.playing = false;
-        this.mp3 = element.dataset.mp3;
-        this.element.addEventListener('click', this.click.bind(this));
+        this.element.addEventListener('click', this.clickHandler.bind(this));
     }
 
     setState(state) {
@@ -27,13 +27,28 @@ class PlayButton {
         }
     }
 
-    click() {
-        if (this.player.currentSong != this.mp3) {
-            this.player.load(this.mp3, false, true);
+    playPause() {
+        if (window.players[this.id].currentSong != this.mp3) {
+            window.players[this.id].load(this.mp3, false, true);
         } else {
-            this.player.wavesurfer.playPause();
+            window.players[this.id].wavesurfer.playPause();
         }
-        this.setState(!this.playing);
+    }
+
+    globalPlayPause() {
+        if (!window.players[this.id].currentSong) {
+            window.players[this.id].load(window.players[this.id].mp3, false, true);
+        } else {
+            window.players[this.id].wavesurfer.playPause();
+        }
+    }
+
+    clickHandler() {
+        if (this.mp3) {
+            this.playPause();
+        } else {
+            this.globalPlayPause();
+        }
     }
 
 }

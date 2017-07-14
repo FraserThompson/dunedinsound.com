@@ -5,7 +5,7 @@ categories:
   - idiot_prayer
   - god_bows_to_math
   - strange_harvest
-layout: post
+
 description: Few technical hitches with this one, also forgot my camera. Quality suffers.
 parent: Gigs
 venue: The Attic

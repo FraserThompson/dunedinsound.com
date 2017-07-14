@@ -4,7 +4,7 @@ date: 2016-10-27 07:00:00 Z
 categories:
     - negative_nancies
     - ov_pain
-layout: post
+
 parent: Gigs
 venue: None Gallery
 displayed_description: Apologies for not recording Eye, it was getting a bit late and I had work the next day like a big lame loser. Next Time.

@@ -5,7 +5,7 @@ categories:
     - kahu
     - triumphs
     - no_broadcast
-layout: post
+
 parent: Gigs
 venue: Crown Hotel
 image: /assets/img/No%20Broadcast%20with%20Triumphs%20%26%20Kahu/cover.jpg

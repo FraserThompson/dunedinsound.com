@@ -1,66 +1,122 @@
 ---
 ---
 
+{% include_relative gig_helpers.js %}
+{% include_relative components/Artist.js %}
 {% include_relative components/Player.js %}
 {% include_relative components/PlayButton.js %}
 
 const WAVEFORM_HEIGHT = "50";
 const HEADER_HEIGHT = 60;
 const WAVEFORM_COLOR = "white";
+const backToTop = document.getElementById('back-to-top');
+const threshold = window.innerHeight * 1.5;
 
-/* helper functions */
-// Debounces a function so it'll only be run a sensible amount of times per second
-var debounce = function (func, wait, immediate) {
-    var timeout;
-    return function() {
-        var context = this, args = arguments;
-        var later = function() {
-            timeout = null;
-            if (!immediate) func.apply(context, args);
-        };
-        var callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-    };
-};
+window.players = window.players || {};
+window.buttons = window.buttons || {};
+window.artists = window.artists || [];
+window.artistIndexes = window.artistIndexes || {}; // we need this so we can map machine_names to indexes, there's probably a better way to do this
 
-// Loads JSON from a remote 
-var loadJSON = function (filename, callback) {   
+var artistElements = document.querySelectorAll('#playlist .playlist-item');
+for (var i = 0; i < artistElements.length; i++) {
+    var machine_name = artistElements[i].dataset.machinename;
+    window.artistIndexes[machine_name] = i;
+    window.artists.push(new Artist(artistElements[i]));
+}
 
-    var xobj = new XMLHttpRequest();
-        xobj.overrideMimeType("application/json");
+var currentArtist = location.hash ? window.artists[window.artistIndexes[(location.hash.split('#')[1])]] : window.artists[0];
+currentArtist.displayArtist();
 
-    xobj.open('GET', filename + ".json", true);
-
-    xobj.onload = function() {
-            var status = xobj.status;
-            if (status == 200) {
-            callback(xobj.responseText, filename);
-            } else {
-            console.log(status);
-            callback(null);
-            }
-    };
-
-    xobj.onerror = function() {
-        callback(null);
-    }
-    
-    xobj.send(null);
-};
-
-var players = [];
-var buttons = [];
+// make an object for each button
+var playButtonElements = document.querySelectorAll('button.playButton');
+for (var i = 0; i < playButtonElements.length; i++) {
+    var playerid = playButtonElements[i].dataset.playerid;
+    var mp3 = playButtonElements[i].dataset.mp3;
+    console.log('Initializing a button for: ' + playerid + ' with ' + (mp3 || 'no mp3'));
+    window.buttons[mp3 || '_global'] = new PlayButton(playButtonElements[i]);
+}
 
 // make an object for each player (there's only one right now)
 var playerElements = document.querySelectorAll('div.player');
 for (var i = 0; i < playerElements.length; i++) {
-    players.push(new Player(playerElements[i], WAVEFORM_COLOR, WAVEFORM_HEIGHT));
+    var playerid = playerElements[i].dataset.playerid;
+    console.log('Initializing a player: ' + playerid);
+    window.players[playerid] = new Player(playerElements[i], WAVEFORM_COLOR, WAVEFORM_HEIGHT);
 }
 
-// make an object for each button (todo: handle global button, handle resetting all other playbutton states when switching songs);
-var playButtonElements = document.querySelectorAll('button.playButton:not(.big)');
-for (var i = 0; i < playButtonElements.length; i++) {
-    buttons.push(new PlayButton(playButtonElements[i], players[0])); // all buttons refer to the global play right now
-}
+
+window.addEventListener("scroll", function() {
+    if ((document.documentElement.scrollTop || document.body.scrollTop) > threshold){
+        backToTop.classList.add('visible');
+    } else {
+        backToTop.classList.remove('visible');
+    }
+});
+
+smoothScroll.init({
+    selector: '.playlist-item',
+    speed: 500,
+    easing: 'easeInOutCubic',
+    before: function() {
+        blazy.destroy();
+    },
+    after: function() {
+        blazy.revalidate();
+    }
+});
+
+gumshoe.init({
+    selector: '.playlist-item',
+    activeClass: 'active',
+    offset: 0,
+    scrollDelay: false,
+    callback: function (nav) {
+        if (nav) selectedArtist.innerHTML = nav.nav.dataset.artist;
+    }
+});
+
+
+baguetteBox.run('.gig-media', {onChange: function (currentIndex) {
+
+    var lightbox = document.getElementById('baguetteBox-figure-' + currentIndex);
+    var img = lightbox.getElementsByTagName('img')[0]
+
+    var youtube_embed = document.getElementById("youtube_container");
+    if (youtube_embed) youtube_embed.parentNode.removeChild(youtube_embed);
+
+    if (img.alt != "image") {
+
+        img.style.display = "block";
+
+        var container = document.createElement("div");
+        var iframe = document.createElement("iframe");
+
+        var iframe_url = "https://www.youtube.com/embed/" + img.alt + "?autoplay=1&autohide=1&vq=hd720";
+
+        iframe.setAttribute("id", "youtube_embed");
+        iframe.setAttribute("src", iframe_url);
+        iframe.setAttribute("frameborder",'0');
+        iframe.setAttribute("allowfullscreen", "yes");
+
+        container.setAttribute("id", "youtube_container");
+
+        img.style.display = "none"
+        
+        container.appendChild(iframe);
+        lightbox.appendChild(container);
+    }
+
+}, afterHide: function() {
+    var youtube_embed = document.getElementById("youtube_container");
+    if (youtube_embed) youtube_embed.outerHTML = "";
+}, captions: function(element) {
+    var img = element.getElementsByTagName('img')[0];
+
+    if (img.alt == "image") {
+        var taken =  "Taken at " + img.dataset.date;
+        var download = "<a href='" + img.dataset.downloadlink + "' download>Download</a>";
+        return "<p>" + img.dataset.artist + ": " + taken + " " + download + "</p>";
+    } else {
+        return null;
+    }
+}});

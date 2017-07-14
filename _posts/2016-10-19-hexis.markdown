@@ -7,7 +7,7 @@ categories:
     - methchrist
     - machina_rex
     - hexis
-layout: post
+
 parent: Gigs
 venue: Crown Hotel
 image: https://dunedinsound.com/assets/img/dance.happy.doom.crew%20presents%20Hexis/cover.jpg

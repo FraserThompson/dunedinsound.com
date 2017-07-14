@@ -5,7 +5,7 @@ categories:
     - koizilla
     - anarchy_drive
     - yung_natz
-layout: post
+
 parent: Gigs
 venue: Refuel
 image: /assets/img/Pint%20Night%20with%20Anarchy%20Drive%2C%20Koizilla%20and%20Yung%20Nat%24/cover.jpg

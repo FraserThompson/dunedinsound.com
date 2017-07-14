@@ -4,7 +4,7 @@ date: 2017-06-16 10:00:00 Z
 categories:
     - beatcomber
     - the_rothmans
-layout: post
+
 parent: Gigs
 venue: Crown Hotel
 image: /assets/img/BEATCOMBER%20with%20The%20Rothmans/cover.jpg

@@ -3,7 +3,7 @@ title: Fraser Ross & the 04's at Inch Bar
 date: 2016-07-01 05:00:00 Z
 categories:
 - fraser_ross
-layout: post
+
 parent: Gigs
 venue: Inch Bar
 media:

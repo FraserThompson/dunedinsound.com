@@ -5,7 +5,7 @@ categories:
     - evil_kid
     - robert_scott
     - opposite_sex
-layout: post
+
 parent: Gigs
 venue: Purple Rain
 image: /assets/img/Opposite%20Sex%2C%20Robert%20Scott%20%26%20That%20Lot%2C%20Evil%20Kid/cover.jpg

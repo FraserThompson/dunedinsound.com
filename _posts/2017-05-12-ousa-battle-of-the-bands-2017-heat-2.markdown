@@ -7,7 +7,7 @@ categories:
     - the_vortz
     - these_methane_skies
     - fuzz_lightyear
-layout: post
+
 parent: Gigs
 venue: Refuel
 image: /assets/img/OUSA%20Battle%20of%20the%20Bands%202017%20Heat%202/cover.jpg

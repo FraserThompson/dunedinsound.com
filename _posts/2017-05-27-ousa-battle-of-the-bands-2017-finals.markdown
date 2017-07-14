@@ -11,7 +11,7 @@ categories:
     - the_vortz
     - neverender
     - jack_berry_band
-layout: post
+
 parent: Gigs
 venue: Refuel
 image: /assets/img/OUSA%20Battle%20of%20the%20Bands%202017%20Final/cover.jpg

@@ -6,7 +6,7 @@ categories:
     - ov_pain
     - the_blues
     - file_folder
-layout: post
+
 parent: Gigs
 venue: None Gallery
 image: /assets/img/The%20BLUES%20Zealand%20Tour%20with%20File%20Folder/cover.jpg

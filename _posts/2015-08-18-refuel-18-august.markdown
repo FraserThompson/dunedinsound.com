@@ -3,7 +3,7 @@ title: Open Mic 18-8-15
 date: 2015-08-18 05:00:00 Z
 categories:
     - barabajagal
-layout: post
+
 parent: Gigs
 media:
   Barabajagal:

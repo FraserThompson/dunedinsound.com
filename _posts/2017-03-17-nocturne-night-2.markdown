@@ -5,7 +5,7 @@ categories:
     - repulsive_woman
     - the_rothmans
     - the_dance_asthmatics
-layout: post
+
 parent: Gigs
 venue: Dunedin Community Gallery
 image: /assets/img/Emerson%27s%20Festival%20Club%20Nocturne%20Night%202/cover.jpg

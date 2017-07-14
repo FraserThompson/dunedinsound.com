@@ -5,7 +5,7 @@ categories:
   - clones
   - jay_kill_rolling
   - sloth_vegas
-layout: post
+
 audio: false
 parent: Gigs
 media:

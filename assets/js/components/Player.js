@@ -6,6 +6,8 @@ class Player {
     this.totalLength = this.element.querySelector('.length');
     this.currentTime = this.element.querySelector('.currentTime');
     this.currentSong = null;
+    this.id = element.dataset.playerid;
+    this.mp3 = element.dataset.mp3 || window.artists[0].mp3;
 
     window.cached_json = window.cached_json || {};
 
@@ -22,30 +24,35 @@ class Player {
     });
 
     this.wavesurfer.on('play', this.play.bind(this));
+    this.wavesurfer.on('pause', this.pause.bind(this));
     this.wavesurfer.on('ready', this.updateDuration.bind(this));
     this.wavesurfer.on('audioprocess', this.updateTime.bind(this));
     this.wavesurfer.on('seek', this.updateTime.bind(this));
-    this.wavesurfer.on('finish', function () {
-      // if ((player.currentSong + 1) <= player.players.length) {
-      //     player.playButtonClick(player.currentSong + 1)();
-      // } else {
-      //     player.stop(player.currentSong);
-      // }
-    });
+    this.wavesurfer.on('finish', this.finish.bind(this));
 
-    this.load(this.element.dataset.mp3, true);
+    this.load(this.mp3, true);
 
-    window.addEventListener("resize", this.redraw());
+    window.addEventListener("resize", this.redraw.bind(this));
   }
 
   play() {
+    window.buttons['_global'].setState(true);
+    window.buttons[this.currentSong].setState(true);
     this.currentTime.style.display = "block";
     this.totalLength.style.display = "block";
+  }
+
+  pause() {
+    window.buttons['_global'].setState(false);
+    window.buttons[this.currentSong].setState(false);
   }
 
   stop() {
     this.currentTime.style.display = "none";
     this.totalLength.style.display = "none";
+  }
+
+  finish() {
   }
 
   updateDuration() {
@@ -73,44 +80,25 @@ class Player {
   }
 
   load(url, prelim, play) {
-
     var player = this;
-
-    this.paused = false;
 
     console.log('loading: ' + url);
 
     if (!window.cached_json[url]) {
-
-      console.log('no cache, downloading');
-
       loadJSON(url, function (data, filename) {
-
         window.cached_json[url] = JSON.parse(data);
-        console.log('downloaded');
-
         if (!prelim) {
           player.wavesurfer.load(url, window.cached_json[url], "metadata");
           player.currentSong = url;
         } else {
           player.wavesurfer.load("/assets/audio/empty.mp3", window.cached_json[url], "metadata");
         }
-
         if (play) player.wavesurfer.playPause();
       });
     } else {
-      console.log('found cache for it');
       player.wavesurfer.load(url, window.cached_json[url], "metadata");
       player.currentSong = url;
       if (play) player.wavesurfer.playPause();
-    }
-
-  }
-
-  setCurrentSong(index) {
-    if (this.currentSong != -1 && index != this.currentSong) {
-      this.wavesurfer.stop();
-      this.stop()();
     }
   }
 }

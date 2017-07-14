@@ -4,7 +4,7 @@ date: 2014-08-06 05:00:00 Z
 categories:
 - jared
 - wolfman_stuey
-layout: post
+
 audio: false
 parent: Gigs
 media:

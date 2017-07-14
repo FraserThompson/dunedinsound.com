@@ -5,7 +5,7 @@ categories:
 - boaz_anema
 - the_vortz
 - the_rothmans
-layout: post
+
 parent: Gigs
 media:
   Boaz Anema:

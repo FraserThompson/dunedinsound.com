@@ -5,7 +5,7 @@ categories:
 - astro_children
 - echo_ohs
 - psychic_maps
-layout: post
+
 parent: Gigs
 venue: Purple Rain
 image: https://dunedinsound.com/assets/img/Echo%20Ohs%207%20Inch%20Release%20Tour/cover.jpg

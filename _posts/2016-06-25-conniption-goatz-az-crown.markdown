@@ -6,7 +6,7 @@ categories:
 - goats_az
 - ignite_the_helix
 - conniption
-layout: post
+
 parent: Gigs
 venue: Crown Hotel
 media:

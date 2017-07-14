@@ -5,7 +5,7 @@ categories:
     - elan_vital
     - repulsive_woman
     - frankie_cosmos
-layout: post
+
 parent: Gigs
 venue: Maori Hill Coronation Hall
 image: /assets/img/Frankie%20Cosmos%20NZ%20Tour%202017/cover.jpg

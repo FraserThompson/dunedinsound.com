@@ -28,7 +28,7 @@ categories:
     - the_mentalist_collective
     - undecided
     - the_generators
-layout: post
+
 parent: Gigs
 venue: Dunedin Public Library
 image: /assets/img/Nook%20and%20Cranny%20Music%20Festival/cover.jpg

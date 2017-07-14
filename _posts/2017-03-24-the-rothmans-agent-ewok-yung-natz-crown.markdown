@@ -8,7 +8,7 @@ categories:
     - agent_ewok
     - the_rothmans
     - sewage
-layout: post
+
 parent: Gigs
 venue: Crown Hotel
 image: /assets/img/The%20Rothmans%2C%20Agent%20Ewok%2C%20M.I.L%20and%20Yung%20Nats%20at%20The%20Crown/cover.jpg

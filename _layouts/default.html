@@ -4,7 +4,7 @@ layout: compress
 
 <!DOCTYPE html>
 <html>
-  {% if page.layout == "post" %}
+  {% if page.layout == "gig" %}
     {% if page.layout_version == "2.0" %}
       {% assign new_layout = true %}
     {% endif %}
@@ -13,13 +13,13 @@ layout: compress
 
   <body>
     {% include header.html %}
-      <div class="page-wrapper {% if page.layout == 'post' %} gig-wrapper {% endif %} {% if page.fixed_header %} fixed-header {% endif %}" style="background-color: #222222;">
-        {% if page.layout == "post" %}
+      <div class="page-wrapper {% if page.layout == 'gig' %} gig-wrapper {% endif %} {% if page.fixed_header %} fixed-header {% endif %}" style="background-color: #222222;">
+        {% if page.layout == "gig" %}
           {% if new_layout == true %}
             {% include gig_header.html %}
           {% endif %}
           {% if new_layout != true %}
-            {% include sidebar_left.html %}
+            {% include gig_sidebar_left.html %}
           {% endif %}
           <div class="page-content" style="{% if new_layout == true %} margin-left: 0px !important; {% endif %}">
               {{ content }}

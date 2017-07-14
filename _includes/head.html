@@ -12,7 +12,7 @@
 
 	{% if page.description %}
 		{% assign description = page.description %}
-	{% elsif page.layout == "post" %} 
+	{% elsif page.layout == "gig" %} 
 		{% assign date_long_string = page.date | date_to_long_string %}
 		{% assign description = "Check out photos, audio and video from " | append: page.title | append: " at " | append: page.venue | append: " on " | append: date_long_string %}
 	{% elsif page.layout == "band" or page.layout == "venue" %}

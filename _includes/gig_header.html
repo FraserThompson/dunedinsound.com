@@ -35,7 +35,7 @@
         <div class="text">
             <center>
                 <h2 class="huge-header">{{page.title}}</h2>
-                {% include playlist.html orientation="horizontal" %}
+                {% include gig_playlist.html orientation="horizontal" %}
                 <small>{{ page.date | date: "%d/%m/%y" }} at <a class="link light" href="/venues/{{venue_machine_name}}">{{page.venue}}</a></small>
             </center>
         </div>
@@ -76,7 +76,7 @@
 
                 {% endfor %}
 
-                {% include player.html player_id="_global" playbutton="true" playbuttonclass="big" %}
+                {% include player.html playerId="_global" playbutton="true" playbuttonclass="big" %}
 
             {% endif %}
         </div>

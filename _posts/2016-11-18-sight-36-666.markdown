@@ -8,7 +8,7 @@ categories:
     - wilton_carpet
     - cakewithcontactmic
     - eden
-layout: post
+
 parent: Gigs
 venue: None Gallery
 image: /assets/img/SIGHT%20%2336%20666/cover.jpg

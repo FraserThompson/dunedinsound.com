@@ -3,7 +3,7 @@ title: "Tenzin Choegyal at ReFuel"
 date: 2017-04-06 09:00:00 Z
 categories:
     - tenzin_choegyal
-layout: post
+
 parent: Gigs
 venue: Refuel
 image: /assets/img/Tenzin%20Choegyal%20at%20ReFuel/cover.jpg
