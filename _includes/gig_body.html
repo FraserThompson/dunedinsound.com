@@ -20,7 +20,7 @@
                     {% include player_playbutton.html playerId="_global" title=title artist=machine_name band_name=band_name %}
                 {% endif %}
 
-				<div class="col-xs-12" style="height: 40px; margin-left: 30px; margin-right: 30px;">
+				<div class="col-xs-12" style="height: 40px; {% if band[1].mp3 %}margin-left: 30px;{% endif %} margin-right: 30px;">
 					<h4 style="text-shadow: none;"><a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band_name}}</a>
 						{% for mp3 in band[1].mp3 %}
 

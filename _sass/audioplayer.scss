@@ -4,8 +4,6 @@
    	-moz-transition: opacity 250ms ease-in-out;
     transition: opacity 250ms ease-in-out;
 	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
 }
 
 .length-wrapper {
@@ -20,10 +18,11 @@
 	position: absolute;
 	width: 100%;
 	text-align: center;
-	color: orange;
+	color: #c8c8c8;
 	bottom: 0px;
-	background: rgba(0,0,0, 0.6);
-	height: 60px;
+	background: rgba(0,0,0, 0.4);
+	height: 25px;
+	z-index: 10;
 
 	h5 {
 		line-height: 60px;

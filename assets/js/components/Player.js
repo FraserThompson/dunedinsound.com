@@ -4,8 +4,15 @@ class Player {
     this.element = element;
     this.id = element.dataset.playerid;
     this.waveform = this.element.querySelector('.waveform');
+
     this.totalLength = this.element.querySelector('.length');
     this.currentTime = this.element.querySelector('.currentTime');
+
+    this.nextButton = this.element.querySelector('.nextButton')
+    this.currentArtistElement = this.element.querySelector('.currentArtist');
+    this.currentSongElement = this.element.querySelector('.currentSong');
+    this.nextArtistElement = this.element.querySelector('.nextArtist');
+
     this.currentSong = null;
     this.currentArtist = null;
     this.prelim = false; // indicates whether the current loaded track is just an empty mp3 (use to determine whether to go to the next song on finish)
@@ -32,9 +39,9 @@ class Player {
     this.wavesurfer.on('finish', this.finish.bind(this));
 
     this.loadArtist(window.artists[element.dataset.artist] || window.artists['first'], true);
-    if (window.playerInfo) window.playerInfo.update(this.currentArtist.name, this.currentArtist.nextAudio.name);
 
     window.addEventListener("resize", this.redraw.bind(this)());
+    this.nextButton.addEventListener("click", this.next.bind(this));
   }
 
   play() {
@@ -61,12 +68,11 @@ class Player {
   }
 
   next() {
-    if (this.currentArtist.links.length - 1 > this.currentSong) {
+    if (this.currentArtist.audio.length - 1 > this.currentSong) {
       this.currentSong = this.currentSong + 1;
-      this.loadMp3(this.currentArtist.links[this.currentSong], false, true);
+      this.loadMp3(this.currentArtist.audio[this.currentSong].url, false, true);
     } else {
       this.currentArtist = this.currentArtist.nextAudio;
-      if (window.playerInfo) window.playerInfo.update(this.currentArtist.name, this.currentArtist.nextAudio.name);
       this.loadArtist(this.currentArtist, false, true);
     }
   }
@@ -97,8 +103,11 @@ class Player {
 
   loadArtist(artist, prelim, play, trackIndex) {
     this.currentArtist = artist;
-    this.loadMp3(this.currentArtist.links[trackIndex || 0], prelim, play);
+    this.loadMp3(this.currentArtist.audio[trackIndex || 0].url, prelim, play);
     this.currentSong = trackIndex || 0;
+    this.currentArtistElement.innerHTML = this.currentArtist.name;
+    this.currentSongElement.innerHTML = this.currentArtist.audio[trackIndex || 0].name
+    this.nextArtistElement.innerHTML = this.currentArtist.nextAudio.name;
   }
 
   loadMp3(url, prelim, play) {

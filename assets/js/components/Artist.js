@@ -5,10 +5,9 @@ class Artist {
         this.recordings = [];
         this.machine_name = element.dataset.machinename;
         this.name = element.dataset.name;
-        this.links = element.dataset.mp3 ? element.dataset.mp3.split('^') : null;
+        this.audio = element.dataset.mp3 ? JSON.parse(element.dataset.mp3) : null;
         this.previous = null;
         this.next = null;
-
         element.addEventListener('click', function (e) {
             self.displayArtist();
         });
@@ -19,7 +18,7 @@ class Artist {
     }
 
     get nextAudio() {
-        if (!this.next.links) {
+        if (!this.next.audio) {
             return this.next.nextAudio();
         } else {
             return this.next;
@@ -27,7 +26,7 @@ class Artist {
     }
 
     get prevAudio() {
-        if (!this.previous.links) {
+        if (!this.previous.audio) {
             return this.previous.prevAudio();
         } else {
             return this.previous;

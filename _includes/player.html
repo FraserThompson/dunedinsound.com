@@ -1,16 +1,26 @@
-<div id="waveform_wrapper" class="player" data-artist="{{include.artist}}" data-playerid="{{include.playerId}}">
+<div id="waveform_wrapper" class="player row" data-artist="{{include.artist}}" data-playerid="{{include.playerId}}">
+    <div class="col-xs-11" style="padding-top: 5px;">
+        {% if include.playbutton %}
+            {% include player_playbutton.html playerId=include.playerId artist=include.artist band_index=include.band_index band_name=include.band_name class=include.playbuttonclass universal=include.universal title=include.title %}
+        {% endif %}
 
-    {% if include.playbutton %}
-        {% include player_playbutton.html playerId=include.playerId artist=include.artist band_index=include.band_index band_name=include.band_name class=include.playbuttonclass universal=include.universal title=include.title %}
+        <div class="title-wrapper">
+            <span class="currentArtist"></span> - <span class="currentSong"></span>
+        </div>
+
+        <div class="length-wrapper" style="left: 40px;">
+            <span class="currentTime"></span>
+        </div>
+        
+        <div class="waveform" id="waveform_{{include.machine_name}}"></div>
+
+        <div class="length-wrapper" style="right: 0px;">
+            <span class="length"></span>
+        </div>
+    </div>
+    {% if include.nextbutton %}
+    <div class="col-xs-1">
+        <button title="Next" class="btn btn-success nextButton {{include.class}}">Next: <span class="nextArtist"></span></button>
+    </div>
     {% endif %}
-
-    <div class="length-wrapper" style="left: 40px;">
-        <span class="currentTime"></span>
-    </div>
-    
-    <div class="waveform" id="waveform_{{include.machine_name}}"></div>
-
-    <div class="length-wrapper" style="right: 0px;">
-        <span class="length"></span>
-    </div>
 </div>

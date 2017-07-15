@@ -3,7 +3,6 @@
 
 {% include_relative gig_helpers.js %}
 
-{% include_relative components/PlayerInfo.js %}
 {% include_relative components/Artist.js %}
 {% include_relative components/Player.js %}
 {% include_relative components/PlayButton.js %}
@@ -17,7 +16,6 @@ const threshold = window.innerHeight * 1.5;
 window.players = window.players || {};
 window.buttons = window.buttons || {};
 window.artists = window.artists || {};
-window.playerInfo = new PlayerInfo(document.getElementById('now_playing_wrapper'));
 
 var artistElements = document.querySelectorAll('#playlist .playlist-item');
 for (var i = 0; i < artistElements.length; i++) {
@@ -30,12 +28,13 @@ for (var i = 0; i < artistElements.length; i++) {
     var machine_name = artistElements[i].dataset.machinename;
     window.artists[machine_name] = artistObj;
 
-    if (!window.artists['first'] && artistObj.links) window.artists['first'] = artistObj;
+    if (!window.artists['first'] && artistObj.audio) window.artists['first'] = artistObj;
 
 }
 
-var currentArtist = location.hash ? window.artists[(location.hash.split('#')[1])] : window.artists['first'];
-currentArtist.displayArtist();
+if (location.hash) {
+    window.artists[(location.hash.split('#')[1])].displayArtist();
+}
 
 // make an object for each button
 var playButtonElements = document.querySelectorAll('button.playButton');
