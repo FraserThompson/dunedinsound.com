@@ -1,0 +1,97 @@
+{% if page.layout_version == "2.0" %}
+	{% assign new_layout = true %}
+{% endif %}
+
+<div class="container-fluid gig {% if new_layout == true %} new-layout {% endif %}" id="gig">
+	{% if page.displayed_description %}
+		<p>{{page.displayed_description}}</p>
+	{% endif %}
+	{% for band in page.media %}
+
+		{% assign band_name = band[0] %}
+		{% assign machine_name = band_name | downcase | machine_name %}
+
+		<div class="row">
+		
+			<div class="divider" id="{{machine_name}}" style="background-color: white; color: black;">
+
+                {% if band[1].mp3 %}
+                    {% assign title = "Play " | append: band_name | append: " - " | append: band[1].mp3[0].title %}
+                    {% include player_playbutton.html playerId="_global" title=title artist=machine_name band_name=band_name %}
+                {% endif %}
+
+				<div class="col-xs-12" style="height: 40px; margin-left: 30px; margin-right: 30px;">
+					<h4 style="text-shadow: none;"><a class="link" title="Artist Page" href="/artists/{{machine_name}}">{{band_name}}</a>
+						{% for mp3 in band[1].mp3 %}
+
+							{% if mp3.link %}
+								{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: mp3.link %}
+							{% elsif mp3.title %}
+								{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band_name | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+							{% endif %}
+
+							{% unless mp3.nodownload %}
+								<a class="downloadButton" title="Download MP3" href="{{mp3_link}}" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
+							{% endunless %}
+
+						{% endfor %}
+					</h4>
+				</div>
+			</div>
+
+			{% assign number_of_pics = site.data.media.gigs[page.title][machine_name]['images'] | size %}
+
+ 			{% if number_of_pics <= 8 %}
+				{% assign image_size_class = "col-xs-4 col-sm-6 col-md-6 col-lg-4" %}
+ 			{% elsif number_of_pics <= 12 %}
+			 	{% assign image_size_class = "col-xs-4 col-sm-4 col-md-4 col-lg-3" %}
+		 	{% else %}
+			 	{% assign image_size_class = "col-xs-4 col-sm-4 col-md-4 col-lg-3" %}
+			{% endif %}
+
+			<div class="gig-media">
+			{% if band[1].vid %}
+				{% assign number_of_vids = band[1].vid | size %}
+
+					{% if number_of_vids == 3 %}
+						{% assign vid_size_class = "col-xs-12 col-sm-4 col-md-4 col-lg-4" %}
+					{% elsif number_of_vids == 2 %}
+						{% assign vid_size_class = "col-xs-12 col-sm-6 col-md-6 col-lg-6" %}
+					{% else %}
+						{% assign vid_size_class = image_size_class %}
+					{% endif %}
+					{% if number_of_pics == 0 and number_of_vids == 0 %}
+						<h3><center>Audio only</center> </h3>
+					{% endif %}
+
+					{% for vid in band[1].vid %}
+						<div class="{{vid_size_class}} no-padding">
+							{% include youtube_video.html link=vid.link title=vid.title aspectratio=page.aspectratio %}
+						</div>
+					{% endfor %}
+			{% endif %}
+			{% for gig_image in site.data.media.gigs[page.title][machine_name]['images'] %}
+			
+				{% assign full_pic = gig_image | replace: " (Medium)","" %}
+				{% assign directory = "assets/img/" | append: page.title | append: "/" | append: machine_name %}
+				{% assign filename = full_pic | split: '/' | last %}
+
+				{% capture image_date %}
+					{% exiftag date_time_original,{{directory}},{{filename}} %}
+				{% endcapture %}
+
+				<div class= "{{image_size_class}} no-padding hover-img">
+					<div class="box {{page.aspectratio}}">
+						<a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" data-artist="{{band_name}}" data-downloadlink="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" data-date="{{image_date | date: '%r'}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
+					</div>
+				</div>
+			{% endfor %}
+			</div>
+		</div>
+	{% endfor %}
+
+</div>
+
+<div class="back-to-top" id="back-to-top">
+	<a href="#" data-toggle="collapse" data-target="#navbar-collapse" title="Back to top" onClick="window.scrollTo(0, 0);" style="color: white;">🔝</a>
+</div>

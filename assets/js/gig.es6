@@ -2,6 +2,8 @@
 ---
 
 {% include_relative gig_helpers.js %}
+
+{% include_relative components/PlayerInfo.js %}
 {% include_relative components/Artist.js %}
 {% include_relative components/Player.js %}
 {% include_relative components/PlayButton.js %}
@@ -14,26 +16,34 @@ const threshold = window.innerHeight * 1.5;
 
 window.players = window.players || {};
 window.buttons = window.buttons || {};
-window.artists = window.artists || [];
-window.artistIndexes = window.artistIndexes || {}; // we need this so we can map machine_names to indexes, there's probably a better way to do this
+window.artists = window.artists || {};
+window.playerInfo = new PlayerInfo(document.getElementById('now_playing_wrapper'));
 
 var artistElements = document.querySelectorAll('#playlist .playlist-item');
 for (var i = 0; i < artistElements.length; i++) {
+
+    var artistObj = new Artist(artistElements[i]);
+    var previousObj = window.artists[machine_name];
+    if (previousObj) previousObj.next = artistObj;
+    artistObj.prev = previousObj;
+
     var machine_name = artistElements[i].dataset.machinename;
-    window.artistIndexes[machine_name] = i;
-    window.artists.push(new Artist(artistElements[i]));
+    window.artists[machine_name] = artistObj;
+
+    if (!window.artists['first'] && artistObj.links) window.artists['first'] = artistObj;
+
 }
 
-var currentArtist = location.hash ? window.artists[window.artistIndexes[(location.hash.split('#')[1])]] : window.artists[0];
+var currentArtist = location.hash ? window.artists[(location.hash.split('#')[1])] : window.artists['first'];
 currentArtist.displayArtist();
 
 // make an object for each button
 var playButtonElements = document.querySelectorAll('button.playButton');
 for (var i = 0; i < playButtonElements.length; i++) {
     var playerid = playButtonElements[i].dataset.playerid;
-    var mp3 = playButtonElements[i].dataset.mp3;
-    console.log('Initializing a button for: ' + playerid + ' with ' + (mp3 || 'no mp3'));
-    window.buttons[mp3 || '_global'] = new PlayButton(playButtonElements[i]);
+    var artist = playButtonElements[i].dataset.artist;
+    console.log('Initializing a button for: ' + playerid + ' with ' + (artist || 'no artist'));
+    window.buttons[artist || '_global'] = new PlayButton(playButtonElements[i]);
 }
 
 // make an object for each player (there's only one right now)
@@ -43,7 +53,6 @@ for (var i = 0; i < playerElements.length; i++) {
     console.log('Initializing a player: ' + playerid);
     window.players[playerid] = new Player(playerElements[i], WAVEFORM_COLOR, WAVEFORM_HEIGHT);
 }
-
 
 window.addEventListener("scroll", function() {
     if ((document.documentElement.scrollTop || document.body.scrollTop) > threshold){

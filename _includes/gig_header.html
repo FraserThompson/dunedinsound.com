@@ -1,15 +1,8 @@
-{% assign venue_machine_name = page.venue | downcase | machine_name %}
 
 <div class="container-fluid">
     <div class="post-header row" style="height: 70vh;">
         {% if page.title == site.posts[0].title %}
             <span class="label label-default" style="margin-left: 15px;">LATEST GIG</span>
-        {% endif %}
-        
-        {% if page.next %}
-        <div class="arrow left">
-            <a href="{{page.next.url}}" title="Next gig"><</a>
-        </div>
         {% endif %}
 
         <div class="banner">
@@ -41,10 +34,10 @@
         </div>
         <div class="gig-nav">
             {% if page.previous %}
-                <a href="{{page.previous.url}}" class="prev" title="Previous gig">&#x2039;</a>
+                <a href="{{page.previous.url}}" class="prev" title="Older">&#x203a;</a>
             {% endif %}
             {% if page.next %}
-                <a href="{{page.previous.url}}" class="next" title="Next gig">&#x203a;</a>
+                <a href="{{page.next.url}}" class="next" title="Newer">&#x2039;</a>
             {% endif %}
         </div>
     </div>
@@ -55,33 +48,14 @@
         <div class="col-xs-2">
             <h3>{{page.title}}</h3>
         </div>
-        <div class="col-xs-9">
-            {% if page.audio != false %}
-
-                {% for band in page.media limit: 1%}
-
-                    {% assign band_name = band[0] %}
-                    {% assign machine_name = band_name | downcase | machine_name %}
-                    {% assign mp3_link = "" %}
-
-					{% for mp3 in band[1].mp3 %}
-
-						{% if mp3.link %}
-							{% assign mp3_link = site.asset_url | append: "/assets/audio/"  | append: mp3.link %}
-						{% elsif mp3.title %}
-							{% assign mp3_link = site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band_name | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
-						{% endif %}
-
-					{% endfor %}
-
-                {% endfor %}
-
+        
+        {% if page.audio != false %}
+            <div class="col-xs-9">
                 {% include player.html playerId="_global" playbutton="true" playbuttonclass="big" %}
-
-            {% endif %}
-        </div>
-        <div class="col-xs-1">
-            {% include player_info.html band_name=band_name next_band="Whatever" %}
-        </div>
+            </div>
+            <div class="col-xs-1">
+                {% include player_info.html band_name="Whatever" next_band="Whatever" %}
+            </div>
+        {% endif %}
     </div>
 </div>

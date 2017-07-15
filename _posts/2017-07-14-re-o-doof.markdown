@@ -1,0 +1,48 @@
+---
+title: "Re-O Doof"
+date: 2017-07-14 09:30:00 Z
+categories:
+    - dj_gaz
+    - mamazita
+    - jack_berry_band
+    - mild_orange
+    - halps
+parent: Gigs
+venue: Refuel
+image: /assets/img/Re-O%20Doof/cover.jpg
+layout_version: '2.0'
+media:
+    DJ Gaz:
+        vid:
+            -   link: AErIECEVjs8
+    Mild Orange:
+        mp3:
+            -   title: Partial set
+        vid:
+            -   link: uSZq6koVYtM
+    Mamazita:
+        mp3:
+            -   title: Full set
+        vid:
+            -   link: D-hcspYQ0JU
+            -   link: SL2iDpDlDfo
+            -   title: Redbone (Childish Gambino cover)
+                link: 36xTvbgwzlc
+            -   link: Dn1VR8KYwI4
+    Jack Berry Band:
+        mp3:
+            -   title: Full set
+        vid:
+            -   title: Private Show
+                link: nTn6sh9a6LE
+            -   link: mycyD3tckWc
+            -   link: wjUEhxa7uXE
+            -   title: Saturday
+                link: 3mUsTwwBO88
+            -   title: Pick Up the Phone (Young Thug & Travis Scott cover)
+                link: dFScQbf_1A8
+    Halps:
+        vid:
+            -   link: ohehayQoat4
+---
+

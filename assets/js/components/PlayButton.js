@@ -3,7 +3,7 @@ class PlayButton {
     constructor(element) {
         this.element = element;
         this.id = element.dataset.playerid;
-        this.mp3 = element.dataset.mp3 || null;
+        this.artist = window.artists[element.dataset.artist] || null;
         this.playing = false;
         this.element.addEventListener('click', this.clickHandler.bind(this));
     }
@@ -28,27 +28,26 @@ class PlayButton {
     }
 
     playPause() {
-        if (window.players[this.id].currentSong != this.mp3) {
-            window.players[this.id].load(this.mp3, false, true);
+        if (window.players[this.id].prelim || window.players[this.id].currentArtist != this.artist) {
+            window.players[this.id].loadArtist(this.artist, false, true);
         } else {
             window.players[this.id].wavesurfer.playPause();
         }
     }
 
     globalPlayPause() {
-        if (!window.players[this.id].currentSong) {
-            window.players[this.id].load(window.players[this.id].mp3, false, true);
+        if (window.players[this.id].prelim) {
+            window.players[this.id].loadArtist(window.artists['first'], false, true);
         } else {
             window.players[this.id].wavesurfer.playPause();
         }
     }
 
     clickHandler() {
-        if (this.mp3) {
+        if (this.artist) {
             this.playPause();
         } else {
             this.globalPlayPause();
         }
     }
-
 }
