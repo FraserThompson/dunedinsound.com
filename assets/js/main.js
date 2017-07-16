@@ -11,6 +11,7 @@
 {% include_relative vendor/isotope.pkgd.min.js %}
 {% include_relative vendor/packery-mode.pkgd.min.js%}
 {% include_relative vendor/baguetteBox.min.js %}
+{% include_relative vendor/stickyfill.min.js %}
 {% include_relative images.js %}
 {% include_relative talkinglol.js %}
 {% include_relative isotope.js %}

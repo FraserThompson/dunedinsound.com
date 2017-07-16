@@ -17,6 +17,11 @@ window.players = window.players || {};
 window.buttons = window.buttons || {};
 window.artists = window.artists || {};
 
+var stickyElements = document.getElementsByClassName('sticky');
+for (var i = stickyElements.length - 1; i >= 0; i--) {
+    Stickyfill.add(stickyElements[i]);
+}
+
 var artistElements = document.querySelectorAll('#playlist .playlist-item');
 
 var j = 1;
