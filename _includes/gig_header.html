@@ -28,7 +28,7 @@
         <div class="text">
             <center>
                 <h2 class="huge-header">{{page.title}}</h2>
-                {% include gig_playlist.html orientation="horizontal" %}
+                {% include gig_playlist.html orientation="horizontal" hightlight="false" %}
                 <small>{{ page.date | date: "%d/%m/%y" }} at <a title="More gigs at {{page.venue}}" class="link light" href="/venues/{{venue_machine_name}}">{{page.venue}}</a></small>
             </center>
         </div>
@@ -43,16 +43,41 @@
     </div>
 </div>
 
-<div class="container-fluid header sticky">
+<div class="container-fluid header sticky gig-header" style="overflow: visible;">
     <div class="row">
-        <div class="col-xs-2">
-            <h3>{{page.title}}</h3>
+        {% assign page_title_size = page.title | size %}
+        {% assign header_font_size = "2rem" %}
+
+        {% if page.audio != false %}
+            {% if page_title_size < 20  %}
+                {% assign header_font_size = "2rem" %}
+            {% elsif page_title_size < 40 %}
+                {% assign header_font_size = "1.6rem" %}
+            {% elsif page_title_size < 60 %}
+                {% assign header_font_size = "1.4rem" %}
+            {% elsif page_title_size < 80 %}
+                {% assign header_font_size = "1.2rem" %}
+            {% else %}
+                {% assign header_font_size = "1rem" %}
+            {% endif %}
+        {% endif %}
+        <div class="col-xs-12 {% if page.audio != false %}col-sm-2{% else %}col-sm-11{% endif %} gig-title-wrapper">
+            <h3 style="font-size: {{header_font_size}}">{{page.title}}</h3>
         </div>
         
         {% if page.audio != false %}
-            <div class="col-xs-10">
-                {% include player.html playerId="_global" playbutton="true" nextbutton="true" playbuttonclass="big" %}
+            <div class="col-xs-11 col-sm-9">
+                {% include player.html playerId="_global" playbutton="true" playbuttonclass="big" %}
             </div>
         {% endif %}
+
+        <div class="col-xs-1 col-sm-1 no-padding">
+            <div class="gig dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="currentArtist"></span><span class="caret"></span>
+                </button>
+                {% include gig_playlist.html class="dropdown-menu" highlight="true" %}
+            </div>
+        </div>
     </div>
 </div>

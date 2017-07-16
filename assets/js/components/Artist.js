@@ -1,35 +1,41 @@
 class Artist {
-    constructor(element) {
-        var self = this;
+    constructor(element, index) {
+
         this.element = element;
         this.recordings = [];
         this.machine_name = element.dataset.machinename;
         this.name = element.dataset.name;
+        this.index = index;
         this.audio = element.dataset.mp3 ? JSON.parse(element.dataset.mp3) : null;
-        this.previous = null;
+        this.prev = null;
         this.next = null;
+
         element.addEventListener('click', function (e) {
-            self.displayArtist();
-        });
+            this.displayArtist();
+        }.bind(this));
     }
 
     displayArtist() {
         blazy.revalidate();
     }
 
-    get nextAudio() {
-        if (!this.next.audio) {
+    nextAudio() {
+        if (!this.next) {
+            return null;
+        } else if (!this.next.audio) {
             return this.next.nextAudio();
-        } else {
+        } else if (this.next) {
             return this.next;
         }
     }
 
-    get prevAudio() {
-        if (!this.previous.audio) {
-            return this.previous.prevAudio();
-        } else {
-            return this.previous;
+    prevAudio() {
+        if (!this.prev) {
+            return null;
+        } else if (!this.prev.audio) {
+            return this.prev.nextAudio();
+        } else if (this.prev) {
+            return this.prev;
         }
     }
 }

@@ -8,7 +8,6 @@ categories:
 parent: Gigs
 venue: an attic on Jetty Street
 image: /assets/img/Kane%20Strang%20Two%20Hearts%20and%20No%20Brain%20Release%20Party/cover.jpg
-layout_version: '2.0'
 audio: false
 media:
     Unnamed Band:

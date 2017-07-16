@@ -18,9 +18,11 @@ window.buttons = window.buttons || {};
 window.artists = window.artists || {};
 
 var artistElements = document.querySelectorAll('#playlist .playlist-item');
+
+var j = 1;
 for (var i = 0; i < artistElements.length; i++) {
 
-    var artistObj = new Artist(artistElements[i]);
+    var artistObj = new Artist(artistElements[i], j);
     var previousObj = window.artists[machine_name];
     if (previousObj) previousObj.next = artistObj;
     artistObj.prev = previousObj;
@@ -28,6 +30,7 @@ for (var i = 0; i < artistElements.length; i++) {
     var machine_name = artistElements[i].dataset.machinename;
     window.artists[machine_name] = artistObj;
 
+    if (artistObj.audio) j = j + 1;
     if (!window.artists['first'] && artistObj.audio) window.artists['first'] = artistObj;
 
 }
@@ -62,7 +65,7 @@ window.addEventListener("scroll", function() {
 });
 
 smoothScroll.init({
-    selector: '.playlist-item',
+    selector: '.playlist-item.smoothscroll',
     speed: 500,
     easing: 'easeInOutCubic',
     before: function() {
@@ -74,15 +77,11 @@ smoothScroll.init({
 });
 
 gumshoe.init({
-    selector: '.playlist-item',
+    selector: '.playlist-item.gumshoe',
     activeClass: 'active',
-    offset: 0,
-    scrollDelay: false,
-    callback: function (nav) {
-        if (nav) selectedArtist.innerHTML = nav.nav.dataset.artist;
-    }
+    offset: 100,
+    scrollDelay: false
 });
-
 
 baguetteBox.run('.gig-media', {onChange: function (currentIndex) {
 

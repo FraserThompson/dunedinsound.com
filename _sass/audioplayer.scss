@@ -7,20 +7,24 @@
 }
 
 .length-wrapper {
-	background: rgba(0, 0, 0, 0.6);
-	color: #c8c8c8;
+	background: black;
+	color: #999999;
 	z-index: 10;
 	position: absolute;
-	bottom: 20px;
+	bottom: 15px;
 }
 
 .title-wrapper {
 	position: absolute;
 	width: 100%;
 	text-align: center;
-	color: #c8c8c8;
+	color: white;
 	bottom: 0px;
-	background: rgba(0,0,0, 0.4);
+	background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,0) 100%);
+	background-image: -moz-linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,0) 100%);
+	background-image: -o-linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,0) 100%);
+	background-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0) 100%);
+	text-shadow: 1px 1px black;
 	height: 25px;
 	z-index: 10;
 
@@ -37,6 +41,20 @@
 	height: 60px;
 	opacity: 1;
 	width: 100%
+}
+.player {
+
+	.progress {
+		position: absolute;
+		z-index: 1000;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	.progress[value] {
+		color: #0074d9;
+		border: 0;
+	}
 }
 
 @media (min-width:768px) {
@@ -63,11 +81,6 @@
 		font-size: 16px;
 		width: 40px;
 		top: 11px;
-	}
-
-	&:hover {
-		color: black;
-		background-color: lightgray !important;
 	}
 
 	&.playing {

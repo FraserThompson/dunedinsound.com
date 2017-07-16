@@ -5,13 +5,13 @@
     {% assign photos_number = site.data.media.gigs[page.title][machine_name]['count'] %}
     
     {% if gigs_number > 1 %}
-        <div id="moreFrom_{{machine_name}} {% if include.horizontal %} row {% endif %}" class="moreFrom">
+        <div id="moreFrom_{{machine_name}}" class="moreFrom {% if include.horizontal %} col-xs-4 {% endif %}">
             <div style="padding-top: 10px;">
                 <p>Gigs featuring <a title="More gigs from {{band[0]}}" href="/artists/{{machine_name}}">{{band[0]}}</a></p>
             </div>
             {% for post in site.categories[machine_name] | limit: 2 %}
                 {% unless post.title == page.title %}
-                    <div class="tile-wrap {{include.tile_height}}">
+                    <div class="tile-wrap">
                         <a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
                             <div class="tile-title" style="{% if include.horizontal %} bottom: 0px; max-width: 250px; {% endif %}">
                                 <h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>
@@ -39,14 +39,14 @@
     {% assign gigs_not_displayed = gigs_number | minus: 2 %}
 
     {% if venue_gigs.size > 1 %}
-    <div id="moreFrom_{{venue}}" class="moreFrom">
+    <div id="moreFrom_{{venue}}" class="moreFrom {% if include.horizontal %} col-xs-4 {% endif %}">
         <div style="padding-top: 10px;">
             <p>Gigs at <a title="More gigs at {{venue}}" href="/venues/{{venue_machine_name}}">{{page.venue}}</a></p>
         </div>
 
         {% for post in venue_gigs limit: 3 %}
             {% unless post.title == page.title %}
-                <div class="tile-wrap {{include.tile_height}}">
+                <div class="tile-wrap">
                     <a class="tile-link box" href="{{ post.url }}">
                         <div class="tile-title" style="{% if include.horizontal %} bottom: 0px; max-width: 250px; {% endif %}">
                             <h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>

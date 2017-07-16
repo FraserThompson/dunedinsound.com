@@ -1,8 +1,5 @@
-{% if page.layout_version == "2.0" %}
-	{% assign new_layout = true %}
-{% endif %}
 
-<div class="container-fluid gig {% if new_layout == true %} new-layout {% endif %}" id="gig">
+<div class="container-fluid gig" id="gig">
 	{% if page.displayed_description %}
 		<p>{{page.displayed_description}}</p>
 	{% endif %}
@@ -93,5 +90,5 @@
 </div>
 
 <div class="back-to-top" id="back-to-top">
-	<a href="#" data-toggle="collapse" data-target="#navbar-collapse" title="Back to top" onClick="window.scrollTo(0, 0);" style="color: white;">🔝</a>
+	<a href="#" data-toggle="collapse" data-target="#navbar-collapse" title="Back to top" onClick="window.scrollTo(0, 0);"><span class="glyphicon glyphicon-chevron-up"></span><p><small>Top</small></p></a>
 </div>

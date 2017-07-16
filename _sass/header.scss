@@ -73,11 +73,10 @@
 }
 
 .header {
-	margin-bottom: 0px;
-	height: ($header-height * 2) - 20;
-	top: 0px;
+	margin-bottom: 0px;;
 	overflow: hidden;
 	width: 100%;
+	top: 0px;
 	background-color: rgba(0,0,0,1) !important;
 	background-image: none !important;
 	-webkit-transition: background-color 0.5s ease;
@@ -112,7 +111,6 @@
 		top: 20px;
 		border-radius: 50%;
 		font-size: 20px;
-		padding: 0px;
 		width: 38px;
 		height: 38px;
 	}

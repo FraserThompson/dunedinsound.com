@@ -25,28 +25,7 @@
 <script type="text/javascript" src="/assets/js/main.js"></script>
 
 {% if page.layout == "gig" %}
-	{% if page.layout_version != "2.0" %}
-		<script type="text/javascript" src="/assets/js/post.js"></script>
-		<script type="text/javascript">
-			document.addEventListener("DOMContentLoaded", function(event) {
-				var container = document.getElementById('sidebar');
-				if (container ){
-					Ps.initialize(container, {
-						suppressScrollX: true
-					});
-				}
-				post.waveformInit();
-			});
-			
-			document.addEventListener('ps-scroll-down', function () {
-				blazy.revalidate();
-			})
-
-		</script>
-	{% else %}
-		<script type="text/javascript" src="/assets/js/gig.js"></script>
-	{% endif %}
-
+	<script type="text/javascript" src="/assets/js/gig.js"></script>
 {% endif %}
 
 {% if page.sortable or page.searchable %}

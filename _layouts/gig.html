@@ -6,25 +6,15 @@ type: posts
 
 {% assign venue_machine_name = page.venue | downcase | machine_name %}
 
-{% if page.layout_version == "2.0" %}
-	{% assign new_layout = true %}
-{% endif %}
-
 <html>
   {% include head.html %}
   <body>
     {% include header.html %}
       <div class="page-wrapper gig-wrapper {% if page.fixed_header %} fixed-header {% endif %}" style="background-color: #222222;">
-          {% if new_layout == true %}
-            {% include gig_header.html %}
-          {% else %}
-            {% include gig_sidebar_left.html %}
-          {% endif %}
-          <div class="page-content" style="{% if new_layout == true %} margin-left: 0px !important; {% endif %}">
+          {% include gig_header.html %}
+          <div class="page-content" style="margin-left: 0px !important;">
               {% include gig_body.html %}
-              {% if new_layout == true %}
-                {% include gig_footer.html %}
-              {% endif %}
+              {% include gig_footer.html %}
           </div>
       </div>
     {% include footer.html %}

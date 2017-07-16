@@ -1,4 +1,4 @@
-<ul class="sidebar-nav {{include.background}} {{include.orientation}}" id="playlist" style="padding: 0px;">
+<ul class="sidebar-nav {{include.background}} {{include.orientation}} {{include.class}}" id="playlist" style="padding: 0px;">
     {% for band in page.media %}
         <li>
             {% assign band_name = band[0] %}
@@ -20,6 +20,7 @@
                             "url": "{{site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band_name | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}"
                         }
                         {% endif %}
+                        {% if forloop.last == false %},{% endif %}
                     {% endfor %}
                     ]
                 {% endcapture %}
@@ -27,7 +28,7 @@
                 {% assign mp3_links = "" %}
             {% endif %}
 
-            <a class="playlist-item" title="{{band[0]}}" href="#{{machine_name}}" data-name="{{band[0]}}" data-machinename="{{ machine_name }}" data-numberofphotos="{{ photos_number }}" data-mp3='{{mp3_links}}'>
+            <a class="playlist-item smoothscroll {% if include.highlight %}gumshoe{% endif %}" title="{{band[0]}}" href="#{{machine_name}}" data-name="{{band[0]}}" data-machinename="{{ machine_name }}" data-numberofphotos="{{ photos_number }}" data-mp3='{{mp3_links}}'>
                 <span class="play-pause" data-index="{{ forloop.index }}">
                     <span class="play" style="display: none">▶</span>
                     <span class="pause" style="display: none">❙❙</span>

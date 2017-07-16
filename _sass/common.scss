@@ -116,12 +116,6 @@ footer {
 	border-top: 40px solid white;
 	background-color: black;
 
-	&.post {
-		.container {
-			margin-left: 0px;
-		}
-	}
-
 	.container {
 		background-color: black;
 	}
@@ -167,6 +161,12 @@ h3 {
 	top: 0px;
 }
 
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .btn-success {
 	background-color: $highlight-color;
 	color: $highlight-text-color;
@@ -177,7 +177,7 @@ h3 {
 	&.focus,
 	&:active,
 	&.active {
-		background-color: #555555 !important;
+		background-color: lightgray !important;
 		background-image: none;
 	}
 }
