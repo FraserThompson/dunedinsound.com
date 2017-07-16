@@ -32,7 +32,7 @@
                 <small>{{ page.date | date: "%d/%m/%y" }} at <a title="More gigs at {{page.venue}}" class="link light" href="/venues/{{venue_machine_name}}">{{page.venue}}</a></small>
             </center>
         </div>
-        <div class="gig-nav">
+        <div class="gig-nav hidden-xs">
             {% if page.previous %}
                 <a href="{{page.previous.url}}" class="prev" title="Older">&#x203a;</a>
             {% endif %}

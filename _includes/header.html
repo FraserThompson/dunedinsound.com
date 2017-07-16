@@ -1,11 +1,6 @@
-<nav class="header navbar navbar-default {% if include.slim or page.layout == 'default-slim-header' or page.parent == 'Artists' or page.parent == 'Venues' or new_layout == true %} slimmed {% endif %} {% if page.fixed_header %} fixed {% endif %}">
+<nav class="header navbar navbar-default {% if page.fixed_header %} fixed {% endif %} {% if page.double_header %} double {% endif %}" id="site-header">
   <div class="container-fluid">
     <div class="navbar-header {% if page.layout != 'post' %} hidden-xs {% endif %}">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-          <span id="selectedArtist" style="font-size: 18px; padding-left: 10px;"></span>
-      </button>
         <a class="navbar-brand hidden-xs" href="/"hidden-xs>Dunedin Gig Archives</a>
     </div>
     <div id="top-nav" style="text-align: center">

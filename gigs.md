@@ -10,6 +10,7 @@ colors:
     - "#0A0A0A"
 order: 1
 fixed_header: true
+double_header: true
 description: "Check out rare and unofficial photos, videos and bootlegs of gigs in Dunedin, New Zealand from 2014 until now!"
 ---
 
@@ -40,7 +41,7 @@ description: "Check out rare and unofficial photos, videos and bootlegs of gigs 
           {% assign year_change = false %}
         {% endif %}
 
-        {% include gig_tile.html class="bottom thinner full-width" id=id sizing="col-xs-12" category="gigs" %}
+        {% include gig_tile.html class="bottom eventhinner full-width" id=id sizing="col-xs-12" category="gigs" %}
 
         {% assign id = false %}
 

@@ -1,7 +1,7 @@
 {% for band in page.media %}
     {% assign machine_name = band[0] | downcase | machine_name %}
     {% assign gigs_number = site.categories[machine_name].size %}
-    {% assign gigs_not_displayed = site.categories[machine_name].size | minus: 2 %}
+    {% assign gigs_not_displayed = site.categories[machine_name].size | minus: 3 %}
     {% assign photos_number = site.data.media.gigs[page.title][machine_name]['count'] %}
     
     {% if gigs_number > 1 %}
@@ -9,11 +9,11 @@
             <div style="padding-top: 10px;">
                 <p>Gigs featuring <a title="More gigs from {{band[0]}}" href="/artists/{{machine_name}}">{{band[0]}}</a></p>
             </div>
-            {% for post in site.categories[machine_name] | limit: 2 %}
+            {% for post in site.categories[machine_name] | limit: 3 %}
                 {% unless post.title == page.title %}
-                    <div class="tile-wrap">
+                    <div class="tile-wrap bottom">
                         <a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
-                            <div class="tile-title" style="{% if include.horizontal %} bottom: 0px; max-width: 250px; {% endif %}">
+                            <div class="tile-title">
                                 <h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>
                                 <h5 style="margin-bottom: 2px;">{{post.title}}</h5>
                                 <p><small>{{ post.venue }}</small></p>
@@ -36,7 +36,7 @@
     {% assign venue_machine_name = page.venue | downcase | machine_name %}
     {% assign venue_gigs = site.posts | where: "venue", page.venue  %}
     {% assign gigs_number = venue_gigs | size %}
-    {% assign gigs_not_displayed = gigs_number | minus: 2 %}
+    {% assign gigs_not_displayed = gigs_number | minus: 3 %}
 
     {% if venue_gigs.size > 1 %}
     <div id="moreFrom_{{venue}}" class="moreFrom {% if include.horizontal %} col-xs-4 {% endif %}">
@@ -46,9 +46,9 @@
 
         {% for post in venue_gigs limit: 3 %}
             {% unless post.title == page.title %}
-                <div class="tile-wrap">
+                <div class="tile-wrap bottom">
                     <a class="tile-link box" href="{{ post.url }}">
-                        <div class="tile-title" style="{% if include.horizontal %} bottom: 0px; max-width: 250px; {% endif %}">
+                        <div class="tile-title">
                             <h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>
                             <h5>{{post.title}}</h5>
                         </div>

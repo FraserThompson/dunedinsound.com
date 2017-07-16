@@ -3,7 +3,7 @@
 }
 
 .search {
-	margin-top: $header-height - 20;
+	margin-top: $header-height;
 	width: 100%;
 	position: absolute;
  
@@ -21,24 +21,9 @@
 	}
 }
 
-#top-nav {
-	background-color: #000;
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	margin-right: 0px;
-	width: 100%;
-	height: $header-height - 20;
-
-	ul {
-		margin: 0px;
-	}
-
-	li>a {
-		margin-right: -6px;
-		height: $header-height - 20;
-		line-height: ($header-height - 20) / 2;
-	}
+.navbar-form {
+	margin-left: -15px;
+	margin-right: -15px;;
 }
 
 .navbar-toggle {
@@ -59,21 +44,54 @@
     transition: opacity 200ms ease-in-out;
 }
 
-.header .navbar-nav {
-	margin-bottom: 0px !important;
-}
-
-.navbar a, .nav.navbar-nav a {
-	line-height: 30px;
-	height: 60px;
-}
-
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:active {
 	background-color: rgba(0,0,0,0.3) !important;
 }
 
+#site-header {
+	background-color: #000;
+	top: 0px;
+	right: 0px;
+	margin-right: 0px;
+	width: 100%;
+	height: $header-height;
+
+	&.double {
+		height: ($header-height * 2) + 20;
+	}
+
+	ul {
+		margin: 0px;
+	}
+
+	.nav.navbar-nav {
+		li {
+			height: $header-height;
+		}
+
+		a {
+			line-height: $header-height / 2;
+			height: $header-height;
+		}
+	}
+
+	#top-nav {
+		height: $header-height;
+		width: auto;
+		position: static;
+
+		li>a{
+			margin-right: 0px;
+			height: $header-height;
+			line-height: $header-height / 2;
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+	}
+}
+
 .header {
-	margin-bottom: 0px;;
+	margin-bottom: 0px;
 	overflow: hidden;
 	width: 100%;
 	top: 0px;
@@ -88,31 +106,8 @@
     	position: fixed;
 	}
 
-	&.slimmed {
-		height: $header-height - 20;
-
-		#top-nav {
-			height: 40px;
-			li>a {
-				height: 40px;
-				line-height: 20px;
-			}
-		}
-
-	}
-
 	&.dimmed {
 		background-color: rgba(0,0,0,0.3) !important;
-	}
-
-	.playButton {
-		position: absolute; 
-		z-index: 20; 
-		top: 20px;
-		border-radius: 50%;
-		font-size: 20px;
-		width: 38px;
-		height: 38px;
 	}
 
 	.brand {
@@ -122,10 +117,11 @@
 	}
 
 	.navbar-text {
+		line-height: $header-height;
+		top: auto;
 		line-height: 20px;
 		position: absolute;
 		right: 15px;
-		top: 0px;
 		margin: 0px;
 	}
 
@@ -133,19 +129,13 @@
 		background-color: black !important;
 	}
 
+	.navbar-nav {
+		margin-bottom: 0px !important;
+	}
 }
 
 .navbar-header {
 	padding-top: $header-height - 20;
-}
-
-#header {
-	padding-top: 50px;
-	height: 140px;
-}
-
-#navbar-collapse {
-	padding-right: 0px !important;
 }
 
 .header-title {
@@ -158,19 +148,33 @@
 }
 
 @media (min-width:768px) {
-	#header {
-		padding-top: 0px;
-		height: $header-height;
-	}
 	
-	.header {
-		&.slimmed {
-			height: $header-height;
-			#top-nav {
-				li>a{
-					height: $header-height;
-					line-height: $header-height / 2;
-				}
+	#site-header {
+		height: $header-height + 20;
+
+		&.double {
+			height: $header-height + 20;
+		}
+
+		.nav.navbar-nav {
+			li {
+				height: $header-height + 20;
+			}
+
+			a {
+				line-height: ($header-height + 20) / 2;
+				height: $header-height + 20;
+			}
+		}
+
+		#top-nav {
+			height: $header-height + 20;
+
+			li>a{
+				height: $header-height + 20;
+				line-height: ($header-height + 20) / 2;
+				padding-left: 15px;
+				padding-right: 15px;
 			}
 		}
 	}
@@ -182,49 +186,16 @@
 		right: $sidebar-width + 130;
 	}
 
-    .header {
-		height: $header-height;
-        z-index: 1000;
-
-		.navbar-text {
-			line-height: $header-height;
-			top: auto;
-		}
-	}
-
 	.fixed {
 		position: fixed !important;
 		z-index: 9000;
 	}
 
-	#top-nav {
-		height: $header-height;
-		width: auto;
-		margin-right: -15px;
-		position: static;
-
-		li>a{
-			margin-right: 0px;
-			height: $header-height;
-			line-height: $header-height / 2;
-		}
-	}
-	.nav.navbar-nav {
-		li {
-			height: $header-height;
-		}
-
-		a {
-			line-height: $header-height / 2;
-			height: $header-height;
-		}
-	}
-	
 	.navbar-header {
 		padding-top: 0px;
 		a {
-			line-height: $header-height / 2;
-			height: $header-height;
+			line-height: ($header-height + 20) / 2;
+			height: ($header-height + 20);
 		}
 	}
 
@@ -232,11 +203,5 @@
 		display: block;
         float: left;
 		width: auto;
-        &.slim {
-			padding: 0px;
-			white-space: pre-wrap;
-			letter-spacing: -2px;
-            width: 240px;
-        }
     }
 }

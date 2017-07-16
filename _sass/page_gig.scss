@@ -58,7 +58,6 @@
 	}
 }
 
-
 .youtube {
   position: relative;
   cursor: pointer;
@@ -148,20 +147,20 @@
 }
 
 .gig .divider {
-	overflow: hidden;
-  .playButton {
-    top: 3px;
-  }
-}
-
-.gig .divider {
+  overflow: hidden;
+  
   top: $header-height * 2;
 	position: sticky;
   position: -webkit-sticky;
   position: -moz-sticky;
   position: -ms-sticky;
   position: -o-sticky;
-	z-index: 999;
+  z-index: 999;
+  
+  .playButton {
+    top: 3px;
+  }
+
 }
 
 .overlay-container {
@@ -230,28 +229,32 @@
 }
 
 .dropdown-toggle {
-  height: $header-height;
+  height: $header-height + 20;
 }
 
 .gig-header {
 
-  height: $header-height * 2;
+  height: ($header-height + 20) * 2;
 
+	.playButton {
+		z-index: 20; 
+  }
+  
   .gig-title-wrapper {
-    height: $header-height;
+    height: $header-height + 20;
   }
 }
 
 .gig .divider {
-  top: $header-height * 2;
+  top: ($header-height + 20) * 2;
 }
 
 
 @media (min-width:768px) {
   .gig-header {
-    height: $header-height;
+    height: $header-height + 20;
   }
   .gig .divider {
-    top: $header-height;
+    top: $header-height + 20;
   }
 }

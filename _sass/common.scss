@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Hammersmith+One|Work+Sans');
 
-$header-height: 60px;
+$header-height: 40px;
 $sidebar-width: 250px;
 $main-font: 'Work Sans', sans-serif;
 $header-font: 'Hammersmith One', sans-serif;
@@ -63,18 +63,14 @@ body {
 
 .page-wrapper {
 
+	&.double-header {
+		margin-top: ($header-height * 2) + 20;
+	}
+
 	&.gig-wrapper {
 		position:relative; 
 		background-color: black; 
 		min-height: 100vh;
-	}
-
-	&.slimmed-header {
-		margin-top: $header-height - 20 !important;
-	}
-
-	&.fixed-header {
-		margin-top: $header-height + 40;
 	}
 
 	height: 100%;
@@ -99,13 +95,6 @@ body {
 	padding-right: 0px !important;
 }
 
-.cover-the-top {
-	top: -20px;
-	position: relative;
-	z-index: 9006;
-}
-
-
 a {
    outline: 0;
 }
@@ -115,6 +104,8 @@ footer {
 	height: 360px;
 	border-top: 40px solid white;
 	background-color: black;
+	margin-left: -15px;
+	margin-right: -15px;
 
 	.container {
 		background-color: black;
@@ -196,52 +187,6 @@ h3 {
 	}
 }
 
-.facebookColor {
-	color: #4267b2;
-}
-
-.btn-facebook {
-	background-color: #4267b2 !important;
-	background-image: none;
-	border-color: #4267b2 !important;
-	&:hover,
-	&:focus,
-	&.focus,
-	&:active,
-	&.active {
-		background-color: #365899 !important;
-		background-image: none;
-	}
-}
-
-.btn-bandcamp {
-	background-color: #477987 !important;
-	background-image: none;
-	border-color: #104351 !important;
-	&:hover,
-	&:focus,
-	&.focus,
-	&:active,
-	&.active {
-		background-color: #285E6D !important;
-		background-image: none;
-	}
-}
-
-.btn-soundcloud {
-	background-color: orange !important;
-	background-image: none;
-	border-color: orangered !important;
-	&:hover,
-	&:focus,
-	&.focus,
-	&:active,
-	&.active {
-		background-color: #ce8500 !important;
-		background-image: none;
-	}
-}
-
 .hover-grow span {
 	-webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
@@ -296,45 +241,35 @@ h3 {
 		font-size: 4em !important;
 	}
 
-    #menu-toggle {
-        display: none;
-    }
-
     .page-content {
         margin-left: $sidebar-width;
         padding: 0px 0px 0px 0px;
     }
 
 	.page-wrapper {
-
-		&.fixed-header{
-			margin-top: $header-height;
+		&.double-header {
+			margin-top: $header-height + 20;
 		}
-
-		&.slimmed-header {
-			margin-top: $header-height !important;
-		}
-
 	}
 	
 	.col-md-offset-3-right {
 		margin-right: 25%;
 	}
 
-	.cover-the-top {
-		position: static;
-		z-index: auto;
-	}
 }
 
 /* Really tiny */
 @media (max-width: 420px) {
 
 	h2 {
-		font-size: 20px;
+		font-size: 18px;
 	}
 
 	h3 {
-		font-size: 18px;
+		font-size: 16px;
+	}
+
+	h4 {
+		font-size: 14px;
 	}
 }

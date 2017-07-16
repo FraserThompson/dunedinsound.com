@@ -1,19 +1,14 @@
 ---
 layout: compress
 ---
-
 <!DOCTYPE html>
 <html>
   {% include head.html %}
   <body>
-    {% if page.slimmed_header %}
-      {% include header.html slim="true" %}
-    {% else %}
-      {% include header.html %}
-    {% endif %}
-      <div class="page-wrapper {% if page.fixed_header %} fixed-header {% endif %} {% if page.slimmed_header %} slimmed-header {% endif %}" style="background-color: #222222;">
-          {{ content }}
-      </div>
+    {% include header.html %}
+    <div class="page-wrapper {% if page.fixed_header %} fixed-header {% endif %} {% if page.double_header %} double-header {% endif %}" style="background-color: #222222;">
+        {{ content }}
+    </div>
     {% include footer.html %}
   </body>
 </html>
