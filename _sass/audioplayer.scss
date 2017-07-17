@@ -18,7 +18,7 @@
 	position: absolute;
 	width: 100%;
 	text-align: center;
-	color: white;
+	color: #c8c8c8;
 	bottom: 0px;
 	background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,0) 100%);
 	background-image: -moz-linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,0) 100%);
@@ -55,6 +55,12 @@
 		color: #0074d9;
 		border: 0;
 	}
+
+	&.active {
+		.title-wrapper {
+			color: white;
+		}
+	}
 }
 
 @media (min-width:768px) {
@@ -72,6 +78,11 @@
 	top: 13px;
 	font-size: 12px;
 	background-color: white;
+
+	.glyphicon {
+		top: 2px;
+		right: 1px;
+	}
 
 	&:active, &:focus {
 		outline: 0;

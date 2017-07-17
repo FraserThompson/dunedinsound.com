@@ -207,7 +207,7 @@
 }
 
 .gig-header {
-  z-index: 9000;
+  z-index: 1040;
 }
 
 .gig-nav a:hover { opacity: 1; }
@@ -243,7 +243,6 @@
 .gig .divider {
   top: ($header-height + 20) * 2;
 }
-
 
 @media (min-width:768px) {
   .gig-header {

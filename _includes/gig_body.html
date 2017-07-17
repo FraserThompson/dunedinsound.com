@@ -62,24 +62,30 @@
 					{% endif %}
 
 					{% for vid in band[1].vid %}
-						<div class="{{vid_size_class}} no-padding">
-							{% include youtube_video.html link=vid.link title=vid.title aspectratio=page.aspectratio %}
+						<div class="{{vid_size_class}} no-padding item" href="https://www.youtube.com/watch?v={{vid.link}}" data-poster="http://i.ytimg.com/vi/{{vid.link}}/maxresdefault.jpg">
+							<div class="box youtube {{page.aspectratio}}" id="{{vid.link}}">
+								<h4>Video{% if vid.title %}: {{vid.title}}{% endif %}</h4>
+								<img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="http://i.ytimg.com/vi/{{vid.link}}/maxresdefault.jpg" class="b-lazy" width="100%" height="auto" style="margin: 0; padding: 0;" alt="{{vid.link}}"/>
+							</div>
 						</div>
 					{% endfor %}
 			{% endif %}
 			{% for gig_image in site.data.media.gigs[page.title][machine_name]['images'] %}
-			
-				{% assign full_pic = gig_image | replace: " (Medium)","" %}
+				
+				{% assign gig_image_encoded = gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+				{% assign full_pic = gig_image | replace: " (Medium)","" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
 				{% assign directory = "assets/img/" | append: page.title | append: "/" | append: machine_name %}
 				{% assign filename = full_pic | split: '/' | last %}
 
 				{% capture image_date %}
 					{% exiftag date_time_original,{{directory}},{{filename}} %}
 				{% endcapture %}
-
-				<div class= "{{image_size_class}} no-padding hover-img">
+				<div class= "{{image_size_class}} no-padding hover-img item" data-src="{{site.asset_url}}/{{full_pic}}" data-sub-html=".caption">
 					<div class="box {{page.aspectratio}}">
-						<a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" data-artist="{{band_name}}" data-downloadlink="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" data-date="{{image_date | date: '%r'}}" alt="image" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
+						<a href="{{site.asset_url}}/{{full_pic}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image_encoded}}" alt="{{band_name}} Image {{forloop.index}}" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
+					</div>
+					<div class="caption" style="display: none">
+						Taken at {{image_date | date: '%r'}}
 					</div>
 				</div>
 			{% endfor %}

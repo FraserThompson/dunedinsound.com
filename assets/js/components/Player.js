@@ -30,6 +30,7 @@ class Player {
       hideScrollbar: true,
       normalize: true,
       pixelRatio: "1",
+      forceDecode: false,
       backend: "MediaElement",
       progressColor: 'orange',
       barWidth: '2'
@@ -50,6 +51,7 @@ class Player {
   }
 
   play() {
+    this.element.classList.add('active');
     window.buttons['_global'].setState(true);
     window.buttons[this.currentArtist.machine_name].setState(true);
     this.currentTime.style.display = "block";
