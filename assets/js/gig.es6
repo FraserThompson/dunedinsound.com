@@ -22,22 +22,22 @@ for (var i = stickyElements.length - 1; i >= 0; i--) {
     Stickyfill.add(stickyElements[i]);
 }
 
-var artistElements = document.querySelectorAll('#playlist .playlist-item');
-
-var j = 1;
+var artistElements = document.querySelectorAll('.playlist.canonical .playlist-item');
+var audio_index = 1;
 for (var i = 0; i < artistElements.length; i++) {
 
-    var artistObj = new Artist(artistElements[i], j);
+    var artistObj = new Artist(artistElements[i], 0);
     var previousObj = window.artists[machine_name];
     if (previousObj) previousObj.next = artistObj;
     artistObj.prev = previousObj;
 
+    if (artistObj.audio) {
+        artistObj.index = audio_index++;
+        if (!window.artists['first']) window.artists['first'] = artistObj;
+    }
+
     var machine_name = artistElements[i].dataset.machinename;
     window.artists[machine_name] = artistObj;
-
-    if (artistObj.audio) j = j + 1;
-    if (!window.artists['first'] && artistObj.audio) window.artists['first'] = artistObj;
-
 }
 
 if (location.hash) {

@@ -28,7 +28,7 @@
         <div class="text">
             <center>
                 <h2 class="huge-header">{{page.title}}</h2>
-                {% include gig_playlist.html orientation="horizontal" hightlight="false" %}
+                {% include gig_playlist.html orientation="horizontal" hightlight="false" class="canonical" %}
                 <small>{{ page.date | date: "%d/%m/%y" }} at <a title="More gigs at {{page.venue}}" class="link light" href="/venues/{{venue_machine_name}}">{{page.venue}}</a></small>
             </center>
         </div>
