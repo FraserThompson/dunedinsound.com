@@ -33,7 +33,7 @@ media:
             - link: OvMwAIfTj6c
             - link: EuUe6FW97AA
     Machina Rex:
-        - nothing
+        nothing:
     Hexis:
         mp3:
             - title: Full set

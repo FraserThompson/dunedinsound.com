@@ -16,7 +16,7 @@ media:
       - title: Full set
         link: idiot_prayer/GOD%20BOWS%20to%20MATH%20Last%20Dunedin%20Show%20-%20Idiot%20Prayer.mp3
   Strange Harvest:
-    - nothing
+    nothing:
   God Bows To Math:
     mp3:
       - title: Full set

@@ -221,6 +221,9 @@
 
 .gig.dropdown {
   float: right;
+  ul>li>a {
+    height: 60px;
+  }
 }
 
 .dropdown-toggle {
@@ -229,20 +232,29 @@
 
 .gig-header {
 
-  height: ($header-height + 20) * 2;
+  height: ($header-height) * 2;
 
 	.playButton {
 		z-index: 20; 
   }
   
   .gig-title-wrapper {
-    height: $header-height + 20;
+    height: $header-height - 20;
+    h3 {
+      margin-top: 5px;
+    }
   }
 }
 
 .gig .divider {
-  top: ($header-height + 20) * 2;
+  top: ($header-height) * 2;
+
+  .col-xs-12 {
+    height: $header-height;
+    margin-right: 30px;
+  }
 }
+
 
 @media (min-width:768px) {
   .gig-header {
@@ -250,5 +262,8 @@
   }
   .gig .divider {
     top: $header-height + 20;
+  }
+  .gig-title-wrapper {
+    height: $header-height + 20;
   }
 }

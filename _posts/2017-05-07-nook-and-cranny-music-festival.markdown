@@ -44,6 +44,7 @@ media:
             -   title: In the Stairwell
                 link: 4wS-cCX5z7E
     Seafog:
+        nothing:
     Agent Ewok:
         mp3:
             -   title: Partial set
@@ -153,6 +154,8 @@ media:
         mp3:
             -   title: Partial set
     Undecided:
+        nothing:
     The Generators:
+        nothing:
 ---
 

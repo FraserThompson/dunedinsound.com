@@ -1,24 +1,24 @@
 {% for band in page.media %}
-    {% assign machine_name = band[0] | downcase | machine_name %}
-    {% assign gigs_number = site.categories[machine_name].size %}
-    {% assign gigs_not_displayed = site.categories[machine_name].size | minus: 3 %}
-    {% assign photos_number = site.data.media.gigs[page.title][machine_name]['count'] %}
+	{% assign band_machine_name = band[1].machine_name %}
+    {% assign gigs_number = site.categories[band_machine_name].size %}
+    {% assign gigs_not_displayed = site.categories[band_machine_name].size | minus: 3 %}
+    {% assign photos_number = site.data.media.gigs[page.title][band_machine_name]['count'] %}
     
     {% if gigs_number > 1 %}
-        <div id="moreFrom_{{machine_name}}" class="moreFrom {% if include.horizontal %} col-xs-4 {% endif %}">
+        <div id="moreFrom_{{band_machine_name}}" class="moreFrom {% if include.horizontal %} col-xs-4 {% endif %}">
             <div style="padding-top: 10px;">
-                <p>Gigs featuring <a title="More gigs from {{band[0]}}" href="/artists/{{machine_name}}">{{band[0]}}</a></p>
+                <p>Gigs featuring <a title="More gigs from {{band[0]}}" href="/artists/{{band_machine_name}}">{{band[0]}}</a></p>
             </div>
-            {% for post in site.categories[machine_name] | limit: 3 %}
+            {% for post in site.categories[band_machine_name] | limit: 3 %}
                 {% unless post.title == page.title %}
                     <div class="tile-wrap bottom">
-                        <a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
+                        <a class="tile-link box" href="{{ post.url }}#{{band_machine_name}}">
                             <div class="tile-title">
                                 <h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>
                                 <h5 style="margin-bottom: 2px;">{{post.title}}</h5>
                                 <p><small>{{ post.venue }}</small></p>
                             </div>
-                            <div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][machine_name]['images'][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}">
+                            <div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][band_machine_name]['images'][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}">
                             </div>
                         </a>
                     </div>
@@ -26,7 +26,7 @@
             {% endfor %}
             
             {% if gigs_not_displayed > 0 %} 
-                <a style="float:right; padding-right: 10px;" title="More gigs from {{band[0]}}" href="/artists/{{machine_name}}"><small> + {{gigs_not_displayed}} more </small></a>
+                <a style="float:right; padding-right: 10px;" title="More gigs from {{band[0]}}" href="/artists/{{band_machine_name}}"><small> + {{gigs_not_displayed}} more </small></a>
             {% endif %}
         </div>
     {% endif %}

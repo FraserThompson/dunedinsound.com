@@ -9,7 +9,7 @@ audio: false
 parent: Gigs
 media:
   Barabajagal:
-  - nothing
+    nothing:
   Sloth Vegas:
     vid:
     - link: eNRIGNxpV78

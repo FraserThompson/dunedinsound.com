@@ -42,6 +42,8 @@ media:
         mp3:
             -   title: Full set
     Tiny Pieces of Eight:
+        nothing:
     Space Bats, Attack!:
+        nothing:
 ---
 

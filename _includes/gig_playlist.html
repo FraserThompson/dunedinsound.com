@@ -1,9 +1,7 @@
 <ul class="playlist sidebar-nav {{include.background}} {{include.orientation}} {{include.class}}" style="padding: 0px;">
     {% for band in page.media %}
         <li>
-            {% assign band_name = band[0] %}
-            {% assign machine_name = band_name | downcase | machine_name %}
-            {% assign photos_number = site.data.media.gigs[page.title][machine_name]['count'] %}
+            {% assign photos_number = site.data.media.gigs[page.title][band[1].machine_name]['count'] %}
 
             {% if band[1].mp3 %}
                 {% capture mp3_links %}
@@ -12,12 +10,12 @@
                         {% if mp3.link %}
                         {
                             "name": "Full set",
-                            "url": "{{site.asset_url | append: "/assets/audio/"  | append: mp3.link }}"
+                            "url": "{{mp3.generated_link}}"
                         }
                         {% elsif mp3.title %}
                         { 
                             "name": "{{mp3.title}}",
-                            "url": "{{site.asset_url | append: "/assets/audio/" | append: machine_name | append: "/" | append:  page.title | append: " - " | append: band_name | append: ".mp3" | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}"
+                            "url": "{{mp3.generated_link}}"
                         }
                         {% endif %}
                         {% if forloop.last == false %},{% endif %}
@@ -28,7 +26,7 @@
                 {% assign mp3_links = "" %}
             {% endif %}
 
-            <a class="playlist-item smoothscroll {% if include.highlight %}gumshoe{% endif %}" title="{{band[0]}}" href="#{{machine_name}}" data-name="{{band[0]}}" data-machinename="{{ machine_name }}" data-numberofphotos="{{ photos_number }}" data-mp3='{{mp3_links}}'>
+            <a class="playlist-item smoothscroll {% if include.highlight %}gumshoe{% endif %}" title="{{band[0]}}" href="#{{band[1].machine_name}}" data-name="{{band[0]}}" data-machinename="{{band[1].machine_name}}" data-numberofphotos="{{ photos_number }}" data-mp3='{{mp3_links}}' style="line-height: inherit;">
                 <span class="play-pause" data-index="{{ forloop.index }}">
                     <span class="play" style="display: none">▶</span>
                     <span class="pause" style="display: none">❙❙</span>

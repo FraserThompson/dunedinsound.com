@@ -16,16 +16,16 @@
 				</ul>
 			</div>
 			<div class="col-xs-12 footer-content">
-				<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+				<p>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a></p>
 			</div>
 		</div>
 	</div>
 </footer>
 
-<script type="text/javascript" src="/assets/js/main.js"></script>
+<script type="text/javascript" src="/assets/js/main.js?{{site.time | date: '%s%N'}}"></script>
 
 {% if page.layout == "gig" %}
-	<script type="text/javascript" src="/assets/js/gig.js"></script>
+	<script type="text/javascript" src="/assets/js/gig.js?{{site.time | date: '%s%N'}}"></script>
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(event) {
 			gigInit();

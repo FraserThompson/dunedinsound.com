@@ -1,0 +1,52 @@
+module GigGenerator
+  class Generator < Jekyll::Generator
+    def generate(site)
+      @site = site
+
+      asset_url = site.config['asset_url']
+      if asset_url.nil?
+        asset_url = ""
+      end
+
+      site.posts.docs.each do |post|
+
+        bands = post.data['media']
+        puts post.data['title']
+
+        if bands
+          bands.each do |band, data|
+            puts band
+            puts data
+            # Generate band name and set band_name variable for convenience
+
+            data['machine_name'] = machine_name(band)
+            data['band_name'] = band
+
+            # Generate the MP3 links
+            mp3s = data['mp3']
+            if mp3s
+              mp3s.each do |mp3|
+                if mp3['link']
+                  mp3['generated_link'] = asset_url + "/assets/audio/" + mp3['link']
+                elsif mp3['title']
+                  mp3['generated_link'] = url_encode(asset_url + "/assets/audio/" + data['machine_name'] + "/" + post.data['title'] + " - " + data['band_name'] + ".mp3")
+                end
+              end
+
+            end
+
+          end
+        end
+      end
+
+    end
+
+    def machine_name(input)
+      return input.to_s.downcase.gsub(Regexp.union({' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => ''}.keys), {' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => ''})
+    end
+
+    def url_encode(input)
+       return URI.escape(input.to_s)
+    end
+  end
+end

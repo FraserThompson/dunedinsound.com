@@ -2,8 +2,9 @@
 ---
 
 const WAVEFORM_HEIGHT = "50";
-const HEADER_HEIGHT = 60;
+const HEADER_HEIGHT = 100;
 const WAVEFORM_COLOR = "white";
+const DEVICE_WIDTH = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 const backToTop = document.getElementById('back-to-top');
 const threshold = window.innerHeight * 1.5;
 
@@ -79,6 +80,7 @@ function gigInit() {
     smoothScroll.init({
         selector: '.playlist-item.smoothscroll',
         speed: 500,
+        offset: HEADER_HEIGHT,
         easing: 'easeInOutCubic',
         before: function() {
             blazy.destroy();
@@ -91,9 +93,17 @@ function gigInit() {
     gumshoe.init({
         selector: '.playlist-item.gumshoe',
         activeClass: 'active',
-        offset: 100,
+        offset: HEADER_HEIGHT + 5,
         scrollDelay: false
     });
+
+    // So the dropdown closes on child click. Annoying, bootstrap should do it for me.
+    var dropdownElements = document.querySelectorAll(".dropdown a");
+    for (var i = 0; i < dropdownElements.length; i++) {
+        dropdownElements[i].onclick = function() {
+            document.querySelector(".dropdown").click();
+        };
+    }
 
     // baguetteBox.run('.gig-media', {onChange: function (currentIndex) {
 

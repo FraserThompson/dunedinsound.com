@@ -6,7 +6,7 @@
 	<meta name="theme-color" content="black" />
 	<title>{% if page.band %} {{ page.band | append: " - " }} {% endif %}{% if page.order %} {{ site.title | escape }} - {{ page.title }} {% elsif page.title %}{{ page.title | escape }} {% else %}{{ site.title | escape }}{% endif %}</title>
 	<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-	<link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/css/main.css?{{site.time | date: '%s%N'}}" />
 	<meta property="og:title" content="{{ page.title }}"/>
 
 	{% assign url = page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url %}

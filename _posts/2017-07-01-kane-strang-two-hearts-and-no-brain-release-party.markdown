@@ -11,7 +11,10 @@ image: /assets/img/Kane%20Strang%20Two%20Hearts%20and%20No%20Brain%20Release%20P
 audio: false
 media:
     Unnamed Band:
+        nothing:
     Pearl Hotel:
+        nothing:
     Kane Strang:
+        nothing:
 ---
 
