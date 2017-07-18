@@ -11,14 +11,10 @@ module GigGenerator
       site.posts.docs.each do |post|
 
         bands = post.data['media']
-        puts post.data['title']
 
         if bands
           bands.each do |band, data|
-            puts band
-            puts data
             # Generate band name and set band_name variable for convenience
-
             data['machine_name'] = machine_name(band)
             data['band_name'] = band
 
