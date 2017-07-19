@@ -1,14 +1,20 @@
 .gig-sorting {
 	background-color: black;
-	-webkit-transition: opacity 0.5s ease;
-    -moz-transition: opacity 0.5s ease;
-    transition: opacity 0.5s ease;
-	height: 95vh;
+	-webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+	height: 100vh;
 	overflow-x: hidden;
 	overflow-y: auto;
 	position: fixed;
 	width: 110px;
+	top: ($header-height * 2) + 20;
 	left: 0;
+	
+
+	&.scrolled {
+		top: 0px;
+	}
 
 	&.visible {
 		visibility: visible;
@@ -22,7 +28,8 @@
 }
 
 .tiles.container-fluid.gigs {
-	padding-left: 125px;
+
+	padding-left: 15px;
 
 	.tile-wrap .post-link .tile-title {
 		width: 100%;
@@ -75,11 +82,12 @@
 	}
 	
 	.gig-sorting {
-		width: 250px;
+		width: $sidebar-width;
+		top: $header-height + 20;
 	}
 
 	.tiles.container-fluid.gigs {
-		padding-left: 265px;
+		padding-left: $sidebar-width + 15;
 	}
 }
 

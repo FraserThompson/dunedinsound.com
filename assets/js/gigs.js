@@ -2,6 +2,9 @@ var isotopeConfig = isotopeConfig || {};
 
 var gigsInit = function() {
 
+    var sidebar = document.getElementById('sorting-nav');
+    var year_els = document.getElementsByClassName('year');
+
     smoothScroll.init({
         selector: '.sidebar-link',
         speed: 500,
@@ -15,7 +18,13 @@ var gigsInit = function() {
         }
     });
 
-    var year_els = document.getElementsByClassName('year');
+    window.addEventListener("scroll", function() {
+        if ((document.documentElement.scrollTop || document.body.scrollTop) > 60){
+            sidebar.classList.add('scrolled');
+        } else {
+            sidebar.classList.remove('scrolled');
+        }
+    });
 
     gumshoe.init({
         selector: '.sidebar-link',

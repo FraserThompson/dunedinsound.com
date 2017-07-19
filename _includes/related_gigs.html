@@ -5,7 +5,7 @@
     {% assign photos_number = site.data.media.gigs[page.title][band_machine_name]['count'] %}
     
     {% if gigs_number > 1 %}
-        <div id="moreFrom_{{band_machine_name}}" class="moreFrom {% if include.horizontal %} col-xs-4 {% endif %}">
+        <div id="moreFrom_{{band_machine_name}}" class="moreFrom {% if include.horizontal %} col-xs-6 col-sm-4 {% endif %}">
             <div style="padding-top: 10px;">
                 <p>Gigs featuring <a title="More gigs from {{band[0]}}" href="/artists/{{band_machine_name}}">{{band[0]}}</a></p>
             </div>
@@ -39,7 +39,7 @@
     {% assign gigs_not_displayed = gigs_number | minus: 3 %}
 
     {% if venue_gigs.size > 1 %}
-    <div id="moreFrom_{{venue}}" class="moreFrom {% if include.horizontal %} col-xs-4 {% endif %}">
+    <div id="moreFrom_{{venue}}" class="moreFrom {% if include.horizontal %} col-xs-6 col-sm-4 {% endif %}">
         <div style="padding-top: 10px;">
             <p>Gigs at <a title="More gigs at {{venue}}" href="/venues/{{venue_machine_name}}">{{page.venue}}</a></p>
         </div>

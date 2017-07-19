@@ -2,6 +2,7 @@
 
 $header-height: 40px;
 $sidebar-width: 250px;
+$sidebar-width-mobile: 110px;
 $main-font: 'Work Sans', sans-serif;
 $header-font: 'Hammersmith One', sans-serif;
 $highlight-color: white;
@@ -66,14 +67,22 @@ body {
 
 .page-wrapper {
 
-	&.double-header {
-		margin-top: ($header-height * 2) + 20;
-	}
-
 	&.gig-wrapper {
 		position:relative; 
 		background-color: black; 
 		min-height: 100vh;
+	}
+
+	&.sidebar {
+
+		&.double-header {
+			top:  ($header-height * 2) + 20;
+			margin-top: 0px;
+		}
+	}
+
+	&.fixed-header.double-header {
+		margin-top: ($header-height * 2) + 20;
 	}
 
 	height: 100%;
@@ -109,6 +118,10 @@ footer {
 	background-color: black;
 	margin-left: -15px;
 	margin-right: -15px;
+
+	&.sidebar {
+		padding-left: $sidebar-width-mobile;
+	}
 
 	.container {
 		background-color: black;
@@ -253,8 +266,19 @@ h3 {
     }
 
 	.page-wrapper {
-		&.double-header {
+		
+		&.fixed-header.double-header {
 			margin-top: $header-height + 20;
+		}
+
+		&.sidebar {
+		}
+
+	}
+
+	footer {
+		&.sidebar {
+			padding-left: $sidebar-width
 		}
 	}
 	
