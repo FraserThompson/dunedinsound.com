@@ -46,7 +46,7 @@ class Player {
 
     this.loadArtist(window.artists[element.dataset.artist] || window.artists['first'], true);
 
-    window.addEventListener("resize", this.redraw.bind(this)());
+    // window.addEventListener("resize", this.redraw.bind(this)());
 
   }
 

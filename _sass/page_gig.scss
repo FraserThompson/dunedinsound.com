@@ -183,10 +183,10 @@
 }
 
 .gig-nav a {
-    width: 100px;
+    width: 20vw;
     height: 70vh;
     position: absolute;
-    top: 0px;
+    top: 37px;
 
 	  opacity: 0.3;
     z-index: 9;
@@ -195,13 +195,64 @@
     transition: opacity .2s;
 
     color: #FFF;
-    font-size: 156pt;
     text-align: center;
     line-height: 60vh;
     text-shadow: 0px 0px 15px rgb(119, 119, 119);
 
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+
+    .banner, .tile-title {
+      opacity: 0;
+    }
+
+    .label {
+      opacity: 0;
+      left: 10px;
+    }
+
+    .icon {
+      font-size: 156pt;
+    }
+
+    &.next {
+      left: -10vw;
+
+      .icon {
+        left: 10vw;
+      }
+
+    }
+
+    &.prev {
+      right: -10vw;
+
+      .icon {
+        right: 10vw;
+      }
+
+    }
+
+    .icon {
+      position: absolute;
+    }
+
     &:hover {
       text-decoration: none;
+      
+      .banner, .tile-title, .label {
+        opacity: 1;
+      }
+
+      &.next {
+        left: 0vw;
+      }
+
+      &.prev {
+        right: 0vw;
+      }
+
     }
 
 }
@@ -215,12 +266,13 @@
 .gig-nav .prev { right: 0; }
 
 .dropdown-menu {
-	right: 0px !important;
+  right: 0px !important;
 	left: auto;
 }
 
 .gig.dropdown {
   float: right;
+  z-index: 100;
   ul>li>a {
     height: 60px;
   }

@@ -1,37 +1,41 @@
 <ul class="playlist sidebar-nav {{include.background}} {{include.orientation}} {{include.class}}" style="padding: 0px;">
     {% for band in page.media %}
-        <li>
-            {% assign photos_number = site.data.media.gigs[page.title][band[1].machine_name]['count'] %}
-
-            {% if band[1].mp3 %}
-                {% capture mp3_links %}
-                    [
-                    {% for mp3 in band[1].mp3 %}
-                        {% if mp3.link %}
-                        {
-                            "name": "Full set",
-                            "url": "{{mp3.generated_link}}"
-                        }
-                        {% elsif mp3.title %}
-                        { 
-                            "name": "{{mp3.title}}",
-                            "url": "{{mp3.generated_link}}"
-                        }
-                        {% endif %}
-                        {% if forloop.last == false %},{% endif %}
-                    {% endfor %}
-                    ]
-                {% endcapture %}
-            {% else %}
-                {% assign mp3_links = "" %}
+        {% assign photos_number = site.data.media.gigs[page.title][band[1].machine_name]['count'] %}
+        {% if band[1].mp3 %}
+            {% capture mp3_links %}
+                [
+                {% for mp3 in band[1].mp3 %}
+                    {% if mp3.link %}
+                    {
+                        "name": "Full set",
+                        "url": "{{mp3.generated_link}}"
+                    }
+                    {% elsif mp3.title %}
+                    { 
+                        "name": "{{mp3.title}}",
+                        "url": "{{mp3.generated_link}}"
+                    }
+                    {% endif %}
+                    {% if forloop.last == false %},{% endif %}
+                {% endfor %}
+                ]
+            {% endcapture %}
+        {% else %}
+            {% assign mp3_links = "" %}
+        {% endif %}
+        {% for artist in site['pages'] %}
+            {% if artist.title == band[0] %}
+                {% assign band_origin = artist['origin'] %}
+                {% break %}
             {% endif %}
-
+        {% endfor %}
+        <li>
             <a class="playlist-item smoothscroll {% if include.highlight %}gumshoe{% endif %}" title="{{band[0]}}" href="#{{band[1].machine_name}}" data-name="{{band[0]}}" data-machinename="{{band[1].machine_name}}" data-numberofphotos="{{ photos_number }}" data-mp3='{{mp3_links}}' style="line-height: inherit;">
                 <span class="play-pause" data-index="{{ forloop.index }}">
                     <span class="play" style="display: none">▶</span>
                     <span class="pause" style="display: none">❙❙</span>
                 </span>
-                {{band[0]}} <small>{{band[1].subtitle}}</small>
+                {{band[0]}}{% if band_origin %} ({{band_origin}}){%endif %} {% if band[1].subtitle %}<small>{{band[1].subtitle}}</small>{% endif %}
             </a>
         </li>
     {% endfor %}

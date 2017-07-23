@@ -2,7 +2,8 @@
 	opacity: 1;
     -webkit-transition: opacity 250ms ease-in-out;
    	-moz-transition: opacity 250ms ease-in-out;
-    transition: opacity 250ms ease-in-out;
+	transition: opacity 250ms ease-in-out;
+	width: 100%;
 	position: relative;
 }
 
@@ -20,12 +21,12 @@
 	text-align: center;
 	color: #c8c8c8;
 	bottom: 0px;
-	background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,0) 100%);
-	background-image: -moz-linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,0) 100%);
-	background-image: -o-linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,0) 100%);
-	background-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0) 100%);
+	background-image: -webkit-linear-gradient(to top, rgba(0, 0, 0, 0.6) 60%, transparent);
+	background-image: -moz-linear-gradient(to top, rgba(0, 0, 0, 0.6) 60%, transparent);
+	background-image: -o-linear-gradient(to top, rgba(0, 0, 0, 0.6) 60%, transparent);
+	background-image: linear-gradient(to top, rgba(0, 0, 0, 0.6) 60%, transparent);
 	text-shadow: 1px 1px black;
-	height: 25px;
+	height: 20px;
 	z-index: 10;
 
 	h5 {

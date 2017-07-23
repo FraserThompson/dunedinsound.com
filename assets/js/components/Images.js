@@ -11,7 +11,7 @@ class Images {
                 loadYoutubeThumbnail: true,
                 youtubeThumbSize: 'default',
                 videoMaxWidth: DEVICE_WIDTH * 0.7,
-                youtubePlayerParams: { modestbranding: 1, showinfo: 0, controls: 1, autoplay: 1, vq: "hd1080", rel: 0 },
+                youtubePlayerParams: { modestbranding: 1, showinfo: 0, controls: 1, vq: "hd1080", rel: 0 },
                 zoom: true
             }); 
         }
