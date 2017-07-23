@@ -52,7 +52,7 @@
 					{% endif %}
 
 					{% for vid in band[1].vid %}
-						<div class="{{vid_size_class}} no-padding item" href="https://www.youtube.com/watch?v={{vid.link}}" {% if vid.title %} data-sub-html="<h4>{{vid.title}}</h4>" {% endif %}>
+						<div class="{{vid_size_class}} no-padding item" href="https://www.youtube.com/watch?v={{vid.link}}" {% if vid.title %} data-sub-html="<h4>{{vid.title}}</h4>" {% endif %} data-poster="http://i.ytimg.com/vi/{{vid.link}}/maxresdefault.jpg">
 							<div class="box youtube {{page.aspectratio}}" id="{{vid.link}}">
 								<h4>Video{% if vid.title %}: {{vid.title}}{% endif %}</h4>
 								<img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="http://i.ytimg.com/vi/{{vid.link}}/maxresdefault.jpg" class="b-lazy" width="100%" height="auto" style="margin: 0; padding: 0;" alt="{{vid.link}}"/>
