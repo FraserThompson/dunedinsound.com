@@ -17,3 +17,5 @@ var blazy = new Blazy({
       }  
   }
 });
+
+blazy.revalidate();
