@@ -7,6 +7,7 @@ $main-font: 'Work Sans', sans-serif;
 $header-font: 'Hammersmith One', sans-serif;
 $highlight-color: white;
 $highlight-text-color: black;
+$purple-color: mediumslateblue;
 
 @mixin hover-grow($scale) {
 	-moz-transform: scale($scale,$scale);
@@ -148,9 +149,38 @@ h3 {
 	color: black;
 	background-color: white;
 
+	&.link {
+		&:hover{
+			background-color: lighten(black, 5%);
+		}
+	}
+
 	&.inverted {
 		color: white;
 		background-color: black;
+		&.link {
+			&:hover{
+				background-color: darken(white, 5%);
+			}
+		}
+	}
+
+	&.purple {
+		color: white;
+		background-color: $purple-color;
+		padding-top: 1px;
+		padding-bottom: 1px;
+
+		&.link {
+			&:hover{
+				background-color: lighten($purple-color, 5%);
+			}
+		}
+
+		h5 {
+			color: white;
+			font-weight: bolder;
+		}
 	}
 }
 

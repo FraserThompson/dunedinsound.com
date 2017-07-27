@@ -1,9 +1,9 @@
 
 <div class="container-fluid">
     <div class="post-header row" style="height: 70vh;">
-        <div class="col-xs-12 divider-purple">
-            <a href="/gigs"><h5>Back to gigs</h5></a>
-        </div>
+        <a title ="Back to gigs" href="/gigs" class="link"><div class="col-xs-12 divider link purple">
+            <h5>Back to gigs</h5>
+        </div></a>
         {% if page.title == site.posts[0].title %}
             <span class="label label-default" style="margin-left: 15px;">LATEST GIG</span>
         {% endif %}
@@ -37,10 +37,10 @@
         </div>
         <div class="gig-nav hidden-xs">
             {% if page.previous %}
-            <a href="{{page.previous.url}}" class="prev tile-wrap" title="Older: {{page.previous.title}}">
+            <a href="{{page.previous.url}}" class="prev tile-wrap center" title="Older: {{page.previous.title}}">
                 <span class="icon">&#x203a;</span>
                 <span class="label label-default" style="margin-left: 0px;">OLDER</span>
-                <div class="tile-title" style="padding-top: 40px;">
+                <div class="tile-title center" style="padding-top: 40px;">
                     <h4><small>{{page.previous.date | date: "%d %b %Y"}}</small></h4>
                     <h3 class="name">{{ page.previous.title }}</h3>
 
@@ -63,7 +63,7 @@
             </a>
             {% endif %}
             {% if page.next %}"
-            <a href="{{page.next.url}}" class="next tile-wrap" title="Newer: {{page.next.title}}">
+            <a href="{{page.next.url}}" class="next tile-wrap center" title="Newer: {{page.next.title}}">
                 <span class="icon">&#x2039;</span>
                 <span class="label label-default" style="margin-left: 0px;">NEWER</span>
                 <div class="tile-title" style="padding-top: 40px;">

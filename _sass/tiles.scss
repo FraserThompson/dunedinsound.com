@@ -96,6 +96,11 @@
 		}
 
 	}
+	&.center {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
 	&.bottom {
 		.tile-title {
@@ -157,7 +162,7 @@
 	}
 
 	&.thinner {
-		height: 30vh !important;
+		height: 29vh !important;
 	}
 
 	&.eventhinner {

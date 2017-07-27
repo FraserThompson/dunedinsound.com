@@ -35,6 +35,9 @@ order: 1
                         {% include gig_tile.html class="bottom thinner" sizing="col-xs-12" category="home" %}
                     {% endunless %}
                 {% endfor %}
+                <a title="More" href="/gigs" class="link"><div class="col-xs-12 divider purple link">
+                    <h5>More gigs</h5>
+                </div></a>
             </div>
         </div>
 </div>

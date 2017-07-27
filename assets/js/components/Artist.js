@@ -13,10 +13,22 @@ class Artist {
         element.addEventListener('click', function (e) {
             this.displayArtist();
         }.bind(this));
+
+        this.select_element = document.querySelector('#' + this.machine_name + '-select');
+        if (this.select_element) {
+            this.select_element.addEventListener('click', this.selectArtist.bind(this));
+        }
     }
 
     displayArtist() {
         blazy.revalidate();
+    }
+
+    selectArtist() {
+        this.displayArtist();
+        if (this.audio) {
+            window.players["_global"].loadArtist(this);
+        }
     }
 
     nextAudio() {

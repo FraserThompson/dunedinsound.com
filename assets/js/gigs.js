@@ -7,7 +7,7 @@ var gigsInit = function() {
 
     smoothScroll.init({
         selector: '.sidebar-link',
-        speed: 500,
+        speed: 600,
         selectorHeader: '.header',
         easing: 'easeInOutCubic',
         before: function() {

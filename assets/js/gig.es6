@@ -78,8 +78,8 @@ function gigInit() {
     });
 
     smoothScroll.init({
-        selector: '.playlist-item.smoothscroll',
-        speed: 500,
+        selector: '.smoothscroll',
+        speed: 600,
         offset: HEADER_HEIGHT,
         easing: 'easeInOutCubic',
         before: function() {
@@ -91,7 +91,7 @@ function gigInit() {
     });
 
     gumshoe.init({
-        selector: '.playlist-item.gumshoe',
+        selector: '.gumshoe',
         activeClass: 'active',
         offset: HEADER_HEIGHT + 5,
         scrollDelay: false
