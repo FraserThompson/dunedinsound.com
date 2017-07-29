@@ -84,6 +84,6 @@
 	<meta property="og:title" content="{{ page.title }}"/>
 	<meta property="og:url" content="{{ url }}"/>
 	<meta property="og:site_name" content="Dunedin Gig Archives{% if page.parent == 'Blog' %} - Blog {% endif %}"/>
-	<meta property="og:image" content="{{ page.image | url_encode | replace: '%2F', '/' | replace: '+', '%20' | prepend: site.baseurl | prepend: site.url }}"/> 
+	<meta property="og:image" content="{{page.image |prepend: site.baseurl | prepend: site.url}}"/> 
 	<meta property="og:type" content="article"/>
 </head>

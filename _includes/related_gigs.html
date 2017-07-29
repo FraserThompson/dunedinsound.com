@@ -18,7 +18,11 @@
                                 <h5 style="margin-bottom: 2px;">{{post.title}}</h5>
                                 <p><small>{{ post.venue }}</small></p>
                             </div>
+                            {% if site.data.media.gigs[post.title][band_machine_name]['images'].size %}
                             <div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][band_machine_name]['images'][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}">
+                            {% else %}
+                            <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}/cover.jpg">
+                            {% endif %}
                             </div>
                         </a>
                     </div>
