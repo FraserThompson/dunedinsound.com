@@ -4,6 +4,7 @@ var gigsInit = function() {
 
     var sidebar = document.getElementById('sorting-nav');
     var year_els = document.getElementsByClassName('year');
+    var backToTop = document.getElementById('back-to-top');
 
     smoothScroll.init({
         selector: '.sidebar-link',
@@ -20,8 +21,10 @@ var gigsInit = function() {
 
     window.addEventListener("scroll", function() {
         if ((document.documentElement.scrollTop || document.body.scrollTop) > 60){
+            backToTop.classList.add('visible');
             sidebar.classList.add('scrolled');
         } else {
+            backToTop.classList.remove('visible');
             sidebar.classList.remove('scrolled');
         }
     });

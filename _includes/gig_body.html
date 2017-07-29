@@ -48,7 +48,7 @@
 
 					{% if number_of_vids == 3 %}
 						{% assign vid_size_class = "col-sm-4 col-md-4 col-lg-4" %}
-					{% elsif number_of_vids == 2 %}
+					{% elsif number_of_vids <= 2 %}
 						{% assign vid_size_class = "col-sm-6 col-md-6 col-lg-6" %}
 					{% else %}
 						{% assign vid_size_class = image_size_class %}
@@ -88,6 +88,4 @@
 
 </div>
 
-<div class="back-to-top" id="back-to-top">
-	<a href="#" data-toggle="collapse" data-target="#navbar-collapse" title="Back to top" onClick="window.scrollTo(0, 0);"><span class="glyphicon glyphicon-chevron-up"></span><p><small>Top</small></p></a>
-</div>
+{% include back_to_top.html %}

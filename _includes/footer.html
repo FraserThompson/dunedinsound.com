@@ -58,7 +58,7 @@
 {% endif %}
 
 {% if page.parent == "Venues" %}
-	<script type="text/javascript" src="/assets/js/vendor/leaflet.js" defer></script>
+	<script type="text/javascript" src="/assets/js/vendor/leaflet.js"></script>
 	<script>
 		var map_el = document.getElementById('map');
 		var map = L.map('map', {center: [map_el.dataset.lat, map_el.dataset.lng], zoom: 18, zoomControl: false});
