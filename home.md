@@ -22,6 +22,7 @@ order: 1
                     {% assign type = tile.url | split: '/' %}
 
                     {% include gig_tile.html class="feature" sizing="col-xs-12" category="home" %}
+                    {% assign first_gig = tile %}
                     
                 {% endfor %}
             </div>
@@ -36,7 +37,7 @@ order: 1
                         {% break %}
                     {% endif %}
                     {% if type[1] == "gigs" %}
-                        {% unless forloop.first %}
+                        {% unless tile.title == first_gig.title %}
                             {% assign title = tile.title | prepend: "GIG: " %}
                             {% assign count = count | plus: 1 %}
                             {% include gig_tile.html class="bottom thinner" sizing="col-xs-12" category="home" title=title %}
