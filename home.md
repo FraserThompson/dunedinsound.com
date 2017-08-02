@@ -16,6 +16,7 @@ order: 1
         <div class="row">
             <div class="col-xs-12 col-sm-8">
                 <div class="row sorted-tiles">
+                {% assign content = site.posts | concat: site.blog_posts | sort: 'date' | reverse %}
                 {% for tile in site.posts limit: 1 %}
 
                     {% assign type = tile.url | split: '/' %}
@@ -26,18 +27,27 @@ order: 1
             </div>
         </div>
         <div class="col-xs-12 col-sm-4" id="more" style="background-color: black;">
-            <span class="label label-default hidden-xs ">RECENT GIGS</span>
+            <span class="label label-default hidden-xs ">RECENT POSTS</span>
             <div class="row sorted-tiles">
-                {% for tile in site.posts limit: 4 %}
+                {% assign count = 0 %}
+                {% for tile in content limit: 4 %}
                     {% assign type = tile.url | split: '/' %}
+                    {% if count == 3 %}
+                        {% break %}
+                    {% endif %}
+                    {% if type[1] == "gigs" %}
+                        {% unless forloop.first %}
+                            {% assign title = tile.title | prepend: "GIG: " %}
+                            {% assign count = count | plus: 1 %}
+                            {% include gig_tile.html class="bottom thinner" sizing="col-xs-12" category="home" title=title %}
+                        {% endunless %}
+                    {% elsif type[1] == "blog" %}
+                        {% assign title = tile.title | prepend: "BLOG: " %}
+                        {% assign count = count | plus: 1 %}
+                        {% include gig_tile.html class="bottom thinner" sizing="col-xs-12" category="home" image=tile.image title=title %}
+                    {% endif %}
 
-                    {% unless forloop.first %}
-                        {% include gig_tile.html class="bottom thinner" sizing="col-xs-12" category="home" %}
-                    {% endunless %}
                 {% endfor %}
-                <a title="More" href="/gigs" class="link"><div class="col-xs-12 divider purple link">
-                    <h5>More gigs</h5>
-                </div></a>
             </div>
         </div>
 </div>
