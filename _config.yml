@@ -1,6 +1,6 @@
 ---
 title: Dunedin Gig Archives
-timezone: UTC
+timezone: Pacific/Auckland
 collections:
   posts:
     title: Posts
