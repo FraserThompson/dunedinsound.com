@@ -12,7 +12,7 @@
     </div>
     <div class="row">
             {% if page.media %}
-                {% include related_gigs.html horizontal="true" %}
+                {% include related_gigs.html horizontal="true" no_skip_first_gig="true" %}
             {% else %}
                 <div class="col-xs-12">
                     <p><small>nothing, here's a cat</small></p>

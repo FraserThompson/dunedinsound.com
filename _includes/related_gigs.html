@@ -3,8 +3,13 @@
     {% assign gigs_number = site.categories[band_machine_name].size %}
     {% assign gigs_not_displayed = site.categories[band_machine_name].size | minus: 3 %}
     {% assign photos_number = site.data.media.gigs[page.title][band_machine_name]['count'] %}
-    
-    {% if gigs_number > 1 %}
+
+    {% assign cutoff = 1 %}
+    {% if include.no_skip_first_gig %}
+        {% assign cutoff = 0 %}
+    {% endif %}
+
+    {% if gigs_number > cutoff %}
         <div id="moreFrom_{{band_machine_name}}" class="moreFrom {% if include.horizontal %} col-xs-6 col-sm-4 {% endif %}">
             <div style="padding-top: 10px;">
                 <p>Gigs featuring <a title="More gigs from {{band[0]}}" href="/artists/{{band_machine_name}}">{{band[0]}}</a></p>
