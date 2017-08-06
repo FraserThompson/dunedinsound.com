@@ -5,6 +5,6 @@ bandcamp: https://phonesexrobots.bandcamp.com/
 facebook: https://www.facebook.com/psrpoppunk
 layout: band
 origin: Wellington
-parent: Artists/
+parent: Artists
 ---
 

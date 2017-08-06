@@ -27,7 +27,7 @@
 						{% assign gigs_number = site.categories[band_machine_name].size %}
 
 						{% if gigs_number > 1 %}
-							<a class="link light" title="Artist Page" href="/artists/{{band_machine_name}}"><small>More gigs</small></a>
+							<small><a class="link" title="Artist Page" href="/artists/{{band_machine_name}}">More gigs</a></small>
 						{% endif %}
 					</h4>
 				</div>
@@ -48,8 +48,10 @@
 
 					{% if number_of_vids == 3 %}
 						{% assign vid_size_class = "col-sm-4 col-md-4 col-lg-4" %}
-					{% elsif number_of_vids <= 2 %}
+					{% elsif number_of_vids == 2 %}
 						{% assign vid_size_class = "col-sm-6 col-md-6 col-lg-6" %}
+					{% elsif number_of_vids == 1 %}
+						{% assign vid_size_class = "col-sm-6 col-md-6 col-lg-6 center-block" %}
 					{% else %}
 						{% assign vid_size_class = image_size_class %}
 					{% endif %}
