@@ -5,6 +5,7 @@ class Artist {
         this.recordings = [];
         this.machine_name = element.dataset.machinename;
         this.name = element.dataset.name;
+        this.container = document.getElementById(this.machine_name);
         this.index = index;
         this.audio = element.dataset.mp3 ? JSON.parse(element.dataset.mp3) : null;
         this.prev = null;

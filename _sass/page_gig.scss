@@ -45,7 +45,7 @@
   }
 }
 
-.youtube::before {
+.youtube .placeholder_content::before {
   content: '';
   background: rgba(255, 255, 255, .6);
   height: 50px;
@@ -61,7 +61,7 @@
   z-index:1;
 }
 
-.youtube:hover::before {
+.youtube .placeholder_content:hover::before {
   background: rgba(238, 238, 238, .8);
   box-shadow: 0 0 10px 3px rgba(51, 51, 51, .8);
   width: 70px;
@@ -69,7 +69,7 @@
   margin: -35px 0 0 -35px;
 }
 
-.youtube::after {
+.youtube .placeholder_content::after {
   content: '';
   width: 0;
   height: 0;
@@ -89,10 +89,10 @@
 
 #youtube_embed{
     position: absolute;
-    top: -40%;
-    left: 10vw;
+    top: 0px;
+    left: 0px;
     width: 100%;
-    height: 80%;
+    height: 100%;
 }
 
 #youtube_container{
@@ -217,10 +217,6 @@
 
 }
 
-.gig-header {
-  z-index: 1040;
-}
-
 .gig-nav a:hover { opacity: 1; }
 
 .gig-nav .prev { right: 0; }
@@ -243,8 +239,15 @@
 }
 
 .gig-header {
+  opacity: 0;
+  margin-top: -(($header-height) * 2);
+  -webkit-transition: opacity 0.5s ease;
+  -moz-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
 
+  z-index: 1040;
   height: ($header-height) * 2;
+
 
 	.playButton {
 		z-index: 20; 
@@ -271,6 +274,7 @@
 @media (min-width:768px) {
   .gig-header {
     height: $header-height + 20;
+    margin-top: -($header-height + 20);
   }
   .gig .divider {
     top: $header-height + 20;

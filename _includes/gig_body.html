@@ -60,11 +60,8 @@
 					{% endif %}
 
 					{% for vid in band[1].vid %}
-						<div class="col-xs-12 {{vid_size_class}} no-padding item" href="https://www.youtube.com/watch?v={{vid.link}}" {% if vid.title %} data-sub-html="<h4>{{vid.title}}</h4>" {% endif %} data-poster="http://i.ytimg.com/vi/{{vid.link}}/maxresdefault.jpg">
-							<div class="box youtube {{page.aspectratio}}" id="{{vid.link}}">
-								<h4>Video{% if vid.title %}: {{vid.title}}{% endif %}</h4>
-								<img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="http://i.ytimg.com/vi/{{vid.link}}/maxresdefault.jpg" class="b-lazy" width="100%" height="auto" style="margin: 0; padding: 0;" alt="{{vid.link}}"/>
-							</div>
+						<div class="col-xs-12 {{vid_size_class}} no-padding">
+							{% include youtube_video.html link=vid.link title=vid.title %}
 						</div>
 					{% endfor %}
 			{% endif %}
@@ -78,7 +75,7 @@
 				{% capture image_date %}
 					{% exiftag date_time_original,{{directory}},{{filename}} %}
 				{% endcapture %}
-				<div class= "col-xs-6 {{image_size_class}} no-padding hover-img item" data-src="{{site.asset_url}}/{{full_pic}}" data-sub-html="<h4>{{band[1].band_name}}: Taken at {{image_date | date: '%I:%M%p'}}</h4>">
+				<div class= "col-xs-6 {{image_size_class}} no-padding hover-img item" data-src="{{site.asset_url}}/{{full_pic}}" data-thumbnail="{{site.asset_url}}/{{gig_image_encoded}}" data-sub-html="<h4>{{band[1].band_name}}: Taken at {{image_date | date: '%I:%M%p'}}</h4>">
 					<div class="box {{page.aspectratio}}">
 						<a href="{{site.asset_url}}/{{full_pic}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image_encoded}}" alt="{{band[1].band_name}} Image {{forloop.index}}" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
 					</div>
