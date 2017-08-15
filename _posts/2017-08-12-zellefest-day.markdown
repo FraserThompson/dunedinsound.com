@@ -55,7 +55,6 @@ media:
         mp3:
             -   title: Full set
         vid:
-            -   link: qggPeKQDbH8
             -   link: w6C7lGiz40s
             -   link: B3hFHKyi5Qk
 ---
