@@ -15,9 +15,9 @@ class Artist {
             this.displayArtist();
         }.bind(this));
 
-        this.select_element = document.querySelector('#' + this.machine_name + '-select');
-        if (this.select_element) {
-            this.select_element.addEventListener('click', this.selectArtist.bind(this));
+        this.select_element = document.querySelectorAll('.' + this.machine_name + '-select');
+        for (var i = 0; i < this.select_element.length; i++) {
+            this.select_element[i].addEventListener('click', this.selectArtist.bind(this));
         }
     }
 
@@ -27,7 +27,7 @@ class Artist {
 
     selectArtist() {
         this.displayArtist();
-        if (this.audio) {
+        if (this.audio && !window.players["_global"].wavesurfer.isPlaying()) {
             window.players["_global"].loadArtist(this);
         }
     }

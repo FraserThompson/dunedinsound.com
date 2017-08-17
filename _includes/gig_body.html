@@ -15,7 +15,7 @@
                 {% endif %}
 
 				<div class="col-xs-12" style="{% if band[1].mp3 %}margin-left: 30px;{% endif %}">
-					<h4 style="text-shadow: none;"><a class="artist-select link smoothscroll" id="{{band[1].machine_name}}-select" title="Select" href="#{{band[1].machine_name}}">{{band[1].band_name}}</a>
+					<h4 style="text-shadow: none;"><a class="artist-select link smoothscroll {{band[1].machine_name}}-select" title="Select" href="#{{band[1].machine_name}}">{{band[1].band_name}}</a>
 						{% for mp3 in band[1].mp3 %}
 
 							{% unless mp3.nodownload %}

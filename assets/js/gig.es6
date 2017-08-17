@@ -1,7 +1,7 @@
 ---
 ---
 
-const WAVEFORM_HEIGHT = "50";
+const WAVEFORM_HEIGHT = "60";
 const HEADER_HEIGHT = 100;
 const WAVEFORM_COLOR = "white";
 const DEVICE_WIDTH = (window.innerWidth > 0) ? window.innerWidth : screen.width;

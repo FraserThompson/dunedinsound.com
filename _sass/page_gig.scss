@@ -144,7 +144,7 @@
     position: absolute;
     top: 37px;
 
-	  opacity: 0.3;
+	  opacity: 0.5;
     z-index: 9;
     cursor: pointer;
 
@@ -227,7 +227,9 @@
 }
 
 .gig.dropdown {
-  float: right;
+  position:absolute;
+  right: 0px;
+  top: 20px;
   z-index: 100;
   ul>li>a {
     height: 60px;
@@ -248,7 +250,6 @@
   z-index: 1040;
   height: ($header-height) * 2;
 
-
 	.playButton {
 		z-index: 20; 
   }
@@ -258,6 +259,9 @@
     h3 {
       margin-top: 5px;
     }
+  }
+  .title-wrapper {
+    padding-right: 90px;
   }
 }
 
@@ -281,5 +285,8 @@
   }
   .gig-title-wrapper {
     height: $header-height + 20;
+  }
+  .gig.dropdown {
+      top: 0px
   }
 }

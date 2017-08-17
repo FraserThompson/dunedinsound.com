@@ -6,8 +6,7 @@ var gigsInit = function() {
     var year_els = document.getElementsByClassName('year');
     var backToTop = document.getElementById('back-to-top');
 
-    smoothScroll.init({
-        selector: '.sidebar-link',
+    window.scroll = new SmoothScroll('.sidebar-link', {
         speed: 600,
         selectorHeader: '.header',
         easing: 'easeInOutCubic',
