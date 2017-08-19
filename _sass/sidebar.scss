@@ -2,11 +2,15 @@
     width: $sidebar-width;
     margin: 0;
     padding: 0;
-    list-style: none;
+	list-style: none;
 
 	&.horizontal {
 		background-color: rgba(0,0,0,0);
 		width: auto;
+		max-height: 40vh;
+		overflow-y: auto;
+		overflow-x: none;
+		
 		li {
 			display: inline-block;
 		}

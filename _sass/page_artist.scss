@@ -49,14 +49,14 @@ h2.huge-header {
 .post-header {
 	height: 30vh;
 	overflow:hidden;
-	
+
 	.text {
 	    position: absolute;
 		width: 85%;
 		z-index: 1000;
-		margin-top: 80px;
+		margin-top: 60px;
 		padding: 10px;
-	    top: $header-height - 20;
+	    top: $header-height - 30;
 		background: rgba(0,0,0,0.8);
 		left: 50%;
     	transform: translate(-50%, 0);
@@ -98,7 +98,7 @@ h2.huge-header {
 
 	.post-header {
 		height: 50vh;
-		
+
 		.text {
 		    position: absolute;
 			top: 80px;

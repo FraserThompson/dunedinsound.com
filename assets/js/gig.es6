@@ -2,13 +2,15 @@
 ---
 
 const WAVEFORM_HEIGHT = "60";
-const HEADER_HEIGHT = 100;
+const HEADER_HEIGHT = 90;
 const WAVEFORM_COLOR = "white";
 const DEVICE_WIDTH = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 const backToTop = document.getElementById('back-to-top');
 const threshold = window.innerHeight * 1.5;
 const header = document.getElementsByClassName('gig-header')[0];
+const gigTitleWrapper = document.getElementsByClassName('gig-title-wrapper')[0];
 const banner = document.getElementsByClassName('post-header')[0];
+const dropdownMenu = document.getElementsByClassName('dropdown')[0];
 
 // Helpers and components
 {% include_relative gig_helpers.js %}
@@ -107,9 +109,13 @@ function gigInit() {
         }
         // Hide and show the header when we scroll to the first artist
         if ((document.documentElement.scrollTop || document.body.scrollTop) > banner.offsetTop + banner.offsetHeight - 5){
-            header.style.opacity = 1;
+            header.classList.add("scrolled");
+            gigTitleWrapper.style.opacity = 1;
+            dropdownMenu.style.opacity = 1;
         } else {
-            header.style.opacity = 0;
+            header.classList.remove("scrolled");
+            gigTitleWrapper.style.opacity = 0;
+            dropdownMenu.style.opacity = 0;
         }
     });
 

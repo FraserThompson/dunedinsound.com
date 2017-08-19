@@ -2,7 +2,7 @@
 {% assign gigs_number = venue_gigs | size %}
 
 <div class="container-fluid">
-    <div class="post-header row" style="height: 70vh;">
+    <div class="post-header row">
         <a title ="Back to gigs" href="/gigs" class="link"><div class="col-xs-12 divider link purple">
             <h5>Back to gigs</h5>
         </div></a>
@@ -19,14 +19,14 @@
                     <div class ="col-xs-12 col-sm-4 no-padding" style="height: 100%;">
                         <a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading">
                             <div class="banner b-lazy" data-src="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}"></div>
-                        <a/>
+                        </a>
                     </div>
                 {% endfor %}
             {% else %}
                 <div class ="col-xs-12 no-padding" style="height: 100%;">
                     <a href="{{site.asset_url}}/assets/img/{{page.title}}/cover.jpg" target="_blank" class="loading">
                         <div class="banner b-lazy" data-src="{{site.asset_url}}/assets/img/{{page.title}}/cover.jpg"></div>
-                    <a/>
+                    </a>
                 </div>
             {% endif %}
         </div>
@@ -101,23 +101,23 @@
 
         {% if page.audio != false %}
             {% if page_title_size < 20  %}
-                {% assign header_font_size = "2rem" %}
+                {% assign header_font_size = "1.8rem" %}
             {% elsif page_title_size < 40 %}
-                {% assign header_font_size = "1.6rem" %}
+                {% assign header_font_size = "1.5rem" %}
             {% elsif page_title_size < 60 %}
-                {% assign header_font_size = "1.4rem" %}
+                {% assign header_font_size = "1.3rem" %}
             {% elsif page_title_size < 80 %}
                 {% assign header_font_size = "1.2rem" %}
             {% else %}
                 {% assign header_font_size = "1rem" %}
             {% endif %}
         {% endif %}
-        <div class="col-xs-12 {% if page.audio != false %}col-sm-2{% else %}col-sm-11{% endif %} gig-title-wrapper">
+        <div class="col-xs-12 {% if page.audio != false %}col-sm-1{% else %}col-sm-11{% endif %} gig-title-wrapper">
             <h3 style="font-size: {{header_font_size}}">{{page.title}}</h3>
         </div>
         
         {% if page.audio != false %}
-        <div class="col-xs-12 col-sm-10" style="padding-right: 50px; padding-left: 40px;">
+        <div class="col-xs-12 col-sm-10" style="padding-left: 40px;">
             {% include player.html playerId="_global" playbutton="true" playbuttonclass="big" %}
         </div>
         {% endif %}

@@ -20,14 +20,19 @@ layout: default
 
         {% if number_images > 4 %}
           {% for image in images %}
+          {% assign full_pic = image | replace: " (Medium)","" %}
           <div class="col-xs-12 col-md-6 col-lg-3" style="height: 100%; padding: 0px;">
-            <div class="banner b-lazy" data-src="{{site.asset_url}}/{{image | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}"></div>
+            <a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}" target="_blank" class="loading">
+              <div class="banner b-lazy" data-src="{{site.asset_url}}/{{image | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}"></div>
+            </a>
           </div>
           {% endfor %}
         {% else %}
           {% for image in site.data.media.artists[machine_name]['medium'] limit: 1 %}
           <div class="col-sm-12" style="height: 100%; padding: 0px;">
-            <div class="banner b-lazy" data-src="{{site.asset_url}}/{{image | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}"></div>
+            <a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}" target="_blank" class="loading">
+              <div class="banner b-lazy" data-src="{{site.asset_url}}/{{image | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}"></div>
+            </a>
           </div>
           {% endfor %}
         {% endif %}

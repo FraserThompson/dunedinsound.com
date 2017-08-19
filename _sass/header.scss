@@ -95,8 +95,8 @@
 	overflow: hidden;
 	width: 100%;
 	top: 0px;
-	background-color: rgba(0,0,0,1) !important;
-	background-image: none !important;
+	background-color: rgba(0,0,0,1);
+	background-image: none;
 	-webkit-transition: background-color 0.5s ease;
     -moz-transition: background-color 0.5s ease;
     transition: background-color 0.5s ease;
@@ -107,7 +107,7 @@
 	}
 
 	&.dimmed {
-		background-color: rgba(0,0,0,0.3) !important;
+		background-color: rgba(0,0,0,0.3);
 	}
 
 	.brand {

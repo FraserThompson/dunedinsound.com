@@ -12,26 +12,19 @@
 	color: #999999;
 	z-index: 10;
 	position: absolute;
-	bottom: 15px;
+	bottom: 20px;
 }
 
 .title-wrapper {
 	position: absolute;
 	width: 100%;
 	text-align: center;
-	color: white;
 	bottom: 0px;
-	background-color: rgba(0,0,0,0.3);
-	text-shadow: 1px 1px black;
 	height: 20px;
 	z-index: 10;
 
-	h5 {
-		line-height: 60px;
-		height: 60px;
-		vertical-align: middle;
-		text-shadow: 1px 1px black;
-		margin: 0px
+	.text {
+		background-color: black;
 	}
 }
 

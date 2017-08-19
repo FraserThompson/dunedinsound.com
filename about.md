@@ -3,6 +3,7 @@ title: About
 permalink: "/about/"
 position: 0
 layout: blog_post
+no_share_buttons: true
 exclude: true
 ---
 

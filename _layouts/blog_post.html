@@ -14,7 +14,9 @@ layout: default-container
         {% endfor %}
         </p>
         <div class="text-wrapper">
-            {% include social_buttons.html %}
+            {% if page.no_share_buttons == nil %}
+                {% include social_buttons.html %}
+            {% endif %}
         </div>
     </div>
 </div>

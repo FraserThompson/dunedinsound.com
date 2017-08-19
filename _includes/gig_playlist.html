@@ -1,4 +1,4 @@
-<ul class="playlist sidebar-nav {{include.background}} {{include.orientation}} {{include.class}}" style="padding: 0px;">
+<ul class="playlist sidebar-nav {{include.background}} {{include.orientation}} {{include.class}} nice-scrollbar" style="padding: 0px;">
     {% for band in page.media %}
         {% assign photos_number = site.data.media.gigs[page.title][band[1].machine_name]['count'] %}
         {% if band[1].mp3 %}
