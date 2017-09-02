@@ -15,7 +15,14 @@
 		{% unless tile.parent == "Blog"  %}
 			{% assign band_quantity = tile.media | size %}
 			{% assign band_quantity_minus_one = band_quantity | minus: 1 %}
+			{% assign mp3_size = 0 %}
+			{% assign vid_size = 0 %}
+			{% assign photo_count = 0 %}
 
+			{% for band in site.data.media.gigs[tile.title] %}
+				{% assign photo_count = count | plus: band[1].count %}
+			{% endfor %}
+			
 			<span class="artistNames">
 			{% for band in tile.media %}
 				{% if forloop.index < 8 %}
@@ -23,14 +30,19 @@
 				{% else %}
 					<span style="display: none;">{{band[0]}} </span>
 				{% endif %}
+				{% assign mp3_size = mp3_size | plus: band[1].mp3.size %}
+				{% assign vid_size = vid_size | plus: band[1].vid.size %}
 			{% endfor %}
 			</span>
-
-			<span class="venueName" style="display: none;">{{tile.venue}}</span>
-
 			{% if band_quantity >= 8 %}
 				<span>and more</span>
 			{% endif %}
+			<h6>{{ tile.venue }}</h6>
+			<h6>
+			{% if photo_count %}<span> {{photo_count}} 📷</span>{% endif %}
+			{% if mp3_size %}<span> {{mp3_size}} 🎧</span>{% endif %}
+			{% if vid_size %}<span> {{vid_size}} 📹</span>{% endif %}
+			</h6>
 		{% endunless %}
 
     </div>
