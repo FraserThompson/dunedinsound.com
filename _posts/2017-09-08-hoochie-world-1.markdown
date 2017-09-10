@@ -5,6 +5,7 @@ categories:
     - bathsalts
     - jack_berry_band
     - hot_donnas
+    - hamish_ballin
 parent: Gigs
 venue: Refuel
 image: /assets/img/Hoochie%20World%201/cover.jpg
@@ -28,5 +29,8 @@ media:
         vid:
             -   link: 3qlumxCrGys
             -   link: eNGu8KiB0vQ
+    Hamish Ballin:
+        mp3:
+        vid:
 ---
 
