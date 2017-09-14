@@ -72,10 +72,7 @@
 				{% assign directory = "assets/img/" | append: page.title | append: "/" | append: band_machine_name %}
 				{% assign filename = full_pic | split: '/' | last %}
 
-				{% capture image_date %}
-					{% exiftag date_time_original,{{directory}},{{filename}} %}
-				{% endcapture %}
-				<div class= "col-xs-6 {{image_size_class}} no-padding hover-img item" data-src="{{site.asset_url}}/{{full_pic}}" data-thumbnail="{{site.asset_url}}/{{gig_image_encoded}}" data-sub-html="<h4>{{band[1].band_name}}: Taken at {{image_date | date: '%I:%M%p'}}</h4>">
+				<div class= "col-xs-6 {{image_size_class}} no-padding hover-img item" data-src="{{site.asset_url}}/{{full_pic}}" data-thumbnail="{{site.asset_url}}/{{gig_image_encoded}}" data-sub-html="<h4>{{band[1].band_name}}</h4>">
 					<div class="box {{page.aspectratio}}">
 						<a href="{{site.asset_url}}/{{full_pic}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image_encoded}}" alt="{{band[1].band_name}} Image {{forloop.index}}" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
 					</div>

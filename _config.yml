@@ -53,5 +53,4 @@ markdown: kramdown
 babel_js_extensions: 'es6'
 plugins:
 - jemoji
-- jekyll-exiftag
 - jekyll-babel
