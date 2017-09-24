@@ -28,9 +28,9 @@ media:
         mp3:
             -   title: Full set
         vid:
-            -   link: Z6cjhYoFW64
-            -   link: ZKBFr8y8q2o
-            -   link: IUdVeuToTF0
+            -   link: LUP2MrJKh8g
+            -   link: 2_zjadnS3YI
+            -   link: 57CjJBVh1c4
     Tonguecutter:
         mp3:
             -   title: Full set

@@ -8,12 +8,12 @@
                     {% if mp3.link %}
                     {
                         "name": "Full set",
-                        "url": "{{mp3.generated_link}}"
+                        "url": "{{mp3.generated_link | replace: "'", "" }}"
                     }
                     {% elsif mp3.title %}
                     { 
                         "name": "{{mp3.title}}",
-                        "url": "{{mp3.generated_link}}"
+                        "url": "{{mp3.generated_link | replace: "'", ""}}"
                     }
                     {% endif %}
                     {% if forloop.last == false %},{% endif %}

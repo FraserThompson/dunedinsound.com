@@ -38,7 +38,7 @@ module GigGenerator
     end
 
     def machine_name(input)
-      return input.to_s.downcase.gsub(Regexp.union({' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => ''}.keys), {' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => ''})
+      return input.to_s.downcase.gsub(Regexp.union({' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => '', "'" => ''}.keys), {' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => '', "'" => ''})
     end
 
     def url_encode(input)
