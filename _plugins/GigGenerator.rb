@@ -11,6 +11,9 @@ module GigGenerator
       site.posts.docs.each do |post|
 
         bands = post.data['media']
+        unless post.data['image']
+          post.data['image'] = "/assets/img/" + ERB::Util.url_encode(post.data['title']) + "/cover.jpg"
+        end
 
         if bands
           bands.each do |band, data|
