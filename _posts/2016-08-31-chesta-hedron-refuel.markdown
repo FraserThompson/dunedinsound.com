@@ -4,7 +4,7 @@ date: 2016-08-31 07:00:00 Z
 categories:
     - the_rothmans
     - chesta_hedron
-layout: post
+
 parent: Gigs
 venue: Refuel
 image: https://dunedinsound.com/assets/img/Chesta%20Hedron%20live%20at%20Refuel/cover.jpg

@@ -5,6 +5,6 @@ layout: band
 origin: Napier
 facebook: https://www.facebook.com/moralturpentine/
 bandcamp: https://moralturpentine.bandcamp.com/
-parent: Artists/
+parent: Artists
 ---
 

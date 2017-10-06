@@ -1,4 +1,5 @@
 <div class="isotope-item {{include.sizing}} tile-wrap {% if include.class != false %}{{include.class}}{% endif %}" style="background-color: {{ page.colors | sample }}" id="{{include.id}}">
+	{% if include.label %}<span class="label label-default hidden-xs ">{{include.label}}</span>{% endif %}
 	<a class="box gridItem {{include.category}}" href="{{ tile.url | prepend: site.baseurl }}">
 	{% if include.class == "feature" %}
 		<span class="label label-default">LATEST GIG</span>
@@ -6,31 +7,45 @@
     <div class="tile-title">
 		<h4><small>{{tile.date | date: "%d %b %Y"}}</small></h4>
 		{% if include.class == "feature" %}
-      		<h1 class="name">{{ tile.title }}</h1>
+      		<h1 class="name">{% if include.title %}{{include.title}}{% else %}{{ tile.title }}{% endif %}</h1>
 		{% else %}
-			  <h3 class="name">{{ tile.title }}</h3>
+			  <h3 class="name">{% if include.title %}{{ include.title }}{% else %}{{ tile.title }}{% endif %}</h3>
 		{% endif %}
 
-		{% assign band_quantity = tile.media | size %}
-		{% assign band_quantity_minus_one = band_quantity | minus: 1 %}
+		{% unless tile.parent == "Blog"  %}
+			{% assign band_quantity = tile.media | size %}
+			{% assign band_quantity_minus_one = band_quantity | minus: 1 %}
+			{% assign mp3_size = 0 %}
+			{% assign vid_size = 0 %}
+			{% assign photo_count = 0 %}
 
-		<span class="artistNames">
-		{% for band in tile.media %}
-			{% if forloop.index < 8 %}
-				<span>{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false and forloop.index != 7 %}, {% endif %}</span>
-			{% else %}
-				<span style="display: none;">{{band[0]}} </span>
+			{% for band in site.data.media.gigs[tile.title] %}
+				{% assign photo_count = count | plus: band[1].count %}
+			{% endfor %}
+			
+			<span class="artistNames">
+			{% for band in tile.media %}
+				{% if forloop.index < 8 %}
+					<span>{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false and forloop.index != 7 %}, {% endif %}</span>
+				{% else %}
+					<span style="display: none;">{{band[0]}} </span>
+				{% endif %}
+				{% assign mp3_size = mp3_size | plus: band[1].mp3.size %}
+				{% assign vid_size = vid_size | plus: band[1].vid.size %}
+			{% endfor %}
+			</span>
+			{% if band_quantity >= 8 %}
+				<span>and more</span>
 			{% endif %}
-		{% endfor %}
-		</span>
-
-		<span class="venueName" style="display: none;">{{tile.venue}}</span>
-
-		{% if band_quantity >= 8 %}
-			<span>and more</span>
-		{% endif %}
+			<h6>{{ tile.venue }}</h6>
+			<h6>
+			{% if photo_count %}<span> {{photo_count}} 📷</span>{% endif %}
+			{% if mp3_size %}<span> {{mp3_size}} 🎧</span>{% endif %}
+			{% if vid_size %}<span> {{vid_size}} 📹</span>{% endif %}
+			</h6>
+		{% endunless %}
 
     </div>
-    <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{tile.title | url_encode | replace: '+', '%20'}}/cover.jpg"  style="background-color: #0A0A0A"></div>
+    <div class="tile b-lazy" data-src="{% if include.image %}{{include.image}}{% else %}{{site.asset_url}}/assets/img/{{tile.title | url_encode | replace: '+', '%20'}}/cover.jpg{% endif %}"  style="background-color: #0A0A0A"></div>
 	</a>
 </div>

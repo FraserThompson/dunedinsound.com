@@ -5,7 +5,7 @@ categories:
     - lzd_fundraiser
     - second_hour
     - agent_ewok
-layout: post
+
 parent: Gigs
 venue: Crown Hotel
 image: /assets/img/Cheeto%20Sun%20Blood%20Fest%20at%20the%20crown/cover.jpg

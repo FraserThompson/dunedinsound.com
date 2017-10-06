@@ -5,6 +5,6 @@ layout: band
 origin: Christchurch
 facebook: https://www.facebook.com/LogHornBreed/
 bandcamp: https://loghornbreed.bandcamp.com/
-parent: Artists/
+parent: Artists
 ---
 

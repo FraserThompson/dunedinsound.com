@@ -1,18 +1,19 @@
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="theme-color" content="black" />
 	<title>{% if page.band %} {{ page.band | append: " - " }} {% endif %}{% if page.order %} {{ site.title | escape }} - {{ page.title }} {% elsif page.title %}{{ page.title | escape }} {% else %}{{ site.title | escape }}{% endif %}</title>
 	<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-	<link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/css/main.css?{{site.time | date: '%s%N'}}" />
 	<meta property="og:title" content="{{ page.title }}"/>
 
 	{% assign url = page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url %}
 
 	{% if page.description %}
 		{% assign description = page.description %}
-	{% elsif page.layout == "post" %} 
+	{% elsif page.layout == "gig" %} 
 		{% assign date_long_string = page.date | date_to_long_string %}
 		{% assign description = "Check out photos, audio and video from " | append: page.title | append: " at " | append: page.venue | append: " on " | append: date_long_string %}
 	{% elsif page.layout == "band" or page.layout == "venue" %}
@@ -83,6 +84,6 @@
 	<meta property="og:title" content="{{ page.title }}"/>
 	<meta property="og:url" content="{{ url }}"/>
 	<meta property="og:site_name" content="Dunedin Gig Archives{% if page.parent == 'Blog' %} - Blog {% endif %}"/>
-	<meta property="og:image" content="{{ page.image | url_encode | replace: '%2F', '/' | replace: '+', '%20' | prepend: site.baseurl | prepend: site.url }}"/> 
+	<meta property="og:image" content="{{page.image |prepend: site.baseurl | prepend: site.url}}"/> 
 	<meta property="og:type" content="article"/>
 </head>

@@ -5,7 +5,7 @@ categories:
     - space_bats_attack
     - boognish
     - koizilla
-layout: post
+
 parent: Gigs
 venue: Crown Hotel
 image: /assets/img/Koizilla%20EP%20Release%20Tour/cover.jpg

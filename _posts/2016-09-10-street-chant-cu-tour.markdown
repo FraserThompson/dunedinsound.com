@@ -6,7 +6,7 @@ categories:
     - kane_strang
     - street_chant
     - opposite_sex
-layout: post
+
 parent: Gigs
 venue: The Attic
 image: https://dunedinsound.com/assets/img/Street%20Chant%20CU%20New%20Zealand%20Tour/cover.jpg

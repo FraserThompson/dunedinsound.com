@@ -73,6 +73,7 @@
 	overflow: hidden;
 	padding: 0;
 	height: 200px;
+	position: relative;
 
 	.tile-title {
 		position: absolute;
@@ -95,11 +96,19 @@
 		}
 
 	}
+	&.center {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
 	&.bottom {
 		.tile-title {
 			bottom: 0px;
-			background-color: black;
+			background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.8) 20%, rgba(255,255,255,0));
+			background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.8) 20%, rgba(255,255,255,0));
+			background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.8) 20%, rgba(255,255,255,0));
+			background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 20%, rgba(255,255,255,0));
 		}
 	}
 
@@ -113,7 +122,7 @@
 		height: 90vh !important;
 
 		.tile-title {
-			bottom: 60px;
+			bottom: 0px;
 			min-height: auto;
 		}
 	}
@@ -157,18 +166,17 @@
 	}
 
 	&.eventhinner {
-		height: 10vh !important;
+		height: 20vh !important;
 
 		.tile-title {
-			width: 100%;
-			height: 10vh;
+			height: 100%;
+			background: linear-gradient(to right, rgba(0,0,0,01), rgba(255,255,255,0))
 		}
 	}
 
 	.bottom {
 		bottom: 10px;
 	}
-
 
 	&:not(.disabled):hover .tile {
 	@include hover-grow(1.02);
@@ -247,7 +255,6 @@
 			}
 
 			padding-left: 15px;
-			width: 80%;
 		}
 
 		.label {

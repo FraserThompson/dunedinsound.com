@@ -7,7 +7,7 @@ categories:
     - neverender
     - chugging_syrup
     - asper
-layout: post
+
 parent: Gigs
 venue: Refuel
 image: /assets/img/OUSA%20Battle%20of%20the%20Bands%202017%20Heat%203/cover.jpg

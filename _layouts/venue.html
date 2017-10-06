@@ -1,5 +1,5 @@
 ---
-layout: default-slim-header
+layout: default
 ---
 
 {% assign machine_name = page.title| downcase | machine_name %}
@@ -7,14 +7,19 @@ layout: default-slim-header
 <article class="post container-fluid" id="venue">
 
     <header class="post-header row">
+        <a href="/venues">
+            <div class="col-xs-12 divider link purple">
+                <h5>Back to venues</h5>
+            </div>
+        </a>
       <div class="banner">
         <div id="map" style="height: 100%; width: 100%; background-color: #222222;" data-lat="{{page.lat}}" data-lng="{{page.lng}}"></div>
         <div class="text">
             <center>
             <h1 class="huge-header">{{page.title}}</h1>
             <div class="social-links">
-                {% if page.facebook %}<a href="{{page.facebook}}" target="_blank">Facebook</a>{% endif %}
-                {% if page.website %}<a href="{{page.website}}" target="_blank">Website</a>{% endif %}
+                {% if page.facebook %}<a href="{{page.facebook}}" class="link light" target="_blank">Facebook</a>{% endif %}
+                {% if page.website %}<a href="{{page.website}}" class="link light" target="_blank">Website</a>{% endif %}
             </div>
             </center>
         </div>

@@ -2,9 +2,12 @@ var isotopeConfig = isotopeConfig || {};
 
 var gigsInit = function() {
 
-    smoothScroll.init({
-        selector: '.sidebar-link',
-        speed: 500,
+    var sidebar = document.getElementById('sorting-nav');
+    var year_els = document.getElementsByClassName('year');
+    var backToTop = document.getElementById('back-to-top');
+
+    window.scroll = new SmoothScroll('.sidebar-link', {
+        speed: 600,
         selectorHeader: '.header',
         easing: 'easeInOutCubic',
         before: function() {
@@ -15,7 +18,15 @@ var gigsInit = function() {
         }
     });
 
-    var year_els = document.getElementsByClassName('year');
+    window.addEventListener("scroll", function() {
+        if ((document.documentElement.scrollTop || document.body.scrollTop) > 60){
+            backToTop.classList.add('visible');
+            sidebar.classList.add('scrolled');
+        } else {
+            backToTop.classList.remove('visible');
+            sidebar.classList.remove('scrolled');
+        }
+    });
 
     gumshoe.init({
         selector: '.sidebar-link',

@@ -1,20 +1,25 @@
-<div id="waveform_wrapper" class="player" data-mp3="{{mp3_link}}" data-machinename="{{machine_name}}" data-bandindex="{{bandindex}}">
+<div id="waveform_wrapper" class="player" data-artist="{{include.artist}}" data-playerid="{{include.playerId}}">
+    {% if include.playbutton %}
+        {% include player_playbutton.html playerId=include.playerId artist=include.artist band_index=include.band_index band_name=include.band_name class=include.playbuttonclass universal=include.universal title=include.title %}
+    {% endif %}
 
-    <button title="Play/Pause" class="btn btn-success play-pause playButton" data-index="{{ forloop.index | minus: 1 }}">
-        <span class="play">▶</span>
-        <span class="pause" style="display: none">❙❙</span>
-    </button>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0"  aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
 
-    <div class="length-wrapper" style="left: 40px; display: none;">
+    <div class="title-wrapper">
+        <span class="text">
+            <span class="currentArtist"></span> - <span class="currentSong"></span>
+        </span>
+    </div>
+
+    <div class="length-wrapper" style="left: 45px;">
         <span class="currentTime"></span>
     </div>
     
-    <div class="waveform" id="waveform_{{machine_name}}"></div>
+    <div class="waveform" id="waveform_{{include.machine_name}}"></div>
 
-    <div class="title-wrapper">
-        <h5>{{band[0]}}: {{mp3.title}}</h5>
-    </div>
-    <div class="length-wrapper" style="right: 0px; display: none;">
+    <div class="length-wrapper" style="right: 0px;">
         <span class="length"></span>
     </div>
 </div>

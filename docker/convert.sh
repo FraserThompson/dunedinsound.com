@@ -8,7 +8,7 @@ do
     # Seperate title from extension
     filename=$(basename "$file" .$extension)
     # Split gig from band, ${components[1]} is band, ${components[0]} is gig 
-    IFS='-'; components=($filename); unset IFS;
+    IFS=' - '; components=($filename); unset IFS;
 
     echo "Working on $filename"
 

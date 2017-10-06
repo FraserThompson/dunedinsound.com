@@ -5,7 +5,7 @@ categories:
     - koizilla
     - asta_rangu
     - the_rothmans
-layout: post
+
 parent: Gigs
 venue: The Attic
 image: /assets/img/Trace%20Untrace%20Label%20Launch/cover.jpg

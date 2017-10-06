@@ -4,7 +4,7 @@ date: 2014-08-20 05:00:00 Z
 categories:
   - the_mentalist_collective
   - wolfman_stuey
-layout: post
+
 audio: false
 parent: Gigs
 media:

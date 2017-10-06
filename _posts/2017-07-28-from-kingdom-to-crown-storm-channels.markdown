@@ -1,0 +1,17 @@
+---
+title: "From Kingdom to Crown (Storm Channels)"
+date: 2017-07-28 07:30:00 Z
+categories:
+    - grvdggr
+parent: Gigs
+venue: None Gallery
+image: /assets/img/From%20Kingdom%20to%20Crown%20%28Storm%20Channels%29/cover.jpg
+media:
+    GRVDGGR:
+        mp3:
+            -   title: Full set
+        vid:
+            -   title: Full set
+                link: 7jYrlANLtYQ
+---
+

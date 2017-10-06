@@ -6,7 +6,7 @@ categories:
 - katharticus
 - te_hight
 - the_vortz
-layout: post
+
 parent: Gigs
 venue: Dunedin Musicians Club
 media:

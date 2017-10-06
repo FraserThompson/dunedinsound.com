@@ -3,7 +3,7 @@ title: Open Mic 30-07-14
 date: 2014-07-30 05:00:00 Z
 categories:
 - sloth_vegas
-layout: post
+
 parent: Gigs
 audio: false
 media:

@@ -10,7 +10,7 @@ categories:
     - abschaumer
     - methchrist
     - machina_rex
-layout: post
+
 parent: Gigs
 venue: Crown Hotel
 image: https://dunedinsound.com/assets/img/Dunedin%20City%20Hardcore%20Evacuation/cover.jpg

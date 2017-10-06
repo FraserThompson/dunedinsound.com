@@ -12,6 +12,7 @@ author: Campbell Walker
 header_style: center
 media: 
     L$D Fundraiser:
+        machine_name: lzd_fundraiser
 filename: 2017-07-03-extended-thoughts-on-lsd-fundraiser
 ---
 

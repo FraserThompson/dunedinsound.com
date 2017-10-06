@@ -1,0 +1,22 @@
+---
+layout: compress
+type: posts
+---
+<!DOCTYPE html>
+
+{% assign venue_machine_name = page.venue | downcase | machine_name %}
+
+<html>
+  {% include head.html %}
+  <body>
+    {% include header.html %}
+      <div class="page-wrapper gig-wrapper {% if page.fixed_header %} fixed-header {% endif %}" style="background-color: #222222;">
+          {% include gig_header.html %}
+          <div class="page-content" style="margin-left: 0px !important;">
+              {% include gig_body.html %}
+              {% include gig_footer.html %}
+          </div>
+      </div>
+    {% include footer.html %}
+  </body>
+</html>

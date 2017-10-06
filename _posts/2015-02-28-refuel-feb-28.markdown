@@ -5,7 +5,7 @@ categories:
 - jay_kill_rolling
 - sorry
 - sloth_vegas
-layout: post
+
 parent: Gigs
 media:
   Sorry:

@@ -4,7 +4,7 @@ date: 2017-05-27 02:30:00 Z
 categories:
     - barabajagal
     - the_intersectionists
-layout: post
+
 parent: Gigs
 venue: Toitu Otago Settlers Museum
 image: /assets/img/Music%20Saturdays%20at%20Toitu%2027%2F5%2F17/cover.jpg

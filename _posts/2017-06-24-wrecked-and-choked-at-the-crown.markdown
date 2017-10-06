@@ -6,7 +6,7 @@ categories:
     - carradine_choke
     - tyrannosaurus_wreck
     - methchrist
-layout: post
+
 parent: Gigs
 venue: Crown Hotel
 image: /assets/img/Wrecked%20and%20Choked%20at%20The%20Crown/cover.jpg

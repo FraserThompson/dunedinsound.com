@@ -9,16 +9,17 @@ colors:
     - "#292929"
     - "#0A0A0A"
 order: 1
+double_header: true
+sidebar: true
 description: "Check out rare and unofficial photos, videos and bootlegs of gigs in Dunedin, New Zealand from 2014 until now!"
 ---
 
-<div class="tiles container-fluid gigs">
-
-  {% assign year_change = true %}
+{% assign year_change = true %}
 
   {% include gig_sorting.html %}
-
-  <div class="row sorted-tiles">
+<div class="tiles container-fluid gigs">
+  <div class="sorted-tiles row">
+    <div class="col-xs-12">
     {% for tile in site.posts %}
 
       {% assign type = tile.url | split: '/' %}
@@ -39,7 +40,7 @@ description: "Check out rare and unofficial photos, videos and bootlegs of gigs 
           {% assign year_change = false %}
         {% endif %}
 
-        {% include gig_tile.html class="bottom thinner full-width" id=id sizing="col-xs-12" category="gigs" %}
+        {% include gig_tile.html class="bottom eventhinner full-width" id=id sizing="col-xs-12" category="gigs" %}
 
         {% assign id = false %}
 
@@ -52,5 +53,8 @@ description: "Check out rare and unofficial photos, videos and bootlegs of gigs 
         {% endif %}
 
     {% endfor %}
+    </div>
   </div>
 </div>
+
+{% include back_to_top.html %}

@@ -4,7 +4,7 @@ date: 2017-02-16 09:00:00 Z
 categories:
     - iron_mammoth
     - the_rothmans
-layout: post
+
 parent: Gigs
 venue: Inch Bar
 image: /assets/img/Iron%20Mammoth%20at%20Inch%20Bar%20with%20The%20Rothmans/cover.jpg

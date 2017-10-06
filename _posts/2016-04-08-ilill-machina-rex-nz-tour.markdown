@@ -6,7 +6,7 @@ categories:
 - ilill
 - triumphs
 - yung_natz
-layout: post
+
 parent: Gigs
 media:
   Yung Nat$:

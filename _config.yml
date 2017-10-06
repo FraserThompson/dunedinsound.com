@@ -1,6 +1,6 @@
 ---
 title: Dunedin Gig Archives
-timezone: UTC
+timezone: Pacific/Auckland
 collections:
   posts:
     title: Posts
@@ -13,7 +13,7 @@ defaults:
     path: ''
     type: posts
   values:
-    layout: post
+    layout: gig
     parent: Gigs
 - scope:
     path: ''
@@ -50,6 +50,7 @@ include:
 sass:
   style: compressed
 markdown: kramdown
-gems:
+babel_js_extensions: 'es6'
+plugins:
 - jemoji
-- jekyll-exiftag
+- jekyll-babel

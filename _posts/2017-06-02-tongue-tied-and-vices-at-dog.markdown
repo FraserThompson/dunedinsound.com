@@ -4,7 +4,7 @@ date: 2017-06-02 08:30:00 Z
 categories:
     - tongue_tied
     - vices
-layout: post
+
 parent: Gigs
 venue: Dog With Two Tails
 image: /assets/img/Tongue%20Tied%20and%20Vices%20at%20Dog%20with%20Two%20Tails/cover.jpg

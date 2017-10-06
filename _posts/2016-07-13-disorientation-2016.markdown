@@ -5,7 +5,7 @@ categories:
 - yesses
 - the_rothmans
 - boognish
-layout: post
+
 parent: Gigs
 image: https://dunedinsound.com/assets/img/DisOrientation%20The%20Gig/the_rothmans/P1060487%20(Small).jpg
 venue: Crown Hotel

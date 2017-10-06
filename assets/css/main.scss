@@ -1,9 +1,11 @@
 ---
 ---
-@import 'bootstrap.min';
-@import 'baguetteBox.min';
-@import 'perfect-scrollbar';
-@import 'leaflet';
+$backdrop-opacity: 0.8;
+@import 'vendor/bootstrap.min';
+@import 'vendor/baguetteBox.min';
+@import 'vendor/perfect-scrollbar';
+@import 'vendor/leaflet';
+@import 'vendor/lightgallery/lightgallery';
 @import 'common';
 @import 'header';
 @import 'sidebar';
@@ -12,5 +14,5 @@
 @import 'tiles';
 @import 'page_gigs';
 @import 'page_artist';
-@import 'page_post';
-@import 'blog';
+@import 'page_gig';
+@import 'page_blog';

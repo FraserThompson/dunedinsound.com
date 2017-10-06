@@ -1,0 +1,87 @@
+
+<div class="container-fluid gig" id="gig">
+	{% if page.displayed_description %}
+		<p>{{page.displayed_description}}</p>
+	{% endif %}
+	{% for band in page.media %}
+		{% assign band_machine_name = band[1].machine_name %}
+		<div class="row">
+		
+			<div class="divider sticky" style="background-color: white; color: black;">
+
+                {% if band[1].mp3 %}
+                    {% assign title = "Play " | append: band[1].band_name | append: " - " | append: band[1].mp3[0].title %}
+                    {% include player_playbutton.html playerId="_global" title=title artist=band_machine_name band_name=band.1.band_name %}
+                {% endif %}
+
+				<div class="col-xs-12" style="{% if band[1].mp3 %}margin-left: 30px;{% endif %}">
+					<h5 style="text-shadow: none;"><a class="artist-select link smoothscroll {{band[1].machine_name}}-select" title="Select" href="#{{band[1].machine_name}}">{{band[1].band_name}}</a>
+						{% for mp3 in band[1].mp3 %}
+
+							{% unless mp3.nodownload %}
+								<a class="downloadButton" title="Download MP3" href="{{mp3.generated_link}}" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
+							{% endunless %}
+
+						{% endfor %}
+
+						{% assign gigs_number = site.categories[band_machine_name].size %}
+
+						{% if gigs_number > 1 %}
+							<small><a class="link" title="Artist Page" href="/artists/{{band_machine_name}}">More gigs</a></small>
+						{% endif %}
+					</h5>
+				</div>
+			</div>
+			{% assign number_of_pics = site.data.media.gigs[page.title][band_machine_name]['images'] | size %}
+
+ 			{% if number_of_pics <= 8 %}
+				{% assign image_size_class = "col-sm-6 col-md-6 col-lg-4" %}
+ 			{% elsif number_of_pics <= 12 %}
+			 	{% assign image_size_class = "col-sm-4 col-md-4 col-lg-3" %}
+		 	{% else %}
+			 	{% assign image_size_class = "col-sm-4 col-md-4 col-lg-3" %}
+			{% endif %}
+
+			<div class="gig-media" id="{{band_machine_name}}">
+			{% if band[1].vid %}
+				{% assign number_of_vids = band[1].vid | size %}
+
+					{% if number_of_vids == 3 %}
+						{% assign vid_size_class = "col-sm-4 col-md-4 col-lg-4" %}
+					{% elsif number_of_vids == 2 %}
+						{% assign vid_size_class = "col-sm-6 col-md-6 col-lg-6" %}
+					{% elsif number_of_vids == 1 %}
+						{% assign vid_size_class = "col-sm-6 col-md-6 col-lg-6 center-block" %}
+					{% else %}
+						{% assign vid_size_class = image_size_class %}
+					{% endif %}
+					{% if number_of_pics == 0 and number_of_vids == 0 %}
+						<h3><center>Audio only</center> </h3>
+					{% endif %}
+
+					{% for vid in band[1].vid %}
+						<div class="col-xs-12 {{vid_size_class}} no-padding">
+							{% include youtube_video.html link=vid.link title=vid.title %}
+						</div>
+					{% endfor %}
+			{% endif %}
+			{% for gig_image in site.data.media.gigs[page.title][band_machine_name]['images'] %}
+				
+				{% assign gig_image_encoded = gig_image | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+				{% assign full_pic = gig_image | replace: " (Medium)","" | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+				{% assign directory = "assets/img/" | append: page.title | append: "/" | append: band_machine_name %}
+				{% assign filename = full_pic | split: '/' | last %}
+
+				<div class= "col-xs-6 {{image_size_class}} no-padding hover-img item" data-src="{{site.asset_url}}/{{full_pic}}" data-thumbnail="{{site.asset_url}}/{{gig_image_encoded}}" data-sub-html="<h4>{{band[1].band_name}}</h4>">
+					<div class="box {{page.aspectratio}}">
+						<a href="{{site.asset_url}}/{{full_pic}}" target="_blank" class="loading"><img src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="{{site.asset_url}}/{{gig_image_encoded}}" alt="{{band[1].band_name}} Image {{forloop.index}}" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy"/></a>
+					</div>
+				</div>
+			{% endfor %}
+			</div>
+		</div>
+	{% endfor %}
+
+</div>
+
+{% include back_to_top.html %}

@@ -5,8 +5,8 @@ categories:
   - clones
   - jay_kill_rolling
   - sloth_vegas
-layout: post
 audio: false
+venue: Robbie Burns
 parent: Gigs
 media:
   Jay Kill Rolling:
@@ -16,7 +16,6 @@ media:
     vid:
       - link: 1cMjYXubCHI
   Clones:
-    - nothing
-venue: Robbie Burns
+    nothing:
 ---
 

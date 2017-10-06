@@ -1,21 +1,23 @@
 <div class="container-fluid">
-    <div class="row divider-purple">
-        <div class="col-xs-12">
-            <a href="/blog"><h5>Back to latest posts</h5></a>
-        </div>
+    <div class="row divider link purple">
+        <a href="/blog"><div class="col-xs-12">
+            <h5>Back to latest posts</h5>
+        </div></a>
     </div>
-    <div class="blog-footer row">
+    <div class="blog-footer">
+    <div class="row divider">
         <div class="col-xs-12">
             <h3>Related Posts</h3>
         </div>
-        
-        <div class="col-xs-12">
-        {% if page.media %}
-            {% include related_gigs.html horizontal="true" tile_height="col-xs-4 col-sm-3" %}
-        {% else %}
-            <p><small>nothing, here's a cat</small></p>
-            <center><img src="http://loremflickr.com/320/240/cat"></center>
-        {% endif %}
-        </div>
+    </div>
+    <div class="row">
+            {% if page.media %}
+                {% include related_gigs.html horizontal="true" no_skip_first_gig="true" %}
+            {% else %}
+                <div class="col-xs-12">
+                    <p><small>nothing, here's a cat</small></p>
+                    <center><img src="http://loremflickr.com/320/240/cat"></center>
+                </div>
+            {% endif %}
     </div>
 </div>

@@ -6,7 +6,7 @@ categories:
 - master_blaster
 - markdown
 - slitzkrieg
-layout: post
+
 parent: Gigs
 media:
   Knee Splitter:

@@ -4,7 +4,7 @@ date: 2017-01-07 07:00:00 Z
 categories:
     - agent_ewok
     - idiot_prayer
-layout: post
+
 parent: Gigs
 venue: Crown Hotel
 image: /assets/img/Idiot%20Prayer%20%2B%20Guests%2C%20Maybe/cover.jpg

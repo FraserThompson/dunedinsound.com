@@ -6,7 +6,6 @@ categories:
     - russian_blue
     - the_rothmans
     - koizilla
-layout: post
 parent: Gigs
 venue: Crown Hotel
 image: /assets/img/A%20VERY%20great%20gig/cover.jpg

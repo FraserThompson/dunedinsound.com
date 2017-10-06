@@ -9,7 +9,7 @@ categories:
     - they_were_a_loner
     - jack_berry_band
     - coriolis
-layout: post
+
 parent: Gigs
 venue: Refuel
 image: /assets/img/OUSA%20Battle%20of%20the%20Bands%202017%20Heat%204/cover.jpg

@@ -12,6 +12,8 @@ h2.huge-header {
     text-transform: uppercase;
 }
 
+
+
 @media screen and (max-width: 1920px) {
 	h1.huge-header {
 		font-size: 8em !important;
@@ -47,17 +49,20 @@ h2.huge-header {
 .post-header {
 	height: 30vh;
 	overflow:hidden;
-	
+
 	.text {
 	    position: absolute;
 		width: 85%;
 		z-index: 1000;
-		margin-top: 30px;
+		margin-top: 60px;
 		padding: 10px;
-	    top: $header-height - 20;
+	    top: $header-height - 30;
 		background: rgba(0,0,0,0.8);
 		left: 50%;
     	transform: translate(-50%, 0);
+		a:hover {
+			text-decoration: none;
+		}
 	}
 
 	.banner {
@@ -65,7 +70,7 @@ h2.huge-header {
 		height: 100%;
 		overflow: hidden;
 		background-size: cover; 
-		background-position: center top;
+		background-position: center;
 
 		.overlay {
 			width: 100%;
@@ -93,10 +98,10 @@ h2.huge-header {
 
 	.post-header {
 		height: 50vh;
-		
+
 		.text {
 		    position: absolute;
-			top: 60px;
+			top: 80px;
 			width: auto;
 		}
 

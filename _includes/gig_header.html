@@ -1,38 +1,132 @@
+{% assign venue_gigs = site.posts | where: "venue", page.venue  %}
+{% assign gigs_number = venue_gigs | size %}
+
 <div class="container-fluid">
-    <div class="post-header row" style="height: 70vh;">
+    <div class="post-header row">
+        <a title ="Back to gigs" href="/gigs" class="link"><div class="col-xs-12 divider link purple">
+            <h5>Back to gigs</h5>
+        </div></a>
         {% if page.title == site.posts[0].title %}
             <span class="label label-default" style="margin-left: 15px;">LATEST GIG</span>
         {% endif %}
-        
-        {% if page.next %}
-        <div class="arrow left">
-            <a href="{{page.next.url}}" title="Next gig"><</a>
-        </div>
-        {% endif %}
 
         <div class="banner">
-            {% for image in site.data.media.gigs[page.title]['_header']['images'] %}
-                {% assign full_pic = image | replace: " (Medium)","" %}
-                {% assign directory = "assets/img/" | append: page.title | append: "/" | append: '_header' %}
-                {% assign filename = full_pic | split: '/' | last %}
-                <div class ="col-xs-12 col-sm-4 no-padding" style="height: 100%;">
-                    <a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading">
-                        <div class="banner b-lazy" data-src="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}"></div>
-                    <a/>
+            {% if site.data.media.gigs[page.title]['_header'] %}
+                {% for image in site.data.media.gigs[page.title]['_header']['images'] %}
+                    {% assign full_pic = image | replace: " (Medium)","" %}
+                    {% assign directory = "assets/img/" | append: page.title | append: "/" | append: '_header' %}
+                    {% assign filename = full_pic | split: '/' | last %}
+                    <div class ="col-xs-12 col-sm-4 no-padding" style="height: 100%;">
+                        <a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading">
+                            <div class="banner b-lazy" data-src="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}"></div>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class ="col-xs-12 no-padding" style="height: 100%;">
+                    <a href="{{site.asset_url}}/assets/img/{{page.title}}/cover.jpg" target="_blank" class="loading">
+                        <div class="banner b-lazy" data-src="{{site.asset_url}}/assets/img/{{page.title}}/cover.jpg"></div>
+                    </a>
                 </div>
-            {% endfor %}
+            {% endif %}
         </div>
         <div class="text">
             <center>
                 <h2 class="huge-header">{{page.title}}</h2>
-                {% include playlist.html orientation="horizontal" %}
-                <small>{{ page.date | date: "%d/%m/%y" }} at {{page.venue}}</small>
+                {% include gig_playlist.html orientation="horizontal" hightlight="false" class="canonical" %}
+                <small>{{ page.date | date: "%d %b %Y"}} at {% if gigs_number > 1 %}<a title="More gigs at {{page.venue}}" class="link light" href="/venues/{{venue_machine_name}}">{{page.venue}}</a>{% else %}{{page.venue}}{% endif %}</small>
             </center>
         </div>
-        {% if page.previous %}
-            <div class="arrow right">
-                <a href="{{page.previous.url}}" title="Previous gig">></a>
-            </div>
+        <div class="gig-nav hidden-xs">
+            {% if page.previous %}
+            <a href="{{page.previous.url}}" class="prev tile-wrap center" title="Older: {{page.previous.title}}">
+                <span class="icon">&#x203a;</span>
+                <span class="label label-default" style="margin-left: 0px;">OLDER</span>
+                <div class="tile-title center" style="padding-top: 40px;">
+                    <h4><small>{{page.previous.date | date: "%d %b %Y"}}</small></h4>
+                    <h3 class="name">{{ page.previous.title }}</h3>
+
+                    {% assign band_quantity = page.previous.media | size %}
+                    {% assign band_quantity_minus_one = band_quantity | minus: 1 %}
+
+                    <h6 class="artistNames">
+                        {% for band in page.previous..media %}
+                            {% if forloop.index < 8 %}
+                                <span>{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false and forloop.index != 7 %}, {% endif %}</span>
+                            {% else %}
+                                <span style="display: none;">{{band[0]}} </span>
+                            {% endif %}
+                        {% endfor %}
+                    </h6>
+
+                    <h6 class="venueName">{{page.previous.venue}}</h6>
+                </div>
+                <div class="banner b-lazy" data-src="{{site.asset_url}}/assets/img/{{page.previous.title}}/cover.jpg"></div>
+            </a>
+            {% endif %}
+            {% if page.next %}"
+            <a href="{{page.next.url}}" class="next tile-wrap center" title="Newer: {{page.next.title}}">
+                <span class="icon">&#x2039;</span>
+                <span class="label label-default" style="margin-left: 0px;">NEWER</span>
+                <div class="tile-title" style="padding-top: 40px;">
+                    <h4><small>{{page.next.date | date: "%d %b %Y"}}</small></h4>
+                    <h3 class="name">{{ page.next.title }}</h3>
+
+                    {% assign band_quantity = page.next.media | size %}
+                    {% assign band_quantity_minus_one = band_quantity | minus: 1 %}
+
+                    <h6 class="artistNames">
+                        {% for band in page.next..media %}
+                            {% if forloop.index < 8 %}
+                                <span>{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false and forloop.index != 7 %}, {% endif %}</span>
+                            {% else %}
+                                <span style="display: none;">{{band[0]}} </span>
+                            {% endif %}
+                        {% endfor %}
+                    </h6>
+
+                    <h6 class="venueName">{{page.next.venue}}</h6>
+                </div>
+                <div class="banner b-lazy" data-src="{{site.asset_url}}/assets/img/{{page.next.title}}/cover.jpg"></div>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid header sticky gig-header" style="overflow: visible;" data-scroll-header>
+    <div class="row">
+        {% assign page_title_size = page.title | size %}
+        {% assign header_font_size = "2rem" %}
+
+        {% if page.audio != false %}
+            {% if page_title_size < 20  %}
+                {% assign header_font_size = "1.8rem" %}
+            {% elsif page_title_size < 40 %}
+                {% assign header_font_size = "1.5rem" %}
+            {% elsif page_title_size < 60 %}
+                {% assign header_font_size = "1.3rem" %}
+            {% elsif page_title_size < 80 %}
+                {% assign header_font_size = "1.2rem" %}
+            {% else %}
+                {% assign header_font_size = "1rem" %}
+            {% endif %}
         {% endif %}
+        <div class="col-xs-12 {% if page.audio != false %}col-sm-1{% else %}col-sm-11{% endif %} gig-title-wrapper">
+            <h3 style="font-size: {{header_font_size}}">{{page.title}}</h3>
+        </div>
+        
+        {% if page.audio != false %}
+        <div class="col-xs-12 col-sm-10" style="padding-left: 40px;">
+            {% include player.html playerId="_global" playbutton="true" playbuttonclass="big" %}
+        </div>
+        {% endif %}
+
+        <div class="gig dropdown">
+            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="currentArtist"></span><span class="caret"></span>
+            </button>
+            {% include gig_playlist.html class="dropdown-menu" highlight="true" %}
+        </div>
     </div>
 </div>

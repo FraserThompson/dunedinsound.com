@@ -1,7 +1,7 @@
 <!--[if lte IE 9]>
 <div class="notification"><h3>This site won't work very well in your browser, get a newer one like <a href="https://www.google.com/chrome/">Google Chrome</a> or <a href="https://www.mozilla.org/en-US/firefox/new/">Mozilla Firefox</a>.</h3>
 <![endif]-->
-<footer id="footer" class="{% if page.layout == 'post' %}post{% endif %}">
+<footer id="footer" class="{% if page.layout == 'gig' %}post{% endif %}{% if page.sidebar%} sidebar {% endif %}">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-6">
@@ -9,38 +9,23 @@
 				<p>Obscure and unofficial media from gigs in Dunedin, New Zealand since 2014. <a href="/about/">Wow cool, tell me more!</a><p>
 			</div>
 			<div class="col-xs-6">
-				<h3>Contact</h3>
-				<ul>
-					<li><a href="https://www.facebook.com/dunedinsound/" target="_blank">Facebook</a></li>
-					<li><a href="mailto:fraser@dunedinsound.com">Email</a></li>
-				</ul>
+				<div class="fb-page" data-href="https://www.facebook.com/dunedinsound" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/dunedinsound" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/dunedinsound">dunedinsound.com</a></blockquote></div>
 			</div>
 			<div class="col-xs-12 footer-content">
-				<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+				<p>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a></p>
 			</div>
 		</div>
 	</div>
 </footer>
 
-<script type="text/javascript" src="/assets/js/main.js"></script>
+<script type="text/javascript" src="/assets/js/main.js?{{site.time | date: '%s%N'}}" defer></script>
 
-{% if page.layout == "post" %}
-	<script type="text/javascript" src="/assets/js/post.js"></script>
+{% if page.layout == "gig" %}
+	<script type="text/javascript" src="/assets/js/gig.js?{{site.time | date: '%s%N'}}" defer></script>
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(event) {
-			var container = document.getElementById('sidebar');
-			if (container ){
-				Ps.initialize(container, {
-					suppressScrollX: true
-				});
-			}
-    		post.waveformInit();
-    	});
-		
-		document.addEventListener('ps-scroll-down', function () {
-			blazy.revalidate();
-		})
-
+			gigInit();
+		});
 	</script>
 {% endif %}
 
@@ -69,6 +54,7 @@
 {% endif %}
 
 {% if page.parent == "Venues" %}
+	<script type="text/javascript" src="/assets/js/vendor/leaflet.js"></script>
 	<script>
 		var map_el = document.getElementById('map');
 		var map = L.map('map', {center: [map_el.dataset.lat, map_el.dataset.lng], zoom: 18, zoomControl: false});

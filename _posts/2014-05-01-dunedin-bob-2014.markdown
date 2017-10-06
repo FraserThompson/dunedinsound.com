@@ -4,7 +4,7 @@ date: 2014-05-01 05:00:00 Z
 categories:
 - shamus_of_berry_fame
 - sloth_vegas
-layout: post
+
 parent: Gigs
 media:
   Shamus of Berry Fame:

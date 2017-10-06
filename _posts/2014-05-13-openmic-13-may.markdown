@@ -5,7 +5,7 @@ categories:
 - shamus_of_berry_fame
 - sloth_vegas
 - barabajagal
-layout: post
+
 audio: false
 parent: Gigs
 media:

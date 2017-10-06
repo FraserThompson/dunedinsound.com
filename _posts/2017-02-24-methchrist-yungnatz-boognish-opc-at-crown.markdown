@@ -6,7 +6,7 @@ categories:
     - yung_natz
     - methchrist
     - old_psychiatrists_club 
-layout: post
+
 parent: Gigs
 venue: Crown Hotel
 image: /assets/img/Methchrist%2C%20Yung%20Nat%24%2C%20OPC%2C%20Boognish%20at%20The%20Crown/cover.jpg

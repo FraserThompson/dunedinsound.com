@@ -6,7 +6,7 @@ categories:
 - machina_rex
 - the_vortz
 - the_rothmans
-layout: post
+
 parent: Gigs
 venue: Dunedin Musicians Club
 media:

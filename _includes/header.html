@@ -1,31 +1,24 @@
-<nav class="header navbar navbar-default {% if include.slim or page.layout == 'default-slim-header' or page.parent == 'Artists' or page.parent == 'Venues' or new_layout == true %} slimmed {% endif %} {% unless include.not_fixed %} fixed {% endunless %} ">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.10&appId=262795227571986";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<nav class="header navbar navbar-default {% if page.fixed_header %} fixed {% endif %} {% if page.double_header %} double {% endif %}" id="site-header" data-scroll-header>
   <div class="container-fluid">
     <div class="navbar-header {% if page.layout != 'post' %} hidden-xs {% endif %}">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-          <span id="selectedArtist" style="font-size: 18px; padding-left: 10px;"></span>
-      </button>
-      {% if page.layout == "post" and new_layout != true %}
-        {% if page.audio != false %}
-        <button title="Play whole gig" class="btn btn-success big hidden-xs" id="universalPlayButton">
-            <span class="play">▶</span>
-            <span class="pause" style="display: none">❙❙</span>
-        </button>
-        {% endif %}
-        <a style="margin-left: 25px;" class="navbar-brand nohover hidden-xs">{{ page.title }} <small>{{ page.date | date: "%d/%m/%y" }}</small></a>
-      {% else %}
         <a class="navbar-brand hidden-xs" href="/"hidden-xs>Dunedin Gig Archives</a>
-      {% endif %}
     </div>
+    {% if page.searchable == true %}
+    <div class="search navbar-form">
+      <div class="input-group">
+        <input type="text" class="quicksearch form-control" id="quicksearch" placeholder="Search" autofocus>
+      </div>
+    </div>
+  {% endif %}
     <div id="top-nav" style="text-align: center">
-      {% if page.searchable == true %}
-        <div class="search navbar-form">
-          <div class="input-group">
-            <input type="text" class="quicksearch form-control" id="quicksearch" placeholder="Search" autofocus>
-          </div>
-        </div>
-      {% endif %}
       <ul class="nav navbar-nav navbar-right">
         <li class="{% if page.parent == 'Home' or page.title == 'Home' %}active{% endif %}"><a href="/">Home</a></li>
         <li class="{% if page.parent == 'Gigs' or page.title == 'Gigs' %}active{% endif %}"><a href="/gigs/">Gigs</a></li>
