@@ -29,7 +29,7 @@ keep_files:
 - assets/img
 - assets/audio
 description: |
-  Rare and unofficial recordings of cool local bands since 2014.
+  Rare and unofficial bootlegs, photos, and videos of local bands since 2014.
 baseurl: ''
 url: http://dunedinsound.com
 permalink: "/gigs/:title/"
