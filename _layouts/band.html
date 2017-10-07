@@ -2,8 +2,6 @@
 layout: default
 ---
 
-{% assign machine_name = page.title | downcase | machine_name %}
-
 <article class="band container-fluid" id="band">
   <div class="row">
       <a href="/artists">
@@ -14,15 +12,13 @@ layout: default
   </div>
   <header class="post-header row">
     <div class="banner">
-
-        {% assign number_images = site.data.media.artists[machine_name]['medium'] | size %}
-        {% assign images = site.data.media.artists[machine_name]['medium'] | sample: 4 %}
+        {% assign number_images = site.data.media.artists[page.machine_name]['medium'] | size %}
+        {% assign images = site.data.media.artists[page.machine_name]['medium'] | sample: 4 %}
 
         {% if number_images > 4 %}
           {% for image in images %}
             {% assign full_pic = image | replace: " (Medium)","" %}
             {% assign url_encoded_image = image | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
-            {% assign page.image = url_encoded_image %}
             <div class="col-xs-12 col-md-6 col-lg-3" style="height: 100%; padding: 0px;">
               <a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}" target="_blank" class="loading">
                 <div class="banner b-lazy" data-src="{{site.asset_url}}/{{url_encoded_image}}"></div>
@@ -30,9 +26,8 @@ layout: default
             </div>
           {% endfor %}
         {% else %}
-          {% for image in site.data.media.artists[machine_name]['medium'] limit: 1 %}
+          {% for image in site.data.media.artists[page.machine_name]['medium'] limit: 1 %}
             {% assign url_encoded_image = image | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
-            {% assign page.image = url_encoded_image %}
             <div class="col-sm-12" style="height: 100%; padding: 0px;">
               <a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}" target="_blank" class="loading">
                 <div class="banner b-lazy" data-src="{{site.asset_url}}/{{url_encoded_image}}"></div>
@@ -59,21 +54,21 @@ layout: default
     </div>
   </div>
   <div class="row tiles">
-    {% for post in site.categories[machine_name] %}
+    {% for post in site.categories[page.machine_name] %}
 
         <div class="col-sm-12 col-md-6 col-lg-4 tile-wrap smaller bottom" style="height: 35vh; background-color: black;">
-          <a class="tile-link box" href="{{ post.url }}#{{machine_name}}">
+          <a class="tile-link box" href="{{ post.url }}#{{page.machine_name}}">
             <div class="tile-title">
               <h4><small>{{post.date | date: "%d %b %Y"}}</small></h4>
               <h4>{{post.title}}</h4>
               <h5>{{ post.venue }}</h5>
               <h5>
-              {% if site.data.media.gigs[post.title][machine_name]['count'] > 1%}<span> {{site.data.media.gigs[post.title][machine_name]['count']}} 📷</span>{% endif %}
+              {% if site.data.media.gigs[post.title][page.machine_name]['count'] > 1%}<span> {{site.data.media.gigs[post.title][page.machine_name]['count']}} 📷</span>{% endif %}
               {% if post.media[page.title].mp3 %}<span> {{post.media[page.title].mp3.size}} 🎧</span>{% endif %}
               {% if post.media[page.title].vid %}<span> {{post.media[page.title].vid.size}} 📹</span>{% endif %}
               </h5>
             </div>
-            <div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][machine_name]['images'][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}">
+            <div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][page.machine_name]['images'][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}">
             </div>
           </a>
         </div>
