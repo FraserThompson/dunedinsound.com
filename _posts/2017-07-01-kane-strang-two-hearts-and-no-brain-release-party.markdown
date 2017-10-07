@@ -15,6 +15,12 @@ media:
     Pearl Hotel:
         nothing:
     Kane Strang:
-        nothing:
+        vid:
+            -   title: Oh so you are off I see
+                link: KmSciA59Oi8
+            -   title: My smile is extinct
+                link: _I_nnvai3YE
+            -   title: She's appealing
+                link: Y1TLPC4ER80
 ---
 
