@@ -19,6 +19,12 @@ npm install
 
 ```grunt deploy``` minifies images in the _originals folder (if any), generates an image index to _data/images.yml, syncs assets from /assets/audio and /assets/img into the _site folder, and then pushes it to S3.
 
+### Post object reference
+
+* aspectratio: Defines the aspectratio of the images. Can be threebytwo, defaults to threebyfour.
+* photo_credit: Credits someone for taking all the photos (optional)
+* audio: If this is false it indicates that no audio was recored at the gig (default true)
+
 ### Processing Assets
 
 #### Images

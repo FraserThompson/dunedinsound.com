@@ -22,7 +22,6 @@ class Artist {
     }
 
     displayArtist() {
-        blazy.revalidate();
     }
 
     selectArtist() {

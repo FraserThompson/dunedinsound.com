@@ -26,9 +26,6 @@ isotopeConfig.sortingInit = function() {
 
   }
 
-  isotopeConfig.iso.on( 'arrangeComplete', function() {
-      blazy.revalidate();
-  });
   
   isotopeConfig.sortByGroup = document.querySelector('.sort-by-button-group');
   isotopeConfig.sortByGroup.addEventListener( 'click', function( event ) {

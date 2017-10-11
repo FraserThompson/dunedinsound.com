@@ -12,13 +12,12 @@ const gigTitleWrapper = document.getElementsByClassName('gig-title-wrapper')[0];
 const banner = document.getElementsByClassName('post-header')[0];
 const dropdownMenu = document.getElementsByClassName('dropdown')[0];
 
-// Helpers and components
-{% include_relative gig_helpers.js %}
-{% include_relative components/Artist.js %}
-{% include_relative components/Player.js %}
-{% include_relative components/PlayButton.js %}
-{% include_relative components/Images.js %}
-{% include_relative components/Video.js %}
+// Components
+{% include_relative components/gig/Artist.js %}
+{% include_relative components/gig/Player.js %}
+{% include_relative components/gig/PlayButton.js %}
+{% include_relative components/gig/Images.js %}
+{% include_relative components/gig/Video.js %}
 
 function gigInit() {
     window.players = window.players || {};
@@ -28,13 +27,7 @@ function gigInit() {
     window.scroll = new SmoothScroll('.smoothscroll', {
         speed: 600,
         offset: HEADER_HEIGHT,
-        easing: 'easeInOutCubic',
-        before: function() {
-            blazy.destroy();
-        },
-        after: function() {
-            blazy.revalidate();
-        }
+        easing: 'easeInOutCubic'
     });
 
     gumshoe.init({

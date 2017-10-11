@@ -17,12 +17,12 @@ Most of the recordings are [binaural](https://en.wikipedia.org/wiki/Binaural_rec
 
 Why not just put stuff on Facebook like everyone else?
 --------------------------
-I don't think Facebook is designed for long term storage, also the interface sucks and makes it impossible to find anything again. I decided to make a more permanent and easy to use archive, the idea being that artists/fans will be able to access it decades from now.
+I don't think Facebook is designed for long term storage, also the interface sucks and makes it impossible to find anything again. This is meant to be a more permanent archive, the idea being that artists/fans will be able to access it decades from now.
 
 What equipment do you use?
 ---------------------------
 * Panasonic G85 micro four-thirds camera with vintage M42 mount lenses, usually an Asahi Pentax 50mm 1.4 (the one with the radioactive element).
-* Panasonic G6 as a b cam for multi-angle video
+* Panasonic G6 as a b-cam for multi-angle video.
 * Custom binaural headset: Two electret microphones shoved into a pair of earplugs and wired up to a battery box. They go in my ears.
 * Roland R-05 portable recorder. Built in mics are okay as a backup.
 

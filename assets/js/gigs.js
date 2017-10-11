@@ -9,13 +9,7 @@ var gigsInit = function() {
     window.scroll = new SmoothScroll('.sidebar-link', {
         speed: 600,
         selectorHeader: '.header',
-        easing: 'easeInOutCubic',
-        before: function() {
-            blazy.destroy();
-        },
-        after: function() {
-            blazy.revalidate();
-        }
+        easing: 'easeInOutCubic'
     });
 
     window.addEventListener("scroll", function() {
@@ -55,10 +49,6 @@ var gigsInit = function() {
                 percentPosition: true,
                 layoutMode: 'packery'
             });
-
-            isotopeConfig.iso.on('arrangeComplete', function() {
-                blazy.revalidate();
-            });
         
         }
 
@@ -81,7 +71,6 @@ var gigsInit = function() {
             // If we were searching revalidate
             if (searching == 1){
                 searching = 0;
-                blazy.revalidate();
             }
 
         } else {
