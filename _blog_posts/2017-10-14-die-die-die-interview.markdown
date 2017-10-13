@@ -3,14 +3,12 @@ title: "Talking to Andrew Wilson from Die! Die! Die!"
 date: 2017-10-14 07:30:00 +12
 tags:
     - interview
-image: /assets/img/blog/2017-10-14-die-die-die-interview/cover (Medium).jpg
+image: /assets/img/blog/2017-10-14-die-die-die-interview/cover%20(Medium).jpg
 description: 
 author: Fraser Thompson
 header_style: center top
-media:
-    Die! Die! Die!:
-        machine_name: die_die_die
 filename: 2017-10-14-die-die-die-interview.markdown
+description: Prolific post-punkers Die! Die! Die! have released another album, and are returning to Dunedin on Friday for a blistering show at None Gallery. I caught up with Andrew Wilson who’s handled lead vocals and guitar since he formed the band in 2003.
 ---
 
 Prolific post-punkers Die! Die! Die! have released another album, and are returning to Dunedin on Friday for a blistering show at None Gallery. I caught up with Andrew Wilson who’s handled lead vocals and guitar since he formed the band in 2003.
@@ -41,11 +39,15 @@ I’m a little bit older, maybe my voice broke? I’m not quite as screamy as I 
 
 ### This is more of a question for me because I’m kind of a big fan of Steve Albini and his work… Can you recall what it was like recording with him back on your first album?
 
-Yeah it was cool, it was good. It was a long time ago now, but it was awesome. I mean his studio in Chicago is amazing and I think he kind of built this ideal recording studio for the type of records he likes to make and respects making. Which, you know, when I was at that point in my life I kind of thought that was the only way to do things. And I mean he’s amazing. He’s got a little factory with like people coming in and out of there every day or every second day pumping out these records which he just knows how to do. Like you put a guitar amp in front of him and explain exactly how you want to do it and he’ll just get it done.
+Yeah it was cool, it was good. It was a long time ago now, but it was awesome. 
+
+I mean his studio in Chicago is amazing and I think he kind of built this ideal recording studio for the type of records he likes to make and respects making. Which, you know, when I was at that point in my life I kind of thought that was the only way to do things. And I mean he’s amazing. He’s got a little factory with like people coming in and out of there every day or every second day pumping out these records which he just knows how to do. Like you put a guitar amp in front of him and explain exactly how you want to do it and he’ll just get it done.
 
 ### So that was your first album, how did you end up with such a big time producer on your first album?
 
-I remember we just saved up money and got our first record deal and yeah, this kind of shows how much the industry has changed between then and now. We got enough money from our record label to fly to Chicago to record with Steve Albini and only have the record label release an EP in New Zealand. Like you explain that to a New Zealand record label now and they’d think you were mental. So yeah, it was like that, and obviously Steve Albini liked the Dunedin band High Dependency Unit and they’d recorded their album Fire Works there, and basically I dunno, they just kind of paved the way for us to get that idea. And, you know, I was a huge Shellac fan at the time.
+I remember we just saved up money and got our first record deal and yeah, this kind of shows how much the industry has changed between then and now: We got enough money from our record label to fly to Chicago to record with Steve Albini and only have the record label release an EP in New Zealand. Like you explain that to a New Zealand record label now and they’d think you were mental. 
+
+So yeah, it was like that, and obviously Steve Albini liked the Dunedin band High Dependency Unit and they’d recorded their album Fire Works there, and basically I dunno, they just kind of paved the way for us to get that idea. And, you know, I was a huge Shellac fan at the time.
 
 ### Nice, did you see them when they toured?
 
@@ -61,7 +63,9 @@ Yeah I dunno, we play in slightly bigger venues in Europe but in New Zealand we�
 
 ### Do you think you’re more popular overseas maybe?
 
-I don’t know about that… I mean in certain places definitely, but I wouldn’t say in general. I mean I do most interviews from New Zealand and I think people care about Die Die Die in New Zealand, but I think it’s just also such a weird… Well not a weird band, but we fit certain aspects of people's lives. Like someone will be into my band for a couple of years and they’ll grow out of it. I find that the people who stay with us are few and far between. Does that make any sense? It is a context band. I think New Zealand is a strange place for our band but I’m not resentful or anything, I love that we still get to do this, it’s really cool. There’s not many bands in the same context who tour as regularly as we’ve been able to in the last sort of 13 years.
+I don’t know about that… I mean in certain places definitely, but I wouldn’t say in general. I mean I do most interviews from New Zealand and I think people care about Die Die Die in New Zealand, but I think it’s just also such a weird… Well not a weird band, but we fit certain aspects of people's lives. Like someone will be into my band for a couple of years and they’ll grow out of it. I find that the people who stay with us are few and far between. Does that make any sense? It is a context band. 
+
+I think New Zealand is a strange place for our band but I’m not resentful or anything, I love that we still get to do this, it’s really cool. There’s not many bands in the same context who tour as regularly as we’ve been able to in the last sort of 13 years.
 
 ### You guys started out in the Dunedin scene right?
 
@@ -99,7 +103,9 @@ I think that’s one thing Die! Die! Die! has always done, like we haven’t rea
 
 ### So you went on a kind of hiatus a bit before this album but you came back out of it… What motivated you to return?
 
-The time we stopped was really only for like 9 months. I actually did an interview earlier today and they told me that we’d broken up like five times but it was only really once and not for that long. I mean I just think that with my music it’s been a big part of what I’ve done, and I’ve done it since I was like 14 years old so the idea of not doing it kind of makes me feel a bit strange. Like it’s quite funny, I make grand statements that I’m going to stop music and get my life together and become a functional member of society then I end up going a bit nuts and realizing I have to change and do it again, does that make sense?
+The time we stopped was really only for like 9 months. I actually did an interview earlier today and they told me that we’d broken up like five times but it was only really once and not for that long. 
+
+I mean I just think that with my music it’s been a big part of what I’ve done, and I’ve done it since I was like 14 years old so the idea of not doing it kind of makes me feel a bit strange. Like it’s quite funny, I make grand statements that I’m going to stop music and get my life together and become a functional member of society then I end up going a bit nuts and realizing I have to change and do it again, does that make sense?
 
 ### Yeah totally, like a month into getting your life back on track you’re like no actually…
 	
@@ -107,7 +113,7 @@ Yeah like, “Wait a second I’ve gone too far”
 
 ### Do you get the feeling that bands that make it really big overseas they’re kind of less cool in Dunedin because they’re not struggling with everyone else?
 
-I think that Dunedin can have like quite a big tall poppy syndrome… It has been for a long time since I was a musician in Dunedin. It could get quite insular, and this can be in a good way as well as a bad way, it all just depends really. I think there are like people overseas and sometimes what people like overseas isn’t always right, like some of my favorite musicians have just only released a few tiny things on Bandcamp.
+I think that Dunedin can have quite a big tall poppy syndrome… It has been for a long time since I was a musician in Dunedin. It could get quite insular, and this can be in a good way as well as a bad way, it all just depends really. I think sometimes what people like overseas isn’t always right, like some of my favorite musicians have just only released a few tiny things on Bandcamp.
 
 ### So Death and the Maiden are playing at the gig right?
 
@@ -119,3 +125,4 @@ They’re like an awesome post rock band, really really good. I mean I haven’t
 
 I think they should expect a good time, I mean my shows in Dunedin are definitely my favorite shows. I really love playing in Dunedin. I also like getting heckled from Robbie, you should put that in the paper. It’s quite funny because it never gets old.
 
+GIG:https://www.facebook.com/events/284205295395393/
