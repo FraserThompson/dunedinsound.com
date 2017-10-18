@@ -55,7 +55,7 @@ Yeah I saw them in Dunedin and Auckland as well. They were a huge influence on m
 
 ### I don’t know if you’d agree but I think you’re a pretty big band by NZ standards, you’ve played with Slint and the Brian Jonestown Massacre, yet this tour is pretty low key… The gig is only $15 and you’re playing little DIY venues like None Gallery. Was that a conscious decision?
 
-I think if we played anywhere bigger nowhere would come.
+I think if we played anywhere bigger nobody would come.
 
 ### Overseas you’ve played like pretty big festivals though right?
 

@@ -22,6 +22,18 @@
         font-weight: bold;
     }
 
+    .gigs {
+      h1, h2, h3, h4, h5, h6, p, span {
+        color: white;
+      }
+      .artistNames {
+        display: inherit;
+        max-width: 740px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
 }
 
 .label-blog {

@@ -1,0 +1,8 @@
+<div style="height: 20vh; margin-bottom: 60px;" >
+{% for tile in site.posts %}
+    {% if tile.title == include.gig_title %}
+        {% include gig_tile.html class="bottom eventhinner full-width" sizing="col-xs-12" category="gigs" %}
+        {% break %}
+    {% endif %}
+{% endfor %}
+</div>
