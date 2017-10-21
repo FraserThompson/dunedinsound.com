@@ -20,7 +20,7 @@ media:
 description: The third annual Vogel Street Party happened yesterday and was a hell of a lot of fun despite decidedly dodgy weather. Check out these photos and videos!
 ---
 
-Vogel Street Party happened again this year for the third time. Families, students alike all flocked to the old warehouse precinct to experience music, art, food and more.
+Vogel Street Party happened again this year for the third time. Families, students alike (but mostly families) all flocked to the old warehouse precinct to experience music, art, food and more.
 
 A sudden thunderstorm hit at around 6:30pm and scared away the weak, but the true Vogel Street Partiers didn't mind hanging out under cover until the weather subsided, or had anticipated meteorological upset and brought umbrellas.
 
