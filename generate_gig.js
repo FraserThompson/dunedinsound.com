@@ -9,17 +9,19 @@
     HAIL OUR COMPUTER OVERLORDS
 
 
-    Usage: node generate_gig.js [date] [gig title] [venue title] [artist1] [artist2] [artist3] ...
+    Usage: node generate_gig.js
 */
 
 var fs = require('fs');
+var rl = require("readline");
 
 /*
-    Turns an artist name into a machine artist name using the method we've settled on.
-    Params: String (artist name)
+    Turns an artist or gig name into a machine artist or gig name using the method we've settled on.
+    Params: String (artist name), character to replace spaces with (defaults to _)
 */
-function machine_name(string) {
-    return string.replace(/[!,.']/g,'').replace(' ', '_').replace('$', 'z');
+function machine_name(string, space_character) {
+    space_character = space_character || "_";
+    return string.toLowerCase().replace(/[!,.']/g,'').replace(/\s/g, space_character).replace(/[$]/g, 'z');
 }
 
 /*
@@ -45,9 +47,9 @@ function create_file_skeleton(gig, artists) {
 
 /*
     Creates a template YAML file populated with all the artists and venue.
-    Params: Date, Gig title, venue name, array of artists.
+    Params: Date, Gig title, venue name, array of artists, callback for when it's done
 */
-function create_yaml(date, gig, venue, artists) {
+function create_yaml(date, gig, venue, artists, callback) {
     var date = date + " 08:30:00 Z";
 
     var template = `---
@@ -70,15 +72,43 @@ media:
 ---
 `
 
-    var filename = date.split(" ")[0] + "-" + gig.replace(' ', '-') + ".markdown";
+    var filename = date.split(" ")[0] + "-" + machine_name(gig, '-') + ".markdown";
 
     fs.writeFile("./_posts/" + filename, template, function(err) {
         if(err) return console.log(err);
     
         console.log("Created directory structure and YAML for " + gig + " at " + venue);
+        callback();
     }); 
 }
 
-// calls the functions with command line params
-create_file_skeleton(process.argv[3], process.argv.slice(5));
-create_yaml(process.argv[2], process.argv[3], process.argv[4], process.argv.slice(5));
+function main() {
+    var d = new Date();
+    var prompts = rl.createInterface(process.stdin, process.stdout);
+    var default_date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getDate() - 1);
+
+    console.log("Hello Fraser! Let me help you with that.");
+    console.log("------------- GIG METADATA -------------");
+
+    prompts.question("Date (default: " + default_date + "):", function (date) {
+        if (!date) date = default_date;
+        
+        prompts.question("Title: ", function (gig) {
+            if (!gig) console.log("You didn't enter anything...");
+            
+            prompts.question("Venue: ", function (venue) {
+                if (!venue) console.log("You didn't enter anything...");
+
+                prompts.question("Artists (comma separated): ", function (artists) {
+                    artists = artists.split(",");
+                    create_file_skeleton(gig, artists);
+                    create_yaml(date, gig, venue, artists, function() {
+                        process.exit();
+                    });
+                });
+            });
+        });
+    });
+}
+
+main();
