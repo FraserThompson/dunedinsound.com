@@ -14,7 +14,8 @@ media:
             vid:
                 -   link: W1etanJjjK8
                 -   link: 9VaQ7m4-u0Y
-                -   link: ehmA8ngAIuc
+                -   title: Catatonic Death Trance
+                    link: ehmA8ngAIuc
     Sewage:
             mp3:
                 -   title: Full Set
