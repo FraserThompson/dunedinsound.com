@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "wavesurfer.js": "^2.0.0-beta02"
+  },
   "devDependencies": {
     "fs": "0.0.2",
     "glob": "^7.1.1",

@@ -288,6 +288,12 @@ $gig-header-height: 80vh;
       margin-top: 5px;
     }
   }
+
+  .gig-player-wrapper {
+    padding-left: 40px;
+    padding-right: 50px;
+  }
+
   .title-wrapper {
     padding-right: 90px;
   }
@@ -306,6 +312,11 @@ $gig-header-height: 80vh;
     &.scrolled {
       height: ($header-height + 20);
     }
+
+    .gig-player-wrapper {
+      padding-right: 0px;
+    }
+  
   }
   .gig .divider {
     top: $header-height + 20;

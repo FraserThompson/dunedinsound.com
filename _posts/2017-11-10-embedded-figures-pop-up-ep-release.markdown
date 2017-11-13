@@ -12,6 +12,7 @@ media:
     Regnoceros:
             mp3:
                 -   title: Full Set
+                    nodownload: true
             vid:
                 -   link: 6RDwc7UT_y8 
     Fuckault:
@@ -20,8 +21,6 @@ media:
             vid:
                 -   link: cKDIHW0rEQ0
     Embedded Figures:
-            mp3:
-                -   title: Full Set
             vid:
                 -   link: _Ig1R6wYfTs
                 -   link: CuFzVTOYfws
