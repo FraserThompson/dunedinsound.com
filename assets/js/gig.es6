@@ -101,7 +101,7 @@ function gigInit() {
             backToTop.classList.remove('visible');
         }
         // Hide and show the header when we scroll to the first artist
-        if ((document.documentElement.scrollTop || document.body.scrollTop) > banner.offsetTop + banner.offsetHeight - 5){
+        if ((document.documentElement.scrollTop || document.body.scrollTop) > (banner.offsetTop + banner.offsetHeight) - 30){
             header.classList.add("scrolled");
             gigTitleWrapper.style.opacity = 1;
             dropdownMenu.style.opacity = 1;

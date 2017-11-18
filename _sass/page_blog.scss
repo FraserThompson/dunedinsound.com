@@ -46,6 +46,18 @@
     margin-bottom: 20px;
 }
 
+.blog-post {
+  margin-bottom: 60px;
+  margin-top: 60px;
+}
+
+.blog-image-header {
+	background: #00a8c5;
+	background: -webkit-linear-gradient(right,#00a8c5,#d74177);
+	background: -moz-linear-gradient(right,#00a8c5,#d74177);
+	background: linear-gradient(right,#00a8c5,#d74177);
+}
+
 .blog-footer {
     min-height: 300px;
 }

@@ -52,6 +52,7 @@ class Player {
 
   play() {
     this.element.classList.add('active');
+    this.currentArtist.play();
     window.buttons['_global'].setState(true);
     window.buttons[this.currentArtist.machine_name].setState(true);
     this.currentTime.style.display = "block";
@@ -59,17 +60,20 @@ class Player {
   }
 
   pause() {
+    this.currentArtist.pause();
     window.buttons['_global'].setState(false);
     window.buttons[this.currentArtist.machine_name].setState(false);
   }
 
   stop() {
+    this.currentArtist.stop();
     this.currentTime.style.display = "none";
     this.totalLength.style.display = "none";
   }
 
   finish() {
     if (!this.prelim) {
+      this.currentArtist.stop();
       this.next(true);
     }
   }
@@ -168,6 +172,10 @@ class Player {
   }
 
   loadArtist(artist, prelim, play, trackIndex) {
+    if (this.currentArtist) {
+      this.currentArtist.stop();
+      window.buttons[this.currentArtist.machine_name].setState(false);
+    }
     this.currentArtist = artist;
     this.nextArtist = this.currentArtist.next ? this.currentArtist.nextAudio() : null;
     this.prevArtist = this.currentArtist.prev ? this.currentArtist.prevAudio() : null;
