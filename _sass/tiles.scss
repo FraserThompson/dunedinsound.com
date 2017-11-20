@@ -4,6 +4,7 @@
             transition: opacity 300ms ease-in-out;
 			 max-width: 100%;
 			 opacity: 0;
+			 background-color: black;
 }
 .b-lazy.b-loaded {
                opacity: 1;
