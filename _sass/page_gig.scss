@@ -161,7 +161,7 @@ $gig-header-height: 80vh;
     top: 30px;
     padding-bottom: 30px;
 	  opacity: 0.5;
-    z-index: 1039;
+    z-index: 998;
     cursor: pointer;
 
     transition: opacity .2s;
@@ -241,7 +241,7 @@ $gig-header-height: 80vh;
   right: 0px !important;
   left: auto;
 	height: 100vh;
-	overflow-y: auto;
+  overflow-y: auto;
 }
 
 .gig.dropdown {
