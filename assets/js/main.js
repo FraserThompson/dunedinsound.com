@@ -85,7 +85,8 @@ var speak = debounce(function() {
 
 // this sets up the lazy loading observer
 var observer = lozad('.b-lazy', {
-    threshold: 0.2,
+    rootMargin: '10px 0px',
+    threshold: 0,
     load: function(element) {
 
         var parent = element.parentNode;
