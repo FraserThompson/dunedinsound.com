@@ -27,6 +27,8 @@ npm install
 
 ### Processing Assets
 
+To start you should run `grunt generate` to generate the directory structure for a gig in the _originals folder.
+
 #### Images
 Images from a gig go in _originals/img/[gig name] and then in subdirectories for each artist. There needs to be a gig cover named cover.jpg in the gig directory and artist covers named band_cover.jpg in each artist directory.
 
@@ -48,31 +50,24 @@ Protip: Copy the directory structure from images with `xcopy "./_originals/img/[
 
 Because Jekyll serve gets really slow when copying multiple gigabytes of assets when building/serving I've had to roll my own solution.
 
-The /assets/img and /assets/audio directories are excluded from Jekyll. Instead I have a grunt task which generates a YAML file containing all the image paths. This is then imported and can be accessed under site.data.images within Jekyll. This way I can easily add images without having to manually enter each filename, but I don't have to include the images as part of Jekyll or mess around with slow for loops to find them.
+The `/assets/img` and `/assets/audio` directories are excluded from Jekyll. Instead I have a grunt task which generates a YAML file containing all the image paths. This is then imported and can be accessed under `site.data.images` within Jekyll. This way I can easily add images without having to manually enter each filename, but I don't have to include the images as part of Jekyll or mess around with slow for loops to find them.
 
-For deployment, the large assets are synced manually from /assets/img and /assets/audio to _site. For development assets are loaded from the path specified by asset_url in _config.yml instead of being served locally. This means images won't be visible when devinng unless they've already been pushed to live, but I think that's okay.
+For deployment, the large assets are synced manually from `/assets/img` and `/assets/audio` to `_site`.
 
-Previously I was letting Jekyll take care of the assets and iterating site.static_files in a for loop to find the images the page needed (eg. for each image in static files display the ones where the post title is in the path). This wasn't great because it meant my build times were like 30 seconds. With this new solution I can just run grunt imageinfo whenever images change and my layouts will access the object they need in YAML structure instead of having to iterate over the complete set multiple times.
+Previously I was letting Jekyll take care of the assets and iterating `site.static_files` in a for loop to find the images the page needed (eg. for each image in static files display the ones where the post title is in the path). This wasn't great because it meant my build times were like 30 seconds. With this new solution I can just run `grunt images` whenever images change and my layouts will access the object they need in YAML structure instead of having to iterate over the complete set multiple times.
+
+TODO: Make this more efficient (it's getting a bit cumbersome as time goes on)
+
+#### What's the Dockerfile for?
+
+It's a container which is used to process audio assets and generate waveforms.
 
 ### Grunt tasks
 
-* deploy: Runs s3_website push to push the current _site directory to S3.
+* deploy: Runs s3_website push to push the current `_site` directory to S3.
 * code-deploy: Builds jekyll then deploys, no asset stuff
 * production-build: Resizes images, syncs assets, builds with jekyll but doesn't deploy to S3
 * images: Resizes images and generates the media info for them
 * audio: Launches the vagrant VM, runs convert.sh to trim silence and export mp3's and waveforms, then copies the results into the assets folder.
-
-### Provisioning a VM which can generate waveforms
-
-The included Vagrantfile uses Hyper-V so you'll have to be running Windows and have it enabled. You'll also need to make a public network interface in the Hyper-V config and choose to use it when Vagrant asks at `vagrant up`.
-
-Gotcha: When it prompts you for SMB password/user don't type them for like 10 minutes or it'll give you some error about locks. Apparently it takes longer to get ready.
-
-Then run these inside the VM:
-
-```
-sudo apt-get update
-sudo apt-get install cifs-utils ruby-dev lame sox libsndfile1-dev
-sudo gem install json-waveform -- --with-cflags=-Wno-error=format-security
-sudo mount -t cifs -o username=Fraser,uid=$USER,gid=$USER //FRASER-FRASER/dev2 ~/sync
-```
+* dev: Runs jekyll serve with the right params
+* generate: Generates a gig skeleton in the `_originals` folder

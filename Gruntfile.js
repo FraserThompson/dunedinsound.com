@@ -144,6 +144,11 @@ module.exports = function(grunt) {
         command: 'jekyll serve --limit 3',
         stdout: true,
         stderr: true
+      },
+      generate: {
+        command: 'node generate_gig.js',
+        stdout: true,
+        stderr: true
       }
     },
     copy: {
@@ -229,4 +234,5 @@ module.exports = function(grunt) {
   grunt.registerTask('code-deploy', ['jekyll', 'exec:s3_push']);
   grunt.registerTask('deploy', ['exec:s3_push']);
   grunt.registerTask('dev', ['exec:dev']);
+  grunt.registerTask('generate', ['exec:generate']);
 };
