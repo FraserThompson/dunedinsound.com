@@ -28,9 +28,9 @@ What equipment do you use?
 
 Are you making money off this?
 ------------------------------
-No, I do it because I enjoy doing it. 
+No, I do it because I enjoy doing it. There's literally zero monetization going on, no ads or sponsorship or anything.
 
-It does cost money to host all this stuff, if you want to help pay for that then you can donate via PayPal:
+It does cost money to host all this stuff. Currently that's only around $10 a month but it will grow as I document more gigs. If you want to help cover the cost then you can donate via PayPal:
 
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">
@@ -39,8 +39,8 @@ It does cost money to host all this stuff, if you want to help pay for that then
 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form>
 
-I've got something to say
+I've got something to say!
 --------------------------
-Want uncompressed images or copies of videos? Or something else? You can contact me here: <a href="mailto:fraser@dunedinsound.com">fraser@dunedinsound.com</a>
+Want uncompressed images or copies of videos? Want me to come to your gig? Or something else? You can contact me here: <a href="mailto:fraser@dunedinsound.com">fraser@dunedinsound.com</a>
 
 <h2>Okay <a onmouseover="speak();" class="trippy" href="/">cool</a></h2>

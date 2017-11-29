@@ -23,7 +23,7 @@ module ArtistVenueGenerator
     end
 
     def machine_name(input)
-      return input.to_s.downcase.gsub(Regexp.union({' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => '', "'" => ''}.keys), {' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => '', "'" => ''})
+      return input.to_s.downcase.gsub(Regexp.union({' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => '', "'" => '', "&" => "and"}.keys), {' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => '', "'" => '', "&" => "and"})
     end
 
     def url_encode(input)
