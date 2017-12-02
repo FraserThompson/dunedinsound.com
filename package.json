@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {
-    "wavesurfer.js": "^2.0.0-beta02"
-  },
   "devDependencies": {
     "fs": "0.0.2",
     "glob": "^7.1.1",
@@ -16,6 +13,8 @@
     "grunt-responsive-images": "^0.1.9",
     "grunt-sync": "^0.6.2",
     "grunt-uncss": "^0.6.1",
+    "mkdirp": "^0.5.1",
+    "sharp": "^0.18.4",
     "yamljs": "^0.2.8"
   },
   "scripts": {

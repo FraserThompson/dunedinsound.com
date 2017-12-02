@@ -127,6 +127,11 @@ module.exports = function(grunt) {
       }
     },
     exec: {
+      images: {
+        command: 'node _scripts/images.js',
+        stdout: true,
+        stderr: true
+      },
       s3_push: {
         command: 's3_website push',
         stdout: true,
@@ -146,8 +151,9 @@ module.exports = function(grunt) {
         stderr: true
       },
       generate: {
-        command: 'node generate_gig.js',
+        command: 'node _scripts/generate_gig.js',
         stdout: true,
+        stdin: true,
         stderr: true
       }
     },
@@ -228,7 +234,7 @@ module.exports = function(grunt) {
     });
   });
 
-  grunt.registerTask('images', ['responsive_images', 'index-media']);
+  grunt.registerTask('images', ['exec:images', 'index-media']);
   grunt.registerTask('audio', ['exec:docker_audio', 'copy:audio']);
   grunt.registerTask('production-build', ['index-media', 'jekyll', 'sync']);
   grunt.registerTask('code-deploy', ['jekyll', 'exec:s3_push']);
