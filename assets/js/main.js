@@ -92,8 +92,10 @@ var observer = lozad('.b-lazy', {
         var parent = element.parentNode;
 
         element.onload = function() {
-            element.classList.add('b-loaded');
-            parent.classList.remove('loading');
+            setTimeout(function() {
+                element.classList.add('b-loaded');
+                parent.classList.remove('loading');
+            }, 100) // a hard coded delay on image loading? ugh gross who put this here
         }
 
         if (element.tagName == "IMG") {

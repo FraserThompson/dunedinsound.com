@@ -6,6 +6,7 @@ categories:
     - bus_puncher
     - swallows_nest
     - old_psychiatrists_club
+better_placeholders: true
 parent: Gigs
 venue: Crown Hotel
 media:
@@ -35,5 +36,5 @@ media:
             vid:
                 -   link: mUHG_Jd365g
                 -   link: VdDWu4bUGNI
-                -   link: zk3-RXDpl4
+                -   link: Azk3-RXDpl4
 ---

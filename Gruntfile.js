@@ -12,35 +12,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-uncss');
   grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('simple_copy', 'Copy files simply.', function() {
-    var done = this.async();
-
-    glob(grunt.config('simple_copy.src'), {}, function(err, matches) {
-      if (err){
-        grunt.log.write('Error! ' + err);
-      } else {
-        matches.forEach(function(file) {
-          var fileName = file.split('/')[1];
-          grunt.log.write('Copying: ' + file + ' to ' + grunt.config('simple_copy.dest'));
-          fs.createReadStream(file).pipe(fs.createWriteStream(grunt.config('simple_copy.dest') + fileName));
-        })
-      }
-      done();
-    })
-
-  });
-
   // Project configuration.
   grunt.initConfig({
     uncss: {
       dist: {
         options: {
-          htmlroot: '_site',
-          ignoreSheets : [/fonts.googleapis/, 'perfect-scrollbar.min.css', 'leaflet.css', 'main.css'],
-
+          htmlroot: '_site'
         },
         files: {
-          'assets/css/bootstrap_uncss.scss': ['_site/index.html', '_site/gigs/**/index.html', '_site/artists/**/index.html', '_site/venues/**/index.html', '_site/about/index.html']
+          'assets/css/tidy.scss': ['_site/index.html', '_site/gigs/**/index.html', '_site/artists/**/index.html', '_site/venues/**/index.html', '_site/about/index.html']
         }
       }
     },
