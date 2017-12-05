@@ -83,20 +83,18 @@ var speak = debounce(function() {
     speechSynthesis.speak(msg);
 }, 500, true);
 
+var onImageLoad = function() {
+    this.classList.add('b-loaded');
+    this.parentNode.classList.remove('loading');
+}
+
 // this sets up the lazy loading observer
 var observer = lozad('.b-lazy', {
     rootMargin: '300px 0px',
     threshold: 0,
     load: function(element) {
 
-        var parent = element.parentNode;
-
-        element.onload = function() {
-            setTimeout(function() {
-                element.classList.add('b-loaded');
-                parent.classList.remove('loading');
-            }, 100) // a hard coded delay on image loading? ugh gross who put this here
-        }
+        element.onload = onImageLoad;
 
         if (element.tagName == "IMG") {
             element.src = element.getAttribute('data-src')
@@ -104,8 +102,6 @@ var observer = lozad('.b-lazy', {
             element.style.backgroundImage = "url('" + element.getAttribute('data-src') + "')"
             element.onload(); // for some reason this needs calling manually
         }
-
-
     }
 });
 observer.observe();

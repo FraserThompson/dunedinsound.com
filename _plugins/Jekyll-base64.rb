@@ -73,7 +73,7 @@ module Jekyll
             if File.exist?(@abspath)
 
                 # Open file in read mode
-                image = File.open(@abspath, "r")
+                image = File.open(@abspath, "rb")
 
                 # Get the content of the file as a string
                 imgstring = ""
