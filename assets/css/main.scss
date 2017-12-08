@@ -1,8 +1,9 @@
 ---
 ---
 $backdrop-opacity: 0.8;
-@import 'vendor/bootstrap.min';
-@import 'vendor/baguetteBox.min';
+//@import 'vendor/bootstrap.min';
+//@import 'vendor/baguetteBox.min';
+@import 'vendor/bootstrap.uncss'; // for some reason uncss does bagguettebox and bootstrap and not the rest so we're just rolling with it
 @import 'vendor/perfect-scrollbar';
 @import 'vendor/leaflet';
 @import 'vendor/lightgallery/lightgallery';

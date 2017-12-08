@@ -1,7 +1,4 @@
-var grunt = require('grunt')
-  , fs = require('fs')
-  , glob = require('glob')
-  , YAML = require('yamljs');
+var grunt = require('grunt');
 
 module.exports = function(grunt) {
   
@@ -17,10 +14,12 @@ module.exports = function(grunt) {
     uncss: {
       dist: {
         options: {
-          htmlroot: '_site'
+          htmlroot: '_site',
+          ignore: [ '.open>.dropdown-menu', '.open>a'],
+          ignoreSheets: [/fonts.googleapis/]
         },
         files: {
-          'assets/css/tidy.scss': ['_site/index.html', '_site/gigs/**/index.html', '_site/artists/**/index.html', '_site/venues/**/index.html', '_site/about/index.html']
+          '_sass/vendor/bootstrap.uncss.scss': ['_site/*.html', '_site/gigs/**/index.html', '_site/artists/**/index.html', '_site/venues/**/index.html', '_site/about/index.html', '_site/blog/**/index.html']
         }
       }
     },
@@ -135,6 +134,12 @@ module.exports = function(grunt) {
         stdout: true,
         stdin: true,
         stderr: true
+      },
+      index_media: {
+        command: 'node _scripts/index-media.js',
+        stdout: true,
+        stdin: true,
+        stderr: true
       }
     },
     copy: {
@@ -154,67 +159,8 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('index-media', function(){
-    var done = this.async();
-    glob('assets/**/**/*.{jpg,JPG,mp3}', {}, function(err, files){
-      var existingYml = fs.readFileSync("_data/media.yml").toString();
-
-      // this demarcates auto-generated values
-      // from manually added values for things like
-      // externally hosted images
-      var a = existingYml.split("#!#!#!#!#");
-      existingYml = a[0].trim();
-
-      var data = { 'gigs': {}, 'artists': {}, 'audio': {} };
-      files.forEach(function(file){
-        var path_components = file.split('/')
-        var gig = path_components[2];
-        var band = path_components[3];
-
-        // Gig images
-        if (file.indexOf('cover') == -1 && file.indexOf("(Medium)") !== -1) {
-
-          if (!(band in data['artists'])) {
-            data['artists'][band] = {'small': [], 'medium': []};
-          }
-
-          if (!(gig in data['gigs'])) {
-            data['gigs'][gig] = {};
-          }
-
-          if (!(band in data['gigs'][gig])) {
-            data['gigs'][gig][band] = {};
-          }
-
-          data['artists'][band]['medium'].push(file);
-
-          data['gigs'][gig][band]['images'] = data['gigs'][gig][band]['images'] || []
-          data['gigs'][gig][band]['images'].push(file);
-          data['gigs'][gig][band]['count'] = data['gigs'][gig][band]['count'] + 1 || 1;
-        }
-
-        // Artist images
-        if (file.indexOf("(Small)") !== -1) {
-
-          if (!(band in data['artists'])) {
-            data['artists'][band] = {'small': [], 'medium': []};
-          }
-
-          data['artists'][band]['small'].push(file);
-        }
-      });
-
-      var yamlString = YAML.stringify(data);
-      var yamlHeading = "\n\n\n#!#!#!#!# Do not edit below this line.\n";
-      yamlHeading += "# Generated automatically using `grunt imageinfo` on " + new Date() + "\n\n";
-      
-      fs.writeFileSync("_data/media.yml", existingYml + yamlHeading + yamlString);
-      console.log('done');
-      done();
-    });
-  });
-
-  grunt.registerTask('images', ['exec:images', 'index-media']);
+  grunt.registerTask('images', ['exec:images']);
+  grunt.registerTask('index_media', ['exec:index_media']);
   grunt.registerTask('audio', ['exec:docker_audio', 'copy:audio']);
   grunt.registerTask('production-build', ['jekyll', 'sync']);
   grunt.registerTask('code-deploy', ['jekyll', 'exec:s3_push']);

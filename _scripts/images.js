@@ -12,7 +12,7 @@ const large_width = 1800
 const large_quality = 85
 const large_suffix = ""
 
-const tiny_width = 90
+const tiny_width = 42
 const tiny_quality = 20
 const tiny_suffix = " (Tiny)"
 
