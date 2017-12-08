@@ -47,11 +47,44 @@ var gigsInit = function() {
             isotopeConfig.iso = new Isotope( '.sorted-tiles', {
                 itemSelector: '.isotope-item',
                 percentPosition: true,
-                layoutMode: 'packery'
+                layoutMode: 'packery',
+                getSortData: {
+                    name: '.name',
+                    month: '[data-month]',
+                    year: '[data-year]'
+                },
             });
         
         }
 
+        // Remove years which aren't in search results
+        isotopeConfig.iso.on('layoutComplete', function(results) {
+
+            var years = [];
+            var months = [];
+
+            // Iterate results to get months/years from them
+            results.forEach(function(thing) {
+                var year = thing.sortData.year;
+                var month = thing.sortData.month
+
+                if (years.indexOf(year) < 0) years.push(year);
+                if (months.indexOf(month) < 0) months.push(month);
+            });
+
+            // Hide all the years in the nav which aren't in results
+            var year_els = document.getElementsByClassName('year');
+            for (var i = 0; i < year_els.length; i++) {
+
+                var thing = year_els[i];
+
+                if (years.indexOf(thing.dataset.year) >= 0){
+                    thing.style.display = "block";
+                } else {
+                    thing.style.display = "none";
+                }
+            }
+        })
     }
 
     isotopeConfig.quicksearch = document.getElementById('quicksearch');
@@ -60,7 +93,14 @@ var gigsInit = function() {
 
     isotopeConfig.searchHandler = function() {
 
+        // blanking the search
         if (quicksearch.value.trim() == "") {
+
+            // Show all the years again
+            var year_els = document.getElementsByClassName('year');
+            for (var i = 0; i < year_els.length; i++) {
+                year_els[i].style.display = "block";
+            }
 
             // Stop using isotope
             if ('iso' in isotopeConfig && isotopeConfig.iso != null) {
@@ -69,10 +109,9 @@ var gigsInit = function() {
             }
 
             // If we were searching revalidate
-            if (searching == 1){
-                searching = 0;
-            }
+            if (searching == 1) searching = 0;
 
+        // actually searching something
         } else {
 
             // If we're searching init isotope

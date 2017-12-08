@@ -1,4 +1,4 @@
-<div class="isotope-item {{include.sizing}} tile-wrap {% if include.class != false %}{{include.class}}{% endif %}" style="background-color: {{ page.colors | sample }}" id="{{include.id}}">
+<div class="isotope-item {{include.sizing}} tile-wrap {% if include.class != false %}{{include.class}}{% endif %}" style="background-color: {{ page.colors | sample }}" id="{{include.id}}" data-year="{{include.year}}" data-month="{{include.month}}">
 	{% if include.label %}<span class="label label-default hidden-xs ">{{include.label}}</span>{% endif %}
 	<a class="box gridItem {{include.category}}" href="{{ tile.url | prepend: site.baseurl }}">
 	{% if include.class == "feature" %}
