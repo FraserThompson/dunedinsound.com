@@ -6,6 +6,7 @@ categories:
     - fuckault
     - blueandblack_tones
     - william_henry_meung
+better_placeholders: true
 parent: Gigs
 venue: Toitu Otago Settlers Museum
 audio: false

@@ -3,6 +3,15 @@ glob = require("glob"),
 mkdirp = require("mkdirp"),
 fs = require('fs'),
 path = require('path');
+commandLineArgs = require('command-line-args')
+
+const optionDefinitions = [
+    { name: 'tiny', alias: 't', type: Boolean, defaultValue: true},
+    { name: 'large', alias: 'l', type: Boolean, defaultValue: true},
+    { name: 'medium', alias: 'm', type: Boolean, defaultValue: true}
+]
+
+const options = commandLineArgs(optionDefinitions)
 
 const medium_width = 800
 const medium_quality = 70
@@ -28,20 +37,26 @@ glob("_originals/img/**/*.{JPG,jpg}", function (er, files) {
         let large_output = output_path + large_suffix + ".jpg";
         let tiny_output = output_path + tiny_suffix + ".jpg";
 
-        sharp(file)
-            .resize(tiny_width)
-            .jpeg({quality: tiny_quality})
-            .toFile(tiny_output)
+        if (options.tiny) {
+            sharp(file)
+                .resize(tiny_width)
+                .jpeg({quality: tiny_quality})
+                .toFile(tiny_output)
+        }
 
-        sharp(file)
-            .resize(medium_width)
-            .jpeg({quality: medium_quality})
-            .toFile(medium_output)
+        if (options.medium) {
+            sharp(file)
+                .resize(medium_width)
+                .jpeg({quality: medium_quality})
+                .toFile(medium_output)
+        }
 
-        sharp(file)
-            .resize(large_width)
-            .jpeg({quality: large_quality})
-            .toFile(large_output)
+        if (options.large) {
+            sharp(file)
+                .resize(large_width)
+                .jpeg({quality: large_quality})
+                .toFile(large_output)
+        }
 
     })
 })
