@@ -24,6 +24,19 @@ function machine_name(string, space_character) {
     return string.toLowerCase().replace(/[!,.']/g,'').replace(/\s/g, space_character).replace(/[$]/g, 'z');
 }
 
+function create_artist_page(artist) {
+
+    var artistTemplate = `---
+title: ${artist}
+permalink: "/artists/${machine_name(artist)}/"
+layout: band
+parent: Artists
+---
+`
+    fs.writeFileSync('./_pages/artists/' + machine_name(artist) + '.md', artistTemplate);
+    console.log("Created artist page for " + artist);
+}
+
 /*
     Creates the directories in the _originals folder for images and audio to go into.
     Params: Gig title, array of artists
@@ -37,28 +50,31 @@ function create_file_skeleton(gig, artists) {
     artists.forEach (function (artist) {
         var artistImgPath = gigImagePath + "/" + machine_name(artist);
         var artistAudioPath = gigAudioPath + machine_name(artist); 
+        var artistPagePath = './_pages/artists/' + machine_name(artist) + '.md';
 
         if (!fs.existsSync(artistImgPath)) fs.mkdirSync(artistImgPath);
 
         if (!fs.existsSync(artistAudioPath)) fs.mkdirSync(artistAudioPath);
+
+        if (!fs.existsSync(artistPagePath)) create_artist_page(artist);
 
     });
 }
 
 /*
     Creates a template YAML file populated with all the artists and venue.
-    Params: Date, Gig title, venue name, array of artists, callback for when it's done
+    Params: Date, Gig title, venue name, array of artists
 */
-function create_yaml(date, gig, venue, artists, callback) {
+function create_gig_yaml(date, gig, venue, artists) {
     var date = date + " 08:30:00 Z";
 
-    var template = `---
+    var gigTemplate = `---
 title: "${gig}"
 date: ${date}
 categories:
     ${artists.map((artist, i) => `
         - ${machine_name(artist)}
-    `.trim()).join('\n\t')}
+    `.trim()).join('\n    ')}
 parent: Gigs
 venue: ${venue}
 media:
@@ -68,18 +84,14 @@ media:
                 -   title: Full Set
             vid:
                 -   link: 
-    `.trim()).join('\n\t')}
+    `.trim()).join('\n    ')}
 ---
 `
 
     var filename = date.split(" ")[0] + "-" + machine_name(gig, '-') + ".markdown";
 
-    fs.writeFile("./_posts/" + filename, template, function(err) {
-        if(err) return console.log(err);
-    
-        console.log("Created directory structure and YAML for " + gig + " at " + venue);
-        callback();
-    }); 
+    fs.writeFileSync("./_posts/" + filename, gigTemplate);
+    console.log("Created directory structure and YAML for " + gig + " at " + venue);
 }
 
 function main() {
@@ -102,9 +114,8 @@ function main() {
                 prompts.question("Artists (comma separated): ", function (artists) {
                     artists = artists.split(",");
                     create_file_skeleton(gig, artists);
-                    create_yaml(date, gig, venue, artists, function() {
-                        process.exit();
-                    });
+                    create_gig_yaml(date, gig, venue, artists)
+                    process.exit();
                 });
             });
         });

@@ -19,7 +19,8 @@
     "yamljs": "^0.2.8"
   },
   "scripts": {
-    "start": "jekyll serve"
+    "start": "jekyll serve",
+    "generate": "node ./_scripts/generate_gig.js"
   },
   "repository": {
     "type": "git",

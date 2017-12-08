@@ -129,12 +129,6 @@ module.exports = function(grunt) {
         stdout: true,
         stderr: true
       },
-      generate: {
-        command: 'node _scripts/generate_gig.js',
-        stdout: true,
-        stdin: true,
-        stderr: true
-      },
       index_media: {
         command: 'node _scripts/index-media.js',
         stdout: true,
@@ -167,5 +161,4 @@ module.exports = function(grunt) {
   grunt.registerTask('build-deploy', ['jekyll', 'sync', 'exec:s3_push']);
   grunt.registerTask('deploy', ['exec:s3_push']);
   grunt.registerTask('dev', ['exec:dev']);
-  grunt.registerTask('generate', ['exec:generate']);
 };
