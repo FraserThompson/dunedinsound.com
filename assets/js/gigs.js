@@ -31,7 +31,7 @@ var gigsInit = function() {
         // this adds the highlight function to years we are in, it's pretty inefficent tho
         callback: function (el) {
             for (var i = 0; i < year_els.length; i++) {
-                if (year_els[i].dataset.year == el.nav.dataset.year){
+                if (year_els[i].dataset.year == el.target.dataset.year){
                     year_els[i].classList.add('year-active');
                 } else {
                     year_els[i].classList.remove('year-active');
@@ -47,7 +47,7 @@ var gigsInit = function() {
             isotopeConfig.iso = new Isotope( '.sorted-tiles', {
                 itemSelector: '.isotope-item',
                 percentPosition: true,
-                layoutMode: 'packery',
+                layoutMode: 'fitRows',
                 getSortData: {
                     name: '.name',
                     month: '[data-month]',
@@ -84,7 +84,9 @@ var gigsInit = function() {
                     thing.style.display = "none";
                 }
             }
-        })
+            gumshoe.setDistances();
+
+        });
     }
 
     isotopeConfig.quicksearch = document.getElementById('quicksearch');
@@ -107,7 +109,7 @@ var gigsInit = function() {
                 isotopeConfig.iso.destroy();
                 isotopeConfig.iso = null;
             }
-
+            gumshoe.setDistances();
             // If we were searching revalidate
             if (searching == 1) searching = 0;
 
