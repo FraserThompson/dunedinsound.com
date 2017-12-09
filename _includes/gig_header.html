@@ -17,8 +17,8 @@
                     {% assign directory = "assets/img/" | append: page.title | append: "/" | append: '_header' %}
                     {% assign filename = full_pic | split: '/' | last %}
                     <div class ="col-xs-12 col-sm-4 no-padding" style="height: 100%;">
-                        <a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}" target="_blank" class="loading">
-                            <div class="banner b-lazy" data-src="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}"></div>
+                        <a href="{{site.asset_url}}/{{full_pic | uri_escape }}" target="_blank" class="loading">
+                            <div class="banner b-lazy" data-src="{{site.asset_url}}/{{full_pic | uri_escape}}"></div>
                         </a>
                     </div>
                 {% endfor %}
@@ -26,8 +26,8 @@
                 {% assign tiny_cover = "/assets/img/" | prepend: site.asset_url | append: page.title | append: "/cover (Tiny).jpg" %}
                 
                 <div class ="col-xs-12 no-padding" style="height: 100%;">
-                    <a href="{{site.asset_url}}/assets/img/{{page.title}}/cover.jpg" target="_blank" class="loading">
-                        <div class="banner b-lazy {% if page.better_placeholders %}better{% endif %}" data-src="{{site.asset_url}}/assets/img/{{page.title}}/cover.jpg" style="{% if page.better_placeholders %} background-image: url('{% base64 tiny_cover %}'){% endif %}"></div>
+                    <a href="{{site.asset_url}}/assets/img/{{page.title | uri_escape }}/cover.jpg" target="_blank" class="loading">
+                        <div class="banner b-lazy {% if page.better_placeholders %}better{% endif %}" data-src="{{site.asset_url}}/assets/img/{{page.title | uri_escape }}/cover.jpg" style="{% if page.better_placeholders %} background-image: url('{% base64 tiny_cover %}'){% endif %}"></div>
                     </a>
                 </div>
             {% endif %}

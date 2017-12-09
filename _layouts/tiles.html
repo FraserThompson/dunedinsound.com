@@ -31,9 +31,9 @@ layout: default
         {% assign number_of_small_photos = site.data.media.artists[machine_name]["small"] | size %}
 
         {% if number_of_small_photos > 0 %}
-          {% assign tile_background = site.asset_url | append: "/" | append: site.data.media.artists[machine_name]["small"][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+          {% assign tile_background = site.asset_url | append: "/" | append: site.data.media.artists[machine_name]["small"][0] | uri_escape %}
         {% else %}
-          {% assign tile_background = site.asset_url | append: "/" | append: site.data.media.artists[machine_name]["medium"][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+          {% assign tile_background = site.asset_url | append: "/" | append: site.data.media.artists[machine_name]["medium"][0] | uri_escape %}
         {% endif %}
 
           <div class="isotope-item {{page.spacing}} tile-wrap bottom">

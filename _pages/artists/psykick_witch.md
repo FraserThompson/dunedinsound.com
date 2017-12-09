@@ -1,6 +1,6 @@
 ---
-title: Eye
-permalink: "/artists/eye/"
+title: Psykick Witch
+permalink: "/artists/psykick_witch/"
 layout: band
 parent: Artists
 facebook: https://www.facebook.com/Psychick-Witch-155472337869642/

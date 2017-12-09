@@ -41,11 +41,11 @@ module GigGenerator
     end
 
     def machine_name(input)
-      return input.to_s.downcase.gsub(Regexp.union({' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => '', "'" => '', "&" => "and"}.keys), {' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => '', "'" => '', "&" => "and"})
+      return input.to_s.downcase.gsub(Regexp.union({' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => '', "'" => '', "&" => "and", 'è' => 'e'}.keys), {' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => '', "'" => '', "&" => "and", 'è' => 'e'})
     end
 
     def url_encode(input)
-       return URI.escape(input.to_s)
+      return URI.escape(input).to_s.gsub(Regexp.union({'%C3%A8' => '%E8', '#' => '%23', "'" => "%27"}.keys), {'%C3%A8' => '%E8', '#' => '%23', "'" => "%27"})
     end
   end
 end

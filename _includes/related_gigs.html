@@ -49,9 +49,9 @@
                                 <p><small>{{ post.venue }}</small></p>
                             </div>
                             {% if site.data.media.gigs[post.title][band_machine_name]['images'].size %}
-                            <div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][band_machine_name]['images'][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20'}}">
+                            <div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][band_machine_name]['images'][0] | uri_escape }}">
                             {% else %}
-                            <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}/cover.jpg">
+                            <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | uri_escape }}/cover.jpg">
                             {% endif %}
                             </div>
                         </a>
@@ -86,7 +86,7 @@
                             <h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>
                             <h5>{{post.title}}</h5>
                         </div>
-                        <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}/cover.jpg">
+                        <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | uri_escape }}/cover.jpg">
                         </div>
                     </a>
                 </div>

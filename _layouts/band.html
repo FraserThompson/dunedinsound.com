@@ -18,18 +18,18 @@ layout: default
         {% if number_images > 4 %}
           {% for image in images %}
             {% assign full_pic = image | replace: " (Medium)","" %}
-            {% assign url_encoded_image = image | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+            {% assign url_encoded_image = image | uri_escape %}
             <div class="col-xs-12 col-md-6 col-lg-3" style="height: 100%; padding: 0px;">
-              <a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}" target="_blank" class="loading">
+              <a href="{{site.asset_url}}/{{full_pic | uri_escape }}" target="_blank" class="loading">
                 <div class="banner b-lazy" data-src="{{site.asset_url}}/{{url_encoded_image}}"></div>
               </a>
             </div>
           {% endfor %}
         {% else %}
           {% for image in site.data.media.artists[page.machine_name]['medium'] limit: 1 %}
-            {% assign url_encoded_image = image | url_encode | replace: '%2F', '/' | replace: '+', '%20' %}
+            {% assign url_encoded_image = image | uri_escape %}
             <div class="col-sm-12" style="height: 100%; padding: 0px;">
-              <a href="{{site.asset_url}}/{{full_pic | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}" target="_blank" class="loading">
+              <a href="{{site.asset_url}}/{{full_pic | uri_escape }}" target="_blank" class="loading">
                 <div class="banner b-lazy" data-src="{{site.asset_url}}/{{url_encoded_image}}"></div>
               </a>
             </div>
@@ -68,7 +68,7 @@ layout: default
               {% if post.media[page.title].vid %}<span> {{post.media[page.title].vid.size}} 📹</span>{% endif %}
               </h5>
             </div>
-            <div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][page.machine_name]['images'][0] | url_encode | replace: '%2F', '/' | replace: '+', '%20' }}">
+            <div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][page.machine_name]['images'][0] | uri_escape }}">
             </div>
           </a>
         </div>
