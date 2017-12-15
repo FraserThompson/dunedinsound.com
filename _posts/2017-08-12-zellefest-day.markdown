@@ -23,7 +23,8 @@ media:
         mp3:
             -   title: Full set
         vid:
-            -   link: MWUW_6b8Jog
+            -   title: Seattle Drunk Blues
+                link: MWUW_6b8Jog
             -   link: 8aicihWj79g
     Francisca Griffin:
         mp3:

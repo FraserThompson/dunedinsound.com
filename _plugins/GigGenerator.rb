@@ -45,7 +45,7 @@ module GigGenerator
     end
 
     def url_encode(input)
-      return URI.escape(input).to_s.gsub(Regexp.union({'%C3%A8' => '%E8', '#' => '%23', "'" => "%27"}.keys), {'%C3%A8' => '%E8', '#' => '%23', "'" => "%27"})
+      return URI.escape(input).to_s.gsub(Regexp.union({'#' => '%23', "'" => "%27"}.keys), {'#' => '%23', "'" => "%27"})
     end
   end
 end

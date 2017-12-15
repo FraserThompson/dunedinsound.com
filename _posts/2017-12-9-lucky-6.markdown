@@ -1,0 +1,33 @@
+---
+title: "LUCKY 6"
+date: 2017-12-9 08:30:00 Z
+categories:
+    - fun_time
+    - vanessa_worm
+    - brackets
+    - back_on_track
+parent: Gigs
+better_placeholders: true
+venue: The Manor
+media:
+    Fun Time:
+            mp3:
+                -   title: Partial Set
+            vid:
+                -   link: dYNY2vCj2IE
+    Vanessa Worm:
+            mp3:
+                -   title: Full Set
+            vid:
+                -   link: ed0-bsEiqvk
+    Brackets:
+            mp3:
+                -   title: Full Set
+            vid:
+                -   link: 9xsdaKxXHHU
+    Back On Track:
+            mp3:
+                -   title: Partial Set
+            vid:
+                -   link: AjAPGrUoRqg
+---
