@@ -153,7 +153,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('images', ['exec:images', 'exec:index_media', 'sync']);
+  grunt.registerTask('images', ['exec:images', 'exec:index_media']);
   grunt.registerTask('index_media', ['exec:index_media']);
   grunt.registerTask('audio', ['exec:docker_audio', 'copy:audio', 'sync']);
   grunt.registerTask('production-build', ['jekyll', 'sync']);

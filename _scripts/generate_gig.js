@@ -76,6 +76,7 @@ categories:
         - ${machine_name(artist)}
     `.trim()).join('\n    ')}
 parent: Gigs
+better_placeholders: true
 venue: ${venue}
 media:
     ${artists.map((artist, i) => `
