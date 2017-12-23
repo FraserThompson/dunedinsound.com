@@ -26,11 +26,11 @@ media:
         mp3:
             -   title: Full set
         vid:
-            -   title: Amtryptamine
-                link: b5GwtWEGVKo
             -   title: Like a King
+                link: b5GwtWEGVKo
+            -   title: White Collar Crime Isn't Real Crime
                 link: CIOg82uRbL0
-            -   title: Jam
+            -   title: Amtryptamine
                 link: MM4vwz7fy20
 ---
 

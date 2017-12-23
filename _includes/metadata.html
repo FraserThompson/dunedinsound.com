@@ -1,0 +1,22 @@
+
+{% assign global_photo_count = 0 %}
+{% assign global_video_count = 0 %}
+{% assign global_audio_count = 0 %}
+{% assign global_band_count = 0 %}
+{% assign global_gig_count = site.posts | size %}
+
+{% for tile in site.posts %}
+
+    {% assign band_count = tile.media | size %}
+    {% assign global_band_count = global_band_count | plus: band_count %}
+
+    {% for band in site.data.media.gigs[tile.title] %}
+        {% assign global_photo_count = global_photo_count | plus: band[1].count %}
+    {% endfor %}
+
+    {% for band in tile.media %}
+        {% assign global_audio_count = global_audio_count | plus: band[1].mp3.size %}
+        {% assign global_video_count = global_video_count | plus: band[1].vid.size %}
+    {% endfor %}
+
+{% endfor %}

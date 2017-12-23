@@ -28,7 +28,8 @@ media:
                 -   title: Full Set
             vid:
                 -   link: PuDW5sggoho
-                -   link: P9i7NjSt0TU
+                -   title: A Subtle Knife for New Doors
+                    link: P9i7NjSt0TU
                 -   link: 35UUlSPL6PA
     Old Psychiatrist's Club:
             mp3:

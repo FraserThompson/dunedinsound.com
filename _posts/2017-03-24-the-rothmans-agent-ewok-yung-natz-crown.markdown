@@ -29,7 +29,7 @@ media:
         mp3:
             -   title: Full set
         vid:
-            -   title: Stash the precious medication
+            -   title: H2GO/Cilazapril
                 link: 6HOnNXbZ1sg
     The Rothmans:
         mp3:

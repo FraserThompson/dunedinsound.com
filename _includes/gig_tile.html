@@ -20,7 +20,7 @@
 			{% assign photo_count = 0 %}
 
 			{% for band in site.data.media.gigs[tile.title] %}
-				{% assign photo_count = count | plus: band[1].count %}
+				{% assign photo_count = photo_count | plus: band[1].count %}
 			{% endfor %}
 			
 			<span class="artistNames">

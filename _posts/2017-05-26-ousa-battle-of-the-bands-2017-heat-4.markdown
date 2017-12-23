@@ -31,8 +31,10 @@ media:
         mp3:
             -   title: Full set
         vid:
-            -   link: WG8IWALs0FU
-            -   link: WTCwI2hW1dM
+            -   title: Tarantula
+                link: WG8IWALs0FU
+            -   title: Like a King
+                link: WTCwI2hW1dM
     River of Jewels:
         mp3:
             -   title: Full set

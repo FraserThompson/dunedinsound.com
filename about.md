@@ -15,6 +15,16 @@ My recording rig is wearable, which means I can stand in the audience and get a 
 
 Most of the recordings are [binaural](https://en.wikipedia.org/wiki/Binaural_recording) so that means they'll sound best on headphones.
 
+### So far...
+
+{% include metadata.html %}
+
+* **{{global_gig_count}}** gigs
+* **{{global_band_count}}** bands
+* **{{global_photo_count}}** photos
+* **{{global_video_count}}** videos
+* **{{global_audio_count}}** audios
+
 Why not just put stuff on Facebook like everyone else?
 --------------------------
 I don't think Facebook is designed for long term storage, also the interface sucks and makes it impossible to find anything again. This is meant to be a more permanent archive, the idea being that artists/fans will be able to access it decades from now.

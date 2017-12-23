@@ -13,7 +13,8 @@ media:
         mp3:
             -   title: Full set
         vid:
-            -   link: rNlfgS8_3X8
+            -   title: Amitriptyline
+                link: rNlfgS8_3X8
     Idiot Prayer:
         mp3:
             -   title: Full set
