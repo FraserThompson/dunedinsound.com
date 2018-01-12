@@ -40,7 +40,7 @@ order: 1
                         {% unless tile.title == first_gig.title %}
                             {% assign title = tile.title | prepend: "GIG: " %}
                             {% assign count = count | plus: 1 %}
-                            {% include gig_tile.html class="bottom thinner" sizing="col-xs-12" category="home" title=title %}
+                            {% include gig_tile.html class="bottom thinner" sizing="col-xs-12" category="home" title=title image_size="Medium" %}
                         {% endunless %}
                     {% elsif type[1] == "blog" %}
                         {% assign title = tile.title | prepend: "BLOG: " %}

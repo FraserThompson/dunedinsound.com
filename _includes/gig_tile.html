@@ -46,6 +46,6 @@
 		{% endunless %}
 
     </div>
-    <div class="tile b-lazy" data-src="{% if include.image %}{{include.image}}{% else %}{{site.asset_url}}/assets/img/{{tile.title | uri_escape }}/cover.jpg{% endif %}"  style="background-color: #0A0A0A"></div>
+    <div class="tile b-lazy" data-src="{% if include.image %}{{include.image}}{% else %}{{site.asset_url}}/assets/img/{{tile.title | uri_escape }}/cover{% if include.image_size %}%20({{include.image_size}}){% endif %}.jpg{% endif %}"  style="background-color: #0A0A0A"></div>
 	</a>
 </div>
