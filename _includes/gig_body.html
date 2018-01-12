@@ -69,7 +69,7 @@
 			{% for gig_image in site.data.media.gigs[page.title][band_machine_name]['images'] %}
 				
 				{% assign gig_image_encoded = gig_image | uri_escape %}
-				{% assign full_pic = gig_image_encoded | replace: " (Medium)","" %}
+				{% assign full_pic = gig_image_encoded | replace: "%20(Medium)","" %}
 				{% assign tiny_pic = gig_image | replace: " (Medium)", " (Tiny)" | prepend: "/" %}
 
 				{% assign directory = "assets/img/" | append: page.title | append: "/" | append: band_machine_name %}
