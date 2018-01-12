@@ -6,7 +6,7 @@ categories:
     - swallows_nest
 parent: Gigs
 audio: false
-venue: A flat on Gladstone Road
+venue: A Flat on Gladstone Road
 photo_credit: Jon Keyzer
 aspectratio: threebytwo
 media:

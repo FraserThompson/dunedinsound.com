@@ -7,7 +7,7 @@ categories:
     - coyote
 parent: Gigs
 better_placeholders: true
-venue: A flat on Gladstone Road
+venue: A Flat on Gladstone Road
 media:
     Old Psychiatrists Club:
             mp3:
