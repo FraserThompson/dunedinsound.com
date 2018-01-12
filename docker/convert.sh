@@ -1,5 +1,6 @@
 #!/bin/bash
 shopt -s nullglob
+ls /root/audio
 for file in /root/audio/**/*.{wav,mp3}
 do
     cd "$(dirname "$file")"
