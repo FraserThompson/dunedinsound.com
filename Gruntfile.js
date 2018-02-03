@@ -155,7 +155,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('images', ['exec:images', 'exec:index_media']);
   grunt.registerTask('index_media', ['exec:index_media']);
-  grunt.registerTask('audio', ['exec:docker_audio', 'copy:audio', 'sync']);
+  grunt.registerTask('audio', ['exec:docker_audio', 'copy:audio']);
   grunt.registerTask('production-build', ['jekyll', 'sync']);
   grunt.registerTask('code-deploy', ['jekyll', 'exec:s3_push']);
   grunt.registerTask('build-deploy', ['jekyll', 'sync', 'exec:s3_push']);
