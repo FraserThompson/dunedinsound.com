@@ -48,9 +48,12 @@ function create_file_skeleton(gig, artists) {
     if (!fs.existsSync(gigImagePath)) fs.mkdirSync(gigImagePath);
 
     artists.forEach (function (artist) {
-        var artistImgPath = gigImagePath + "/" + machine_name(artist);
-        var artistAudioPath = gigAudioPath + machine_name(artist); 
-        var artistPagePath = './_pages/artists/' + machine_name(artist) + '.md';
+
+        var trimmed_artist = artist.trim();
+
+        var artistImgPath = gigImagePath + "/" + machine_name(trimmed_artist);
+        var artistAudioPath = gigAudioPath + machine_name(trimmed_artist); 
+        var artistPagePath = './_pages/artists/' + machine_name(trimmed_artist) + '.md';
 
         if (!fs.existsSync(artistImgPath)) fs.mkdirSync(artistImgPath);
 
