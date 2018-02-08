@@ -11,7 +11,7 @@ region.wavesurfer-region {
 	cursor: pointer !important;
 }
 
-region.wavesurfer-region::before {
+region.wavesurfer-region:hover::before {
     content: attr(data-region-label);
 	position: absolute;
 	color: black;
