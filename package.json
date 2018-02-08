@@ -31,5 +31,8 @@
   "bugs": {
     "url": "https://github.com/FraserThompson/FraserThompson.github.io/issues"
   },
-  "homepage": "https://github.com/FraserThompson/FraserThompson.github.io#readme"
+  "homepage": "https://github.com/FraserThompson/FraserThompson.github.io#readme",
+  "dependencies": {
+    "wavesurfer.js": "^2.0.3"
+  }
 }

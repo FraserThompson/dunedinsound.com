@@ -1,28 +1,8 @@
----
----
-
-{% include_relative vendor/intersection-observer.min.js %}
-{% include_relative vendor/lozad.min.js %}
-{% include_relative vendor/perfect-scrollbar.min.js %}
-{% include_relative vendor/smooth-scroll.polyfills.min.js %}
-{% include_relative vendor/gumshoe.min.js %}
-{% include_relative vendor/bootstrap-native.min.js %}
-{% include_relative vendor/isotope.pkgd.min.js %}
-{% include_relative vendor/packery-mode.pkgd.min.js%}
-{% include_relative vendor/baguetteBox.min.js %}
-{% include_relative vendor/wavesurfer.min.js %}
-{% include_relative vendor/stickyfill.min.js %}
-{% include_relative vendor/lightgallery.min.js %}
-{% include_relative vendor/lg-zoom.min.js %}
-{% include_relative vendor/lg-thumbnail.js %}
-
-{% include_relative isotope.js %}
-{% include_relative searching.js %}
-{% include_relative sorting.js %}
-{% include_relative gigs.js %}
-
 /* helper functions */
-// Debounces a function so it'll only be run a sensible amount of times per second
+
+/**
+ * Debounces a function so it'll only be run a sensible amount of times per second
+ */ 
 var debounce = function (func, wait, immediate) {
     var timeout;
     return function() {
@@ -38,12 +18,48 @@ var debounce = function (func, wait, immediate) {
     };
 };
 
-// gets a random int
+/**
+ * Converts a time string like 1:23:00 or 05:34 to seconds
+ */
+function timeToSeconds(str) {
+
+    var p = str.split(':'),
+        s = 0, m = 1;
+
+    while (p.length > 0) {
+        s += m * parseInt(p.pop(), 10);
+        m *= 60;
+    }
+
+    return s;
+}
+
+/**
+ * Random RGBA color.
+ */
+function randomColor(alpha) {
+    return (
+        'rgba(' +
+        [
+            ~~(Math.random() * 255),
+            ~~(Math.random() * 255),
+            ~~(Math.random() * 255),
+            alpha || 1
+        ] +
+        ')'
+    );
+}
+
+/**
+ * Random integer between a range
+ */
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Loads JSON from a remote 
+/**
+ * Loads a JSON from somewhere via XMLHttpRequest()
+ */
 function loadJSON (filename, callback) {   
 
     var xobj = new XMLHttpRequest();
@@ -68,7 +84,9 @@ function loadJSON (filename, callback) {
     xobj.send(null);
 };
 
-// speaks
+/**
+ * Says cool
+ */
 var speak = debounce(function() {
     var msg = new SpeechSynthesisUtterance();
     var voices = window.speechSynthesis.getVoices();
@@ -83,12 +101,17 @@ var speak = debounce(function() {
     speechSynthesis.speak(msg);
 }, 500, true);
 
-var onImageLoad = function() {
+/**
+ * The callback which happens when images are loaded
+ */
+function onImageLoad() {
     this.classList.add('b-loaded');
     this.parentNode.classList.remove('loading');
 }
 
-// this sets up the lazy loading observer
+/**
+ * Sets up the lazy loading observer
+ */
 var observer = lozad('.b-lazy', {
     rootMargin: '300px 0px',
     threshold: 0,
@@ -104,4 +127,5 @@ var observer = lozad('.b-lazy', {
         }
     }
 });
+
 observer.observe();

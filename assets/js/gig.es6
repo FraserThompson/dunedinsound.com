@@ -1,7 +1,11 @@
 ---
 ---
 
-const WAVEFORM_HEIGHT = "60";
+// Prerequisites
+{% include_relative vendor/wavesurfer.min.js %}
+{% include_relative vendor/wavesurfer.regions.min.js %}
+
+const WAVEFORM_HEIGHT = "58";
 const HEADER_HEIGHT = 90;
 const WAVEFORM_COLOR = "white";
 const DEVICE_WIDTH = (window.innerWidth > 0) ? window.innerWidth : screen.width;
@@ -89,9 +93,11 @@ function gigInit() {
         new Video(videoElements[i]);
     }
 
-    // select the artist from the URL hash
+    // select the artist from the URL hash or just select the first one
     if (location.hash) {
         window.artists[(location.hash.split('#')[1])] ? window.artists[(location.hash.split('#')[1])].selectArtist() : false;
+    } else {
+        window.artists['first'].selectArtist();
     }
 
     window.addEventListener("scroll", function() {

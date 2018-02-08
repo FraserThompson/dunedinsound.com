@@ -13,17 +13,23 @@ media:
       link: shamus_of_berry_fame/Shamus of Berry Fame - Dunedin Battle of the Bands
         2014.mp3
       tracklist:
-      - 00:11 Not Straight/Burning Down
-      - 04:46 Spirals in my Brain/Tamagotchi
-      - 08:52 Fuck Your Binaries
+        - time: "00:11" 
+          title: "Not Straight/Burning Down"
+        - time: "04:46"
+          title: "Spirals in my Brain/Tamagotchi"
+        - time: "08:52" 
+          title: "Fuck Your Binaries"
   Sloth Vegas:
     mp3:
     - title: Full show
       link: slothvegas/Slothvegas - Battle of the Bands 2014.mp3
       tracklist:
-      - 00:20 Edmund's Song (Untitled)
-      - 03:43 Masochistic Love Song
-      - 06:30 St Clair
+        - time: "00:20"
+          title: "Edmunds Song (Untitled)"
+        - time: "03:43"
+          title: "Masochistic Love Song"
+        - time: "06:30"
+          title: "St Clair"
 venue: Refuel
 ---
 

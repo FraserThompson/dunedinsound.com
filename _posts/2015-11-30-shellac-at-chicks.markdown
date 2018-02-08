@@ -11,27 +11,48 @@ media:
     - title: Full show
       link: shellac/Shellac at Chicks.mp3
       tracklist:
-      - 00:00 Ghosts
-      - 4:13 My Black Ass
-      - 7:50 Copper Song
-      - 11:01 Compliant
-      - 14:50 (Question Time 1)
-      - 16:44 You Came In Me
-      - 19:10 Canada
-      - 21:38 Squirrel Song
-      - 24:15 Riding Bikes
-      - 29:40 (Question Time 2)
-      - 31:58 Prayer to God
-      - 35:56 Steady As She Goes
-      - 40:28 (Question Time 3)
-      - 42:36 All the Surveyors
-      - 45:53 Dude Incredible
-      - 52:26 The Defenders of Fun
-      - 58:40 (Talking about planes for a while)
-      - 1:02:21 Wingwalker
-      - 1:06:46 Watch Song
-      - 1:12:00 (Cymbal hitting)
-      - 1:14:16 The End of Radio
+        - time: "0:00"
+          title: "Ghosts"
+        - time: "4:13"
+          title: "My Black Ass"
+        - time: "7:50"
+          title: "Copper Song"
+        - time: "11:01"
+          title: "Compliant"
+        - time: "14:50"
+          title: "(Question Time 1)"
+        - time: "16:44"
+          title: "You Came In Me"
+        - time: "19:10"
+          title: "Canada"
+        - time: "21:38" 
+          title: "Squirrel Song"
+        - time: "24:15"
+          title: "Riding Bikes"
+        - time: "29:40"
+          title: "(Question Time 2)"
+        - time: "31:58"
+          title: "Prayer to God"
+        - time: "35:56"
+          title: "Steady As She Goes"
+        - time: "40:28"
+          title: "(Question Time 3)"
+        - time: "42:36"
+          title: "All the Surveyors"
+        - time: "45:53"
+          title: "Dude Incredible"
+        - time: "52:26"
+          title: "The Defenders of Fun"
+        - time: "58:40"
+          title: "(Talking about planes)"
+        - time: "1:02:21"
+          title: "Wingwalker"
+        - time: "1:06:46" 
+          title: "Watch Song"
+        - time: "1:12:00"
+          title: "(Cymbal hitting)"
+        - time: "1:14:16"
+          title: "The End of Radio"
 venue: Chicks Hotel
 ---
 

@@ -13,7 +13,8 @@ media:
     - title: Full show
       link: sorry/Sorry - Refuel 28-2-15.mp3
       tracklist:
-      - 10:30 Incredible Skrillex cover omg
+        - time: "10:30" 
+          title: "Incredible Skrillex cover omg"
   Sloth Vegas:
     mp3:
     - title: Full show

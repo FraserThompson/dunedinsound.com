@@ -33,7 +33,10 @@ class Player {
       forceDecode: false,
       backend: "MediaElement",
       progressColor: 'orange',
-      barWidth: '2'
+      barWidth: '2',
+      plugins: [
+        WaveSurfer.regions.create(),
+      ]
     });
 
     this.wavesurfer.on('play', this.play.bind(this));
@@ -44,10 +47,61 @@ class Player {
     this.wavesurfer.on('finish', this.finish.bind(this));
     this.wavesurfer.on('loading', this.loading.bind(this)); //this doesn't work for some reason but it's here anyway
 
-    this.loadArtist(window.artists[element.dataset.artist] || window.artists['first'], true);
-
     window.addEventListener("resize", this.redraw.bind(this)());
 
+  }
+
+  loadArtist(artist, prelim, play, trackIndex) {
+
+    if (this.currentArtist) {
+      this.log("Stopping previous artist "  + this.currentArtist.name + " before loading the next");
+      this.currentArtist.stop();
+      window.buttons[this.currentArtist.machine_name].setState(false);
+    }
+
+    this.log("Setting artist to " + artist.name);
+
+    this.currentArtist = artist;
+    this.nextArtist = this.currentArtist.next ? this.currentArtist.nextAudio() : null;
+    this.prevArtist = this.currentArtist.prev ? this.currentArtist.prevAudio() : null;
+    this.loadMp3(this.currentArtist.audio[trackIndex || 0].url, prelim, play);
+    this.currentSong = trackIndex || 0;
+  }
+
+  loadMp3(url, prelim, play, cb) {
+    this.prelim = prelim;
+
+    this.loadingProgress.style.display = "block"
+
+    this.log('loading: ' + url + ' and prelim is ' + prelim);
+
+    if (!window.cached_json[url]) {
+
+      loadJSON(url, function (data, filename) {
+
+        window.cached_json[url] = JSON.parse(data);
+
+        if (!prelim) {
+          this.wavesurfer.load(url, window.cached_json[url], "metadata");
+        } else {
+          this.wavesurfer.load("/assets/audio/empty.mp3", window.cached_json[url], "metadata");
+        }
+
+        if (play) this.wavesurfer.playPause();
+
+        if (cb) cb();
+
+      }.bind(this));
+  
+    } else {
+
+      this.wavesurfer.load(url, window.cached_json[url], "metadata");
+
+      if (play) this.wavesurfer.playPause();
+  
+      if (cb) cb();
+
+    }
   }
 
   play() {
@@ -104,6 +158,19 @@ class Player {
       this.updateTime();
       this.updateDuration();
       this.loadingProgress.style.display = "none";
+
+      if (this.currentArtist.tracklist) {
+        this.currentArtist.tracklist.forEach(function(region, index) {
+
+          region.color = randomColor(0.4);
+          region.drag = false;
+          region.resize = false;
+          region.start = timeToSeconds(region.time);
+
+          this.wavesurfer.addRegion(region);
+        }.bind(this));
+      }
+
     }.bind(this), 100)
   }
 
@@ -171,18 +238,6 @@ class Player {
     }, 250).bind(this)
   }
 
-  loadArtist(artist, prelim, play, trackIndex) {
-    if (this.currentArtist) {
-      this.currentArtist.stop();
-      window.buttons[this.currentArtist.machine_name].setState(false);
-    }
-    this.currentArtist = artist;
-    this.nextArtist = this.currentArtist.next ? this.currentArtist.nextAudio() : null;
-    this.prevArtist = this.currentArtist.prev ? this.currentArtist.prevAudio() : null;
-    this.loadMp3(this.currentArtist.audio[trackIndex || 0].url, prelim, play);
-    this.currentSong = trackIndex || 0;
-  }
-
   updateTitle() {
     for (var i = 0; i < this.currentArtistElement.length; i++) {
       this.currentArtistElement[i].innerHTML = this.currentArtist.index + '. ' + this.currentArtist.name;
@@ -190,28 +245,8 @@ class Player {
     this.currentSongElement.innerHTML = this.currentArtist.audio[this.currentSong].name
   }
 
-  loadMp3(url, prelim, play, cb) {
-    this.prelim = prelim;
-
-    this.loadingProgress.style.display = "block"
-
-    console.log('loading: ' + url + ' and prelim is ' + prelim);
-
-    if (!window.cached_json[url]) {
-      loadJSON(url, function (data, filename) {
-        window.cached_json[url] = JSON.parse(data);
-        if (!prelim) {
-          this.wavesurfer.load(url, window.cached_json[url], "metadata");
-        } else {
-          this.wavesurfer.load("/assets/audio/empty.mp3", window.cached_json[url], "metadata");
-        }
-        if (play) this.wavesurfer.playPause();
-        if (cb) cb();
-      }.bind(this));
-    } else {
-      this.wavesurfer.load(url, window.cached_json[url], "metadata");
-      if (play) this.wavesurfer.playPause();
-      if (cb) cb();
-    }
+  log(string) {
+    console.log("Player " + this.id + ": " + string);
   }
+
 }

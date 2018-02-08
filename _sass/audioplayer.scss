@@ -7,6 +7,18 @@
 	position: relative;
 }
 
+region.wavesurfer-region {
+	cursor: pointer !important;
+}
+
+region.wavesurfer-region:hover::before {
+    content: attr(data-region-label);
+	position: absolute;
+	color: black;
+	background-color: white;
+	top: 0;
+}
+
 .length-wrapper {
 	background: black;
 	color: #999999;

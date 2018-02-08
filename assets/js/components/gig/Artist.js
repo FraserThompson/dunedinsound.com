@@ -8,6 +8,7 @@ class Artist {
         this.container = document.getElementById(this.machine_name);
         this.index = index;
         this.audio = element.dataset.mp3 ? JSON.parse(element.dataset.mp3) : null;
+        this.tracklist = element.dataset.tracklist ? JSON.parse(element.dataset.tracklist) : null;
         this.prev = null;
         this.next = null;
 
@@ -46,7 +47,8 @@ class Artist {
 
     selectArtist() {
         if (this.audio && !window.players["_global"].wavesurfer.isPlaying()) {
-            window.players["_global"].loadArtist(this);
+            this.log("Selected");
+            window.players["_global"].loadArtist(this, true, false);
         }
     }
 
@@ -68,5 +70,9 @@ class Artist {
         } else if (this.prev) {
             return this.prev;
         }
+    }
+
+    log(string) {
+        console.log("Artist " + this.name + ": " + string);
     }
 }

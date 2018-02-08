@@ -28,7 +28,9 @@ class PlayButton {
     }
 
     playPause() {
+        this.log("Received click for " + this.artist);
         if (window.players[this.id].prelim || window.players[this.id].currentArtist != this.artist) {
+            this.log("Loading new artist... prelim=" + window.players[this.id].prelim + " player artist=" + window.players[this.id].currentArtist + " button artist=" + this.artist);
             window.players[this.id].loadArtist(this.artist, false, true);
         } else {
             window.players[this.id].wavesurfer.playPause();
@@ -37,7 +39,8 @@ class PlayButton {
 
     globalPlayPause() {
         if (window.players[this.id].prelim) {
-            window.players[this.id].loadArtist(window.artists['first'], false, true);
+            this.log("Loading artist again because prelim was " + window.players[this.id].prelim);
+            window.players[this.id].loadArtist(window.players[this.id].currentArtist, false, true);
         } else {
             window.players[this.id].wavesurfer.playPause();
         }
@@ -45,9 +48,15 @@ class PlayButton {
 
     clickHandler() {
         if (this.artist) {
+            this.log("Received click for " + this.artist.name);
             this.playPause();
         } else {
+            this.log("Received click for global PlayButton");
             this.globalPlayPause();
         }
+    }
+
+    log(string) {
+        console.log("PlayButton " + this.id + ": " + string);
     }
 }
