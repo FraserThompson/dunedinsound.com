@@ -162,7 +162,7 @@ class Player {
       if (this.currentArtist.tracklist) {
         this.currentArtist.tracklist.forEach(function(region, index) {
 
-          region.color = randomColor(0.4);
+          region.color = randomColor(1);
           region.drag = false;
           region.resize = false;
           region.start = timeToSeconds(region.time);
