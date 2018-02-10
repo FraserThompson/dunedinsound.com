@@ -100,7 +100,7 @@ function gigInit() {
     // select the artist from the URL hash or just select the first one
     if (location.hash) {
         window.artists[(location.hash.split('#')[1])] ? window.artists[(location.hash.split('#')[1])].selectArtist() : false;
-    } else {
+    } else if (window.artists['first']) {
         window.artists['first'].selectArtist();
     }
 
