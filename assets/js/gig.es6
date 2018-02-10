@@ -71,12 +71,16 @@ function gigInit() {
     }
 
     /* BUTTON OBJECTS */
-    var playButtonElements = document.querySelectorAll('button.playButton');
+    var playButtonElements = document.querySelectorAll('.playHandler');
     for (var i = 0; i < playButtonElements.length; i++) {
+
         var playerid = playButtonElements[i].dataset.playerid;
         var artist = playButtonElements[i].dataset.artist;
+        var time = playButtonElements[i].dataset.time;
+
         console.log('Initializing a button for: ' + playerid + ' with ' + (artist || 'no artist'));
-        window.buttons[artist || '_global'] = new PlayButton(playButtonElements[i]);
+
+        window.buttons[time ? artist + time : artist || '_global'] = new PlayButton(playButtonElements[i]);
     }
 
     /* PLAYER OBJECTS */

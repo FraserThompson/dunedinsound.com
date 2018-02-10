@@ -70,7 +70,7 @@
 					<div class="col-xs-6 {{image_size_class}} no-padding" style="overflow-y: scroll; background-color: black;">
 						<ul class="box {{page.aspectratio}}">
 							{% for track in band[1].mp3[0].tracklist %}
-								<li>{{track['time']}} - {{track['title']}}</li>
+								<li><a class="player-timestamp playHandler" data-time="{{track['time']}}" data-artist="{{band_machine_name}}" data-bandname="{{band[1].band_name}}" data-playerid="_global">{{track['time']}} - {{track['title']}}</a></li>
 							{% endfor %}
 						</ul>
 					</div>

@@ -7,16 +7,37 @@
 	position: relative;
 }
 
-region.wavesurfer-region {
-	cursor: pointer !important;
+.player-timestamp {
+	cursor: pointer;
 }
 
-region.wavesurfer-region:hover::before {
+region.wavesurfer-region {
+	cursor: pointer !important;
+	width: 2px !important;
+	z-index: auto !important;
+	background-color: rgb(0, 126, 245) !important;
+}
+
+region.wavesurfer-region:hover::after {
+	background-color: rgba(255,255,255,1);
+	z-index: 4 !important;
+	max-width: 1000px;
+}
+
+region.wavesurfer-region::after {
     content: attr(data-region-label);
+	z-index: 3 !important;
+    -webkit-transition: background-color 100ms ease-in-out;
+   	-moz-transition: background-color 100ms ease-in-out;
+	transition: background-color 100ms ease-in-out;
 	position: absolute;
-	color: black;
-	background-color: white;
 	top: 0;
+	color: black;
+	background-color: rgba(255,255,255,0.5);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 80px;
 	font-size: 12px;
 	line-height: 85%;
 }
@@ -25,6 +46,7 @@ region.wavesurfer-region:hover::before {
 	background: black;
 	color: #999999;
 	z-index: 10;
+	font-size: 12px;
 	position: absolute;
 	bottom: 20px;
 }
@@ -36,9 +58,11 @@ region.wavesurfer-region:hover::before {
 	bottom: 0px;
 	height: 20px;
 	z-index: 10;
+	color: black;
+	font-size: 12px;
 
 	.text {
-		background-color: black;
+		background-color: white;
 	}
 }
 
@@ -63,7 +87,7 @@ region.wavesurfer-region:hover::before {
 
 	&.active {
 		.title-wrapper {
-			color: #999999;
+			color: black;
 		}
 	}
 }

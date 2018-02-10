@@ -51,7 +51,7 @@ class Player {
 
   }
 
-  loadArtist(artist, prelim, play, trackIndex) {
+  loadArtist(artist, prelim, play, trackIndex, cb) {
 
     if (this.currentArtist) {
       this.log("Stopping previous artist "  + this.currentArtist.name + " before loading the next");
@@ -64,7 +64,7 @@ class Player {
     this.currentArtist = artist;
     this.nextArtist = this.currentArtist.next ? this.currentArtist.nextAudio() : null;
     this.prevArtist = this.currentArtist.prev ? this.currentArtist.prevAudio() : null;
-    this.loadMp3(this.currentArtist.audio[trackIndex || 0].url, prelim, play);
+    this.loadMp3(this.currentArtist.audio[trackIndex || 0].url, prelim, play, cb);
     this.currentSong = trackIndex || 0;
   }
 
@@ -137,6 +137,13 @@ class Player {
       this.loadingProgress.style.width = percents + "%";
   }
 
+  seekToTime(time) {
+    var timeSeconds = timeToSeconds(time);
+    var totalTimeSeconds = this.wavesurfer.getDuration();
+    var ratio = timeSeconds/totalTimeSeconds;
+    this.wavesurfer.seekTo(ratio);
+  }
+
   seek(progress) {
     if (this.prelim) {
       // If we're on empty.mp3 then load the real and and then seek
@@ -159,16 +166,18 @@ class Player {
       this.updateDuration();
       this.loadingProgress.style.display = "none";
 
+      // Add regions to the waveform if there's a tracklist
       if (this.currentArtist.tracklist) {
         this.currentArtist.tracklist.forEach(function(region, index) {
 
-          region.color = randomColor(1);
           region.drag = false;
           region.resize = false;
           region.start = timeToSeconds(region.time);
 
           this.wavesurfer.addRegion(region);
         }.bind(this));
+      } else {
+        this.wavesurfer.clearRegions();
       }
 
     }.bind(this), 100)
