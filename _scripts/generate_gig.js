@@ -49,11 +49,9 @@ function create_file_skeleton(gig, artists) {
 
     artists.forEach (function (artist) {
 
-        var trimmed_artist = artist.trim();
-
-        var artistImgPath = gigImagePath + "/" + machine_name(trimmed_artist);
-        var artistAudioPath = gigAudioPath + machine_name(trimmed_artist); 
-        var artistPagePath = './_pages/artists/' + machine_name(trimmed_artist) + '.md';
+        var artistImgPath = gigImagePath + "/" + machine_name(artist);
+        var artistAudioPath = gigAudioPath + machine_name(artist); 
+        var artistPagePath = './_pages/artists/' + machine_name(artist) + '.md';
 
         if (!fs.existsSync(artistImgPath)) fs.mkdirSync(artistImgPath);
 
@@ -117,8 +115,9 @@ function main() {
 
                 prompts.question("Artists (comma separated): ", function (artists) {
                     artists = artists.split(",");
-                    create_file_skeleton(gig, artists);
-                    create_gig_yaml(date, gig, venue, artists)
+                    let trimmed_artists = artists.map(s => s.trim());
+                    create_file_skeleton(gig, trimmed_artists);
+                    create_gig_yaml(date, gig, venue, trimmed_artists)
                     process.exit();
                 });
             });

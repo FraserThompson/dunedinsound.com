@@ -6,6 +6,7 @@ categories:
 parent: Gigs
 better_placeholders: true
 venue: ReStore
+audio: false
 media:
     Stef Animal:
             vid:
