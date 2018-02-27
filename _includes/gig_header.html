@@ -12,11 +12,20 @@
 
         <div class="banner">
             {% if site.data.media.gigs[page.title]['_header'] %}
+                {% assign number_of_header_images = site.data.media.gigs[page.title]['_header']['images'] | size %}
+                {% if number_of_header_images == 1 %}
+                    {% assign header_size_class = "col-xs-12 col-sm-12" %}
+                {% elsif number_of_header_images == 2 %}
+                    {% assign header_size_class = "col-xs-12 col-sm-6" %}
+                {% else %}
+                    {% assign header_size_class = "col-xs-12 col-sm-4" %}
+                {% endif %}
+                
                 {% for image in site.data.media.gigs[page.title]['_header']['images'] %}
                     {% assign full_pic = image | replace: " (Medium)","" %}
                     {% assign directory = "assets/img/" | append: page.title | append: "/" | append: '_header' %}
                     {% assign filename = full_pic | split: '/' | last %}
-                    <div class ="col-xs-12 col-sm-4 no-padding" style="height: 100%;">
+                    <div class ="{{header_size_class}} no-padding" style="height: 100%;">
                         <a href="{{site.asset_url}}/{{full_pic | uri_escape }}" target="_blank" class="loading">
                             <div class="banner b-lazy" data-src="{{site.asset_url}}/{{full_pic | uri_escape}}"></div>
                         </a>
