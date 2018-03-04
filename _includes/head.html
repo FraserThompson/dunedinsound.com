@@ -16,11 +16,13 @@
 		{% assign description = page.description %}
 	{% elsif page.layout == "gig" %} 
 		{% assign date_long_string = page.date | date_to_long_string %}
-		{% assign description = "Check out photos, audio and video from " | append: page.title | append: " at " | append: page.venue | append: " on " | append: date_long_string %}
-	{% elsif page.layout == "band" or page.layout == "venue" %}
-		{% assign description = "Check out photos, videos and bootlegs from " | append: page.title %}
+		{% assign description = "Photos, audio and video from " | append: page.title | append: " at " | append: page.venue | append: " on " | append: date_long_string %}
+	{% elsif page.layout == "band" %}
+		{% assign description = "Photos, videos and bootlegs of live performances featuring " | append: page.title %}
+	{% elsif page.layout == "venue" %}
+		{% assign description = "Photos, videos and bootlegs of live performances at " | append: page.title %}
 	{% else %}
-		{% assign description = "Rare and unofficial photos, audio and video of gigs in Dunedin, New Zealand." %}
+		{% assign description = "Rare and unofficial photos, videos and audio of gigs in Dunedin, New Zealand." %}
 	{% endif %}
 
 	{% if page.layout == "blog_post" %}
