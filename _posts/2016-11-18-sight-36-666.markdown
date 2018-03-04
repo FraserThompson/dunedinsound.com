@@ -7,8 +7,7 @@ categories:
     - bolton_strid
     - wilton_carpet
     - cakewithcontactmic
-    - eden
-
+    - mud_death
 parent: Gigs
 venue: None Gallery
 image: /assets/img/SIGHT%20%2336%20666/cover.jpg
@@ -32,8 +31,8 @@ media:
             - title: Full set
         vid:
             - link: 5vkIlm0Lyds
-    eden:
+    Mud Death:
         mp3:
-            - title: Full set
+            - title: Partial set
 ---
 
