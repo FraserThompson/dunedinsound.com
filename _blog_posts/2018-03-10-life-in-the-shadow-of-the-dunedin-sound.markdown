@@ -1,6 +1,6 @@
 ---
 title: "Life in the shadow of the Dunedin sound"
-date: 2018-03-09 09:00:00 +12
+date: 2018-03-10 09:00:00 +12
 tags:
     - interview
     - opinion
