@@ -39,6 +39,7 @@ exclude:
 - s3_website.yml
 - Gruntfile.js
 - package.json
+- package-lock.json
 - node_modules
 - Gemfile
 - README.md

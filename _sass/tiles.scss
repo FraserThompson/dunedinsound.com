@@ -18,6 +18,14 @@
 	&.b-loaded {
 		opacity: 1;
 	}
+
+	.blur {
+		-webkit-filter: blur(2px);
+		-moz-filter: blur(2px);
+		-o-filter: blur(2px);
+		-ms-filter: blur(2px);
+		filter: blur(2px);
+	}
 	
 }
 

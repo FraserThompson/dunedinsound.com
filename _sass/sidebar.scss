@@ -1,5 +1,5 @@
 .sidebar-nav {
-    width: $sidebar-width;
+    width: 100vw;
     margin: 0;
     padding: 0;
 	list-style: none;
@@ -166,7 +166,11 @@
 		&.scrolled {
 			top: 0px !important;
 		}
-    }
+	}
+
+	.sidebar-nav {
+		width: 250px;
+	}
 
     #wrapper.toggled .sidebar-wrapper {
         width: 0;

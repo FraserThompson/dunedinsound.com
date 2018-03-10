@@ -37,7 +37,7 @@ function gigInit() {
     gumshoe.init({
         selector: '.gumshoe',
         activeClass: 'active',
-        offset: HEADER_HEIGHT + 5,
+        offset: HEADER_HEIGHT + 60,
         scrollDelay: false
     });
 

@@ -7,20 +7,23 @@
     "command-line-args": "^4.0.7",
     "fs": "0.0.2",
     "glob": "^7.1.1",
-    "grunt": "^0.4.5",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-exec": "^1.0.1",
-    "grunt-jekyll": "^0.4.4",
-    "grunt-responsive-images": "^0.1.9",
-    "grunt-sync": "^0.6.2",
-    "grunt-uncss": "^0.6.1",
     "mkdirp": "^0.5.1",
     "sharp": "^0.18.4",
+    "sync-glob": "^1.3.8",
     "yamljs": "^0.2.8"
   },
   "scripts": {
-    "start": "jekyll serve",
-    "generate": "node ./_scripts/generate_gig.js"
+    "serve": "jekyll serve",
+    "dev": "jekyll serve --limit_posts=1 --incremental",
+    "generate": "node ./_scripts/generate_gig.js",
+    "audio": "docker-compose up --build && copy ./_originals/audio/**/*.{mp3,json} ./assets/audio && sync-glob assets/audio/** _site/assets/audio",
+    "images": "node ./_scripts/images.js && node ./_scripts/index-media.js && sync-glob assets/img/** _site/assets/img",
+    "build": "set JEKYLL_ENV=production && jekyll build",
+    "deploy": "s3_website push",
+    "production-build": "set JEKYLL_ENV=production && jekyll build && sync-glob assets/img/** _site/assets/img && sync-glob assets/audio/** _site/assets/audio",
+    "code-deploy": "set JEKYLL_ENV=production && jekyll build && s3_website push",
+    "gig-deploy": "set JEKYLL_ENV=production && jekyll build && sync-glob assets/img/** _site/assets/img && sync-glob assets/audio/** _site/assets/audio && s3_website push",
+    "sync": "sync-glob assets/img/** _site/assets/img && sync-glob assets/audio/** _site/assets/audio"
   },
   "repository": {
     "type": "git",

@@ -32,7 +32,7 @@ Him and Louis are chilling on a Sunday evening in Jeremy’s flat. It should com
 
 “It definitely had no thought put into it” adds Louis. He’s the vocalist and writes most of the songs.
 
-“We didn’t really think who was behind it [the art], we thought ‘hey some [dickhead from the government probably painted it up there](https://www.odt.co.nz/news/dunedin/dunedin-painting-town-ed)’. We were thinking it’d be a funny skit, we’re going to stick it to the government, paint over their power box, call ourselves Banksy...”
+“We didn’t really think who was behind it [the art], we thought ‘hey some dickhead from the government probably painted it up there’. We were thinking it’d be a funny skit, we’re going to stick it to the government, paint over their power box, call ourselves Banksy...”
 
 It was an act of rock n’ roll arrogance with punk “stick it to the man” sensibilities all wrapped up in self-aware irony. As it turned out though, the art was not a product of any governing body but of local arts student and The Chills fan Emma Craig who was commissioned by the lines provider to brighten up a drab gray box. 
 
@@ -40,13 +40,13 @@ She wanted to express her love for her favorite band and help more people her ag
 
 Emma spent the weekend repainting the work and has yet to receive a formal apology or even an admission of guilt from Coyote. Redoing it is annoying, but what bothered her the most was “that it was another Dunedin band who you’d think would look up to The Chills but clearly don’t have any respect for bands that paved the way for music in Dunedin.”
 
-Putting down a young local artist was not Coyote’s intent, and despite not fronting up they seemed genuinely sorry about that. They weren’t trying to make any sort of statement about the Dunedin Sound zeitgeist either, but by desecrating a symbol of 1980s Dunedin music with the symbol of an up-and-coming Dunedin band they inadvertently started a dialogue about life in the shadow of the Dunedin Sound.
+The target they picked might not have been [the best](https://www.odt.co.nz/news/dunedin/dunedin-painting-town-ed) and Putting down a young local artist was not Coyote’s intent. Despite not fronting up they seemed genuinely sorry about that. They weren’t trying to make any sort of statement about the Dunedin Sound zeitgeist either, but by desecrating a symbol of 1980s Dunedin music with the symbol of an up-and-coming Dunedin band they inadvertently started a dialogue about life in the shadow of the Dunedin Sound.
 
 If anything, the vitriolic response only confirms an issue exists. One commenter expressed disbelief at how anyone could do anything to hurt the band who “invented” the Dunedin music scene. Another questioned why they aren’t making their own music instead of just putting down others, apparently ignoring the fact that they literally are. Others simply threw crude insults and the odd threat of violence. 
 
 {% include blog_images.html images="coyote_comments_3.jpg|Crude insults\\coyote_comments_2.jpg|They literally are" col="col-xs-12 col-md-6" %}
 
-It makes me wonder whether these people know what’s going on today, whether they cling to the past because they believe without it Dunedin has nothing else. Apparently The Chills are more than just a good band from the 80s, they’re a god damn religion and Dunedin Sound is dogma.
+It makes me wonder whether these people know what’s going on today, whether they cling to the past because they believe without it Dunedin has nothing else. Apparently The Chills are more than just a good band from the 80s to these people, they’re a god damn religion. Dunedin Sound is dogma.
 
 Among the sea of negative responses were some more thoughtful ones expressing gratitude that someone had fought back at the attitude which they felt was suffocating today’s scene. Despite not being a motivating factor, Louis and Jeremy found themselves agreeing with this sentiment.
 
@@ -75,7 +75,5 @@ Either way, Coyote don’t mind the infamy.
 “Anyone who doesn't think it’s crack-up I don’t think I want them as a fan so it doesn’t wrinkle my forehead.”
 
 “I hope 30 years down the track someone scribbles their name on our powerbox”
-
-Fortunately it looks like the previously old-person dominated media narrative is changing as the old guard slowly are phased in in favour of fresh new perspectives. This is great because nostalgia is boring, and ruining music.
 
 The Chills declined to comment.

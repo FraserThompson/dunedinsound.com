@@ -40,7 +40,7 @@ description: "Check out rare and unofficial photos, videos and bootlegs of gigs 
           {% assign year_change = false %}
         {% endif %}
 
-        {% include gig_tile.html class="bottom eventhinner full-width" id=id sizing="col-xs-12" category="gigs" month=this_month year=this_year %}
+        {% include gig_tile.html class="bottom eventhinner full-width" id=id sizing="col-xs-12" category="gigs" month=this_month year=this_year image_size="Medium" image_class="blur" %}
 
         {% assign id = false %}
 
