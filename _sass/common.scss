@@ -5,10 +5,12 @@ $sidebar-width: 250px;
 $sidebar-width-mobile: 110px;
 $main-font: 'Work Sans', sans-serif;
 $header-font: 'Hammersmith One', sans-serif;
-$background-color: #222222;
+$background-color: #030301;
+$header-color: #0A0908;
+$header-light-color: white;
 $highlight-color: white;
 $highlight-text-color: black;
-$purple-color: mediumslateblue;
+$purple-color: #01BAEF;
 
 @mixin hover-grow($scale) {
 	-moz-transform: scale($scale,$scale);
@@ -116,17 +118,13 @@ a {
 footer {
 	z-index: 9999;
 	height: 360px;
-	border-top: 40px solid white;
-	background-color: black;
+	border-top: 40px solid $header-light-color;
+	background-color: $background-color;
 	margin-left: -15px;
 	margin-right: -15px;
 
 	&.sidebar {
 		padding-left: $sidebar-width-mobile;
-	}
-
-	.container {
-		background-color: black;
 	}
 
 	.footer-content {
@@ -148,7 +146,7 @@ h3 {
 
 .divider {
 	color: black;
-	background-color: white;
+	background-color: $header-light-color;
 
 	h3 {
 		line-height: 40px;
@@ -163,7 +161,7 @@ h3 {
 
 	&.inverted {
 		color: white;
-		background-color: black;
+		background-color: $header-color;
 		&.link {
 			&:hover{
 				background-color: darken(white, 5%);

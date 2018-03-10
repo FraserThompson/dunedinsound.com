@@ -108,8 +108,8 @@
 }
 
 .label {
-	background-color: white;
-	color: black;
+	background-color: $header-light-color;
+	color: $highlight-text-color;
 	z-index: 999;
 	position: absolute;
 	font-size: 14px;

@@ -44,12 +44,8 @@
     transition: opacity 200ms ease-in-out;
 }
 
-.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:active {
-	background-color: rgba(0,0,0,0.3) !important;
-}
-
 #site-header {
-	background-color: #000;
+	background-color: $header-color;
 	top: 0px;
 	right: 0px;
 	margin-right: 0px;
@@ -95,7 +91,6 @@
 	overflow: hidden;
 	width: 100%;
 	top: 0px;
-	background-color: rgba(0,0,0,1);
 	background-image: none;
 	-webkit-transition: background-color 0.5s ease;
     -moz-transition: background-color 0.5s ease;
