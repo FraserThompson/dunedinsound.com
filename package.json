@@ -5,25 +5,26 @@
   "main": "index.js",
   "devDependencies": {
     "command-line-args": "^4.0.7",
+    "copyfiles": "^2.0.0",
     "fs": "0.0.2",
     "glob": "^7.1.1",
     "mkdirp": "^0.5.1",
     "sharp": "^0.18.4",
-    "sync-glob": "^1.3.8",
     "yamljs": "^0.2.8"
   },
   "scripts": {
     "serve": "jekyll serve",
     "dev": "jekyll serve --limit_posts=1 --incremental",
     "generate": "node ./_scripts/generate_gig.js",
-    "audio": "docker-compose up --build && copy ./_originals/audio/**/*.{mp3,json} ./assets/audio && sync-glob assets/audio/** _site/assets/audio",
-    "images": "node ./_scripts/images.js && node ./_scripts/index-media.js && sync-glob assets/img/** _site/assets/img",
+    "audio": "docker-compose up --build && copyfiles _originals/audio/**/*.{mp3,json} assets/audio && copyfiles --soft assets/audio/** _site",
+    "images": "node ./_scripts/images.js && node ./_scripts/index-media.js && copyfiles assets/img/** _site",
+    "index-media": "node ./_scripts/index-media.js",
     "build": "set JEKYLL_ENV=production && jekyll build",
     "deploy": "s3_website push",
-    "production-build": "set JEKYLL_ENV=production && jekyll build && sync-glob assets/img/** _site/assets/img && sync-glob assets/audio/** _site/assets/audio",
+    "production-build": "set JEKYLL_ENV=production && jekyll build && copyfiles --soft assets/img/** _site && copyfiles assets/audio/** _site",
     "code-deploy": "set JEKYLL_ENV=production && jekyll build && s3_website push",
-    "gig-deploy": "set JEKYLL_ENV=production && jekyll build && sync-glob assets/img/** _site/assets/img && sync-glob assets/audio/** _site/assets/audio && s3_website push",
-    "sync": "sync-glob assets/img/** _site/assets/img && sync-glob assets/audio/** _site/assets/audio"
+    "gig-deploy": "set JEKYLL_ENV=production && jekyll build && copyfiles --soft assets/img/** _site && copyfiles --soft assets/audio/** _site && s3_website push",
+    "sync": "copyfiles --soft assets/img/** _site && copyfiles --soft assets/audio/** _site"
   },
   "repository": {
     "type": "git",
