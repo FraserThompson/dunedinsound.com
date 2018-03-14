@@ -2,6 +2,8 @@ const fs = require('fs'),
 glob = require('glob'),
 YAML = require('yamljs');
 
+console.log("INDEXING MEDIA...")
+
 glob('assets/**/**/*.{jpg,JPG}', {}, function(err, files){
     var existingYml = fs.readFileSync("_data/media.yml").toString();
 
@@ -12,6 +14,9 @@ glob('assets/**/**/*.{jpg,JPG}', {}, function(err, files){
     existingYml = a[0].trim();
 
     var data = { 'gigs': {}, 'artists': {}, 'audio': {} };
+
+    console.log("\t Iterating files and generating index...")
+
     files.forEach(function(file){
         var path_components = file.split('/')
         var gig = path_components[2];
@@ -44,10 +49,12 @@ glob('assets/**/**/*.{jpg,JPG}', {}, function(err, files){
         }
     });
 
+    console.log("\t Writing YAML...")
+
     var yamlString = YAML.stringify(data);
     var yamlHeading = "\n\n\n#!#!#!#!# Do not edit below this line.\n";
     yamlHeading += "# Generated automatically using `grunt index_images` on " + new Date() + "\n\n";
     
     fs.writeFileSync("_data/media.yml", existingYml + yamlHeading + yamlString);
-    console.log('done');
+    console.log('\t Done');
 });

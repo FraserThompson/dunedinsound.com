@@ -5,6 +5,7 @@
   "main": "index.js",
   "devDependencies": {
     "command-line-args": "^4.0.7",
+    "copy": "^0.3.1",
     "copyfiles": "^2.0.0",
     "fs": "0.0.2",
     "glob": "^7.1.1",
@@ -17,7 +18,7 @@
     "dev": "jekyll serve --limit_posts=1 --incremental",
     "generate": "node ./_scripts/generate_gig.js",
     "audio": "docker-compose up --build && copyfiles _originals/audio/**/*.{mp3,json} assets/audio && copyfiles --soft assets/audio/** _site",
-    "images": "node ./_scripts/images.js && node ./_scripts/index-media.js && copyfiles assets/img/** _site",
+    "images": "node ./_scripts/images.js && node ./_scripts/index-media.js",
     "index-media": "node ./_scripts/index-media.js",
     "build": "set JEKYLL_ENV=production && jekyll build",
     "deploy": "s3_website push",
