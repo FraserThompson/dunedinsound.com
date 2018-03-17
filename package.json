@@ -6,7 +6,6 @@
   "devDependencies": {
     "command-line-args": "^4.0.7",
     "copy": "^0.3.1",
-    "copyfiles": "^2.0.0",
     "fs": "0.0.2",
     "glob": "^7.1.1",
     "mkdirp": "^0.5.1",
@@ -17,15 +16,14 @@
     "serve": "jekyll serve",
     "dev": "jekyll serve --limit_posts=1 --incremental",
     "generate": "node ./_scripts/generate_gig.js",
-    "audio": "docker-compose up --build && copyfiles _originals/audio/**/*.{mp3,json} assets/audio && copyfiles --soft assets/audio/** _site",
+    "audio": "docker-compose up --build && node ./_scripts/audio.js",
     "images": "node ./_scripts/images.js && node ./_scripts/index-media.js",
     "index-media": "node ./_scripts/index-media.js",
     "build": "set JEKYLL_ENV=production && jekyll build",
     "deploy": "s3_website push",
-    "production-build": "set JEKYLL_ENV=production && jekyll build && copyfiles --soft assets/img/** _site && copyfiles assets/audio/** _site",
+    "production-build": "set JEKYLL_ENV=production && jekyll build",
     "code-deploy": "set JEKYLL_ENV=production && jekyll build && s3_website push",
-    "gig-deploy": "set JEKYLL_ENV=production && jekyll build && copyfiles --soft assets/img/** _site && copyfiles --soft assets/audio/** _site && s3_website push",
-    "sync": "copyfiles --soft assets/img/** _site && copyfiles --soft assets/audio/** _site"
+    "gig-deploy": "set JEKYLL_ENV=production && jekyll build && s3_website push"
   },
   "repository": {
     "type": "git",
