@@ -16,14 +16,12 @@
     "serve": "jekyll serve",
     "dev": "jekyll serve --limit_posts=1 --incremental",
     "generate": "node ./_scripts/generate_gig.js",
-    "audio": "docker-compose up --build && node ./_scripts/audio.js",
+    "audio": "docker-compose up --build && node ./_scripts/copy_audio.js",
     "images": "node ./_scripts/images.js && node ./_scripts/index-media.js",
     "index-media": "node ./_scripts/index-media.js",
     "build": "set JEKYLL_ENV=production && jekyll build",
     "deploy": "s3_website push",
-    "production-build": "set JEKYLL_ENV=production && jekyll build",
-    "code-deploy": "set JEKYLL_ENV=production && jekyll build && s3_website push",
-    "gig-deploy": "set JEKYLL_ENV=production && jekyll build && s3_website push"
+    "build-deploy": "set JEKYLL_ENV=production && jekyll build && s3_website push"
   },
   "repository": {
     "type": "git",

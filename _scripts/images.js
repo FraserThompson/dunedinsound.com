@@ -1,3 +1,7 @@
+/*
+    Resizes all the images in the _originals folder and then copies them to _site
+*/
+
 const sharp = require("sharp"),
 glob = require("glob"),
 mkdirp = require("mkdirp"),

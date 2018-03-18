@@ -1,3 +1,7 @@
+/*
+    Indexes all of the media and spits out a YML for Jekyll to use
+*/
+
 const fs = require('fs'), 
 glob = require('glob'),
 YAML = require('yamljs');
