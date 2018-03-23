@@ -1,9 +1,11 @@
 {% assign number_of_bands = 0 %}
 
 {% for band in page.media %}
+
     {% assign band_machine_name = band[1].machine_name %}
     {% assign cutoff = 1 %}
     {% assign gigs_number = site.categories[band_machine_name].size %}
+
     {% if include.no_skip_first_gig %}
         {% assign cutoff = 0 %}
     {% endif %}
@@ -11,16 +13,17 @@
     {% if gigs_number > cutoff %}
         {% assign number_of_bands = number_of_bands | plus: 1 %}
     {% endif %}
+
 {% endfor %}
 
 {% if number_of_bands == 1 %}
-{% assign size_class = "col-xs-6" %}
-{% else if number_of_bands == 2 %}
-{% assign size_class = "col-xs-6 col-sm-4" %}
-{% else if number_of_bands == 3 %}
-{% assign size_class = "col-xs-6 col-sm-3" %}
+    {% assign size_class = "col-xs-6" %}
+{% elsif number_of_bands == 2 %}
+    {% assign size_class = "col-xs-6 col-md-4" %}
+{% elsif number_of_bands == 3 %}
+    {% assign size_class = "col-xs-6 col-md-3" %}
 {% else %}
-{% assign size_class = "col-xs-6 col-sm-4" %}
+    {% assign size_class = "col-xs-6 col-md-3 col-lg-2" %}
 {% endif %}
 
 {% for band in page.media %}

@@ -113,8 +113,8 @@ function onImageLoad() {
  * Sets up the lazy loading observer
  */
 var observer = lozad('.b-lazy', {
-    rootMargin: '300px 0px',
-    threshold: 0,
+    rootMargin: '500px 0px',
+    threshold: 0.1,
     load: function(element) {
 
         element.onload = onImageLoad;

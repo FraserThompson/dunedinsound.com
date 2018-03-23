@@ -49,6 +49,10 @@ It does cost money to host all this stuff. Currently that's only around $10 a mo
 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form>
 
+If you're not making money then why do it?
+------------------------------
+Because I enjoy doing it and I think this little micro-community is worth documenting.
+
 I've got something to say!
 --------------------------
 Want uncompressed images or copies of videos? Want me to come to your gig? Or something else? You can contact me here: <a href="mailto:fraser@dunedinsound.com">fraser@dunedinsound.com</a>

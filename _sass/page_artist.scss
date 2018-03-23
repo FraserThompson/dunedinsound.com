@@ -47,19 +47,23 @@ h2.huge-header {
 }
 
 .post-header {
-	height: 30vh;
-	overflow:hidden;
+	height: 60vh;
+	overflow: hidden;
+	position: relative;
 
 	.text {
-	    position: absolute;
+		position: absolute;
+
 		width: 85%;
-		z-index: 1000;
-		margin-top: 60px;
-		padding: 10px;
-	    top: $header-height - 30;
-		background: rgba(0,0,0,0.8);
+
+		top: 50%;
 		left: 50%;
-    	transform: translate(-50%, 0);
+		transform: translate(-50%, -50%);
+
+		z-index: 1000;
+		padding: 10px;
+		background: rgba(0,0,0,0.8);
+
 		a:hover {
 			text-decoration: none;
 		}
@@ -97,11 +101,8 @@ h2.huge-header {
 @media (min-width:768px) {
 
 	.post-header {
-		height: 50vh;
 
 		.text {
-		    position: absolute;
-			top: 80px;
 			width: auto;
 		}
 

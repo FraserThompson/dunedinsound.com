@@ -1,7 +1,7 @@
 .b-lazy {
-    -webkit-transition: opacity 300ms ease-in-out;
-       -moz-transition: opacity 300ms ease-in-out;
-            transition: opacity 300ms ease-in-out;
+    -webkit-transition: opacity 500ms ease-in-out;
+       -moz-transition: opacity 500ms ease-in-out;
+            transition: opacity 500ms ease-in-out;
 			 max-width: 100%;
 			 background-color: black;
 			 opacity: 0;
@@ -19,7 +19,7 @@
 		opacity: 1;
 	}
 
-	.blur {
+	&.blur {
 		-webkit-filter: blur(2px);
 		-moz-filter: blur(2px);
 		-o-filter: blur(2px);

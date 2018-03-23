@@ -2,6 +2,10 @@
 layout: default
 ---
 
+{% assign number_of_gigs = site.categories[page.machine_name] | size %}
+{% assign number_images = site.data.media.artists[page.machine_name]['medium'] | size %}
+{% assign images = site.data.media.artists[page.machine_name]['medium'] | sample: 4 %}
+
 <article class="band container-fluid" id="band">
   <div class="row">
       <a href="/artists">
@@ -12,8 +16,6 @@ layout: default
   </div>
   <header class="post-header row">
     <div class="banner">
-        {% assign number_images = site.data.media.artists[page.machine_name]['medium'] | size %}
-        {% assign images = site.data.media.artists[page.machine_name]['medium'] | sample: 4 %}
 
         {% if number_images > 4 %}
           {% for image in images %}
@@ -50,7 +52,7 @@ layout: default
   </header>
   <div class="divider row" style="background-color: black; color: #c8c8c8;">
     <div class="col-xs-12">
-      <h4>Past Gigs</h4>
+      <h4>Gigs ({{number_of_gigs}})</h4>
     </div>
   </div>
   <div class="row tiles">
