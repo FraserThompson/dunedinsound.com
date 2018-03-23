@@ -49,6 +49,7 @@
 	top: 0px;
 	right: 0px;
 	margin-right: 0px;
+	margin-bottom: -10px;
 	width: 100%;
 	height: $header-height;
 
@@ -146,6 +147,7 @@
 	
 	#site-header {
 		height: $header-height + 20;
+		margin-bottom: auto;
 
 		&.double {
 			height: $header-height + 20;

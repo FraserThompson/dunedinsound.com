@@ -3,11 +3,11 @@
 
 <div class="container-fluid">
     <div class="post-header row">
-        <a title ="Back to gigs" href="/gigs" class="link"><div class="col-xs-12 divider link purple">
+        <a title ="Back to gigs" href="/gigs" class="link"><div class="col-xs-12 divider link purple hidden-xs">
             <h5>Back to gigs</h5>
         </div></a>
         {% if page.title == site.posts[0].title %}
-            <span class="label label-default" style="margin-left: 15px;">LATEST GIG</span>
+            <span class="label label-default">LATEST GIG</span>
         {% endif %}
 
         <div class="banner">
@@ -41,7 +41,7 @@
                 </div>
             {% endif %}
         </div>
-        <div class="text">
+        <div class="text" style="margin-top: -60px;">
             <center>
                 <h2 class="huge-header">{{page.title}}</h2>
                 {% include gig_playlist.html orientation="horizontal" hightlight="false" class="canonical" %}
