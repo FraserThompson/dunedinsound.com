@@ -35,8 +35,6 @@
 }
 
 .sorting {
-	position: absolute;
-	left: 0px;
 	z-index: 2000;
 	opacity: 1;
 	-webkit-transition: opacity 200ms ease-in-out;
@@ -49,7 +47,6 @@
 	top: 0px;
 	right: 0px;
 	margin-right: 0px;
-	margin-bottom: -10px;
 	width: 100%;
 	height: $header-height;
 
@@ -144,10 +141,14 @@
 }
 
 @media (min-width:768px) {
+
+	.sorting {
+		position: absolute;
+		left: 0px;
+	}
 	
 	#site-header {
 		height: $header-height + 20;
-		margin-bottom: auto;
 
 		&.double {
 			height: $header-height + 20;

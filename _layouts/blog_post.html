@@ -10,14 +10,9 @@ layout: default-container
         {% endif %}
         <p>
         {% for tag in page.tags %}
-            <small class="label label-blog">{{tag}}</small>
+            <small class="label label-blog" style="margin-left: 0px;">{{tag}}</small>
         {% endfor %}
         </p>
-        <div class="text-wrapper">
-            {% if page.no_share_buttons == nil %}
-                {% include social_buttons.html %}
-            {% endif %}
-        </div>
     </div>
 </div>
 

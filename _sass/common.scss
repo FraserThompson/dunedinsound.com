@@ -48,10 +48,10 @@ body {
 }
 
 .link:hover {
-	text-decoration: none;
+	text-decoration: underline;
 	color: #333;
 	&.light {
-		color: pink;
+		color: #01BAEF;
 	}
 }
 .right {
@@ -268,13 +268,11 @@ h3 {
 	
 	&:active:hover,
 	&:hover,
-	&:focus,
 	&.focus, {
 		background-color: lightgray !important;
 		background-image: none;
 	}
 	
-	&:active,
 	&.active {
 		background-color: orange !important;
 		background-image: none;
@@ -282,15 +280,21 @@ h3 {
 }
 
 .btn-default {
-	background-color: #3a3f44 !important;
+	background: rgba(0,0,0,0.6);
 	background-image: none;
+	color: #c8c8c8;
 	border-color: #3a3f44 !important;
-	&:hover,
-	&:focus,
+
+	&:hover {
+		color: white;
+		background-color: rgba(0,0,0,0.8) !important;
+		background-image: none;
+	}
+
 	&.focus,
-	&:active,
 	&.active {
-		background-color: #232628 !important;
+		color: white;
+		background-color: rgba(255,255,255,0.2) !important;
 		background-image: none;
 	}
 }
