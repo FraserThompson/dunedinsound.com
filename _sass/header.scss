@@ -1,3 +1,7 @@
+.navbar {
+	min-height: 40px;
+}
+
 .navbar-brand {
 	display:none;
 }
@@ -35,11 +39,17 @@
 }
 
 .sorting {
+	background-color: black;
 	z-index: 2000;
 	opacity: 1;
+	margin-left: -15px;
+	margin-right: -15px;
 	-webkit-transition: opacity 200ms ease-in-out;
     -moz-transition: opacity 200ms ease-in-out;
-    transition: opacity 200ms ease-in-out;
+	transition: opacity 200ms ease-in-out;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 #site-header {
@@ -145,6 +155,8 @@
 	.sorting {
 		position: absolute;
 		left: 0px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 	
 	#site-header {

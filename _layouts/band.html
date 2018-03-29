@@ -42,17 +42,17 @@ layout: default
       <center>
         <h1 class="huge-header">{{page.title}}</h1>
         <ul class="sidebar-nav horizontal" style="padding: 0px;">
-          <li>{% if page.facebook %}<a href="{{page.facebook}}" class="btn btn-default" title="Facebook" target="_blank">Facebook</a>{% endif %}</li>
-          <li>{% if page.bandcamp %}<a href="{{page.bandcamp}}" class="btn btn-default" title="Bandcamp" target="_blank">Bandcamp</a>{% endif %}</li>
-          <li>{% if page.soundcloud %}<a href="{{page.soundcloud}}" class="btn btn-default" title="Soundcloud" target="_blank">Soundcloud</a>{% endif %}</li>
-          <li>{% if page.website %}<a href="{{page.website}}" class="btn btn-default" title="Website" target="_blank">Website</a>{% endif %}</li>
+          {% if page.facebook %}<li><a href="{{page.facebook}}" class="btn btn-default" title="Facebook" target="_blank">Facebook</a></li>{% endif %}
+          {% if page.bandcamp %}<li><a href="{{page.bandcamp}}" class="btn btn-default" title="Bandcamp" target="_blank">Bandcamp</a></li>{% endif %}
+          {% if page.soundcloud %}<li><a href="{{page.soundcloud}}" class="btn btn-default" title="Soundcloud" target="_blank">Soundcloud</a></li>{% endif %}
+          {% if page.website %}<li><a href="{{page.website}}" class="btn btn-default" title="Website" target="_blank">Website</a></li>{% endif %}
         </ul>
       </center>
     </div>
   </header>
   <div class="divider row" style="background-color: black; color: #c8c8c8;">
     <div class="col-xs-12">
-      <h4>Gigs ({{number_of_gigs}})</h4>
+      <h5>Gigs ({{number_of_gigs}})</h5>
     </div>
   </div>
   <div class="row tiles">
@@ -61,14 +61,18 @@ layout: default
         <div class="col-sm-12 col-md-6 col-lg-4 tile-wrap smaller bottom" style="height: 35vh; background-color: black;">
           <a class="tile-link box" href="{{ post.url }}#{{page.machine_name}}">
             <div class="tile-title">
-              <h4><small>{{post.date | date: "%d %b %Y"}}</small></h4>
-              <h4>{{post.title}}</h4>
-              <h5>{{ post.venue }}</h5>
-              <h5>
-              {% if site.data.media.gigs[post.title][page.machine_name]['count'] > 1%}<span> {{site.data.media.gigs[post.title][page.machine_name]['count']}} 📷</span>{% endif %}
-              {% if post.media[page.title].mp3 %}<span> {{post.media[page.title].mp3.size}} 🎧</span>{% endif %}
-              {% if post.media[page.title].vid %}<span> {{post.media[page.title].vid.size}} 📹</span>{% endif %}
-              </h5>
+              <div class="top">
+                <h5>{{post.date | date: "%d %b %Y"}}</h5>
+              </div>
+              <div class="bottom">
+                <h3 class="name">{{post.title}}</h3>
+                <h5>{{ post.venue }}</h5>
+                <h5>
+                {% if site.data.media.gigs[post.title][page.machine_name]['count'] > 1%}<span> {{site.data.media.gigs[post.title][page.machine_name]['count']}} 📷</span>{% endif %}
+                {% if post.media[page.title].mp3 %}<span> {{post.media[page.title].mp3.size}} 🎧</span>{% endif %}
+                {% if post.media[page.title].vid %}<span> {{post.media[page.title].vid.size}} 📹</span>{% endif %}
+                </h5>
+              </div>
             </div>
             <div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][page.machine_name]['images'][0] | uri_escape }}">
             </div>

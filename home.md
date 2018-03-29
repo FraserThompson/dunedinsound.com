@@ -29,7 +29,7 @@ order: 1
             </div>
         </div>
         <div class="col-xs-12 col-sm-4" id="more" style="background-color: black;">
-            <span class="label label-default hidden-xs ">RECENT POSTS</span>
+            <!-- <span class="label label-default hidden-xs ">RECENT POSTS</span> -->
             <div class="row sorted-tiles">
                 {% assign count = 0 %}
                 {% for tile in content limit: 4 %}

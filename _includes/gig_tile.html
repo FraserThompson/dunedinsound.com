@@ -5,46 +5,51 @@
 		<span class="label label-default">LATEST GIG</span>
 	{% endif %}
     <div class="tile-title">
-		<h4><small>{{tile.date | date: "%d %b %Y"}}</small></h4>
-		{% if include.class == "feature" %}
-      		<h1 class="name">{% if include.title %}{{include.title}}{% else %}{{ tile.title }}{% endif %}</h1>
-		{% else %}
-			  <h3 class="name">{% if include.title %}{{ include.title }}{% else %}{{ tile.title }}{% endif %}</h3>
-		{% endif %}
-
-		{% unless tile.parent == "Blog"  %}
-			{% assign band_quantity = tile.media | size %}
-			{% assign band_quantity_minus_one = band_quantity | minus: 1 %}
-			{% assign mp3_size = 0 %}
-			{% assign vid_size = 0 %}
-			{% assign photo_count = 0 %}
-
-			{% for band in site.data.media.gigs[tile.title] %}
-				{% assign photo_count = photo_count | plus: band[1].count %}
-			{% endfor %}
-			
-			<span class="artistNames">
-			{% for band in tile.media %}
-				{% if forloop.index < 8 %}
-					<span>{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false and forloop.index != 7 %}, {% endif %}</span>
-				{% else %}
-					<span style="display: none;">{{band[0]}} </span>
-				{% endif %}
-				{% assign mp3_size = mp3_size | plus: band[1].mp3.size %}
-				{% assign vid_size = vid_size | plus: band[1].vid.size %}
-			{% endfor %}
-			</span>
-			{% if band_quantity >= 8 %}
-				<span>and more</span>
-			{% endif %}
-			<h6>{{ tile.venue }}</h6>
-			<h6>
-			{% if photo_count %}<span> {{photo_count}} 📷</span>{% endif %}
-			{% if mp3_size %}<span> {{mp3_size}} 🎧</span>{% endif %}
-			{% if vid_size %}<span> {{vid_size}} 📹</span>{% endif %}
-			</h6>
+		{% unless include.class == "feature" %}
+		<div class="top">
+			<h5>{{tile.date | date: "%d %b %Y"}}</h5>
+		</div>
 		{% endunless %}
+		<div class="bottom">
+			{% if include.class == "feature" %}
+				<h1 class="name">{% if include.title %}{{include.title}}{% else %}{{ tile.title }}{% endif %}</h1>
+			{% else %}
+				<h3 class="name">{% if include.title %}{{ include.title }}{% else %}{{ tile.title }}{% endif %}</h3>
+			{% endif %}
 
+			{% unless tile.parent == "Blog"  %}
+				{% assign band_quantity = tile.media | size %}
+				{% assign band_quantity_minus_one = band_quantity | minus: 1 %}
+				{% assign mp3_size = 0 %}
+				{% assign vid_size = 0 %}
+				{% assign photo_count = 0 %}
+
+				{% for band in site.data.media.gigs[tile.title] %}
+					{% assign photo_count = photo_count | plus: band[1].count %}
+				{% endfor %}
+				
+				<h5 class="artistNames">
+				{% for band in tile.media %}
+					{% if forloop.index < 8 %}
+						<span>{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false and forloop.index != 7 %}, {% endif %}</span>
+					{% else %}
+						<span style="display: none;">{{band[0]}} </span>
+					{% endif %}
+					{% assign mp3_size = mp3_size | plus: band[1].mp3.size %}
+					{% assign vid_size = vid_size | plus: band[1].vid.size %}
+				{% endfor %}
+				</h5>
+				{% if band_quantity >= 8 %}
+					<span>and more</span>
+				{% endif %}
+				<h5>{{ tile.venue }}</h5>
+				<h5>
+				{% if photo_count %}<span> {{photo_count}} 📷</span>{% endif %}
+				{% if mp3_size %}<span> {{mp3_size}} 🎧</span>{% endif %}
+				{% if vid_size %}<span> {{vid_size}} 📹</span>{% endif %}
+				</h5>
+			{% endunless %}
+		</div>
     </div>
     <div class="tile b-lazy {{include.image_class}}" data-src="{% if include.image %}{{include.image}}{% else %}{{site.asset_url}}/assets/img/{{tile.title | uri_escape }}/cover{% if include.image_size %}%20({{include.image_size}}){% endif %}.jpg{% endif %}"  style="background-color: #0A0A0A"></div>
 	</a>

@@ -112,7 +112,7 @@
 	color: $highlight-text-color;
 	z-index: 999;
 	position: absolute;
-	font-size: 14px;
+	font-size: 10.5px;
 	margin-top: 15px;
 	margin-left: 15px;
 	top: 0px;
@@ -129,12 +129,17 @@
 		width: 100%;
 		opacity: 0.8;
 		z-index: 1;
-		min-height: 20%;
+		height: 100%;
 		padding-bottom: 15px;
 		padding-top: 0px;
 		padding-left: 10px;
 		padding-right: 20px;
 		transition: all 300ms ease-in-out;
+
+		.bottom {
+			position: absolute;
+			bottom: 10px;
+		}
 
 		h5, h4, h3, p, span {
 			text-shadow: 1px 1px black;
@@ -154,10 +159,10 @@
 	&.bottom {
 		.tile-title {
 			bottom: 0px;
-			background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.8) 20%, rgba(255,255,255,0));
-			background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.8) 20%, rgba(255,255,255,0));
-			background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.8) 20%, rgba(255,255,255,0));
-			background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 20%, rgba(255,255,255,0));
+			background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.8) 20%, rgba(0,0,0,0.2));
+			background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.8) 20%, rgba(0,0,0,0.2));
+			background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.8) 20%, rgba(0,0,0,0.2));
+			background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 20%,rgba(0,0,0,0.2));
 		}
 	}
 
@@ -284,6 +289,9 @@
 
 @media (min-width:768px) {
 
+	.label {
+		font-size: 14px;
+	}
 
 	.tile-wrap {
 		
