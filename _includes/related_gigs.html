@@ -1,3 +1,16 @@
+{% comment %}
+
+Displays gigs related to a post.
+
+It expects page.media to exist and be a list of band machine names.
+
+Parameters:
+
+- no_skip_first_gig: By default it skips the first gig. This will prevent that from happening.
+- horizontal: Displays horizontally instead of vertically.
+
+{% endcomment %}
+
 {% assign number_of_bands = 0 %}
 
 {% for band in page.media %}
@@ -42,34 +55,30 @@
             <div style="padding-top: 10px;">
                 <p>Gigs featuring <a title="More gigs from {{band[0]}}" href="/artists/{{band_machine_name}}">{{band[0]}}</a></p>
             </div>
-            {% for post in site.categories[band_machine_name] | limit: 3 %}
-                {% unless post.title == page.title %}
-                    <div class="tile-wrap bottom">
-                        <a class="tile-link box" href="{{ post.url }}#{{band_machine_name}}">
-                            <div class="tile-title">
-                                <h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>
-                                <h5 style="margin-bottom: 2px;">{{post.title}}</h5>
-                                <p><small>{{ post.venue }}</small></p>
-                            </div>
-                            {% if site.data.media.gigs[post.title][band_machine_name]['images'].size %}
-                            <div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][band_machine_name]['images'][0] | uri_escape }}">
-                            {% else %}
-                            <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | uri_escape }}/cover.jpg">
-                            {% endif %}
-                            </div>
-                        </a>
-                    </div>
+            {% for tile in site.categories[band_machine_name] | limit: 3 %}
+                {% unless tile.title == page.title %}
+
+                    {% if site.data.media.gigs[tile.title][band_machine_name]['images'].size %}
+                        {% assign image_link = site.data.media.gigs[post.title][band_machine_name]['images'][0] | uri_escape %}
+                    {% else %}
+                        {% assign image_link = "" %}
+                    {% endif %}
+
+                    {% include gig_tile.html class="bottom" sizing="" category="band" image=image_link %}
+
                 {% endunless %}
             {% endfor %}
             
             {% if gigs_not_displayed > 0 %} 
                 <a style="float:right; padding-right: 10px;" title="More gigs from {{band[0]}}" href="/artists/{{band_machine_name}}"><small> + {{gigs_not_displayed}} more </small></a>
             {% endif %}
+
         </div>
     {% endif %}
 {% endfor %}
 
 {% if page.venue %}
+
     {% assign venue_machine_name = page.venue | downcase | machine_name %}
     {% assign venue_gigs = site.posts | where: "venue", page.venue  %}
     {% assign gigs_number = venue_gigs | size %}
@@ -81,19 +90,14 @@
             <p>Gigs at <a title="More gigs at {{venue}}" href="/venues/{{venue_machine_name}}">{{page.venue}}</a></p>
         </div>
 
-        {% for post in venue_gigs limit: 3 %}
-            {% unless post.title == page.title %}
-                <div class="tile-wrap bottom">
-                    <a class="tile-link box" href="{{ post.url }}">
-                        <div class="tile-title">
-                            <h5><small>{{post.date | date: "%d %b %Y"}}</small></h5>
-                            <h5>{{post.title}}</h5>
-                        </div>
-                        <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | uri_escape }}/cover.jpg">
-                        </div>
-                    </a>
-                </div>
+        {% for tile in venue_gigs limit: 3 %}
+
+            {% unless tile.title == page.title %}
+
+                {% include gig_tile.html class="bottom" sizing="" category="venue" %}
+
             {% endunless %}
+
         {% endfor %}
         
         {% if gigs_not_displayed > 0 %} 

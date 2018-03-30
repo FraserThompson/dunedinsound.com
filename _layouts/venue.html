@@ -21,6 +21,7 @@ layout: default
                 {% if page.facebook %}<li><a href="{{page.facebook}}" class="btn btn-default" title="Facebook" target="_blank">Facebook</a></li>{% endif %}
                 {% if page.website %}<li><a href="{{page.website}}" class="btn btn-default" title="Website" target="_blank">Website</a></li>{% endif %}
             </ul>
+            <p>{{page.description}}</p>
             </center>
         </div>
       </div>
@@ -31,34 +32,9 @@ layout: default
         </div>
     </div>
     <div class="row tiles">
-        {% for post in site.posts %}
-            {% if post.venue and post.venue == page.title %}
-
-                {% assign band_quantity = post.media | size %}
-                {% assign band_quantity_minus_one = band_quantity | minus: 1 %}
-
-                <div class="col-sm-6 col-md-3 col-lg-3 tile-wrap smaller bottom" style="height: 35vh; background-color: black;">
-                    <a class="box" href="{{ post.url }}">
-                        <div class="tile-title">
-                            <div class="top">
-                                <h5>{{post.date | date: "%d %b %Y"}}</h5>
-                            </div>
-                            <div class="bottom">
-                                <h3>{{post.title}}</h3>
-                                <h5>
-                                {% for band in post.media %}
-                                    {% if forloop.index < 8 %}
-                                        <span>{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false and forloop.index != 7 %}, {% endif %}</span>
-                                    {% else %}
-                                        <span style="display: none;">{{band[0]}} </span>
-                                    {% endif %}
-                                {% endfor %}
-                                </h5>
-                            </div>
-                        </div>
-                        <div class="tile b-lazy" data-src="{{site.asset_url}}/assets/img/{{post.title | uri_escape }}/cover.jpg"></div>
-                    </a>
-                </div>
+        {% for tile in site.posts %}
+            {% if tile.venue and tile.venue == page.title %}
+                {% include gig_tile.html class="smaller bottom" sizing="col-sm-12 col-md-6 col-lg-4" category="venue" hide_venue="true" %}
             {% endif %}     
         {% endfor %}
     </div>

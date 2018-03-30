@@ -1,20 +1,49 @@
+{% comment %} 
+
+A tile which displays a gig tile with artists and venue name.
+
+Must be used in a foreach loop where the items are called `tile`.
+
+Must be used in a `row` container.
+
+Optional params:
+
+- title: If defined it will override the title on the post.
+- category: Added as a class to the <a> tag. Also dictates what fields are displayed eg. for a venue the venue field won't be displayed.
+- image: If defined it will override the image, otherwise it will use cover.jpg for that gig.
+- image_size: Medium/small/tiny. If defined the image size will be overriden eg. cover (Medium).jpg
+- image_class: Class to give images.
+- sizing: Defines the sizing of the tile eg. col-xs-12
+- class: Gives a class on the tile.
+- id: Id for the tile.
+- year: Used in data-year for sorting by year.
+- month: Used in data-month for sorting by month.
+- label: If defined a `label` will be at the top left of the tile.
+- hide_venue: Hides the venue name
+- hide_counts: Hides the media counts.
+
+{% endcomment %}
+
 <div class="isotope-item {{include.sizing}} tile-wrap {% if include.class != false %}{{include.class}}{% endif %}" style="background-color: {{ page.colors | sample }}" id="{{include.id}}" data-year="{{include.year}}" data-month="{{include.month}}">
+	
 	{% if include.label %}<span class="label label-default hidden-xs ">{{include.label}}</span>{% endif %}
+	
 	<a class="box gridItem {{include.category}}" href="{{ tile.url | prepend: site.baseurl }}">
+	
 	{% if include.class == "feature" %}
 		<span class="label label-default">LATEST GIG</span>
+	{% else %}
+		<span class="label label-default">{{tile.date | date: "%d %b %Y"}}</span>
 	{% endif %}
+
     <div class="tile-title">
-		{% unless include.class == "feature" %}
-		<div class="top">
-			<h5>{{tile.date | date: "%d %b %Y"}}</h5>
-		</div>
-		{% endunless %}
+
 		<div class="bottom">
+
 			{% if include.class == "feature" %}
 				<h1 class="name">{% if include.title %}{{include.title}}{% else %}{{ tile.title }}{% endif %}</h1>
 			{% else %}
-				<h3 class="name">{% if include.title %}{{ include.title }}{% else %}{{ tile.title }}{% endif %}</h3>
+				<h4 class="name">{% if include.title %}{{ include.title }}{% else %}{{ tile.title }}{% endif %}</h4>
 			{% endif %}
 
 			{% unless tile.parent == "Blog"  %}
@@ -27,27 +56,36 @@
 				{% for band in site.data.media.gigs[tile.title] %}
 					{% assign photo_count = photo_count | plus: band[1].count %}
 				{% endfor %}
-				
+
 				<h5 class="artistNames">
-				{% for band in tile.media %}
-					{% if forloop.index < 8 %}
-						<span>{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false and forloop.index != 7 %}, {% endif %}</span>
-					{% else %}
-						<span style="display: none;">{{band[0]}} </span>
+					{% for band in tile.media %}
+						{% if forloop.index < 8 %}
+							<span>{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false and forloop.index != 7 %}, {% endif %}</span>
+						{% else %}
+							<span style="display: none;">{{band[0]}} </span>
+						{% endif %}
+						{% assign mp3_size = mp3_size | plus: band[1].mp3.size %}
+						{% assign vid_size = vid_size | plus: band[1].vid.size %}
+					{% endfor %}
+					
+					{% if band_quantity >= 8 %}
+						<span>and more</span>
 					{% endif %}
-					{% assign mp3_size = mp3_size | plus: band[1].mp3.size %}
-					{% assign vid_size = vid_size | plus: band[1].vid.size %}
-				{% endfor %}
+
+					{% unless include.category == "venue" or include.hide_venue == "true" %}
+						<span> at {{ tile.venue }}</span>
+					{% endunless %}
+
 				</h5>
-				{% if band_quantity >= 8 %}
-					<span>and more</span>
-				{% endif %}
-				<h5>{{ tile.venue }}</h5>
-				<h5>
-				{% if photo_count %}<span> {{photo_count}} 📷</span>{% endif %}
-				{% if mp3_size %}<span> {{mp3_size}} 🎧</span>{% endif %}
-				{% if vid_size %}<span> {{vid_size}} 📹</span>{% endif %}
-				</h5>
+
+				{% unless include.hide_counts == "true" %}
+					<h5>
+					{% if photo_count %}<span> {{photo_count}} 📷</span>{% endif %}
+					{% if mp3_size %}<span> {{mp3_size}} 🎧</span>{% endif %}
+					{% if vid_size %}<span> {{vid_size}} 📹</span>{% endif %}
+					</h5>
+				{% endunless %}
+
 			{% endunless %}
 		</div>
     </div>

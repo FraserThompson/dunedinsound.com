@@ -113,8 +113,9 @@
 	z-index: 999;
 	position: absolute;
 	font-size: 10.5px;
-	margin-top: 15px;
-	margin-left: 15px;
+	font-weight: 400;
+	margin-top: 10px;
+	margin-left: 10px;
 	top: 0px;
 }
 
@@ -138,10 +139,10 @@
 
 		.bottom {
 			position: absolute;
-			bottom: 10px;
+			bottom: 5px;
 		}
 
-		h5, h4, h3, p, span {
+		h5, h4, h3, p {
 			text-shadow: 1px 1px black;
 		}
 
@@ -220,7 +221,7 @@
 	}
 
 	&.eventhinner {
-		height: 20vh !important;
+		height: 24vh;
 
 		.tile-title {
 			height: 100%;
@@ -291,6 +292,8 @@
 
 	.label {
 		font-size: 14px;
+		margin-top: 15px;
+		margin-left: 15px;
 	}
 
 	.tile-wrap {
@@ -303,10 +306,18 @@
 			}
 		}
 
+		&.eventhinner {
+			height: 18vh;
+		}
+	
 		.tile-title {
 			text-align: left !important;
 			padding-top: 10px;
 
+			.bottom {
+				bottom: 10px;
+			}
+	
 			h4 {
 				text-align: left !important;
 			}

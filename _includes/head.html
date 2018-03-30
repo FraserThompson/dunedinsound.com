@@ -13,7 +13,7 @@
 	{% assign url = page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url %}
 
 	{% if page.description %}
-		{% assign description = page.description %}
+		{% assign description = page.description | strip_html %}
 	{% elsif page.layout == "gig" %} 
 		{% assign date_long_string = page.date | date_to_long_string %}
 		{% assign description = "Photos, audio and video from " | append: page.title | append: " at " | append: page.venue | append: " on " | append: date_long_string %}

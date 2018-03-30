@@ -56,28 +56,12 @@ layout: default
     </div>
   </div>
   <div class="row tiles">
-    {% for post in site.categories[page.machine_name] %}
+    {% for tile in site.categories[page.machine_name] %}
 
-        <div class="col-sm-12 col-md-6 col-lg-4 tile-wrap smaller bottom" style="height: 35vh; background-color: black;">
-          <a class="tile-link box" href="{{ post.url }}#{{page.machine_name}}">
-            <div class="tile-title">
-              <div class="top">
-                <h5>{{post.date | date: "%d %b %Y"}}</h5>
-              </div>
-              <div class="bottom">
-                <h3 class="name">{{post.title}}</h3>
-                <h5>{{ post.venue }}</h5>
-                <h5>
-                {% if site.data.media.gigs[post.title][page.machine_name]['count'] > 1%}<span> {{site.data.media.gigs[post.title][page.machine_name]['count']}} 📷</span>{% endif %}
-                {% if post.media[page.title].mp3 %}<span> {{post.media[page.title].mp3.size}} 🎧</span>{% endif %}
-                {% if post.media[page.title].vid %}<span> {{post.media[page.title].vid.size}} 📹</span>{% endif %}
-                </h5>
-              </div>
-            </div>
-            <div class="tile b-lazy" data-src="{{site.asset_url}}/{{site.data.media.gigs[post.title][page.machine_name]['images'][0] | uri_escape }}">
-            </div>
-          </a>
-        </div>
+      {% assign image_link = site.data.media.gigs[post.title][page.machine_name]['images'][0] | uri_escape %}
+
+      {% include gig_tile.html class="smaller bottom" sizing="col-sm-12 col-md-6 col-lg-4" category="band" image=image_link %}
+
     {% endfor %}
   </div>
 

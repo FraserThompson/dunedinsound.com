@@ -13,15 +13,15 @@
     "yamljs": "^0.2.8"
   },
   "scripts": {
-    "serve": "jekyll serve",
-    "dev": "jekyll serve --limit_posts=1 --incremental",
+    "serve": "bundle exec jekyll serve",
+    "dev": "bundle exec jekyll serve --limit_posts=1 --incremental",
     "generate": "node ./_scripts/generate_gig.js",
     "audio": "docker-compose up --build && node ./_scripts/copy_audio.js",
     "images": "node ./_scripts/images.js && node ./_scripts/index-media.js",
     "index-media": "node ./_scripts/index-media.js",
-    "build": "set JEKYLL_ENV=production && jekyll build",
-    "deploy": "s3_website push",
-    "build-deploy": "set JEKYLL_ENV=production && jekyll build && s3_website push"
+    "build": "set JEKYLL_ENV=production && bundle exec jekyll build",
+    "deploy": "bundle exec s3_website push",
+    "build-deploy": "set JEKYLL_ENV=production && bundle exec jekyll build && bundle exec s3_website push"
   },
   "repository": {
     "type": "git",
