@@ -80,7 +80,7 @@ The Chills declined to comment.
 
 **Update:**
 
-Shortly after this article was published the Dunedin City Council were revealed to have spent $8,350 on a mural of Ed Sheeran to commemorate his presence in the city on the 29th of March-1st of April 2018. The mural was completed on March 13th, and on March 28th was vandalized with the words "Coyote fuck you".
+Shortly after this article was published the Dunedin City Council were revealed to have spent $8,350 on a mural of Ed Sheeran to commemorate his presence in the city from the 29th of March to the 1st of April 2018. The mural was completed on March 13th, and on March 28th was vandalized with the words "Coyote fuck you".
 
 {% include blog_images.html images="edmural.jpg|$8,350 Mural\\coyote_graffiti_1.jpg|$8,351 Mural" col="col-xs-12 col-md-6 col-md-offset-3" %}
 

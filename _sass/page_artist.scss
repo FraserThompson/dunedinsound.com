@@ -64,6 +64,11 @@ h2.huge-header {
 		padding: 10px;
 		background: rgba(0,0,0,0.8);
 
+		.description {
+			max-height: 10vh;
+			overflow: auto;	
+		}
+
 	}
 
 	.banner {
