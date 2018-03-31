@@ -16,7 +16,10 @@ description: "Check out rare and unofficial photos, videos and bootlegs of gigs 
 
 {% assign year_change = true %}
 
-  {% include gig_sorting.html %}
+{% include gig_sorting.html %}
+
+{% assign when_things_changed = "1498730428" %}
+
 <div class="tiles container-fluid gigs">
   <div class="sorted-tiles row">
     <div class="col-xs-12">
@@ -31,6 +34,14 @@ description: "Check out rare and unofficial photos, videos and bootlegs of gigs 
         {% capture next_year %}{{ tile.previous.date | date: "%Y" }}{% endcapture %}
         {% capture next_month %}{{ tile.previous.date | date: "%B" }}{% endcapture %}
 
+        {% capture post_time_unix %}{{tile.date | date: '%s'}}{% endcapture %}
+
+        {% if post_time_unix < when_things_changed %}
+          {% assign image_size = "Small" %}
+        {% else %}
+          {% assign image_size = "Medium" %}
+        {% endif %}
+
         {% if forloop.first %}
           {% capture id %}{{this_month}}{{this_year}}{% endcapture %}
         {% endif %}
@@ -40,7 +51,7 @@ description: "Check out rare and unofficial photos, videos and bootlegs of gigs 
           {% assign year_change = false %}
         {% endif %}
 
-        {% include gig_tile.html class="bottom eventhinner full-width" id=id sizing="col-xs-12" category="gigs" month=this_month year=this_year image_size="Medium" image_class="blur" %}
+        {% include gig_tile.html class="bottom eventhinner full-width" id=id sizing="col-xs-12" category="gigs" month=this_month year=this_year image_size=image_size image_class="blur" %}
 
         {% assign id = false %}
 

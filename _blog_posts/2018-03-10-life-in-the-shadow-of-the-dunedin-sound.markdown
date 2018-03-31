@@ -18,7 +18,7 @@ On Tuesday the 27th of February 2018 two masked terrorists committed a heinous a
 
 <!-- more -->
 
-{% include blog_images.html images="before_after.jpg|before and after coyote\\coyote_comments_1.jpg|Baying for heretic blood" col="col-xs-12 col-md-6" %}
+{% include blog_images.html images="before_after.jpg|before and after coyote\\coyote_comments_1.jpg|Baying for heretic blood" col="col-xs-12 col-md-6 col-md-offset-3" %}
 
 In an expletive-laden video, they recorded themselves graffiting a powerbox displaying The Chills inspired street art and, in doing so, desecrated a sacred altar to the Dunedin Sound.
 
@@ -44,7 +44,7 @@ The target they picked might not have been [the best](https://www.odt.co.nz/news
 
 If anything, the vitriolic response only confirms an issue exists. One commenter expressed disbelief at how anyone could do anything to hurt the band who “invented” the Dunedin music scene. Another questioned why they aren’t making their own music instead of just putting down others, apparently ignoring the fact that they literally are. Others simply threw crude insults and the odd threat of violence. 
 
-{% include blog_images.html images="coyote_comments_3.jpg|Crude insults\\coyote_comments_2.jpg|They literally are" col="col-xs-12 col-md-6" %}
+{% include blog_images.html images="coyote_comments_3.jpg|Crude insults\\coyote_comments_2.jpg|They literally are" col="col-xs-12 col-md-6 col-md-offset-3" %}
 
 It makes me wonder whether these people know what’s going on today, whether they cling to the past because they believe without it Dunedin has nothing else. Apparently The Chills are more than just a good band from the 80s to these people, they’re a god damn religion. Dunedin Sound is dogma.
 
@@ -77,3 +77,15 @@ Either way, Coyote don’t mind the infamy.
 “I hope 30 years down the track someone scribbles their name on our powerbox”
 
 The Chills declined to comment.
+
+**Update:**
+
+Shortly after this article was published the Dunedin City Council were revealed to have spent $8,350 on a mural of Ed Sheeran to commemorate his presence in the city on the 29th of March-1st of April 2018. The mural was completed on March 13th, and on March 28th was vandalized with the words "Coyote fuck you".
+
+{% include blog_images.html images="edmural.jpg|$8,350 Mural\\coyote_graffiti_1.jpg|$8,351 Mural" col="col-xs-12 col-md-6 col-md-offset-3" %}
+
+On March 31st another piece of street art was vandalized with the words "Ed is ded long live coyote 🤘 666".
+
+{% include blog_images.html images="coyote_graffiti_2.jpg|Vandalism" col="col-xs-12 col-md-6 col-md-offset-3" %}
+
+It is not clear who is responsible but the police have allegedly told the perpetrators "they think it’s cool and to do more", although a police spokesperson denied these allegations.

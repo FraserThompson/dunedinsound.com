@@ -1,3 +1,17 @@
+{% comment %}
+
+Display multiple images in a post.
+
+Parameters:
+
+- images: List of images using this schema: image_1.jpg|description 1\\image_2.jpg|description_2. Alternatively set it to "indexed-media" and it will use all indexed media for that post title.
+- description: If specified it will be displayed under the image
+- col: The size class to put on the image. If blank it will be col-xs-12.
+- absolute_src: If specified it will consider the src as an absolute URL.
+- medium: If specified it will display the Medium sized version
+
+{% endcomment %}
+
 <div class="row">
     {% if include.images != "indexed-media" %}
 
@@ -7,7 +21,7 @@
             {% assign split = image | split: '|' %}
             {% assign src = split[0] %}
             {% assign description = split[1] %}
-            {% include blog_image.html src=src description=description col=include.col medium=include.medium %}
+            {% include blog_image.html absolute_src=absolute_src src=src description=description col=include.col medium=include.medium %}
         {% endfor %}
 
     {% else %}
