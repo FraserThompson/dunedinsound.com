@@ -26,7 +26,7 @@ Acolytes retaliated swiftly and violently in comments sections across social med
 
 “There’s a couple of people saying that we’re a waste of sperm we have small dicks and we should be killed. I thought that was slightly harsh.” alleges Jeremy. He plays guitar. 
 
-Him and Louis are chilling on a Sunday evening in Jeremy’s flat. It should come as no surprise to anyone that these were the people responsible for scribbling “Coyote” over “The Chills” on a powerbox.
+Him and Louis were chilling on a Sunday evening in Jeremy’s flat when they agreed to be interview by me. It should come as no surprise to anyone that these were the people responsible for scribbling “Coyote” over “The Chills” on a powerbox.
 
 “A lot of people have come up to me being like ‘yeah, fuck The Chills’ or ‘fuck that art’ and I kind of feel like nah, that wasn’t the point we were trying to make, we were trying to be funny.” 
 
