@@ -6,7 +6,7 @@ tags:
 image: /assets/img/blog/2017-10-14-die-die-die-interview/cover%20(Medium).jpg
 description: 
 author: Fraser Thompson
-header_style: center top
+background_position: center top
 filename: 2017-10-14-die-die-die-interview.markdown
 description: Prolific post-punkers Die! Die! Die! have released another album, and are returning to Dunedin on Friday for a blistering show at None Gallery. I caught up with Andrew Wilson who’s handled lead vocals and guitar since he formed the band in 2003.
 ---

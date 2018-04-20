@@ -9,7 +9,7 @@ tags:
 image: /assets/img/blog/2017-08-02-astro-children-interview/cover (Medium).jpg
 description: Recently I caught up with Millie from Astro Children to discuss their new album, One Direction, and general feelings on the Dunedin music scene.
 author: Fraser Thompson
-header_style: center
+background_position: center
 media:
     Astro Children:
         machine_name: astro_children

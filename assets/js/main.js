@@ -84,22 +84,22 @@ function loadJSON (filename, callback) {
     xobj.send(null);
 };
 
-/**
- * Says cool
- */
-var speak = debounce(function() {
+
+function speak(message) {
+
     var msg = new SpeechSynthesisUtterance();
     var voices = window.speechSynthesis.getVoices();
-    
+
     msg.voiceURI = 'native';
     msg.volume = 1;
     msg.rate = getRandomInt(0, 2);
     msg.pitch = getRandomInt(0, 2);
-    msg.text = 'Cool';
+    msg.text = message;
     msg.lang = 'en-US';
 
     speechSynthesis.speak(msg);
-}, 500, true);
+
+}
 
 /**
  * The callback which happens when images are loaded

@@ -69,6 +69,24 @@ body {
 	background-color: #222222;
 }
 
+.attention-banner {
+	text-align: center;
+
+	h3 {
+		margin-bottom: 20px;
+	}
+
+	&.link {
+		
+		background-color: orange;
+
+		&:hover{
+			background-color: lighten(orange, 10%);
+		}
+	}
+
+}
+
 .page-wrapper {
 
 	&.gig-wrapper {

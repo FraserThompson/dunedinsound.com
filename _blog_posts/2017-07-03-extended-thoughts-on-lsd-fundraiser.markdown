@@ -9,7 +9,7 @@ tags:
 image: /assets/img/blog/2017-07-03-extended-thoughts-on-lsd-fundraiser/cover (Medium).jpg
 description: On the 16th of June, late on a Friday afternoon, central Dunedin was cordoned off and closed down for what was described as a bomb scare. The police flew down the Bomb Disposal Squad to blow up what turned out to be an audio cassette containing StreetNOISE the latest album by Dunedin musician L$D Fundraiser. Read more...
 author: Campbell Walker
-header_style: center
+background_position: center
 media: 
     L$D Fundraiser:
         machine_name: lzd_fundraiser

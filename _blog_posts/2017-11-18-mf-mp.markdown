@@ -6,7 +6,7 @@ tags:
 image: /assets/img/blog/2017-11-18-mf-mp/cover.jpg
 author: Fraser Thompson
 filename: 2017-11-18-mf-mp
-header_style: center top
+background_position: center top
 media:
     Fuckault:
         machine_name: fuckault

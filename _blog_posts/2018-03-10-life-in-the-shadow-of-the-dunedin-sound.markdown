@@ -7,7 +7,7 @@ tags:
 image: /assets/img/blog/2018-03-10-life-in-the-shadow-of-the-dunedin-sound/cover.jpg
 author: Fraser Thompson
 filename: 2018-03-10-life-in-the-shadow-of-the-dunedin-sound
-header_style: center
+background_position: center
 media:
     Coyote:
         machine_name: coyote

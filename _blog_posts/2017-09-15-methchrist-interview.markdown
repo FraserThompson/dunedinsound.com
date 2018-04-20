@@ -6,7 +6,7 @@ tags:
 image: /assets/img/blog/2017-09-15-methchrist-interview/cover (Medium).jpg
 description: 
 author: Fraser Thompson
-header_style: center top
+background_position: center top
 media:
     Methchrist:
         machine_name: methchrist

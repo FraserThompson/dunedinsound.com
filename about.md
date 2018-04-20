@@ -57,4 +57,4 @@ I've got something to say!
 --------------------------
 Want uncompressed images or copies of videos? Want me to come to your gig? Or something else? You can contact me here: <a href="mailto:fraser@dunedinsound.com">fraser@dunedinsound.com</a>
 
-<h2>Okay <a onmouseover="speak();" class="trippy" href="/">cool</a></h2>
+<h2>Okay <a onmouseover="debounce(speak('cool'));" class="trippy" href="/">cool</a></h2>

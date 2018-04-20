@@ -6,7 +6,7 @@ tags:
 image: /assets/img/blog/2017-08-04-cath-cocker-interview/cover (Medium).jpg
 description: Cath Cocker recently organized the Nocturnal Projections and Other Small Happenings art event. I spoke to her about why she values public art and some of the challenges she faced along the way.
 author: Fraser Thompson
-header_style: center
+background_position: center
 filename: 2017-08-04-cath-cocker-interview.markdown
 ---
 

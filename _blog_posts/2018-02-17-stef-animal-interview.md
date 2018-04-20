@@ -6,7 +6,7 @@ tags:
 image: /assets/img/blog/2018-02-17-stef-animal-interview/cover.jpg
 author: Fraser Thompson
 filename: 2018-02-17-stef-animal-interview
-header_style: center
+background_position: center
 media:
     Stef Animal:
         machine_name: stef_animal

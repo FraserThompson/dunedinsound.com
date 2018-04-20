@@ -6,7 +6,7 @@ tags:
 image: /assets/img/blog/2018-04-07-talking-to-julie-dunn-of-trace-untrace/cover.jpg
 author: Fraser Thompson
 filename: 2018-04-07-talking-to-julie-dunn-of-trace-untrace
-header_style: center
+background_position: center
 media:
     Koizilla:
         machine_name: koizilla
