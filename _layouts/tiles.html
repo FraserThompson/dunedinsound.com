@@ -48,11 +48,12 @@ layout: default
                     {% endfor %}
 
                     <p class="date" style="display: none;">{{last_gig}}</p>
-                    <h5><span class="numberOfGigs">{{ site.categories[machine_name].size }}</span> gigs</h5>
+                    <h5><span class="numberOfGigs">{{ site.categories[machine_name].size }}</span> gig{% if site.categories[machine_name].size > 1 %}s{%endif%}</h5>
                   {% endif %}
 
                   {% if category == "venues" %}
-                    <h5><span class="numberOfGigs">{{ site.posts | where: "venue", tile.title | size}}</span> gigs</h5>
+                    {% assign number_of_gigs_at_venue = site.posts | where: "venue", tile.title | size %}
+                    <h5><span class="numberOfGigs">{{ number_of_gigs_at_venue }}</span> gig{% if number_of_gigs_at_venue > 1 %}s{%endif%}</h5>
                   {% endif %}
 
                 </div>

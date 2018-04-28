@@ -3,6 +3,7 @@ title: "Talking to Karl Leisky about experimental electronic music"
 date: 2017-11-18 12:00:00 +12
 tags:
     - interview
+    - fuckault
 image: /assets/img/blog/2017-11-18-mf-mp/cover.jpg
 author: Fraser Thompson
 filename: 2017-11-18-mf-mp

@@ -83,7 +83,12 @@ layout: default
       <div role="tabpanel" class="row blog tab-pane fade in" id="blogs">
         {% for post in site.blog_posts %}
           {% if post.tags contains page.machine_name %}
-            {% include blog_snippet.html %}
+            <div class="col-xs-12">
+              {% include blog_snippet.html %}
+            </div>
+            <div class="col-xs-12">
+              <hr>
+            </div>
           {% endif %}
         {% endfor %}
       </div>
