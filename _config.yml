@@ -22,6 +22,7 @@ defaults:
     permalink: "/blog/:title/"
     layout: blog_post
     parent: Blog
+    background_color: white
 email: fraser@dunedinsound.com
 asset_url:
 excerpt_separator: "<!-- more -->"

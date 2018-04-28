@@ -5,10 +5,13 @@
 {% assign global_band_count = 0 %}
 {% assign global_gig_count = site.posts | size %}
 
-{% for tile in site.posts %}
+{% for page in site.pages %}
+    {% if page.parent == "Artists" %}
+        {% assign global_band_count = global_band_count | plus: 1 %}
+    {% endif %}
+{% endfor %}
 
-    {% assign band_count = tile.media | size %}
-    {% assign global_band_count = global_band_count | plus: band_count %}
+{% for tile in site.posts %}
 
     {% for band in site.data.media.gigs[tile.title] %}
         {% assign global_photo_count = global_photo_count | plus: band[1].count %}

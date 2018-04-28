@@ -4,6 +4,7 @@ date: 2018-03-10 09:00:00 +12
 tags:
     - interview
     - opinion
+    - coyote
 image: /assets/img/blog/2018-03-10-life-in-the-shadow-of-the-dunedin-sound/cover.jpg
 author: Fraser Thompson
 filename: 2018-03-10-life-in-the-shadow-of-the-dunedin-sound

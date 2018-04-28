@@ -4,7 +4,7 @@ date: 2017-10-28 09:30:00 +12
 tags:
     - music
     - opinion
-    - l$d_fundraiser
+    - lzd_fundraiser
 image: /assets/img/blog/2017-10-28-lsd-fundraiser-bomb-scare-retrospective/cover.jpg
 author: Fraser Thompson
 filename: 2017-10-28-lsd-fundraiser-bomb-scare-retrospective

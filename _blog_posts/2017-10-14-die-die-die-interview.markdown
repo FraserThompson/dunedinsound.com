@@ -3,6 +3,7 @@ title: "Talking to Andrew Wilson from Die! Die! Die!"
 date: 2017-10-14 07:30:00 +12
 tags:
     - interview
+    - die_die_die
 image: /assets/img/blog/2017-10-14-die-die-die-interview/cover%20(Medium).jpg
 description: 
 author: Fraser Thompson

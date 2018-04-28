@@ -4,6 +4,7 @@ permalink: "/contributions/"
 position: 0
 layout: blog_post
 no_share_buttons: true
+background_color: white
 exclude: true
 ---
 

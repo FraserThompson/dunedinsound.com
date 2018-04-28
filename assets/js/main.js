@@ -3,19 +3,19 @@
 /**
  * Debounces a function so it'll only be run a sensible amount of times per second
  */ 
-var debounce = function (func, wait, immediate) {
-    var timeout;
-    return function() {
-        var context = this, args = arguments;
-        var later = function() {
-            timeout = null;
-            if (!immediate) func.apply(context, args);
-        };
-        var callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-    };
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
 };
 
 /**
@@ -84,8 +84,7 @@ function loadJSON (filename, callback) {
     xobj.send(null);
 };
 
-
-function speak(message) {
+var speak = debounce(function(message) {
 
     var msg = new SpeechSynthesisUtterance();
     var voices = window.speechSynthesis.getVoices();
@@ -99,7 +98,7 @@ function speak(message) {
 
     speechSynthesis.speak(msg);
 
-}
+}, 500)
 
 /**
  * The callback which happens when images are loaded

@@ -3,6 +3,7 @@ title: "William Henry Meung on defining experimental music and more (Video)"
 date: 2017-08-05 07:30:00 +12
 tags:
     - interview
+    - william_henry_meung
 image: /assets/img/blog/2017-08-05-william-henry-meung-interview/cover (Medium).jpg
 description: William Henry Meung recently released his latest of many experimental music releases. He spoke to me about how he defines his music, how he ended up where he is artistically, and the role of public art.
 author: Fraser Thompson

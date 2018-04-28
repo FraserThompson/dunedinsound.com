@@ -287,6 +287,12 @@ h3 {
     text-decoration: none;
 	}
 }
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+	background-color: white;
+	color: black;
+}
+
 .open>.dropdown-toggle.btn-success {
 	background-color: orange !important;
 	background-image: none;

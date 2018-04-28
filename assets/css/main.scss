@@ -2,7 +2,7 @@
 ---
 $backdrop-opacity: 0.8;
 //@import 'vendor/bootstrap.min';
-@import 'vendor/bootstrap.uncss'; // generated via grunt uncss
+@import 'vendor/bootstrap.uncss'; // generated via _scripts/uncss.js
 @import 'vendor/baguetteBox.min';
 @import 'vendor/perfect-scrollbar';
 @import 'vendor/leaflet';

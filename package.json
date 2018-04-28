@@ -10,6 +10,7 @@
     "glob": "^7.1.1",
     "mkdirp": "^0.5.1",
     "sharp": "^0.18.4",
+    "uncss": "^0.14.1",
     "yamljs": "^0.2.8"
   },
   "scripts": {
@@ -19,6 +20,7 @@
     "audio": "docker-compose up --build && node ./_scripts/copy_audio.js",
     "images": "node ./_scripts/images.js && node ./_scripts/index-media.js",
     "index-media": "node ./_scripts/index-media.js",
+    "uncss": "node ./_scripts/uncss.js",
     "build": "set JEKYLL_ENV=production && bundle exec jekyll build",
     "deploy": "bundle exec s3_website push",
     "build-deploy": "set JEKYLL_ENV=production && bundle exec jekyll build && bundle exec s3_website push"

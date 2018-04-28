@@ -3,6 +3,7 @@ title: "Talking to Stef Animal about her new album"
 date: 2018-02-17 09:00:00 +12
 tags:
     - interview
+    - stef_animal
 image: /assets/img/blog/2018-02-17-stef-animal-interview/cover.jpg
 author: Fraser Thompson
 filename: 2018-02-17-stef-animal-interview

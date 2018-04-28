@@ -3,8 +3,16 @@ layout: default
 ---
 
 {% assign number_of_gigs = site.categories[page.machine_name] | size %}
+{% assign number_of_blogs = 0 %}
 {% assign number_images = site.data.media.artists[page.machine_name]['medium'] | size %}
 {% assign images = site.data.media.artists[page.machine_name]['medium'] | sample: 4 %}
+{% assign artist_blog_posts = "" %}
+
+{% for post in site.blog_posts %}
+  {% if post.tags contains page.machine_name %}
+    {% assign number_of_blogs = number_of_blogs | plus: 1 %}
+  {% endif %}
+{% endfor %}
 
 <article class="band container-fluid" id="band">
   <div class="row">
@@ -51,18 +59,35 @@ layout: default
     </div>
   </header>
   <div class="divider row" style="background-color: black; color: #c8c8c8;">
-    <div class="col-xs-12">
-      <h5>Gigs ({{number_of_gigs}})</h5>
+    <div class="col-xs-12 no-padding">
+      <ul id="tabs" class="nav nav-tabs" role="tablist">
+          <li class="active"><a data-toggle="tab" href="#gigs" role="tab">Gigs ({{number_of_gigs}})</a></li>
+          {% if number_of_blogs > 0 %}
+            <li><a data-toggle="tab" href="#blogs" role="tab">Blogs ({{number_of_blogs}})</a></li>
+          {% endif %}
+      </ul>
     </div>
   </div>
-  <div class="row tiles">
-    {% for tile in site.categories[page.machine_name] %}
+  <div class="tab-content">
+    <div role="tabpanel" class="row tiles tab-pane fade in active" id="gigs">
+      {% for tile in site.categories[page.machine_name] %}
 
-      {% assign image_link = site.data.media.gigs[post.title][page.machine_name]['images'][0] | uri_escape %}
+        {% assign image_link = site.data.media.gigs[post.title][page.machine_name]['images'][0] | uri_escape %}
 
-      {% include gig_tile.html class="smaller bottom" sizing="col-sm-12 col-md-6 col-lg-4" category="band" image=image_link %}
+        {% include gig_tile.html class="smaller bottom" sizing="col-sm-12 col-md-6 col-lg-4" category="band" image=image_link %}
 
-    {% endfor %}
+      {% endfor %}
+    </div>
+
+    {% if number_of_blogs > 0 %}
+      <div role="tabpanel" class="row blog tab-pane fade in" id="blogs">
+        {% for post in site.blog_posts %}
+          {% if post.tags contains page.machine_name %}
+            {% include blog_snippet.html %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
 
 </article>

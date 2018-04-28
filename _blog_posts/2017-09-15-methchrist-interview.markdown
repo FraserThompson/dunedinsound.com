@@ -3,6 +3,7 @@ title: "METHCHRIST discuss their new album and more"
 date: 2017-09-15 07:30:00 +12
 tags:
     - interview
+    - methchrist
 image: /assets/img/blog/2017-09-15-methchrist-interview/cover (Medium).jpg
 description: 
 author: Fraser Thompson
