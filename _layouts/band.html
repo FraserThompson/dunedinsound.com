@@ -80,17 +80,19 @@ layout: default
     </div>
 
     {% if number_of_blogs > 0 %}
-      <div role="tabpanel" class="row blog tab-pane fade in" id="blogs">
-        {% for post in site.blog_posts %}
-          {% if post.tags contains page.machine_name %}
-            <div class="col-xs-12">
-              {% include blog_snippet.html %}
-            </div>
-            <div class="col-xs-12">
-              <hr>
-            </div>
-          {% endif %}
-        {% endfor %}
+      <div role="tabpanel" class="container blog tab-pane fade in" id="blogs">
+        <div class="row">
+          {% for post in site.blog_posts %}
+            {% if post.tags contains page.machine_name %}
+              <div class="col-xs-12">
+                {% include blog_snippet.html %}
+              </div>
+              <div class="col-xs-12">
+                <hr>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
       </div>
     {% endif %}
   </div>
