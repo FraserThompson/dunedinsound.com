@@ -80,13 +80,14 @@
 					{% assign gig_image_encoded = gig_image | uri_escape %}
 					{% assign full_pic = gig_image_encoded | replace: "%20(Medium)","" %}
 					{% assign tiny_pic = gig_image | replace: " (Medium)", " (Tiny)" | prepend: "/" %}
+					{% assign tiny_pic_base64 = site.data.media.gigs[page.title][band_machine_name]['thumbnails'][tiny_pic] %}
 
 					{% assign directory = "assets/img/" | append: page.title | append: "/" | append: band_machine_name %}
 					{% assign filename = full_pic | split: '/' | last %}
 
 					<div class= "col-xs-6 {{image_size_class}} no-padding hover-img item" data-src="{{site.asset_url}}/{{full_pic}}" data-thumbnail="{{site.asset_url}}/{{gig_image_encoded}}" data-sub-html="<h4>{{band[1].band_name}}{% if page.photo_credit %} credit {{page.photo_credit}}{% endif %}</h4>">
 						<div class="box {{page.aspectratio}}">
-							<a href="{{site.asset_url}}/{{full_pic}}" target="_blank" class="{% if page.better_placeholders %}{% else %}loading{% endif %}"><img src="{% if page.better_placeholders %} {% base64 tiny_pic %} {% else %} data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== {% endif %}" data-src="{{site.asset_url}}/{{gig_image_encoded}}" alt="{{band[1].band_name}} Image {{forloop.index}}{% if page.photo_credit %} by {{page.photo_credit}}{% endif %}" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy {% if page.better_placeholders %}better{% endif %}"/></a>
+							<a href="{{site.asset_url}}/{{full_pic}}" target="_blank" class="{% if page.better_placeholders %}{% else %}loading{% endif %}"><img src="{% if tiny_pic_base64 %} {{ tiny_pic_base64 }} {% else %} data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== {% endif %}" data-src="{{site.asset_url}}/{{gig_image_encoded}}" alt="{{band[1].band_name}} Image {{forloop.index}}{% if page.photo_credit %} by {{page.photo_credit}}{% endif %}" width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy {% if page.better_placeholders %}better{% endif %}"/></a>
 						</div>
 					</div>
 				{% endfor %}

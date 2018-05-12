@@ -24,32 +24,39 @@ glob('assets/**/**/*.{jpg,JPG}', {}, function(err, files){
     files.forEach(function(file){
         var path_components = file.split('/')
         var gig = path_components[2];
-        var band = path_components[3];
+        var artist = path_components[3];
+
+        // initialize objects if they don't exist
+        if (!(artist in data['artists'])) data['artists'][artist] = {'small': [], 'medium': []};
+        if (!(gig in data['gigs'])) data['gigs'][gig] = {};
+        if (!(artist in data['gigs'][gig])) data['gigs'][gig][artist] = {};
 
         // Gig images
         if (file.indexOf('cover') == -1 && file.indexOf("(Medium)") !== -1) {
 
-            // initialize objects if they don't exist
-            if (!(band in data['artists'])) data['artists'][band] = {'small': [], 'medium': []};
-            if (!(gig in data['gigs'])) data['gigs'][gig] = {};
-            if (!(band in data['gigs'][gig])) data['gigs'][gig][band] = {};
-
             // add photo to list of artists photos
-            data['artists'][band]['medium'].push(file);
+            data['artists'][artist]['medium'].push(file);
 
             // add photo to list of photos for the gig
-            data['gigs'][gig][band]['images'] = data['gigs'][gig][band]['images'] || []
-            data['gigs'][gig][band]['images'].push(file);
+            data['gigs'][gig][artist]['images'] = data['gigs'][gig][artist]['images'] || []
+            data['gigs'][gig][artist]['images'].push(file);
 
             // update the count
-            data['gigs'][gig][band]['count'] = data['gigs'][gig][band]['count'] + 1 || 1;
+            data['gigs'][gig][artist]['count'] = data['gigs'][gig][artist]['count'] + 1 || 1;
+
+        } else if (file.indexOf("(Tiny)") !== -1) {
+
+            data['gigs'][gig][artist]['thumbnails'] = data['gigs'][gig][artist]['thumbnails'] || {}
+
+            var image = fs.readFileSync(file);
+            data['gigs'][gig][artist]['thumbnails'][file] = new Buffer(image).toString('base64');
 
         }
 
         // Artist images
         if (file.indexOf("(Small)") !== -1) {
-            if (!(band in data['artists'])) data['artists'][band] = {'small': [], 'medium': []};
-            data['artists'][band]['small'].push(file);
+            if (!(artist in data['artists'])) data['artists'][artist] = {'small': [], 'medium': []};
+            data['artists'][artist]['small'].push(file);
         }
     });
 

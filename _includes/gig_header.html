@@ -33,10 +33,12 @@
                 {% endfor %}
             {% else %}
                 {% assign tiny_cover = "/assets/img/" | prepend: site.asset_url | append: page.title | append: "/cover (Tiny).jpg" %}
+            
+				{% assign tiny_cover_base64 = site.data.media.gigs[page.title][band_machine_name]['thumbnails'][tiny_cover] %}
                 
                 <div class ="col-xs-12 no-padding" style="height: 100%;">
                     <a href="{{site.asset_url}}/assets/img/{{page.title | uri_escape }}/cover.jpg" target="_blank" class="loading">
-                        <div class="banner b-lazy {% if page.better_placeholders %}better{% endif %}" data-src="{{site.asset_url}}/assets/img/{{page.title | uri_escape }}/cover.jpg" style="{% if page.better_placeholders %} background-image: url('{% base64 tiny_cover %}'){% endif %}"></div>
+                        <div class="banner b-lazy {% if page.better_placeholders %}better{% endif %}" data-src="{{site.asset_url}}/assets/img/{{page.title | uri_escape }}/cover.jpg" style="{% if tiny_cover_base64 %} background-image: url('{{ tiny_cover_base64 }}'){% endif %}"></div>
                     </a>
                 </div>
             {% endif %}
