@@ -44,17 +44,28 @@ glob('assets/**/**/*.{jpg,JPG}', {}, function(err, files){
             // update the count
             data['gigs'][gig][artist]['count'] = data['gigs'][gig][artist]['count'] + 1 || 1;
 
+        // Thumbnails
         } else if (file.indexOf("(Tiny)") !== -1) {
 
-            data['gigs'][gig][artist]['thumbnails'] = data['gigs'][gig][artist]['thumbnails'] || {}
+            // Put album cover in gig array
+            if (file.indexOf('cover') !== -1) {
+                data['gigs'][gig]['thumbnails'] = data['gigs'][gig]['thumbnails'] || {}
+                
+                var image = fs.readFileSync(file);
+                data['gigs'][gig]['thumbnails'][file] = new Buffer(image).toString('base64');
 
-            var image = fs.readFileSync(file);
-            data['gigs'][gig][artist]['thumbnails'][file] = new Buffer(image).toString('base64');
+            // Put artist images in artist array
+            } else {
 
-        }
+                data['gigs'][gig][artist]['thumbnails'] = data['gigs'][gig][artist]['thumbnails'] || {}
+
+                var image = fs.readFileSync(file);
+                data['gigs'][gig][artist]['thumbnails'][file] = new Buffer(image).toString('base64');
+
+            }
 
         // Artist images
-        if (file.indexOf("(Small)") !== -1) {
+        } else if (file.indexOf("(Small)") !== -1) {
             if (!(artist in data['artists'])) data['artists'][artist] = {'small': [], 'medium': []};
             data['artists'][artist]['small'].push(file);
         }
