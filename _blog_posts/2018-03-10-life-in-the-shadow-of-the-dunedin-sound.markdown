@@ -5,10 +5,13 @@ tags:
     - interview
     - opinion
     - coyote
+    - ed_sheeran
+    - the_chills
 image: /assets/img/blog/2018-03-10-life-in-the-shadow-of-the-dunedin-sound/cover.jpg
 author: Fraser Thompson
 filename: 2018-03-10-life-in-the-shadow-of-the-dunedin-sound
 background_position: center
+background_size: contain
 media:
     Coyote:
         machine_name: coyote
