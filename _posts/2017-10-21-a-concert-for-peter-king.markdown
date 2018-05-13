@@ -10,7 +10,7 @@ categories:
     - psykick_witch
     - colt_45
 parent: Gigs
-venue: a flat on Jutland Street
+venue: Jutland Street
 media:
     The Ladder is Part of the Pit:
         mp3:
