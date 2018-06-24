@@ -12,7 +12,7 @@ description: With 50 artists performing over six locations and five hours it’s
 media:
 ---
 
-With 50 artists performing over six locations and five hours it’s Dunedin’s largest music festival… And it takes place in a library. This mini-documentary explores the festival as it happens and features insights from some of the people involved on why they dedicate their time to making it a success.
+With 50 artists performing over six locations and five hours it’s Dunedin’s largest music festival… And it takes place in a library. This mini-documentary explores the festival as it happens and features insights from some of the people involved on why they volunteer their time towards making it a success.
 
 <!-- more -->
 
