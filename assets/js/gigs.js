@@ -5,6 +5,8 @@ var gigsInit = function() {
     var sidebar = document.getElementById('sorting-nav');
     var year_els = document.getElementsByClassName('year');
     var backToTop = document.getElementById('back-to-top');
+    var toggle_button = document.getElementById('collapseButton');
+    var sorting_nav = document.getElementById('sorting-nav');
 
     window.scroll = new SmoothScroll('.sidebar-link', {
         speed: 600,
@@ -20,6 +22,10 @@ var gigsInit = function() {
             backToTop.classList.remove('visible');
             sidebar.classList.remove('scrolled');
         }
+    });
+
+    toggle_button.addEventListener('click', function() {
+        sorting_nav.classList.toggle('visible');
     });
 
     gumshoe.init({

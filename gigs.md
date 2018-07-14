@@ -16,7 +16,7 @@ description: "Check out rare and unofficial photos, videos and bootlegs of gigs 
 
 {% assign year_change = true %}
 
-{% include gig_sorting.html %}
+{% include gigs_sorting.html %}
 
 {% assign when_things_changed = "1498730428" %}
 

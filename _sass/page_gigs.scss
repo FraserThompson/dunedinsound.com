@@ -7,9 +7,10 @@
 	overflow-x: hidden;
 	overflow-y: auto;
 	position: fixed;
-	width: 110px;
+	width: 0vw;
 	top: ($header-height * 2) + 20;
 	left: 0;
+	z-index: 1000;
 	
 
 	&.scrolled {
@@ -17,8 +18,9 @@
 	}
 
 	&.visible {
-		visibility: visible;
-	  	opacity: 1;
+		  visibility: visible;
+		  opacity: 1;
+		  width: 60vw;
 	}
 }
 
@@ -75,6 +77,16 @@
 
 }
 
+#collapseButton {
+	position: fixed;
+	top: 0;
+	z-index: 1001;
+	color: black;
+	height: 42px;
+	background-color: white;
+	background-image: none;
+}
+
 @media (min-width:768px) {
 	#more {
 		position: relative;
@@ -84,6 +96,7 @@
 	.gig-sorting {
 		width: $sidebar-width;
 		top: $header-height + 20;
+		z-index: auto;
 	}
 
 	.tiles.container-fluid.gigs {

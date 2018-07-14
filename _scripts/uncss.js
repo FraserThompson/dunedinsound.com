@@ -3,6 +3,14 @@
 
     I just want to use it for bootstrap so afterwards modify the output manually and remove everything after that block.
 
+    How to use:
+
+    1. Make sure main.scss is including the full bootstrap
+    2. npm run build
+    3. npm run uncss
+    4. Modify the output at _sass/vendor/bootstrap.uncss.scss to remove everything after the bootstrap block
+    5. Include bootstrap.uncss.scss in main.scss
+
 */
 
 var uncss = require('uncss'),
