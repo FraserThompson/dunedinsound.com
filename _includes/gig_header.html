@@ -113,15 +113,15 @@
 
         {% if page.audio != false %}
             {% if page_title_size < 20  %}
-                {% assign header_font_size = "1.8rem" %}
+                {% assign header_font_size = "100%" %}
             {% elsif page_title_size < 40 %}
-                {% assign header_font_size = "1.5rem" %}
+                {% assign header_font_size = "80%" %}
             {% elsif page_title_size < 60 %}
-                {% assign header_font_size = "1.3rem" %}
+                {% assign header_font_size = "60%" %}
             {% elsif page_title_size < 80 %}
-                {% assign header_font_size = "1.2rem" %}
+                {% assign header_font_size = "50%" %}
             {% else %}
-                {% assign header_font_size = "1rem" %}
+                {% assign header_font_size = "40%" %}
             {% endif %}
         {% endif %}
         <div class="col-xs-12 {% if page.audio != false %}col-sm-1{% else %}col-sm-11{% endif %} gig-title-wrapper">
