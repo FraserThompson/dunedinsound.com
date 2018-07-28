@@ -11,6 +11,8 @@ background_position: center
 background_size: contain
 description: In 2004 Julian Temple Band slipped quietly into the Dunedin music scene as a humble 3-piece. But what was three gradually become four, and now for their sixth album 14 years later they’ve flourished into a mighty six piece with the addition of Richard Ley-Hamilton of Males (and more) on guitar, Steve Marshall of Left or Right on bass and Logan Hampton of Alizarin Lizard on keys. I caught up with Julian to discuss the new album ahead of the release gig this Friday.
 media:
+    Julian Temple Band:
+        machine_name: julian_temple_band
 ---
 
 In 2004 Julian Temple Band slipped quietly into the Dunedin music scene as a humble 3-piece.

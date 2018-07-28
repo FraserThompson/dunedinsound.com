@@ -16,7 +16,7 @@
   "scripts": {
     "serve": "bundle exec jekyll serve",
     "dev": "bundle exec jekyll serve --limit_posts=1 --incremental",
-    "generate": "node ./_scripts/generate_gig.js",
+    "new": "node ./_scripts/generate_gig.js",
     "audio": "docker-compose up --build && node ./_scripts/copy_audio.js",
     "images": "node ./_scripts/images.js && node ./_scripts/index-media.js",
     "index-media": "node ./_scripts/index-media.js",

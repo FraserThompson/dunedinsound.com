@@ -35,7 +35,7 @@ There are multiple deploy commands depending on the type of deploy.
 
 ### Processing Assets
 
-To start you should run `npm run generate` to generate the directory structure for a gig in the _originals folder.
+To start you should run `npm run new` to generate the directory structure for a gig in the _originals folder.
 
 #### Images
 Images from a gig go in _originals/img/[gig name] and then in subdirectories for each artist. There needs to be a gig cover named cover.jpg in the gig directory and artist covers named band_cover.jpg in each artist directory.
