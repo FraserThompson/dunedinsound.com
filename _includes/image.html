@@ -1,0 +1,21 @@
+{% comment %}
+
+Just a simple image in a lightbox.
+
+Parameters:
+
+- href: The url of the image.
+- href_big: The url of the bigger image to display on click (optional)
+- description: If specified it will be displayed under the image
+- col: The size class to put on the image. If blank it will be col-xs-12.
+- absolute_src: If specified it will consider the src as an absolute URL.
+- medium: If specified it will display the Medium sized version
+
+{% endcomment %}
+
+<div class="image {% if include.col != blank %}{{include.col}}{% else %} col-xs-12 {% endif %}">
+    <a target="_blank" class="loading" href="{{include.href}}">
+        <img width="100%" height="auto" style="margin: 0; padding: 0;" class="b-lazy" data-src="{% if include.href_big == blank %}{{include.href}}{% else %}{{include.href_big}}{% endif %}" alt="{% if include.description %}{{ include.description }}{% else %} {% endif %}"/>
+    </a>
+    <h5>{{include.description}}</h5>
+</div>

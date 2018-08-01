@@ -25,7 +25,8 @@ media:
             mp3:
                 -   title: Full Set
             vid:
-                -   link: EfXsrxm7xpA
+                -   title: Hofmann
+                    link: EfXsrxm7xpA
                 -   title: Royal Oil
                     link: eTq22NM65UE
                 -   link: oQVxKLrATmo

@@ -1,0 +1,64 @@
+---
+title: "The All Seeing Hand on their new album and more"
+date: 2018-08-04 07:00:00 +12
+tags:
+    - interview
+    - the_all_seeing_hand
+image: /assets/img/blog/2018-08-04-the-all-seeing-hand-on-their-new-album/cover.jpg
+author: Fraser Thompson
+filename: 2018-08-04-the-all-seeing-hand-on-their-new-album
+background_position: center
+background_size: cover
+description: At the Cook last Friday Wellington based indescribable trio The All Seeing Hand did what they do best.
+media:
+    The All Seeing Hand:
+        machine_name: the_all_seeing_hand
+---
+
+At the Cook last Friday Wellington based indescribable trio The All Seeing Hand did what they do best.
+
+Set to a backdrop of RGB LEDs they transported the audience to a dystopian future of broken systems and syntactical errors. Also in this world was a uniformed commander wearing something reminiscent of an 18th century naval captain, a polyphonic wizard with samplers beneath his palms, and the searing scent of Sichuan peppercorn. 
+
+It was an experience not to be forgotten, and marks the start of The All Seeing Hands’ national release tour for their fifth album Syntax Error. It continues down the path they’ve been forging since 2011, but it feels thematically almost like the path has become corrupted. Where their 2016 release Sand to Glass was about the growth a civilisation, Syntax Error could be about its downfall. And it feels uncomfortably familiar.
+
+<!-- more -->
+
+<center><iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=1396190530/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="http://the-all-seeing-hand.bandcamp.com/album/syntax-error">Syntax Error by The All Seeing Hand</a></iframe></center>
+
+Benjamin Michael Knight (drums) explained to me the concept behind the album
+
+“What was sort of on our minds when we were developing the concept or the themes in the album was really just over the last couple of years in particular this sense of disorientation that’s reflected in a lot of public discourse like socially and politically.”
+
+“I mean with language, the references to language, in my mind one of the concrete political examples with the way the use of language is changing is that the far right is co-opting the language of the progressive left. The really obvious example is Trump right? An ultra wealthy far right demagogue, but his election platform was based on a critique of neoliberalism, it was about draining the swamp, it was about getting rid of corruption. It was using a lot of the same language that the occupy movement was using a few years before.”
+
+“Like it feels like there’s something gone wrong, it feels like things are not functioning and the systems which seemed pretty stable a few years are broken and there’s absurd comical results. Like when you see politics become bad entertainment television. Things are happening right now which would have seemed inconceivable even five years ago.”
+
+The result is an album which feels very 2018. Compared to Sand to Glass there are fewer moments of peace and instead just sheer turbulent energy. With dozens of social media streams shouting at you about the newest Thing there aren’t many moments of peace anymore. 
+
+{% include image.html href="/assets/img/The%20All%20Seeing%20Hand%20Syntax%20Error%20release%20tour/the_all_seeing_hand/P1330422_DxO.jpg" %}
+
+And neither were there moments of peace at Fridays gig. Instead of throat singing rituals and gentle bells there was driving, frenetic rhythms and basslines with barely a moment to catch your breath.
+
+“Some of the stuff on Syntax Error, David is playing really intensely complex bassline, sometimes there are two basslines going at once, one with each hand, one sampler per hand and he’s playing really intense basslines and leadlines with each. He’s playing them like he would play the piano, and at the same time he’s controlling all the effects he’s got. It’s always been amazing watching his hands work but now it’s just stepped up to another level.
+
+“Some of them, like the title track Syntax Error, David had just taken this tiny little drum loop, he’d chopped up a bunch of little things we recorded when we were doing an improvised session and he stitched it together into a piece that I then had to learn how to replicate some mistake I’d made that he’d recorded and looped up.”
+
+For The All Seeing Hand, the live experience has always been important, and they’ve worked with local artists in the past to achieve some really cool stuff, like stretchy womb-like sack they played in for their 2014 tour dubbed “The Blob”. Benjamin explained how since day one they’ve always tried to make a surreal, all encompassing experience.
+
+“We don’t want to have the world that’s created by the sound to be broken by being snapped back to the reality that it’s just coming out of some instrument in front of me. I dunno, the surrealism of it is appealing to us.”
+
+{% include image.html href="/assets/img/The%20All%20Seeing%20Hand%20Syntax%20Error%20release%20tour/the_all_seeing_hand/P1330608_DxO.jpg" %}
+
+While the surrealism on Friday wasn’t quite at blob levels, it was definitely there. The costumes the band wore were imagined and created for the tour by Wellington based musician/artist Cooki M. who performs as Strange Stains. Amazingly the band also deployed original scents created by another artist, Nathan Taare, 
+
+“He’s got a lab set up at his house with hundreds of vials of super concentrated various molecules and tinctures and extracts and essential oils and he’s really getting into that as a craft.”
+
+“He equipped us with a way of changing that aspect of sensory experience at all the release shows.”
+
+“They’re in little spray bottles and they’re really intense, one of them is a Sichuan pepper extract and if you breathed it in you’d be burning intensely. It uses some molecule, I can’t remember the name of it but if you sniffed it directly you’d lose your sense of smell. I’m not sure for how long.”
+
+Apart from Katy Perry’s 2011-2012 California Dreams Tour it’s the first I’ve heard of scents being used to enhance music. It’s hard to overpower the thirty years of stale beer and fresher sweat embedded deep into the crevasses of The Captain Cook Hotel but I thought I detected a hint of something strange...
+
+Next they’ll be finishing their NZ tour in Auckland, Wellington and Whanganui, then heading to Australia.
+
+Listen to the album or buy a cassette on their Bandcamp page: https://the-all-seeing-hand.bandcamp.com 

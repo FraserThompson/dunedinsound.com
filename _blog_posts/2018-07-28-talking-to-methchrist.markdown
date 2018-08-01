@@ -21,7 +21,7 @@ I spoke to the virulent trio over some pints to get the skinny on what they've b
 
 <!-- more -->
 
-<iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=483929922/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://methchrist.bandcamp.com/album/nomadic-war-machine">Nomadic War Machine by METHCHRIST</a></iframe>
+<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=483929922/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://methchrist.bandcamp.com/album/nomadic-war-machine">Nomadic War Machine by METHCHRIST</a></iframe></center>
 
 **Since the last album what have you been up to?**
 
