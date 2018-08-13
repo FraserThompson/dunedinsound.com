@@ -8,7 +8,7 @@ colors:
     - "#292929"
     - "#0A0A0A"
 description: "Check out rare and unofficial photos, bootlegs and videos of gigs in Dunedin from 2014 until now!"
-image: http://dunedinsound.com/assets/img/Singles%20Party/cover%20(Medium).jpg
+image: /assets/img/Singles%20Party/cover%20(Medium).jpg
 order: 1
 ---
 
