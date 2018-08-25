@@ -1,0 +1,33 @@
+---
+title: "AMPED 18 Gig 2"
+date: 2018-8-24 08:30:00 Z
+categories:
+    - painted_blind
+    - carmina
+    - tyler_and_sam
+    - mary_berry
+parent: Gigs
+better_placeholders: true
+venue: Dunedin Musicians Club
+media:
+    Painted Blind:
+            mp3:
+                -   title: Partial Set
+            vid:
+                -   link: bi6QNq-5Dk8
+    Carmina:
+            mp3:
+                -   title: Full Set
+            vid:
+                -   link: EBhlBjpFUhM
+    Tyler and Sam:
+            mp3:
+                -   title: Full Set
+            vid:
+                -   link: eohEZOvXovg
+    Mary Berry:
+            mp3:
+                -   title: Full Set
+            vid:
+                -   link: _WM_h4Yj-yA
+---

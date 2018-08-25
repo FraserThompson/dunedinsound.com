@@ -125,7 +125,7 @@
             {% endif %}
         {% endif %}
         <div class="col-xs-12 {% if page.audio != false %}col-sm-1{% else %}col-sm-11{% endif %} gig-title-wrapper">
-            <h3 style="font-size: {{header_font_size}}">{{page.title}}</h3>
+            <h3 style="font-size: {{header_font_size}};">{{page.title}}</h3>
         </div>
         
         {% if page.audio != false %}
@@ -135,8 +135,8 @@
         {% endif %}
 
         <div class="gig dropdown">
-            <button class="btn btn-success dropdown-toggle" type="button" id="navbar-collapse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="currentArtist"></span><span class="caret"></span>
+            <button class="btn btn-minimal dropdown-toggle" type="button" id="navbar-collapse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <small><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="currentArtist"></span><span class="caret"></span></small>
             </button>
             {% include gig_playlist.html class="dropdown-menu" highlight="true" %}
         </div>

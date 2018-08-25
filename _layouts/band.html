@@ -15,7 +15,7 @@ layout: default
 {% endfor %}
 
 <article class="band container-fluid" id="band">
-  <div class="row">
+  <div class="row sticky" style="z-index: 2000;">
       <a href="/artists">
           <div class="col-xs-12 divider link purple">
               <h5>Back to artists</h5>
@@ -59,7 +59,7 @@ layout: default
       </center>
     </div>
   </header>
-  <div class="divider row" style="background-color: black; color: #c8c8c8;">
+  <div class="divider row sticky" style="background-color: black; color: #c8c8c8; z-index: 2000; top: 32px;">
     <div class="col-xs-12 no-padding">
       <ul id="tabs" class="nav nav-tabs" role="tablist">
           <li class="active"><a data-toggle="tab" href="#gigs" role="tab">Gigs ({{number_of_gigs}})</a></li>

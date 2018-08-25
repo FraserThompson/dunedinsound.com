@@ -320,6 +320,17 @@ h3 {
 	}
 }
 
+.btn {
+	text-shadow: none;
+}
+
+.btn-minimal {
+	border: none;
+	border-radius: 0px;
+	background: none;
+	color: black;
+}
+
 .btn-default {
 	background: rgba(0,0,0,0.6);
 	background-image: none;

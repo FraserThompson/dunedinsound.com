@@ -2,7 +2,7 @@
 title: "AMPED 18 Gig 1"
 date: 2018-8-12 08:30:00 Z
 categories:
-    - 12_strings
+    - twelve_strings
     - trent_hawthorne
     - melicen_barber
     - liam_boyne

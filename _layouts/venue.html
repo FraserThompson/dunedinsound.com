@@ -5,13 +5,14 @@ layout: default
 {% assign machine_name = page.title| downcase | machine_name %}
 
 <article class="post container-fluid" id="venue">
-
-    <header class="post-header row">
+    <div class="row sticky" style="z-index: 2000;">
         <a href="/venues">
             <div class="col-xs-12 divider link purple">
                 <h5>Back to venues</h5>
             </div>
         </a>
+    </div>
+    <header class="post-header row">
       <div class="banner">
         <div id="map" style="height: 100%; width: 100%; background-color: #222222;" data-lat="{{page.lat}}" data-lng="{{page.lng}}"></div>
         <div class="text">
@@ -26,7 +27,7 @@ layout: default
         </div>
       </div>
     </header>
-    <div class="divider row" style="background-color: black; color: #c8c8c8;">
+    <div class="divider row sticky" style="background-color: black; color: #c8c8c8; z-index: 2000; top: 32px;">
         <div class="col-xs-12 no-padding">
             <ul id="tabs" class="nav nav-tabs" role="tablist">
                 <li class="active"><a data-toggle="tab" href="#gigs" role="tab">Gigs</a></li>

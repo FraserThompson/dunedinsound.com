@@ -111,7 +111,6 @@ $gig-header-height: 80vh;
 
   .col-xs-12 {
     height: $header-height - 10;
-    margin-right: 30px;
   }
 
   h5 {
@@ -123,6 +122,8 @@ $gig-header-height: 80vh;
     top: 0px;
     font-size: 9px;
     width: 30px;
+    right: 0px;
+    left: auto;
     .glyphicon {
       right: 2px;
     }
@@ -240,23 +241,36 @@ $gig-header-height: 80vh;
 .dropdown-menu {
   right: 0px !important;
   left: auto;
-	height: 100vh;
   overflow-y: auto;
+  border: none;
+  border-radius: 0px;
+
+  &>li>a {
+    padding: auto;
+    padding-left: 3px;
+  }
 }
 
 .gig.dropdown {
   position:absolute;
   opacity: 0;
   right: 0px;
-  top: 20px;
+  top: 0px;
   z-index: 100;
   ul>li>a {
-    height: 60px;
+    height: 40px;
+  }
+  .btn {
+    color: black;
   }
 }
 
 .dropdown-toggle {
-  height: $header-height + 20;
+  height: 22px;
+  margin: -1px;
+  margin-top: -4px;
+  padding-top: 1px;
+  padding-right: 0px;
 }
 
 .header.gig-header {
@@ -285,17 +299,20 @@ $gig-header-height: 80vh;
     padding-left: 5px;
     opacity: 0;
     font-size: 1.2rem;
+    background-color: white;
     h3 {
       height: $header-height - 25;
       overflow: hidden;
       text-overflow: ellipsis;
       margin-top: 5px;
+      color: black;
+      text-shadow: none;
     }
   }
 
   .gig-player-wrapper {
     padding-left: 40px;
-    padding-right: 50px;
+    padding-right: 0px;
   }
 
   .title-wrapper {
@@ -309,6 +326,18 @@ $gig-header-height: 80vh;
 }
 
 @media (min-width:768px) {
+
+  .dropdown-toggle {
+    height: $header-height + 20;
+    margin: auto;
+    margin-top: auto;
+  }
+
+  .gig.dropdown {
+    .btn {
+      color: white;
+    }
+  }
 
   .header.gig-header {
     height: ($header-height + 20) + 20;
@@ -333,7 +362,5 @@ $gig-header-height: 80vh;
   .gig .divider {
     top: $header-height + 20;
   }
-  .gig.dropdown {
-      top: 0px
-  }
+
 }

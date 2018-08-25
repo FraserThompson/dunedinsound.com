@@ -28,7 +28,7 @@ function gigInit() {
     window.buttons = window.buttons || {};
     window.artists = window.artists || {};
 
-    window.scroll = new SmoothScroll('.smoothscroll', {
+    window.scroll = new SmoothScroll('.canonical .smoothscroll', {
         speed: 600,
         offset: HEADER_HEIGHT,
         easing: 'easeInOutCubic'
@@ -40,12 +40,6 @@ function gigInit() {
         offset: HEADER_HEIGHT + 60,
         scrollDelay: false
     });
-
-    /* STICKY ELEMENTS POLYFILL */
-    var stickyElements = document.getElementsByClassName('sticky');
-    for (var i = stickyElements.length - 1; i >= 0; i--) {
-        Stickyfill.add(stickyElements[i]);
-    }
 
     /* IMAGES OBJECT */
     var media = document.getElementsByClassName('gig');
