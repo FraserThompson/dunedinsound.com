@@ -5,7 +5,7 @@ tags:
     - documentary
 image: /assets/img/blog/2018-09-01-lee-nicolson-lightning-wave-pedals/cover.jpg
 author: Fraser Thompson
-filename: 2018-09-01-lee-nicolson-lightning-wave-pedals.markdown
+filename: 2018-09-01-lee-nicholson-lightning-wave-pedals.markdown
 background_position: center
 background_size: cover
 description: Lee Nicolson's in Space Bats! Attack and previously Thundercub, but he also makes pedals. I caught up with him to find out how it's going and why there's so much buzz around his pedals.
