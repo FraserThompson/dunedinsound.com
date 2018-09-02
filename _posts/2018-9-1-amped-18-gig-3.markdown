@@ -1,0 +1,48 @@
+---
+title: "AMPED 18 Gig 3"
+date: 2018-9-1 08:30:00 Z
+categories:
+    - soymilk
+    - do_speak_louder
+    - steam_box
+    - sugarcoated_bullets
+    - coxs_orange
+    - fazed_on_a_pony
+parent: Gigs
+better_placeholders: true
+venue: The Attic
+media:
+    Soymilk!:
+            mp3:
+                -   title: Partial Set
+            vid:
+                -   link: 8A3kFH-N88I
+                -   link: 4ia7j2KxBEs
+    Do Speak Louder:
+            mp3:
+                -   title: Full Set
+            vid:
+                -   link: Gh8g7eeBIaQ
+    Steam Box:
+            mp3:
+                -   title: Full Set
+            vid:
+                -   link: 2tFvAcUbrAg
+    Sugarcoated Bullets:
+            mp3:
+                -   title: Full Set
+            vid:
+                -   link: Km1wIe48VnM
+                -   link: lgtctlId354
+    Coxs Orange:
+            mp3:
+                -   title: Full Set
+            vid:
+                -   link: 79YLipLPYko
+    Fazed On A Pony:
+            mp3:
+                -   title: Full Set
+            vid:
+                -   link: tFvyn1BvuHM
+                -   link: DUT5ffrcMJ4
+---
