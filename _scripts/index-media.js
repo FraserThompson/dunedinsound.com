@@ -9,13 +9,6 @@ YAML = require('yamljs');
 console.log("INDEXING MEDIA...")
 
 glob('assets/**/**/*.{jpg,JPG}', {}, function(err, files){
-    var existingYml = fs.readFileSync("_data/media.yml").toString();
-
-    // this demarcates auto-generated values
-    // from manually added values for things like
-    // externally hosted images
-    var a = existingYml.split("#!#!#!#!#");
-    existingYml = a[0].trim();
 
     var data = { 'gigs': {}, 'artists': {}, 'audio': {} };
 
@@ -77,6 +70,6 @@ glob('assets/**/**/*.{jpg,JPG}', {}, function(err, files){
     var yamlHeading = "\n\n\n#!#!#!#!# Do not edit below this line.\n";
     yamlHeading += "# Generated automatically using `grunt index_images` on " + new Date() + "\n\n";
     
-    fs.writeFileSync("_data/media.yml", existingYml + yamlHeading + yamlString);
+    fs.writeFileSync("_data/media.yml", yamlHeading + yamlString);
     console.log('\t Done');
 });
