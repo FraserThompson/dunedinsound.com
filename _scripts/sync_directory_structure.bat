@@ -1,0 +1,1 @@
+xcopy ..\_originals\img\%1 Z:\working\%1 /t /e

@@ -19,15 +19,15 @@ const optionDefinitions = [
 const options = commandLineArgs(optionDefinitions)
 
 const medium_width = 800
-const medium_quality = 70
+const medium_quality = 73
 const medium_suffix = " (Medium)"
 
 const large_width = 2600
-const large_quality = 86
+const large_quality = 85
 const large_suffix = ""
 
 const tiny_width = 90
-const tiny_quality = 20
+const tiny_quality = 10
 const tiny_suffix = " (Tiny)"
 
 console.log("PROCESSING IMAGES...")

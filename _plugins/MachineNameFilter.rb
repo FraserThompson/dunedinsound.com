@@ -1,7 +1,7 @@
 module Jekyll
   module MachineNameFilter
     def machine_name(input)
-        input.to_s.gsub(Regexp.union({' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => '', "'" => '', "&" => "and", 'è' => 'e', '12' => 'twelve'}.keys), {' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => '', "'" => '', "&" => "and", 'è' => 'e', '12' => 'twelve'})
+        input.to_s.gsub(Regexp.union({' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => '', "'" => '', "&" => "and", 'è' => 'e', '12' => 'twelve', '4' => 'four'}.keys), {' ' => '_', ',' => '', '$' => 'z', '!' => '', '.' => '', "'" => '', "&" => "and", 'è' => 'e', '12' => 'twelve', '4' => 'four'})
     end
   end
 end
