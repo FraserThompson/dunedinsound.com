@@ -20,6 +20,7 @@ categories:
     - the_mentalist_collective
 parent: Gigs
 better_placeholders: true
+description: The final gig of 2018's AMPED Music Project <small><a href="https://www.facebook.com/Ampedmusicproject/" title="More Info">More Info</a></small>
 venue: Fifty Gorillas
 media:
     Better Than Nothing:

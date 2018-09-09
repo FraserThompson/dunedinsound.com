@@ -45,6 +45,7 @@
         <div class="text" style="margin-top: -60px;">
             <center>
                 <h2 class="huge-header">{{page.title}}</h2>
+                <p class="description">{{page.description}}</p>
                 {% include gig_playlist.html orientation="horizontal" hightlight="false" class="canonical" %}
                 <small>{{ page.date | date: "%d %b %Y"}} at {% if gigs_number > 1 %}<a title="More gigs at {{page.venue}}" class="link light" href="/venues/{{venue_machine_name}}">{{page.venue}}</a>{% else %}{{page.venue}}{% endif %}</small>
             </center>
