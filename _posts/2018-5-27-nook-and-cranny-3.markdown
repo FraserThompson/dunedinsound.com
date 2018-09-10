@@ -15,7 +15,7 @@ categories:
     - soaked_oats
     - david_wang
     - seafog
-    - seedy_solo
+    - seedy_marsh
     - melissa_and_the_dr
     - holly_mcphee
     - person_will
@@ -95,7 +95,7 @@ media:
     David Wang:
             vid:
                 -   link: 8tY4JI9oCng
-    Seedy Solo:
+    Seedy Marsh:
             mp3:
                 -   title: Fourth Floor Lobby
             vid:

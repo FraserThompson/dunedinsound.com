@@ -2,7 +2,7 @@
 title: "Koizilla Album Release"
 date: 2018-8-18 08:30:00 Z
 categories:
-    - seedy_solo
+    - seedy_marsh
     - fazed_on_a_pony
     - mary_berry
     - koizilla
@@ -10,7 +10,7 @@ parent: Gigs
 better_placeholders: true
 venue: The Captain Cook Hotel
 media:
-    Seedy Solo:
+    Seedy Marsh:
             mp3:
                 -   title: Full Set
             vid:
