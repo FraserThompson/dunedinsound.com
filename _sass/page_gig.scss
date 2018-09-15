@@ -215,6 +215,13 @@ $gig-header-height: 80vh;
       position: absolute;
     }
 
+    .tile-content {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-top: -120px;
+    }
+
     &:hover {
       text-decoration: none;
       
@@ -274,15 +281,17 @@ $gig-header-height: 80vh;
 }
 
 .header.gig-header {
+
+  height: ($header-height + 20) + 20;
+  margin-top: -($header-height + 20 + 20);
+
   opacity: 1;
   background-color: transparent;
-  margin-top: -(($header-height + 20) * 2);
   -webkit-transition: background-color 0.5s ease;
   -moz-transition: background-color 0.5s ease;
   transition: background-color 0.5s ease;
 
   z-index: 1040;
-  height: (($header-height + 20) * 2);
 
 	.playButton {
 		z-index: 20; 
@@ -290,7 +299,7 @@ $gig-header-height: 80vh;
   
   &.scrolled {
     background-color: black;
-    height: (($header-height) * 2);
+    //height: (($header-height) * 2);
   }
 
   .gig-title-wrapper {
@@ -340,8 +349,7 @@ $gig-header-height: 80vh;
   }
 
   .header.gig-header {
-    height: ($header-height + 20) + 20;
-    margin-top: -($header-height + 20 + 20);
+
     &.scrolled {
       height: ($header-height + 20);
     }

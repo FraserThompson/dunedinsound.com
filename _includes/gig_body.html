@@ -19,7 +19,7 @@
 						{% for mp3 in band[1].mp3 %}
 
 							{% unless mp3.nodownload %}
-								<a class="downloadButton" title="Download MP3" href="{{mp3.generated_link}}" target="_blank"><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
+								<a class="downloadButton" title="Download MP3" href="{{mp3.generated_link}}" target="_blank" download><small><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></small></a>
 							{% endunless %}
 
 						{% endfor %}

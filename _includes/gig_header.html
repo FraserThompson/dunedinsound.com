@@ -56,23 +56,25 @@
                 <span class="icon">&#x203a;</span>
                 <span class="label label-default" style="margin-left: 0px;">OLDER</span>
                 <div class="tile-title center" style="padding-top: 40px;">
-                    <h4><small>{{page.previous.date | date: "%d %b %Y"}}</small></h4>
-                    <h3 class="name">{{ page.previous.title }}</h3>
+                    <div class="tile-content">
+                        <h4><small>{{page.previous.date | date: "%d %b %Y"}}</small></h4>
+                        <h3 class="name">{{ page.previous.title }}</h3>
 
-                    {% assign band_quantity = page.previous.media | size %}
-                    {% assign band_quantity_minus_one = band_quantity | minus: 1 %}
+                        {% assign band_quantity = page.previous.media | size %}
+                        {% assign band_quantity_minus_one = band_quantity | minus: 1 %}
 
-                    <h6 class="artistNames">
-                        {% for band in page.previous..media %}
-                            {% if forloop.index < 8 %}
-                                <span>{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false and forloop.index != 7 %}, {% endif %}</span>
-                            {% else %}
-                                <span style="display: none;">{{band[0]}} </span>
-                            {% endif %}
-                        {% endfor %}
-                    </h6>
+                        <h6 class="artistNames">
+                            {% for band in page.previous..media %}
+                                {% if forloop.index < 8 %}
+                                    <span>{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false and forloop.index != 7 %}, {% endif %}</span>
+                                {% else %}
+                                    <span style="display: none;">{{band[0]}} </span>
+                                {% endif %}
+                            {% endfor %}
+                        </h6>
 
-                    <h6 class="venueName">{{page.previous.venue}}</h6>
+                        <h6 class="venueName">{{page.previous.venue}}</h6>
+                    </div>
                 </div>
                 <div class="banner b-lazy" data-src="{{site.asset_url}}/assets/img/{{page.previous.title}}/cover.jpg"></div>
             </a>
@@ -82,23 +84,25 @@
                 <span class="icon">&#x2039;</span>
                 <span class="label label-default" style="margin-left: 0px;">NEWER</span>
                 <div class="tile-title" style="padding-top: 40px;">
-                    <h4><small>{{page.next.date | date: "%d %b %Y"}}</small></h4>
-                    <h3 class="name">{{ page.next.title }}</h3>
+                    <div class="tile-content">
+                        <h4><small>{{page.next.date | date: "%d %b %Y"}}</small></h4>
+                        <h3 class="name">{{ page.next.title }}</h3>
 
-                    {% assign band_quantity = page.next.media | size %}
-                    {% assign band_quantity_minus_one = band_quantity | minus: 1 %}
+                        {% assign band_quantity = page.next.media | size %}
+                        {% assign band_quantity_minus_one = band_quantity | minus: 1 %}
 
-                    <h6 class="artistNames">
-                        {% for band in page.next..media %}
-                            {% if forloop.index < 8 %}
-                                <span>{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false and forloop.index != 7 %}, {% endif %}</span>
-                            {% else %}
-                                <span style="display: none;">{{band[0]}} </span>
-                            {% endif %}
-                        {% endfor %}
-                    </h6>
+                        <h6 class="artistNames">
+                            {% for band in page.next..media %}
+                                {% if forloop.index < 8 %}
+                                    <span>{% if band_quantity == forloop.index and band_quantity != 1 %} and {% endif %}{{band[0]}}{% if band_quantity_minus_one != forloop.index and forloop.last == false and forloop.index != 7 %}, {% endif %}</span>
+                                {% else %}
+                                    <span style="display: none;">{{band[0]}} </span>
+                                {% endif %}
+                            {% endfor %}
+                        </h6>
 
-                    <h6 class="venueName">{{page.next.venue}}</h6>
+                        <h6 class="venueName">{{page.next.venue}}</h6>
+                    </div>
                 </div>
                 <div class="banner b-lazy" data-src="{{site.asset_url}}/assets/img/{{page.next.title}}/cover.jpg"></div>
             </a>

@@ -5,7 +5,7 @@ categories:
     - milpool
     - jack_berry_band
     - bathsalts
-    - the_burps
+    - lacuna
 parent: Gigs
 venue: a flat somewhere
 image: /assets/img/Difficult%20Difficult%20LEMON%20Difficult/cover.jpg
@@ -35,7 +35,7 @@ media:
             -   link: JKX5Wo4M7tM
             -   link: dqVlqoGn8_Q
             -   link: AHvPxnAOyZw
-    The Burps:
+    Lacuna:
         mp3:
             -   title: Full set
         vid:
