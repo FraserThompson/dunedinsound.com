@@ -22,8 +22,8 @@ const medium_width = 800
 const medium_quality = 73
 const medium_suffix = " (Medium)"
 
-const large_width = 2600
-const large_quality = 85
+const large_width = 3000
+const large_quality = 88
 const large_suffix = ""
 
 const tiny_width = 90

@@ -20,7 +20,7 @@ Graham Matrix, singer and guitarist for local post-grunge-pop band Sheep, passes
 
 <!-- more -->
 
-<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=3783194220/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://sheepsheeit.bandcamp.com/track/the-government-cant-take-my-benny">The Government Can&#39;t Take My Benny by Sheep</a></iframe></center>
+<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3958446571/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://sheepsheeit.bandcamp.com/album/graham-matrix-vs-the-entire-galactic-chaos-empire">Graham Matrix VS The Entire Galactic Chaos Empire by Sheep</a></iframe></center>
 
 They taste fine to me, and apparently also to drummer Tobias Heeringa and keyboardist Josh Bottz, who munch them down eagerly.
 
