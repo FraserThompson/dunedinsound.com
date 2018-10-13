@@ -14,6 +14,8 @@ description: blah blah blah
 
 I thought it might be a good time to write a little rundown of the tech behind dunedinsound.com, partially as a way for me to clarify my reasoning to myself, and partially because it might be interesting to someone. I've tried to make it understandable for anyone as well as offering enough detail to satisfy people who are into this kind of thing.
 
+<!-- more -->
+
 **Initial Design**
 
 When I first started, my goal was to make a simple directory of local gigs and artists. I intended this directory to exist for many years, decades even, because I had this idea that documents recording certain events become more valuable over time.
