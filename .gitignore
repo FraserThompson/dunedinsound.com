@@ -3,6 +3,9 @@ _site_dev
 _data
 _originals
 .sass-cache
+.cache
+public
+yarn-error.log
 .vagrant
 .jekyll-metadata
 node_modules
