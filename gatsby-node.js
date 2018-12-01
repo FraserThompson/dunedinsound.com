@@ -38,24 +38,40 @@ exports.createPages = ({ graphql, actions }) => {
           const previous = index === posts.length - 1 ? null : posts[index + 1].node;
           const next = index === 0 ? null : posts[index - 1].node;
 
-          let layout;
-
           if (/\/gigs/.test(post.node.fields.slug)) {
-            layout = gigLayout
+
+            const layout = gigLayout
+
+            const gigImagesRegex = post.node.fields.slug + ".*\\/*.jpg$/"
+            console.log(gigImagesRegex);
+  
+            createPage({
+              path: post.node.fields.slug,
+              component: layout,
+              context: {
+                slug: post.node.fields.slug,
+                gigRegex: gigImagesRegex,
+                previous,
+                next,
+              },
+            })
+
           } else if (/\/blog-posts/.test(post.node.fields.slug)) {
-            layout = blogLayout
+
+            const layout = blogLayout
+
+            createPage({
+              path: post.node.fields.slug,
+              component: layout,
+              context: {
+                slug: post.node.fields.slug,
+                previous,
+                next,
+              },
+            })
+
           }
 
-          createPage({
-            path: post.node.fields.slug,
-            component: layout,
-            context: {
-              slug: post.node.fields.slug,
-              gigRegex: post.node.fields.slug,
-              previous,
-              next,
-            },
-          })
         })
       })
     )
