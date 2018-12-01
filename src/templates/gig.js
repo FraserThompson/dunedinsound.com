@@ -14,14 +14,8 @@ class GigTemplate extends React.Component {
     const { previous, next } = this.props.pageContext
 
     const imagesByArtist = this.props.data.images['group'].map((imageGroup, index) => {
-
       const artistName = imageGroup.fieldValue.match(/([^\\]*)\\*$/)[1]
-
-      const images = imageGroup.edges.map((image, index) => {
-        const imagePath = image.node.childImageSharp.fluid;
-        return (<Img key={index} fluid={imagePath} />)
-      })
-
+      const images = imageGroup.edges.map((image, index) => <Img key={index} fluid={image.node.childImageSharp.fluid} />)
       return (<div key={index}><h1>{artistName}</h1>{images}</div>)
     })
 
@@ -70,11 +64,12 @@ export const pageQuery = graphql`
         media { name, mp3 { title}, vid {link, title} }
       }
     }
-    images: allFile(sort: { order: ASC, fields: [relativeDirectory] }, filter: { relativePath: { regex: $gigRegex } }) { 
+    images: allFile(filter: { relativePath: { regex: $gigRegex } }) { 
       group(field: relativeDirectory) {
         fieldValue
         edges {
           node {
+            name
             absolutePath
             relativeDirectory
             publicURL
