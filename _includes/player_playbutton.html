@@ -1,4 +1,0 @@
-<button title="{% unless include.title %} Play/Pause {% else %} {{include.title}} {% endunless %}" class="btn btn-success play-pause playHandler playButton {{include.class}}" data-artist="{{ include.artist }}" data-playerid="{{include.playerId}}" data-bandname="{{include.band_name}}" style="{% if include.position == 'static' %} position: static; {% endif %}" id="{% if include.universal %}universalPlayButton{% endif %}">
-    <span data-artist="{{ include.artist }}" data-bandname="{{include.band_name}}" class="play glyphicon glyphicon-play"></span>
-    <span data-artist="{{ include.artist }}" data-bandname="{{include.band_name}}" class="pause glyphicon glyphicon-pause" style="display: none"></span>
-</button>

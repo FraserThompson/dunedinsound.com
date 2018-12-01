@@ -1,41 +1,63 @@
 {
-  "name": "dunedinsound",
+  "name": "gatsby-starter-blog",
+  "description": "Starter Gatsby Blog",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/gatsbyjs/gatsby-starter-blog/issues"
+  },
+  "dependencies": {
+    "gatsby": "^2.0.19",
+    "gatsby-plugin-feed": "^2.0.8",
+    "gatsby-plugin-google-analytics": "^2.0.5",
+    "gatsby-plugin-manifest": "^2.0.5",
+    "gatsby-plugin-offline": "^2.0.5",
+    "gatsby-plugin-react-helmet": "^3.0.0",
+    "gatsby-plugin-sharp": "^2.0.6",
+    "gatsby-plugin-typography": "^2.2.0",
+    "gatsby-remark-copy-linked-files": "^2.0.5",
+    "gatsby-remark-images": "^2.0.4",
+    "gatsby-remark-prismjs": "^3.0.0",
+    "gatsby-remark-responsive-iframe": "^2.0.5",
+    "gatsby-remark-smartypants": "^2.0.5",
+    "gatsby-source-filesystem": "^2.0.2",
+    "gatsby-transformer-remark": "^2.1.15",
+    "gatsby-transformer-sharp": "^2.1.3",
+    "prismjs": "^1.15.0",
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1",
+    "react-helmet": "^5.2.0",
+    "react-typography": "^0.16.13",
+    "typeface-merriweather": "0.0.43",
+    "typeface-montserrat": "0.0.43",
+    "typography": "^0.16.17",
+    "typography-theme-wordpress-2016": "^0.15.10"
+  },
   "devDependencies": {
-    "command-line-args": "^4.0.7",
-    "copy": "^0.3.1",
-    "fs": "0.0.2",
-    "glob": "^7.1.1",
-    "mkdirp": "^0.5.1",
-    "sharp": "^0.21.0",
-    "uncss": "^0.16.2",
-    "yamljs": "^0.2.8"
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.11.1",
+    "gh-pages": "^1.2.0",
+    "prettier": "^1.14.2"
   },
-  "scripts": {
-    "serve": "bundle exec jekyll serve",
-    "dev": "bundle exec jekyll serve --limit_posts=1 --incremental",
-    "new": "node ./_scripts/generate_gig.js",
-    "audio": "docker-compose up --build && node ./_scripts/copy_audio.js",
-    "images": "node ./_scripts/images.js && node ./_scripts/index-media.js",
-    "index-media": "node ./_scripts/index-media.js",
-    "uncss": "node ./_scripts/uncss.js",
-    "build": "set JEKYLL_ENV=production && bundle exec jekyll build",
-    "deploy": "bundle exec s3_website push",
-    "build-deploy": "set JEKYLL_ENV=production && bundle exec jekyll build && bundle exec s3_website push"
-  },
+  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FraserThompson/FraserThompson.github.io.git"
+    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/FraserThompson/FraserThompson.github.io/issues"
-  },
-  "homepage": "https://github.com/FraserThompson/FraserThompson.github.io#readme",
-  "dependencies": {
-    "wavesurfer.js": "^2.0.3"
+  "scripts": {
+    "dev": "gatsby develop",
+    "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js' 'src/**/*.md'",
+    "develop": "gatsby develop",
+    "start": "npm run develop",
+    "build": "gatsby build",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
+    "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js"
   }
 }

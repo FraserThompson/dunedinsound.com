@@ -1,0 +1,74 @@
+import React from 'react'
+import Helmet from 'react-helmet'
+import { Link, graphql } from 'gatsby'
+
+import Layout from '../components/Layout'
+
+class GigTemplate extends React.Component {
+  render() {
+
+    const post = this.props.data.thisPost
+    const siteTitle = this.props.data.site.siteMetadata.title
+    const siteDescription = post.excerpt
+    const { previous, next } = this.props.pageContext
+
+    const images = this.props.data.images
+    console.log(images)
+
+    const playlist = post.frontmatter.media.map((artist, index) => {
+      return (
+        <li key={index}>
+          <a>{artist.name}</a>
+        </li>
+      )
+    });
+
+    return (
+      <Layout location={this.props.location} title={siteTitle}>
+        <Helmet
+          htmlAttributes={{ lang: 'en' }}
+          meta={[{ name: 'description', content: siteDescription }]}
+          title={`${post.frontmatter.title} | ${siteTitle}`}
+        />
+        <Link to="/gigs">Back to gigs</Link>
+        <h1>{post.frontmatter.title}</h1>
+        <ul>{playlist}</ul>
+      </Layout>
+    )
+  }
+}
+
+export default GigTemplate
+
+export const pageQuery = graphql`
+  query GigsBySlug($slug: String!, $gigRegex: String!) {
+    site {
+      siteMetadata {
+        title
+        author
+      }
+    }
+    thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
+      id
+      excerpt
+      html
+      frontmatter {
+        title
+        date(formatString: "MMMM DD, YYYY")
+        venue
+        media { name, mp3 { title}, vid {link, title} }
+      }
+    }
+    images: allFile(sort: { order: ASC, fields: [relativeDirectory] }, filter: { relativePath: { regex: $gigRegex } }) { 
+      group(field: relativeDirectory) {
+        fieldValue
+        edges {
+          node {
+            absolutePath
+            relativeDirectory
+          }
+        }
+      }
+    }
+  }
+`
