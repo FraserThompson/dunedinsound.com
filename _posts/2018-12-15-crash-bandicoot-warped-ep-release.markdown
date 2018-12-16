@@ -13,15 +13,19 @@ media:
             mp3:
                 -   title: Full Set
             vid:
-                -   link:
+                -   link: kJalGbqaK_o
     Wet Specimen:
             mp3:
                 -   title: Full Set
             vid:
-                -   link:
+                -   title: The Fly
+                    link: 0g8tGwOmxkA
+                -   link: eK_LYJC3h1k
     Koizilla:
             mp3:
                 -   title: Full Set
             vid:
-                -   link:
+                -   link: xchh_DOjhjg
+                -   link: n2Q6mjUi1iY
+                -   link: _djsc80jJEg
 ---
