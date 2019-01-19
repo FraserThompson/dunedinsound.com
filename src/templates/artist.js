@@ -6,38 +6,13 @@ import Img from 'gatsby-image'
 
 import Layout from '../components/Layout'
 
-class GigTemplate extends React.Component {
+class ArtistTemplate extends React.Component {
   render() {
-
-    const ImageGridContainer = styled.div`
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-    `
 
     const post = this.props.data.thisPost
     const siteTitle = this.props.data.site.siteMetadata.title
     const siteDescription = post.excerpt
     const { previous, next } = this.props.pageContext
-
-    const imagesByArtist = this.props.data.images['group'].map((imageGroup, index) => {
-      const artistName = imageGroup.fieldValue.match(/([^\\]*)\\*$/)[1]
-      const images = imageGroup.edges.map((image, index) => <Img key={index} fluid={image.node.childImageSharp.fluid} />)
-      return (
-      <div key={index}>
-        <h1>{artistName}</h1>
-        <ImageGridContainer>
-          {images}
-        </ImageGridContainer>
-      </div>)
-    })
-
-    const playlist = post.frontmatter.media.map((artist, index) => {
-      return (
-        <li key={index}>
-          <a>{artist.name}</a>
-        </li>
-      )
-    })
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -54,10 +29,8 @@ class GigTemplate extends React.Component {
                   <h5>Back to gigs</h5>
                 </div>
               </Link>
-              <span className="label label-default">LATEST GIG</span>
               <div className="banner"></div>
               <div className="text" style={{marginTop: "-60px"}}>
-                <ul>{playlist}</ul>
               </div>
               <div className="gig-nav hidden-xs"></div>
             </div>
@@ -72,16 +45,15 @@ class GigTemplate extends React.Component {
             </div>
           </div>
         </header>
-        {imagesByArtist}
       </Layout>
     )
   }
 }
 
-export default GigTemplate
+export default ArtistTemplate
 
 export const pageQuery = graphql`
-  query GigsBySlug($slug: String!, $gigImagesRegex: String!) {
+  query ArtistsBySlug($slug: String!) {
     site {
       siteMetadata {
         title
@@ -94,27 +66,8 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")
-        venue
-        media { name, mp3 { title}, vid {link, title} }
-      }
-    }
-    images: allFile(filter: { relativePath: { regex: $gigImagesRegex } }) { 
-      group(field: relativeDirectory) {
-        fieldValue
-        edges {
-          node {
-            name
-            absolutePath
-            relativeDirectory
-            publicURL
-            childImageSharp {
-              fluid(maxWidth: 800) {
-                ...GatsbyImageSharpFluid_withWebp
-              }
-            }
-          }
-        }
+        bandcamp
+        facebook
       }
     }
   }

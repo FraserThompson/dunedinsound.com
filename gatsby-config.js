@@ -10,8 +10,22 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/src/content`,
-        name: 'content',
+        path: `${__dirname}/src/content/gigs`,
+        name: 'gigs',
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/content/blog`,
+        name: 'blog-posts',
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/content/artists`,
+        name: 'artists',
       },
     },
     {
@@ -36,6 +50,7 @@ module.exports = {
         ],
       },
     },
+    `gatsby-plugin-styled-components`,
     `gatsby-transformer-sharp`,
     'gatsby-transformer-remark',
     `gatsby-plugin-sharp`,

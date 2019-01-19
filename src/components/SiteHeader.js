@@ -1,26 +1,67 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import headerStyles from "./SiteHeaderStyles.css"
+import styled from "styled-components"
+import { ThemeContext } from '../utils/theme';
+import { rhythm } from '../utils/typography'
 
 class SiteHeader extends React.Component {
+
+    static contextType = ThemeContext;
+
     render() {
+        
+        const Container = styled.div`
+            background-color: black;
+            height: ${rhythm(2)};
+            color: #c8c8c8;
+        `
+
+        const Brand = styled.div`
+            float: left;
+            display: block;
+            height: ${rhythm(2)};
+            a {
+                padding: ${rhythm(0.5)};
+                line-height: ${rhythm(2)};
+            }
+        `
+
+        const Nav = styled.ul`
+            float: right;
+            margin: 0px;
+            padding-left: 0;
+            height: ${rhythm(2)};
+            list-style: none;
+            > li {
+                position: relative;
+                display: inline-block;
+                height: ${rhythm(2)};
+                float: left;
+                > a {
+                    padding: ${rhythm(0.5)};
+                    position: relative;
+                    display: block;
+                    border-right: 1px solid rgba(0,0,0,0.2);
+                    border-left: 1px solid rgba(255,255,255,0.1);
+                    height: ${rhythm(2)};
+                    line-height: ${rhythm(1)};
+                }
+            }
+        `
+
         return (
-            <nav class="header navbar navbar-default" id="site-header" data-scroll-header>
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand hidden-xs" href="/" hidden-xs>Dunedin Gig Archives</a>
-                    </div>
-                    <div id="top-nav" style={{textAlign: "center"}}>
-                        <ul className="nav navbar-nav navbar-right">
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to="/gigs/">Gigs</Link></li>
-                            <li><Link to="/artists/">Artists</Link></li>
-                            <li><Link to="/venues/">Venues</Link></li>
-                            <li><Link to="/blog/">Blog</Link></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <Container>
+                <Brand>
+                    <Link to="/">Dunedin Gig Archives</Link>
+                </Brand>
+                <Nav>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/gigs/">Gigs</Link></li>
+                    <li><Link to="/artists/">Artists</Link></li>
+                    <li><Link to="/venues/">Venues</Link></li>
+                    <li><Link to="/blog/">Blog</Link></li>
+                </Nav>
+            </Container>
         )
     }
 }

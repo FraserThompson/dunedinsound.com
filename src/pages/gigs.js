@@ -5,7 +5,7 @@ import Helmet from 'react-helmet'
 import Layout from '../components/Layout'
 import { rhythm } from '../utils/typography'
 
-class Homepage extends React.Component {
+class Gigs extends React.Component {
   render() {
     const { data } = this.props;
     const siteTitle = data.site.siteMetadata.title
@@ -42,7 +42,7 @@ class Homepage extends React.Component {
   }
 }
 
-export default Homepage
+export default Gigs
 
 export const pageQuery = graphql`
   query {
@@ -52,7 +52,7 @@ export const pageQuery = graphql`
         description
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}}) {
       edges {
         node {
           excerpt
