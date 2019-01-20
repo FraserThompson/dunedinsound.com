@@ -97,15 +97,11 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     const nodeType = getNodeType(node.fileAbsolutePath)
     const nodeSlug =  "/" + nodeType + value;
 
-    switch (nodeType) {
-      case "artists":
-        createNodeField({
-          name: `machine_name`,
-          node,
-          value: value.substring(1, value.length - 1),
-        })
-        break;
-    }
+    createNodeField({
+      name: `machine_name`,
+      node,
+      value: value.substring(1, value.length - 1),
+    })
     
     createNodeField({
       name: `slug`,

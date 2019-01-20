@@ -1,31 +1,31 @@
 ---
 title: "Blindfolded and Led to the Woods"
 date: 2018-11-17 08:30:00 Z
+venue: Fifty Gorillas
 artists:
     - the_rothmans
     - methchrist
     - tuscoma
     - blindfolded_and_led_to_the_woods
-venue: Fifty Gorillas
 media:
-    -   name: The Rothmans
+    -   name: the_rothmans
         mp3:
             -   title: Full Set
         vid:
             -   link: Xaeh11hQ7wc
             -   link: FXqnnp8AX90
-    -   name: Methchrist
+    -   name: methchrist
         mp3:
             -   title: Full Set
         vid:
             -   link: 5G77v_z7Fto
-    -   name: Tuscoma
+    -   name: tuscoma
         mp3:
             -   title: Full Set
         vid:
             -   link: X4X-5vaMiUU
             -   link: s4mbSk_4Jzc
-    -   name: Blindfolded and Led to the Woods
+    -   name: blindfolded_and_led_to_the_woods
         mp3:
             -   title: Full Set
         vid:

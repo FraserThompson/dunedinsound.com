@@ -18,35 +18,47 @@ class GigTemplate extends React.Component {
     const post = this.props.data.thisPost
     const siteTitle = this.props.data.site.siteMetadata.title
     const siteDescription = post.excerpt
-    
-    // Turn the data returned from the artist query into a key-value object of frontmatter
-    const artists = this.props.data.artists['group'].reduce((obj, item) => {
+
+    // Turn the data returned from the images query into a key-value object of images
+    const gigImages = this.props.data.images['group'].reduce((obj, item) => {
+      const machineName = item.fieldValue.match(/([^\\]*)\\*$/)[1]
+      const images = item.edges.map((image, index) => <Img key={index} fluid={image.node.childImageSharp.fluid} />)
+      obj[machineName] = images
+      return obj
+    }, {});
+
+    // Turn the data returned from the artist query into a key-value object of details
+    const gigArtistDetails = this.props.data.artists['group'].reduce((obj, item) => {
       const machineName = item.edges[0].node.fields.machine_name
       const frontmatter = item.edges[0].node.frontmatter
       obj[machineName] = frontmatter
-      return obj;
+      return obj
     }, {})
 
-    const imagesByArtist = this.props.data.images['group'].map((imageGroup, index) => {
+    // Iterate over all the media and gather it
+    const mediaByArtist = this.props.data.thisPost.frontmatter.media.map((artistMedia, index) => {
 
-      const artistMachineName = imageGroup.fieldValue.match(/([^\\]*)\\*$/)[1]
-      const artistDetails = artists[artistMachineName]
-
-      const images = imageGroup.edges.map((image, index) => <Img key={index} fluid={image.node.childImageSharp.fluid} />)
+      const artistImages = gigImages[artistMedia.name]
+      const artistDetails = gigArtistDetails[artistMedia.name]
+      
+      const vids = artistMedia.vid.map(video => <p key={video.link}>{video.link}</p>)
 
       return (
-      <div key={index}>
-        <h1>{artistDetails.title}</h1>
-        <ImageGridContainer>
-          {images}
-        </ImageGridContainer>
-      </div>)
+        <div key={index}>
+          <h1>{artistDetails.title}</h1>
+          {vids}
+          <ImageGridContainer>
+            {artistImages}
+          </ImageGridContainer>
+        </div>)
+
     })
 
     const playlist = post.frontmatter.media.map((artist, index) => {
+      const artistDetails = gigArtistDetails[artist.name]
       return (
         <li key={index}>
-          <a>{artist.name}</a>
+          <a>{artistDetails.title}</a>
         </li>
       )
     })
@@ -84,7 +96,7 @@ class GigTemplate extends React.Component {
             </div>
           </div>
         </header>
-        {imagesByArtist}
+        {mediaByArtist}
       </Layout>
     )
   }
@@ -101,9 +113,9 @@ export const pageQuery = graphql`
       }
     }
     thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      excerpt
-      html
+      fields {
+        machine_name
+      }
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
@@ -140,6 +152,9 @@ export const pageQuery = graphql`
               title
               bandcamp
               facebook
+              soundcloud
+              origin
+              website
             }
           }
         }
