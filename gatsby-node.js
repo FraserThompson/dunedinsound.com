@@ -30,6 +30,7 @@ exports.createPages = ({ graphql, actions }) => {
                   }
                   frontmatter {
                     title
+                    artists
                   }
                 }
               }
@@ -49,6 +50,12 @@ exports.createPages = ({ graphql, actions }) => {
 
           const previous = index === posts.length - 1 ? null : posts[index + 1].node
           const next = index === 0 ? null : posts[index - 1].node
+          
+          const context = {
+            slug: post.node.fields.slug,
+            previous,
+            next
+          }
 
           const nodeType = post.node.fields.type
 
@@ -56,27 +63,22 @@ exports.createPages = ({ graphql, actions }) => {
 
           switch (nodeType) {
             case "gigs":
-              layout = gigLayout;
+              layout = gigLayout
+              context.gigImagesRegex = post.node.fields.slug.substring(1) + "[^cover].*\\/*.jpg$/"
+              context.artists = post.node.frontmatter.artists
               break;
             case "blog":
-              layout = blogLayout;
+              layout = blogLayout
               break;
             case "artists":
-              layout = artistLayout;
+              layout = artistLayout
               break;
           }
-
-          const gigImagesRegex = post.node.fields.slug.substring(1) + ".*\\/*.jpg$/"
 
           createPage({
             path: post.node.fields.slug,
             component: layout,
-            context: {
-              slug: post.node.fields.slug,
-              gigImagesRegex,
-              previous,
-              next,
-            },
+            context: context,
           })
 
         })
@@ -95,6 +97,16 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     const nodeType = getNodeType(node.fileAbsolutePath)
     const nodeSlug =  "/" + nodeType + value;
 
+    switch (nodeType) {
+      case "artists":
+        createNodeField({
+          name: `machine_name`,
+          node,
+          value: value.substring(1, value.length - 1),
+        })
+        break;
+    }
+    
     createNodeField({
       name: `slug`,
       node,

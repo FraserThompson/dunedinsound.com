@@ -13,18 +13,30 @@ class GigTemplate extends React.Component {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
     `
+    const { previous, next } = this.props.pageContext
 
     const post = this.props.data.thisPost
     const siteTitle = this.props.data.site.siteMetadata.title
     const siteDescription = post.excerpt
-    const { previous, next } = this.props.pageContext
+    
+    // Turn the data returned from the artist query into a key-value object of frontmatter
+    const artists = this.props.data.artists['group'].reduce((obj, item) => {
+      const machineName = item.edges[0].node.fields.machine_name
+      const frontmatter = item.edges[0].node.frontmatter
+      obj[machineName] = frontmatter
+      return obj;
+    }, {})
 
     const imagesByArtist = this.props.data.images['group'].map((imageGroup, index) => {
-      const artistName = imageGroup.fieldValue.match(/([^\\]*)\\*$/)[1]
+
+      const artistMachineName = imageGroup.fieldValue.match(/([^\\]*)\\*$/)[1]
+      const artistDetails = artists[artistMachineName]
+
       const images = imageGroup.edges.map((image, index) => <Img key={index} fluid={image.node.childImageSharp.fluid} />)
+
       return (
       <div key={index}>
-        <h1>{artistName}</h1>
+        <h1>{artistDetails.title}</h1>
         <ImageGridContainer>
           {images}
         </ImageGridContainer>
@@ -81,7 +93,7 @@ class GigTemplate extends React.Component {
 export default GigTemplate
 
 export const pageQuery = graphql`
-  query GigsBySlug($slug: String!, $gigImagesRegex: String!) {
+  query GigsBySlug($slug: String!, $gigImagesRegex: String!, $artists: [String]! ) {
     site {
       siteMetadata {
         title
@@ -112,6 +124,22 @@ export const pageQuery = graphql`
               fluid(maxWidth: 800) {
                 ...GatsbyImageSharpFluid_withWebp
               }
+            }
+          }
+        }
+      }
+    }
+    artists: allMarkdownRemark(filter: { fields: { machine_name: { in: $artists }, type: { eq: "artists" } } } ) {
+      group(field: fields___machine_name) {
+        edges {
+          node {
+            fields {
+              machine_name
+            }
+            frontmatter {
+              title
+              bandcamp
+              facebook
             }
           }
         }

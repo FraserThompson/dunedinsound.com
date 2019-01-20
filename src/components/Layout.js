@@ -1,13 +1,20 @@
 import React from 'react'
 import SiteHeader from './SiteHeader'
-import styled from "styled-components"
-import { rhythm, scale } from '../utils/typography'
-import { ThemeContext, theme } from '../utils/theme';
+import styled, { ThemeProvider, createGlobalStyle } from "styled-components"
+import { theme } from '../utils/theme';
 
 class Layout extends React.Component {
   render() {
     const { location, title, children } = this.props
     const rootPath = `${__PATH_PREFIX__}/`
+
+    
+    const GlobalStyle = createGlobalStyle`
+      body {
+        background-color: ${props => props.theme.backgroundColor};
+        color: ${props => props.theme.textColor};
+      }
+    `
 
     const Container = styled.div`
       max-width: 100vw;
@@ -46,12 +53,13 @@ class Layout extends React.Component {
     `
 
     return (
-      <ThemeContext.Provider value={theme.default}>
+      <ThemeProvider theme={theme.default}>
         <Container>
+          <GlobalStyle/>
           <SiteHeader/>
           {children}
         </Container>
-      </ThemeContext.Provider>
+      </ThemeProvider>
     )
   }
 }

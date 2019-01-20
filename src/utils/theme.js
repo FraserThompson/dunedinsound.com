@@ -1,10 +1,7 @@
-import React from 'react'
-
 export const theme = {
     default: {
-        headerHeight: "60px"
+        backgroundColor: "#222222",
+        headerColor: "black",
+        textColor: "white"
     }
 }
-
-export const ThemeContext = React.createContext();
-  

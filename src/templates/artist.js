@@ -24,9 +24,9 @@ class ArtistTemplate extends React.Component {
         <header>
           <div className="container-fluid">
             <div className="post-header row">
-              <Link to="/gigs">
+              <Link to="/artists">
                 <div className="col-xs-12 divider link purple hidden-xs">
-                  <h5>Back to gigs</h5>
+                  <h5>Back to artists</h5>
                 </div>
               </Link>
               <div className="banner"></div>

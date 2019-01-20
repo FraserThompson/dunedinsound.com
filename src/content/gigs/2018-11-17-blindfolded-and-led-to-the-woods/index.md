@@ -1,7 +1,7 @@
 ---
 title: "Blindfolded and Led to the Woods"
 date: 2018-11-17 08:30:00 Z
-categories:
+artists:
     - the_rothmans
     - methchrist
     - tuscoma

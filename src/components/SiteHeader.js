@@ -1,17 +1,14 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import styled from "styled-components"
-import { ThemeContext } from '../utils/theme';
 import { rhythm } from '../utils/typography'
 
 class SiteHeader extends React.Component {
 
-    static contextType = ThemeContext;
-
     render() {
         
         const Container = styled.div`
-            background-color: black;
+            background-color: ${props => props.theme.headerColor};
             height: ${rhythm(2)};
             color: #c8c8c8;
         `
