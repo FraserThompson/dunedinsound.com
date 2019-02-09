@@ -1,10 +1,11 @@
 const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
 
-// Takes the slug and returns the node type. Can be gig or blog.
+// Takes the slug and returns the node type
 getNodeType = (path) => {
   if (/\/gigs/.test(path)) return "gigs";
   if (/\/blog/.test(path)) return "blog";
+  if (/\/venues/.test(path)) return "venues";
   if (/\/artists/.test(path)) return "artists";
 }
 
@@ -16,6 +17,7 @@ exports.createPages = ({ graphql, actions }) => {
     const gigLayout = path.resolve('./src/templates/gig.js')
     const blogLayout = path.resolve('./src/templates/blog.js')
     const artistLayout = path.resolve('./src/templates/artist.js')
+    const venueLayout = path.resolve('./src/templates/venue.js')
 
     resolve(
       graphql(
@@ -31,6 +33,7 @@ exports.createPages = ({ graphql, actions }) => {
                   frontmatter {
                     title
                     artists
+                    venue
                   }
                 }
               }
@@ -50,7 +53,7 @@ exports.createPages = ({ graphql, actions }) => {
 
           const previous = index === posts.length - 1 ? null : posts[index + 1].node
           const next = index === 0 ? null : posts[index - 1].node
-          
+
           const context = {
             slug: post.node.fields.slug,
             previous,
@@ -66,12 +69,16 @@ exports.createPages = ({ graphql, actions }) => {
               layout = gigLayout
               context.gigImagesRegex = post.node.fields.slug.substring(1) + "[^cover].*\\/*.jpg$/"
               context.artists = post.node.frontmatter.artists
+              context.venue = post.node.frontmatter.venue
               break;
             case "blog":
               layout = blogLayout
               break;
             case "artists":
               layout = artistLayout
+              break;
+            case "venues":
+              layout = venueLayout
               break;
           }
 
@@ -97,12 +104,19 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     const nodeType = getNodeType(node.fileAbsolutePath)
     const nodeSlug =  "/" + nodeType + value;
 
+    if (nodeType === "gigs" || nodeType === "blog") {
+      createNodeField({
+        name: `cover`,
+        node,
+        value: "./cover.jpg",
+      })
+    }
+
     createNodeField({
       name: `machine_name`,
       node,
       value: value.substring(1, value.length - 1),
     })
-    
     createNodeField({
       name: `slug`,
       node,
@@ -113,6 +127,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       node,
       value: nodeType,
     })
-  
+
   }
 }

@@ -35,12 +35,14 @@ class GigTemplate extends React.Component {
       return obj
     }, {})
 
+    const venueDetails = this.props.data.venue.edges[0].node;
+
     // Iterate over all the media and gather it
     const mediaByArtist = this.props.data.thisPost.frontmatter.media.map((artistMedia, index) => {
 
       const artistImages = gigImages[artistMedia.name]
       const artistDetails = gigArtistDetails[artistMedia.name]
-      
+
       const vids = artistMedia.vid.map(video => <p key={video.link}>{video.link}</p>)
 
       return (
@@ -105,7 +107,7 @@ class GigTemplate extends React.Component {
 export default GigTemplate
 
 export const pageQuery = graphql`
-  query GigsBySlug($slug: String!, $gigImagesRegex: String!, $artists: [String]! ) {
+  query GigsBySlug($slug: String!, $gigImagesRegex: String!, $artists: [String]!, $venue: String! ) {
     site {
       siteMetadata {
         title
@@ -123,7 +125,7 @@ export const pageQuery = graphql`
         media { name, mp3 { title}, vid {link, title} }
       }
     }
-    images: allFile(filter: { relativePath: { regex: $gigImagesRegex } }) { 
+    images: allFile(filter: { relativePath: { regex: $gigImagesRegex } }) {
       group(field: relativeDirectory) {
         fieldValue
         edges {
@@ -156,6 +158,18 @@ export const pageQuery = graphql`
               origin
               website
             }
+          }
+        }
+      }
+    }
+    venue: allMarkdownRemark(filter: { fields: { machine_name: { eq: $venue }, type: { eq: "venues" } } } ) {
+      edges {
+        node {
+          fields {
+            machine_name
+          }
+          frontmatter {
+            title
           }
         }
       }
