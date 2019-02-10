@@ -3,6 +3,7 @@ title: "Blindfolded and Led to the Woods"
 subtitle: "The Rothmans, Methchrist and more at Fifty Gorillas"
 date: 2018-11-17 08:30:00 Z
 venue: fifty_gorillas
+cover: ./cover.jpg
 artists:
     -   name: the_rothmans
         mp3:

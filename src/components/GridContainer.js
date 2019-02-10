@@ -5,24 +5,24 @@ const GridContainer = styled.div`
     grid-template-columns: repeat(12, 1fr);
 
     * {
-      grid-column: span ${props => props.xs};
+      grid-column: span ${props => props.xs || 12};
     }
 
     @media screen and (min-width: 768px) {
       * {
-        grid-column: span ${props => props.sm};
+        grid-column: span ${props => props.sm || 6};
       }
     }
 
     @media screen and (min-width: 992px) {
       * {
-        grid-column: span ${props => props.md};
+        grid-column: span ${props => props.md || 4};
       }
     }
 
     @media screen and (min-width: 1200px) {
       * {
-        grid-column: span ${props => props.lg};
+        grid-column: span ${props => props.lg || 4};
       }
     }
   `

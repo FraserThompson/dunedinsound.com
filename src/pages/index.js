@@ -27,7 +27,7 @@ class Homepage extends React.Component {
               key={node.fields.slug}
               title={title}
               subtitle={node.frontmatter.subtitle}
-              image={node.fields.cover.childImageSharp.fluid}
+              image={node.frontmatter.cover.childImageSharp.fluid}
               label={node.frontmatter.date}
               href={node.fields.slug}>
             </Tile>
@@ -55,13 +55,6 @@ export const pageQuery = graphql`
           excerpt
           fields {
             slug
-            cover {
-              childImageSharp {
-                fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid_withWebp
-                }
-              }
-            }
           }
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
@@ -69,6 +62,13 @@ export const pageQuery = graphql`
             artists { name }
             subtitle
             venue
+            cover {
+              childImageSharp {
+                fluid(maxWidth: 800) {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
           }
         }
       }

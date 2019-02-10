@@ -166,7 +166,7 @@ class GigTemplate extends React.Component {
             <p style={{marginBottom: 0}}>Back to gigs</p>
           </Link>
         </Divider>
-        <Banner backgroundImage={this.state.post.fields.cover.childImageSharp.fluid}>
+        <Banner backgroundImage={this.state.post.frontmatter.cover.childImageSharp.fluid}>
             <h1>{this.state.post.frontmatter.title}</h1>
             <HorizontalNav>{playlist}</HorizontalNav>
         </Banner>
@@ -200,6 +200,12 @@ export const pageQuery = graphql`
     thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
       fields {
         machine_name
+      }
+      frontmatter {
+        title
+        date(formatString: "MMMM DD, YYYY")
+        venue
+        artists { name, mp3 { title}, vid {link, title} }
         cover {
           childImageSharp {
             fluid(maxWidth: 800) {
@@ -207,12 +213,6 @@ export const pageQuery = graphql`
             }
           }
         }
-      }
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-        venue
-        artists { name, mp3 { title}, vid {link, title} }
       }
     }
     images: allFile(filter: { relativePath: { regex: $gigImagesRegex } }) {

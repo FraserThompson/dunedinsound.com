@@ -104,14 +104,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     const nodeType = getNodeType(node.fileAbsolutePath)
     const nodeSlug =  "/" + nodeType + value;
 
-    if (nodeType === "gigs" || nodeType === "blog") {
-      createNodeField({
-        name: `cover`,
-        node,
-        value: "./cover.jpg",
-      })
-    }
-
     createNodeField({
       name: `machine_name`,
       node,

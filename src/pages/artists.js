@@ -1,9 +1,9 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
-
 import Layout from '../components/Layout'
-import { rhythm } from '../utils/typography'
+import GridContainer from '../components/GridContainer';
+import Tile from '../components/Tile';
 
 class Gigs extends React.Component {
   render() {
@@ -12,6 +12,19 @@ class Gigs extends React.Component {
     const siteDescription = data.site.siteMetadata.description
     const posts = data.allMarkdownRemark.edges
 
+    const artistTiles = posts.map(({ node }) => {
+      const title = node.frontmatter.title || node.fields.slug
+      return (
+        <Tile
+          key={node.fields.slug}
+          title={title}
+          image={node.frontmatter.cover.childImageSharp.fluid}
+          label={node.frontmatter.date}
+          href={node.fields.slug}>
+        </Tile>
+      )
+    });
+
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <Helmet
@@ -19,24 +32,9 @@ class Gigs extends React.Component {
           meta={[{ name: 'description', content: siteDescription }]}
           title={siteTitle}
         />
-        {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
-          return (
-            <div key={node.fields.slug}>
-              <h3
-                style={{
-                  marginBottom: rhythm(1 / 4),
-                }}
-              >
-                <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
-                  {title}
-                </Link>
-              </h3>
-              <small>{node.frontmatter.date}</small>
-              <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
-            </div>
-          )
-        })}
+        <GridContainer>
+          {artistTiles}
+        </GridContainer>
       </Layout>
     )
   }
@@ -62,6 +60,13 @@ export const pageQuery = graphql`
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
             title
+            cover {
+              childImageSharp {
+                fluid(maxWidth: 800) {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
           }
         }
       }
