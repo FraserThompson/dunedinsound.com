@@ -32,7 +32,7 @@ exports.createPages = ({ graphql, actions }) => {
                   }
                   frontmatter {
                     title
-                    artists
+                    artists { name }
                     venue
                   }
                 }
@@ -68,7 +68,7 @@ exports.createPages = ({ graphql, actions }) => {
             case "gigs":
               layout = gigLayout
               context.gigImagesRegex = post.node.fields.slug.substring(1) + "[^cover].*\\/*.jpg$/"
-              context.artists = post.node.frontmatter.artists
+              context.artists = post.node.frontmatter.artists.map(artist => artist.name)
               context.venue = post.node.frontmatter.venue
               break;
             case "blog":

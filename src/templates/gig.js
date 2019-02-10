@@ -3,102 +3,220 @@ import Helmet from 'react-helmet'
 import { Link, graphql } from 'gatsby'
 import styled from "styled-components"
 import Img from 'gatsby-image'
-
+import Lightbox from 'react-image-lightbox';
 import Layout from '../components/Layout'
+import GridContainer from '../components/GridContainer';
+import BackgroundImage from '../components/BackgroundImage';
+import { rhythm } from '../utils/typography';
 
 class GigTemplate extends React.Component {
-  render() {
 
-    const ImageGridContainer = styled.div`
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-    `
-    const { previous, next } = this.props.pageContext
+  constructor(props) {
+    super(props);
 
     const post = this.props.data.thisPost
     const siteTitle = this.props.data.site.siteMetadata.title
     const siteDescription = post.excerpt
 
     // Turn the data returned from the images query into a key-value object of images
-    const gigImages = this.props.data.images['group'].reduce((obj, item) => {
+    const imagesByArtist = this.props.data.images['group'].reduce((obj, item) => {
       const machineName = item.fieldValue.match(/([^\\]*)\\*$/)[1]
-      const images = item.edges.map((image, index) => <Img key={index} fluid={image.node.childImageSharp.fluid} />)
+      const images = item.edges.map(image => image.node.childImageSharp.fluid)
       obj[machineName] = images
       return obj
-    }, {});
+    }, {})
 
     // Turn the data returned from the artist query into a key-value object of details
-    const gigArtistDetails = this.props.data.artists['group'].reduce((obj, item) => {
+    const detailsByArtist = this.props.data.artists['group'].reduce((obj, item) => {
       const machineName = item.edges[0].node.fields.machine_name
       const frontmatter = item.edges[0].node.frontmatter
       obj[machineName] = frontmatter
       return obj
     }, {})
 
-    const venueDetails = this.props.data.venue.edges[0].node;
-
-    // Iterate over all the media and gather it
-    const mediaByArtist = this.props.data.thisPost.frontmatter.media.map((artistMedia, index) => {
-
-      const artistImages = gigImages[artistMedia.name]
-      const artistDetails = gigArtistDetails[artistMedia.name]
-
-      const vids = artistMedia.vid.map(video => <p key={video.link}>{video.link}</p>)
-
-      return (
-        <div key={index}>
-          <h1>{artistDetails.title}</h1>
-          {vids}
-          <ImageGridContainer>
-            {artistImages}
-          </ImageGridContainer>
-        </div>)
-
+    // Collect all the above into one array of artists with all their media
+    const artistMedia = post.frontmatter.artists.map(artist => {
+      console.log(artist);
+      return {
+        ...artist,
+        title: detailsByArtist[artist.name].title,
+        images: imagesByArtist[artist.name]
+      }
     })
 
-    const playlist = post.frontmatter.media.map((artist, index) => {
-      const artistDetails = gigArtistDetails[artist.name]
+    const venueDetails = this.props.data.venue.edges[0].node
+
+    this.state = {
+      post,
+      siteTitle,
+      siteDescription,
+      artistMedia,
+      venueDetails,
+      lightboxOpen: false,
+      selectedImage: undefined
+    }
+
+  }
+
+  openLightbox = (artistIndex, imageIndex, event) => {
+    event.preventDefault()
+    this.gotoLightboxImage({artistIndex, imageIndex})
+  }
+
+  gotoLightboxImage = ({artistIndex, imageIndex}) => {
+    this.setState({ lightboxOpen: true, selectedImage: { artistIndex, imageIndex } })
+  }
+
+  getNextImage = () => {
+    const currentArtistIndex = this.state.selectedImage.artistIndex;
+    const currentImageIndex = this.state.selectedImage.imageIndex
+
+    if ((currentImageIndex + 1) >= this.state.artistMedia[currentArtistIndex].images.length && (currentArtistIndex + 1) <= this.state.artistMedia.length){
+      return {artistIndex: currentArtistIndex + 1, imageIndex: 0}
+    } else {
+      return {artistIndex: currentArtistIndex, imageIndex: currentImageIndex + 1}
+    }
+  }
+
+  getPrevImage = () => {
+    const currentArtistIndex = this.state.selectedImage.artistIndex;
+    const currentImageIndex = this.state.selectedImage.imageIndex;
+
+    if (currentImageIndex < 0 && currentArtistIndex > 0) {
+      return {artistIndex: currentArtistIndex - 1, imageIndex: this.state.artistMedia[artistIndex - 1].images.length}
+    } else {
+      return {artistIndex: currentArtistIndex, imageIndex: currentImageIndex - 1}
+    }
+  }
+
+  getImageSrc = ({artistIndex, imageIndex}) => {
+    return this.state.artistMedia[artistIndex].images[imageIndex] && this.state.artistMedia[artistIndex].images[imageIndex].src;
+  }
+
+  render() {
+
+    const { previous, next } = this.props.pageContext
+
+    const Divider = styled.div`
+      width: 100%;
+      position: ${props => props.sticky ? "sticky" : "relative"};
+      top: ${props => props.sticky ? props.theme.headerHeight : "0"};
+      color: ${props => props.color || "black"};
+      z-index: 2;
+      background-color: ${props => props.highlight ? props.theme.highlightColor : props.theme.contrastColor };
+    `
+
+    const Banner = styled.div`
+      height: 80vh;
+      position: relative;
+      > div {
+        position: relative;
+        z-index: 1;
+      }
+    `
+    const BannerText = styled.div`
+      margin: 0 auto;
+      text-align: center;
+      width: 80vw;
+      z-index: 10;
+      padding: 10px;
+      background: rgba(0,0,0,.8);
+      h1 {
+        font-size: ${rhythm(1.5)};
+        text-align: center;
+        color: #fff;
+        text-transform: uppercase;
+      }
+    `
+
+    const HorizontalNav = styled.ul`
+      background-color: transparent;
+      width: auto;
+      max-height: 40vh;
+      overflow-y: auto;
+
+      li {
+        display: inline-block;
+        line-height: 40px;
+        a {
+          text-decoration: none;
+          color: #999;
+          padding-right: 20px;
+          padding-left: 20px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
+    `
+
+    const playlist = this.state.artistMedia.map((artist, index) => {
       return (
         <li key={index}>
-          <a>{artistDetails.title}</a>
+          <a href={"#" + artist.name}>{artist.title}</a>
         </li>
       )
     })
 
+    // Iterate over all the media and gather it
+    const mediaByArtist = this.state.artistMedia.map((artist, artistIndex) => {
+
+      const imageElements = artist.images.map((fluidImage, artistImageIndex) => {
+        return <a key={artistImageIndex} href={fluidImage.src} onClick={e => this.openLightbox(artistIndex, artistImageIndex, e)}>
+          <Img fluid={fluidImage} />
+        </a>
+        }
+      )
+
+      const vidElements = artist.vid.map(video => <div><p key={video.link}>{video.link}</p></div>)
+
+      return (
+        <div key={artistIndex}>
+          <Divider sticky={true}>
+            <p id={artist.name}>{artist.title}</p>
+          </Divider>
+          <GridContainer xs="12" sm="6" md="6" lg="6">
+            {vidElements}
+          </GridContainer>
+          <GridContainer xs="12" sm="6" md="4" lg="4">
+            {imageElements}
+          </GridContainer>
+        </div>
+      )
+    })
+
     return (
-      <Layout location={this.props.location} title={siteTitle}>
+      <Layout location={this.props.location} title={this.state.siteTitle}>
         <Helmet
           htmlAttributes={{ lang: 'en' }}
-          meta={[{ name: 'description', content: siteDescription }]}
-          title={`${post.frontmatter.title} | ${siteTitle}`}
+          meta={[{ name: 'description', content: this.state.siteDescription }]}
+          title={`${this.state.post.frontmatter.title} | ${this.state.siteTitle}`}
         />
-        <header>
-          <div className="container-fluid">
-            <div className="post-header row">
-              <Link to="/gigs">
-                <div className="col-xs-12 divider link purple hidden-xs">
-                  <h5>Back to gigs</h5>
-                </div>
-              </Link>
-              <span className="label label-default">LATEST GIG</span>
-              <div className="banner"></div>
-              <div className="text" style={{marginTop: "-60px"}}>
-                <ul>{playlist}</ul>
-              </div>
-              <div className="gig-nav hidden-xs"></div>
-            </div>
-          </div>
-          <div className="container-fluid header sticky gig-header" style={{overflow: "visible"}} data-scroll-header>
-            <div className="row">
-              <div className="col-xs-12 col-sm-1 gig-title-wrapper">
-                <h1>{post.frontmatter.title}</h1>
-              </div>
-              <div className="col-xs-12 col-sm-10 gig-player-wrapper"></div>
-              <div className="gig dropdown"></div>
-            </div>
-          </div>
-        </header>
+        <Banner>
+          <Divider highlight={1}>
+            <Link to="/gigs">
+              <p>Back to gigs</p>
+            </Link>
+          </Divider>
+          <span className="label label-default">LATEST GIG</span>
+          <BackgroundImage fluid={this.state.post.fields.cover.childImageSharp.fluid}/>
+          <BannerText>
+            <h1>{this.state.post.frontmatter.title}</h1>
+            <HorizontalNav>{playlist}</HorizontalNav>
+          </BannerText>
+        </Banner>
         {mediaByArtist}
+        {this.state.lightboxOpen &&
+          <Lightbox
+            mainSrc={this.getImageSrc({artistIndex: this.state.selectedImage.artistIndex, imageIndex: this.state.selectedImage.imageIndex})}
+            nextSrc={this.getImageSrc(this.getNextImage())}
+            prevSrc={this.getImageSrc(this.getPrevImage())}
+            onMovePrevRequest={() => this.gotoLightboxImage(this.getPrevImage())}
+            onMoveNextRequest={() => this.gotoLightboxImage(this.getNextImage())}
+            imageCaption={this.state.artistMedia[this.state.selectedImage.artistIndex].title}
+            onCloseRequest={() => this.setState({ lightboxOpen: false })}
+          />
+        }
       </Layout>
     )
   }
@@ -117,12 +235,19 @@ export const pageQuery = graphql`
     thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
       fields {
         machine_name
+        cover {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+        }
       }
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
         venue
-        media { name, mp3 { title}, vid {link, title} }
+        artists { name, mp3 { title}, vid {link, title} }
       }
     }
     images: allFile(filter: { relativePath: { regex: $gigImagesRegex } }) {

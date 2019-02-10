@@ -6,20 +6,23 @@ import { rhythm } from '../utils/typography'
 class SiteHeader extends React.Component {
 
     render() {
-        
+
         const Container = styled.div`
             background-color: ${props => props.theme.headerColor};
-            height: ${rhythm(2)};
-            color: #c8c8c8;
+            position: sticky;
+            top: 0px;
+            z-index: 10;
+            height: ${props => props.theme.headerHeight};
+            color: ${props => props.theme.textColor};
         `
 
         const Brand = styled.div`
             float: left;
             display: block;
-            height: ${rhythm(2)};
+            height: ${props => props.theme.headerHeight};
             a {
                 padding: ${rhythm(0.5)};
-                line-height: ${rhythm(2)};
+                line-height: ${props => props.theme.headerHeight};
             }
         `
 
@@ -27,12 +30,12 @@ class SiteHeader extends React.Component {
             float: right;
             margin: 0px;
             padding-left: 0;
-            height: ${rhythm(2)};
+            height: ${props => props.theme.headerHeight};
             list-style: none;
             > li {
                 position: relative;
                 display: inline-block;
-                height: ${rhythm(2)};
+                height: ${props => props.theme.headerHeight};
                 float: left;
                 > a {
                     padding: ${rhythm(0.5)};
@@ -40,7 +43,7 @@ class SiteHeader extends React.Component {
                     display: block;
                     border-right: 1px solid rgba(0,0,0,0.2);
                     border-left: 1px solid rgba(255,255,255,0.1);
-                    height: ${rhythm(2)};
+                    height: ${props => props.theme.headerHeight};
                     line-height: ${rhythm(1)};
                 }
             }
@@ -62,5 +65,5 @@ class SiteHeader extends React.Component {
         )
     }
 }
-  
+
 export default SiteHeader

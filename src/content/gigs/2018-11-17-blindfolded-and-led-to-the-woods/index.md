@@ -4,11 +4,6 @@ subtitle: "The Rothmans, Methchrist and more at Fifty Gorillas"
 date: 2018-11-17 08:30:00 Z
 venue: fifty_gorillas
 artists:
-    - the_rothmans
-    - methchrist
-    - tuscoma
-    - blindfolded_and_led_to_the_woods
-media:
     -   name: the_rothmans
         mp3:
             -   title: Full Set
