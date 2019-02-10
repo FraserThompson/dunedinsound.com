@@ -8,6 +8,8 @@ import Layout from '../components/Layout'
 import GridContainer from '../components/GridContainer';
 import BackgroundImage from '../components/BackgroundImage';
 import { rhythm } from '../utils/typography';
+import Banner from '../components/Banner';
+import Divider from '../components/Divider';
 
 class GigTemplate extends React.Component {
 
@@ -96,39 +98,6 @@ class GigTemplate extends React.Component {
   render() {
 
     const { previous, next } = this.props.pageContext
-
-    const Divider = styled.div`
-      width: 100%;
-      position: ${props => props.sticky ? "sticky" : "relative"};
-      top: ${props => props.sticky ? props.theme.headerHeight : "0"};
-      color: ${props => props.color || "black"};
-      z-index: 2;
-      background-color: ${props => props.highlight ? props.theme.highlightColor : props.theme.contrastColor };
-    `
-
-    const Banner = styled.div`
-      height: 80vh;
-      position: relative;
-      > div {
-        position: relative;
-        z-index: 1;
-      }
-    `
-    const BannerText = styled.div`
-      margin: 0 auto;
-      text-align: center;
-      width: 80vw;
-      z-index: 10;
-      padding: 10px;
-      background: rgba(0,0,0,.8);
-      h1 {
-        font-size: ${rhythm(1.5)};
-        text-align: center;
-        color: #fff;
-        text-transform: uppercase;
-      }
-    `
-
     const HorizontalNav = styled.ul`
       background-color: transparent;
       width: auto;
@@ -192,18 +161,14 @@ class GigTemplate extends React.Component {
           meta={[{ name: 'description', content: this.state.siteDescription }]}
           title={`${this.state.post.frontmatter.title} | ${this.state.siteTitle}`}
         />
-        <Banner>
-          <Divider highlight={1}>
-            <Link to="/gigs">
-              <p>Back to gigs</p>
-            </Link>
-          </Divider>
-          <span className="label label-default">LATEST GIG</span>
-          <BackgroundImage fluid={this.state.post.fields.cover.childImageSharp.fluid}/>
-          <BannerText>
+        <Divider highlight={1}>
+          <Link to="/gigs">
+            <p style={{marginBottom: 0}}>Back to gigs</p>
+          </Link>
+        </Divider>
+        <Banner backgroundImage={this.state.post.fields.cover.childImageSharp.fluid}>
             <h1>{this.state.post.frontmatter.title}</h1>
             <HorizontalNav>{playlist}</HorizontalNav>
-          </BannerText>
         </Banner>
         {mediaByArtist}
         {this.state.lightboxOpen &&
