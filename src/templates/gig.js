@@ -10,6 +10,7 @@ import BackgroundImage from '../components/BackgroundImage';
 import { rhythm } from '../utils/typography';
 import Banner from '../components/Banner';
 import Divider from '../components/Divider';
+import Content from '../components/Content';
 
 class GigTemplate extends React.Component {
 

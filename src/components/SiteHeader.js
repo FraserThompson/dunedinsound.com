@@ -5,6 +5,11 @@ import { rhythm } from '../utils/typography'
 
 class SiteHeader extends React.Component {
 
+    isPartiallyActive = ({isPartiallyCurrent}) => {
+      return isPartiallyCurrent ? { className: "active" } : null
+    }
+
+
     render() {
 
         const Container = styled.div`
@@ -36,6 +41,7 @@ class SiteHeader extends React.Component {
                 position: relative;
                 display: inline-block;
                 height: ${props => props.theme.headerHeight};
+                background-color: ${props => props.theme.headerColor};
                 float: left;
                 > a {
                     padding: ${rhythm(0.5)};
@@ -45,9 +51,14 @@ class SiteHeader extends React.Component {
                     border-left: 1px solid rgba(255,255,255,0.1);
                     height: ${props => props.theme.headerHeight};
                     line-height: ${rhythm(1)};
+
+                    &.active {
+                      background-color: ${props => props.theme.highlightColor2 }
+                    }
                 }
             }
         `
+
 
         return (
             <Container>
@@ -55,11 +66,11 @@ class SiteHeader extends React.Component {
                     <Link to="/">Dunedin Gig Archives</Link>
                 </Brand>
                 <Nav>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/gigs/">Gigs</Link></li>
-                    <li><Link to="/artists/">Artists</Link></li>
-                    <li><Link to="/venues/">Venues</Link></li>
-                    <li><Link to="/blog/">Blog</Link></li>
+                    <li><Link activeClassName="active" to="/">Home</Link></li>
+                    <li><Link getProps={this.isPartiallyActive} to="/gigs/">Gigs</Link></li>
+                    <li><Link getProps={this.isPartiallyActive} to="/artists/">Artists</Link></li>
+                    <li><Link getProps={this.isPartiallyActive} to="/venues/">Venues</Link></li>
+                    <li><Link getProps={this.isPartiallyActive} to="/blog/">Blog</Link></li>
                 </Nav>
             </Container>
         )

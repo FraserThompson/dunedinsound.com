@@ -4,6 +4,7 @@ import Helmet from 'react-helmet'
 
 import Layout from '../components/Layout'
 import { rhythm } from '../utils/typography'
+import Content from '../components/Content';
 
 class Gigs extends React.Component {
   render() {
@@ -22,7 +23,7 @@ class Gigs extends React.Component {
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
-            <div key={node.fields.slug}>
+            <Content key={node.fields.slug}>
               <h3
                 style={{
                   marginBottom: rhythm(1 / 4),
@@ -34,7 +35,7 @@ class Gigs extends React.Component {
               </h3>
               <small>{node.frontmatter.date}</small>
               <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
-            </div>
+            </Content>
           )
         })}
       </Layout>

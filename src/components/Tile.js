@@ -4,6 +4,7 @@ import styled from "styled-components"
 import Img from 'gatsby-image'
 import { rhythm } from '../utils/typography'
 import BackgroundImage from './BackgroundImage';
+import Content from './Content';
 
 class Tile extends React.Component {
 
@@ -31,8 +32,10 @@ class Tile extends React.Component {
           <Label>{this.props.label}</Label>
           {this.props.image && <BackgroundImage fluid={this.props.image}/>}
           <TitleWrapper>
-            <h1>{this.props.title}</h1>
-            <p>{this.props.subtitle}</p>
+            <Content>
+              <h1>{this.props.title}</h1>
+              <p>{this.props.subtitle}</p>
+            </Content>
           </TitleWrapper>
         </Link>
       </Container>

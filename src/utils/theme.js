@@ -3,6 +3,7 @@ import { rhythm } from '../utils/typography'
 export const theme = {
     default: {
         headerHeight: rhythm(2),
+        footerHeight: rhythm(4),
         backgroundColor: "#171D1C",
         headerColor: "#02182B",
         highlightColor: "#01baef",
