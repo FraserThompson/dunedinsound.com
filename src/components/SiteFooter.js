@@ -4,20 +4,20 @@ import Divider from './Divider';
 import styled from "styled-components"
 import { rhythm } from '../utils/typography';
 
+const Container = styled.div`
+background-color: ${props => props.theme.headerColor};
+min-height: ${props => props.theme.footerHeight};
+`
+
+const Content = styled.div`
+color: ${props => props.theme.textColor};
+text-align: center;
+padding: ${rhythm(1)};
+`
+
 class SiteFooter extends React.Component {
 
   render() {
-
-    const Container = styled.div`
-      background-color: ${props => props.theme.headerColor};
-      min-height: ${props => props.theme.footerHeight};
-    `
-
-    const Content = styled.div`
-      color: ${props => props.theme.textColor};
-      text-align: center;
-      padding: ${rhythm(1)};
-    `
 
     return (
       <Container>

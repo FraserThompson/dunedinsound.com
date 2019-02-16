@@ -6,12 +6,50 @@ import Img from 'gatsby-image'
 import Lightbox from 'react-image-lightbox';
 import Layout from '../components/Layout'
 import GridContainer from '../components/GridContainer';
-import BackgroundImage from '../components/BackgroundImage';
-import { rhythm } from '../utils/typography';
 import Banner from '../components/Banner';
 import Divider from '../components/Divider';
-import Content from '../components/Content';
 import Player from '../components/Player';
+
+const GigHeader = styled.div`
+  position: sticky;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  overflow: visible;
+  height: ${props => props.theme.headerHeight};
+  margin-top: ${props => props.theme.headerHeightNeg};
+  opacity: 1;
+  background-color: transparent;
+  -webkit-transition: background-color 0.5s ease;
+  -moz-transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease;
+  .title-wrapper {
+    grid-column: span 1;
+  }
+  .player-wrapper {
+    grid-column: span 10;
+  }
+`
+
+const HorizontalNav = styled.ul`
+  background-color: transparent;
+  width: auto;
+  max-height: 40vh;
+  overflow-y: auto;
+
+  li {
+    display: inline-block;
+    line-height: 40px;
+    a {
+      text-decoration: none;
+      color: #999;
+      padding-right: 20px;
+      padding-left: 20px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+`
 
 class GigTemplate extends React.Component {
 
@@ -115,47 +153,6 @@ class GigTemplate extends React.Component {
   render() {
 
     const { previous, next } = this.props.pageContext
-
-    const GigHeader = styled.div`
-      position: sticky;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      overflow: visible;
-      height: ${props => props.theme.headerHeight};
-      margin-top: ${props => props.theme.headerHeightNeg};
-      opacity: 1;
-      background-color: transparent;
-      -webkit-transition: background-color 0.5s ease;
-      -moz-transition: background-color 0.5s ease;
-      transition: background-color 0.5s ease;
-      .title-wrapper {
-        grid-column: span 1;
-      }
-      .player-wrapper {
-        grid-column: span 10;
-      }
-    `
-
-    const HorizontalNav = styled.ul`
-      background-color: transparent;
-      width: auto;
-      max-height: 40vh;
-      overflow-y: auto;
-
-      li {
-        display: inline-block;
-        line-height: 40px;
-        a {
-          text-decoration: none;
-          color: #999;
-          padding-right: 20px;
-          padding-left: 20px;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          overflow: hidden;
-        }
-      }
-    `
 
     const playlist = this.state.artistMedia.map((artist, index) => {
       return (

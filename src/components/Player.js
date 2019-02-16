@@ -4,6 +4,30 @@ import WaveSurfer from 'wavesurfer.js'
 import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions';
 import { theme } from '../utils/theme'
 
+const PlayButton = styled.button`
+  font-size: 16px;
+  width: 40px;
+  top: 11px;
+  z-index: 5;
+  left: 0px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: white;
+`
+
+const PlayerWrapper = styled.div`
+  position: relative;
+`
+
+const LengthWrapper = styled.div`
+  background: black;
+  color: #999999;
+  z-index: 10;
+  font-size: 12px;
+  position: absolute;
+  bottom: 20px;
+`
+
 export default class Player extends React.Component {
 
   constructor(props) {
@@ -22,38 +46,25 @@ export default class Player extends React.Component {
   }
 
   componentDidMount() {
-
+    console.log('mounting');
     if (this.el) {
 
-      const waveParams = {
+      this.wavesurfer = WaveSurfer.create({
         container: this.el,
-        waveColor: "green",
-        progressColor: "purple",
-        cursorColor: '#5173E7',
-        cursorWidth: 3,
-        barWidth: 1,
+        waveColor: theme.default.waveformColor,
+        height: 58,
+        hideScrollbar: true,
+        normalize: true,
         responsive: true,
-        height: 58
-      }
-
-      // this.wavesurfer = WaveSurfer.create({
-      //   container: this.el,
-      //   waveColor: theme.default.waveformColor,
-      //   height: 58,
-      //   hideScrollbar: true,
-      //   normalize: true,
-      //   responsive: true,
-      //   backend: "MediaElement",
-      //   pixelRatio: "1",
-      //   forceDecode: false,
-      //   progressColor: theme.default.waveformProgressColor,
-      //   barWidth: '2',
-      //   plugins: [
-      //     RegionsPlugin.create(),
-      //   ]
-      // })
-
-      this.wavesurfer = WaveSurfer.create(waveParams);
+        backend: "MediaElement",
+        pixelRatio: "1",
+        forceDecode: false,
+        progressColor: theme.default.waveformProgressColor,
+        barWidth: '2',
+        plugins: [
+          RegionsPlugin.create(),
+        ]
+      })
 
       this.wavesurfer.on('ready', this.updateDuration);
       this.wavesurfer.on('play', () => this.setState({playing: true}))
@@ -64,6 +75,7 @@ export default class Player extends React.Component {
   }
 
   componentWillUnmount = () => {
+    console.log('unmounting');
     this.wavesurfer && this.wavesurfer.destroy();
   }
 
@@ -115,14 +127,13 @@ export default class Player extends React.Component {
 
   updateTime = () => {
     const currentTime = this.wavesurfer.getCurrentTime()
-    const progress = progressFromTime(currentTime, this.state.duration);
+    const progress = progressFromTime(currentTime, this.state.duration)
     this.setState({currentTime, progress})
   }
 
   updateDuration = () => {
     const duration = this.wavesurfer.getDuration()
     this.setState({duration})
-    if (!this.state.ready) this.setState({length, ready: true}) // because otherwise the re-render will cause it to loop forever
   }
 
   playPause = () => {
@@ -131,39 +142,14 @@ export default class Player extends React.Component {
   }
 
   render = () => {
-
-    const PlayButton = styled.button`
-      font-size: 16px;
-      width: 40px;
-      top: 11px;
-      z-index: 5;
-      left: 0px;
-      border-radius: 50%;
-      position: absolute;
-      background-color: white;
-    `
-
-    const Player = styled.div`
-      position: relative;
-    `
-
-    const LengthWrapper = styled.div`
-      background: black;
-      color: #999999;
-      z-index: 10;
-      font-size: 12px;
-      position: absolute;
-      bottom: 20px;
-    `
-
     return (
-      <Player>
+      <PlayerWrapper>
         <PlayButton onClick={this.playPause}>{this.state.playing === 0 ? "PLAY" : "PAUSE"}</PlayButton>
         <div ref={el => (this.el = el)}></div>
         <div className="title-wrapper">{this.state.currentFile}</div>
         <LengthWrapper style={{left: "45px"}}>{this.formatTime(this.state.currentTime)}</LengthWrapper>
         <LengthWrapper style={{right: "0px"}}>{this.formatTime(this.state.duration)}</LengthWrapper>
-      </Player>
+      </PlayerWrapper>
     )
   }
 }

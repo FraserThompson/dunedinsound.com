@@ -1,13 +1,10 @@
 {
-  "name": "gatsby-starter-blog",
-  "description": "Starter Gatsby Blog",
-  "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby-starter-blog/issues"
-  },
+  "name": "dunedinsound.com",
+  "description": "Documenting and archiving the Dunedin music scene since 2014.",
+  "version": "2.0.0",
+  "author": "Fraser Thompson",
   "dependencies": {
-    "gatsby": "^2.0.19",
+    "gatsby": "^2.1.4",
     "gatsby-image": "^2.0.22",
     "gatsby-plugin-feed": "^2.0.8",
     "gatsby-plugin-google-analytics": "^2.0.5",
@@ -44,15 +41,15 @@
     "gh-pages": "^1.2.0",
     "prettier": "^1.14.2"
   },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "homepage": "https://dunedinsound.com",
   "keywords": [
-    "gatsby"
+    "dunedinsound"
   ],
   "license": "MIT",
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+    "url": "git+https://github.com/FraserThompson/dunedinsound.com.git"
   },
   "scripts": {
     "dev": "gatsby develop",
