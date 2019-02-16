@@ -21,6 +21,7 @@ class Banner extends React.Component {
       text-align: center;
       width: 80vw;
       padding: 10px;
+      z-index: 1;
       background: rgba(0,0,0,.8);
       h1 {
         font-size: ${rhythm(1.5)};

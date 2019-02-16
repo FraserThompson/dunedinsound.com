@@ -53,7 +53,7 @@ class ArtistTemplate extends React.Component {
 export default ArtistTemplate
 
 export const pageQuery = graphql`
-  query ArtistsBySlug($slug: String!) {
+  query ArtistsBySlug($slug: String!, $artistImagesRegex: String!) {
     site {
       siteMetadata {
         title
@@ -68,6 +68,24 @@ export const pageQuery = graphql`
         title
         bandcamp
         facebook
+      }
+    }
+    images: allFile(filter: { relativePath: { regex: $artistImagesRegex } }) {
+      group(field: relativeDirectory) {
+        fieldValue
+        edges {
+          node {
+            name
+            absolutePath
+            relativeDirectory
+            publicURL
+            childImageSharp {
+              fluid(maxWidth: 800) {
+                ...GatsbyImageSharpFluid_withWebp
+              }
+            }
+          }
+        }
       }
     }
   }

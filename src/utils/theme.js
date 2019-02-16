@@ -3,7 +3,10 @@ import { rhythm } from '../utils/typography'
 export const theme = {
     default: {
         headerHeight: rhythm(2),
+        headerHeightNeg: rhythm(-3),
         footerHeight: rhythm(4),
+        waveformColor: "#01baef",
+        waveformProgressColor: "#EC4067",
         backgroundColor: "#171D1C",
         headerColor: "#02182B",
         highlightColor: "#01baef",

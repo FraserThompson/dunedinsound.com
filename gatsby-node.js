@@ -29,6 +29,7 @@ exports.createPages = ({ graphql, actions }) => {
                   fields {
                     slug
                     type
+                    machine_name
                   }
                   frontmatter {
                     title
@@ -67,7 +68,9 @@ exports.createPages = ({ graphql, actions }) => {
           switch (nodeType) {
             case "gigs":
               layout = gigLayout
-              context.gigImagesRegex = post.node.fields.slug.substring(1) + "[^cover].*\\/*.jpg$/"
+              context.gigImagesRegex = post.node.fields.slug.substring(1) + "[^cover].*\\/(.*?).jpg$/"
+              context.gigAudioRegex = post.node.fields.slug.substring(1) + "[^cover].*\\/(.*?).(mp3|json)$/"
+              context.gigJsonRegex = post.node.fields.slug.substring(1) + "[^cover].*\\/(.*?).(json)$/"
               context.artists = post.node.frontmatter.artists.map(artist => artist.name)
               context.venue = post.node.frontmatter.venue
               break;
@@ -75,6 +78,8 @@ exports.createPages = ({ graphql, actions }) => {
               layout = blogLayout
               break;
             case "artists":
+              context.artistImagesRegex = "/(.*?)\\/" + post.node.fields.machine_name + "\\/(.*?).jpg$/"
+              context.artistAudioRegex = "/(.*?)\\/" + post.node.fields.machine_name + "\\/(.*?).mp3$/"
               layout = artistLayout
               break;
             case "venues":

@@ -11,6 +11,7 @@ import { rhythm } from '../utils/typography';
 import Banner from '../components/Banner';
 import Divider from '../components/Divider';
 import Content from '../components/Content';
+import Player from '../components/Player';
 
 class GigTemplate extends React.Component {
 
@@ -21,15 +22,30 @@ class GigTemplate extends React.Component {
     const siteTitle = this.props.data.site.siteMetadata.title
     const siteDescription = post.excerpt
 
-    // Turn the data returned from the images query into a key-value object of images
+    // Turn the data returned from the images query into a key-value object of images by artist
     const imagesByArtist = this.props.data.images['group'].reduce((obj, item) => {
       const machineName = item.fieldValue.match(/([^\\]*)\\*$/)[1]
-      const images = item.edges.map(image => image.node.childImageSharp.fluid)
+      const images = item.edges.map(file => file.node.childImageSharp.fluid)
       obj[machineName] = images
       return obj
     }, {})
 
-    // Turn the data returned from the artist query into a key-value object of details
+    // Turn the data returned from the audio query into a key-value object of audio files by artist
+    const audioByArtist = this.props.data.audio['group'].reduce((obj, item) => {
+      const machineName = item.fieldValue.match(/([^\\]*)\\*$/)[1]
+
+      const grouped_audio = item.edges.reduce((obj, item) => {
+        if (!obj[item.node.name]) obj[item.node.name] = {};
+        obj[item.node.name][item.node.ext] = item.node.publicURL;
+        return obj;
+      }, {});
+
+      obj[machineName] = Object.keys(grouped_audio).map(item => grouped_audio[item])
+      return obj
+    }, {})
+
+
+    // Turn the data returned from the artist query into a key-value object of details by artist
     const detailsByArtist = this.props.data.artists['group'].reduce((obj, item) => {
       const machineName = item.edges[0].node.fields.machine_name
       const frontmatter = item.edges[0].node.frontmatter
@@ -39,11 +55,11 @@ class GigTemplate extends React.Component {
 
     // Collect all the above into one array of artists with all their media
     const artistMedia = post.frontmatter.artists.map(artist => {
-      console.log(artist);
       return {
         ...artist,
         title: detailsByArtist[artist.name].title,
-        images: imagesByArtist[artist.name]
+        images: imagesByArtist[artist.name],
+        audio: audioByArtist[artist.name]
       }
     })
 
@@ -63,10 +79,10 @@ class GigTemplate extends React.Component {
 
   openLightbox = (artistIndex, imageIndex, event) => {
     event.preventDefault()
-    this.gotoLightboxImage({artistIndex, imageIndex})
+    this.gotoLightboxImage({ artistIndex, imageIndex })
   }
 
-  gotoLightboxImage = ({artistIndex, imageIndex}) => {
+  gotoLightboxImage = ({ artistIndex, imageIndex }) => {
     this.setState({ lightboxOpen: true, selectedImage: { artistIndex, imageIndex } })
   }
 
@@ -74,10 +90,10 @@ class GigTemplate extends React.Component {
     const currentArtistIndex = this.state.selectedImage.artistIndex;
     const currentImageIndex = this.state.selectedImage.imageIndex
 
-    if ((currentImageIndex + 1) >= this.state.artistMedia[currentArtistIndex].images.length && (currentArtistIndex + 1) <= this.state.artistMedia.length){
-      return {artistIndex: currentArtistIndex + 1, imageIndex: 0}
+    if ((currentImageIndex + 1) >= this.state.artistMedia[currentArtistIndex].images.length && (currentArtistIndex + 1) <= this.state.artistMedia.length) {
+      return { artistIndex: currentArtistIndex + 1, imageIndex: 0 }
     } else {
-      return {artistIndex: currentArtistIndex, imageIndex: currentImageIndex + 1}
+      return { artistIndex: currentArtistIndex, imageIndex: currentImageIndex + 1 }
     }
   }
 
@@ -86,19 +102,40 @@ class GigTemplate extends React.Component {
     const currentImageIndex = this.state.selectedImage.imageIndex;
 
     if (currentImageIndex < 0 && currentArtistIndex > 0) {
-      return {artistIndex: currentArtistIndex - 1, imageIndex: this.state.artistMedia[artistIndex - 1].images.length}
+      return { artistIndex: currentArtistIndex - 1, imageIndex: this.state.artistMedia[artistIndex - 1].images.length }
     } else {
-      return {artistIndex: currentArtistIndex, imageIndex: currentImageIndex - 1}
+      return { artistIndex: currentArtistIndex, imageIndex: currentImageIndex - 1 }
     }
   }
 
-  getImageSrc = ({artistIndex, imageIndex}) => {
+  getImageSrc = ({ artistIndex, imageIndex }) => {
     return this.state.artistMedia[artistIndex].images[imageIndex] && this.state.artistMedia[artistIndex].images[imageIndex].src;
   }
 
   render() {
 
     const { previous, next } = this.props.pageContext
+
+    const GigHeader = styled.div`
+      position: sticky;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      overflow: visible;
+      height: ${props => props.theme.headerHeight};
+      margin-top: ${props => props.theme.headerHeightNeg};
+      opacity: 1;
+      background-color: transparent;
+      -webkit-transition: background-color 0.5s ease;
+      -moz-transition: background-color 0.5s ease;
+      transition: background-color 0.5s ease;
+      .title-wrapper {
+        grid-column: span 1;
+      }
+      .player-wrapper {
+        grid-column: span 10;
+      }
+    `
+
     const HorizontalNav = styled.ul`
       background-color: transparent;
       width: auto;
@@ -135,10 +172,9 @@ class GigTemplate extends React.Component {
         return <a key={artistImageIndex} href={fluidImage.src} onClick={e => this.openLightbox(artistIndex, artistImageIndex, e)}>
           <Img fluid={fluidImage} />
         </a>
-        }
-      )
+      })
 
-      const vidElements = artist.vid.map(video => <div><p key={video.link}>{video.link}</p></div>)
+      const vidElements = artist.vid.map(video => <div key={video.link}><p>{video.link}</p></div>)
 
       return (
         <div key={artistIndex}>
@@ -164,17 +200,30 @@ class GigTemplate extends React.Component {
         />
         <Divider highlight={1}>
           <Link to="/gigs">
-            <p style={{marginBottom: 0}}>Back to gigs</p>
+            <p style={{ marginBottom: 0 }}>Back to gigs</p>
           </Link>
         </Divider>
         <Banner backgroundImage={this.state.post.frontmatter.cover.childImageSharp.fluid}>
-            <h1>{this.state.post.frontmatter.title}</h1>
-            <HorizontalNav>{playlist}</HorizontalNav>
+          <h1>{this.state.post.frontmatter.title}</h1>
+          <HorizontalNav>{playlist}</HorizontalNav>
         </Banner>
+        <GigHeader>
+          <div className="title-wrapper">
+            <h3>{this.state.post.title}</h3>
+          </div>
+          <div className="player-wrapper">
+            <Player src={this.state.artistMedia[0].audio[0][".mp3"]} jsonSrc={this.state.artistMedia[0].audio[0][".json"]}></Player>
+          </div>
+          <div className="dropdown">
+            <button className="btn btn-minimal dropdown-toggle" type="button" id="navbar-collapse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <small><span className="glyphicon glyphicon-th-list" aria-hidden="true"></span><span className="currentArtist"></span><span className="caret"></span></small>
+            </button>
+          </div>
+        </GigHeader>
         {mediaByArtist}
         {this.state.lightboxOpen &&
           <Lightbox
-            mainSrc={this.getImageSrc({artistIndex: this.state.selectedImage.artistIndex, imageIndex: this.state.selectedImage.imageIndex})}
+            mainSrc={this.getImageSrc({ artistIndex: this.state.selectedImage.artistIndex, imageIndex: this.state.selectedImage.imageIndex })}
             nextSrc={this.getImageSrc(this.getNextImage())}
             prevSrc={this.getImageSrc(this.getPrevImage())}
             onMovePrevRequest={() => this.gotoLightboxImage(this.getPrevImage())}
@@ -191,7 +240,7 @@ class GigTemplate extends React.Component {
 export default GigTemplate
 
 export const pageQuery = graphql`
-  query GigsBySlug($slug: String!, $gigImagesRegex: String!, $artists: [String]!, $venue: String! ) {
+  query GigsBySlug($slug: String!, $gigImagesRegex: String!, $gigAudioRegex: String!, $artists: [String]!, $venue: String! ) {
     site {
       siteMetadata {
         title
@@ -206,7 +255,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         venue
-        artists { name, mp3 { title}, vid {link, title} }
+        artists { name, vid {link, title} }
         cover {
           childImageSharp {
             fluid(maxWidth: 800) {
@@ -230,6 +279,20 @@ export const pageQuery = graphql`
                 ...GatsbyImageSharpFluid_withWebp
               }
             }
+          }
+        }
+      }
+    }
+    audio: allFile(filter: { relativePath: { regex: $gigAudioRegex } }) {
+      group(field: relativeDirectory) {
+        fieldValue
+        edges {
+          node {
+            name
+            absolutePath
+            relativeDirectory
+            publicURL
+            ext
           }
         }
       }
