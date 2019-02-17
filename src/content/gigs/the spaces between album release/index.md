@@ -1,0 +1,10 @@
+---
+title: 'the spaces between album release'
+date: 2019-01-25T08:30:00.000Z
+venue: the_captain_cook_hotel
+artists:
+    - {name: alexander_griffin, vid: [{link: YRK3aWkNF2c}]}
+    - {name: craig_monk, vid: [{link: O6CGQT3Ttw4}]}
+    - {name: francisca_griffin, vid: [{link: cCh-u4aAEI0}, {link: o6bhsYE7GgA}, {link: t1z6es4QJsw}, {link: GbFiYMJZobg}]}
+cover: ./cover.jpg
+---

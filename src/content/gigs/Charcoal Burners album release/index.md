@@ -1,0 +1,8 @@
+---
+title: 'Charcoal Burners album release'
+date: 2018-03-02T08:30:00.000Z
+venue: inch_bar
+artists:
+    - {name: charcoal_burners, vid: [{link: fvg2YKwHipU}, {link: c7YX-7D5iXA}, {title: 'Elevator Shaft', link: yRpKc-HW2s4}, {title: 'Woody Creek', link: n5bCc7ybIwM}]}
+cover: ./cover.jpg
+---

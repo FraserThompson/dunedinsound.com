@@ -9,9 +9,12 @@ import GridContainer from '../components/GridContainer';
 import Banner from '../components/Banner';
 import Divider from '../components/Divider';
 import Player from '../components/Player';
+import Dropdown from '../components/Dropdown';
 
 const GigHeader = styled.div`
   position: sticky;
+  top: 0px;
+  z-index: 11;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   overflow: visible;
@@ -69,12 +72,12 @@ class GigTemplate extends React.Component {
     }, {})
 
     // Turn the data returned from the audio query into a key-value object of audio files by artist
-    const audioByArtist = this.props.data.audio['group'].reduce((obj, item) => {
+    const audioByArtist = this.props.data.audio && this.props.data.audio['group'].reduce((obj, item) => {
       const machineName = item.fieldValue.match(/([^\\]*)\\*$/)[1]
 
       const grouped_audio = item.edges.reduce((obj, item) => {
         if (!obj[item.node.name]) obj[item.node.name] = {};
-        obj[item.node.name][item.node.ext] = item.node.publicURL;
+        obj[item.node.name][item.node.ext] = item.node;
         return obj;
       }, {});
 
@@ -97,11 +100,11 @@ class GigTemplate extends React.Component {
         ...artist,
         title: detailsByArtist[artist.name].title,
         images: imagesByArtist[artist.name],
-        audio: audioByArtist[artist.name]
+        audio: audioByArtist && audioByArtist[artist.name]
       }
     })
 
-    const venueDetails = this.props.data.venue.edges[0].node
+    const venueDetails = this.props.data.venue && this.props.data.venue.edges[0].node
 
     this.state = {
       post,
@@ -110,9 +113,14 @@ class GigTemplate extends React.Component {
       artistMedia,
       venueDetails,
       lightboxOpen: false,
-      selectedImage: undefined
+      selectedImage: undefined,
+      selectedArtist: artistMedia[0]
     }
 
+  }
+
+  selectArtist = (selectedArtist) => {
+    this.setState({selectedArtist})
   }
 
   openLightbox = (artistIndex, imageIndex, event) => {
@@ -165,13 +173,13 @@ class GigTemplate extends React.Component {
     // Iterate over all the media and gather it
     const mediaByArtist = this.state.artistMedia.map((artist, artistIndex) => {
 
-      const imageElements = artist.images.map((fluidImage, artistImageIndex) => {
+      const imageElements = artist.images && artist.images.map((fluidImage, artistImageIndex) => {
         return <a key={artistImageIndex} href={fluidImage.src} onClick={e => this.openLightbox(artistIndex, artistImageIndex, e)}>
           <Img fluid={fluidImage} />
         </a>
       })
 
-      const vidElements = artist.vid.map(video => <div key={video.link}><p>{video.link}</p></div>)
+      const vidElements = artist.vid && artist.vid.map(video => <div key={video.link}><p>{video.link}</p></div>)
 
       return (
         <div key={artistIndex}>
@@ -209,12 +217,12 @@ class GigTemplate extends React.Component {
             <h3>{this.state.post.title}</h3>
           </div>
           <div className="player-wrapper">
-            <Player src={this.state.artistMedia[0].audio[0][".mp3"]} jsonSrc={this.state.artistMedia[0].audio[0][".json"]}></Player>
+            {this.state.selectedArtist.audio &&
+              <Player title={this.state.selectedArtist.audio[0][".mp3"].name} src={this.state.selectedArtist.audio[0][".mp3"].publicURL} jsonSrc={this.state.selectedArtist.audio[0][".json"].publicURL}></Player>
+            }
           </div>
-          <div className="dropdown">
-            <button className="btn btn-minimal dropdown-toggle" type="button" id="navbar-collapse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              <small><span className="glyphicon glyphicon-th-list" aria-hidden="true"></span><span className="currentArtist"></span><span className="caret"></span></small>
-            </button>
+          <div className="dropdown-wrapper" style={{position: "absolute", right: "0px"}}>
+            <Dropdown list={this.state.artistMedia.map(artist => <a onClick={() => this.selectArtist(artist)}>{artist.title}</a>)}/>
           </div>
         </GigHeader>
         {mediaByArtist}
@@ -256,7 +264,7 @@ export const pageQuery = graphql`
         cover {
           childImageSharp {
             fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid_withWebp
+              ...GatsbyImageSharpFluid
             }
           }
         }
@@ -268,12 +276,11 @@ export const pageQuery = graphql`
         edges {
           node {
             name
-            absolutePath
             relativeDirectory
             publicURL
             childImageSharp {
               fluid(maxWidth: 800) {
-                ...GatsbyImageSharpFluid_withWebp
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -286,7 +293,6 @@ export const pageQuery = graphql`
         edges {
           node {
             name
-            absolutePath
             relativeDirectory
             publicURL
             ext

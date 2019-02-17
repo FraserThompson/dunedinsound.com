@@ -1,0 +1,10 @@
+---
+title: 'Power Nap and Noel Meek'
+date: 2018-03-03T08:30:00.000Z
+venue: none_gallery
+aspectratio: threebytwo
+artists:
+    - {name: noel_meek, vid: [{title: 'Full Set', link: xPZ9_V0v5wQ}]}
+    - {name: power_nap, vid: [{link: IYhzKCwBTkA}, {link: smyzkE1bAA4}, {link: 0VpgAQIDPw4}]}
+cover: ./cover.jpg
+---

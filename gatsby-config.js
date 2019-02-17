@@ -60,7 +60,14 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-transformer-sharp`,
     'gatsby-transformer-remark',
-    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        useMozJpeg: false,
+        stripMetadata: true,
+        concurrency: 4
+      },
+    },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
