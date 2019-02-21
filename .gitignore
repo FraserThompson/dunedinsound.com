@@ -2,6 +2,7 @@ _site
 _site_dev
 _data
 _originals
+_test_output
 .sass-cache
 .cache
 public

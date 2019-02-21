@@ -21,22 +21,22 @@ media:
         mp3:
             -   title: Full set
         vid:
-            -   title: 1
+            -   title: "1"
                 link: BVsTzibhgqI
 
-            -   title: 2
+            -   title: "2"
                 link: u4kNnQXkQcI
     The Rothmans:
         mp3:
             -   title: Full set
         vid:
-            -   title: 1
+            -   title: "1"
                 link: 960mNepOglA
 
-            -   title: 2
+            -   title: "2"
                 link: Lx_sFLprMko
 
-            -   title: 3
+            -   title: "3"
                 link: bG-RNV6Axdk
 
             -   title: No Durries

@@ -19,6 +19,8 @@ Local blonk-pop band The Shambles are parting ways, but they’re not going out 
 
 I caught up with frontman Max Gunn before the tour for an emotional retrospective.
 
+<!-- more -->
+
 **When did you start playing and where?**
 
 We started playing in Dunedin. I originally began with my drummer in a two piece, we were the musicians amongst our buddies and we didn’t know each other and our friends kind of made us meet. I just had an old synthesizer that my granddad had given me and he had a drumkit and we just set up in a garage in my flat and made some noise. 
