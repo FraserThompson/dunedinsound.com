@@ -11,5 +11,14 @@ media:
             mp3:
                 -   title: Full Set
             vid:
-                -   link:
+                -   title: Are we all the Same
+                    link: ntdTaezuvMs
+                -   link: qINEgsRYFBU
+                -   link: aH6do-S7ZSw
+                -   link: B_KARzeO6b8
+                -   link: ZsIUcLSm24k
+                -   title: Purple Rain (Prince cover)
+                    link: vnqzJJbIAm4
+                -   title: Meanwhile on Hyde Street...
+                    link: EgU96xjxUSI
 ---
