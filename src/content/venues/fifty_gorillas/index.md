@@ -1,4 +1,0 @@
----
-title: Fifty Gorillas
----
-

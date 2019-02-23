@@ -1,7 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import WaveSurfer from 'wavesurfer.js'
-import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions';
 import { MdPlayArrow, MdPause } from 'react-icons/md';
 import { theme } from '../utils/theme'
 
@@ -51,7 +49,6 @@ export default class Player extends React.Component {
 
   constructor(props) {
     super(props)
-    window.cached_json = window.cached_json || {};
     this.waveformRef = React.createRef();
     this.state = {
       playing: false,
@@ -65,9 +62,16 @@ export default class Player extends React.Component {
   }
 
   componentDidMount() {
+
+    window.cached_json = window.cached_json || {};
+
+    // because otherwise window is not defined
+    this.WaveSurfer = require('wavesurfer.js');
+    this.RegionsPlugin = require('wavesurfer.js/dist/plugin/wavesurfer.regions');
+
     if (this.el) {
 
-      this.wavesurfer = WaveSurfer.create({
+      this.wavesurfer = this.WaveSurfer.create({
         container: this.el,
         waveColor: theme.default.waveformColor,
         height: 58,
@@ -80,7 +84,7 @@ export default class Player extends React.Component {
         progressColor: theme.default.waveformProgressColor,
         barWidth: '2',
         plugins: [
-          RegionsPlugin.create(),
+          this.RegionsPlugin.create(),
         ]
       })
 

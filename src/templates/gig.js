@@ -64,7 +64,7 @@ class GigTemplate extends React.Component {
     const siteDescription = post.excerpt
 
     // Turn the data returned from the images query into a key-value object of images by artist
-    const imagesByArtist = this.props.data.images['group'].reduce((obj, item) => {
+    const imagesByArtist = this.props.data.images && this.props.data.images['group'].reduce((obj, item) => {
       const machineName = item.fieldValue.match(/([^\\]*)\\*$/)[1]
       const images = item.edges.map(file => file.node.childImageSharp.fluid)
       obj[machineName] = images
@@ -85,9 +85,8 @@ class GigTemplate extends React.Component {
       return obj
     }, {})
 
-
     // Turn the data returned from the artist query into a key-value object of details by artist
-    const detailsByArtist = this.props.data.artists['group'].reduce((obj, item) => {
+    const detailsByArtist = this.props.data.artists && this.props.data.artists['group'].reduce((obj, item) => {
       const machineName = item.edges[0].node.fields.machine_name
       const frontmatter = item.edges[0].node.frontmatter
       obj[machineName] = frontmatter
@@ -98,8 +97,8 @@ class GigTemplate extends React.Component {
     const artistMedia = post.frontmatter.artists.map(artist => {
       return {
         ...artist,
-        title: detailsByArtist[artist.name].title,
-        images: imagesByArtist[artist.name],
+        title: detailsByArtist && detailsByArtist[artist.name] ? detailsByArtist[artist.name].title : artist.name,
+        images: imagesByArtist && imagesByArtist[artist.name],
         audio: audioByArtist && audioByArtist[artist.name]
       }
     })
@@ -208,7 +207,7 @@ class GigTemplate extends React.Component {
             <p style={{ marginBottom: 0 }}>Back to gigs</p>
           </Link>
         </Divider>
-        <Banner backgroundImage={this.state.post.frontmatter.cover.childImageSharp.fluid}>
+        <Banner backgroundImage={this.state.post.frontmatter.cover && this.state.post.frontmatter.cover.childImageSharp.fluid}>
           <h1>{this.state.post.frontmatter.title}</h1>
           <HorizontalNav>{playlist}</HorizontalNav>
         </Banner>

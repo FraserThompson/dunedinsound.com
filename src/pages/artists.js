@@ -18,7 +18,7 @@ class Gigs extends React.Component {
         <Tile
           key={node.fields.slug}
           title={title}
-          image={node.frontmatter.cover.childImageSharp.fluid}
+          image={node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid}
           label={node.frontmatter.date}
           href={node.fields.slug}>
         </Tile>

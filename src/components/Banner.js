@@ -33,7 +33,7 @@ class Banner extends React.Component {
   render() {
     return (
       <BannerWrapper>
-        <BackgroundImage fluid={this.props.backgroundImage} />
+        {this.props.backgroundImage && <BackgroundImage fluid={this.props.backgroundImage} />}
         <BannerText>
           {this.props.children}
         </BannerText>

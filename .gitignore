@@ -72,3 +72,6 @@ yarn-error.log
 src/content/gigs/**/*.jpg
 src/content/gigs/**/**/*.jpg
 src/content/gigs/**/**/*.mp3
+
+
+_drafts
