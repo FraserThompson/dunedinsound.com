@@ -12,8 +12,8 @@ import Player from '../components/Player';
 import Dropdown from '../components/Dropdown';
 
 const GigHeader = styled.div`
-  position: sticky;
-  top: 0px;
+  position: fixed;
+  bottom: 0px;
   z-index: 11;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -21,7 +21,8 @@ const GigHeader = styled.div`
   height: ${props => props.theme.headerHeight};
   margin-top: ${props => props.theme.headerHeightNeg};
   opacity: 1;
-  background-color: transparent;
+  background-color: ${props => props.theme.headerColor};
+  width: 100vw;
   -webkit-transition: background-color 0.5s ease;
   -moz-transition: background-color 0.5s ease;
   transition: background-color 0.5s ease;
@@ -76,8 +77,9 @@ class GigTemplate extends React.Component {
       const machineName = item.fieldValue.match(/([^\\]*)\\*$/)[1]
 
       const grouped_audio = item.edges.reduce((obj, item) => {
-        if (!obj[item.node.name]) obj[item.node.name] = {};
-        obj[item.node.name][item.node.ext] = item.node;
+        const name = item.node.name.replace(".mp3", "") // because old audio file JSON has mp3 in the name
+        if (!obj[name]) obj[name] = {};
+        obj[name][item.node.ext] = item.node;
         return obj;
       }, {});
 
@@ -202,11 +204,6 @@ class GigTemplate extends React.Component {
           meta={[{ name: 'description', content: this.state.siteDescription }]}
           title={`${this.state.post.frontmatter.title} | ${this.state.siteTitle}`}
         />
-        <Divider highlight={1}>
-          <Link to="/gigs">
-            <p style={{ marginBottom: 0 }}>Back to gigs</p>
-          </Link>
-        </Divider>
         <Banner backgroundImage={this.state.post.frontmatter.cover && this.state.post.frontmatter.cover.childImageSharp.fluid}>
           <h1>{this.state.post.frontmatter.title}</h1>
           <HorizontalNav>{playlist}</HorizontalNav>

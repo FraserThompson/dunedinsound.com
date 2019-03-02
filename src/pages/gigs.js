@@ -1,10 +1,9 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
-
 import Layout from '../components/Layout'
-import { rhythm } from '../utils/typography'
-import Content from '../components/Content';
+import GridContainer from '../components/GridContainer';
+import Tile from '../components/Tile';
 
 class Gigs extends React.Component {
   render() {
@@ -20,24 +19,21 @@ class Gigs extends React.Component {
           meta={[{ name: 'description', content: siteDescription }]}
           title={siteTitle}
         />
+        <GridContainer>
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
-            <Content key={node.fields.slug}>
-              <h3
-                style={{
-                  marginBottom: rhythm(1 / 4),
-                }}
-              >
-                <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
-                  {title}
-                </Link>
-              </h3>
-              <small>{node.frontmatter.date}</small>
-              <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
-            </Content>
+            <Tile
+              key={node.fields.slug}
+              title={title}
+              image={node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid}
+              label={node.frontmatter.date}
+              height="20vh"
+              href={node.fields.slug}>
+            </Tile>
           )
         })}
+        </GridContainer>
       </Layout>
     )
   }
@@ -63,6 +59,13 @@ export const pageQuery = graphql`
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
             title
+            cover {
+              childImageSharp {
+                fluid(maxWidth: 800) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
           }
         }
       }

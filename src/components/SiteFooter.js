@@ -23,7 +23,7 @@ class SiteFooter extends React.Component {
       <Container>
         <Divider />
         <Content>
-          <p>Obscure and unofficial media from gigs in Dunedin, New Zealand since 2014. <a href="/about/">Wow cool, tell me more!</a></p>
+          <p>Obscure and unofficial media from gigs in Dunedin, New Zealand since 2014.</p>
           <p>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a></p>
         </Content>
       </Container>

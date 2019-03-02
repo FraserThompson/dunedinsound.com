@@ -17,7 +17,7 @@ const BannerText = styled.div`
   transform: translate(-50%,-50%);
   margin: 0 auto;
   text-align: center;
-  width: 80vw;
+  max-width: 60vw;
   padding: 10px;
   z-index: 1;
   background: rgba(0,0,0,.8);

@@ -1,6 +1,10 @@
 const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
 
+const realFs = require('fs')
+const gracefulFs = require('graceful-fs')
+gracefulFs.gracefulify(realFs)
+
 // Takes the slug and returns the node type
 getNodeType = (path) => {
   if (/\/gigs/.test(path)) return "gigs";
@@ -67,7 +71,6 @@ exports.createPages = ({ graphql, actions }) => {
             layout = gigLayout
             context.gigImagesRegex = post.node.fields.slug.substring(1) + "[^cover].*\\/(.*?).jpg$/"
             context.gigAudioRegex = post.node.fields.slug.substring(1) + "[^cover].*\\/(.*?).(mp3|json)$/"
-            context.gigJsonRegex = post.node.fields.slug.substring(1) + "[^cover].*\\/(.*?).(json)$/"
             context.artists = post.node.frontmatter.artists.map(artist => artist.name)
             context.venue = post.node.frontmatter.venue
             break;

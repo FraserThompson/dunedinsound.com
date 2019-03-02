@@ -5,6 +5,8 @@ import Helmet from 'react-helmet'
 import Layout from '../components/Layout'
 import { rhythm } from '../utils/typography'
 import Tile from '../components/Tile';
+import GridContainer from '../components/GridContainer';
+import { theme } from '../utils/theme';
 
 class Homepage extends React.Component {
   render() {
@@ -20,20 +22,24 @@ class Homepage extends React.Component {
           meta={[{ name: 'description', content: siteDescription }]}
           title={siteTitle}
         />
-        {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
-          return (
-            <Tile
-              key={node.fields.slug}
-              title={title}
-              subtitle={node.frontmatter.subtitle}
-              image={node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid}
-              label={node.frontmatter.date}
-              href={node.fields.slug}>
-            </Tile>
-            )}
-          )
-        }
+
+        <GridContainer>
+          {posts.map(({ node }, index) => {
+            const title = node.frontmatter.title || node.fields.slug
+            const tile =
+              <Tile
+                title={title}
+                image={node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid}
+                label={node.frontmatter.date}
+                height={"calc(100vh - " + theme.default.headerHeight + ")"}
+                href={node.fields.slug}>
+              </Tile>
+              return <div key={node.fields.slug} style={{gridColumn: index === 0 ? "span 6" : "span 2"}}>
+                {tile}
+              </div>
+            })
+          }
+        </GridContainer>
       </Layout>
     )
   }
@@ -49,7 +55,7 @@ export const pageQuery = graphql`
         description
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { regex: "/gigs|blog$/"}}}) {
+    allMarkdownRemark(limit: 4, sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { regex: "/gigs|blog$/"}}}) {
       edges {
         node {
           excerpt
@@ -60,12 +66,11 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             artists { name }
-            subtitle
             venue
             cover {
               childImageSharp {
                 fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid_withWebp
+                  ...GatsbyImageSharpFluid
                 }
               }
             }

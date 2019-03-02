@@ -5,7 +5,7 @@ import { MdPlaylistPlay } from 'react-icons/md';
 
 const DropdownMenu = styled.ul`
   position: absolute;
-  top: 100%;
+  bottom: 100%;
   float: left;
   min-width: 160px;
   font-size: 14px;
@@ -40,12 +40,12 @@ class Dropdown extends React.Component {
 
     return (
       <div>
-        <button aria-haspopup="true" onClick={this.toggleMenu}><MdPlaylistPlay/></button>
         {this.state.open &&
           <DropdownMenu>
             {menuList}
           </DropdownMenu>
         }
+        <button aria-haspopup="true" onClick={this.toggleMenu}><MdPlaylistPlay/></button>
       </div>
     )
   }

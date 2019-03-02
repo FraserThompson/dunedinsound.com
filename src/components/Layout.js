@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
     max-width: 100vw;
     height: 100%;
     width: 100%;
+    scroll-behavior: smooth;
   }
 
   a {
@@ -63,7 +64,7 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const Container = styled.div`
-  min-height: 80vh;
+  min-height: ${props => "calc(100vh - " + props.theme.headerHeight + ")"};
   height: 100%;
   width: 100%;
 `
