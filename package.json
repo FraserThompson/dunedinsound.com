@@ -36,6 +36,7 @@
   },
   "homepage": "https://github.com/FraserThompson/FraserThompson.github.io#readme",
   "dependencies": {
+    "fs-extra": "^7.0.1",
     "wavesurfer.js": "^2.0.3"
   }
 }
