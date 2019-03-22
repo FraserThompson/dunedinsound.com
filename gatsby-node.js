@@ -1,9 +1,24 @@
 const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
 
-const realFs = require('fs')
-const gracefulFs = require('graceful-fs')
-gracefulFs.gracefulify(realFs)
+// For easily constructing a regex to find media from a particular gig, artist, or any
+//
+// The constructor takes a gig name, artist name, and fileType. "gig" and "artist" are optional,
+// if omitted it will find media from ANY gig or ANY artist.
+//
+// Call the create() method to return the regex.
+class GigPathRegex {
+  constructor({gig = "(.*?)", artist = "(.*?)", fileType}) {
+    this.artist = artist;
+    this.gig = gig;
+    this.fileType = fileType;
+  }
+
+  create() {
+    return "/" + this.gig + "\\/" + this.artist + "\\/" + "(.*?)." + this.fileType + "$/"
+  }
+}
+
 
 // Takes the slug and returns the node type
 getNodeType = (path) => {
@@ -69,18 +84,29 @@ exports.createPages = ({ graphql, actions }) => {
         switch (nodeType) {
           case "gigs":
             layout = gigLayout
-            context.gigImagesRegex = post.node.fields.slug.substring(1) + "[^cover].*\\/(.*?).jpg$/"
-            context.gigAudioRegex = post.node.fields.slug.substring(1) + "[^cover].*\\/(.*?).(mp3|json)$/"
+
+            const gigImagesRegex = new GigPathRegex({gig: post.node.frontmatter.title, fileType: "(jpg|JPG)"})
+            context.gigImagesRegex = gigImagesRegex.create()
+
+            const gigAudioRegex = new GigPathRegex({gig: post.node.frontmatter.title, fileType: "(mp3|json)"})
+            context.gigAudioRegex = gigAudioRegex.create()
+
             context.artists = post.node.frontmatter.artists.map(artist => artist.name)
             context.venue = post.node.frontmatter.venue
+
             break;
           case "blog":
             layout = blogLayout
             break;
           case "artists":
-            context.artistImagesRegex = "/(.*?)\\/" + post.node.fields.machine_name + "\\/(.*?).jpg$/"
-            context.artistAudioRegex = "/(.*?)\\/" + post.node.fields.machine_name + "\\/(.*?).mp3$/"
             layout = artistLayout
+
+            const artistImagesRegex = new GigPathRegex({artist: post.node.fields.machine_name, fileType: "(jpg|JPG)"})
+            context.artistImagesRegex = artistImagesRegex.create()
+
+            const artistAudioRegex =  new GigPathRegex({artist: post.node.fields.machine_name, fileType: "mp3"})
+            context.artistAudioRegex = artistAudioRegex.create()
+
             break;
           case "venues":
             layout = venueLayout
