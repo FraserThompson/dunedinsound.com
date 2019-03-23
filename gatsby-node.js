@@ -1,24 +1,6 @@
+const helper = require('./src/utils/helper.js')
+const GigPathRegex = helper.GigPathRegex
 const path = require('path')
-const { createFilePath } = require('gatsby-source-filesystem')
-
-// For easily constructing a regex to find media from a particular gig, artist, or any
-//
-// The constructor takes a gig name, artist name, and fileType. "gig" and "artist" are optional,
-// if omitted it will find media from ANY gig or ANY artist.
-//
-// Call the create() method to return the regex.
-class GigPathRegex {
-  constructor({gig = "(.*?)", artist = "(.*?)", fileType}) {
-    this.artist = artist;
-    this.gig = gig;
-    this.fileType = fileType;
-  }
-
-  create() {
-    return "/" + this.gig + "\\/" + this.artist + "\\/" + "(.*?)." + this.fileType + "$/"
-  }
-}
-
 
 // Takes the slug and returns the node type
 getNodeType = (path) => {
@@ -126,27 +108,26 @@ exports.createPages = ({ graphql, actions }) => {
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
-  // When creating nodes we look at the path and add a 'type' field
   if (node.internal.type === `MarkdownRemark`) {
 
-    const value = createFilePath({ node, getNode })
+    const nodeTitle = helper.machineName(node.frontmatter.title, "-")
     const nodeType = getNodeType(node.fileAbsolutePath)
-    const nodeSlug = "/" + nodeType + value;
+    const nodeSlug = "/" + nodeType + "/" + nodeTitle + "/"
 
     createNodeField({
       name: `machine_name`,
       node,
-      value: value.substring(1, value.length - 1),
+      value: helper.machineName(node.frontmatter.title, "_")
     })
     createNodeField({
       name: `slug`,
       node,
-      value: nodeSlug,
+      value: nodeSlug
     })
     createNodeField({
       name: `type`,
       node,
-      value: nodeType,
+      value: nodeType
     })
 
   }

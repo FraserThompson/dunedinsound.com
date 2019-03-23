@@ -190,7 +190,7 @@ class GigTemplate extends React.Component {
           <GridContainer xs="12" sm="6" md="6" lg="6">
             {vidElements}
           </GridContainer>
-          <GridContainer xs="12" sm="6" md="4" lg="4">
+          <GridContainer xs="6" sm="4" md="3" lg="2">
             {imageElements}
           </GridContainer>
         </div>
@@ -259,7 +259,7 @@ export const pageQuery = graphql`
         artists { name, vid {link, title} }
         cover {
           childImageSharp {
-            fluid(maxWidth: 800) {
+            fluid(maxWidth: 1600) {
               ...GatsbyImageSharpFluid
             }
           }
@@ -275,7 +275,7 @@ export const pageQuery = graphql`
             relativeDirectory
             publicURL
             childImageSharp {
-              fluid(maxWidth: 800) {
+              fluid(maxWidth: 1600) {
                 ...GatsbyImageSharpFluid
               }
             }
