@@ -1,22 +1,41 @@
 import React from 'react'
 import styled from 'styled-components'
-import { MdPlayArrow, MdPause } from 'react-icons/md';
+import { MdPlayArrow, MdPause, MdSkipNext, MdSkipPrevious } from 'react-icons/md';
 import { theme } from '../utils/theme'
+import { rhythm } from '../utils/typography';
+import Dropdown from './Dropdown';
 
-const PlayButton = styled.button`
+const RoundButton = styled.button`
   z-index: 11;
-  color: #000;
-  left: 0px;
+  color: ${props => props.theme.highlightColor2};
+  border-color: ${props => props.theme.highlightColor2};
   border-radius: 50%;
-  position: absolute;
-  background-color: white;
+  background-color: transparent;
+  height: ${props => props.size};
+  width: ${props => props.size};
+  padding: 0;
+  outline: 0;
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+`
+
+const PlayerControls = styled.div`
+`
+
+const DropdownWrapper = styled.div`
 `
 
 const PlayerWrapper = styled.div`
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 const WaveWrapper = styled.div`
+  flex-grow: 1;
+  position: relative;
   wave {
     z-index: 10;
   }
@@ -28,7 +47,8 @@ const LengthWrapper = styled.div`
   z-index: 11;
   font-size: 12px;
   position: absolute;
-  bottom: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 `
 
 const TitleWrapper = styled.div`
@@ -36,7 +56,6 @@ const TitleWrapper = styled.div`
   width: 100%;
   text-align: center;
   bottom: 0;
-  height: 20px;
   z-index: 10;
   color: #000;
   font-size: 12px;
@@ -57,6 +76,7 @@ export default class Player extends React.Component {
       currentTime: undefined,
       duration: undefined,
       progress: 0,
+      selectedArtist: 0
     }
 
   }
@@ -74,7 +94,7 @@ export default class Player extends React.Component {
       this.wavesurfer = this.WaveSurfer.create({
         container: this.el,
         waveColor: theme.default.waveformColor,
-        height: 58,
+        height: 45,
         hideScrollbar: true,
         normalize: true,
         responsive: true,
@@ -88,19 +108,24 @@ export default class Player extends React.Component {
         ]
       })
 
-      this.wavesurfer.on('ready', this.updateDuration);
-      this.wavesurfer.on('seek', this.updateTime);
+      this.wavesurfer.on('ready', this.updateDuration)
+      this.wavesurfer.on('seek', this.updateTime)
+      this.wavesurfer.on('finish', this.finish);
       this.wavesurfer.on('play', () => this.setState({playing: true}))
       this.wavesurfer.on('pause', () => this.setState({playing: false}))
-      this.wavesurfer.on('audioprocess', this.updateTime);
+      this.wavesurfer.on('audioprocess', this.updateTime)
 
-      this.initialize(this.props.src, this.props.jsonSrc);
+      this.loadSelectedMedia()
     }
   }
 
-  componentDidUpdate = (prevProps) => {
-    if (this.props.src !== prevProps.src) {
-      this.initialize(this.props.src, this.props.jsonSrc);
+  loadSelectedMedia = () => {
+    this.load(this.props.artistMedia[this.state.selectedArtist].audio[0][".mp3"].publicURL, this.props.artistMedia[this.state.selectedArtist].audio[0][".json"].publicURL)
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.props.artistMedia !== prevProps.artistMedia || this.state.selectedArtist !== prevState.selectedArtist) {
+      this.loadSelectedMedia()
     }
   }
 
@@ -108,7 +133,7 @@ export default class Player extends React.Component {
     this.wavesurfer && this.wavesurfer.destroy();
   }
 
-  initialize = (src, jsonSrc) => {
+  load = (src, jsonSrc) => {
     if (jsonSrc && !window.cached_json[jsonSrc]) {
       fetch(jsonSrc)
         .then(response => response.json())
@@ -156,18 +181,44 @@ export default class Player extends React.Component {
     this.setState({duration})
   }
 
+  finish = () => {
+    this.next();
+  }
+
   playPause = () => {
     this.wavesurfer.playPause();
+  }
+
+  previous = () => {
+    const selectedArtist = Math.max(this.state.selectedArtist - 1, 0)
+    this.setState({selectedArtist})
+  }
+
+  next = () => {
+    const selectedArtist = Math.min(this.state.selectedArtist + 1, this.props.artistMedia.length - 1)
+    this.setState({selectedArtist})
+  }
+
+  selectArtist = (selectedArtist) => {
+    this.setState({selectedArtist})
   }
 
   render = () => {
     return (
       <PlayerWrapper>
-        <PlayButton onClick={this.playPause}>{!this.state.playing ? <MdPlayArrow/> : <MdPause/>}</PlayButton>
-        <WaveWrapper ref={el => (this.el = el)}></WaveWrapper>
-        <TitleWrapper className="title-wrapper"><span>{this.props.title}</span></TitleWrapper>
-        <LengthWrapper style={{left: "45px"}}>{this.formatTime(this.state.currentTime)}</LengthWrapper>
-        <LengthWrapper style={{right: "0px"}}>{this.formatTime(this.state.duration)}</LengthWrapper>
+        <PlayerControls>
+          <RoundButton size="30px" onClick={this.previous}><MdSkipPrevious/></RoundButton>
+          <RoundButton size="40px" onClick={this.playPause}>{!this.state.playing ? <MdPlayArrow/> : <MdPause/>}</RoundButton>
+          <RoundButton size="30px" onClick={this.next}><MdSkipNext/></RoundButton>
+        </PlayerControls>
+        <WaveWrapper ref={el => (this.el = el)}>
+          <LengthWrapper style={{left: "0px"}}>{this.formatTime(this.state.currentTime)}</LengthWrapper>
+          <LengthWrapper style={{right: "0px"}}>{this.formatTime(this.state.duration)}</LengthWrapper>
+        </WaveWrapper>
+        <TitleWrapper className="title-wrapper"><span>{this.props.artistMedia[this.state.selectedArtist].audio[0][".mp3"].name}</span></TitleWrapper>
+        <DropdownWrapper>
+          <Dropdown callback={this.selectArtist} list={this.props.artistMedia}/>
+        </DropdownWrapper>
       </PlayerWrapper>
     )
   }

@@ -9,14 +9,12 @@ import GridContainer from '../components/GridContainer';
 import Banner from '../components/Banner';
 import Divider from '../components/Divider';
 import Player from '../components/Player';
-import Dropdown from '../components/Dropdown';
 
-const GigHeader = styled.div`
+const PlayerWrapper = styled.div`
+  position: relative;
   position: fixed;
   bottom: 0px;
   z-index: 11;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
   overflow: visible;
   height: ${props => props.theme.headerHeight};
   margin-top: ${props => props.theme.headerHeightNeg};
@@ -26,12 +24,6 @@ const GigHeader = styled.div`
   -webkit-transition: background-color 0.5s ease;
   -moz-transition: background-color 0.5s ease;
   transition: background-color 0.5s ease;
-  .title-wrapper {
-    grid-column: span 1;
-  }
-  .player-wrapper {
-    grid-column: span 10;
-  }
 `
 
 const HorizontalNav = styled.ul`
@@ -120,10 +112,6 @@ class GigTemplate extends React.Component {
 
   }
 
-  selectArtist = (selectedArtist) => {
-    this.setState({selectedArtist})
-  }
-
   openLightbox = (artistIndex, imageIndex, event) => {
     event.preventDefault()
     this.gotoLightboxImage({ artistIndex, imageIndex })
@@ -208,19 +196,11 @@ class GigTemplate extends React.Component {
           <h1>{this.state.post.frontmatter.title}</h1>
           <HorizontalNav>{playlist}</HorizontalNav>
         </Banner>
-        <GigHeader>
-          <div className="title-wrapper">
-            <h3>{this.state.post.title}</h3>
-          </div>
-          <div className="player-wrapper">
-            {this.state.selectedArtist.audio &&
-              <Player title={this.state.selectedArtist.audio[0][".mp3"].name} src={this.state.selectedArtist.audio[0][".mp3"].publicURL} jsonSrc={this.state.selectedArtist.audio[0][".json"].publicURL}></Player>
-            }
-          </div>
-          <div className="dropdown-wrapper" style={{position: "absolute", right: "0px"}}>
-            <Dropdown list={this.state.artistMedia.map(artist => <a onClick={() => this.selectArtist(artist)}>{artist.title}</a>)}/>
-          </div>
-        </GigHeader>
+        <PlayerWrapper>
+          {this.state.selectedArtist.audio &&
+            <Player artistMedia={this.state.artistMedia}></Player>
+          }
+        </PlayerWrapper>
         {mediaByArtist}
         {this.state.lightboxOpen &&
           <Lightbox

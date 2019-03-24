@@ -61,14 +61,14 @@ class SiteHeader extends React.Component {
         return (
             <Container>
                 <Brand>
-                    <Link to="/">Dunedin Gig Archives</Link>
+                  <Link to="/">Dunedin Gig Archives</Link>
                 </Brand>
                 <Nav>
-                    <li><Link activeClassName="active" to="/">Home</Link></li>
-                    <li><Link getProps={this.isPartiallyActive} to="/gigs/">Gigs</Link></li>
-                    <li><Link getProps={this.isPartiallyActive} to="/artists/">Artists</Link></li>
-                    <li><Link getProps={this.isPartiallyActive} to="/venues/">Venues</Link></li>
-                    <li><Link getProps={this.isPartiallyActive} to="/blog/">Blog</Link></li>
+                  <li><Link activeClassName="active" to="/">Home</Link></li>
+                  <li><Link getProps={this.isPartiallyActive} to="/gigs/">Gigs</Link></li>
+                  <li><Link getProps={this.isPartiallyActive} to="/artists/">Artists</Link></li>
+                  <li><Link getProps={this.isPartiallyActive} to="/venues/">Venues</Link></li>
+                  <li><Link getProps={this.isPartiallyActive} to="/blog/">Blog</Link></li>
                 </Nav>
             </Container>
         )
