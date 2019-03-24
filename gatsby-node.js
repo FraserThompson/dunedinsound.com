@@ -1,5 +1,4 @@
 const helper = require('./src/utils/helper.js')
-const GigPathRegex = helper.GigPathRegex
 const path = require('path')
 
 // Takes the slug and returns the node type
@@ -18,6 +17,7 @@ exports.createPages = ({ graphql, actions }) => {
       allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
         edges {
           node {
+            fileAbsolutePath
             fields {
               slug
               type
@@ -67,12 +67,8 @@ exports.createPages = ({ graphql, actions }) => {
           case "gigs":
             layout = gigLayout
 
-            const gigImagesRegex = new GigPathRegex({gig: post.node.frontmatter.title, fileType: "(jpg|JPG)"})
-            context.gigImagesRegex = gigImagesRegex.create()
-
-            const gigAudioRegex = new GigPathRegex({gig: post.node.frontmatter.title, fileType: "(mp3|json)"})
-            context.gigAudioRegex = gigAudioRegex.create()
-
+            context.machine_name = post.node.fields.machine_name
+            context.gigDir = path.dirname(post.node.fileAbsolutePath).split("/").pop()
             context.artists = post.node.frontmatter.artists.map(artist => artist.name)
             context.venue = post.node.frontmatter.venue
 
@@ -82,16 +78,11 @@ exports.createPages = ({ graphql, actions }) => {
             break;
           case "artists":
             layout = artistLayout
-
-            const artistImagesRegex = new GigPathRegex({artist: post.node.fields.machine_name, fileType: "(jpg|JPG)"})
-            context.artistImagesRegex = artistImagesRegex.create()
-
-            const artistAudioRegex =  new GigPathRegex({artist: post.node.fields.machine_name, fileType: "mp3"})
-            context.artistAudioRegex = artistAudioRegex.create()
-
+            context.machine_name = post.node.fields.machine_name
             break;
           case "venues":
             layout = venueLayout
+            context.machine_name = post.node.fields.machine_name
             break;
         }
 
@@ -108,10 +99,39 @@ exports.createPages = ({ graphql, actions }) => {
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
-  if (node.internal.type === `MarkdownRemark`) {
+  // For media associated w gigs we want to add fields indicating where it's from
+  if (node.internal.type === 'File') {
+    const nodeType = getNodeType(node.absolutePath)
+    if (nodeType === "gigs") {
+      switch (node.ext) {
+        case ".mp3":
+        case ".json":
+        case ".jpg":
+        case ".JPG":
+          const pathComponents = node.relativeDirectory.split("\\")
+          if (pathComponents.length === 2) {
+            const gigDir = pathComponents[0]
+            const artist = pathComponents[1]
+            createNodeField({
+              name: `gigDir`,
+              node,
+              value: gigDir
+            })
+            createNodeField({
+              name: `artist`,
+              node,
+              value: artist
+            })
+          }
+          break;
+      }
+    }
+  }
+  // For the actual gig posts we need to add some fields
+  else if (node.internal.type === `MarkdownRemark`) {
 
-    const nodeTitle = helper.machineName(node.frontmatter.title, "-")
     const nodeType = getNodeType(node.fileAbsolutePath)
+    const nodeTitle = helper.machineName(node.frontmatter.title, "-")
     const nodeSlug = "/" + nodeType + "/" + nodeTitle + "/"
 
     createNodeField({

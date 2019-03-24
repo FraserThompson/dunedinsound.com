@@ -4,7 +4,7 @@ import { rhythm } from '../utils/typography'
 import BackgroundImage from './BackgroundImage';
 
 const BannerWrapper = styled.div`
-  height: 80vh;
+  height: 60vh;
   position: relative;
   > * {
     z-index: 1;
@@ -33,6 +33,7 @@ class Banner extends React.Component {
   render() {
     return (
       <BannerWrapper>
+        {this.props.background && this.props.background}
         {this.props.backgroundImage && <BackgroundImage fluid={this.props.backgroundImage} />}
         <BannerText>
           {this.props.children}

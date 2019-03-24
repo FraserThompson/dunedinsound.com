@@ -9,6 +9,7 @@ const DropdownMenu = styled.ul`
   bottom: 100%;
   float: left;
   min-width: 200px;
+  width: ${props => props.width};
   font-size: 14px;
   text-align: left;
   background-color: ${props => props.theme.highlightColor2};

@@ -1,18 +1,52 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import { Link, graphql } from 'gatsby'
-import styled from "styled-components"
-import Img from 'gatsby-image'
+import { graphql } from 'gatsby'
+
+import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
 import Layout from '../components/Layout'
+import Banner from '../components/Banner';
+import Tile from '../components/Tile';
+import Divider from '../components/Divider';
+import GridContainer from '../components/GridContainer';
 
 class VenueTemplate extends React.Component {
   render() {
 
     const post = this.props.data.thisPost
+    const gigs = this.props.data.gigs.edges
     const siteTitle = this.props.data.site.siteMetadata.title
     const siteDescription = post.excerpt
     const { previous, next } = this.props.pageContext
+
+    const position = [post.frontmatter.lat, post.frontmatter.lng]
+    const map = (
+      typeof window !== 'undefined' && <Map style={{height: "100%", width: "100%"}} center={position} zoom={18} zoomControl={false}>
+        <TileLayer
+          url='https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnJhc2VydGhvbXBzb24iLCJhIjoiY2llcnF2ZXlhMDF0cncwa21yY2tyZjB5aCJ9.iVxJbdbZiWVfHItWtZfKPQ'
+          attribution='Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
+        />
+        <Marker position={position}>
+          <Popup>{post.frontmatter.title}</Popup>
+        </Marker>
+      </Map>
+    )
+
+    const gigTiles = gigs.map(({ node }) => {
+      const title = node.frontmatter.title || node.fields.slug
+      const coverImage = node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid
+
+      return (
+        <Tile
+          key={node.fields.slug}
+          title={title}
+          image={coverImage}
+          label={node.frontmatter.date}
+          href={node.fields.slug}
+          height={"20vh"}
+        />
+      )
+    });
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -21,30 +55,15 @@ class VenueTemplate extends React.Component {
           meta={[{ name: 'description', content: siteDescription }]}
           title={`${post.frontmatter.title} | ${siteTitle}`}
         />
-        <header>
-          <div className="container-fluid">
-            <div className="post-header row">
-              <Link to="/artists">
-                <div className="col-xs-12 divider link purple hidden-xs">
-                  <h5>Back to artists</h5>
-                </div>
-              </Link>
-              <div className="banner"></div>
-              <div className="text" style={{marginTop: "-60px"}}>
-              </div>
-              <div className="gig-nav hidden-xs"></div>
-            </div>
-          </div>
-          <div className="container-fluid header sticky gig-header" style={{overflow: "visible"}} data-scroll-header>
-            <div className="row">
-              <div className="col-xs-12 col-sm-1 gig-title-wrapper">
-                <h1>{post.frontmatter.title}</h1>
-              </div>
-              <div className="col-xs-12 col-sm-10 gig-player-wrapper"></div>
-              <div className="gig dropdown"></div>
-            </div>
-          </div>
-        </header>
+        <Banner background={map}>
+          <h1>{this.props.data.thisPost.frontmatter.title}</h1>
+        </Banner>
+        <Divider>
+          <p>Gigs</p>
+        </Divider>
+        <GridContainer xs="6" sm="4" md="3" lg="2">
+          {gigTiles}
+        </GridContainer>
       </Layout>
     )
   }
@@ -53,7 +72,7 @@ class VenueTemplate extends React.Component {
 export default VenueTemplate
 
 export const pageQuery = graphql`
-  query VenueBySlug($slug: String!) {
+  query VenuesBySlug($slug: String!, $machine_name: String!) {
     site {
       siteMetadata {
         title
@@ -66,6 +85,33 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
+        lat
+        lng
+        bandcamp
+        facebook
+      }
+    }
+    gigs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}, frontmatter: {venue: {eq: $machine_name}}}) {
+      edges {
+        node {
+          excerpt
+          fields {
+            slug
+          }
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY")
+            venue
+            artists { name, vid {link, title} }
+            title
+            cover {
+              childImageSharp {
+                fluid(maxWidth: 800) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

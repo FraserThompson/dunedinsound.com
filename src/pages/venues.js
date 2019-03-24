@@ -5,30 +5,20 @@ import Layout from '../components/Layout'
 import GridContainer from '../components/GridContainer';
 import Tile from '../components/Tile';
 
-class Gigs extends React.Component {
+class Venues extends React.Component {
   render() {
     const { data } = this.props;
     const siteTitle = data.site.siteMetadata.title
     const siteDescription = data.site.siteMetadata.description
-    const posts = data.allArtists.edges
-
-    const imagesByArtist = data.imagesByArtist['group'].reduce((obj, item) => {
-      const name = item.fieldValue
-      if (!obj[name]) obj[name] = {}
-      obj[name] = item.edges
-      return obj
-    }, {});
+    const posts = data.allVenues.edges
 
     const artistTiles = posts.map(({ node }) => {
       const title = node.frontmatter.title || node.fields.slug
-      const coverImage = node.frontmatter.cover ? node.frontmatter.cover.childImageSharp.fluid : (imagesByArtist[node.fields.machine_name] && imagesByArtist[node.fields.machine_name][0].node.childImageSharp.fluid)
 
       return (
         <Tile
           key={node.fields.slug}
           title={title}
-          image={coverImage}
-          label={node.frontmatter.date}
           href={node.fields.slug}
           height={"20vh"}
         />
@@ -50,7 +40,7 @@ class Gigs extends React.Component {
   }
 }
 
-export default Gigs
+export default Venues
 
 export const pageQuery = graphql`
   query {
@@ -60,7 +50,7 @@ export const pageQuery = graphql`
         description
       }
     }
-    allArtists: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "artists"}}}) {
+    allVenues: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "venues"}}}) {
       edges {
         node {
           excerpt
@@ -76,23 +66,6 @@ export const pageQuery = graphql`
                 fluid(maxWidth: 400) {
                   ...GatsbyImageSharpFluid
                 }
-              }
-            }
-          }
-        }
-      }
-    }
-    imagesByArtist: allFile( filter: {extension: {eq: "jpg"}}) {
-      group(field: fields___artist) {
-        fieldValue
-        edges {
-          node {
-            fields {
-              artist
-            }
-            childImageSharp {
-              fluid(maxWidth: 800) {
-                ...GatsbyImageSharpFluid
               }
             }
           }

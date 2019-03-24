@@ -58,7 +58,7 @@ class GigTemplate extends React.Component {
 
     // Turn the data returned from the images query into a key-value object of images by artist
     const imagesByArtist = this.props.data.images && this.props.data.images['group'].reduce((obj, item) => {
-      const machineName = item.fieldValue.match(/([^\\]*)\\*$/)[1]
+      const machineName = item.fieldValue
       const images = item.edges.map(file => file.node.childImageSharp.fluid)
       obj[machineName] = images
       return obj
@@ -66,8 +66,7 @@ class GigTemplate extends React.Component {
 
     // Turn the data returned from the audio query into a key-value object of audio files by artist
     const audioByArtist = this.props.data.audio && this.props.data.audio['group'].reduce((obj, item) => {
-      const machineName = item.fieldValue.match(/([^\\]*)\\*$/)[1]
-
+      const machineName = item.fieldValue
       const grouped_audio = item.edges.reduce((obj, item) => {
         const name = item.node.name.replace(".mp3", "") // because old audio file JSON has mp3 in the name
         if (!obj[name]) obj[name] = {};
@@ -221,7 +220,7 @@ class GigTemplate extends React.Component {
 export default GigTemplate
 
 export const pageQuery = graphql`
-  query GigsBySlug($slug: String!, $gigImagesRegex: String!, $gigAudioRegex: String!, $artists: [String]!, $venue: String! ) {
+  query GigsBySlug($slug: String!, $artists: [String]!, $venue: String!, $gigDir: String! ) {
     site {
       siteMetadata {
         title
@@ -246,13 +245,12 @@ export const pageQuery = graphql`
         }
       }
     }
-    images: allFile(filter: { relativePath: { regex: $gigImagesRegex } }) {
-      group(field: relativeDirectory) {
+    images: allFile( filter: {extension: {in: ["jpg", "JPG"]}, fields: { gigDir: {eq: $gigDir}}}) {
+      group(field: fields___artist) {
         fieldValue
         edges {
           node {
             name
-            relativeDirectory
             publicURL
             childImageSharp {
               fluid(maxWidth: 1600) {
@@ -263,13 +261,12 @@ export const pageQuery = graphql`
         }
       }
     }
-    audio: allFile(filter: { relativePath: { regex: $gigAudioRegex } }) {
-      group(field: relativeDirectory) {
+    audio: allFile( filter: {extension: {in: ["mp3", "json"]}, fields: { gigDir: {eq: $gigDir}}}) {
+      group(field: fields___artist) {
         fieldValue
         edges {
           node {
             name
-            relativeDirectory
             publicURL
             ext
           }

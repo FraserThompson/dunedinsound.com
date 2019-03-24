@@ -217,7 +217,7 @@ export default class Player extends React.Component {
         </WaveWrapper>
         <TitleWrapper className="title-wrapper"><span>{this.props.artistMedia[this.state.selectedArtist].audio[0][".mp3"].name}</span></TitleWrapper>
         <DropdownWrapper>
-          <Dropdown callback={this.selectArtist} list={this.props.artistMedia}/>
+          <Dropdown width="100vw" callback={this.selectArtist} list={this.props.artistMedia}/>
         </DropdownWrapper>
       </PlayerWrapper>
     )

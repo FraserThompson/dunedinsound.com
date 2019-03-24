@@ -6,7 +6,7 @@ import Content from './Content';
 import { rhythm } from '../utils/typography';
 
 const Container = styled.div`
-  background-color: ${props => props.theme.backgroundColor};
+  background-color: black;
   color: ${props => props.theme.textColor};
   position: relative;
   height: ${props => props.height ? props.height : "500px"};
@@ -39,8 +39,8 @@ class Tile extends React.Component {
 
     return (
       <Container height={this.props.height}>
-        <Link to={this.props.href}>
-          <Label><small>{this.props.label}</small></Label>
+        <Link to={this.props.href} style={{display: "block", width: "100%", height: "100%"}}>
+          {this.props.label && <Label><small>{this.props.label}</small></Label>}
           {this.props.image && <BackgroundImage fluid={this.props.image}/>}
           <TitleWrapper>
             <Content>
