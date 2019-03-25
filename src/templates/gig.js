@@ -11,6 +11,7 @@ import Banner from '../components/Banner';
 import Divider from '../components/Divider';
 import Player from '../components/Player';
 import { rhythm } from '../utils/typography';
+import YouTube from 'react-youtube';
 
 const PlayerWrapper = styled.div`
   position: relative;
@@ -48,6 +49,19 @@ const HorizontalNav = styled.ul`
   }
 `
 
+const YouTubeWrapper = styled.div`
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  padding-top: 25px;
+  height: 0;
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+`
 class GigTemplate extends React.Component {
 
   constructor(props) {
@@ -148,6 +162,10 @@ class GigTemplate extends React.Component {
     return this.state.artistMedia[artistIndex].images[imageIndex] && this.state.artistMedia[artistIndex].images[imageIndex].src;
   }
 
+  onYouTubeReady = (event) => {
+    event.target.setPlaybackQuality("hd720")
+  }
+
   render() {
 
     const { previous, next } = this.props.pageContext
@@ -169,7 +187,23 @@ class GigTemplate extends React.Component {
         </a>
       })
 
-      const vidElements = artist.vid && artist.vid.map(video => <div key={video.link}><p>{video.link}</p></div>)
+      const vidElements = artist.vid && artist.vid.map(video => {
+        const opts = {
+          playerVars: {
+            modestbranding: "1"
+          }
+        };
+        return <div>
+          <YouTubeWrapper key={video.link}>
+            <YouTube
+              videoId={video.link}
+              opts={opts}
+              onReady={this.onYouTubeReady}
+            />
+          </YouTubeWrapper>
+        </div>
+      }
+      )
 
       return (
         <div key={artistIndex}>

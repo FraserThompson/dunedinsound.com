@@ -32,15 +32,21 @@ const Label = styled.span`
   vertical-align: baseline;
   line-height: 1;
   border-radius: .25em;
-  padding: ${rhythm(0.1)};
+  padding-left: ${rhythm(0.1)};
+  padding-right: ${rhythm(0.1)};
   top: ${rhythm(0.5)};
   left: ${rhythm(0.5)};
 `
 
 const TitleWrapper = styled.div`
   z-index: 5;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
   position: absolute;
   bottom: 0px;
+  h3 {
+    margin-bottom: ${rhythm(0.5)}
+  }
 `
 
 class Tile extends React.Component {
@@ -54,8 +60,8 @@ class Tile extends React.Component {
           {this.props.image && <BackgroundImage fluid={this.props.image}/>}
           <TitleWrapper>
             <Content>
-              <h1>{this.props.title}</h1>
-              {this.props.subtitle && <p>{this.props.subtitle}</p>}
+              <h3>{this.props.title}</h3>
+              {this.props.subtitle && <p style={{marginBottom: "0px"}}><small>{this.props.subtitle}</small></p>}
             </Content>
           </TitleWrapper>
         </Link>

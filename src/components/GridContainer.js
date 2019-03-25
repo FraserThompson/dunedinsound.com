@@ -3,6 +3,8 @@ import styled from 'styled-components'
 const GridContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+    justify-items: ${props => props.center ? "center" : "initial"};
+    grid-auto-flow: dense;
 
     * {
       grid-column: span ${props => props.xs || 12};

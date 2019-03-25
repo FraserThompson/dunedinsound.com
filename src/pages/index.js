@@ -28,6 +28,7 @@ class Homepage extends React.Component {
           <div style={{gridColumn:  "span 8"}}>
             <Tile
               title={firstNode.frontmatter.title}
+              subtitle={firstNode.frontmatter.artists.map(artist => artist.name).join(", ")}
               image={firstNode.frontmatter.cover && firstNode.frontmatter.cover.childImageSharp.fluid}
               label={firstNode.frontmatter.date}
               height={"calc(90vh)"}
@@ -77,7 +78,7 @@ export const pageQuery = graphql`
             slug
           }
           frontmatter {
-            date(formatString: "MMMM DD, YYYY")
+            date(formatString: "DD MMMM YYYY")
             title
             artists { name }
             venue

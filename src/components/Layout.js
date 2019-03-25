@@ -17,6 +17,10 @@ const GlobalStyle = createGlobalStyle`
     scroll-behavior: smooth;
   }
 
+  h1,h2,h3,h4 {
+    text-shadow: 1px 1px #000;
+  }
+
   a {
     color: ${props => props.theme.textColor};
     text-decoration: none;
