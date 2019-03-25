@@ -3,6 +3,7 @@ import { Link } from 'gatsby'
 import styled from "styled-components"
 import { MdMenu } from 'react-icons/md';
 import { rhythm } from '../utils/typography';
+import { lighten } from 'polished';
 
 const DropdownMenu = styled.ul`
   position: absolute;
@@ -25,14 +26,19 @@ const DropdownMenu = styled.ul`
   li {
     line-height: 40px;
     border-bottom: 2px solid ${props => props.theme.highlightColor2};
-    padding: 10px;
     margin: 0px;
     &.active {
       background-color: ${props => props.theme.highlightColor};
       color: ${props => props.theme.highlightColor2};
     }
     a {
+      padding: 10px;
       display: block;
+      &:hover {
+        text-decoration: none;
+        cursor: pointer;
+        background-color: ${props => lighten(0.1, props.theme.highlightColor2)};
+      }
     }
   }
 `

@@ -14,6 +14,7 @@ class Homepage extends React.Component {
     const siteTitle = data.site.siteMetadata.title
     const siteDescription = data.site.siteMetadata.description
     const posts = data.allMarkdownRemark.edges
+    const firstNode = posts[0].node
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -24,21 +25,34 @@ class Homepage extends React.Component {
         />
 
         <GridContainer>
-          {posts.map(({ node }, index) => {
-            const title = node.frontmatter.title || node.fields.slug
-            const tile =
-              <Tile
-                title={title}
-                image={node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid}
-                label={node.frontmatter.date}
-                height={"calc(100vh - " + theme.default.headerHeight + ")"}
-                href={node.fields.slug}>
-              </Tile>
-              return <div key={node.fields.slug} style={{gridColumn: index === 0 ? "span 6" : "span 2"}}>
-                {tile}
-              </div>
-            })
-          }
+          <div style={{gridColumn:  "span 8"}}>
+            <Tile
+              title={firstNode.frontmatter.title}
+              image={firstNode.frontmatter.cover && firstNode.frontmatter.cover.childImageSharp.fluid}
+              label={firstNode.frontmatter.date}
+              height={"calc(90vh)"}
+              href={firstNode.fields.slug}>
+            </Tile>
+          </div>
+          <div style={{gridColumn: "span 4"}}>
+            {posts.map(({ node }, index) => {
+              if (index === 0) return
+              const title = node.frontmatter.title || node.fields.slug
+              const height = "calc(30vh)"
+              const artists = node.frontmatter.artists.map(artist => artist.name)
+              const tile =
+                <Tile
+                  title={title}
+                  subtitle={artists.join(", ")}
+                  image={node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid}
+                  label={node.frontmatter.date}
+                  height={height}
+                  href={node.fields.slug}>
+                </Tile>
+                return <div key={node.fields.slug}>{tile}</div>
+              })
+            }
+          </div>
         </GridContainer>
       </Layout>
     )
@@ -69,7 +83,7 @@ export const pageQuery = graphql`
             venue
             cover {
               childImageSharp {
-                fluid(maxWidth: 800) {
+                fluid(maxWidth: 1600) {
                   ...GatsbyImageSharpFluid
                 }
               }

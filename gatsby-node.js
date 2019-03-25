@@ -69,7 +69,7 @@ exports.createPages = ({ graphql, actions }) => {
 
             context.machine_name = post.node.fields.machine_name
             context.gigDir = path.dirname(post.node.fileAbsolutePath).split("/").pop()
-            context.artists = post.node.frontmatter.artists.map(artist => artist.name)
+            context.artists = post.node.frontmatter.artists.map(artist => helper.machineName(artist.name))
             context.venue = post.node.frontmatter.venue
 
             break;
@@ -79,10 +79,12 @@ exports.createPages = ({ graphql, actions }) => {
           case "artists":
             layout = artistLayout
             context.machine_name = post.node.fields.machine_name
+            context.title = post.node.frontmatter.title
             break;
           case "venues":
             layout = venueLayout
             context.machine_name = post.node.fields.machine_name
+            context.title = post.node.frontmatter.title
             break;
         }
 

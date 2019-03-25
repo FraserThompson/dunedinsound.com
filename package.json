@@ -24,6 +24,7 @@
     "gatsby-transformer-sharp": "^2.1.13",
     "graceful-fs": "^4.1.15",
     "leaflet": "^1.4.0",
+    "polished": "^3.1.0",
     "prismjs": "^1.15.0",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",

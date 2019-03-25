@@ -9,6 +9,7 @@ import Banner from '../components/Banner';
 import Tile from '../components/Tile';
 import Divider from '../components/Divider';
 import GridContainer from '../components/GridContainer';
+import { rhythm } from '../utils/typography';
 
 class VenueTemplate extends React.Component {
   render() {
@@ -43,7 +44,7 @@ class VenueTemplate extends React.Component {
           image={coverImage}
           label={node.frontmatter.date}
           href={node.fields.slug}
-          height={"20vh"}
+          height={"calc(40vh)"}
         />
       )
     });
@@ -55,7 +56,7 @@ class VenueTemplate extends React.Component {
           meta={[{ name: 'description', content: siteDescription }]}
           title={`${post.frontmatter.title} | ${siteTitle}`}
         />
-        <Banner background={map}>
+        <Banner height="40vh" background={map}>
           <h1>{this.props.data.thisPost.frontmatter.title}</h1>
         </Banner>
         <Divider>

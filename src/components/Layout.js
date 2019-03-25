@@ -5,6 +5,7 @@ import { theme } from '../utils/theme'
 import 'react-image-lightbox/style.css'
 import SiteFooter from './SiteFooter';
 import { rhythm } from '../utils/typography';
+import { lighten } from 'polished';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -39,8 +40,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a:hover, a:focus {
-      color: ${props => props.theme.textColor};
-      text-decoration: underline;
+    color: ${props => props.theme.textColor};
+    text-decoration: underline;
   }
 
   a:focus {
@@ -49,7 +50,7 @@ const GlobalStyle = createGlobalStyle`
       outline-offset: -2px;
   }
 
-  button {
+  button, .button {
     display: inline-block;
     margin-bottom: 0;
     font-weight: 400;
@@ -60,11 +61,17 @@ const GlobalStyle = createGlobalStyle`
     border: 1px solid transparent;
     white-space: nowrap;
     padding: 8px 12px;
+    background: ${props => props.theme.highlightColor2};
+    color: ${props => props.theme.textColor};
+    &:hover {
+      background: ${props => lighten(0.1, props.theme.highlightColor2)};
+      text-decoration: none;
+    }
   }
 `
 
 const Container = styled.div`
-  min-height: ${props => "calc(100vh - " + props.theme.headerHeight + ")"};
+  min-height: ${props => "calc(100vh - " + props.theme.headerHeight + " - " + props.theme.footerHeight + " - " + rhythm(3) + ")"};
   height: 100%;
   width: 100%;
 `

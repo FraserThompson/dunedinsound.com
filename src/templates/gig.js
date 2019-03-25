@@ -5,10 +5,12 @@ import styled from "styled-components"
 import Img from 'gatsby-image'
 import Lightbox from 'react-image-lightbox';
 import Layout from '../components/Layout'
+import Helper from  '../utils/helper';
 import GridContainer from '../components/GridContainer';
 import Banner from '../components/Banner';
 import Divider from '../components/Divider';
 import Player from '../components/Player';
+import { rhythm } from '../utils/typography';
 
 const PlayerWrapper = styled.div`
   position: relative;
@@ -35,11 +37,10 @@ const HorizontalNav = styled.ul`
   li {
     display: inline-block;
     line-height: 40px;
-    a {
-      text-decoration: none;
-      color: #999;
-      padding-right: 20px;
-      padding-left: 20px;
+    padding-right: ${rhythm(0.5)};
+    button {
+      padding-right: ${rhythm(1)};
+      padding-left: ${rhythm(1)};
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
@@ -88,11 +89,12 @@ class GigTemplate extends React.Component {
 
     // Collect all the above into one array of artists with all their media
     const artistMedia = post.frontmatter.artists.map(artist => {
+      const machineName = Helper.machineName(artist.name)
       return {
         ...artist,
-        title: detailsByArtist && detailsByArtist[artist.name] ? detailsByArtist[artist.name].title : artist.name,
-        images: imagesByArtist && imagesByArtist[artist.name],
-        audio: audioByArtist && audioByArtist[artist.name]
+        title: detailsByArtist && detailsByArtist[machineName] ? detailsByArtist[machineName].title : artist.name,
+        images: imagesByArtist && imagesByArtist[machineName],
+        audio: audioByArtist && audioByArtist[machineName]
       }
     })
 
@@ -153,7 +155,7 @@ class GigTemplate extends React.Component {
     const playlist = this.state.artistMedia.map((artist, index) => {
       return (
         <li key={index}>
-          <a href={"#" + artist.name}>{artist.title}</a>
+          <a className="button" href={"#" + artist.name}>{artist.title}</a>
         </li>
       )
     })

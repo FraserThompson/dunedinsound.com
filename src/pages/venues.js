@@ -20,7 +20,7 @@ class Venues extends React.Component {
           key={node.fields.slug}
           title={title}
           href={node.fields.slug}
-          height={"20vh"}
+          height={"40vh"}
         />
       )
     });

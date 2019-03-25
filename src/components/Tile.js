@@ -10,6 +10,16 @@ const Container = styled.div`
   color: ${props => props.theme.textColor};
   position: relative;
   height: ${props => props.height ? props.height : "500px"};
+  overflow: hidden;
+  .backgroundImage{
+    transition: transform 0.3s ease-in-out;
+    transform: scale(1,1);
+  }
+  &:hover {
+    .backgroundImage {
+      transform: scale(1.02,1.02);
+    }
+  }
 `
 
 const Label = styled.span`
@@ -45,7 +55,7 @@ class Tile extends React.Component {
           <TitleWrapper>
             <Content>
               <h1>{this.props.title}</h1>
-              <p>{this.props.subtitle}</p>
+              {this.props.subtitle && <p>{this.props.subtitle}</p>}
             </Content>
           </TitleWrapper>
         </Link>

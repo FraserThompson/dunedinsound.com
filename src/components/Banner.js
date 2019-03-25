@@ -2,9 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import { rhythm } from '../utils/typography'
 import BackgroundImage from './BackgroundImage';
+import { transparentize } from 'polished';
 
 const BannerWrapper = styled.div`
-  height: 60vh;
+  height: ${props => props.height ? props.height : "60vh"};
   position: relative;
   > * {
     z-index: 1;
@@ -18,9 +19,9 @@ const BannerText = styled.div`
   margin: 0 auto;
   text-align: center;
   max-width: 60vw;
-  padding: 10px;
+  padding: ${rhythm(1)};
   z-index: 1;
-  background: rgba(0,0,0,.8);
+  background: ${props => transparentize(0.2, props.theme.headerColor)};
   h1 {
     font-size: ${rhythm(1.5)};
     text-align: center;
@@ -32,7 +33,7 @@ const BannerText = styled.div`
 class Banner extends React.Component {
   render() {
     return (
-      <BannerWrapper>
+      <BannerWrapper height={this.props.height}>
         {this.props.background && this.props.background}
         {this.props.backgroundImage && <BackgroundImage fluid={this.props.backgroundImage} />}
         <BannerText>

@@ -14,14 +14,14 @@ class ArtistTemplate extends React.Component {
   render() {
 
     const post = this.props.data.thisPost
-    const gigs = this.props.data.gigs.edges
+    const gigs = this.props.data.gigs && this.props.data.gigs.edges
     const siteTitle = this.props.data.site.siteMetadata.title
     const siteDescription = post.excerpt
     const { previous, next } = this.props.pageContext
 
     console.log(this.props.data.gigs);
 
-    const gigTiles = gigs.map(({ node }) => {
+    const gigTiles = gigs && gigs.map(({ node }) => {
       const title = node.frontmatter.title || node.fields.slug
       const coverImage = node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid
 
@@ -32,7 +32,7 @@ class ArtistTemplate extends React.Component {
           image={coverImage}
           label={node.frontmatter.date}
           href={node.fields.slug}
-          height={"20vh"}
+          height={"40vh"}
         />
       )
     });
@@ -44,8 +44,12 @@ class ArtistTemplate extends React.Component {
           meta={[{ name: 'description', content: siteDescription }]}
           title={`${post.frontmatter.title} | ${siteTitle}`}
         />
-        <Banner backgroundImage={this.props.data.images && this.props.data.images.edges[0].node.childImageSharp.fluid}>
-          <h1>{this.props.data.thisPost.frontmatter.title}</h1>
+        <Banner height="40vh" backgroundImage={this.props.data.images && this.props.data.images.edges[0].node.childImageSharp.fluid}>
+          <h1>{post.frontmatter.title}</h1>
+          {post.frontmatter.bandcamp && <a href={post.frontmatter.bandcamp}>Bandcamp</a>}
+          {post.frontmatter.facebook && <a href={post.frontmatter.facebook}>Facebook</a>}
+          {post.frontmatter.soundcloud && <a href={post.frontmatter.soundcloud}>Soundcloud</a>}
+          {post.frontmatter.website && <a href={post.frontmatter.website}>Website</a>}
         </Banner>
         <Divider>
           <p>Gigs</p>
@@ -61,7 +65,7 @@ class ArtistTemplate extends React.Component {
 export default ArtistTemplate
 
 export const pageQuery = graphql`
-  query ArtistsBySlug($slug: String!, $machine_name: String!) {
+  query ArtistsBySlug($slug: String!, $machine_name: String!, $title: String!) {
     site {
       siteMetadata {
         title
@@ -76,6 +80,8 @@ export const pageQuery = graphql`
         title
         bandcamp
         facebook
+        soundcloud
+        website
       }
     }
     images: allFile( filter: {extension: {in: ["jpg", "JPG"]}, fields: { artist: {eq: $machine_name}}}) {
@@ -92,7 +98,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    gigs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}, frontmatter: {artists: {elemMatch: {name: {eq: $machine_name}}}}}) {
+    gigs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}, frontmatter: {artists: {elemMatch: {name: {eq: $title}}}}}) {
       edges {
         node {
           excerpt

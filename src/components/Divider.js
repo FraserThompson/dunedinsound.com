@@ -11,5 +11,8 @@ const Divider = styled.div`
   padding-left: ${rhythm(0.5)};
   padding-right: ${rhythm(0.5)};
   background-color: ${props => props.highlight ? props.theme.highlightColor : props.theme.contrastColor};
+  p {
+    margin: 0;
+  }
 `
 export default Divider;

@@ -3,7 +3,9 @@ import Img from 'gatsby-image'
 
 class BackgroundImage extends React.Component {
   render() {
-    return <Img style={{
+    return <Img
+    className="backgroundImage"
+    style={{
       position: "absolute",
       left: 0,
       top: 0,
