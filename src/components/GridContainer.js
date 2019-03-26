@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const GridContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(12, [col-start] 1fr);
     justify-items: ${props => props.center ? "center" : "initial"};
     grid-auto-flow: dense;
 

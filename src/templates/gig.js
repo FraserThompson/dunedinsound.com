@@ -54,6 +54,11 @@ const YouTubeWrapper = styled.div`
   padding-bottom: 56.25%; /* 16:9 */
   padding-top: 25px;
   height: 0;
+
+  @media screen and (min-width: 768px) {
+    grid-column: ${props => props.odd ? "col-start 4 / span 6" : null};
+  }
+
   iframe {
     position: absolute;
     top: 0;
@@ -106,6 +111,7 @@ class GigTemplate extends React.Component {
       const machineName = Helper.machineName(artist.name)
       return {
         ...artist,
+        machineName,
         title: detailsByArtist && detailsByArtist[machineName] ? detailsByArtist[machineName].title : artist.name,
         images: imagesByArtist && imagesByArtist[machineName],
         audio: audioByArtist && audioByArtist[machineName]
@@ -173,7 +179,7 @@ class GigTemplate extends React.Component {
     const playlist = this.state.artistMedia.map((artist, index) => {
       return (
         <li key={index}>
-          <a className="button" href={"#" + artist.name}>{artist.title}</a>
+          <a className="button" href={"#" + artist.machineName}>{artist.title}</a>
         </li>
       )
     })
@@ -187,28 +193,26 @@ class GigTemplate extends React.Component {
         </a>
       })
 
-      const vidElements = artist.vid && artist.vid.map(video => {
+      const vidElements = artist.vid && artist.vid.map((video, vidIndex) => {
         const opts = {
           playerVars: {
             modestbranding: "1"
           }
         };
-        return <div>
-          <YouTubeWrapper key={video.link}>
+
+        return <YouTubeWrapper key={video.link} odd={(artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1) ? true : false}>
             <YouTube
               videoId={video.link}
               opts={opts}
               onReady={this.onYouTubeReady}
             />
           </YouTubeWrapper>
-        </div>
-      }
-      )
+      })
 
       return (
         <div key={artistIndex}>
           <Divider sticky={true}>
-            <p id={artist.name}>{artist.title}</p>
+            <p id={artist.machineName}>{artist.title}</p>
           </Divider>
           <GridContainer xs="12" sm="6" md="6" lg="6">
             {vidElements}
