@@ -12,22 +12,32 @@ const BannerWrapper = styled.div`
   }
 `
 const BannerText = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height:100%;
   margin: 0 auto;
   text-align: center;
   max-width: 60vw;
-  padding: ${rhythm(1)};
-  z-index: 1;
-  background: ${props => transparentize(0.2, props.theme.headerColor)};
+
   h1 {
+    margin-top: ${rhythm(1)};
+    justify-self: flex-start;
     font-size: ${rhythm(1.5)};
     text-align: center;
     color: #fff;
     text-transform: uppercase;
+    position: sticky;
+    top: 0px;
+    z-index: 12;
   }
+
+  div {
+    margin: auto;
+    position: relative;
+    bottom: ${rhythm(1)}
+  }
+
 `
 
 class Banner extends React.Component {
@@ -37,7 +47,10 @@ class Banner extends React.Component {
         {this.props.background && this.props.background}
         {this.props.backgroundImage && <BackgroundImage fluid={this.props.backgroundImage} />}
         <BannerText>
-          {this.props.children}
+          <h1>{this.props.title}</h1>
+          <div>
+            {this.props.children}
+          </div>
         </BannerText>
       </BannerWrapper>
     )

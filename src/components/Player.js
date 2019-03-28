@@ -55,7 +55,7 @@ const TitleWrapper = styled.div`
   position: absolute;
   width: 100%;
   text-align: center;
-  bottom: 0;
+  bottom: -10px;
   z-index: 10;
   color: #000;
   font-size: 12px;
@@ -108,7 +108,7 @@ export default class Player extends React.Component {
         ]
       })
 
-      this.wavesurfer.on('ready', this.updateDuration)
+      this.wavesurfer.on('ready', () => { this.updateDuration(); this.updateTime();})
       this.wavesurfer.on('seek', this.updateTime)
       this.wavesurfer.on('finish', this.finish);
       this.wavesurfer.on('play', () => this.setState({playing: true}))
@@ -208,16 +208,16 @@ export default class Player extends React.Component {
       <PlayerWrapper>
         <PlayerControls>
           <RoundButton size="30px" onClick={this.previous}><MdSkipPrevious/></RoundButton>
-          <RoundButton size="40px" onClick={this.playPause}>{!this.state.playing ? <MdPlayArrow/> : <MdPause/>}</RoundButton>
+          <RoundButton className={this.state.playing ? "active" : ""} size="40px" onClick={this.playPause}>{!this.state.playing ? <MdPlayArrow/> : <MdPause/>}</RoundButton>
           <RoundButton size="30px" onClick={this.next}><MdSkipNext/></RoundButton>
         </PlayerControls>
         <WaveWrapper ref={el => (this.el = el)}>
           <LengthWrapper style={{left: "0px"}}>{this.formatTime(this.state.currentTime)}</LengthWrapper>
           <LengthWrapper style={{right: "0px"}}>{this.formatTime(this.state.duration)}</LengthWrapper>
+          <TitleWrapper className="title-wrapper"><span>{this.props.artistMedia[this.state.selectedArtist].audio[0][".mp3"].name}</span></TitleWrapper>
         </WaveWrapper>
-        <TitleWrapper className="title-wrapper"><span>{this.props.artistMedia[this.state.selectedArtist].audio[0][".mp3"].name}</span></TitleWrapper>
         <DropdownWrapper>
-          <Dropdown width="100vw" callback={this.selectArtist} list={this.props.artistMedia}/>
+          <Dropdown width="100%" callback={this.selectArtist} list={this.props.artistMedia}/>
         </DropdownWrapper>
       </PlayerWrapper>
     )

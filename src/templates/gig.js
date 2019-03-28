@@ -11,10 +11,9 @@ import Banner from '../components/Banner';
 import Divider from '../components/Divider';
 import Player from '../components/Player';
 import { rhythm } from '../utils/typography';
-import YouTube from 'react-youtube';
+import YouTubeResponsive from '../components/YouTubeResponsive';
 
 const PlayerWrapper = styled.div`
-  position: relative;
   position: fixed;
   bottom: 0px;
   z-index: 11;
@@ -23,7 +22,7 @@ const PlayerWrapper = styled.div`
   margin-top: ${props => props.theme.headerHeightNeg};
   opacity: 1;
   background-color: ${props => props.theme.headerColor};
-  width: 100vw;
+  width: 100%;
   -webkit-transition: background-color 0.5s ease;
   -moz-transition: background-color 0.5s ease;
   transition: background-color 0.5s ease;
@@ -49,24 +48,6 @@ const HorizontalNav = styled.ul`
   }
 `
 
-const YouTubeWrapper = styled.div`
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 */
-  padding-top: 25px;
-  height: 0;
-
-  @media screen and (min-width: 768px) {
-    grid-column: ${props => props.odd ? "col-start 4 / span 6" : null};
-  }
-
-  iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-`
 class GigTemplate extends React.Component {
 
   constructor(props) {
@@ -199,14 +180,7 @@ class GigTemplate extends React.Component {
             modestbranding: "1"
           }
         };
-
-        return <YouTubeWrapper key={video.link} odd={(artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1) ? true : false}>
-            <YouTube
-              videoId={video.link}
-              opts={opts}
-              onReady={this.onYouTubeReady}
-            />
-          </YouTubeWrapper>
+        return <YouTubeResponsive videoId={video.link} onReady={this.onYouTubeReady} opts={opts} key={video.link} odd={(artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1) ? true : false}/>
       })
 
       return (
@@ -231,8 +205,7 @@ class GigTemplate extends React.Component {
           meta={[{ name: 'description', content: this.state.siteDescription }]}
           title={`${this.state.post.frontmatter.title} | ${this.state.siteTitle}`}
         />
-        <Banner backgroundImage={this.state.post.frontmatter.cover && this.state.post.frontmatter.cover.childImageSharp.fluid}>
-          <h1>{this.state.post.frontmatter.title}</h1>
+        <Banner title={this.state.post.frontmatter.title} backgroundImage={this.state.post.frontmatter.cover && this.state.post.frontmatter.cover.childImageSharp.fluid}>
           <HorizontalNav>{playlist}</HorizontalNav>
         </Banner>
         <PlayerWrapper>

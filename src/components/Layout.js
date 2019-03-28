@@ -65,9 +65,16 @@ const GlobalStyle = createGlobalStyle`
     border: 1px solid transparent;
     white-space: nowrap;
     padding: 8px 12px;
-    background: ${props => props.theme.highlightColor2};
+
     color: ${props => props.theme.textColor};
-    &:hover {
+    background-color: ${props => props.theme.highlightColor2};
+
+    &.active, &:active {
+      color: ${props => lighten(0.1, props.theme.highlightColor2)};
+      background-color: ${props => props.theme.highlightColor};
+    }
+
+    &:hover:not(.active) {
       background: ${props => lighten(0.1, props.theme.highlightColor2)};
       text-decoration: none;
     }

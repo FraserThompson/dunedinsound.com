@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import styled from "styled-components"
-import { MdPlaylistPlay } from 'react-icons/md';
+import { MdPlaylistPlay, MdFileDownload } from 'react-icons/md';
 import { rhythm } from '../utils/typography';
 import { lighten } from 'polished';
 
@@ -26,36 +26,54 @@ const DropdownMenu = styled.ul`
   transform: ${props => props.open ? "translateY(0)" : "translateY(" + props.theme.headerHeight + ")"};
   pointer-events: ${props => props.open ? "auto" : "none"};
   transition-property: all;
-	transition-duration: .5s;
+	transition-duration: .3s;
 	transition-timing-function: cubic-bezier(0,0,0,1.2);
+
   li {
     line-height: 40px;
     border-bottom: 2px solid ${props => props.theme.contrastColor};
     margin: 0px;
+
     &.active {
       background-color: ${props => props.theme.highlightColor};
       color: ${props => props.theme.highlightColor2};
     }
-    a {
+
+    cursor: pointer;
+
+    &:hover:not(.active) {
+      background-color: ${props => lighten(0.1, props.theme.highlightColor2)};
+    }
+
+    .inner {
       padding: 10px;
       display: block;
-      &:hover {
-        text-decoration: none;
-        cursor: pointer;
-        background-color: ${props => lighten(0.1, props.theme.highlightColor2)};
+      text-decoration: none;
+
+      .title {
+        font-size: ${rhythm(0.5)};
+      }
+
+      .downloadButton {
+        float: right;
+        a:hover {
+          text-decoration: none;
+          cursor: pointer;
+          color: ${props => lighten(0.1, props.theme.highlightColor)};
+        }
       }
     }
   }
 `
 
 const DropdownButton = styled.button`
-  color: ${props => props.theme.textColor};
-  background-color: ${props => props.theme.highlightColor2};
   width: 50px;
   height: ${props => props.theme.headerHeight};
   font-size: ${rhythm(1)};
   padding: 0;
   outline: 0;
+  z-index: 12;
+
   svg {
     width: 100%;
     height: 100%;
@@ -69,7 +87,9 @@ class Dropdown extends React.Component {
     selected: 0
   }
 
-  toggleMenu = () => {
+  toggleMenu = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
     this.setState({open: !this.state.open})
   }
 
@@ -82,7 +102,9 @@ class Dropdown extends React.Component {
 
     const list = this.props.list.map((item, index) =>
       <li className={this.state.selected == index ? "active" : ""} key={index}>
-        <small><a onClick={() => this.select(index)}>{item.title}</a></small>
+        <a className="inner" onClick={() => this.select(index)}>
+          <span className="title">{index + 1}. {item.title}</span><span className="downloadButton"><a title={"Download MP3:" + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank"><MdFileDownload/></a></span>
+        </a>
       </li>
     )
 
@@ -91,7 +113,7 @@ class Dropdown extends React.Component {
         <DropdownMenu width={this.props.width} open={this.state.open}>
           {list}
         </DropdownMenu>
-        <DropdownButton aria-haspopup="true" onClick={this.toggleMenu}><MdPlaylistPlay/></DropdownButton>
+        <DropdownButton className={this.state.open ? "active" : ""} open={this.state.open} aria-haspopup="true" onClick={this.toggleMenu}><MdPlaylistPlay/></DropdownButton>
       </div>
     )
   }

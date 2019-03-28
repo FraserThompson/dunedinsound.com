@@ -56,9 +56,7 @@ class VenueTemplate extends React.Component {
           meta={[{ name: 'description', content: siteDescription }]}
           title={`${post.frontmatter.title} | ${siteTitle}`}
         />
-        <Banner height="40vh" background={map}>
-          <h1>{this.props.data.thisPost.frontmatter.title}</h1>
-        </Banner>
+        <Banner title={this.props.data.thisPost.frontmatter.title} height="40vh" background={map}/>
         <Divider>
           <p>Gigs</p>
         </Divider>
