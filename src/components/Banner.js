@@ -5,7 +5,7 @@ import BackgroundImage from './BackgroundImage';
 import { transparentize } from 'polished';
 
 const BannerWrapper = styled.div`
-  height: ${props => props.height ? props.height : "60vh"};
+  height: ${props => props.height ? props.height : "50vh"};
   position: relative;
   > * {
     z-index: 1;

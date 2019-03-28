@@ -65,6 +65,7 @@ const GlobalStyle = createGlobalStyle`
     border: 1px solid transparent;
     white-space: nowrap;
     padding: 8px 12px;
+    border-radius: 5px;
 
     color: ${props => props.theme.textColor};
     background-color: ${props => props.theme.highlightColor2};
