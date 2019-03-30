@@ -12,6 +12,8 @@ import Divider from '../components/Divider';
 import Player from '../components/Player';
 import { rhythm } from '../utils/typography';
 import YouTubeResponsive from '../components/YouTubeResponsive';
+import Tile from '../components/Tile';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 const PlayerWrapper = styled.div`
   position: fixed;
@@ -48,12 +50,58 @@ const HorizontalNav = styled.ul`
   }
 `
 
+const FixedTitle = styled.div`
+  position: fixed;
+  text-align: center;
+  z-index: 20;
+  width: 100%;
+  top: 5px;
+`
+
+const NextPrevWrapper = styled.a`
+  position: absolute;
+  right: ${props => props.prev ? "-10vw" : null};
+  left: ${props => props.next ? "-10vw" : null};
+  z-index: 5;
+  height: 100%;
+  top: 0px;
+  width: 15vw;
+  opacity: 0.5;
+  transition: all 300ms ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .icon {
+    position: absolute;
+    z-index: 0;
+    font-size: ${rhythm(4)};
+    right: ${props => props.prev ? "10vw" : null};
+    left: ${props => props.next ? "10vw" : null};
+  }
+  .tile {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+  }
+  &:hover {
+    right: ${props => props.prev ? "0px" : null};
+    left: ${props => props.next ? "0px" : null};
+    opacity: 1;
+    .tile {
+      opacity: 1;
+    }
+  }
+`
+
 class GigTemplate extends React.Component {
 
   constructor(props) {
     super(props);
 
     const post = this.props.data.thisPost
+    const nextPost = this.props.data.nextPost
+    const prevPost = this.props.data.prevPost
     const siteTitle = this.props.data.site.siteMetadata.title
     const siteDescription = post.excerpt
 
@@ -103,6 +151,8 @@ class GigTemplate extends React.Component {
 
     this.state = {
       post,
+      nextPost,
+      prevPost,
       siteTitle,
       siteDescription,
       artistMedia,
@@ -198,6 +248,40 @@ class GigTemplate extends React.Component {
       )
     })
 
+    const nextTile = (
+      this.state.nextPost &&
+      <NextPrevWrapper next>
+        <div className="icon">
+        <MdKeyboardArrowLeft/>
+        </div>
+        <Tile
+          key={this.state.nextPost.fields.slug}
+          title={this.state.nextPost.frontmatter.title}
+          image={this.state.nextPost.frontmatter.cover && this.state.nextPost.frontmatter.cover.childImageSharp.fluid}
+          label={this.state.nextPost.frontmatter.date}
+          height="100%"
+          href={this.state.nextPost.fields.slug}
+        />
+      </NextPrevWrapper>
+    )
+
+    const prevTile = (
+      this.state.prevPost &&
+      <NextPrevWrapper prev>
+        <div className="icon">
+          <MdKeyboardArrowRight/>
+        </div>
+        <Tile
+          key={this.state.prevPost.fields.slug}
+          title={this.state.prevPost.frontmatter.title}
+          image={this.state.prevPost.frontmatter.cover && this.state.prevPost.frontmatter.cover.childImageSharp.fluid}
+          label={this.state.prevPost.frontmatter.date}
+          height="100%"
+          href={this.state.prevPost.fields.slug}
+        />
+      </NextPrevWrapper>
+    )
+
     return (
       <Layout location={this.props.location} title={this.state.siteTitle}>
         <Helmet
@@ -205,9 +289,12 @@ class GigTemplate extends React.Component {
           meta={[{ name: 'description', content: this.state.siteDescription }]}
           title={`${this.state.post.frontmatter.title} | ${this.state.siteTitle}`}
         />
-        <Banner title={this.state.post.frontmatter.title} backgroundImage={this.state.post.frontmatter.cover && this.state.post.frontmatter.cover.childImageSharp.fluid}>
+        <Banner backgroundImage={this.state.post.frontmatter.cover && this.state.post.frontmatter.cover.childImageSharp.fluid} customContent={(<>{prevTile}{nextTile}</>)}>
           <HorizontalNav>{playlist}</HorizontalNav>
         </Banner>
+        <FixedTitle>
+          <h1 className="big">{this.state.post.frontmatter.title}</h1>
+        </FixedTitle>
         <PlayerWrapper>
           {this.state.selectedArtist.audio &&
             <Player artistMedia={this.state.artistMedia}></Player>
@@ -233,7 +320,7 @@ class GigTemplate extends React.Component {
 export default GigTemplate
 
 export const pageQuery = graphql`
-  query GigsBySlug($slug: String!, $artists: [String]!, $venue: String!, $gigDir: String! ) {
+  query GigsBySlug($slug: String!, $prevSlug: String, $nextSlug: String, $artists: [String]!, $venue: String!, $gigDir: String! ) {
     site {
       siteMetadata {
         title
@@ -246,12 +333,48 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")
+        date(formatString: "MMMM DD YYYY")
         venue
         artists { name, vid {link, title} }
         cover {
           childImageSharp {
             fluid(maxWidth: 1600) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
+    nextPost: markdownRemark(fields: { slug: { eq: $nextSlug } }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        title
+        date(formatString: "MMMM DD YYYY")
+        venue
+        artists { name, vid {link, title} }
+        cover {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
+    prevPost: markdownRemark(fields: { slug: { eq: $prevSlug } }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        title
+        date(formatString: "MMMM DD YYYY")
+        venue
+        artists { name, vid {link, title} }
+        cover {
+          childImageSharp {
+            fluid(maxWidth: 800) {
               ...GatsbyImageSharpFluid
             }
           }

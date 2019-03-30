@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import { rhythm } from '../utils/typography'
 import BackgroundImage from './BackgroundImage';
-import { transparentize } from 'polished';
 
 const BannerWrapper = styled.div`
-  height: ${props => props.height ? props.height : "50vh"};
+  height: ${props => props.height ? props.height : props.theme.bannerHeight};
+  overflow: hidden;
   position: relative;
   > * {
     z-index: 1;
@@ -23,19 +23,15 @@ const BannerText = styled.div`
   h1 {
     margin-top: ${rhythm(1)};
     justify-self: flex-start;
-    font-size: ${rhythm(1.5)};
-    text-align: center;
-    color: #fff;
-    text-transform: uppercase;
+    color: ${props => props.theme.contrastColor};
     position: sticky;
-    top: 0px;
+    top: 5px;
     z-index: 12;
   }
 
-  div {
+  .center-content {
     margin: auto;
     position: relative;
-    bottom: ${rhythm(1)}
   }
 
 `
@@ -47,11 +43,12 @@ class Banner extends React.Component {
         {this.props.background && this.props.background}
         {this.props.backgroundImage && <BackgroundImage fluid={this.props.backgroundImage} />}
         <BannerText>
-          <h1>{this.props.title}</h1>
-          <div>
+          {this.props.title && <h1 className="big">{this.props.title}</h1>}
+          <div className="center-content">
             {this.props.children}
           </div>
         </BannerText>
+        {this.props.customContent}
       </BannerWrapper>
     )
   }

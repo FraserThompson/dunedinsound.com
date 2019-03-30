@@ -21,6 +21,12 @@ const GlobalStyle = createGlobalStyle`
     text-shadow: 1px 1px #000;
   }
 
+  h1.big {
+    font-size: ${rhythm(1.5)};
+    text-align: center;
+    text-transform: uppercase;
+  }
+
   a {
     color: ${props => props.theme.textColor};
     text-decoration: none;

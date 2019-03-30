@@ -31,8 +31,8 @@ class Gigs extends React.Component {
               image={node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid}
               label={node.frontmatter.date}
               height="20vh"
-              href={node.fields.slug}>
-            </Tile>
+              href={node.fields.slug}
+            />
           )
         })}
         </GridContainer>

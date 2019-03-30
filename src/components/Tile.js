@@ -54,7 +54,7 @@ class Tile extends React.Component {
   render() {
 
     return (
-      <Container height={this.props.height}>
+      <Container height={this.props.height} className="tile">
         <Link to={this.props.href} style={{display: "block", width: "100%", height: "100%"}}>
           {this.props.label && <Label><small>{this.props.label}</small></Label>}
           {this.props.image && <BackgroundImage fluid={this.props.image}/>}

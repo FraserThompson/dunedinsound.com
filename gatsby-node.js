@@ -56,8 +56,11 @@ exports.createPages = ({ graphql, actions }) => {
         const context = {
           slug: post.node.fields.slug,
           previous,
-          next
+          next,
+          prevSlug: previous && previous.fields.slug,
+          nextSlug: next && next.fields.slug
         }
+
 
         const nodeType = post.node.fields.type
 
