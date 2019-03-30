@@ -28,6 +28,7 @@ const DropdownWrapper = styled.div`
 `
 
 const PlayerWrapper = styled.div`
+  box-shadow: 0 -6px 12px rgba(0,0,0,.175);
   display: flex;
   align-items: center;
   justify-content: center;

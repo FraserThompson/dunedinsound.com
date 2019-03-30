@@ -50,14 +50,6 @@ const HorizontalNav = styled.ul`
   }
 `
 
-const FixedTitle = styled.div`
-  position: fixed;
-  text-align: center;
-  z-index: 20;
-  width: 100%;
-  top: 5px;
-`
-
 const NextPrevWrapper = styled.a`
   position: absolute;
   right: ${props => props.prev ? "-10vw" : null};
@@ -108,7 +100,7 @@ class GigTemplate extends React.Component {
     // Turn the data returned from the images query into a key-value object of images by artist
     const imagesByArtist = this.props.data.images && this.props.data.images['group'].reduce((obj, item) => {
       const machineName = item.fieldValue
-      const images = item.edges.map(file => file.node.childImageSharp.fluid)
+      const images = item.edges.map(({node}) => node.childImageSharp.fluid)
       obj[machineName] = images
       return obj
     }, {})
@@ -205,8 +197,6 @@ class GigTemplate extends React.Component {
 
   render() {
 
-    const { previous, next } = this.props.pageContext
-
     const playlist = this.state.artistMedia.map((artist, index) => {
       return (
         <li key={index}>
@@ -233,6 +223,13 @@ class GigTemplate extends React.Component {
         return <YouTubeResponsive videoId={video.link} onReady={this.onYouTubeReady} opts={opts} key={video.link} odd={(artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1) ? true : false}/>
       })
 
+      const imageGridSize = {
+        xs: "6",
+        sm: "4",
+        md: "3",
+        lg: imageElements.length > 14 ? "3" : "4"
+      }
+
       return (
         <div key={artistIndex}>
           <Divider sticky={true}>
@@ -241,7 +238,7 @@ class GigTemplate extends React.Component {
           <GridContainer xs="12" sm="6" md="6" lg="6">
             {vidElements}
           </GridContainer>
-          <GridContainer xs="6" sm="4" md="3" lg="2">
+          <GridContainer {...imageGridSize}>
             {imageElements}
           </GridContainer>
         </div>
@@ -282,8 +279,10 @@ class GigTemplate extends React.Component {
       </NextPrevWrapper>
     )
 
+    const artistAudio = this.state.artistMedia.filter(thing => thing.audio)
+
     return (
-      <Layout location={this.props.location} title={this.state.siteTitle}>
+      <Layout location={this.props.location} title={this.state.siteTitle} headerContent={<h1 className="big">{this.state.post.frontmatter.title}</h1>}>
         <Helmet
           htmlAttributes={{ lang: 'en' }}
           meta={[{ name: 'description', content: this.state.siteDescription }]}
@@ -292,14 +291,10 @@ class GigTemplate extends React.Component {
         <Banner backgroundImage={this.state.post.frontmatter.cover && this.state.post.frontmatter.cover.childImageSharp.fluid} customContent={(<>{prevTile}{nextTile}</>)}>
           <HorizontalNav>{playlist}</HorizontalNav>
         </Banner>
-        <FixedTitle>
-          <h1 className="big">{this.state.post.frontmatter.title}</h1>
-        </FixedTitle>
-        <PlayerWrapper>
-          {this.state.selectedArtist.audio &&
-            <Player artistMedia={this.state.artistMedia}></Player>
-          }
+        {artistAudio.length > 0 && <PlayerWrapper>
+          <Player artistMedia={artistAudio}></Player>
         </PlayerWrapper>
+        }
         {mediaByArtist}
         {this.state.lightboxOpen &&
           <Lightbox
@@ -338,7 +333,7 @@ export const pageQuery = graphql`
         artists { name, vid {link, title} }
         cover {
           childImageSharp {
-            fluid(maxWidth: 1600) {
+            fluid(maxWidth: 2400) {
               ...GatsbyImageSharpFluid
             }
           }
@@ -389,7 +384,7 @@ export const pageQuery = graphql`
             name
             publicURL
             childImageSharp {
-              fluid(maxWidth: 1600) {
+              fluid(maxWidth: 2400) {
                 ...GatsbyImageSharpFluid
               }
             }

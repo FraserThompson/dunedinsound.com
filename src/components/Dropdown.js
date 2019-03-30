@@ -4,23 +4,13 @@ import styled from "styled-components"
 import { MdPlaylistPlay, MdFileDownload } from 'react-icons/md';
 import { rhythm } from '../utils/typography';
 import { lighten } from 'polished';
+import Menu from './Menu';
 
-const DropdownMenu = styled.ul`
+const DropdownMenu = styled(Menu)`
   position: absolute;
   bottom: 100%;
-  min-width: 200px;
-  width: ${props => props.width};
-  text-align: left;
-  background-color: ${props => props.theme.highlightColor2};
-  box-shadow: 0 6px 12px rgba(0,0,0,.175);
-  background-clip: padding-box;
   right: 0!important;
   left: auto;
-  border: none;
-  border-radius: 0;
-  margin: 0;
-  list-style: none;
-  overflow-y: hidden;
   visibility: ${props => props.open ? "1" : "0"};
   opacity: ${props => props.open ? "1" : "0"};
   transform: ${props => props.open ? "translateY(0)" : "translateY(" + props.theme.headerHeight + ")"};
@@ -28,42 +18,6 @@ const DropdownMenu = styled.ul`
   transition-property: all;
 	transition-duration: .3s;
 	transition-timing-function: cubic-bezier(0,0,0,1.2);
-
-  li {
-    line-height: 40px;
-    border-bottom: 2px solid ${props => props.theme.contrastColor};
-    margin: 0px;
-
-    &.active {
-      background-color: ${props => props.theme.highlightColor};
-      color: ${props => props.theme.highlightColor2};
-    }
-
-    cursor: pointer;
-
-    &:hover:not(.active) {
-      background-color: ${props => lighten(0.1, props.theme.highlightColor2)};
-    }
-
-    .inner {
-      padding: 10px;
-      display: block;
-      text-decoration: none;
-
-      .title {
-        font-size: ${rhythm(0.5)};
-      }
-
-      .downloadButton {
-        float: right;
-        a:hover {
-          text-decoration: none;
-          cursor: pointer;
-          color: ${props => lighten(0.1, props.theme.highlightColor)};
-        }
-      }
-    }
-  }
 `
 
 const DropdownButton = styled.button`
@@ -103,7 +57,7 @@ class Dropdown extends React.Component {
     const list = this.props.list.map((item, index) =>
       <li className={this.state.selected == index ? "active" : ""} key={index}>
         <a className="inner" onClick={() => this.select(index)}>
-          <span className="title">{index + 1}. {item.title}</span><span className="downloadButton"><a title={"Download MP3:" + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank"><MdFileDownload/></a></span>
+          <span className="title">{index + 1}. {item.title}</span><span className="listButton"><a title={"Download MP3:" + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank"><MdFileDownload/></a></span>
         </a>
       </li>
     )

@@ -13,6 +13,9 @@ const Divider = styled.div`
   background-color: ${props => props.highlight ? props.theme.highlightColor : props.theme.contrastColor};
   p {
     margin: 0;
+    line-height: ${rhythm(1)};
+    display: inline-block;
+    vertical-align: middle;
   }
 `
 export default Divider;

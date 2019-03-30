@@ -95,6 +95,8 @@ const Container = styled.div`
 `
 
 class Layout extends React.Component {
+
+
   render() {
     const { location, title, children } = this.props
     const rootPath = `${__PATH_PREFIX__}/`
@@ -103,7 +105,7 @@ class Layout extends React.Component {
       <ThemeProvider theme={theme.default}>
         <>
           <GlobalStyle/>
-          <SiteHeader/>
+          <SiteHeader headerContent={this.props.headerContent}/>
           <Container>
             {children}
           </Container>
