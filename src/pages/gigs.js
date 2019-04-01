@@ -34,6 +34,10 @@ const SidebarNav = styled(Menu)`
   }
 `
 
+const HeaderSearch = styled.input`
+  width: 100%;
+`
+
 const PageContent = styled.div`
   padding-left: 15vw;
 `
@@ -45,7 +49,6 @@ class Gigs extends React.Component {
     this.state = {
       filteredPosts: this.props.data.allMarkdownRemark.edges
     }
-
   }
 
   filter = (e) => {
@@ -57,6 +60,11 @@ class Gigs extends React.Component {
       const filteredPosts = this.props.data.allMarkdownRemark.edges.filter(({node}) => node.frontmatter.title.toLowerCase().includes(searchInput))
       this.setState({filteredPosts})
     }
+  }
+
+  sortByMonth = (a, b) => {
+    const allMonths = ['Jan','Feb','Mar', 'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    return allMonths.indexOf(a) > allMonths.indexOf(b)
   }
 
   render() {
@@ -76,16 +84,16 @@ class Gigs extends React.Component {
     }, {})
 
     return (
-      <Layout location={this.props.location} title={siteTitle} headerContent={<input type="text" onChange={this.filter}/>}>
+      <Layout location={this.props.location} title={siteTitle} headerContent={<HeaderSearch type="text" onChange={this.filter}/>}>
         <Helmet
           htmlAttributes={{ lang: 'en' }}
           meta={[{ name: 'description', content: siteDescription }]}
           title={siteTitle}
         />
         <PageContent>
-          {Object.keys(postsByDate).map((year) => {
+          {Object.keys(postsByDate).sort((a, b) => b - a).map((year) => {
 
-            const monthPosts = Object.keys(postsByDate[year]).map(month => {
+            const monthPosts = Object.keys(postsByDate[year]).sort(this.sortByMonth).map(month => {
 
               const posts = postsByDate[year][month]
               const id = year + "-" + month
@@ -118,8 +126,8 @@ class Gigs extends React.Component {
         </PageContent>
         <SidebarNav>
         <Scrollspy items={ ['2019', '2019-March', '2018', '2018-March'] } currentClassName="active">
-          {Object.keys(postsByDate).map((year) => {
-            const month_names = Object.keys(postsByDate[year]).map((month) => <li key={month}><a href={"#" + year + "-" + month}>{month}</a></li>)
+          {Object.keys(postsByDate).sort((a, b) => b - a).map((year) => {
+            const month_names = Object.keys(postsByDate[year]).sort(this.sortByMonth).map((month) => <li key={month}><a href={"#" + year + "-" + month}>{month}</a></li>)
             return (
               <li key={year}>
                 <a className="year" href={"#" + year}>{year}</a>

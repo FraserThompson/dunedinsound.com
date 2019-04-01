@@ -13,6 +13,7 @@ export const theme = {
         highlightColor: "#01baef",
         highlightColor2: "#EC4067",
         contrastColor: "#EFF1ED",
-        textColor: "#EFEFEF"
+        textColor: "#EFEFEF",
+        contentContainerWidth: "1000px"
     }
 }

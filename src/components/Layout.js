@@ -25,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: ${rhythm(1.5)};
     text-align: center;
     text-transform: uppercase;
+    margin-bottom: 0;
   }
 
   a {
@@ -88,27 +89,27 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-const Container = styled.div`
+const SiteContainer = styled.div`
   min-height: ${props => "calc(100vh - " + props.theme.headerHeight + " - " + props.theme.footerHeight + " - " + rhythm(3) + ")"};
+  background-color: ${props => props.overrideBackgroundColor};
   height: 100%;
   width: 100%;
 `
 
 class Layout extends React.Component {
 
-
   render() {
     const { location, title, children } = this.props
     const rootPath = `${__PATH_PREFIX__}/`
 
     return (
-      <ThemeProvider theme={theme.default}>
+      <ThemeProvider theme={this.props.theme || theme.default}>
         <>
           <GlobalStyle/>
           <SiteHeader headerContent={this.props.headerContent}/>
-          <Container>
+          <SiteContainer overrideBackgroundColor={this.props.overrideBackgroundColor}>
             {children}
-          </Container>
+          </SiteContainer>
           <SiteFooter/>
         </>
       </ThemeProvider>

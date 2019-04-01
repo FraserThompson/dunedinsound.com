@@ -16,6 +16,13 @@ const Container = styled.div`
   color: ${props => props.theme.textColor};
   .miscContent {
     margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-self: center;
+    flex-grow: 1;
+    margin-left: ${rhythm(1)};
+    margin-right: ${rhythm(1)};
   }
 `
 
