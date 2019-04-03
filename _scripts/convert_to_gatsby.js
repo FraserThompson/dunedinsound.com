@@ -14,8 +14,15 @@ function machine_name(string, space_character) {
 }
 
 function doGigs() {
-    glob('_posts/*.markdown', {}, function(err, files){
-        files.forEach(function(file){
+    glob('_posts/*.markdown', {}, (err, files) => {
+        files.slice(-15).forEach(file => {
+            const parsedPath = path.parse(file)
+            const newDir = "./_test_output/gigs/" +  parsedPath.name.replace(".markdown", "")
+
+            if (fs.existsSync(newDir)) return
+
+            fs.mkdirSync(newDir);
+
             const loadedFile = fs.readFileSync(file);
             const frontmatter = loadedFile.toString().split("---");
 
@@ -30,11 +37,15 @@ function doGigs() {
 
             if (parsed.media) {
                 for (artist in parsed.media) {
-                    const machineArtist = machine_name(artist, "_");
-                    const newObject = {name: machineArtist}
+                    const newObject = {name: artist}
 
                     if (parsed.media[artist].vid) newObject['vid'] = parsed.media[artist].vid
-                    
+                    if (parsed.media[artist].mp3) { 
+                        const mp3Name = parsed.title + " - " + artist + ".mp3"
+                        fs.copySync('./assets/audio/' + machine_name(artist) + "/" + mp3Name, newDir + "/" + machine_name(artist) + "/" + mp3Name)
+                        fs.copySync('./assets/audio/' + machine_name(artist) + "/" + mp3Name + ".json", newDir + "/" + machine_name(artist) + "/" + mp3Name + ".json")
+                    }
+
                     newMedia.push(newObject);
                 }
             } else if (parsed.categories) {
@@ -50,17 +61,20 @@ function doGigs() {
             delete parsed.media;
             delete parsed.image;
         
-            const newDir = "./_test_output/gigs/" +  parsed.title
-            fs.mkdirSync(newDir);
             fs.writeFileSync(newDir + "/index.md", "---\n" + YAML.stringify(parsed, 2) + "---\n");
+
+            // copy images
+            fs.copySync('./assets/img/' + parsed.title, newDir, { filter: (src, dest) => !(src.includes("(Medium)") || src.includes("(Small") || src.includes("(Tiny"))})
+            fs.copySync('./assets/img/' + parsed.title, newDir, { filter: (src, dest) => !(src.includes("(Medium)") || src.includes("(Small") || src.includes("(Tiny"))})
+
         });
 
     });
 }
 
 function doArtists() {
-    glob('_pages/artists/*.md', {}, function(err, files){
-        files.forEach(function(file){
+    glob('_pages/artists/*.md', {}, (err, files) => {
+        files.forEach(file => {
             const loadedFile = fs.readFileSync(file);
             const frontmatter = loadedFile.toString().split("---");
 
@@ -80,8 +94,8 @@ function doArtists() {
 }
 
 function doVenues() {
-    glob('_pages/venues/*.md', {}, function(err, files){
-        files.forEach(function(file){
+    glob('_pages/venues/*.md', {}, (err, files) => {
+        files.forEach(file => {
             const loadedFile = fs.readFileSync(file);
             const frontmatter = loadedFile.toString().split("---");
 
@@ -101,8 +115,8 @@ function doVenues() {
 }
 
 function doAudio() {
-    glob('assets/audio/**/*.{mp3,json}', {}, function(err, files) {
-        files.forEach(function(file){
+    glob('assets/audio/**/*.{mp3,json}', {}, (err, files) => {
+        files.forEach(file => {
             const parsedPath = path.parse(file)
             const name = parsedPath.name.replace(".mp3", "")
             const gigName = name.split(" - ")[0]
@@ -116,7 +130,7 @@ function doAudio() {
     })
 }
 
-//doGigs();
+doGigs();
 //doArtists();
 //doVenues();
 //doAudio();

@@ -14,26 +14,16 @@ media:
     Longmore and Meung:
             mp3:
                 -   title: Full Set
-            vid:
-                -   link:
     Smith:
             mp3:
                 -   title: Full Set
-            vid:
-                -   link:
     UMU:
             mp3:
                 -   title: Full Set
-            vid:
-                -   link:
     Is There A Hotline:
             mp3:
                 -   title: Full Set
-            vid:
-                -   link:
     Gate:
             mp3:
                 -   title: Full Set
-            vid:
-                -   link:
 ---
