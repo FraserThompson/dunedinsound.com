@@ -125,15 +125,9 @@ class Gigs extends React.Component {
           })}
         </PageContent>
         <SidebarNav>
-        <Scrollspy items={ ['2019', '2019-March', '2018', '2018-March'] } currentClassName="active">
+        <Scrollspy items={ ['2019-March', '2019-February', '2019-January', '2019'] } currentClassName="active">
           {Object.keys(postsByDate).sort((a, b) => b - a).map((year) => {
-            const month_names = Object.keys(postsByDate[year]).sort(this.sortByMonth).map((month) => <li key={month}><a href={"#" + year + "-" + month}>{month}</a></li>)
-            return (
-              <li key={year}>
-                <a className="year" href={"#" + year}>{year}</a>
-                {month_names}
-              </li>
-            )
+            return Object.keys(postsByDate[year]).sort(this.sortByMonth).map(month => <li key={month}><a href={"#" + year + "-" + month}>{month}</a></li>)
           })}
         </Scrollspy>
         </SidebarNav>

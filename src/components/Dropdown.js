@@ -56,7 +56,7 @@ class Dropdown extends React.Component {
 
     const list = this.props.list.map((item, index) =>
       <li className={this.state.selected == index ? "active" : ""} key={index}>
-        <a className="inner" onClick={() => this.select(index)}>
+        <a onClick={() => this.select(index)}>
           <span className="title">{index + 1}. {item.title}</span><span className="listButton"><a title={"Download MP3:" + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank"><MdFileDownload/></a></span>
         </a>
       </li>
