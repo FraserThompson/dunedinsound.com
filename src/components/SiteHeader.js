@@ -21,14 +21,15 @@ const Container = styled.div`
     text-overflow: ellipsis;
     align-self: center;
     flex-grow: 1;
-    margin-left: ${rhythm(1)};
-    margin-right: ${rhythm(1)};
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
   }
 `
 
 const Brand = styled.div`
   margin-right: auto;
-  display: block;
+  display: "block";
   height: ${props => props.theme.headerHeight};
   a {
     padding: ${rhythm(0.5)};
@@ -50,9 +51,9 @@ class SiteHeader extends React.Component {
     render() {
         return (
             <Container>
-                <Brand>
+                {!this.props.hideBrand && <Brand>
                   <Link to="/">Dunedin Gig Archives</Link>
-                </Brand>
+                </Brand>}
                 <div className="miscContent">
                   {this.props.headerContent}
                 </div>

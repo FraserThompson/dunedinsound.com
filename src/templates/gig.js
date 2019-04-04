@@ -282,7 +282,7 @@ class GigTemplate extends React.Component {
     const artistAudio = this.state.artistMedia.filter(thing => thing.audio)
 
     return (
-      <Layout location={this.props.location} title={this.state.siteTitle} headerContent={<h1 className="big">{this.state.post.frontmatter.title}</h1>}>
+      <Layout location={this.props.location} title={this.state.siteTitle} hideBrand={true} headerContent={<h1 className="big">{this.state.post.frontmatter.title}</h1>}>
         <Helmet
           htmlAttributes={{ lang: 'en' }}
           meta={[{ name: 'description', content: this.state.siteDescription }]}

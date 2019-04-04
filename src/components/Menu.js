@@ -3,7 +3,6 @@ import { rhythm } from '../utils/typography';
 import { lighten } from 'polished';
 
 const Menu = styled.ul`
-  min-width: 200px;
   width: ${props => props.width};
   text-align: left;
   background-color: ${props => props.theme.headerColor};
@@ -22,6 +21,14 @@ const Menu = styled.ul`
     margin: 0px;
     display: ${props => props.horizontal ? "inline-block" : "block"};
     cursor: pointer;
+
+
+    &.active {
+      > a{
+        background-color: ${props => props.theme.highlightColor2};
+        color: ${props => lighten(0.5, props.theme.textColor)};
+      }
+    }
 
     > a {
       padding-left: ${rhythm(0.5)};
@@ -46,14 +53,6 @@ const Menu = styled.ul`
       }
     }
 
-    &.active {
-      background-color: ${props => props.theme.highlightColor};
-      color: ${props => props.theme.highlightColor2};
-    }
-
-    &:hover:not(.active) {
-      background-color: ${props => lighten(0.1, props.theme.highlightColor2)};
-    }
   }
 `
 

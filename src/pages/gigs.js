@@ -6,27 +6,49 @@ import Layout from '../components/Layout'
 import Tile from '../components/Tile';
 import { rhythm } from '../utils/typography';
 import Menu from '../components/Menu';
+import { MdMenu } from 'react-icons/md';
 import Scrollspy from 'react-scrollspy'
 
 const SidebarNav = styled(Menu)`
+
   background-color: ${props => props.theme.headerColor};
-  transition: all .2s ease;
   height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
   position: fixed;
-  width: ${props => props.width || "15vw"};
+  width: ${props => props.width};
   top: ${props => props.theme.headerHeight};
   left: 0;
   z-index: 10;
   padding: 0;
   margin: 0;
+
+  transition-property: all;
+	transition-duration: .3s;
+	transition-timing-function: cubic-bezier(0,0,0,1.2);
+
+  visibility: ${props => props.open ? "hidden" : "visible"};
+	opacity: ${props => props.open ? "0" : "1"};
+  transform: ${props => props.open ? "translateX(-" + props.width + ")" : "translateY(0)"};
+  pointer-events: ${props => props.open ? "none" : "auto"};
+  width: 60vw;
+
+  @media screen and (min-width: 992px) {
+    width: ${props => props.width};
+    visibility: ${props => !props.open ? "hidden" : "visible"};
+    opacity: ${props => !props.open ? "0" : "1"};
+    transform: ${props => !props.open ? "translateX(-" + props.width + ")" : "translateY(0)"};
+    pointer-events: ${props => !props.open ? "none" : "auto"};
+  }
+
   .year, .months {
     padding-left: ${rhythm(0.5)};
   }
+
   .year {
     border-left: 2px solid ${props => props.theme.highlightColor2};
   }
+
   ul {
     list-style: none;
     padding: 0;
@@ -34,12 +56,39 @@ const SidebarNav = styled(Menu)`
   }
 `
 
+const DropdownButton = styled.button`
+  display: inline-block;
+  width: 50px;
+  height: ${props => props.theme.headerHeight};
+  font-size: ${rhythm(1)};
+  padding: 0;
+  outline: 0;
+  z-index: 12;
+
+
+  @media screen and (min-width: 992px) {
+    display: none;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+`
+
 const HeaderSearch = styled.input`
   width: 100%;
+  margin-left: ${rhythm(0.5)};
+  margin-right: ${rhythm(0.5)};
 `
 
 const PageContent = styled.div`
-  padding-left: 15vw;
+  padding-left: 0px;
+
+  @media screen and (min-width: 992px) {
+    padding-left: 15vw;
+  }
+
 `
 
 class Gigs extends React.Component {
@@ -47,7 +96,8 @@ class Gigs extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      filteredPosts: this.props.data.allMarkdownRemark.edges
+      filteredPosts: this.props.data.allMarkdownRemark.edges,
+      sidebarOpen: true
     }
   }
 
@@ -67,6 +117,10 @@ class Gigs extends React.Component {
     return allMonths.indexOf(a) > allMonths.indexOf(b)
   }
 
+  toggleSidebar = () => {
+    this.setState({sidebarOpen: !this.state.sidebarOpen})
+  }
+
   render() {
 
     const { data } = this.props;
@@ -83,8 +137,17 @@ class Gigs extends React.Component {
       return object
     }, {})
 
+    let scrollspyClasses = []
+    const menuItems = Object.keys(postsByDate).sort((a, b) => b - a).map((year) => {
+      return Object.keys(postsByDate[year]).sort(this.sortByMonth).map(month => {
+        const className = year + "-" + month
+        scrollspyClasses.push(className);
+        return <li key={month}><a href={"#" + className}>{month}</a></li>
+      })
+    })
+
     return (
-      <Layout location={this.props.location} title={siteTitle} headerContent={<HeaderSearch type="text" onChange={this.filter}/>}>
+      <Layout location={this.props.location} title={siteTitle} hideBrand={true} headerContent={<><DropdownButton onClick={this.toggleSidebar}><MdMenu/></DropdownButton><HeaderSearch type="text" onChange={this.filter}/></>}>
         <Helmet
           htmlAttributes={{ lang: 'en' }}
           meta={[{ name: 'description', content: siteDescription }]}
@@ -124,12 +187,8 @@ class Gigs extends React.Component {
 
           })}
         </PageContent>
-        <SidebarNav>
-        <Scrollspy items={ ['2019-March', '2019-February', '2019-January', '2019'] } currentClassName="active">
-          {Object.keys(postsByDate).sort((a, b) => b - a).map((year) => {
-            return Object.keys(postsByDate[year]).sort(this.sortByMonth).map(month => <li key={month}><a href={"#" + year + "-" + month}>{month}</a></li>)
-          })}
-        </Scrollspy>
+        <SidebarNav width="15vw" open={this.state.sidebarOpen}>
+          <Scrollspy items={scrollspyClasses} currentClassName="active" offset={-60}>{menuItems}</Scrollspy>
         </SidebarNav>
       </Layout>
     )

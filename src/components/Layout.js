@@ -32,10 +32,21 @@ const GlobalStyle = createGlobalStyle`
     color: ${props => props.theme.textColor};
     text-decoration: none;
     background-color: transparent;
-  }
 
-  a:active, a:hover {
+    &:active, &:hover {
       outline: 0;
+    }
+
+    &:hover, &:focus {
+      color: ${props => lighten(0.5, props.theme.textColor)};
+      text-decoration: underline;
+    }
+
+    &.active {
+      background-color: ${props => props.theme.highlightColor2};
+      color: ${props => lighten(0.5, props.theme.textColor)};
+    }
+
   }
 
   * {
@@ -48,17 +59,6 @@ const GlobalStyle = createGlobalStyle`
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
-  }
-
-  a:hover, a:focus {
-    color: ${props => props.theme.textColor};
-    text-decoration: underline;
-  }
-
-  a:focus {
-      outline: thin dotted;
-      outline: 5px auto -webkit-focus-ring-color;
-      outline-offset: -2px;
   }
 
   button, .button {
@@ -75,15 +75,15 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 5px;
 
     color: ${props => props.theme.textColor};
-    background-color: ${props => props.theme.highlightColor2};
+    background-color: ${props => props.theme.highlightColor};
 
     &.active, &:active {
-      color: ${props => lighten(0.1, props.theme.highlightColor2)};
-      background-color: ${props => props.theme.highlightColor};
+      background-color: ${props => props.theme.highlightColor2};
+      color: ${props => lighten(0.5, props.theme.textColor)};
     }
 
     &:hover:not(.active) {
-      background: ${props => lighten(0.1, props.theme.highlightColor2)};
+      color: ${props => lighten(0.5, props.theme.textColor)};
       text-decoration: none;
     }
   }
@@ -106,7 +106,7 @@ class Layout extends React.Component {
       <ThemeProvider theme={this.props.theme || theme.default}>
         <>
           <GlobalStyle/>
-          <SiteHeader headerContent={this.props.headerContent}/>
+          <SiteHeader headerContent={this.props.headerContent} hideBrand={this.props.hideBrand}/>
           <SiteContainer overrideBackgroundColor={this.props.overrideBackgroundColor}>
             {children}
           </SiteContainer>
