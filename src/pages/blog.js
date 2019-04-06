@@ -2,13 +2,26 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Helmet from 'react-helmet'
 import Layout from '../components/Layout'
-import Tile from '../components/Tile';
 import styled from 'styled-components';
 import BlogContainer from '../components/BlogContainer';
-import { theme } from '../utils/theme';
+import Banner from '../components/Banner';
+import { rhythm } from '../utils/typography';
 
 const Post = styled.div`
+  margin-top: ${rhythm(1)};
 
+  .banner, hr {
+    margin-left: -5vw;
+    margin-right: -5vw;
+  }
+
+  .banner {
+    margin-bottom: ${rhythm(1)};
+  }
+
+  hr {
+    margin-top: ${rhythm(1)};
+  }
 `
 
 class Blog extends React.Component {
@@ -21,18 +34,15 @@ class Blog extends React.Component {
     const postElements = posts.map(({node}) =>
       <Post>
         <h1><Link to={node.fields.slug}>{node.frontmatter.title}</Link></h1>
-        <p>{node.frontmatter.date}</p>
+        <h4>{node.frontmatter.date}</h4>
+        {node.frontmatter.cover && <Link to={node.fields.slug}><Banner height="20vh" backgroundImage={node.frontmatter.cover.childImageSharp.fluid}></Banner></Link>}
         <p>{node.excerpt}</p>
+        <hr/>
       </Post>
     )
 
     return (
-      <Layout location={this.props.location} title={siteTitle} overrideBackgroundColor="white">
-        <Helmet
-          htmlAttributes={{ lang: 'en' }}
-          meta={[{ name: 'description', content: siteDescription }]}
-          title={siteTitle}
-        />
+      <Layout location={this.props.location} description={siteDescription} title={`Blog | ${siteTitle}`} overrideBackgroundColor="white">
         <BlogContainer>
           {postElements}
         </BlogContainer>

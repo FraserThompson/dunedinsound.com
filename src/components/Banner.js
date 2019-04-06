@@ -43,7 +43,7 @@ const BannerText = styled.div`
 class Banner extends React.Component {
   render() {
     return (
-      <BannerWrapper height={this.props.height}>
+      <BannerWrapper className="banner" height={this.props.height}>
         {this.props.background && this.props.background}
         {this.props.backgroundImage && <BackgroundImage fluid={this.props.backgroundImage} />}
         <BannerText>

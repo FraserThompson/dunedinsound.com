@@ -7,6 +7,7 @@ import SiteFooter from './SiteFooter';
 import { rhythm } from '../utils/typography';
 import { lighten } from 'polished';
 import TransitionStyles from './TransitionStyles';
+import { Helmet } from 'react-helmet';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -16,10 +17,6 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     width: 100%;
     scroll-behavior: smooth;
-  }
-
-  h1,h2,h3,h4 {
-    text-shadow: 1px 1px #000;
   }
 
   h1.big {
@@ -117,6 +114,11 @@ class Layout extends React.Component {
     return (
       <ThemeProvider theme={this.props.theme || theme.default}>
         <>
+          <Helmet
+            htmlAttributes={{ lang: 'en' }}
+            meta={[{ name: 'description', content: this.props.description }]}
+            title={this.props.title}
+          />
           <GlobalStyle/>
           <SiteHeader headerContent={this.props.headerContent} hideBrand={this.props.hideBrand}/>
           <SiteContainer overrideBackgroundColor={this.props.overrideBackgroundColor}>

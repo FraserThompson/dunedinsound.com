@@ -94,8 +94,6 @@ class GigTemplate extends React.Component {
     this.post = this.props.data.thisPost
     this.nextPost = this.props.data.nextPost
     this.prevPost = this.props.data.prevPost
-    this.siteTitle = this.props.data.site.siteMetadata.title
-    this.siteDescription = this.post.excerpt
 
     /* Pre-processed data */
     // Key-value object of images by artist
@@ -144,7 +142,7 @@ class GigTemplate extends React.Component {
     this.artistAudio = this.artistMedia.filter(thing => thing.audio)
 
     // Details for the venue
-    this.venueDetails = this.props.data.venue && this.props.data.venue.edges[0].node
+    this.venueDetails = this.props.data.venue && this.props.data.venue.length > 0 && this.props.data.venue.edges[0].node
 
     /* Display elements */
     // Clickable list of artists
@@ -297,13 +295,12 @@ class GigTemplate extends React.Component {
   }
 
   render = () => {
+
+    const siteTitle = this.props.data.site.siteMetadata.title
+    const siteDescription = this.post.excerpt
+
     return (
-      <Layout location={this.props.location} title={this.siteTitle} hideBrand={this.state.scrolled} headerContent={this.state.scrolled && <h1 className="big">{this.post.frontmatter.title}</h1>}>
-        <Helmet
-          htmlAttributes={{ lang: 'en' }}
-          meta={[{ name: 'description', content: this.siteDescription }]}
-          title={`${this.post.frontmatter.title} | ${this.siteTitle}`}
-        />
+      <Layout location={this.props.location} description={siteDescription} title={`${this.post.frontmatter.title} | ${siteTitle}`} hideBrand={this.state.scrolled} headerContent={this.state.scrolled && <h1 className="big">{this.post.frontmatter.title}</h1>}>
         <Banner title={this.post.frontmatter.title} backgroundImage={this.post.frontmatter.cover && this.post.frontmatter.cover.childImageSharp.fluid} customContent={(<>{this.prevTile}{this.nextTile}</>)}>
           <HorizontalNav>{this.playlist}</HorizontalNav>
         </Banner>

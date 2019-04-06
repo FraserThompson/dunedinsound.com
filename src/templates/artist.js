@@ -38,12 +38,7 @@ class ArtistTemplate extends React.Component {
     });
 
     return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <Helmet
-          htmlAttributes={{ lang: 'en' }}
-          meta={[{ name: 'description', content: siteDescription }]}
-          title={`${post.frontmatter.title} | ${siteTitle}`}
-        />
+      <Layout location={this.props.location} description={siteDescription} title={`${post.frontmatter.title} | ${siteTitle}`}>
         <Banner title={post.frontmatter.title} height="40vh" backgroundImage={this.props.data.images && this.props.data.images.edges[0].node.childImageSharp.fluid}>
           {post.frontmatter.bandcamp && <a href={post.frontmatter.bandcamp}>Bandcamp</a>}
           {post.frontmatter.facebook && <a href={post.frontmatter.facebook}>Facebook</a>}

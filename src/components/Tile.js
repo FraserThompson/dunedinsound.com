@@ -11,10 +11,17 @@ const Container = styled.div`
   position: relative;
   height: ${props => props.height ? props.height : "500px"};
   overflow: hidden;
+
+  h1,h2,h3,h4 {
+    text-shadow: 1px 1px #000;
+  }
+
   .backgroundImage{
     transition: transform 0.3s ease-in-out;
     transform: scale(1,1);
   }
+
+
   &:hover {
     .backgroundImage {
       transform: scale(1.02,1.02);

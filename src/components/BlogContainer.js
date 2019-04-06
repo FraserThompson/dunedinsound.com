@@ -8,7 +8,11 @@ const BlogContainer = styled(Content)`
   width: 100%;
   color: black;
   a {
-    color: black;
+    color: ${props => props.theme.highlightColor};
+    text-decoration: none;
+    &:hover {
+      color: ${props => props.theme.highlightColor2};
+    }
   }
 `
 export default BlogContainer;

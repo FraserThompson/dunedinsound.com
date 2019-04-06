@@ -17,13 +17,7 @@ class Homepage extends React.Component {
     const firstNode = posts[0].node
 
     return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <Helmet
-          htmlAttributes={{ lang: 'en' }}
-          meta={[{ name: 'description', content: siteDescription }]}
-          title={siteTitle}
-        />
-
+      <Layout description={siteDescription} location={this.props.location} title={siteTitle}>
         <GridContainer>
           <div style={{gridColumn:  "span 8"}}>
             <Tile

@@ -26,12 +26,7 @@ class Venues extends React.Component {
     });
 
     return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <Helmet
-          htmlAttributes={{ lang: 'en' }}
-          meta={[{ name: 'description', content: siteDescription }]}
-          title={siteTitle}
-        />
+      <Layout description={siteDescription} location={this.props.location} title={`Venues | ${siteTitle}`}>
         <GridContainer xs="6" sm="4" md="3" lg="2">
           {artistTiles}
         </GridContainer>
