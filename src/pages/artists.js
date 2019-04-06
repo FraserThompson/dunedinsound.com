@@ -4,13 +4,37 @@ import Helmet from 'react-helmet'
 import Layout from '../components/Layout'
 import GridContainer from '../components/GridContainer';
 import Tile from '../components/Tile';
+import Search from '../components/Search';
 
-class Gigs extends React.Component {
+class Artists extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      filteredPosts: this.props.data.allArtists.edges,
+      sidebarOpen: true
+    }
+  }
+
+  filter = (e) => {
+    const searchInput = e.target.value;
+    if (!searchInput || searchInput == "") {
+      const filteredPosts =  this.props.data.allArtists.edges;
+      this.setState({filteredPosts})
+    } else {
+      const filteredPosts = this.props.data.allArtists.edges.filter(({node}) =>node.frontmatter.title.toLowerCase().includes(searchInput))
+      this.setState({filteredPosts})
+    }
+  }
+
+  toggleSidebar = () => {
+    this.setState({sidebarOpen: !this.state.sidebarOpen})
+  }
+
   render() {
     const { data } = this.props;
     const siteTitle = data.site.siteMetadata.title
     const siteDescription = data.site.siteMetadata.description
-    const posts = data.allArtists.edges
 
     const imagesByArtist = data.imagesByArtist['group'].reduce((obj, item) => {
       const name = item.fieldValue
@@ -19,7 +43,7 @@ class Gigs extends React.Component {
       return obj
     }, {});
 
-    const artistTiles = posts.map(({ node }) => {
+    const artistTiles = this.state.filteredPosts.map(({ node }) => {
       const title = node.frontmatter.title || node.fields.slug
       const coverImage = node.frontmatter.cover ? node.frontmatter.cover.childImageSharp.fluid : (imagesByArtist[node.fields.machine_name] && imagesByArtist[node.fields.machine_name][0].node.childImageSharp.fluid)
 
@@ -36,7 +60,7 @@ class Gigs extends React.Component {
     });
 
     return (
-      <Layout location={this.props.location} title={siteTitle}>
+      <Layout location={this.props.location} title={siteTitle} hideBrand={true} headerContent={<Search toggleSidebar={this.toggleSidebar} filter={this.filter} />}>
         <Helmet
           htmlAttributes={{ lang: 'en' }}
           meta={[{ name: 'description', content: siteDescription }]}
@@ -50,7 +74,7 @@ class Gigs extends React.Component {
   }
 }
 
-export default Gigs
+export default Artists
 
 export const pageQuery = graphql`
   query {

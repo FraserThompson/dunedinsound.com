@@ -4,6 +4,10 @@ import { rhythm } from '../utils/typography'
 import BackgroundImage from './BackgroundImage';
 
 const BannerWrapper = styled.div`
+	background: #00a8c5;
+	background: -webkit-linear-gradient(right,#00a8c5,#d74177);
+	background: -moz-linear-gradient(right,#00a8c5,#d74177);
+	background: linear-gradient(right,#00a8c5,#d74177);
   height: ${props => props.height ? props.height : props.theme.bannerHeight};
   overflow: hidden;
   position: relative;

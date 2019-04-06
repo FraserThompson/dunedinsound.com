@@ -5,6 +5,7 @@ import { Link, graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import { rhythm, scale } from '../utils/typography'
 import BlogContainer from '../components/BlogContainer';
+import Banner from '../components/Banner';
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -20,6 +21,7 @@ class BlogPostTemplate extends React.Component {
           meta={[{ name: 'description', content: siteDescription }]}
           title={`${post.frontmatter.title} | ${siteTitle}`}
         />
+        {post.frontmatter.cover && <Banner backgroundImage={post.frontmatter.cover.childImageSharp.fluid}></Banner>}
         <BlogContainer>
           <h1>{post.frontmatter.title}</h1>
           <p
@@ -87,6 +89,13 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
+        cover {
+          childImageSharp {
+            fluid(maxWidth: 2400) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
         date(formatString: "MMMM DD, YYYY")
       }
     }

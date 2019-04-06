@@ -3,8 +3,12 @@ import { Link } from 'gatsby'
 import styled from "styled-components"
 import { rhythm } from '../utils/typography'
 import Menu from './Menu';
+import MenuButton from './MenuButton';
+import SidebarNav from './SidebarNav';
+import { MdMenu } from 'react-icons/md';
 
 const Container = styled.div`
+
   background-color: ${props => props.theme.headerColor};
   position: sticky;
   display: flex;
@@ -14,6 +18,7 @@ const Container = styled.div`
   z-index: 10;
   height: ${props => props.theme.headerHeight};
   color: ${props => props.theme.textColor};
+
   .miscContent {
     margin: 0 auto;
     white-space: nowrap;
@@ -43,30 +48,41 @@ const Brand = styled.div`
 
 class SiteHeader extends React.Component {
 
-    isPartiallyActive = ({isPartiallyCurrent}) => {
-      return isPartiallyCurrent ? { className: "active" } : null
+  constructor(props) {
+    super(props)
+    this.state = {
+      navOpen: true
     }
+  }
 
+  toggleNav = () => {
+    this.setState({navOpen: !this.state.navOpen})
+  }
 
-    render() {
-        return (
-            <Container>
-                {!this.props.hideBrand && <Brand>
-                  <Link to="/">Dunedin Gig Archives</Link>
-                </Brand>}
-                <div className="miscContent">
-                  {this.props.headerContent}
-                </div>
-                <Menu horizontal>
-                  <li><Link activeClassName="active" to="/">Home</Link></li>
-                  <li><Link getProps={this.isPartiallyActive} to="/gigs/">Gigs</Link></li>
-                  <li><Link getProps={this.isPartiallyActive} to="/artists/">Artists</Link></li>
-                  <li><Link getProps={this.isPartiallyActive} to="/venues/">Venues</Link></li>
-                  <li><Link getProps={this.isPartiallyActive} to="/blog/">Blog</Link></li>
-                </Menu>
-            </Container>
-        )
-    }
+  isPartiallyActive = ({isPartiallyCurrent}) => {
+    return isPartiallyCurrent ? { className: "active" } : null
+  }
+
+  render() {
+    return (
+      <Container>
+          {!this.props.hideBrand && <Brand>
+            <Link to="/">Dunedin Gig Archives</Link>
+          </Brand>}
+          <div className="miscContent">
+            {this.props.headerContent}
+          </div>
+          <MenuButton className={this.state.navOpen ? "active" : ""} hideMobile={true} onClick={this.toggleNav}><MdMenu/></MenuButton>
+          <SidebarNav open={this.state.navOpen} horizontal right>
+            <li><Link activeClassName="active" to="/">Home</Link></li>
+            <li><Link getProps={this.isPartiallyActive} to="/gigs/">Gigs</Link></li>
+            <li><Link getProps={this.isPartiallyActive} to="/artists/">Artists</Link></li>
+            <li><Link getProps={this.isPartiallyActive} to="/venues/">Venues</Link></li>
+            <li><Link getProps={this.isPartiallyActive} to="/blog/">Blog</Link></li>
+          </SidebarNav>
+      </Container>
+    )
+  }
 }
 
 export default SiteHeader

@@ -105,7 +105,7 @@ export const pageQuery = graphql`
             slug
           }
           frontmatter {
-            date(formatString: "MMMM DD, YYYY")
+            date(formatString: "DD MMMM YYYY")
             venue
             artists { name, vid {link, title} }
             title

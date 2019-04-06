@@ -27,6 +27,7 @@
     "polished": "^3.1.0",
     "prismjs": "^1.15.0",
     "react": "^16.5.1",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0",
     "react-icons": "^3.4.0",

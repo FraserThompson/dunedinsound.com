@@ -1,10 +1,8 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import styled from "styled-components"
 import { MdPlaylistPlay, MdFileDownload } from 'react-icons/md';
-import { rhythm } from '../utils/typography';
-import { lighten } from 'polished';
 import Menu from './Menu';
+import MenuButton from './MenuButton';
 
 const DropdownMenu = styled(Menu)`
   position: absolute;
@@ -18,20 +16,6 @@ const DropdownMenu = styled(Menu)`
   transition-property: all;
 	transition-duration: .3s;
 	transition-timing-function: cubic-bezier(0,0,0,1.2);
-`
-
-const DropdownButton = styled.button`
-  width: 50px;
-  height: ${props => props.theme.headerHeight};
-  font-size: ${rhythm(1)};
-  padding: 0;
-  outline: 0;
-  z-index: 12;
-
-  svg {
-    width: 100%;
-    height: 100%;
-  }
 `
 
 class Dropdown extends React.Component {
@@ -67,7 +51,7 @@ class Dropdown extends React.Component {
         <DropdownMenu width={this.props.width} open={this.state.open}>
           {list}
         </DropdownMenu>
-        <DropdownButton className={this.state.open ? "active" : ""} open={this.state.open} aria-haspopup="true" onClick={this.toggleMenu}><MdPlaylistPlay/></DropdownButton>
+        <MenuButton className={!this.state.open ? "active" : ""} open={this.state.open} aria-haspopup="true" onClick={this.toggleMenu}><MdPlaylistPlay/></MenuButton>
       </div>
     )
   }

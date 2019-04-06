@@ -2,6 +2,11 @@ import styled from "styled-components"
 import { rhythm } from '../utils/typography';
 import { lighten } from 'polished';
 
+
+// Menu
+// Parameters
+// Horizontal: Defines whether it should be displayed as a horizontal list or vertical list. Collapses at 992px by default.
+
 const Menu = styled.ul`
   width: ${props => props.width};
   text-align: left;
@@ -16,12 +21,18 @@ const Menu = styled.ul`
 
   li {
     line-height: ${props => props.theme.headerHeight};
-    border-bottom: ${props => !props.horizontal && "1px solid rgba(255,255,255,0.1)"};
-    border-top: ${props => !props.horizontal && "1px solid rgba(0,0,0,0.2)"};
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(0,0,0,0.2);
+    display: block;
     margin: 0px;
-    display: ${props => props.horizontal ? "inline-block" : "block"};
-    cursor: pointer;
 
+    @media screen and (min-width: 992px) {
+      display: ${props => props.horizontal && "inline-block"};
+      border-bottom: ${props => props.horizontal && "none"};
+      border-top: ${props => props.horizontal && "none"};
+    }
+
+    cursor: pointer;
 
     &.active {
       > a{
@@ -33,8 +44,15 @@ const Menu = styled.ul`
     > a {
       padding-left: ${rhythm(0.5)};
       padding-right: ${rhythm(0.5)};
-      border-right: ${props => props.horizontal && "1px solid rgba(0,0,0,0.2)"};
-      border-left: ${props => props.horizontal && "1px solid rgba(255,255,255,0.1)"};
+
+      border-right: none;
+      border-left: none;
+
+      @media screen and (min-width: 992px) {
+        border-right: ${props => props.horizontal && "1px solid rgba(0,0,0,0.2)"};
+        border-left: ${props => props.horizontal && "1px solid rgba(255,255,255,0.1)"};
+      }
+
       text-decoration: none;
       position: relative;
       display: block;

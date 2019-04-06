@@ -24,9 +24,6 @@ const RoundButton = styled.button`
 const PlayerControls = styled.div`
 `
 
-const DropdownWrapper = styled.div`
-`
-
 const PlayerWrapper = styled.div`
   box-shadow: 0 -6px 12px rgba(0,0,0,.175);
   display: flex;
@@ -57,7 +54,7 @@ const TitleWrapper = styled.div`
   width: 100%;
   text-align: center;
   bottom: -10px;
-  z-index: 10;
+  z-index: 11;
   color: #000;
   font-size: 12px;
   span {
@@ -217,9 +214,7 @@ export default class Player extends React.Component {
           <LengthWrapper style={{right: "0px"}}>{this.formatTime(this.state.duration)}</LengthWrapper>
           <TitleWrapper className="title-wrapper"><span>{this.props.artistMedia[this.state.selectedArtist].audio[0][".mp3"].name}</span></TitleWrapper>
         </WaveWrapper>
-        <DropdownWrapper>
-          <Dropdown width="100%" callback={this.selectArtist} list={this.props.artistMedia}/>
-        </DropdownWrapper>
+        <Dropdown width="100%" callback={this.selectArtist} list={this.props.artistMedia}/>
       </PlayerWrapper>
     )
   }

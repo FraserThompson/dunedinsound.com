@@ -6,6 +6,7 @@ import 'react-image-lightbox/style.css'
 import SiteFooter from './SiteFooter';
 import { rhythm } from '../utils/typography';
 import { lighten } from 'polished';
+import TransitionStyles from './TransitionStyles';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -22,10 +23,17 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1.big {
-    font-size: ${rhythm(1.5)};
+    font-size: ${rhythm(1)};
     text-align: center;
+    text-overflow: ellipsis;
+    overflow: none;
     text-transform: uppercase;
     margin-bottom: 0;
+
+    @media screen and (min-width: 992px) {
+      font-size: ${rhythm(1.5)};
+    }
+
   }
 
   a {
@@ -87,6 +95,9 @@ const GlobalStyle = createGlobalStyle`
       text-decoration: none;
     }
   }
+
+  ${TransitionStyles}
+
 `
 
 const SiteContainer = styled.div`
