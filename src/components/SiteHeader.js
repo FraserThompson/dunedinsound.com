@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import styled from "styled-components"
 import { rhythm } from '../utils/typography'
-import Menu from './Menu';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import MenuButton from './MenuButton';
 import SidebarNav from './SidebarNav';
 import { MdMenu } from 'react-icons/md';
@@ -66,13 +66,15 @@ class SiteHeader extends React.Component {
   render() {
     return (
       <Container>
-          {!this.props.hideBrand && <Brand>
-            <Link to="/">Dunedin Gig Archives</Link>
-          </Brand>}
-          <div className="miscContent">
-            {this.props.headerContent}
-          </div>
-          <MenuButton className={this.state.navOpen ? "active" : ""} hideMobile={true} onClick={this.toggleNav}><MdMenu/></MenuButton>
+          <ReactCSSTransitionGroup component={React.Fragment} transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
+            {!this.props.hideBrand && <Brand>
+              <Link to="/">Dunedin Gig Archives</Link>
+            </Brand>}
+            {this.props.headerContent && <div className="miscContent">
+              {this.props.headerContent}
+            </div>}
+          </ReactCSSTransitionGroup>
+          <MenuButton className={!this.state.navOpen ? "active" : ""} hideMobile={true} onClick={this.toggleNav}><MdMenu/></MenuButton>
           <SidebarNav open={this.state.navOpen} horizontal right>
             <li><Link activeClassName="active" to="/">Home</Link></li>
             <li><Link getProps={this.isPartiallyActive} to="/gigs/">Gigs</Link></li>

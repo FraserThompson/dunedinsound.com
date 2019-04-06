@@ -91,13 +91,14 @@ class GigTemplate extends React.Component {
   constructor(props) {
     super(props);
 
-    const post = this.props.data.thisPost
-    const nextPost = this.props.data.nextPost
-    const prevPost = this.props.data.prevPost
-    const siteTitle = this.props.data.site.siteMetadata.title
-    const siteDescription = post.excerpt
+    this.post = this.props.data.thisPost
+    this.nextPost = this.props.data.nextPost
+    this.prevPost = this.props.data.prevPost
+    this.siteTitle = this.props.data.site.siteMetadata.title
+    this.siteDescription = this.post.excerpt
 
-    // Turn the data returned from the images query into a key-value object of images by artist
+    /* Pre-processed data */
+    // Key-value object of images by artist
     const imagesByArtist = this.props.data.images && this.props.data.images['group'].reduce((obj, item) => {
       const machineName = item.fieldValue
       const images = item.edges.map(({node}) => node.childImageSharp.fluid)
@@ -105,7 +106,7 @@ class GigTemplate extends React.Component {
       return obj
     }, {})
 
-    // Turn the data returned from the audio query into a key-value object of audio files by artist
+    // Key-value object of audio files by artist
     const audioByArtist = this.props.data.audio && this.props.data.audio['group'].reduce((obj, item) => {
       const machineName = item.fieldValue
       const grouped_audio = item.edges.reduce((obj, item) => {
@@ -119,7 +120,7 @@ class GigTemplate extends React.Component {
       return obj
     }, {})
 
-    // Turn the data returned from the artist query into a key-value object of details by artist
+    // Key-value object of details by artist
     const detailsByArtist = this.props.data.artists && this.props.data.artists['group'].reduce((obj, item) => {
       const machineName = item.edges[0].node.fields.machine_name
       const frontmatter = item.edges[0].node.frontmatter
@@ -128,7 +129,7 @@ class GigTemplate extends React.Component {
     }, {})
 
     // Collect all the above into one array of artists with all their media
-    const artistMedia = post.frontmatter.artists.map(artist => {
+    this.artistMedia = this.post.frontmatter.artists.map(artist => {
       const machineName = Helper.machineName(artist.name)
       return {
         ...artist,
@@ -139,65 +140,15 @@ class GigTemplate extends React.Component {
       }
     })
 
-    const venueDetails = this.props.data.venue && this.props.data.venue.edges[0].node
+    // Audio by artist
+    this.artistAudio = this.artistMedia.filter(thing => thing.audio)
 
-    this.state = {
-      post,
-      nextPost,
-      prevPost,
-      siteTitle,
-      siteDescription,
-      artistMedia,
-      venueDetails,
-      lightboxOpen: false,
-      selectedImage: undefined,
-      selectedArtist: artistMedia[0]
-    }
+    // Details for the venue
+    this.venueDetails = this.props.data.venue && this.props.data.venue.edges[0].node
 
-  }
-
-  openLightbox = (artistIndex, imageIndex, event) => {
-    event.preventDefault()
-    this.gotoLightboxImage({ artistIndex, imageIndex })
-  }
-
-  gotoLightboxImage = ({ artistIndex, imageIndex }) => {
-    this.setState({ lightboxOpen: true, selectedImage: { artistIndex, imageIndex } })
-  }
-
-  getNextImage = () => {
-    const currentArtistIndex = this.state.selectedImage.artistIndex;
-    const currentImageIndex = this.state.selectedImage.imageIndex
-
-    if ((currentImageIndex + 1) >= this.state.artistMedia[currentArtistIndex].images.length && (currentArtistIndex + 1) <= this.state.artistMedia.length) {
-      return { artistIndex: currentArtistIndex + 1, imageIndex: 0 }
-    } else {
-      return { artistIndex: currentArtistIndex, imageIndex: currentImageIndex + 1 }
-    }
-  }
-
-  getPrevImage = () => {
-    const currentArtistIndex = this.state.selectedImage.artistIndex;
-    const currentImageIndex = this.state.selectedImage.imageIndex;
-
-    if (currentImageIndex < 0 && currentArtistIndex > 0) {
-      return { artistIndex: currentArtistIndex - 1, imageIndex: this.state.artistMedia[artistIndex - 1].images.length }
-    } else {
-      return { artistIndex: currentArtistIndex, imageIndex: currentImageIndex - 1 }
-    }
-  }
-
-  getImageSrc = ({ artistIndex, imageIndex }) => {
-    return this.state.artistMedia[artistIndex].images[imageIndex] && this.state.artistMedia[artistIndex].images[imageIndex].src;
-  }
-
-  onYouTubeReady = (event) => {
-    event.target.setPlaybackQuality("hd720")
-  }
-
-  render() {
-
-    const playlist = this.state.artistMedia.map((artist, index) => {
+    /* Display elements */
+    // Clickable list of artists
+    this.playlist = this.artistMedia.map((artist, index) => {
       return (
         <li key={index}>
           <a className="button" href={"#" + artist.machineName}>{artist.title}</a>
@@ -205,8 +156,8 @@ class GigTemplate extends React.Component {
       )
     })
 
-    // Iterate over all the media and gather it
-    const mediaByArtist = this.state.artistMedia.map((artist, artistIndex) => {
+    // All of the media
+    this.mediaByArtist = this.artistMedia.map((artist, artistIndex) => {
 
       const imageElements = artist.images && artist.images.map((fluidImage, artistImageIndex) => {
         return <a key={artistImageIndex} href={fluidImage.src} onClick={e => this.openLightbox(artistIndex, artistImageIndex, e)}>
@@ -245,57 +196,122 @@ class GigTemplate extends React.Component {
       )
     })
 
-    const nextTile = (
-      this.state.nextPost &&
+    // Tile for next gig
+    this.nextTile = (
+      this.nextPost &&
       <NextPrevWrapper next>
         <div className="icon">
         <MdKeyboardArrowLeft/>
         </div>
         <Tile
-          key={this.state.nextPost.fields.slug}
-          title={this.state.nextPost.frontmatter.title}
-          image={this.state.nextPost.frontmatter.cover && this.state.nextPost.frontmatter.cover.childImageSharp.fluid}
-          label={this.state.nextPost.frontmatter.date}
+          key={this.nextPost.fields.slug}
+          title={this.nextPost.frontmatter.title}
+          image={this.nextPost.frontmatter.cover && this.nextPost.frontmatter.cover.childImageSharp.fluid}
+          label={this.nextPost.frontmatter.date}
           height="100%"
-          href={this.state.nextPost.fields.slug}
+          href={this.nextPost.fields.slug}
         />
       </NextPrevWrapper>
     )
 
-    const prevTile = (
-      this.state.prevPost &&
+    // Tile for previous gig
+    this.prevTile = (
+      this.prevPost &&
       <NextPrevWrapper prev>
         <div className="icon">
           <MdKeyboardArrowRight/>
         </div>
         <Tile
-          key={this.state.prevPost.fields.slug}
-          title={this.state.prevPost.frontmatter.title}
-          image={this.state.prevPost.frontmatter.cover && this.state.prevPost.frontmatter.cover.childImageSharp.fluid}
-          label={this.state.prevPost.frontmatter.date}
+          key={this.prevPost.fields.slug}
+          title={this.prevPost.frontmatter.title}
+          image={this.prevPost.frontmatter.cover && this.prevPost.frontmatter.cover.childImageSharp.fluid}
+          label={this.prevPost.frontmatter.date}
           height="100%"
-          href={this.state.prevPost.fields.slug}
+          href={this.prevPost.fields.slug}
         />
       </NextPrevWrapper>
     )
 
-    const artistAudio = this.state.artistMedia.filter(thing => thing.audio)
+    this.state = {
+      scrolled: false,
+      lightboxOpen: false,
+      selectedImage: undefined,
+      selectedArtist: this.artistMedia[0]
+    }
 
+  }
+
+  componentDidMount = () => {
+    window.addEventListener('scroll', this.onScroll);
+  }
+
+  componentWillUnmount = () => {
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
+  onScroll = () => {
+    if (window.pageYOffset > window.innerHeight * 0.6) {
+      !this.state.scrolled && this.setState({scrolled: true})
+    } else {
+      this.state.scrolled && this.setState({scrolled: false})
+    }
+  }
+
+  openLightbox = (artistIndex, imageIndex, event) => {
+    event.preventDefault()
+    this.gotoLightboxImage({ artistIndex, imageIndex })
+  }
+
+  gotoLightboxImage = ({ artistIndex, imageIndex }) => {
+    this.setState({ lightboxOpen: true, selectedImage: { artistIndex, imageIndex } })
+  }
+
+  getNextImage = () => {
+    const currentArtistIndex = this.state.selectedImage.artistIndex;
+    const currentImageIndex = this.state.selectedImage.imageIndex
+
+    if ((currentImageIndex + 1) >= this.artistMedia[currentArtistIndex].images.length && (currentArtistIndex + 1) <= this.artistMedia.length) {
+      return { artistIndex: currentArtistIndex + 1, imageIndex: 0 }
+    } else {
+      return { artistIndex: currentArtistIndex, imageIndex: currentImageIndex + 1 }
+    }
+  }
+
+  getPrevImage = () => {
+    const currentArtistIndex = this.state.selectedImage.artistIndex;
+    const currentImageIndex = this.state.selectedImage.imageIndex;
+
+    if (currentImageIndex < 0 && currentArtistIndex > 0) {
+      return { artistIndex: currentArtistIndex - 1, imageIndex: this.artistMedia[artistIndex - 1].images.length }
+    } else {
+      return { artistIndex: currentArtistIndex, imageIndex: currentImageIndex - 1 }
+    }
+  }
+
+  getImageSrc = ({ artistIndex, imageIndex }) => {
+    return this.artistMedia[artistIndex].images[imageIndex] && this.artistMedia[artistIndex].images[imageIndex].src;
+  }
+
+  onYouTubeReady = (event) => {
+    event.target.setPlaybackQuality("hd720")
+  }
+
+  render = () => {
     return (
-      <Layout location={this.props.location} title={this.state.siteTitle} hideBrand={true} headerContent={<h1 className="big">{this.state.post.frontmatter.title}</h1>}>
+      <Layout location={this.props.location} title={this.siteTitle} hideBrand={this.state.scrolled} headerContent={this.state.scrolled && <h1 className="big">{this.post.frontmatter.title}</h1>}>
         <Helmet
           htmlAttributes={{ lang: 'en' }}
-          meta={[{ name: 'description', content: this.state.siteDescription }]}
-          title={`${this.state.post.frontmatter.title} | ${this.state.siteTitle}`}
+          meta={[{ name: 'description', content: this.siteDescription }]}
+          title={`${this.post.frontmatter.title} | ${this.siteTitle}`}
         />
-        <Banner backgroundImage={this.state.post.frontmatter.cover && this.state.post.frontmatter.cover.childImageSharp.fluid} customContent={(<>{prevTile}{nextTile}</>)}>
-          <HorizontalNav>{playlist}</HorizontalNav>
+        <Banner title={this.post.frontmatter.title} backgroundImage={this.post.frontmatter.cover && this.post.frontmatter.cover.childImageSharp.fluid} customContent={(<>{this.prevTile}{this.nextTile}</>)}>
+          <HorizontalNav>{this.playlist}</HorizontalNav>
         </Banner>
-        {artistAudio.length > 0 && <PlayerWrapper>
-          <Player artistMedia={artistAudio}></Player>
+        {this.artistAudio.length > 0 && <PlayerWrapper>
+          <Player artistMedia={this.artistAudio}></Player>
         </PlayerWrapper>
         }
-        {mediaByArtist}
+        {this.mediaByArtist}
         {this.state.lightboxOpen &&
           <Lightbox
             mainSrc={this.getImageSrc({ artistIndex: this.state.selectedImage.artistIndex, imageIndex: this.state.selectedImage.imageIndex })}
@@ -303,7 +319,7 @@ class GigTemplate extends React.Component {
             prevSrc={this.getImageSrc(this.getPrevImage())}
             onMovePrevRequest={() => this.gotoLightboxImage(this.getPrevImage())}
             onMoveNextRequest={() => this.gotoLightboxImage(this.getNextImage())}
-            imageCaption={this.state.artistMedia[this.state.selectedImage.artistIndex].title}
+            imageCaption={this.artistMedia[this.state.selectedImage.artistIndex].title}
             onCloseRequest={() => this.setState({ lightboxOpen: false })}
           />
         }

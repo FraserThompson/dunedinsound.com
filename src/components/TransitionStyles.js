@@ -22,6 +22,25 @@ const TransitionStyles = props => `
     transition: opacity, transform 400ms;
     transition-delay: 0ms;
   }
+
+  .fade-enter, fade-appear {
+    opacity: 0.01;
+  }
+
+  .fade-enter.fade-enter-active, .fade-appear.fade-appear-active {
+    opacity: 1;
+    transition: opacity 300ms;
+    transition-delay: 0ms;
+  }
+
+  .fade-leave {
+    display: none;
+  }
+
+  .fade-leave.fade-leave-active {
+    display: none;
+  }
+
 `;
 
 export default TransitionStyles

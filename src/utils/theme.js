@@ -4,7 +4,6 @@ export const theme = {
     default: {
         headerHeight: rhythm(2),
         headerHeightNeg: rhythm(-3),
-        bannerHeight: "80vh",
         footerHeight: rhythm(4),
         waveformColor: "#01baef",
         waveformProgressColor: "#EC4067",

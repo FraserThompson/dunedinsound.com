@@ -29,6 +29,7 @@ const GlobalStyle = createGlobalStyle`
     overflow: none;
     text-transform: uppercase;
     margin-bottom: 0;
+    margin-left: ${rhythm(0.5)};
 
     @media screen and (min-width: 992px) {
       font-size: ${rhythm(1.5)};

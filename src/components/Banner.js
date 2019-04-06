@@ -3,14 +3,20 @@ import styled from 'styled-components'
 import { rhythm } from '../utils/typography'
 import BackgroundImage from './BackgroundImage';
 
+const DefaultBannerHeight = "60vh";
+
 const BannerWrapper = styled.div`
 	background: #00a8c5;
 	background: -webkit-linear-gradient(right,#00a8c5,#d74177);
 	background: -moz-linear-gradient(right,#00a8c5,#d74177);
 	background: linear-gradient(right,#00a8c5,#d74177);
-  height: ${props => props.height ? props.height : props.theme.bannerHeight};
+  height: ${props => props.height ? props.height : DefaultBannerHeight};
   overflow: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   > * {
     z-index: 1;
   }
@@ -18,23 +24,17 @@ const BannerWrapper = styled.div`
 const BannerText = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height:100%;
   margin: 0 auto;
   text-align: center;
   max-width: 60vw;
 
   h1 {
-    margin-top: ${rhythm(1)};
-    justify-self: flex-start;
     color: ${props => props.theme.contrastColor};
-    position: sticky;
-    top: 5px;
-    z-index: 12;
+    position: relative;
   }
 
   .center-content {
-    margin: auto;
+    padding-top: ${rhythm(1)};
     position: relative;
   }
 
