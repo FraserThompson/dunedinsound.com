@@ -1,7 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import styled from 'styled-components'
-import Helmet from 'react-helmet'
 import Layout from '../components/Layout'
 import Tile from '../components/Tile'
 import Scrollspy from 'react-scrollspy'

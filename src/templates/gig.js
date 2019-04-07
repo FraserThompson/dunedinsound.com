@@ -1,6 +1,5 @@
 import React from 'react'
-import Helmet from 'react-helmet'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import styled from "styled-components"
 import Img from 'gatsby-image'
 import Lightbox from 'react-image-lightbox';
@@ -145,55 +144,6 @@ class GigTemplate extends React.Component {
     this.venueDetails = this.props.data.venue && this.props.data.venue.length > 0 && this.props.data.venue.edges[0].node
 
     /* Display elements */
-    // Clickable list of artists
-    this.playlist = this.artistMedia.map((artist, index) => {
-      return (
-        <li key={index}>
-          <a className="button" href={"#" + artist.machineName}>{artist.title}</a>
-        </li>
-      )
-    })
-
-    // All of the media
-    this.mediaByArtist = this.artistMedia.map((artist, artistIndex) => {
-
-      const imageElements = artist.images && artist.images.map((fluidImage, artistImageIndex) => {
-        return <a key={artistImageIndex} href={fluidImage.src} onClick={e => this.openLightbox(artistIndex, artistImageIndex, e)}>
-          <Img fluid={fluidImage} />
-        </a>
-      })
-
-      const vidElements = artist.vid && artist.vid.map((video, vidIndex) => {
-        const opts = {
-          playerVars: {
-            modestbranding: "1"
-          }
-        };
-        return <YouTubeResponsive videoId={video.link} onReady={this.onYouTubeReady} opts={opts} key={video.link} odd={(artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1) ? true : false}/>
-      })
-
-      const imageGridSize = {
-        xs: "6",
-        sm: "4",
-        md: "3",
-        lg: imageElements.length > 14 ? "3" : "4"
-      }
-
-      return (
-        <div key={artistIndex}>
-          <Divider sticky={true}>
-            <p id={artist.machineName}>{artist.title}</p>
-          </Divider>
-          <GridContainer xs="12" sm="6" md="6" lg="6">
-            {vidElements}
-          </GridContainer>
-          <GridContainer {...imageGridSize}>
-            {imageElements}
-          </GridContainer>
-        </div>
-      )
-    })
-
     // Tile for next gig
     this.nextTile = (
       this.nextPost &&
@@ -302,13 +252,63 @@ class GigTemplate extends React.Component {
     return (
       <Layout location={this.props.location} description={siteDescription} title={`${this.post.frontmatter.title} | ${siteTitle}`} hideBrand={this.state.scrolled} headerContent={this.state.scrolled && <h1 className="big">{this.post.frontmatter.title}</h1>}>
         <Banner title={this.post.frontmatter.title} backgroundImage={this.post.frontmatter.cover && this.post.frontmatter.cover.childImageSharp.fluid} customContent={(<>{this.prevTile}{this.nextTile}</>)}>
-          <HorizontalNav>{this.playlist}</HorizontalNav>
+          <HorizontalNav>
+            {
+              this.artistMedia.map((artist, index) => {
+                return (
+                  <li key={index}>
+                    <a className="button" href={"#" + artist.machineName}>{artist.title}</a>
+                  </li>
+                )
+              })
+            }
+          </HorizontalNav>
         </Banner>
-        {this.artistAudio.length > 0 && <PlayerWrapper>
-          <Player artistMedia={this.artistAudio}></Player>
-        </PlayerWrapper>
+        {this.artistAudio.length > 0 &&
+          <PlayerWrapper>
+            <Player artistMedia={this.artistAudio}></Player>
+          </PlayerWrapper>
         }
-        {this.mediaByArtist}
+        {
+          this.artistMedia.map((artist, artistIndex) => {
+
+            const imageElements = artist.images && artist.images.map((fluidImage, artistImageIndex) => {
+              return <a key={artistImageIndex} href={fluidImage.src} onClick={e => this.openLightbox(artistIndex, artistImageIndex, e)}>
+                <Img fluid={fluidImage} />
+              </a>
+            })
+
+            const vidElements = artist.vid && artist.vid.map((video, vidIndex) => {
+              const opts = {
+                playerVars: {
+                  modestbranding: "1"
+                }
+              };
+              return <YouTubeResponsive videoId={video.link} onReady={this.onYouTubeReady} opts={opts} key={video.link} odd={(artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1) ? true : false}/>
+            })
+
+            const imageGridSize = {
+              xs: "6",
+              sm: "4",
+              md: "3",
+              lg: imageElements.length > 14 ? "3" : "4"
+            }
+
+            return (
+              <div key={artistIndex}>
+                <Divider sticky={true}>
+                  <p id={artist.machineName}>{artist.title}</p>
+                </Divider>
+                <GridContainer xs="12" sm="6" md="6" lg="6">
+                  {vidElements}
+                </GridContainer>
+                <GridContainer {...imageGridSize}>
+                  {imageElements}
+                </GridContainer>
+              </div>
+            )
+          })
+        }
         {this.state.lightboxOpen &&
           <Lightbox
             mainSrc={this.getImageSrc({ artistIndex: this.state.selectedImage.artistIndex, imageIndex: this.state.selectedImage.imageIndex })}

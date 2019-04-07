@@ -1,11 +1,20 @@
 import React from 'react'
-import Helmet from 'react-helmet'
+import styled from 'styled-components'
 import { Link, graphql } from 'gatsby'
 
 import Layout from '../components/Layout'
 import { rhythm, scale } from '../utils/typography'
 import BlogContainer from '../components/BlogContainer';
 import Banner from '../components/Banner';
+
+const BlogPostNav = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -30,21 +39,8 @@ class BlogPostTemplate extends React.Component {
             {post.frontmatter.date}
           </p>
           <div dangerouslySetInnerHTML={{ __html: post.html }} />
-          <hr
-            style={{
-              marginBottom: rhythm(1),
-            }}
-          />
-
-          <ul
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'space-between',
-              listStyle: 'none',
-              padding: 0,
-            }}
-          >
+          <hr style={{marginBottom: rhythm(1)}}/>
+          <BlogPostNav>
             <li>
               {
                 previous &&
@@ -61,7 +57,7 @@ class BlogPostTemplate extends React.Component {
                 </Link>
               }
             </li>
-          </ul>
+          </BlogPostNav>
         </BlogContainer>
       </Layout>
     )

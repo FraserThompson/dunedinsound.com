@@ -45,13 +45,17 @@ exports.createPages = ({ graphql, actions }) => {
       const artistLayout = path.resolve('./src/templates/artist.js')
       const venueLayout = path.resolve('./src/templates/venue.js')
 
-      // Create gig pages.
-      const posts = result.data.allMarkdownRemark.edges
+      // Create pages.
+      // We split it like this (pretty inefficiently) so we can treat them as seperate collections.
+      const gigs = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "gigs")
+      const blogs = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "blog")
+      const venues = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "venues")
+      const artists = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "artists")
 
-      posts.forEach((post, index) => {
+      gigs.forEach((post, index) => {
 
-        const previous = index === posts.length - 1 ? null : posts[index + 1].node
-        const next = index === 0 ? null : posts[index - 1].node
+        const previous = index === gigs.length - 1 ? null : gigs[index + 1].node
+        const next = index === 0 ? null : gigs[index - 1].node
 
         const context = {
           slug: post.node.fields.slug,
@@ -61,43 +65,88 @@ exports.createPages = ({ graphql, actions }) => {
           nextSlug: next && next.fields.slug
         }
 
-
-        const nodeType = post.node.fields.type
-
-        let layout = blogLayout;
-
-        switch (nodeType) {
-          case "gigs":
-            layout = gigLayout
-
-            context.machine_name = post.node.fields.machine_name
-            context.gigDir = path.dirname(post.node.fileAbsolutePath).split("/").pop()
-            context.artists = post.node.frontmatter.artists.map(artist => helper.machineName(artist.name))
-            context.venue = post.node.frontmatter.venue
-
-            break;
-          case "blog":
-            layout = blogLayout
-            break;
-          case "artists":
-            layout = artistLayout
-            context.machine_name = post.node.fields.machine_name
-            context.title = post.node.frontmatter.title
-            break;
-          case "venues":
-            layout = venueLayout
-            context.machine_name = post.node.fields.machine_name
-            context.title = post.node.frontmatter.title
-            break;
-        }
+        context.machine_name = post.node.fields.machine_name
+        context.gigDir = path.dirname(post.node.fileAbsolutePath).split("/").pop()
+        context.artists = post.node.frontmatter.artists.map(artist => helper.machineName(artist.name))
+        context.venue = post.node.frontmatter.venue
 
         createPage({
           path: post.node.fields.slug,
-          component: layout,
+          component: gigLayout,
           context: context,
         })
 
       })
+
+      blogs.forEach((post, index) => {
+
+        const previous = index === blogs.length - 1 ? null : blogs[index + 1].node
+        const next = index === 0 ? null : blogs[index - 1].node
+
+        const context = {
+          slug: post.node.fields.slug,
+          previous,
+          next,
+          prevSlug: previous && previous.fields.slug,
+          nextSlug: next && next.fields.slug
+        }
+
+        createPage({
+          path: post.node.fields.slug,
+          component: blogLayout,
+          context: context,
+        })
+
+      })
+
+      artists.forEach((post, index) => {
+
+        const previous = index === artists.length - 1 ? null : artists[index + 1].node
+        const next = index === 0 ? null : artists[index - 1].node
+
+        const context = {
+          slug: post.node.fields.slug,
+          previous,
+          next,
+          prevSlug: previous && previous.fields.slug,
+          nextSlug: next && next.fields.slug
+        }
+
+        context.machine_name = post.node.fields.machine_name
+        context.title = post.node.frontmatter.title
+
+        createPage({
+          path: post.node.fields.slug,
+          component: artistLayout,
+          context: context,
+        })
+
+      })
+
+      venues.forEach((post, index) => {
+
+        const previous = index === venues.length - 1 ? null : venues[index + 1].node
+        const next = index === 0 ? null : venues[index - 1].node
+
+        const context = {
+          slug: post.node.fields.slug,
+          previous,
+          next,
+          prevSlug: previous && previous.fields.slug,
+          nextSlug: next && next.fields.slug
+        }
+
+        context.machine_name = post.node.fields.machine_name
+        context.title = post.node.frontmatter.title
+
+        createPage({
+          path: post.node.fields.slug,
+          component: venueLayout,
+          context: context,
+        })
+
+      })
+
     })
 }
 

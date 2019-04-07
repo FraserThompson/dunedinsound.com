@@ -73,5 +73,7 @@ src/content/gigs/**/*.jpg
 src/content/gigs/**/**/*.jpg
 src/content/gigs/**/**/*.mp3
 
+# Blog assets
+src/content/blog/**/*.jpg
 
 _drafts

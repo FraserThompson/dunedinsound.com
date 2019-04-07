@@ -1,6 +1,5 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Helmet from 'react-helmet'
 import Layout from '../components/Layout'
 import GridContainer from '../components/GridContainer';
 import Tile from '../components/Tile';

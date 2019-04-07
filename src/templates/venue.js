@@ -1,5 +1,4 @@
 import React from 'react'
-import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
@@ -9,7 +8,6 @@ import Banner from '../components/Banner';
 import Tile from '../components/Tile';
 import Divider from '../components/Divider';
 import GridContainer from '../components/GridContainer';
-import { rhythm } from '../utils/typography';
 
 class VenueTemplate extends React.Component {
   render() {

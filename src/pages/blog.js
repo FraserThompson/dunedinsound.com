@@ -1,6 +1,5 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
-import Helmet from 'react-helmet'
 import Layout from '../components/Layout'
 import styled from 'styled-components';
 import BlogContainer from '../components/BlogContainer';
@@ -32,11 +31,11 @@ class Blog extends React.Component {
     const posts = data.allBlogs.edges
 
     const postElements = posts.map(({node}) =>
-      <Post>
+      <Post key={node.fields.slug}>
         <h1><Link to={node.fields.slug}>{node.frontmatter.title}</Link></h1>
         <h4>{node.frontmatter.date}</h4>
         {node.frontmatter.cover && <Link to={node.fields.slug}><Banner height="20vh" backgroundImage={node.frontmatter.cover.childImageSharp.fluid}></Banner></Link>}
-        <p>{node.excerpt}</p>
+        <p>{node.excerpt} <small><Link to={node.fields.slug}>More</Link></small></p>
         <hr/>
       </Post>
     )
@@ -73,7 +72,7 @@ export const pageQuery = graphql`
             title
             cover {
               childImageSharp {
-                fluid(maxWidth: 400) {
+                fluid(maxWidth: 800) {
                   ...GatsbyImageSharpFluid
                 }
               }
