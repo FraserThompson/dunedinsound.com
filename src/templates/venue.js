@@ -8,6 +8,7 @@ import Banner from '../components/Banner';
 import Tile from '../components/Tile';
 import Divider from '../components/Divider';
 import GridContainer from '../components/GridContainer';
+import HorizontalNav from '../components/HorizontalNav';
 
 class VenueTemplate extends React.Component {
   render() {
@@ -16,7 +17,6 @@ class VenueTemplate extends React.Component {
     const gigs = this.props.data.gigs.edges
     const siteTitle = this.props.data.site.siteMetadata.title
     const siteDescription = post.excerpt
-    const { previous, next } = this.props.pageContext
 
     const position = [post.frontmatter.lat, post.frontmatter.lng]
     const map = (
@@ -49,11 +49,19 @@ class VenueTemplate extends React.Component {
 
     return (
       <Layout location={this.props.location} description={siteDescription} title={`${post.frontmatter.title} | ${siteTitle}`}>
-        <Banner title={this.props.data.thisPost.frontmatter.title} height="40vh" background={map}/>
+        <Banner title={post.frontmatter.title} height="40vh" background={map}>
+          <div dangerouslySetInnerHTML={{__html : post.frontmatter.description}}></div>
+          <HorizontalNav>
+            {post.frontmatter.facebook && <li><a className="button" href={post.frontmatter.facebook}>Facebook</a></li>}
+            {post.frontmatter.bandcamp && <li><a className="button" href={post.frontmatter.bandcamp}>Bandcamp</a></li>}
+            {post.frontmatter.soundcloud && <li><a className="button" href={post.frontmatter.soundcloud}>Soundcloud</a></li>}
+            {post.frontmatter.Website && <li><a className="button" href={post.frontmatter.Website}>Website</a></li>}
+          </HorizontalNav>
+        </Banner>
         <Divider>
           <p>Gigs</p>
         </Divider>
-        <GridContainer xs="6" sm="4" md="3" lg="2">
+        <GridContainer xs="6" sm="4" md="3" lg="3">
           {gigTiles}
         </GridContainer>
       </Layout>
@@ -77,10 +85,13 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
+        description
         lat
         lng
         bandcamp
         facebook
+        website
+        soundcloud
       }
     }
     gigs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}, frontmatter: {venue: {eq: $machine_name}}}) {

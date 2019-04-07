@@ -22,6 +22,7 @@ const BannerWrapper = styled.div`
   }
 `
 const BannerText = styled.div`
+  position: absolute;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -30,7 +31,6 @@ const BannerText = styled.div`
 
   h1 {
     color: ${props => props.theme.contrastColor};
-    position: relative;
   }
 
   .center-content {
@@ -48,9 +48,11 @@ class Banner extends React.Component {
         {this.props.backgroundImage && <BackgroundImage fluid={this.props.backgroundImage} />}
         <BannerText>
           {this.props.title && <h1 className="big">{this.props.title}</h1>}
-          <div className="center-content">
-            {this.props.children}
-          </div>
+          {this.props.children &&
+            <div className="center-content">
+              {this.props.children}
+            </div>
+          }
         </BannerText>
         {this.props.customContent}
       </BannerWrapper>

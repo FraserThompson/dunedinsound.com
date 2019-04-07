@@ -76,4 +76,7 @@ src/content/gigs/**/**/*.mp3
 # Blog assets
 src/content/blog/**/*.jpg
 
+# Venue assets
+src/content/venues/**/*.jpg
+
 _drafts

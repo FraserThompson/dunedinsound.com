@@ -13,6 +13,7 @@ import { rhythm } from '../utils/typography';
 import YouTubeResponsive from '../components/YouTubeResponsive';
 import Tile from '../components/Tile';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+import HorizontalNav from '../components/HorizontalNav';
 
 const PlayerWrapper = styled.div`
   position: fixed;
@@ -27,26 +28,6 @@ const PlayerWrapper = styled.div`
   -webkit-transition: background-color 0.5s ease;
   -moz-transition: background-color 0.5s ease;
   transition: background-color 0.5s ease;
-`
-
-const HorizontalNav = styled.ul`
-  background-color: transparent;
-  width: auto;
-  max-height: 40vh;
-  overflow-y: auto;
-
-  li {
-    display: inline-block;
-    line-height: 40px;
-    padding-right: ${rhythm(0.5)};
-    button {
-      padding-right: ${rhythm(1)};
-      padding-left: ${rhythm(1)};
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-  }
 `
 
 const NextPrevWrapper = styled.a`

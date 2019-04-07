@@ -185,7 +185,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   else if (node.internal.type === `MarkdownRemark`) {
 
     const nodeType = getNodeType(node.fileAbsolutePath)
-    const nodeTitle = helper.machineName(node.frontmatter.title, "-")
+    const nodeTitle = nodeType === "gigs" ? helper.machineName(node.frontmatter.title, "-") : helper.machineName(node.frontmatter.title, "_") // to preserve URLs from old site
     const nodeSlug = "/" + nodeType + "/" + nodeTitle + "/"
 
     createNodeField({

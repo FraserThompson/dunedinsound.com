@@ -6,6 +6,7 @@ import Banner from '../components/Banner';
 import Tile from '../components/Tile';
 import Divider from '../components/Divider';
 import GridContainer from '../components/GridContainer';
+import HorizontalNav from '../components/HorizontalNav';
 
 class ArtistTemplate extends React.Component {
   render() {
@@ -37,10 +38,12 @@ class ArtistTemplate extends React.Component {
     return (
       <Layout location={this.props.location} description={siteDescription} title={`${post.frontmatter.title} | ${siteTitle}`}>
         <Banner title={post.frontmatter.title} height="40vh" backgroundImage={this.props.data.images && this.props.data.images.edges[0].node.childImageSharp.fluid}>
-          {post.frontmatter.bandcamp && <a href={post.frontmatter.bandcamp}>Bandcamp</a>}
-          {post.frontmatter.facebook && <a href={post.frontmatter.facebook}>Facebook</a>}
-          {post.frontmatter.soundcloud && <a href={post.frontmatter.soundcloud}>Soundcloud</a>}
-          {post.frontmatter.website && <a href={post.frontmatter.website}>Website</a>}
+          <HorizontalNav>
+            {post.frontmatter.facebook && <li><a className="button" href={post.frontmatter.facebook}>Facebook</a></li>}
+            {post.frontmatter.bandcamp && <li><a className="button" href={post.frontmatter.bandcamp}>Bandcamp</a></li>}
+            {post.frontmatter.soundcloud && <li><a className="button" href={post.frontmatter.soundcloud}>Soundcloud</a></li>}
+            {post.frontmatter.Website && <li><a className="button" href={post.frontmatter.Website}>Website</a></li>}
+          </HorizontalNav>
         </Banner>
         <Divider>
           <p>Gigs</p>
