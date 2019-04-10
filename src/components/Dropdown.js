@@ -16,6 +16,7 @@ const DropdownMenu = styled(Menu)`
   transition-property: all;
 	transition-duration: .3s;
 	transition-timing-function: cubic-bezier(0,0,0,1.2);
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
 `
 
 class Dropdown extends React.Component {

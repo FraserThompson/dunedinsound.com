@@ -120,11 +120,11 @@ class Layout extends React.Component {
             title={this.props.title}
           />
           <GlobalStyle/>
-          <SiteHeader headerContent={this.props.headerContent} hideBrand={this.props.hideBrand}/>
+          <SiteHeader backgroundColor={this.props.headerColor} headerContent={this.props.headerContent} hideBrand={this.props.hideBrand}/>
           <SiteContainer overrideBackgroundColor={this.props.overrideBackgroundColor}>
             {children}
           </SiteContainer>
-          <SiteFooter/>
+          {!this.props.hideFooter && <SiteFooter/> }
         </>
       </ThemeProvider>
     )

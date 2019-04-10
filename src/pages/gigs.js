@@ -91,7 +91,12 @@ class Gigs extends React.Component {
     })
 
     return (
-      <Layout location={this.props.location} description={siteDescription} title={`Gigs | ${siteTitle}`} hideBrand={true} headerContent={<Search toggleSidebar={this.toggleSidebar} filter={this.filter} />}>
+      <Layout
+        location={this.props.location} description={siteDescription}
+        title={`Gigs | ${siteTitle}`}
+        hideBrand={true}
+        hideFooter={true}
+        headerContent={<Search toggleSidebar={this.toggleSidebar} filter={this.filter} />}>
         <PageContent>
           <ReactCSSTransitionGroup transitionName="popin" transitionEnterTimeout={400} transitionLeaveTimeout={400}>
             {Object.keys(postsByDate).sort((a, b) => b - a).map((year) => {

@@ -231,7 +231,12 @@ class GigTemplate extends React.Component {
     const siteDescription = this.post.excerpt
 
     return (
-      <Layout location={this.props.location} description={siteDescription} title={`${this.post.frontmatter.title} | ${siteTitle}`} hideBrand={this.state.scrolled} headerContent={this.state.scrolled && <h1 className="big">{this.post.frontmatter.title}</h1>}>
+      <Layout
+        location={this.props.location}
+        description={siteDescription}
+        title={`${this.post.frontmatter.title} | ${siteTitle}`}
+        hideBrand={this.state.scrolled}
+        headerContent={this.state.scrolled && <h1 className="big">{this.post.frontmatter.title}</h1>}>
         <Banner title={this.post.frontmatter.title} backgroundImage={this.post.frontmatter.cover && this.post.frontmatter.cover.childImageSharp.fluid} customContent={(<>{this.prevTile}{this.nextTile}</>)}>
           <HorizontalNav>
             {

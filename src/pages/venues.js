@@ -9,7 +9,7 @@ import Search from '../components/Search';
 
 const MapWrapper = styled.div`
   width: 100%;
-  height: 80vh;
+  height: 100vh;
   position: relative;
   z-index: 5;
 `
@@ -17,6 +17,9 @@ class Venues extends React.Component {
 
   constructor(props) {
     super(props)
+
+    this.sidebarRef = React.createRef();
+    this.listRefs = [];
 
     this.state = {
       filteredPosts: this.props.data.allVenues.edges,
@@ -37,6 +40,11 @@ class Venues extends React.Component {
     this.setState({selected: index, zoomLevel: 18, center})
   }
 
+  markerClick = (index) => {
+    this.sidebarRef.current.scrollTo(0, this.listRefs[index].offsetTop);
+    this.setState({selected: index})
+  }
+
   toggleSidebar = () => {
     this.setState({sidebarOpen: !this.state.sidebarOpen})
   }
@@ -55,17 +63,28 @@ class Venues extends React.Component {
     }
   }
 
+  setRef = (ref) => {
+    this.listRefs.push(ref);
+  };
+
   render() {
     const { data } = this.props
     const siteTitle = data.site.siteMetadata.title
     const siteDescription = data.site.siteMetadata.description
 
     return (
-      <Layout description={siteDescription} location={this.props.location} title={`Venues | ${siteTitle}`} hideBrand={true} headerContent={<Search toggleSidebar={this.toggleSidebar} filter={this.filter}/>} >
-        <SidebarNav width="15vw" open={this.state.sidebarOpen} left>
+      <Layout
+        description={siteDescription}
+        location={this.props.location}
+        title={`Venues | ${siteTitle}`}
+        hideBrand={true}
+        hideFooter={true}
+        headerContent={<Search toggleSidebar={this.toggleSidebar} filter={this.filter}/>}
+      >
+        <SidebarNav ref={this.sidebarRef} width="15vw" open={this.state.sidebarOpen} left>
           {
             this.state.filteredPosts.map(({ node }, index) =>
-                <li className={index === this.state.selected ? "active" : ""} key={index}>
+                <li ref={this.setRef} className={index === this.state.selected ? "active" : ""} key={index}>
                   <a onClick={() => this.select(index, [node.frontmatter.lat, node.frontmatter.lng])}>
                     {node.frontmatter.title}
                   </a>
@@ -82,7 +101,7 @@ class Venues extends React.Component {
               />
             {this.state.filteredPosts.map(({ node }, index) =>
               <Marker ref={(marker) => this.openPopup(marker, index)} key={index} position={[node.frontmatter.lat, node.frontmatter.lng]}>
-                <Popup onOpen={() => this.setState({selected: index})}>
+                <Popup onOpen={() => this.markerClick(index)}>
                     <h3>{node.frontmatter.title}</h3>
                     <Link to={node.fields.slug}>
                     {node.frontmatter.cover && <Img fluid={node.frontmatter.cover.childImageSharp.fluid}/>}

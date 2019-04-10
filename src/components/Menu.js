@@ -11,7 +11,6 @@ const Menu = styled.ul`
   width: ${props => props.width};
   text-align: left;
   background-color: ${props => props.theme.headerColor};
-  box-shadow: 0 6px 12px rgba(0,0,0,.175);
   background-clip: padding-box;
   border: none;
   border-radius: 0;
@@ -35,7 +34,7 @@ const Menu = styled.ul`
     cursor: pointer;
 
     &.active {
-      > a{
+      > a {
         background-color: ${props => props.theme.highlightColor2};
         color: ${props => lighten(0.5, props.theme.textColor)};
       }
@@ -48,10 +47,6 @@ const Menu = styled.ul`
       border-right: none;
       border-left: none;
 
-      @media screen and (min-width: 992px) {
-        border-right: ${props => props.horizontal && "1px solid rgba(0,0,0,0.2)"};
-        border-left: ${props => props.horizontal && "1px solid rgba(255,255,255,0.1)"};
-      }
 
       text-decoration: none;
       position: relative;

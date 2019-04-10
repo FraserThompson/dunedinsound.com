@@ -9,8 +9,9 @@ import { MdMenu } from 'react-icons/md';
 
 const Container = styled.div`
 
-  background-color: ${props => props.theme.headerColor};
+  background-color: ${props => props.backgroundColor || props.theme.headerColor};
   position: sticky;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-items: center;
@@ -65,23 +66,23 @@ class SiteHeader extends React.Component {
 
   render() {
     return (
-      <Container>
-          <ReactCSSTransitionGroup component={React.Fragment} transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
-            {!this.props.hideBrand && <Brand>
-              <Link to="/">Dunedin Gig Archives</Link>
-            </Brand>}
-            {this.props.headerContent && <div className="miscContent">
-              {this.props.headerContent}
-            </div>}
-          </ReactCSSTransitionGroup>
-          <MenuButton className={!this.state.navOpen ? "active" : ""} hideMobile={true} onClick={this.toggleNav}><MdMenu/></MenuButton>
-          <SidebarNav open={this.state.navOpen} horizontal right>
-            <li><Link activeClassName="active" to="/">Home</Link></li>
-            <li><Link getProps={this.isPartiallyActive} to="/gigs/">Gigs</Link></li>
-            <li><Link getProps={this.isPartiallyActive} to="/artists/">Artists</Link></li>
-            <li><Link getProps={this.isPartiallyActive} to="/venues/">Venues</Link></li>
-            <li><Link getProps={this.isPartiallyActive} to="/blog/">Blog</Link></li>
-          </SidebarNav>
+      <Container backgroundColor={this.props.backgroundColor}>
+        <ReactCSSTransitionGroup component={React.Fragment} transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={1}>
+          {!this.props.hideBrand && <Brand>
+            <Link to="/">Dunedin Gig Archives</Link>
+          </Brand>}
+          {this.props.headerContent && <div className="miscContent">
+            {this.props.headerContent}
+          </div>}
+        </ReactCSSTransitionGroup>
+        <MenuButton className={!this.state.navOpen ? "active" : ""} hideMobile={true} onClick={this.toggleNav}><MdMenu/></MenuButton>
+        <SidebarNav backgroundColor={this.props.backgroundColor} open={this.state.navOpen} horizontal right>
+          <li><Link activeClassName="active" to="/">Home</Link></li>
+          <li><Link getProps={this.isPartiallyActive} to="/gigs/">Gigs</Link></li>
+          <li><Link getProps={this.isPartiallyActive} to="/artists/">Artists</Link></li>
+          <li><Link getProps={this.isPartiallyActive} to="/venues/">Venues</Link></li>
+          <li><Link getProps={this.isPartiallyActive} to="/blog/">Blog</Link></li>
+        </SidebarNav>
       </Container>
     )
   }
