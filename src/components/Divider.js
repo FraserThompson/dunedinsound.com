@@ -5,6 +5,8 @@ import { rhythm } from '../utils/typography'
 const DividerWrapper = styled.div`
   width: 100%;
   position: ${props => props.sticky ? "sticky" : "relative"};
+  display: flex;
+  align-items: center;
   top: ${props => props.sticky ? props.theme.headerHeight : "0"};
   color: ${props => props.color || "black"};
   z-index: 2;
@@ -27,6 +29,9 @@ const DividerWrapper = styled.div`
 `
 export default class Divider extends React.Component {
   render() {
-    return <DividerWrapper {...this.props}><a href={this.props.href}>{this.props.children}</a></DividerWrapper>
+  return <DividerWrapper {...this.props}>
+    {this.props.href && <a href={this.props.href}>{this.props.children}</a>}
+    {!this.props.href && this.props.children}
+  </DividerWrapper>
   }
 }

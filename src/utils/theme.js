@@ -3,6 +3,7 @@ import { rhythm } from '../utils/typography'
 export const theme = {
     default: {
         headerHeight: rhythm(2),
+        headerHeightMobile: rhythm(1),
         headerHeightNeg: rhythm(-3),
         footerHeight: rhythm(4),
         waveformColor: "#01baef",

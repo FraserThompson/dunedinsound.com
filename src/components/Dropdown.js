@@ -23,7 +23,6 @@ class Dropdown extends React.Component {
 
   state = {
     open: false,
-    selected: 0
   }
 
   toggleMenu = (e) => {
@@ -33,14 +32,14 @@ class Dropdown extends React.Component {
   }
 
   select = (index) => {
-    this.setState({selected: index, open: false})
     this.props.callback && this.props.callback(index)
+    this.setState({open: false})
   }
 
   render = () => {
 
     const list = this.props.list.map((item, index) =>
-      <li className={this.state.selected == index ? "active" : ""} key={index}>
+      <li className={this.props.selected == index ? "active" : ""} key={index}>
         <a onClick={() => this.select(index)}>
           <span className="title">{index + 1}. {item.title}</span><span className="listButton"><a title={"Download MP3:" + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank"><MdFileDownload/></a></span>
         </a>

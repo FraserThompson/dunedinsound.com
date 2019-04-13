@@ -84,10 +84,25 @@ const NextPrevWrapper = styled.a`
   }
 `
 
+const AudioSeek = styled.progress`
+  height: 2px;
+  &::-webkit-progress-bar {
+    background-color: ${props => props.theme.highlightColor};
+  }
+  &::-webkit-progress-value {
+    background-color: ${props => props.theme.highlightColor2};
+  }
+  &::-moz-progress-bar {
+    background-color: ${props => props.theme.highlightColor};
+  }
+`
+
 class GigTemplate extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.player = React.createRef();
 
     this.post = this.props.data.thisPost
     this.nextPost = this.props.data.nextPost
@@ -186,7 +201,9 @@ class GigTemplate extends React.Component {
       scrolled: false,
       lightboxOpen: false,
       selectedImage: undefined,
-      selectedArtist: this.artistMedia[0]
+      selectedArtist: this.artistMedia[0],
+      playing: false,
+      selectedAudio: null
     }
 
   }
@@ -246,6 +263,20 @@ class GigTemplate extends React.Component {
     event.target.setPlaybackQuality("hd720")
   }
 
+  playPause = (index) => {
+    if (this.state.selectedAudio !== index) {
+      this.setState({selectedAudio: index})
+      this.player.current.selectArtist(index, true)
+    } else {
+      this.player.current.playPause()
+    }
+  }
+
+  seekAudio = (e) => {
+    const x = (e.nativeEvent.offsetX * 100 / e.target.offsetWidth) / 100;
+    this.player.current.wavesurfer.seekTo(x);
+  }
+
   render = () => {
 
     const siteTitle = this.props.data.site.siteMetadata.title
@@ -283,7 +314,13 @@ class GigTemplate extends React.Component {
         </Banner>
         {this.artistAudio.length > 0 &&
           <PlayerWrapper show={this.state.selectedAudio !== null}>
-            <Player artistMedia={this.artistMedia}/>
+            <Player
+              ref={this.player}
+              artistMedia={this.artistMedia}
+              onPlay={() => this.setState({playing: true})}
+              onPause={() => this.setState({playing: false})}
+              onFileChange={(index) => this.setState({selectedAudio: index})}
+            />
           </PlayerWrapper>
         }
         {
@@ -315,15 +352,18 @@ class GigTemplate extends React.Component {
 
             return (
               <div key={artistIndex} id={artist.machineName}>
-                <Divider href={"#" + artist.machineName} sticky={true}>
-                  <p style={{marginRight: rhythm(0.5)}}>{artist.title}</p>
+                <Divider sticky={true}>
+                  <a href={"#" + artist.machineName}><p style={{marginRight: rhythm(0.5)}}>{artist.title}</p></a>
                   <RoundButton
                     className={isPlaying ? "active" : ""}
-                    onClick={() => {this.setState({selectedAudio: artistIndex})}}
+                    onClick={() => this.playPause(artistIndex)}
                     size="30px"
                   >
                     {!isPlaying ? <MdPlayArrow/> : <MdPause/>}
                   </RoundButton>
+                  <div onClick={this.seekAudio} style={{flexGrow: 1,display: "flex", alignSelf: "stretch", alignItems: "center"}}>
+                    <AudioSeek style={{width: "100%"}} max="100" value={this.player.current && (this.player.current.wavesurfer.getCurrentTime() /this.player.current.wavesurfer.getDuration()) * 100}/>
+                  </div>
                 </Divider>
                 <GridContainer xs="12" sm="6" md="6" lg="6">
                   {vidElements}

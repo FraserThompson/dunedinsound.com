@@ -58,7 +58,8 @@ export default class Player extends React.Component {
       currentTime: undefined,
       duration: undefined,
       progress: 0,
-      selectedArtist: this.props.selectedArtist || 0
+      selectedArtist: this.props.selectedArtist || 0,
+      queuePlay: false
     }
 
   }
@@ -90,11 +91,11 @@ export default class Player extends React.Component {
         ]
       })
 
-      this.wavesurfer.on('ready', () => { this.updateDuration(); this.updateTime();})
+      this.wavesurfer.on('ready', this.onReady)
       this.wavesurfer.on('seek', this.updateTime)
-      this.wavesurfer.on('finish', this.finish);
-      this.wavesurfer.on('play', () => this.setState({playing: true}))
-      this.wavesurfer.on('pause', () => this.setState({playing: false}))
+      this.wavesurfer.on('finish', this.onFinish)
+      this.wavesurfer.on('play', this.onPlay)
+      this.wavesurfer.on('pause', this.onPause)
       this.wavesurfer.on('audioprocess', this.updateTime)
 
       this.loadSelectedMedia()
@@ -131,6 +132,29 @@ export default class Player extends React.Component {
     }
   }
 
+  onReady = () => {
+    this.updateDuration();
+    this.updateTime();
+    if (this.state.queuePlay) {
+      this.wavesurfer.playPause();
+      this.setState({queuePlay: false})
+    }
+  }
+
+  onPlay = () => {
+    this.setState({playing: true})
+    this.props.onPlay && this.props.onPlay()
+  }
+
+  onPause = () => {
+    this.setState({playing: false})
+    this.props.onPause && this.props.onPause()
+  }
+
+  onFinish = () => {
+    this.next()
+  }
+
   progressFromTime = (time, duration) => {
     const timeSeconds = this.timeToSeconds(time);
     return timeSeconds/duration;
@@ -163,10 +187,6 @@ export default class Player extends React.Component {
     this.setState({duration})
   }
 
-  finish = () => {
-    this.next();
-  }
-
   playPause = () => {
     this.wavesurfer.playPause();
   }
@@ -174,15 +194,22 @@ export default class Player extends React.Component {
   previous = () => {
     const selectedArtist = Math.max(this.state.selectedArtist - 1, 0)
     this.setState({selectedArtist})
+    this.props.onFileChange && this.props.onFileChange(selectedArtist)
   }
 
   next = () => {
     const selectedArtist = Math.min(this.state.selectedArtist + 1, this.props.artistMedia.length - 1)
     this.setState({selectedArtist})
+    this.props.onFileChange && this.props.onFileChange(selectedArtist)
   }
 
-  selectArtist = (selectedArtist) => {
-    this.setState({selectedArtist})
+  selectArtist = (selectedArtist, play) => {
+    // If we're trying to select an artist we already have loaded and we want to play then just do it
+    if (play && selectedArtist === this.state.selectedArtist) {
+      this.playPause();
+      return;
+    }
+    this.setState({selectedArtist, queuePlay: play})
   }
 
   render = () => {
@@ -198,7 +225,7 @@ export default class Player extends React.Component {
           <LengthWrapper style={{right: "0px"}}>{this.formatTime(this.state.duration)}</LengthWrapper>
           <TitleWrapper className="title-wrapper"><span>{this.props.artistMedia[this.state.selectedArtist].audio[0][".mp3"].name}</span></TitleWrapper>
         </WaveWrapper>
-        <Dropdown width="100%" callback={this.selectArtist} list={this.props.artistMedia}/>
+        <Dropdown width="100%" selected={this.state.selectedArtist} callback={this.selectArtist} list={this.props.artistMedia}/>
       </PlayerWrapper>
     )
   }

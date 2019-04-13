@@ -5,10 +5,10 @@ const DefaultWidth = "60vw"
 
 const SidebarNav = styled(Menu)`
 
-  background-color: ${props => props.backgroundColor || props.theme.headerColor};
-  height: 100vh;
+  background-color: ${props => props.backgroundColor || "transparent"};
+  height: ${props => props.horizontal ? "auto" : "100vh"};
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: ${props => props.horizontal ? "none" : "auto"};
   position: fixed;
   width: ${props => props.width};
   top: ${props => props.theme.headerHeight};

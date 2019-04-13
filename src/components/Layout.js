@@ -8,6 +8,7 @@ import { rhythm } from '../utils/typography';
 import { lighten } from 'polished';
 import TransitionStyles from './TransitionStyles';
 import { Helmet } from 'react-helmet';
+import SiteNav from './SiteNav';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -34,6 +35,10 @@ const GlobalStyle = createGlobalStyle`
 
   }
 
+  progress {
+    -webkit-appearance: none;
+    appearance: none;
+  }
 
   h1.semi-big {
     font-size: ${rhythm(1.5)};
@@ -132,6 +137,19 @@ const GlobalStyle = createGlobalStyle`
 
 `
 
+const MobileNav = styled.div`
+  display: initial;
+  position: fixed;
+  top: 0px;
+  height: ${props => props.theme.headerHeightMobile};
+  background-color: ${props => props.theme.headerColor};
+  z-index: 12;
+  width: 100%;
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+`
+
 const SiteContainer = styled.div`
   min-height: ${props => "calc(100vh - " + props.theme.headerHeight + " - " + props.theme.footerHeight + " - " + rhythm(3) + ")"};
   background-color: ${props => props.overrideBackgroundColor};
@@ -164,6 +182,9 @@ class Layout extends React.Component {
             {children}
           </SiteContainer>
           {!this.props.hideFooter && <SiteFooter/> }
+          <MobileNav>
+            <SiteNav height={theme.default.headerHeightMobile}/>
+          </MobileNav>
         </>
       </ThemeProvider>
     )

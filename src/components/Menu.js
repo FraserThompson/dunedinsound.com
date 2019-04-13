@@ -19,17 +19,11 @@ const Menu = styled.ul`
   overflow-y: hidden;
 
   li {
-    line-height: ${props => props.theme.headerHeight};
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    border-top: 1px solid rgba(0,0,0,0.2);
-    display: block;
+    line-height: ${props => props.height || props.theme.headerHeight};
     margin: 0px;
-
-    @media screen and (min-width: 992px) {
-      display: ${props => props.horizontal && "inline-block"};
-      border-bottom: ${props => props.horizontal && "none"};
-      border-top: ${props => props.horizontal && "none"};
-    }
+    display: ${props => props.horizontal && "inline-block"};
+    border-bottom: ${props => props.horizontal && "none"};
+    border-top: ${props => props.horizontal && "none"};
 
     cursor: pointer;
 

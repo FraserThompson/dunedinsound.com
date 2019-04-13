@@ -3,9 +3,7 @@ import { Link } from 'gatsby'
 import styled from "styled-components"
 import { rhythm } from '../utils/typography'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import MenuButton from './MenuButton';
-import SidebarNav from './SidebarNav';
-import { MdMenu } from 'react-icons/md';
+import SiteNav from './SiteNav';
 
 const Container = styled.div`
 
@@ -21,6 +19,11 @@ const Container = styled.div`
   color: ${props => props.theme.textColor};
   box-shadow: 0 6px 12px rgba(0,0,0,.175);
 
+  margin-top: ${props => props.theme.headerHeightMobile};
+  @media screen and (min-width: 768px) {
+    margin-top: 0px;
+  }
+
   .miscContent {
     margin: 0 auto;
     white-space: nowrap;
@@ -31,6 +34,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     justify-items: center;
+    align-items: center;
   }
 `
 
@@ -48,6 +52,13 @@ const Brand = styled.div`
   }
 `
 
+const SiteNavHideMobile = styled(SiteNav)`
+  display: none;
+  @media screen and (min-width: 768px) {
+    display: initial;
+  }
+`
+
 class SiteHeader extends React.Component {
 
   constructor(props) {
@@ -61,10 +72,6 @@ class SiteHeader extends React.Component {
     this.setState({navOpen: !this.state.navOpen})
   }
 
-  isPartiallyActive = ({isPartiallyCurrent}) => {
-    return isPartiallyCurrent ? { className: "active" } : null
-  }
-
   render() {
     return (
       <Container backgroundColor={this.props.backgroundColor}>
@@ -75,16 +82,7 @@ class SiteHeader extends React.Component {
           {this.props.headerContent && <div className="miscContent">
             {this.props.headerContent}
           </div>}
-        {!this.props.hideNav &&
-          <MenuButton className={!this.state.navOpen ? "active" : ""} hideMobile={true} onClick={this.toggleNav}><MdMenu/></MenuButton> &&
-          <SidebarNav backgroundColor={this.props.backgroundColor} open={this.state.navOpen} horizontal right>
-            <li><Link activeClassName="active" to="/">Home</Link></li>
-            <li><Link getProps={this.isPartiallyActive} to="/gigs/">Gigs</Link></li>
-            <li><Link getProps={this.isPartiallyActive} to="/artists/">Artists</Link></li>
-            <li><Link getProps={this.isPartiallyActive} to="/venues/">Venues</Link></li>
-            <li><Link getProps={this.isPartiallyActive} to="/blog/">Blog</Link></li>
-          </SidebarNav>
-        }
+        {!this.props.hideNav && <SiteNavHideMobile backgroundColor={this.props.backgroundColor}/>}
         </ReactCSSTransitionGroup>
       </Container>
     )

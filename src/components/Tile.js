@@ -6,7 +6,10 @@ import Content from './Content';
 import { rhythm } from '../utils/typography';
 
 const Container = styled.div`
-  background-color: black;
+	background: #00a8c5;
+	background: -webkit-linear-gradient(right,#00a8c5,#d74177);
+	background: -moz-linear-gradient(right,#00a8c5,#d74177);
+	background: linear-gradient(right,#00a8c5,#d74177);
   color: ${props => props.theme.textColor};
   position: relative;
   height: ${props => props.height ? props.height : "500px"};
