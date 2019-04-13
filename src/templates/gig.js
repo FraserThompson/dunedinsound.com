@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import styled from "styled-components"
 import Img from 'gatsby-image'
 import Lightbox from 'react-image-lightbox';
@@ -12,12 +12,13 @@ import Player from '../components/Player';
 import { rhythm } from '../utils/typography';
 import YouTubeResponsive from '../components/YouTubeResponsive';
 import Tile from '../components/Tile';
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowUp, MdPlayArrow, MdPause } from 'react-icons/md';
 import HorizontalNav from '../components/HorizontalNav';
+import RoundButton from '../components/RoundButton';
 
 const PlayerWrapper = styled.div`
   position: fixed;
-  bottom: 0px;
+  bottom: ${props => props.show ? "0px" : props.theme.headerHeightNeg };
   z-index: 11;
   overflow: visible;
   height: ${props => props.theme.headerHeight};
@@ -25,9 +26,24 @@ const PlayerWrapper = styled.div`
   opacity: 1;
   background-color: ${props => props.theme.headerColor};
   width: 100%;
-  -webkit-transition: background-color 0.5s ease;
-  -moz-transition: background-color 0.5s ease;
-  transition: background-color 0.5s ease;
+  transition: bottom 300ms ease-in-out;
+`
+
+const BackToGigsWrapper = styled.a`
+  position: absolute;
+  text-align: center;
+  top: -${rhythm(1)};
+  transition: all 300ms ease-in-out;
+  font-size: ${rhythm(4)};
+  opacity: 0.5;
+  p {
+    font-size: ${rhythm(0.5)};
+    margin-bottom: -${rhythm(1.5)};
+  }
+  &:hover {
+    top: 0px;
+    opacity: 1;
+  }
 `
 
 const NextPrevWrapper = styled.a`
@@ -37,12 +53,14 @@ const NextPrevWrapper = styled.a`
   z-index: 5;
   height: 100%;
   top: 0px;
-  width: 15vw;
+  width: 20vw;
   opacity: 0.5;
   transition: all 300ms ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: ${props => props.prev ? "-6px 0px 12px rgba(0,0,0,.5)" : "6px 0px 12px rgba(0,0,0,.5)"};
+
   .icon {
     position: absolute;
     z-index: 0;
@@ -118,11 +136,14 @@ class GigTemplate extends React.Component {
       }
     })
 
+    // Cover image is either one image or all the images in the _header folder
+    this.cover = imagesByArtist['_header'] || (this.post.frontmatter.cover && this.post.frontmatter.cover.childImageSharp.fluid)
+
     // Audio by artist
     this.artistAudio = this.artistMedia.filter(thing => thing.audio)
 
     // Details for the venue
-    this.venueDetails = this.props.data.venue && this.props.data.venue.length > 0 && this.props.data.venue.edges[0].node
+    this.venueDetails = this.props.data.venue && this.props.data.venue.edges.length > 0 && this.props.data.venue.edges[0].node
 
     /* Display elements */
     // Tile for next gig
@@ -179,7 +200,7 @@ class GigTemplate extends React.Component {
   }
 
   onScroll = () => {
-    if (window.pageYOffset > window.innerHeight * 0.6) {
+    if (window.pageYOffset > window.innerHeight * 0.8) {
       !this.state.scrolled && this.setState({scrolled: true})
     } else {
       this.state.scrolled && this.setState({scrolled: false})
@@ -236,14 +257,24 @@ class GigTemplate extends React.Component {
         description={siteDescription}
         title={`${this.post.frontmatter.title} | ${siteTitle}`}
         hideBrand={this.state.scrolled}
-        headerContent={this.state.scrolled && <h1 className="big">{this.post.frontmatter.title}</h1>}>
-        <Banner title={this.post.frontmatter.title} backgroundImage={this.post.frontmatter.cover && this.post.frontmatter.cover.childImageSharp.fluid} customContent={(<>{this.prevTile}{this.nextTile}</>)}>
+        hideNav={this.state.scrolled}
+        headerContent={this.state.scrolled && <a href="#top" title="Scroll to top"><h1 className="semi-big">{this.post.frontmatter.title}</h1></a>}
+      >
+        <Banner
+          id="top"
+          title={this.post.frontmatter.title}
+          backgroundImage={this.cover} customContent={(
+            <><BackToGigsWrapper title="Back to Gigs" href="/gigs"><p>BACK TO GIGS</p><MdKeyboardArrowUp/></BackToGigsWrapper>{this.prevTile}{this.nextTile}</>
+          )}
+        >
           <HorizontalNav>
+            <p>{this.post.frontmatter.date} {this.venueDetails && <>at <Link to={this.venueDetails.fields.slug}>{this.venueDetails.frontmatter.title}</Link></>}</p>
+            {this.post.frontmatter.description && <p>{this.post.frontmatter.description}</p>}
             {
               this.artistMedia.map((artist, index) => {
                 return (
                   <li key={index}>
-                    <a className="button" href={"#" + artist.machineName}>{artist.title}</a>
+                    <a className="button subtle" href={"#" + artist.machineName}>{artist.title}</a>
                   </li>
                 )
               })
@@ -251,16 +282,16 @@ class GigTemplate extends React.Component {
           </HorizontalNav>
         </Banner>
         {this.artistAudio.length > 0 &&
-          <PlayerWrapper>
-            <Player artistMedia={this.artistAudio}></Player>
+          <PlayerWrapper show={this.state.selectedAudio !== null}>
+            <Player artistMedia={this.artistMedia}/>
           </PlayerWrapper>
         }
         {
           this.artistMedia.map((artist, artistIndex) => {
 
             const imageElements = artist.images && artist.images.map((fluidImage, artistImageIndex) => {
-              return <a key={artistImageIndex} href={fluidImage.src} onClick={e => this.openLightbox(artistIndex, artistImageIndex, e)}>
-                <Img fluid={fluidImage} />
+              return <a style={{cursor: "pointer"}} key={artistImageIndex} onClick={e => this.openLightbox(artistIndex, artistImageIndex, e)}>
+                <Img className="backgroundImage" fluid={fluidImage} />
               </a>
             })
 
@@ -277,13 +308,22 @@ class GigTemplate extends React.Component {
               xs: "6",
               sm: "4",
               md: "3",
-              lg: imageElements.length > 14 ? "3" : "4"
+              lg: imageElements.length <= 6 ? "4" : imageElements.length <= 16 ? "3" : "2"
             }
 
+            const isPlaying = this.state.playing && this.state.selectedAudio == artistIndex
+
             return (
-              <div key={artistIndex}>
-                <Divider sticky={true}>
-                  <p id={artist.machineName}>{artist.title}</p>
+              <div key={artistIndex} id={artist.machineName}>
+                <Divider href={"#" + artist.machineName} sticky={true}>
+                  <p style={{marginRight: rhythm(0.5)}}>{artist.title}</p>
+                  <RoundButton
+                    className={isPlaying ? "active" : ""}
+                    onClick={() => {this.setState({selectedAudio: artistIndex})}}
+                    size="30px"
+                  >
+                    {!isPlaying ? <MdPlayArrow/> : <MdPause/>}
+                  </RoundButton>
                 </Divider>
                 <GridContainer xs="12" sm="6" md="6" lg="6">
                   {vidElements}
@@ -329,6 +369,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD YYYY")
         venue
+        description
         artists { name, vid {link, title} }
         cover {
           childImageSharp {
@@ -427,6 +468,7 @@ export const pageQuery = graphql`
         node {
           fields {
             machine_name
+            slug
           }
           frontmatter {
             title

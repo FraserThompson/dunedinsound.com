@@ -49,7 +49,7 @@ class Dropdown extends React.Component {
 
     return (
       <div>
-        <DropdownMenu width={this.props.width} open={this.state.open}>
+        <DropdownMenu {...this.props} open={this.state.open}>
           {list}
         </DropdownMenu>
         <MenuButton className={this.state.open ? "active" : ""} open={this.state.open} aria-haspopup="true" onClick={this.toggleMenu}><MdPlaylistPlay/></MenuButton>

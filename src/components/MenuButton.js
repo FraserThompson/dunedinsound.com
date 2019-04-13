@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { rhythm } from '../utils/typography';
+import { lighten } from 'polished';
 
 const MenuButton = styled.button`
   width: 50px;
@@ -8,7 +9,9 @@ const MenuButton = styled.button`
   padding: 0;
   outline: 0;
   z-index: 12;
-  color: white;
+  color: ${props => props.theme.textColor};
+  border-radius: 0px;
+  background-color: ${props => props.theme.highlightColor2};
 
   @media screen and (min-width: 992px) {
     display: ${props => props.hideMobile && "none"};

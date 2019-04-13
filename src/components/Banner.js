@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { rhythm } from '../utils/typography'
 import BackgroundImage from './BackgroundImage';
 
-const DefaultBannerHeight = "60vh";
+const DefaultBannerHeight = "80vh";
 
 const BannerWrapper = styled.div`
 	background: #00a8c5;
@@ -27,7 +27,8 @@ const BannerText = styled.div`
   flex-direction: column;
   margin: 0 auto;
   text-align: center;
-  max-width: 60vw;
+  background: rgba(0,0,0,.8);
+  padding: ${rhythm(1)};
 
   h1 {
     color: ${props => props.theme.contrastColor};
@@ -43,8 +44,7 @@ const BannerText = styled.div`
 class Banner extends React.Component {
   render() {
     return (
-      <BannerWrapper className="banner" height={this.props.height}>
-        {this.props.background && this.props.background}
+      <BannerWrapper className="banner" {...this.props}>
         {this.props.backgroundImage && <BackgroundImage fluid={this.props.backgroundImage} />}
         <BannerText>
           {this.props.title && <h1 className="big">{this.props.title}</h1>}

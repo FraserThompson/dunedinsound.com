@@ -20,7 +20,23 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1.big {
-    font-size: ${rhythm(1)};
+    font-size: ${rhythm(1.5)};
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: none;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    text-shadow: -1px -1px 0 rgba(0,0,0,.3);
+
+    @media screen and (min-width: 992px) {
+      font-size: ${rhythm(2.5)};
+    }
+
+  }
+
+
+  h1.semi-big {
+    font-size: ${rhythm(1.5)};
     text-align: center;
     text-overflow: ellipsis;
     overflow: none;
@@ -28,15 +44,23 @@ const GlobalStyle = createGlobalStyle`
     margin-bottom: 0;
     margin-left: ${rhythm(0.5)};
 
-    @media screen and (min-width: 992px) {
-      font-size: ${rhythm(1.5)};
-    }
+  }
 
+  a .backgroundImage{
+    transition: transform 0.3s ease-in-out;
+    transform: scale(1,1);
+  }
+
+  a:hover {
+    .backgroundImage {
+      transform: scale(1.02,1.02);
+    }
   }
 
   a {
     color: ${props => props.theme.textColor};
     text-decoration: none;
+    overflow:hidden;
     background-color: transparent;
 
     &:active, &:hover {
@@ -45,7 +69,7 @@ const GlobalStyle = createGlobalStyle`
 
     &:hover, &:focus {
       color: ${props => lighten(0.5, props.theme.textColor)};
-      text-decoration: underline;
+      text-decoration: none;
     }
 
     &.active {
@@ -82,6 +106,16 @@ const GlobalStyle = createGlobalStyle`
 
     color: ${props => props.theme.textColor};
     background-color: ${props => props.theme.highlightColor};
+
+    &.subtle {
+      padding-top: 0px;
+      padding-bottom: 0px;
+      padding-right: ${rhythm(0.5)};
+      padding-left: ${rhythm(0.5)};
+      color: ${props => props.theme.textColor};
+      background-color: transparent;
+      border-color: ${props => props.theme.highlightColor2};
+    }
 
     &.active, &:active {
       background-color: ${props => props.theme.highlightColor2};
@@ -120,7 +154,12 @@ class Layout extends React.Component {
             title={this.props.title}
           />
           <GlobalStyle/>
-          <SiteHeader backgroundColor={this.props.headerColor} headerContent={this.props.headerContent} hideBrand={this.props.hideBrand}/>
+          <SiteHeader
+            backgroundColor={this.props.headerColor}
+            headerContent={this.props.headerContent}
+            hideBrand={this.props.hideBrand}
+            hideNav={this.props.hideNav}
+          />
           <SiteContainer overrideBackgroundColor={this.props.overrideBackgroundColor}>
             {children}
           </SiteContainer>

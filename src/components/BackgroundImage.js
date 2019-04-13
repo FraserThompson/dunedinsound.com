@@ -1,18 +1,36 @@
 import React from 'react'
 import Img from 'gatsby-image'
 
+
 class BackgroundImage extends React.Component {
+
   render() {
-    return <Img
-    className="backgroundImage"
-    style={{
-      position: "absolute",
-      left: 0,
-      top: 0,
-      width: "100%",
-      zIndex: 0,
-      height: "100%"
-    }} {...this.props}></Img>
+
+    let background = "";
+    if (this.props.fluid.length) {
+      background = this.props.fluid.map((image, index) => <Img
+        className="backgroundImage"
+        key={index}
+        style={{
+          width: ((1 / this.props.fluid.length) * 100) + "%",
+          zIndex: 0,
+          height: "100%"
+        }} fluid={image}/>
+      )
+    } else {
+      background = <Img
+        className="backgroundImage"
+        style={{
+          width: "100%",
+          zIndex: 0,
+          height: "100%"
+        }} fluid={this.props.fluid}
+      />
+    }
+
+  return <div style={{display: "flex", justifyContent: 'center', alignItems: 'center', width: "100%", height: "100%"}}>
+      {background}
+    </div>
   }
 }
 

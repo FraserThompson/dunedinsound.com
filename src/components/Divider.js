@@ -1,7 +1,8 @@
+import React from 'react'
 import styled from 'styled-components'
 import { rhythm } from '../utils/typography'
 
-const Divider = styled.div`
+const DividerWrapper = styled.div`
   width: 100%;
   position: ${props => props.sticky ? "sticky" : "relative"};
   top: ${props => props.sticky ? props.theme.headerHeight : "0"};
@@ -17,5 +18,15 @@ const Divider = styled.div`
     display: inline-block;
     vertical-align: middle;
   }
+  a {
+    color: ${props => props.highlight ? "white" : "black"};
+    &:hover, &:active {
+      color: ${props => props.highlight ? "white" : "black"};
+    }
+  }
 `
-export default Divider;
+export default class Divider extends React.Component {
+  render() {
+    return <DividerWrapper {...this.props}><a href={this.props.href}>{this.props.children}</a></DividerWrapper>
+  }
+}

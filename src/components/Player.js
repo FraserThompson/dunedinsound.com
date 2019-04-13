@@ -2,24 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { MdPlayArrow, MdPause, MdSkipNext, MdSkipPrevious } from 'react-icons/md';
 import { theme } from '../utils/theme'
-import { rhythm } from '../utils/typography';
 import Dropdown from './Dropdown';
-
-const RoundButton = styled.button`
-  z-index: 11;
-  color: ${props => props.theme.highlightColor2};
-  border-color: ${props => props.theme.highlightColor2};
-  border-radius: 50%;
-  background-color: transparent;
-  height: ${props => props.size};
-  width: ${props => props.size};
-  padding: 0;
-  outline: 0;
-  svg {
-    width: 100%;
-    height: 100%;
-  }
-`
+import RoundButton from './RoundButton';
 
 const PlayerControls = styled.div`
 `
@@ -74,7 +58,7 @@ export default class Player extends React.Component {
       currentTime: undefined,
       duration: undefined,
       progress: 0,
-      selectedArtist: 0
+      selectedArtist: this.props.selectedArtist || 0
     }
 
   }
@@ -84,12 +68,12 @@ export default class Player extends React.Component {
     window.cached_json = window.cached_json || {};
 
     // because otherwise window is not defined
-    this.WaveSurfer = require('wavesurfer.js');
+    this.wavesurfer = require('wavesurfer.js');
     this.RegionsPlugin = require('wavesurfer.js/dist/plugin/wavesurfer.regions');
 
     if (this.el) {
 
-      this.wavesurfer = this.WaveSurfer.create({
+      this.wavesurfer = this.wavesurfer.create({
         container: this.el,
         waveColor: theme.default.waveformColor,
         height: 45,

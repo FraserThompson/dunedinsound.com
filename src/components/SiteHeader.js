@@ -19,6 +19,7 @@ const Container = styled.div`
   z-index: 10;
   height: ${props => props.theme.headerHeight};
   color: ${props => props.theme.textColor};
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
 
   .miscContent {
     margin: 0 auto;
@@ -74,15 +75,17 @@ class SiteHeader extends React.Component {
           {this.props.headerContent && <div className="miscContent">
             {this.props.headerContent}
           </div>}
+        {!this.props.hideNav &&
+          <MenuButton className={!this.state.navOpen ? "active" : ""} hideMobile={true} onClick={this.toggleNav}><MdMenu/></MenuButton> &&
+          <SidebarNav backgroundColor={this.props.backgroundColor} open={this.state.navOpen} horizontal right>
+            <li><Link activeClassName="active" to="/">Home</Link></li>
+            <li><Link getProps={this.isPartiallyActive} to="/gigs/">Gigs</Link></li>
+            <li><Link getProps={this.isPartiallyActive} to="/artists/">Artists</Link></li>
+            <li><Link getProps={this.isPartiallyActive} to="/venues/">Venues</Link></li>
+            <li><Link getProps={this.isPartiallyActive} to="/blog/">Blog</Link></li>
+          </SidebarNav>
+        }
         </ReactCSSTransitionGroup>
-        <MenuButton className={!this.state.navOpen ? "active" : ""} hideMobile={true} onClick={this.toggleNav}><MdMenu/></MenuButton>
-        <SidebarNav backgroundColor={this.props.backgroundColor} open={this.state.navOpen} horizontal right>
-          <li><Link activeClassName="active" to="/">Home</Link></li>
-          <li><Link getProps={this.isPartiallyActive} to="/gigs/">Gigs</Link></li>
-          <li><Link getProps={this.isPartiallyActive} to="/artists/">Artists</Link></li>
-          <li><Link getProps={this.isPartiallyActive} to="/venues/">Venues</Link></li>
-          <li><Link getProps={this.isPartiallyActive} to="/blog/">Blog</Link></li>
-        </SidebarNav>
       </Container>
     )
   }

@@ -17,6 +17,7 @@ const SidebarNav = styled(Menu)`
   z-index: 10;
   padding: 0;
   margin: 0;
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
 
   transition-property: width, visibility, opacity, transform, pointer-events;
 	transition-duration: .3s;
