@@ -7,7 +7,7 @@ import { lighten } from 'polished';
 // Parameters
 // Horizontal: Defines whether it should be displayed as a horizontal list or vertical list. Collapses at 992px by default.
 
-const Menu = styled.ul`
+const Menu = styled.div`
   width: ${props => props.width};
   text-align: left;
   background-color: ${props => props.theme.headerColor};
@@ -15,37 +15,27 @@ const Menu = styled.ul`
   border: none;
   border-radius: 0;
   margin: 0;
-  list-style: none;
   overflow-y: hidden;
 
-  li {
+  > a, li {
+    position: relative;
     line-height: ${props => props.height || props.theme.headerHeight};
     margin: 0px;
-    display: ${props => props.horizontal && "inline-block"};
+    display: ${props => props.horizontal ? "inline-block" : "block"};
     border-bottom: ${props => props.horizontal && "none"};
     border-top: ${props => props.horizontal && "none"};
 
     cursor: pointer;
 
     &.active {
-      > a {
-        background-color: ${props => props.theme.highlightColor2};
-        color: ${props => lighten(0.5, props.theme.textColor)};
-      }
+      background-color: ${props => props.theme.highlightColor2};
+      color: ${props => lighten(0.5, props.theme.textColor)};
     }
 
-    > a {
-      padding-left: ${rhythm(0.5)};
-      padding-right: ${rhythm(0.5)};
+    padding-left: ${rhythm(0.5)};
+    padding-right: ${rhythm(0.5)};
 
-      border-right: none;
-      border-left: none;
-
-
-      text-decoration: none;
-      position: relative;
-      display: block;
-    }
+    text-decoration: none;
 
     .title {
       font-size: ${rhythm(0.5)};
