@@ -7,7 +7,10 @@ const DividerWrapper = styled.div`
   position: ${props => props.sticky ? "sticky" : "relative"};
   display: flex;
   align-items: center;
-  top: ${props => props.sticky ? props.theme.headerHeight : "0"};
+  top: ${props => props.sticky ? props.theme.headerHeightWithMobile : "0"};
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    top: ${props => props.sticky ? props.theme.headerHeight : "0"};
+  }
   color: ${props => props.color || "black"};
   z-index: 2;
   min-height: ${rhythm(1)};

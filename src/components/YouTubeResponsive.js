@@ -8,7 +8,7 @@ const YouTubeWrapper = styled.div`
   padding-top: 25px;
   height: 0;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     grid-column: ${props => props.odd ? "col-start 4 / span 6" : null};
   }
 

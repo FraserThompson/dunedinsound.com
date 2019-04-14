@@ -59,7 +59,6 @@ const NextPrevWrapper = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: ${props => props.prev ? "-6px 0px 12px rgba(0,0,0,.5)" : "6px 0px 12px rgba(0,0,0,.5)"};
 
   .icon {
     position: absolute;
@@ -77,6 +76,7 @@ const NextPrevWrapper = styled.a`
   &:hover {
     right: ${props => props.prev ? "0px" : null};
     left: ${props => props.next ? "0px" : null};
+    box-shadow: ${props => props.prev ? "-6px 0px 12px rgba(0,0,0,.5)" : "6px 0px 12px rgba(0,0,0,.5)"};
     opacity: 1;
     .tile {
       opacity: 1;
@@ -295,7 +295,7 @@ class GigTemplate extends React.Component {
           id="top"
           title={this.post.frontmatter.title}
           backgroundImage={this.cover} customContent={(
-            <><BackToGigsWrapper title="Back to Gigs" href="/gigs"><p>BACK TO GIGS</p><MdKeyboardArrowUp/></BackToGigsWrapper>{this.prevTile}{this.nextTile}</>
+            <><BackToGigsWrapper title="BACK TO GIGS ☝" href="/gigs"><p>☝ BACK TO GIGS ☝</p><MdKeyboardArrowUp/></BackToGigsWrapper>{this.prevTile}{this.nextTile}</>
           )}
         >
           <HorizontalNav>
@@ -362,7 +362,7 @@ class GigTemplate extends React.Component {
                     {!isPlaying ? <MdPlayArrow/> : <MdPause/>}
                   </RoundButton>
                   <div onClick={this.seekAudio} style={{flexGrow: 1,display: "flex", alignSelf: "stretch", alignItems: "center"}}>
-                    <AudioSeek style={{width: "100%"}} max="100" value={this.player.current && (this.player.current.wavesurfer.getCurrentTime() /this.player.current.wavesurfer.getDuration()) * 100}/>
+                    <AudioSeek style={{width: "100%"}} max="100" value={isPlaying && this.player.current && (this.player.current.wavesurfer.getCurrentTime() /this.player.current.wavesurfer.getDuration()) * 100}/>
                   </div>
                 </Divider>
                 <GridContainer xs="12" sm="6" md="6" lg="6">

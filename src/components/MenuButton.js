@@ -13,7 +13,7 @@ const MenuButton = styled.button`
   border-radius: 0px;
   background-color: ${props => props.theme.highlightColor2};
 
-  @media screen and (min-width: 992px) {
+  @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
     display: ${props => props.hideMobile && "none"};
   }
 

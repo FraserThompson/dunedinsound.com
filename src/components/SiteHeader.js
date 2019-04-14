@@ -6,11 +6,10 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import SiteNav from './SiteNav';
 
 const Container = styled.div`
-
   background-color: ${props => props.backgroundColor || props.theme.headerColor};
   position: sticky;
   width: 100%;
-  display: flex;
+  display: ${props => props.hideOnMobile && "none"};
   flex-direction: row;
   justify-items: center;
   top: 0px;
@@ -19,13 +18,14 @@ const Container = styled.div`
   color: ${props => props.theme.textColor};
   box-shadow: 0 6px 12px rgba(0,0,0,.175);
 
-  margin-top: ${props => props.theme.headerHeightMobile};
-  @media screen and (min-width: 768px) {
-    margin-top: 0px;
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    display: flex;
   }
 
   .miscContent {
     margin: 0 auto;
+    height: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -52,29 +52,11 @@ const Brand = styled.div`
   }
 `
 
-const SiteNavHideMobile = styled(SiteNav)`
-  display: none;
-  @media screen and (min-width: 768px) {
-    display: initial;
-  }
-`
-
 class SiteHeader extends React.Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      navOpen: true
-    }
-  }
-
-  toggleNav = () => {
-    this.setState({navOpen: !this.state.navOpen})
-  }
 
   render() {
     return (
-      <Container backgroundColor={this.props.backgroundColor}>
+      <Container hideOnMobile={!this.props.headerContent} backgroundColor={this.props.backgroundColor}>
         <ReactCSSTransitionGroup component={React.Fragment} transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={1}>
           {!this.props.hideBrand && <Brand>
             <Link to="/">Dunedin Gig Archives</Link>
@@ -82,7 +64,7 @@ class SiteHeader extends React.Component {
           {this.props.headerContent && <div className="miscContent">
             {this.props.headerContent}
           </div>}
-        {!this.props.hideNav && <SiteNavHideMobile backgroundColor={this.props.backgroundColor}/>}
+        {!this.props.hideNav && <SiteNav className="hideMobile"/>}
         </ReactCSSTransitionGroup>
       </Container>
     )

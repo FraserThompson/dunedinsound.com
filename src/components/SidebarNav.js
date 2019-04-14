@@ -5,19 +5,23 @@ const DefaultWidth = "60vw"
 
 const SidebarNav = styled(Menu)`
 
-  background-color: ${props => props.backgroundColor || "transparent"};
-  height: ${props => props.horizontal ? "auto" : "100vh"};
+  background-color: ${props => props.backgroundColor || props.theme.headerColor};
+  height: ${props => props.horizontal ? "auto" : "calc(100vh - " + props.theme.headerHeightWithMobile + ")"};
   overflow-x: hidden;
   overflow-y: ${props => props.horizontal ? "none" : "auto"};
   position: fixed;
-  width: ${props => props.width};
-  top: ${props => props.theme.headerHeight};
+  max-width: 300px;
+  top: ${props => props.theme.headerHeightWithMobile};
   left: ${props => props.left && 0};
   right: ${props => props.right && 0};
   z-index: 10;
   padding: 0;
   margin: 0;
   box-shadow: 0 6px 12px rgba(0,0,0,.175);
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    height: ${props => props.horizontal ? "auto" : "calc(100vh - " + props.theme.headerHeight + ")"};
+  }
 
   transition-property: width, visibility, opacity, transform, pointer-events;
 	transition-duration: .3s;
@@ -29,8 +33,7 @@ const SidebarNav = styled(Menu)`
   pointer-events: ${props => props.open ? "none" : "auto"};
   width: ${DefaultWidth};
 
-  @media screen and (min-width: 992px) {
-    width: ${props => props.width};
+  @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
     visibility: ${props => !props.open ? "hidden" : "visible"};
     opacity: ${props => !props.open ? "0" : "1"};
     transform: ${props => !props.open ? `translateX(${(props.left ? "-" : "") + (props.width || DefaultWidth)})` : `translateY(0)`};
@@ -38,6 +41,10 @@ const SidebarNav = styled(Menu)`
     height: ${props => props.horizontal && "auto"};
     position: ${props => props.horizontal && "initial"};
     width: ${props => props.horizontal && "auto"};
+  }
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    top: ${props => props.theme.headerHeight};
   }
 
   .active-top {

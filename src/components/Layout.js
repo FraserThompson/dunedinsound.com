@@ -8,6 +8,7 @@ import { rhythm } from '../utils/typography';
 import { lighten } from 'polished';
 import TransitionStyles from './TransitionStyles';
 import { Helmet } from 'react-helmet';
+import Menu from './Menu';
 import SiteNav from './SiteNav';
 
 const GlobalStyle = createGlobalStyle`
@@ -21,16 +22,16 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1.big {
-    font-size: ${rhythm(1.5)};
+    font-size: ${rhythm(1)};
     text-align: center;
     text-overflow: ellipsis;
-    overflow: none;
+    overflow: hidden;
     text-transform: uppercase;
     margin-bottom: 0;
     text-shadow: -1px -1px 0 rgba(0,0,0,.3);
 
-    @media screen and (min-width: 992px) {
-      font-size: ${rhythm(2.5)};
+    @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
+      font-size: ${rhythm(1.5)};
     }
 
   }
@@ -41,14 +42,16 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1.semi-big {
-    font-size: ${rhythm(1.5)};
+    font-size: ${rhythm(0.8)};
     text-align: center;
     text-overflow: ellipsis;
-    overflow: none;
+    overflow: hidden;
     text-transform: uppercase;
     margin-bottom: 0;
     margin-left: ${rhythm(0.5)};
-
+    @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
+      font-size: ${rhythm(2)};
+    }
   }
 
   a .backgroundImage{
@@ -85,16 +88,35 @@ const GlobalStyle = createGlobalStyle`
   }
 
   * {
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
   }
 
   *:before, *:after {
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
   }
+
+
+  .showMobile {
+    display: initial;
+  }
+
+  .hideMobile {
+    display: none;
+  }
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    .showMobile {
+      display: none;
+    }
+    .hideMobile {
+      display: initial;
+    }
+  }
+
 
   button, .button {
     display: inline-block;
@@ -136,25 +158,34 @@ const GlobalStyle = createGlobalStyle`
   ${TransitionStyles}
 
 `
-
-const MobileNav = styled.div`
-  display: initial;
-  position: fixed;
-  top: 0px;
-  height: ${props => props.theme.headerHeightMobile};
-  background-color: ${props => props.theme.headerColor};
-  z-index: 12;
-  width: 100%;
-  @media screen and (min-width: 768px) {
-    display: none;
-  }
-`
-
 const SiteContainer = styled.div`
   min-height: ${props => "calc(100vh - " + props.theme.headerHeight + " - " + props.theme.footerHeight + " - " + rhythm(3) + ")"};
   background-color: ${props => props.overrideBackgroundColor};
   height: 100%;
   width: 100%;
+`
+
+const MobileNav = styled.div`
+  height: ${props => props.theme.headerHeightMobile};
+  background-color: ${props => props.theme.headerColor};
+  z-index: 12;
+  width: 100%;
+  ${Menu} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+      flex-grow: 1;
+      text-align: center;
+    }
+  }
+`
+
+const HeaderWrapper = styled.div`
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  z-index: 12;
 `
 
 class Layout extends React.Component {
@@ -172,19 +203,21 @@ class Layout extends React.Component {
             title={this.props.title}
           />
           <GlobalStyle/>
-          <SiteHeader
-            backgroundColor={this.props.headerColor}
-            headerContent={this.props.headerContent}
-            hideBrand={this.props.hideBrand}
-            hideNav={this.props.hideNav}
-          />
+          <HeaderWrapper>
+            <MobileNav className="showMobile">
+              <SiteNav backgroundColor={lighten(0.1, theme.default.headerColor)} height={theme.default.headerHeightMobile}/>
+            </MobileNav>
+            <SiteHeader
+              backgroundColor={this.props.headerColor}
+              headerContent={this.props.headerContent}
+              hideBrand={this.props.hideBrand}
+              hideNav={this.props.hideNav}
+            />
+          </HeaderWrapper>
           <SiteContainer overrideBackgroundColor={this.props.overrideBackgroundColor}>
             {children}
           </SiteContainer>
           {!this.props.hideFooter && <SiteFooter/> }
-          <MobileNav>
-            <SiteNav height={theme.default.headerHeightMobile}/>
-          </MobileNav>
         </>
       </ThemeProvider>
     )

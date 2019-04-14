@@ -6,10 +6,9 @@ import BackgroundImage from './BackgroundImage';
 const DefaultBannerHeight = "80vh";
 
 const BannerWrapper = styled.div`
-	background: #00a8c5;
-	background: -webkit-linear-gradient(right,#00a8c5,#d74177);
-	background: -moz-linear-gradient(right,#00a8c5,#d74177);
-	background: linear-gradient(right,#00a8c5,#d74177);
+  background: #40E0D0;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   height: ${props => props.height ? props.height : DefaultBannerHeight};
   overflow: hidden;
   position: relative;
@@ -46,14 +45,16 @@ class Banner extends React.Component {
     return (
       <BannerWrapper className="banner" {...this.props}>
         {this.props.backgroundImage && <BackgroundImage fluid={this.props.backgroundImage} />}
-        <BannerText>
-          {this.props.title && <h1 className="big">{this.props.title}</h1>}
-          {this.props.children &&
-            <div className="center-content">
-              {this.props.children}
-            </div>
-          }
-        </BannerText>
+        {(this.props.title || this.props.children) &&
+          <BannerText>
+            {this.props.title && <h1 className="big">{this.props.title}</h1>}
+            {this.props.children &&
+              <div className="center-content">
+                {this.props.children}
+              </div>
+            }
+          </BannerText>
+        }
         {this.props.customContent}
       </BannerWrapper>
     )

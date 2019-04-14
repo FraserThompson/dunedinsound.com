@@ -6,13 +6,13 @@ import Content from './Content';
 import { rhythm } from '../utils/typography';
 
 const Container = styled.div`
-	background: #00a8c5;
-	background: -webkit-linear-gradient(right,#00a8c5,#d74177);
-	background: -moz-linear-gradient(right,#00a8c5,#d74177);
-	background: linear-gradient(right,#00a8c5,#d74177);
+  background: #40E0D0;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: ${props => props.theme.textColor};
   position: relative;
   height: ${props => props.height ? props.height : "500px"};
+  width: ${props => props.width};
   overflow: hidden;
 
   h1,h2,h3,h4 {

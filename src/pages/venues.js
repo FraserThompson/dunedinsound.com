@@ -6,6 +6,8 @@ import styled from "styled-components"
 import { Map, Popup, TileLayer, Marker } from 'react-leaflet'
 import SidebarNav from '../components/SidebarNav'
 import Search from '../components/Search';
+import MenuButton from '../components/MenuButton';
+import { MdMenu } from 'react-icons/md';
 
 const MapWrapper = styled.div`
   width: 100%;
@@ -37,7 +39,7 @@ class Venues extends React.Component {
   }
 
   select = (index, center) => {
-    this.setState({selected: index, zoomLevel: 18, center})
+    this.setState({selected: index, zoomLevel: 18, center, sidebarOpen: true})
   }
 
   markerClick = (index) => {
@@ -79,7 +81,7 @@ class Venues extends React.Component {
         title={`Venues | ${siteTitle}`}
         hideBrand={true}
         hideFooter={true}
-        headerContent={<Search toggleSidebar={this.toggleSidebar} filter={this.filter}/>}
+        headerContent={<><MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton><Search toggleSidebar={this.toggleSidebar} filter={this.filter}/></>}
       >
         <SidebarNav ref={this.sidebarRef} width="15vw" open={this.state.sidebarOpen} left>
           {

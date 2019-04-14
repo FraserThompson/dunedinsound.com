@@ -10,7 +10,7 @@ import { lighten } from 'polished';
 const Menu = styled.div`
   width: ${props => props.width};
   text-align: left;
-  background-color: ${props => props.theme.headerColor};
+  background-color: ${props => props.backgroundColor || props.theme.headerColor};
   background-clip: padding-box;
   border: none;
   border-radius: 0;

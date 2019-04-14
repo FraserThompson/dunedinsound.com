@@ -4,7 +4,8 @@ export const theme = {
     default: {
         headerHeight: rhythm(2),
         headerHeightMobile: rhythm(1),
-        headerHeightNeg: rhythm(-3),
+        headerHeightWithMobile: rhythm(3),
+        headerHeightNeg: rhythm(-2),
         footerHeight: rhythm(4),
         waveformColor: "#01baef",
         waveformProgressColor: "#EC4067",
@@ -14,6 +15,11 @@ export const theme = {
         highlightColor2: "#EC4067",
         contrastColor: "#EFF1ED",
         textColor: "#ccc",
-        contentContainerWidth: "740px"
+        contentContainerWidth: "740px",
+        breakpoints: {
+          xs: "768px",
+          md: "992px",
+          lg: "1200px"
+        }
     }
 }

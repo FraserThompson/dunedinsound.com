@@ -7,12 +7,14 @@ import Scrollspy from 'react-scrollspy'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import Search from '../components/Search';
 import SidebarNav from '../components/SidebarNav';
+import { MdMenu } from 'react-icons/md';
+import MenuButton from '../components/MenuButton';
 
 const PageContent = styled.div`
   padding-left: 0px;
 
-  @media screen and (min-width: 992px) {
-    padding-left: 15vw;
+  @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
+    padding-left: 300px;
   }
 
 `
@@ -96,7 +98,7 @@ class Gigs extends React.Component {
         title={`Gigs | ${siteTitle}`}
         hideBrand={true}
         hideFooter={true}
-        headerContent={<Search toggleSidebar={this.toggleSidebar} filter={this.filter} />}>
+        headerContent={<><MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton><Search toggleSidebar={this.toggleSidebar} filter={this.filter}/></>}>
         <PageContent>
           <ReactCSSTransitionGroup transitionName="popin" transitionEnterTimeout={400} transitionLeaveTimeout={400}>
             {Object.keys(postsByDate).sort((a, b) => b - a).map((year) => {
