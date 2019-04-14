@@ -11,5 +11,5 @@ media:
             mp3:
                 -   title: Just a taste
             vid:
-                -   link: LlMKyk6Wbxc
+                -   link: f7kd7zBtlpg
 ---

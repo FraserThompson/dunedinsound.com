@@ -29,6 +29,8 @@ function doGigs() {
       const parsed = YAML.parse(frontmatter[1]);
       parsed.venue = machine_name(parsed.venue, "_");
 
+      if (parse.venue == "the_crown_hotel") parsed.venue = "crown_hotel";
+
       delete parsed.better_placeholders
       delete parsed.parent
       delete parsed.categories

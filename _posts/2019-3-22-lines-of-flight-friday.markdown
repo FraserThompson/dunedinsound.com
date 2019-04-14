@@ -14,8 +14,6 @@ media:
     Kiseki Usagi:
             mp3:
                 -   title: Full Set
-            vid:
-                -   link:
     Waterfalls:
             mp3:
                 -   title: Full Set
