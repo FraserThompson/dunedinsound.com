@@ -1,6 +1,10 @@
 const helper = require('./src/utils/helper.js')
 const path = require('path')
 
+const realFs = require('fs')
+const gracefulFs = require('graceful-fs')
+gracefulFs.gracefulify(realFs)
+
 // Takes the slug and returns the node type
 getNodeType = (path) => {
   if (/\/gigs/.test(path)) return "gigs";

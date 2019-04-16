@@ -16,7 +16,7 @@ class VenueTemplate extends React.Component {
     const post = this.props.data.thisPost
     const gigs = this.props.data.gigs.edges
     const siteTitle = this.props.data.site.siteMetadata.title
-    const siteDescription = post.excerpt
+    const venueDescription = post.frontmatter.description || "See media from " + post.frontmatter.title
 
     const position = [post.frontmatter.lat, post.frontmatter.lng]
     const map = (
@@ -48,7 +48,7 @@ class VenueTemplate extends React.Component {
     });
 
     return (
-      <Layout location={this.props.location} description={siteDescription} title={`${post.frontmatter.title} | ${siteTitle}`}>
+      <Layout location={this.props.location} description={venueDescription} title={`${post.frontmatter.title} | ${siteTitle}`}>
         <Banner title={post.frontmatter.title} height="40vh" background={map}>
           <div dangerouslySetInnerHTML={{__html : post.frontmatter.description}}></div>
           <HorizontalNav>
@@ -81,7 +81,6 @@ export const pageQuery = graphql`
     }
     thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
       id
-      excerpt
       html
       frontmatter {
         title
@@ -97,7 +96,6 @@ export const pageQuery = graphql`
     gigs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}, frontmatter: {venue: {eq: $machine_name}}}) {
       edges {
         node {
-          excerpt
           fields {
             slug
           }

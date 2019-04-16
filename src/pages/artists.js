@@ -1,9 +1,13 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
-import GridContainer from '../components/GridContainer';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import Tile from '../components/Tile';
 import Search from '../components/Search';
+import FlexGridContainer from '../components/FlexGridContainer';
+import { theme } from '../utils/theme';
+
+const filterDebounced = AwesomeDebouncePromise((needle, haystack) => haystack.filter(({node}) => node.frontmatter.title.toLowerCase().includes(needle)), 500);
 
 class Artists extends React.Component {
 
@@ -15,13 +19,13 @@ class Artists extends React.Component {
     }
   }
 
-  filter = (e) => {
+  filter = async (e) => {
     const searchInput = e.target.value;
     if (!searchInput || searchInput == "") {
       const filteredPosts =  this.props.data.allArtists.edges;
       this.setState({filteredPosts})
     } else {
-      const filteredPosts = this.props.data.allArtists.edges.filter(({node}) =>node.frontmatter.title.toLowerCase().includes(searchInput))
+      const filteredPosts = await filterDebounced(searchInput, this.props.data.allArtists.edges);
       this.setState({filteredPosts})
     }
   }
@@ -53,7 +57,7 @@ class Artists extends React.Component {
           image={coverImage}
           label={node.frontmatter.date}
           href={node.fields.slug}
-          height={"20vh"}
+          height={this.state.filteredPosts.length == 1 ? "calc(100vh - " + theme.default.headerHeight + ")" : this.state.filteredPosts.length <= 8  ? "40vh" : "20vh"}
         />
       )
     });
@@ -64,10 +68,10 @@ class Artists extends React.Component {
         title={`Artists | ${siteTitle}`}
         hideBrandOnMobile={true}
         hideFooter={true}
-        headerContent={<Search toggleSidebar={this.toggleSidebar} filter={this.filter} />}>
-        <GridContainer xs="6" sm="4" md="3" lg="2">
+        headerContent={<Search placeholder="Search artists" toggleSidebar={this.toggleSidebar} filter={this.filter} />}>
+        <FlexGridContainer xs="6" sm="4" md="3" lg="2">
           {artistTiles}
-        </GridContainer>
+        </FlexGridContainer>
       </Layout>
     )
   }
@@ -86,7 +90,6 @@ export const pageQuery = graphql`
     allArtists: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "artists"}}}) {
       edges {
         node {
-          excerpt
           fields {
             slug
             machine_name

@@ -280,12 +280,12 @@ class GigTemplate extends React.Component {
   render = () => {
 
     const siteTitle = this.props.data.site.siteMetadata.title
-    const siteDescription = this.post.excerpt
+    const gigDescription = "Media from " + this.post.frontmatter.title
 
     return (
       <Layout
         location={this.props.location}
-        description={siteDescription}
+        description={gigDescription}
         title={`${this.post.frontmatter.title} | ${siteTitle}`}
         hideBrand={this.state.scrolled}
         hideNav={this.state.scrolled}

@@ -115,7 +115,6 @@ export const pageQuery = graphql`
     allMarkdownRemark(limit: 7, sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { regex: "/gigs|blog$/"}}}) {
       edges {
         node {
-          excerpt
           fields {
             slug
             type

@@ -25,7 +25,7 @@ const Label = styled.span`
   margin-right: -0.8em;
   margin-top: -0.8em;
   color: ${props => props.textColor};
-  z-index: 8;
+  z-index: 5;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;

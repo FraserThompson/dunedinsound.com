@@ -1,0 +1,10 @@
+---
+title: 'Radio One 91FM presents Mermaidens'
+date: 2017-08-19T09:00:00.000Z
+venue: benessere_studios
+artists:
+    - {name: Koizilla, vid: [{title: 'Yes/Escape Rope', link: HGIrBEtso8I}, {title: 'New song', link: g2z0erNEMzs}, {title: 'Another new song', link: PWZHVs2JN5M}]}
+    - {name: 'Earth Tongue', vid: [{link: hwk30t9H-KU}, {link: g-H_bb4V8S0}, {link: CqFK7fey2pw}]}
+    - {name: Mermaidens, vid: [{link: TdHf4WL3Ykk}, {link: PTvUxt3R2LE}]}
+cover: ./cover.jpg
+---

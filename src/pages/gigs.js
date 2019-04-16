@@ -10,12 +10,22 @@ import SidebarNav from '../components/SidebarNav';
 import { MdMenu } from 'react-icons/md';
 import MenuButton from '../components/MenuButton';
 import Helper from  '../utils/helper';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
+
+const filter = (needle, haystack) =>
+  haystack.filter(({node}) => {
+    const titleResult = node.frontmatter.title.toLowerCase().includes(needle)
+    const artistResult = node.frontmatter.artists.map(({name}) => name.toLowerCase()).join(" ").includes(needle)
+    return titleResult || artistResult
+  })
+
+const filterDebounced = AwesomeDebouncePromise(filter, 500);
 
 const PageContent = styled.div`
   padding-left: 0px;
 
   @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
-    padding-left: 300px;
+    padding-left: 200px;
   }
 
 `
@@ -30,17 +40,13 @@ class Gigs extends React.Component {
     }
   }
 
-  filter = (e) => {
+  filter = async (e) => {
     const searchInput = e.target.value;
     if (!searchInput || searchInput == "") {
-      const filteredPosts =  this.props.data.allMarkdownRemark.edges;
+      const filteredPosts =  this.props.data.allMarkdownRemark.edges
       this.setState({filteredPosts})
     } else {
-      const filteredPosts = this.props.data.allMarkdownRemark.edges.filter(({node}) => {
-        const titleResult = node.frontmatter.title.toLowerCase().includes(searchInput)
-        const artistResult = node.frontmatter.artists.map(({name}) => name.toLowerCase()).join(" ").includes(searchInput)
-        return titleResult || artistResult
-      })
+      const filteredPosts = await filterDebounced(searchInput, this.props.data.allMarkdownRemark.edges)
       this.setState({filteredPosts})
     }
   }
@@ -93,9 +99,9 @@ class Gigs extends React.Component {
       <Layout
         location={this.props.location} description={siteDescription}
         title={`Gigs | ${siteTitle}`}
-        hideBrand={true}
+        hideBrandOnMobile={true}
         hideFooter={true}
-        headerContent={<><MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton><Search toggleSidebar={this.toggleSidebar} filter={this.filter}/></>}>
+        headerContent={<><MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton><Search placeholder="Search gigs"  toggleSidebar={this.toggleSidebar} filter={this.filter}/></>}>
         <PageContent>
           <ReactCSSTransitionGroup transitionName="popin" transitionEnterTimeout={400} transitionLeaveTimeout={400}>
             {Object.keys(postsByDate).sort((a, b) => b - a).map((year) => {
@@ -132,7 +138,7 @@ class Gigs extends React.Component {
             })}
           </ReactCSSTransitionGroup>
         </PageContent>
-        <SidebarNav width="15vw" open={this.state.sidebarOpen} left>
+        <SidebarNav open={this.state.sidebarOpen} left>
           <Scrollspy items={scrollspyYearItems} currentClassName="active-top" offset={-60}>
             {menuItems}
           </Scrollspy>
@@ -155,7 +161,6 @@ export const pageQuery = graphql`
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}}) {
       edges {
         node {
-          excerpt
           fields {
             slug
           }

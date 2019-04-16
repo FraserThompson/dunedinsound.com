@@ -12,7 +12,7 @@ class Search extends React.Component {
   render() {
 
     return (
-      <HeaderSearch placeholder="Search" type="text" onChange={this.props.filter}/>
+      <HeaderSearch placeholder={this.props.placeholder || "Search"} type="text" onChange={this.props.filter}/>
     )
   }
 }

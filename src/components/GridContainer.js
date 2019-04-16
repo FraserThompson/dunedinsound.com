@@ -6,24 +6,24 @@ const GridContainer = styled.div`
     justify-items: ${props => props.center ? "center" : "initial"};
     grid-auto-flow: dense;
 
-    * {
+    > * {
       grid-column: span ${props => props.xs || 12};
     }
 
     @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-      * {
+      > * {
         grid-column: span ${props => props.sm || 6};
       }
     }
 
     @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
-      * {
+      > * {
         grid-column: span ${props => props.md || 4};
       }
     }
 
     @media screen and (min-width: ${props => props.theme.breakpoints.lg}) {
-      * {
+      > * {
         grid-column: span ${props => props.lg || 4};
       }
     }

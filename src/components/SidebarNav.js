@@ -10,7 +10,7 @@ const SidebarNav = styled(Menu)`
   overflow-x: hidden;
   overflow-y: ${props => props.horizontal ? "none" : "auto"};
   position: fixed;
-  max-width: 300px;
+  max-width: ${props => props.width || "200px"};
   top: ${props => props.theme.headerHeightWithMobile};
   left: ${props => props.left && 0};
   right: ${props => props.right && 0};

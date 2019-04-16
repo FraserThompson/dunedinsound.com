@@ -1,0 +1,11 @@
+---
+title: 'Rothmans EP Fundraiser 2'
+date: 2017-11-25T08:30:00.000Z
+venue: the_attic
+artists:
+    - {name: 'Vanessa Worm', vid: [{link: OcpidMFN4O4}]}
+    - {name: Coyote, vid: [{link: gVpB2wwc5T0}, {link: fqZb18xIQRA}, {title: 'Catatonic Death Trance', link: YrqEqad0MX0}]}
+    - {name: 'The Rothmans', vid: [{title: 'Omakau (and more)', link: f2ijy3nndYU}, {title: Holstenval, link: '-kugRmSvnYs'}, {title: 'New song and Fuck Roaches', link: oWxx9xSW-z0}, {link: l2manVXSE80}]}
+    - {name: Koizilla, vid: [{link: in1PVE7cpjs}]}
+cover: ./cover.jpg
+---

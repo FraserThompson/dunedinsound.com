@@ -1,21 +1,12 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import styled from "styled-components"
 import Layout from '../components/Layout'
 import Banner from '../components/Banner';
 import Tile from '../components/Tile';
 import Divider from '../components/Divider';
-import GridContainer from '../components/GridContainer';
 import HorizontalNav from '../components/HorizontalNav';
-import Helper from  '../utils/helper';
 import { theme } from '../utils/theme';
-
-const FlexGrid = styled.div`
-  display: flex;
-  >* {
-    flex: 1 1 33vw;
-  }
-`
+import FlexGridContainer from '../components/FlexGridContainer';
 
 class ArtistTemplate extends React.Component {
   render() {
@@ -23,7 +14,8 @@ class ArtistTemplate extends React.Component {
     const post = this.props.data.thisPost
     const gigs = this.props.data.gigs && this.props.data.gigs.edges
     const siteTitle = this.props.data.site.siteMetadata.title
-    const siteDescription = post.excerpt
+
+    const artistDescription = "See gigs from " + post.frontmatter.title;
 
     // sort our filtered posts by year and month
     const postsByDate = gigs.reduce((object, {node}) => {
@@ -39,34 +31,33 @@ class ArtistTemplate extends React.Component {
 
     const gigTiles = gigs && Object.keys(postsByDate).sort((a, b) => b - a).map(year => {
       return <React.Fragment key={year}>
-        <Divider backgroundColor={theme.default.highlightColor2} color="white">{year}</Divider>
-        {Object.keys(postsByDate[year]).sort((a, b) => b - a).map(month => {
-          return <React.Fragment key={month}><Divider backgroundColor={theme.default.highlightColor} color="white">{month}</Divider>
-            <FlexGrid>
-              {postsByDate[year][month].map((node) => {
-                const title = node.frontmatter.title || node.fields.slug
-                const coverImage = node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid
+        <Divider backgroundColor={theme.default.highlightColor2} color="white" sticky>{year}</Divider>
+        <FlexGridContainer>
+          {Object.keys(postsByDate[year]).sort((a, b) => b - a).map(month => {
+            return <React.Fragment key={month}>
+                {postsByDate[year][month].map((node) => {
+                  const title = node.frontmatter.title || node.fields.slug
+                  const coverImage = node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid
 
-                return (
-                  <Tile
-                    key={node.fields.slug}
-                    title={title}
-                    image={coverImage}
-                    label={node.frontmatter.date}
-                    href={node.fields.slug}
-                    height={"40vh"}
-                  />
-                )
-              })}
-            </FlexGrid>
-          </React.Fragment>
-        })}
+                  return (
+                    <Tile
+                      key={node.fields.slug}
+                      title={title}
+                      image={coverImage}
+                      label={node.frontmatter.date}
+                      href={node.fields.slug}
+                    />
+                  )
+                })}
+            </React.Fragment>
+          })}
+        </FlexGridContainer>
       </React.Fragment>
     })
 
     return (
-      <Layout location={this.props.location} description={siteDescription} title={`${post.frontmatter.title} | ${siteTitle}`}>
-        <Banner title={post.frontmatter.title} height="40vh" backgroundImage={this.props.data.images && this.props.data.images.edges[0].node.childImageSharp.fluid}>
+      <Layout location={this.props.location} description={artistDescription} title={`${post.frontmatter.title} | ${siteTitle}`}>
+        <Banner title={post.frontmatter.title} backgroundImage={this.props.data.images && this.props.data.images.edges[0].node.childImageSharp.fluid}>
           <HorizontalNav>
             {post.frontmatter.facebook && <li><a className="button" href={post.frontmatter.facebook}>Facebook</a></li>}
             {post.frontmatter.bandcamp && <li><a className="button" href={post.frontmatter.bandcamp}>Bandcamp</a></li>}
@@ -93,7 +84,6 @@ export const pageQuery = graphql`
     }
     thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
       id
-      excerpt
       html
       frontmatter {
         title
@@ -120,7 +110,6 @@ export const pageQuery = graphql`
     gigs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}, frontmatter: {artists: {elemMatch: {name: {eq: $title}}}}}) {
       edges {
         node {
-          excerpt
           fields {
             slug
           }

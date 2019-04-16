@@ -116,6 +116,11 @@ const GlobalStyle = createGlobalStyle`
     }
 
   }
+  li.active {
+    a {
+      color: white;
+    }
+  }
 
   progress {
     -webkit-appearance: none;

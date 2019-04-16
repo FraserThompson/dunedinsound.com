@@ -14,7 +14,7 @@ const DividerWrapper = styled.div`
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     top: ${props => props.sticky ? props.theme.headerHeight : "0"};
   }
-  z-index: 2;
+  z-index: ${props => props.sticky ? "6" : "5"};
   min-height: ${rhythm(1)};
   padding-left: ${rhythm(0.5)};
   padding-right: ${rhythm(0.5)};

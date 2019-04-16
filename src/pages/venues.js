@@ -8,6 +8,9 @@ import SidebarNav from '../components/SidebarNav'
 import Search from '../components/Search';
 import MenuButton from '../components/MenuButton';
 import { MdMenu } from 'react-icons/md';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
+
+const filterDebounced = AwesomeDebouncePromise((needle, haystack) => haystack.filter(({node}) => node.frontmatter.title.toLowerCase().includes(needle)), 500);
 
 const MapWrapper = styled.div`
   width: 100%;
@@ -51,16 +54,13 @@ class Venues extends React.Component {
     this.setState({sidebarOpen: !this.state.sidebarOpen})
   }
 
-  filter = (e) => {
+  filter = async (e) => {
     const searchInput = e.target.value;
     if (!searchInput || searchInput == "") {
-      const filteredPosts =  this.props.data.allVenues.edges;
+      const filteredPosts = this.props.data.allVenues.edges;
       this.setState({filteredPosts})
     } else {
-      const filteredPosts = this.props.data.allVenues.edges.filter(({node}) => {
-        const titleResult = node.frontmatter.title.toLowerCase().includes(searchInput)
-        return titleResult
-      })
+      const filteredPosts = await filterDebounced(searchInput, this.props.data.allVenues.edges)
       this.setState({filteredPosts})
     }
   }
@@ -81,9 +81,9 @@ class Venues extends React.Component {
         title={`Venues | ${siteTitle}`}
         hideBrandOnMobile={true}
         hideFooter={true}
-        headerContent={<><MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton><Search toggleSidebar={this.toggleSidebar} filter={this.filter}/></>}
+        headerContent={<><MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton><Search placeholder="Search venues" toggleSidebar={this.toggleSidebar} filter={this.filter}/></>}
       >
-        <SidebarNav ref={this.sidebarRef} width="15vw" open={this.state.sidebarOpen} left>
+        <SidebarNav ref={this.sidebarRef} width="300px" open={this.state.sidebarOpen} left>
           {
             this.state.filteredPosts.map(({ node }, index) =>
                 <li ref={this.setRef} className={index === this.state.selected ? "active" : ""} key={index}>
@@ -135,7 +135,6 @@ export const pageQuery = graphql`
     allVenues: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "venues"}}}) {
       edges {
         node {
-          excerpt
           fields {
             slug
             machine_name

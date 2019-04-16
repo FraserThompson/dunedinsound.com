@@ -1,0 +1,9 @@
+---
+title: 'Idiot Prayer + Guests, Maybe'
+date: 2017-01-07T07:00:00.000Z
+venue: crown_hotel
+artists:
+    - {name: 'Agent Ewok', vid: [{title: Amitriptyline, link: rNlfgS8_3X8}]}
+    - {name: 'Idiot Prayer', vid: [{link: '-DIRdO012Hw'}, {link: Um1hXCaTRfU}]}
+cover: ./cover.jpg
+---
