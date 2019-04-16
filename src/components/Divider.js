@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import { rhythm } from '../utils/typography'
 
 const DividerWrapper = styled.div`
+  color: ${props => props.color || "black"};
+  line-height: ${rhythm(1)};
+  vertical-align: middle;
   width: 100%;
   position: ${props => props.sticky ? "sticky" : "relative"};
   display: flex;
@@ -11,12 +14,11 @@ const DividerWrapper = styled.div`
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     top: ${props => props.sticky ? props.theme.headerHeight : "0"};
   }
-  color: ${props => props.color || "black"};
   z-index: 2;
   min-height: ${rhythm(1)};
   padding-left: ${rhythm(0.5)};
   padding-right: ${rhythm(0.5)};
-  background-color: ${props => props.highlight ? props.theme.highlightColor : props.theme.contrastColor};
+  background-color: ${props => props.backgroundColor || props.theme.contrastColor};
   p {
     margin: 0;
     line-height: ${rhythm(1)};

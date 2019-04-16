@@ -9,6 +9,7 @@ import Search from '../components/Search';
 import SidebarNav from '../components/SidebarNav';
 import { MdMenu } from 'react-icons/md';
 import MenuButton from '../components/MenuButton';
+import Helper from  '../utils/helper';
 
 const PageContent = styled.div`
   padding-left: 0px;
@@ -44,11 +45,6 @@ class Gigs extends React.Component {
     }
   }
 
-  sortByMonth = (a, b) => {
-    const allMonths = ['Jan','Feb','Mar', 'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-    return allMonths.indexOf(a) > allMonths.indexOf(b)
-  }
-
   toggleSidebar = () => {
     this.setState({sidebarOpen: !this.state.sidebarOpen})
   }
@@ -61,9 +57,10 @@ class Gigs extends React.Component {
 
     // sort our filtered posts by year and month
     const postsByDate = this.state.filteredPosts.reduce((object, {node}) => {
-      const date = new Date(node.frontmatter.date)
+      const splitDate = node.frontmatter.date.split("-");
+      const date = new Date("20" + splitDate[2], splitDate[1] - 1, splitDate[0]);
       const year = date.getFullYear().toString()
-      const month = date.toLocaleString('en-us', { month: 'long' });
+      const month = date.toLocaleString('en-GB', { month: 'long' });
       object[year] || (object[year] = {})
       object[year][month] || (object[year][month] = [])
       object[year][month].push(node)
@@ -81,7 +78,7 @@ class Gigs extends React.Component {
         <li key={year}>
           <a href={`#${year}`}><strong>{year}</strong></a>
           <Scrollspy items={scrollspyMonthItems} currentClassName="active" offset={-60}>
-            {Object.keys(postsByDate[year]).sort(this.sortByMonth).map(month => {
+            {Object.keys(postsByDate[year]).sort(Helper.sortByMonth).map(month => {
               const className = `${year}-${month}`
               scrollspyMonthItems.push(className);
               return <li key={month}><a href={`#${className}`}>{month}</a></li>
@@ -103,7 +100,7 @@ class Gigs extends React.Component {
           <ReactCSSTransitionGroup transitionName="popin" transitionEnterTimeout={400} transitionLeaveTimeout={400}>
             {Object.keys(postsByDate).sort((a, b) => b - a).map((year) => {
 
-              const monthPosts = Object.keys(postsByDate[year]).sort(this.sortByMonth).map(month => {
+              const monthPosts = Object.keys(postsByDate[year]).sort((a, b) => b - a).map(month => {
 
                 const posts = postsByDate[year][month]
                 const id = `${year}-${month}`
@@ -163,7 +160,7 @@ export const pageQuery = graphql`
             slug
           }
           frontmatter {
-            date(formatString: "DD MMMM YYYY")
+            date(formatString: "DD-MM-YY")
             title
             artists { name }
             cover {

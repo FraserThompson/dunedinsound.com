@@ -1,11 +1,10 @@
 import styled from 'styled-components'
-import { rhythm } from '../utils/typography';
-import { lighten } from 'polished';
+import { scale } from '../utils/typography';
 
 const MenuButton = styled.button`
+  ${scale(1)};
   width: 50px;
   height: ${props => props.theme.headerHeight};
-  font-size: ${rhythm(1)};
   padding: 0;
   outline: 0;
   z-index: 12;

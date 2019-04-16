@@ -79,7 +79,7 @@ class Venues extends React.Component {
         description={siteDescription}
         location={this.props.location}
         title={`Venues | ${siteTitle}`}
-        hideBrand={true}
+        hideBrandOnMobile={true}
         hideFooter={true}
         headerContent={<><MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton><Search toggleSidebar={this.toggleSidebar} filter={this.filter}/></>}
       >
@@ -105,9 +105,10 @@ class Venues extends React.Component {
               <Marker ref={(marker) => this.openPopup(marker, index)} key={index} position={[node.frontmatter.lat, node.frontmatter.lng]}>
                 <Popup onOpen={() => this.markerClick(index)}>
                     <h3>{node.frontmatter.title}</h3>
+                    {node.frontmatter.description && <p>{node.frontmatter.description}</p>}
                     <Link to={node.fields.slug}>
-                    {node.frontmatter.cover && <Img fluid={node.frontmatter.cover.childImageSharp.fluid}/>}
-                    View gigs
+                      {node.frontmatter.cover && <Img fluid={node.frontmatter.cover.childImageSharp.fluid}/>}
+                      View gigs
                     </Link>
                     {node.frontmatter.facebook && <Link to={node.frontmatter.facebook}>Facebook</Link>}
                 </Popup>

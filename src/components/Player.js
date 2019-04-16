@@ -4,6 +4,7 @@ import { MdPlayArrow, MdPause, MdSkipNext, MdSkipPrevious } from 'react-icons/md
 import { theme } from '../utils/theme'
 import Dropdown from './Dropdown';
 import RoundButton from './RoundButton';
+import { scale } from '../utils/typography';
 
 const PlayerControls = styled.div`
 `
@@ -24,23 +25,23 @@ const WaveWrapper = styled.div`
 `
 
 const LengthWrapper = styled.div`
+  ${scale(-0.5)};
   background: white;
   color: #000;
   z-index: 11;
-  font-size: 12px;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 `
 
 const TitleWrapper = styled.div`
+  ${scale(-0.5)};
   position: absolute;
   width: 100%;
   text-align: center;
   bottom: -10px;
   z-index: 11;
   color: #000;
-  font-size: 12px;
   span {
     background-color: white;
   }

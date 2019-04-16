@@ -9,7 +9,7 @@ import GridContainer from '../components/GridContainer';
 import Banner from '../components/Banner';
 import Divider from '../components/Divider';
 import Player from '../components/Player';
-import { rhythm } from '../utils/typography';
+import { rhythm, scale } from '../utils/typography';
 import YouTubeResponsive from '../components/YouTubeResponsive';
 import Tile from '../components/Tile';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowUp, MdPlayArrow, MdPause } from 'react-icons/md';
@@ -30,14 +30,14 @@ const PlayerWrapper = styled.div`
 `
 
 const BackToGigsWrapper = styled.a`
+  ${scale(4)};
   position: absolute;
   text-align: center;
   top: -${rhythm(1)};
   transition: all 300ms ease-in-out;
-  font-size: ${rhythm(4)};
   opacity: 0.5;
   p {
-    font-size: ${rhythm(0.5)};
+    ${scale(0.5)};
     margin-bottom: -${rhythm(1.5)};
   }
   &:hover {
@@ -61,9 +61,9 @@ const NextPrevWrapper = styled.a`
   justify-content: center;
 
   .icon {
+    ${scale(4)};
     position: absolute;
     z-index: 0;
-    font-size: ${rhythm(4)};
     right: ${props => props.prev ? "10vw" : null};
     left: ${props => props.next ? "10vw" : null};
   }
@@ -305,7 +305,7 @@ class GigTemplate extends React.Component {
               this.artistMedia.map((artist, index) => {
                 return (
                   <li key={index}>
-                    <a className="button subtle" href={"#" + artist.machineName}>{artist.title}</a>
+                    <a className="button" href={"#" + artist.machineName}>{artist.title}</a>
                   </li>
                 )
               })

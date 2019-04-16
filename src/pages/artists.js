@@ -62,7 +62,7 @@ class Artists extends React.Component {
       <Layout
         location={this.props.location} description={siteDescription}
         title={`Artists | ${siteTitle}`}
-        hideBrand={true}
+        hideBrandOnMobile={true}
         hideFooter={true}
         headerContent={<Search toggleSidebar={this.toggleSidebar} filter={this.filter} />}>
         <GridContainer xs="6" sm="4" md="3" lg="2">
@@ -92,7 +92,7 @@ export const pageQuery = graphql`
             machine_name
           }
           frontmatter {
-            date(formatString: "MMMM DD, YYYY")
+            date(formatString: "DD-MM-YY")
             title
             cover {
               childImageSharp {

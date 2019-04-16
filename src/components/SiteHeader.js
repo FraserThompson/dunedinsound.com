@@ -18,7 +18,6 @@ const Container = styled.div`
   color: ${props => props.theme.textColor};
   box-shadow: 0 6px 12px rgba(0,0,0,.175);
 
-
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     display: flex;
   }
@@ -40,8 +39,13 @@ const Container = styled.div`
 
 const Brand = styled.div`
   margin-right: auto;
-  display: "block";
+  display: ${props => props.hideOnMobile && "none"};
   height: ${props => props.theme.headerHeight};
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
+    display: block;
+  }
+
   a {
     padding: ${rhythm(0.5)};
     line-height: ${props => props.theme.headerHeight};
@@ -58,7 +62,7 @@ class SiteHeader extends React.Component {
     return (
       <Container hideOnMobile={!this.props.headerContent} backgroundColor={this.props.backgroundColor}>
         <ReactCSSTransitionGroup component={React.Fragment} transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={1}>
-          {!this.props.hideBrand && <Brand>
+          {!this.props.hideBrand && <Brand hideOnMobile={this.props.hideBrandOnMobile}>
             <Link to="/">Dunedin Gig Archives</Link>
           </Brand>}
           {this.props.headerContent && <div className="miscContent">

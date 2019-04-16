@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { rhythm } from '../utils/typography';
+import { rhythm, scale } from '../utils/typography';
 import { lighten } from 'polished';
 
 
@@ -38,7 +38,7 @@ const Menu = styled.div`
     text-decoration: none;
 
     .title {
-      font-size: ${rhythm(0.5)};
+      ${scale(0.5)};
     }
 
     .listButton {
