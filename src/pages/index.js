@@ -107,31 +107,12 @@ export default Homepage
 export const pageQuery = graphql`
   query {
     site {
-      siteMetadata {
-        title
-        description
-      }
+      ...SiteInformation
     }
     allMarkdownRemark(limit: 7, sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { regex: "/gigs|blog$/"}}}) {
       edges {
         node {
-          fields {
-            slug
-            type
-          }
-          frontmatter {
-            date(formatString: "DD-MM-YY")
-            title
-            artists { name }
-            venue
-            cover {
-              childImageSharp {
-                fluid(maxWidth: 1600) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-          }
+          ...GigFrontmatter
         }
       }
     }

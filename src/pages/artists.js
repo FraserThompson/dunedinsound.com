@@ -17,6 +17,10 @@ class Artists extends React.Component {
       filteredPosts: this.props.data.allArtists.edges,
       sidebarOpen: true
     }
+    this.gigCountsByArtist = this.props.data.gigsByArtist['group'].reduce((obj, item) => {
+      obj[item.fieldValue] = item.totalCount
+      return obj
+    })
   }
 
   filter = async (e) => {
@@ -54,6 +58,7 @@ class Artists extends React.Component {
         <Tile
           key={node.fields.slug}
           title={title}
+          subtitle={`${this.gigCountsByArtist[title]} gigs`}
           image={coverImage}
           label={node.frontmatter.date}
           href={node.fields.slug}
@@ -82,47 +87,32 @@ export default Artists
 export const pageQuery = graphql`
   query {
     site {
-      siteMetadata {
-        title
-        description
-      }
+      ...SiteInformation
     }
     allArtists: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "artists"}}}) {
       edges {
         node {
-          fields {
-            slug
-            machine_name
-          }
-          frontmatter {
-            date(formatString: "DD-MM-YY")
-            title
-            cover {
-              childImageSharp {
-                fluid(maxWidth: 400) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-          }
+          ...ArtistFrontmatter
         }
       }
     }
     imagesByArtist: allFile( filter: {extension: {eq: "jpg"}}) {
-      group(field: fields___artist) {
+      group(field: fields___artist, limit: 1) {
         fieldValue
         edges {
           node {
             fields {
               artist
             }
-            childImageSharp {
-              fluid(maxWidth: 800) {
-                ...GatsbyImageSharpFluid
-              }
-            }
+            ...MediumImage
           }
         }
+      }
+    }
+    gigsByArtist: allMarkdownRemark(filter: {fields: {type: { eq: "gigs"}}}) {
+      group(field: frontmatter___artists___name) {
+        fieldValue
+        totalCount
       }
     }
   }

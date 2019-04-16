@@ -192,10 +192,18 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     const nodeTitle = nodeType === "gigs" ? helper.machineName(node.frontmatter.title, "-") : helper.machineName(node.frontmatter.title, "_") // to preserve URLs from old site
     const nodeSlug = "/" + nodeType + "/" + nodeTitle + "/"
 
+    const parsedPath = path.parse(node.fileAbsolutePath)
+    const parentDir = path.basename(parsedPath.dir)
+
     createNodeField({
       name: `machine_name`,
       node,
       value: helper.machineName(node.frontmatter.title, "_")
+    })
+    createNodeField({
+      name: `parentDir`,
+      node,
+      value: parentDir
     })
     createNodeField({
       name: `slug`,

@@ -396,65 +396,16 @@ export default GigTemplate
 export const pageQuery = graphql`
   query GigsBySlug($slug: String!, $prevSlug: String, $nextSlug: String, $artists: [String]!, $venue: String!, $gigDir: String! ) {
     site {
-      siteMetadata {
-        title
-        author
-      }
+      ...SiteInformation
     }
     thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
-      fields {
-        machine_name
-      }
-      frontmatter {
-        title
-        date(formatString: "MMMM DD YYYY")
-        venue
-        description
-        artists { name, vid {link, title} }
-        cover {
-          childImageSharp {
-            fluid(maxWidth: 2400) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-      }
+      ...GigFrontmatter
     }
     nextPost: markdownRemark(fields: { slug: { eq: $nextSlug } }) {
-      fields {
-        slug
-      }
-      frontmatter {
-        title
-        date(formatString: "MMMM DD YYYY")
-        venue
-        artists { name, vid {link, title} }
-        cover {
-          childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-      }
+      ...GigFrontmatter
     }
     prevPost: markdownRemark(fields: { slug: { eq: $prevSlug } }) {
-      fields {
-        slug
-      }
-      frontmatter {
-        title
-        date(formatString: "MMMM DD YYYY")
-        venue
-        artists { name, vid {link, title} }
-        cover {
-          childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-      }
+      ...GigFrontmatter
     }
     images: allFile( filter: {extension: {in: ["jpg", "JPG"]}, fields: { gigDir: {eq: $gigDir}}}) {
       group(field: fields___artist) {
@@ -463,11 +414,7 @@ export const pageQuery = graphql`
           node {
             name
             publicURL
-            childImageSharp {
-              fluid(maxWidth: 2400) {
-                ...GatsbyImageSharpFluid
-              }
-            }
+            ...FullImage
           }
         }
       }

@@ -7,7 +7,7 @@ import Scrollspy from 'react-scrollspy'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import Search from '../components/Search';
 import SidebarNav from '../components/SidebarNav';
-import { MdMenu } from 'react-icons/md';
+import { MdMenu, MdPhotoCamera, MdAudiotrack, MdVideocam } from 'react-icons/md';
 import MenuButton from '../components/MenuButton';
 import Helper from  '../utils/helper';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
@@ -25,7 +25,7 @@ const PageContent = styled.div`
   padding-left: 0px;
 
   @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
-    padding-left: 200px;
+    padding-left: 250px;
   }
 
 `
@@ -34,8 +34,23 @@ class Gigs extends React.Component {
 
   constructor(props) {
     super(props)
+
+    const { data } = this.props
+    this.siteTitle = data.site.siteMetadata.title
+    this.siteDescription = data.site.siteMetadata.description
+
+    this.imageCountByGig = data.imageCountByGig['group'].reduce((obj, item) => {
+      obj[item.fieldValue] = item.totalCount
+      return obj
+    })
+
+    this.audioCountByGig = data.audioCountByGig['group'].reduce((obj, item) => {
+      obj[item.fieldValue] = item.totalCount
+      return obj
+    })
+
     this.state = {
-      filteredPosts: this.props.data.allMarkdownRemark.edges,
+      filteredPosts: data.allMarkdownRemark.edges,
       sidebarOpen: true
     }
   }
@@ -56,11 +71,6 @@ class Gigs extends React.Component {
   }
 
   render() {
-
-    const { data } = this.props;
-    const siteTitle = data.site.siteMetadata.title
-    const siteDescription = data.site.siteMetadata.description
-
     // sort our filtered posts by year and month
     const postsByDate = this.state.filteredPosts.reduce((object, {node}) => {
       const splitDate = node.frontmatter.date.split("-");
@@ -97,8 +107,8 @@ class Gigs extends React.Component {
 
     return (
       <Layout
-        location={this.props.location} description={siteDescription}
-        title={`Gigs | ${siteTitle}`}
+        location={this.props.location} description={this.siteDescription}
+        title={`Gigs | ${this.siteTitle}`}
         hideBrandOnMobile={true}
         hideFooter={true}
         headerContent={<><MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton><Search placeholder="Search gigs"  toggleSidebar={this.toggleSidebar} filter={this.filter}/></>}>
@@ -113,13 +123,21 @@ class Gigs extends React.Component {
 
                 return <section key={id} id={id}>
                   {posts.map(node => {
+
                     const title = node.frontmatter.title || node.fields.slug
                     const artists = node.frontmatter.artists.map(artist => artist.name).join(", ")
+                    const videoCount = node.frontmatter.artists.reduce((count, artist) => { return count + (artist.vid ? artist.vid.length : 0)}, 0)
+
                     return (
                       <Tile
                         key={node.fields.slug}
                         title={title}
-                        subtitle={artists}
+                        subtitle={
+                          <>
+                            <p>{artists}</p>
+                            <p>{this.imageCountByGig[node.fields.parentDir]} <MdPhotoCamera/> {this.audioCountByGig[node.fields.parentDir]} <MdAudiotrack/> {videoCount} <MdVideocam/></p>
+                          </>
+                        }
                         image={node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid}
                         label={node.frontmatter.date}
                         height="30vh"
@@ -153,30 +171,25 @@ export default Gigs
 export const pageQuery = graphql`
   query {
     site {
-      siteMetadata {
-        title
-        description
-      }
+      ...SiteInformation
     }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}}) {
       edges {
         node {
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "DD-MM-YY")
-            title
-            artists { name }
-            cover {
-              childImageSharp {
-                fluid(maxWidth: 1600) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-          }
+          ...GigFrontmatter
         }
+      }
+    }
+    imageCountByGig: allFile( filter: {extension: {in: ["jpg", "JPG"]}}) {
+      group(field: fields___gigDir) {
+        fieldValue
+        totalCount
+      }
+    }
+    audioCountByGig: allFile( filter: {extension: {eq: "mp3"}}) {
+      group(field: fields___gigDir) {
+        fieldValue
+        totalCount
       }
     }
   }

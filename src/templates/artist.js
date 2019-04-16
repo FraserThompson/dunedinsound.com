@@ -77,21 +77,10 @@ export default ArtistTemplate
 export const pageQuery = graphql`
   query ArtistsBySlug($slug: String!, $machine_name: String!, $title: String!) {
     site {
-      siteMetadata {
-        title
-        author
-      }
+      ...SiteInformation
     }
     thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      html
-      frontmatter {
-        title
-        bandcamp
-        facebook
-        soundcloud
-        website
-      }
+      ...ArtistFrontmatter
     }
     images: allFile( filter: {extension: {in: ["jpg", "JPG"]}, fields: { artist: {eq: $machine_name}}}) {
       edges {
@@ -99,33 +88,14 @@ export const pageQuery = graphql`
           fields {
             artist
           }
-          childImageSharp {
-            fluid(maxWidth: 1600) {
-              ...GatsbyImageSharpFluid
-            }
-          }
+          ...LargeImage
         }
       }
     }
     gigs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}, frontmatter: {artists: {elemMatch: {name: {eq: $title}}}}}) {
       edges {
         node {
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "DD-MM-YY")
-            venue
-            artists { name, vid {link, title} }
-            title
-            cover {
-              childImageSharp {
-                fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-          }
+          ...GigFrontmatter
         }
       }
     }

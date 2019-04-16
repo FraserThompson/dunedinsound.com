@@ -74,10 +74,7 @@ export default VenueTemplate
 export const pageQuery = graphql`
   query VenuesBySlug($slug: String!, $machine_name: String!) {
     site {
-      siteMetadata {
-        title
-        author
-      }
+      ...SiteInformation
     }
     thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
       id
@@ -96,22 +93,7 @@ export const pageQuery = graphql`
     gigs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}, frontmatter: {venue: {eq: $machine_name}}}) {
       edges {
         node {
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "DD-MM-YY")
-            venue
-            artists { name, vid {link, title} }
-            title
-            cover {
-              childImageSharp {
-                fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-          }
+          ...GigFrontmatter
         }
       }
     }

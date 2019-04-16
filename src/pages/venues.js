@@ -127,30 +127,12 @@ export default Venues
 export const pageQuery = graphql`
   query {
     site {
-      siteMetadata {
-        title
-        description
-      }
+      ...SiteInformation
     }
     allVenues: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "venues"}}}) {
       edges {
         node {
-          fields {
-            slug
-            machine_name
-          }
-          frontmatter {
-            lat
-            lng
-            title
-            cover {
-              childImageSharp {
-                fluid(maxWidth: 400) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-          }
+          ...VenueFrontmatter
         }
       }
     }

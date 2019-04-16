@@ -55,10 +55,7 @@ export default Blog
 export const pageQuery = graphql`
   query {
     site {
-      siteMetadata {
-        title
-        description
-      }
+      ...SiteInformation
     }
     allBlogs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "blog"}}}) {
       edges {
@@ -71,11 +68,7 @@ export const pageQuery = graphql`
             date(formatString: "DD MMMM YYYY")
             title
             cover {
-              childImageSharp {
-                fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
+              ...LargeImage
             }
           }
         }

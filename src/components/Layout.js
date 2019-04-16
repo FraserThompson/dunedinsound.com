@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql } from 'gatsby'
 import SiteHeader from './SiteHeader'
 import styled, { ThemeProvider } from "styled-components"
 import { theme } from '../utils/theme'
@@ -70,5 +71,93 @@ class Layout extends React.Component {
     )
   }
 }
+
+export const query = graphql`
+  fragment SiteInformation on Site {
+    siteMetadata {
+      title
+      description
+    }
+  }
+
+  fragment DefaultFields on MarkdownRemark {
+    fields {
+      slug
+      type
+      machine_name
+      parentDir
+    }
+  }
+
+  fragment SmallImage on File {
+    childImageSharp {
+      fluid(maxWidth: 400) {
+        ...GatsbyImageSharpFluid
+      }
+    }
+  }
+
+  fragment MediumImage on File {
+    childImageSharp {
+      fluid(maxWidth: 800) {
+        ...GatsbyImageSharpFluid
+      }
+    }
+  }
+
+  fragment LargeImage on File {
+    childImageSharp {
+      fluid(maxWidth: 1600) {
+        ...GatsbyImageSharpFluid
+      }
+    }
+  }
+
+  fragment FullImage on File {
+    childImageSharp {
+      fluid(maxWidth: 2400) {
+        ...GatsbyImageSharpFluid
+      }
+    }
+  }
+
+  fragment GigFrontmatter on MarkdownRemark {
+    ...DefaultFields
+    frontmatter {
+      title
+      date(formatString: "DD-MM-YY")
+      venue
+      description
+      artists { name, vid {link, title} }
+      cover {
+        ...LargeImage
+      }
+    }
+  }
+  fragment ArtistFrontmatter on MarkdownRemark {
+    ...DefaultFields
+    frontmatter {
+      title
+      bandcamp
+      facebook
+      soundcloud
+      website
+      cover {
+        ...SmallImage
+      }
+    }
+  }
+  fragment VenueFrontmatter on MarkdownRemark {
+    ...DefaultFields
+    frontmatter {
+      lat
+      lng
+      title
+      cover {
+        ...SmallImage
+      }
+    }
+  }
+`
 
 export default Layout

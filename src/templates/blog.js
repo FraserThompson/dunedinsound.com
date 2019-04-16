@@ -69,10 +69,7 @@ export default BlogPostTemplate
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
     site {
-      siteMetadata {
-        title
-        author
-      }
+      ...SiteInformation
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
@@ -81,11 +78,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         cover {
-          childImageSharp {
-            fluid(maxWidth: 2400) {
-              ...GatsbyImageSharpFluid
-            }
-          }
+          ...FullImage
         }
         date(formatString: "DD-MM-YY")
       }
