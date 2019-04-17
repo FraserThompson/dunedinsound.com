@@ -42,9 +42,12 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  p {
+  p, span {
     small {
       color: ${props => darken(0.1, props.theme.textColor)};
+    }
+    &.smaller {
+      ${scale(-0.4)};
     }
   }
 

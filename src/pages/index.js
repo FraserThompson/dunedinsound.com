@@ -5,6 +5,7 @@ import Layout from '../components/Layout'
 import Tile from '../components/Tile';
 import {nodeTypeToHuman} from '../utils/helper';
 import GridContainer from '../components/GridContainer';
+import GigTile from '../components/GigTile';
 
 const HomePageGridContainer = styled(GridContainer)`
   > div:nth-child(1) {
@@ -36,59 +37,74 @@ const HomePageGridContainer = styled(GridContainer)`
 `
 
 class Homepage extends React.Component {
+
+  constructor(props) {
+    super(props)
+    const { data } = this.props
+
+    this.siteTitle = data.site.siteMetadata.title
+    this.siteDescription = data.site.siteMetadata.description
+    this.posts = data.allMarkdownRemark.edges
+    this.firstNode = this.posts.find(({node}) => node.fields.type === "gigs").node
+
+    this.imageCountByGig = data.imageCountByGig['group'].reduce((obj, item) => {
+      obj[item.fieldValue] = item.totalCount
+      return obj
+    })
+
+    this.audioCountByGig = data.audioCountByGig['group'].reduce((obj, item) => {
+      obj[item.fieldValue] = item.totalCount
+      return obj
+    })
+
+  }
   render() {
-    const { data } = this.props;
-    const siteTitle = data.site.siteMetadata.title
-    const siteDescription = data.site.siteMetadata.description
-    const posts = data.allMarkdownRemark.edges
-    const firstNode = posts[0].node
 
     return (
-      <Layout description={siteDescription} location={this.props.location} title={siteTitle}>
+      <Layout description={this.siteDescription} location={this.props.location} title={this.siteTitle}>
         <HomePageGridContainer>
           <div>
-            <Tile
-              title={"LATEST GIG: " + firstNode.frontmatter.title}
-              subtitle={firstNode.frontmatter.artists && firstNode.frontmatter.artists.map(artist => artist.name).join(", ")}
-              image={firstNode.frontmatter.cover && firstNode.frontmatter.cover.childImageSharp.fluid}
-              label={firstNode.frontmatter.date}
-              height={"calc(60vh)"}
-              href={firstNode.fields.slug}
+            <GigTile
+              title={"LATEST GIG: " + this.firstNode.frontmatter.title}
+              node={this.firstNode}
+              height="60vh"
+              imageCount={this.imageCountByGig[this.firstNode.fields.parentDir]}
+              audioCount={this.audioCountByGig[this.firstNode.fields.parentDir]}
             />
           </div>
           <div>
-            {posts.slice(4, 6).map(({ node }, index) => {
+            {this.posts.slice(4, 6).map(({ node }) => {
               const title = nodeTypeToHuman(node.fields.type).toUpperCase() + ": " + node.frontmatter.title || node.fields.slug
-              const artists = node.frontmatter.artists && node.frontmatter.artists.map(artist => artist.name).join(", ")
-              const tile =
-                <Tile
+              if (node.fields.type === "gigs") {
+                return <GigTile title={"GIG: " + node.frontmatter.title} node={node} height="30vh" imageCount={this.imageCountByGig[node.fields.parentDir]} audioCount={this.audioCountByGig[node.fields.parentDir]} key={node.fields.slug}/>
+              } else {
+                return <Tile
+                  key={node.fields.slug}
                   title={title}
-                  subtitle={artists}
                   image={node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid}
                   label={node.frontmatter.date}
                   height={"30vh"}
                   href={node.fields.slug}
                 />
-                return <React.Fragment key={node.fields.slug}>{tile}</React.Fragment>
-              })
-            }
+              }
+            })}
           </div>
           <GridContainer>
-            {posts.slice(1, 4).map(({ node }, index) => {
+            {this.posts.slice(1, 4).map(({ node }, index) => {
               const title = nodeTypeToHuman(node.fields.type).toUpperCase() + ": " + node.frontmatter.title || node.fields.slug
-              const artists = node.frontmatter.artists && node.frontmatter.artists.map(artist => artist.name).join(", ")
-              const tile =
-                <Tile
+              if (node.fields.type === "gigs") {
+                return <GigTile title={"GIG: " + node.frontmatter.title} node={node} height="30vh" imageCount={this.imageCountByGig[node.fields.parentDir]} audioCount={this.audioCountByGig[node.fields.parentDir]} key={node.fields.slug}/>
+              } else {
+                return <Tile
+                  key={node.fields.slug}
                   title={title}
-                  subtitle={artists}
                   image={node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid}
                   label={node.frontmatter.date}
                   height={"30vh"}
                   href={node.fields.slug}
                 />
-                return <React.Fragment key={node.fields.slug}>{tile}</React.Fragment>
-              })
-            }
+              }
+            })}
           </GridContainer>
 
           <Tile
@@ -114,6 +130,18 @@ export const pageQuery = graphql`
         node {
           ...GigFrontmatter
         }
+      }
+    }
+    imageCountByGig: allFile( filter: {extension: {in: ["jpg", "JPG"]}}) {
+      group(field: fields___gigDir) {
+        fieldValue
+        totalCount
+      }
+    }
+    audioCountByGig: allFile( filter: {extension: {eq: "mp3"}}) {
+      group(field: fields___gigDir) {
+        fieldValue
+        totalCount
       }
     }
   }

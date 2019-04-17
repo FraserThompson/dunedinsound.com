@@ -2,15 +2,15 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import styled from 'styled-components'
 import Layout from '../components/Layout'
-import Tile from '../components/Tile'
 import Scrollspy from 'react-scrollspy'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import Search from '../components/Search';
-import SidebarNav from '../components/SidebarNav';
-import { MdMenu, MdPhotoCamera, MdAudiotrack, MdVideocam } from 'react-icons/md';
-import MenuButton from '../components/MenuButton';
-import Helper from  '../utils/helper';
-import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import Search from '../components/Search'
+import SidebarNav from '../components/SidebarNav'
+import { MdMenu } from 'react-icons/md'
+import MenuButton from '../components/MenuButton'
+import Helper from  '../utils/helper'
+import AwesomeDebouncePromise from 'awesome-debounce-promise'
+import GigTile from '../components/GigTile'
 
 const filter = (needle, haystack) =>
   haystack.filter(({node}) => {
@@ -122,29 +122,7 @@ class Gigs extends React.Component {
                 const id = `${year}-${month}`
 
                 return <section key={id} id={id}>
-                  {posts.map(node => {
-
-                    const title = node.frontmatter.title || node.fields.slug
-                    const artists = node.frontmatter.artists.map(artist => artist.name).join(", ")
-                    const videoCount = node.frontmatter.artists.reduce((count, artist) => { return count + (artist.vid ? artist.vid.length : 0)}, 0)
-
-                    return (
-                      <Tile
-                        key={node.fields.slug}
-                        title={title}
-                        subtitle={
-                          <>
-                            <p>{artists}</p>
-                            <p>{this.imageCountByGig[node.fields.parentDir]} <MdPhotoCamera/> {this.audioCountByGig[node.fields.parentDir]} <MdAudiotrack/> {videoCount} <MdVideocam/></p>
-                          </>
-                        }
-                        image={node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid}
-                        label={node.frontmatter.date}
-                        height="30vh"
-                        href={node.fields.slug}
-                      />
-                    )
-                  })}
+                  {posts.map(node => <GigTile height="30vh" node={node} imageCount={this.imageCountByGig[node.fields.parentDir]} audioCount={this.audioCountByGig[node.fields.parentDir]}/>)}
                 </section>
 
               })

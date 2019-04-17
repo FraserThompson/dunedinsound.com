@@ -71,6 +71,7 @@ class Tile extends React.Component {
             <Content>
               <h4 className="title">{this.props.title}</h4>
               {this.props.subtitle && <p className="subtitle"><small>{this.props.subtitle}</small></p>}
+              {this.props.customContent}
             </Content>
           </TitleWrapper>
         </Link>
