@@ -1,36 +1,53 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
-import AwesomeDebouncePromise from 'awesome-debounce-promise';
-import Tile from '../components/Tile';
-import Search from '../components/Search';
-import FlexGridContainer from '../components/FlexGridContainer';
-import { theme } from '../utils/theme';
-
-const filterDebounced = AwesomeDebouncePromise((needle, haystack) => haystack.filter(({node}) => node.frontmatter.title.toLowerCase().includes(needle)), 500);
+import Tile from '../components/Tile'
+import Search from '../components/Search'
+import FlexGridContainer from '../components/FlexGridContainer'
+import Shuffle from 'shufflejs'
+import { theme } from '../utils/theme'
+import { shuffleFilterDebounced } from '../utils/helper'
 
 class Artists extends React.Component {
 
   constructor(props) {
     super(props)
+
     this.state = {
       filteredPosts: this.props.data.allArtists.edges,
       sidebarOpen: true
     }
+
     this.gigCountsByArtist = this.props.data.gigsByArtist['group'].reduce((obj, item) => {
       obj[item.fieldValue] = item.totalCount
       return obj
     })
+
+    this.element = React.createRef();
+  }
+
+  componentDidMount() {
+    // Shuffle is a nice library to make re-ordering look nicer
+    this.shuffle = new Shuffle(this.element.current, {
+      itemSelector: '.tile'
+    });
+  }
+
+  componentDidUpdate() {
+    this.shuffle.resetItems();
+  }
+
+  componentWillUnmount() {
+    this.shuffle.destroy();
+    this.shuffle = null;
   }
 
   filter = async (e) => {
-    const searchInput = e.target.value;
-    if (!searchInput || searchInput == "") {
-      const filteredPosts =  this.props.data.allArtists.edges;
-      this.setState({filteredPosts})
+    const searchInput = e.target.value.toLowerCase()
+    if (!searchInput || searchInput.trim() == "") {
+      this.shuffle.filter('all')
     } else {
-      const filteredPosts = await filterDebounced(searchInput, this.props.data.allArtists.edges);
-      this.setState({filteredPosts})
+      await shuffleFilterDebounced(searchInput, this.shuffle)
     }
   }
 
@@ -74,7 +91,7 @@ class Artists extends React.Component {
         hideBrandOnMobile={true}
         hideFooter={true}
         headerContent={<Search placeholder="Search artists" toggleSidebar={this.toggleSidebar} filter={this.filter} />}>
-        <FlexGridContainer xs="6" sm="4" md="3" lg="2">
+        <FlexGridContainer fixedWidth ref={this.element} xs="6" sm="4" md="3" lg="2">
           {artistTiles}
         </FlexGridContainer>
       </Layout>

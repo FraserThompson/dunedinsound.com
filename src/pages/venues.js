@@ -5,10 +5,10 @@ import Img from 'gatsby-image'
 import styled from "styled-components"
 import { Map, Popup, TileLayer, Marker } from 'react-leaflet'
 import SidebarNav from '../components/SidebarNav'
-import Search from '../components/Search';
-import MenuButton from '../components/MenuButton';
-import { MdMenu } from 'react-icons/md';
-import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import Search from '../components/Search'
+import MenuButton from '../components/MenuButton'
+import { MdMenu } from 'react-icons/md'
+import AwesomeDebouncePromise from 'awesome-debounce-promise'
 
 const filterDebounced = AwesomeDebouncePromise((needle, haystack) => haystack.filter(({node}) => node.frontmatter.title.toLowerCase().includes(needle)), 500);
 
@@ -86,11 +86,11 @@ class Venues extends React.Component {
         <SidebarNav ref={this.sidebarRef} width="300px" open={this.state.sidebarOpen} left>
           {
             this.state.filteredPosts.map(({ node }, index) =>
-                <li ref={this.setRef} className={index === this.state.selected ? "active" : ""} key={index}>
-                  <a onClick={() => this.select(index, [node.frontmatter.lat, node.frontmatter.lng])}>
-                    {node.frontmatter.title}
-                  </a>
-                </li>
+                  <li ref={this.setRef} className={index === this.state.selected ? "active" : ""}>
+                    <a onClick={() => this.select(index, [node.frontmatter.lat, node.frontmatter.lng])}>
+                      {node.frontmatter.title}
+                    </a>
+                  </li>
               )
           }
         </SidebarNav>

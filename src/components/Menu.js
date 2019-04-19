@@ -32,6 +32,14 @@ const Menu = styled.div`
       color: ${props => lighten(0.5, props.theme.textColor)};
     }
 
+    &.active-parent {
+      border-left: 5px solid ${props => props.theme.highlightColor};
+      padding-left: ${"calc(" + rhythm(0.5) + " - 5px)"};
+      > a {
+        color: white;
+      }
+    }
+
     padding-left: ${rhythm(0.5)};
     padding-right: ${rhythm(0.5)};
 

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Menu from '../components/Menu'
+import { darken } from 'polished';
 
 const DefaultWidth = "60vw"
 
@@ -17,7 +18,8 @@ const SidebarNav = styled(Menu)`
   z-index: 10;
   padding: 0;
   margin: 0;
-  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  box-shadow: 0 6px 12px rgba(0,0,0,.25);
+  border-right: 1px solid ${props => darken(0.025, props.theme.headerColor)};
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     height: ${props => props.horizontal ? "auto" : "calc(100vh - " + props.theme.headerHeight + ")"};
@@ -57,6 +59,9 @@ const SidebarNav = styled(Menu)`
     list-style: none;
     padding: 0;
     margin: 0;
+    a {
+      display: block;
+    }
   }
 `
 

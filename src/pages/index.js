@@ -3,9 +3,10 @@ import { graphql } from 'gatsby'
 import styled from 'styled-components'
 import Layout from '../components/Layout'
 import Tile from '../components/Tile';
-import {nodeTypeToHuman} from '../utils/helper';
+import { nodeTypeToHuman } from '../utils/helper';
 import GridContainer from '../components/GridContainer';
 import GigTile from '../components/GigTile';
+import { MdKeyboardArrowRight } from 'react-icons/md';
 
 const HomePageGridContainer = styled(GridContainer)`
   > div:nth-child(1) {
@@ -47,36 +48,21 @@ class Homepage extends React.Component {
     this.posts = data.allMarkdownRemark.edges
     this.firstNode = this.posts.find(({node}) => node.fields.type === "gigs").node
 
-    this.imageCountByGig = data.imageCountByGig['group'].reduce((obj, item) => {
-      obj[item.fieldValue] = item.totalCount
-      return obj
-    })
-
-    this.audioCountByGig = data.audioCountByGig['group'].reduce((obj, item) => {
-      obj[item.fieldValue] = item.totalCount
-      return obj
-    })
-
   }
+
   render() {
 
     return (
       <Layout description={this.siteDescription} location={this.props.location} title={this.siteTitle}>
         <HomePageGridContainer>
           <div>
-            <GigTile
-              title={"LATEST GIG: " + this.firstNode.frontmatter.title}
-              node={this.firstNode}
-              height="60vh"
-              imageCount={this.imageCountByGig[this.firstNode.fields.parentDir]}
-              audioCount={this.audioCountByGig[this.firstNode.fields.parentDir]}
-            />
+            <GigTile title={"LATEST GIG: " + this.firstNode.frontmatter.title} node={this.firstNode} height="60vh"/>
           </div>
           <div>
             {this.posts.slice(4, 6).map(({ node }) => {
               const title = nodeTypeToHuman(node.fields.type).toUpperCase() + ": " + node.frontmatter.title || node.fields.slug
               if (node.fields.type === "gigs") {
-                return <GigTile title={"GIG: " + node.frontmatter.title} node={node} height="30vh" imageCount={this.imageCountByGig[node.fields.parentDir]} audioCount={this.audioCountByGig[node.fields.parentDir]} key={node.fields.slug}/>
+                return <GigTile title={"GIG: " + node.frontmatter.title} node={node} height="30vh" key={node.fields.slug}/>
               } else {
                 return <Tile
                   key={node.fields.slug}
@@ -93,7 +79,7 @@ class Homepage extends React.Component {
             {this.posts.slice(1, 4).map(({ node }, index) => {
               const title = nodeTypeToHuman(node.fields.type).toUpperCase() + ": " + node.frontmatter.title || node.fields.slug
               if (node.fields.type === "gigs") {
-                return <GigTile title={"GIG: " + node.frontmatter.title} node={node} height="30vh" imageCount={this.imageCountByGig[node.fields.parentDir]} audioCount={this.audioCountByGig[node.fields.parentDir]} key={node.fields.slug}/>
+                return <GigTile title={"GIG: " + node.frontmatter.title} node={node} height="30vh" key={node.fields.slug}/>
               } else {
                 return <Tile
                   key={node.fields.slug}
@@ -106,12 +92,11 @@ class Homepage extends React.Component {
               }
             })}
           </GridContainer>
-
-          <Tile
-            title="This way to more gigs 😲"
-            height={"10vh"}
-            href="/gigs"
-          />
+          <Tile height="10vh" href="/gigs">
+            <div style={{alignItems: "center", display: "flex"}}>
+              This way to more gigs 😲 <span style={{fontSize: "3em", height: "100%"}}><MdKeyboardArrowRight/></span>
+            </div>
+          </Tile>
         </HomePageGridContainer>
       </Layout>
     )
@@ -130,18 +115,6 @@ export const pageQuery = graphql`
         node {
           ...GigFrontmatter
         }
-      }
-    }
-    imageCountByGig: allFile( filter: {extension: {in: ["jpg", "JPG"]}}) {
-      group(field: fields___gigDir) {
-        fieldValue
-        totalCount
-      }
-    }
-    audioCountByGig: allFile( filter: {extension: {eq: "mp3"}}) {
-      group(field: fields___gigDir) {
-        fieldValue
-        totalCount
       }
     }
   }

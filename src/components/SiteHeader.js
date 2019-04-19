@@ -2,8 +2,8 @@ import React from 'react'
 import { Link } from 'gatsby'
 import styled from "styled-components"
 import { rhythm } from '../utils/typography'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import SiteNav from './SiteNav';
+import { darken } from 'polished';
 
 const Container = styled.div`
   background-color: ${props => props.backgroundColor || props.theme.headerColor};
@@ -16,7 +16,8 @@ const Container = styled.div`
   z-index: 10;
   height: ${props => props.theme.headerHeight};
   color: ${props => props.theme.textColor};
-  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  box-shadow: 0 6px 12px rgba(0,0,0,.25);
+  border-bottom: 1px solid ${props => darken(0.025, props.theme.headerColor)};
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     display: flex;
@@ -60,16 +61,10 @@ class SiteHeader extends React.Component {
 
   render() {
     return (
-      <Container hideOnMobile={!this.props.headerContent} backgroundColor={this.props.backgroundColor}>
-        <ReactCSSTransitionGroup component={React.Fragment} transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={1}>
-          {!this.props.hideBrand && <Brand hideOnMobile={this.props.hideBrandOnMobile}>
-            <Link to="/">Dunedin Gig Archives</Link>
-          </Brand>}
-          {this.props.headerContent && <div className="miscContent">
-            {this.props.headerContent}
-          </div>}
+      <Container className="header" hideOnMobile={!this.props.headerContent} backgroundColor={this.props.backgroundColor}>
+        {!this.props.hideBrand && <Brand hideOnMobile={this.props.hideBrandOnMobile}><Link to="/">Dunedin Gig Archives</Link></Brand>}
+        {this.props.headerContent && <div className="miscContent">{this.props.headerContent}</div>}
         {!this.props.hideNav && <SiteNav className="hideMobile"/>}
-        </ReactCSSTransitionGroup>
       </Container>
     )
   }

@@ -4,7 +4,7 @@ import styled from "styled-components"
 import Img from 'gatsby-image'
 import Lightbox from 'react-image-lightbox';
 import Layout from '../components/Layout'
-import Helper from  '../utils/helper';
+import { toMachineName } from  '../utils/helper';
 import GridContainer from '../components/GridContainer';
 import Banner from '../components/Banner';
 import Divider from '../components/Divider';
@@ -141,7 +141,7 @@ class GigTemplate extends React.Component {
 
     // Collect all the above into one array of artists with all their media
     this.artistMedia = this.post.frontmatter.artists.map(artist => {
-      const machineName = Helper.machineName(artist.name)
+      const machineName = toMachineName(artist.name)
       return {
         ...artist,
         machineName,

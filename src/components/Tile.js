@@ -42,7 +42,7 @@ const TitleWrapper = styled.div`
   width: 100%;
   position: absolute;
   bottom: 0px;
-  background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 40%);
+  background: ${props => props.shadowBottom && "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 40%)"};
   height: 100%;
   display: flex;
   ${Content} {
@@ -67,12 +67,12 @@ class Tile extends React.Component {
         <Link to={this.props.href} style={{display: "block", width: "100%", height: "100%"}}>
           {this.props.label && <Label><small>{this.props.label}</small></Label>}
           {this.props.image && <BackgroundImage fluid={this.props.image}/>}
-          <TitleWrapper>
+          <TitleWrapper shadowBottom={this.props.title || this.props.subtitle}>
             <Content>
-              <h4 className="title">{this.props.title}</h4>
+              {this.props.title && <h4 className="title">{this.props.title}</h4>}
               {this.props.subtitle && <p className="subtitle"><small>{this.props.subtitle}</small></p>}
-              {this.props.customContent}
             </Content>
+            {this.props.children}
           </TitleWrapper>
         </Link>
       </Container>

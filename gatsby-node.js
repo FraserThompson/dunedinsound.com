@@ -1,4 +1,9 @@
-const helper = require('./src/utils/helper.js')
+// This is duplicated from helper.js because we can't do ES6 imports in gatsby-node.js but we want to do them everywhere else
+const toMachineName = (string, space_character) => {
+  space_character = space_character || "_";
+  return string.toLowerCase().replace(/[!,.']/g,'').replace(/\s/g, space_character).replace(/[$]/g, 'z');
+}
+
 const path = require('path')
 
 const realFs = require('fs')
@@ -71,7 +76,7 @@ exports.createPages = ({ graphql, actions }) => {
 
         context.machine_name = post.node.fields.machine_name
         context.gigDir = path.dirname(post.node.fileAbsolutePath).split("/").pop()
-        context.artists = post.node.frontmatter.artists.map(artist => helper.machineName(artist.name))
+        context.artists = post.node.frontmatter.artists.map(artist => toMachineName(artist.name))
         context.venue = post.node.frontmatter.venue
 
         createPage({
@@ -189,7 +194,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   else if (node.internal.type === `MarkdownRemark`) {
 
     const nodeType = getNodeType(node.fileAbsolutePath)
-    const nodeTitle = nodeType === "gigs" ? helper.machineName(node.frontmatter.title, "-") : helper.machineName(node.frontmatter.title, "_") // to preserve URLs from old site
+    const nodeTitle = nodeType === "gigs" ? toMachineName(node.frontmatter.title, "-") : toMachineName(node.frontmatter.title, "_") // to preserve URLs from old site
     const nodeSlug = "/" + nodeType + "/" + nodeTitle + "/"
 
     const parsedPath = path.parse(node.fileAbsolutePath)
@@ -198,7 +203,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     createNodeField({
       name: `machine_name`,
       node,
-      value: helper.machineName(node.frontmatter.title, "_")
+      value: toMachineName(node.frontmatter.title, "_")
     })
     createNodeField({
       name: `parentDir`,
