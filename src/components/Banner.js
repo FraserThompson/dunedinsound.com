@@ -19,6 +19,11 @@ const BannerWrapper = styled.div`
   > * {
     z-index: 1;
   }
+  .background {
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+  }
 `
 const BannerText = styled.div`
   position: absolute;
@@ -55,6 +60,7 @@ class Banner extends React.Component {
             }
           </BannerText>
         }
+        {this.props.background && <div class="background">{this.props.background}</div>}
         {this.props.customContent}
       </BannerWrapper>
     )

@@ -60,17 +60,7 @@ export const pageQuery = graphql`
     allBlogs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "blog"}}}) {
       edges {
         node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "DD MMMM YYYY")
-            title
-            cover {
-              ...LargeImage
-            }
-          }
+          ...BlogFrontmatter
         }
       }
     }

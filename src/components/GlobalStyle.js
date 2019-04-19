@@ -25,6 +25,22 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  input[type=text] {
+    background-image: none;
+    padding: 8px 12px;
+    line-height: ${rhythm(1)};
+    border: 1px solid #000;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  }
+
+  input[type=text]:focus {
+    border: 1px solid ${props => props.theme.highlightColor2};
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    outline: 0;
+  }
+
   .showMobile {
     display: initial;
   }
@@ -105,23 +121,28 @@ const GlobalStyle = createGlobalStyle`
       outline: 0;
     }
 
-    &:hover, &:focus {
-      h4 {
-        color: ${props => lighten(0.5, props.theme.textColor)};
-      }
-      color: ${props => lighten(0.5, props.theme.textColor)};
-      text-decoration: none;
-    }
-
-    &.active {
-      background-color: ${props => props.theme.highlightColor2};
-      color: ${props => lighten(0.5, props.theme.textColor)};
-    }
-
   }
+
   li.active {
     a {
       color: white;
+    }
+  }
+
+  .tile {
+    a {
+      &:hover, &:focus {
+        h4 {
+          color: ${props => lighten(0.5, props.theme.textColor)};
+        }
+        color: ${props => lighten(0.5, props.theme.textColor)};
+        text-decoration: none;
+      }
+
+      &.active {
+        background-color: ${props => props.theme.highlightColor2};
+        color: ${props => lighten(0.5, props.theme.textColor)};
+      }
     }
   }
 

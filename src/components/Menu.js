@@ -17,6 +17,13 @@ const Menu = styled.div`
   margin: 0;
   overflow-y: hidden;
 
+  a {
+    &:hover, &:focus {
+      color: ${props => lighten(0.5, props.theme.textColor)};
+      text-decoration: none;
+    }
+  }
+
   > a, li {
     position: relative;
     line-height: ${props => props.height || props.theme.headerHeight};

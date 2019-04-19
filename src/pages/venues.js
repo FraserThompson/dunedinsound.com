@@ -9,6 +9,7 @@ import Search from '../components/Search'
 import MenuButton from '../components/MenuButton'
 import { MdMenu } from 'react-icons/md'
 import AwesomeDebouncePromise from 'awesome-debounce-promise'
+import HorizontalNav from '../components/HorizontalNav';
 
 const filterDebounced = AwesomeDebouncePromise((needle, haystack) => haystack.filter(({node}) => node.frontmatter.title.toLowerCase().includes(needle)), 500);
 
@@ -23,8 +24,13 @@ class Venues extends React.Component {
   constructor(props) {
     super(props)
 
-    this.sidebarRef = React.createRef();
+    this.sidebarRef = React.createRef()
     this.listRefs = [];
+
+    this.imageCountByGig = this.props.data.gigCountByVenue['group'].reduce((obj, item) => {
+      obj[item.fieldValue] = item.totalCount
+      return obj
+    })
 
     this.state = {
       filteredPosts: this.props.data.allVenues.edges,
@@ -86,11 +92,11 @@ class Venues extends React.Component {
         <SidebarNav ref={this.sidebarRef} width="300px" open={this.state.sidebarOpen} left>
           {
             this.state.filteredPosts.map(({ node }, index) =>
-                  <li ref={this.setRef} className={index === this.state.selected ? "active" : ""}>
-                    <a onClick={() => this.select(index, [node.frontmatter.lat, node.frontmatter.lng])}>
-                      {node.frontmatter.title}
-                    </a>
-                  </li>
+                <li key={index} ref={this.setRef} className={index === this.state.selected ? "active" : ""}>
+                  <a onClick={() => this.select(index, [node.frontmatter.lat, node.frontmatter.lng])}>
+                    {node.frontmatter.title}
+                  </a>
+                </li>
               )
           }
         </SidebarNav>
@@ -105,12 +111,19 @@ class Venues extends React.Component {
               <Marker ref={(marker) => this.openPopup(marker, index)} key={index} position={[node.frontmatter.lat, node.frontmatter.lng]}>
                 <Popup onOpen={() => this.markerClick(index)}>
                     <h3>{node.frontmatter.title}</h3>
-                    {node.frontmatter.description && <p>{node.frontmatter.description}</p>}
-                    <Link to={node.fields.slug}>
-                      {node.frontmatter.cover && <Img fluid={node.frontmatter.cover.childImageSharp.fluid}/>}
-                      View gigs
-                    </Link>
-                    {node.frontmatter.facebook && <Link to={node.frontmatter.facebook}>Facebook</Link>}
+                    {node.frontmatter.description && <p dangerouslySetInnerHTML={{__html : node.frontmatter.description}}></p>}
+                    <h4>
+                      <Link to={node.fields.slug}>
+                        {node.frontmatter.cover && <Img fluid={node.frontmatter.cover.childImageSharp.fluid}/>}
+                        View {this.imageCountByGig[node.fields.machine_name]} gigs at this venue
+                      </Link>
+                    </h4>
+                    <HorizontalNav>
+                      {node.frontmatter.facebook && <li><a href={node.frontmatter.facebook}>Facebook</a></li>}
+                      {node.frontmatter.bandcamp && <li><a href={node.frontmatter.bandcamp}>Bandcamp</a></li>}
+                      {node.frontmatter.soundcloud && <li><a href={node.frontmatter.soundcloud}>Soundcloud</a></li>}
+                      {node.frontmatter.Website && <li><a href={node.frontmatter.Website}>Website</a></li>}
+                    </HorizontalNav>
                 </Popup>
               </Marker>
             )}
@@ -134,6 +147,12 @@ export const pageQuery = graphql`
         node {
           ...VenueFrontmatter
         }
+      }
+    }
+    gigCountByVenue: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}}) {
+      group(field: frontmatter___venue) {
+        fieldValue
+        totalCount
       }
     }
   }

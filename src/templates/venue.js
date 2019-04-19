@@ -5,18 +5,22 @@ import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
 import Layout from '../components/Layout'
 import Banner from '../components/Banner';
-import Tile from '../components/Tile';
 import Divider from '../components/Divider';
-import GridContainer from '../components/GridContainer';
 import HorizontalNav from '../components/HorizontalNav';
+import { rhythm } from '../utils/typography';
+import GigTile from '../components/GigTile';
+import FlexGridContainer from '../components/FlexGridContainer';
 
 class VenueTemplate extends React.Component {
   render() {
 
     const post = this.props.data.thisPost
+    const cover = post.cover && post.cover.childImageSharp.fluid
+
     const gigs = this.props.data.gigs.edges
     const siteTitle = this.props.data.site.siteMetadata.title
-    const venueDescription = post.frontmatter.description || "See media from " + post.frontmatter.title
+
+    const venueDescription = `See photos, videos and audio recordings of live gigs at ${post.frontmatter.title} and heaps of other local venues.`;
 
     const position = [post.frontmatter.lat, post.frontmatter.lng]
     const map = (
@@ -31,26 +35,12 @@ class VenueTemplate extends React.Component {
       </Map>
     )
 
-    const gigTiles = gigs.map(({ node }) => {
-      const title = node.frontmatter.title || node.fields.slug
-      const coverImage = node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid
-
-      return (
-        <Tile
-          key={node.fields.slug}
-          title={title}
-          image={coverImage}
-          label={node.frontmatter.date}
-          href={node.fields.slug}
-          height={"calc(40vh)"}
-        />
-      )
-    });
+    const gigTiles = gigs.map(({ node }) => <GigTile node={node} height="40vh" key={node.fields.slug}/>)
 
     return (
-      <Layout location={this.props.location} description={venueDescription} title={`${post.frontmatter.title} | ${siteTitle}`}>
+      <Layout location={this.props.location} image={cover && cover.src} description={venueDescription} title={`${post.frontmatter.title} | ${siteTitle}`}>
         <Banner title={post.frontmatter.title} height="40vh" background={map}>
-          <div dangerouslySetInnerHTML={{__html : post.frontmatter.description}}></div>
+          <div style={{paddingBottom: rhythm(1)}} dangerouslySetInnerHTML={{__html : post.frontmatter.description}}></div>
           <HorizontalNav>
             {post.frontmatter.facebook && <li><a className="button" href={post.frontmatter.facebook}>Facebook</a></li>}
             {post.frontmatter.bandcamp && <li><a className="button" href={post.frontmatter.bandcamp}>Bandcamp</a></li>}
@@ -59,11 +49,11 @@ class VenueTemplate extends React.Component {
           </HorizontalNav>
         </Banner>
         <Divider>
-          <p>Gigs</p>
+          <p>Gigs ({gigs.length})</p>
         </Divider>
-        <GridContainer xs="6" sm="4" md="3" lg="3">
+        <FlexGridContainer xs="6" sm="4" md="3" lg="3">
           {gigTiles}
-        </GridContainer>
+        </FlexGridContainer>
       </Layout>
     )
   }
@@ -77,18 +67,7 @@ export const pageQuery = graphql`
       ...SiteInformation
     }
     thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      html
-      frontmatter {
-        title
-        description
-        lat
-        lng
-        bandcamp
-        facebook
-        website
-        soundcloud
-      }
+      ...VenueFrontmatter
     }
     gigs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}, frontmatter: {venue: {eq: $machine_name}}}) {
       edges {

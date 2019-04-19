@@ -84,6 +84,7 @@ class Homepage extends React.Component {
                 return <Tile
                   key={node.fields.slug}
                   title={title}
+                  subtitle={node.excerpt}
                   image={node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid}
                   label={node.frontmatter.date}
                   height={"30vh"}
@@ -92,7 +93,7 @@ class Homepage extends React.Component {
               }
             })}
           </GridContainer>
-          <Tile height="10vh" href="/gigs">
+          <Tile height="50px" href="/gigs/">
             <div style={{alignItems: "center", display: "flex"}}>
               This way to more gigs 😲 <span style={{fontSize: "3em", height: "100%"}}><MdKeyboardArrowRight/></span>
             </div>
@@ -113,6 +114,7 @@ export const pageQuery = graphql`
     allMarkdownRemark(limit: 7, sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { regex: "/gigs|blog$/"}}}) {
       edges {
         node {
+          excerpt
           ...GigFrontmatter
         }
       }

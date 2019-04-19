@@ -7,7 +7,7 @@ class BackgroundImage extends React.Component {
   render() {
 
     let background = "";
-    if (this.props.fluid.length) {
+    if (Array.isArray(this.props.fluid)) {
       background = this.props.fluid.map((image, index) => <Img
         className="backgroundImage"
         key={index}

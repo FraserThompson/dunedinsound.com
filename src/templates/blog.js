@@ -72,16 +72,7 @@ export const pageQuery = graphql`
       ...SiteInformation
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      excerpt
-      html
-      frontmatter {
-        title
-        cover {
-          ...FullImage
-        }
-        date(formatString: "DD-MM-YY")
-      }
+      ...BlogFrontmatter
     }
   }
 `

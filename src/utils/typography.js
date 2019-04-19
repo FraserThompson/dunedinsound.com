@@ -4,6 +4,9 @@ import Noriega from 'typography-theme-noriega'
 Noriega.overrideThemeStyles = () => ({
   'a.gatsby-resp-image-link': {
     boxShadow: 'none',
+  },
+  "ul": {
+    marginLeft: "auto"
   }
 })
 

@@ -15,6 +15,7 @@ import Tile from '../components/Tile';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowUp, MdPlayArrow, MdPause } from 'react-icons/md';
 import HorizontalNav from '../components/HorizontalNav';
 import RoundButton from '../components/RoundButton';
+import ZoopUpWrapper from '../components/ZoopUpWrapper';
 
 const PlayerWrapper = styled.div`
   position: fixed;
@@ -27,23 +28,6 @@ const PlayerWrapper = styled.div`
   background-color: ${props => props.theme.headerColor};
   width: 100%;
   transition: bottom 300ms ease-in-out;
-`
-
-const BackToGigsWrapper = styled.a`
-  ${scale(4)};
-  position: absolute;
-  text-align: center;
-  top: -${rhythm(1)};
-  transition: all 300ms ease-in-out;
-  opacity: 0.5;
-  p {
-    ${scale(0.5)};
-    margin-bottom: -${rhythm(1.5)};
-  }
-  &:hover {
-    top: 0px;
-    opacity: 1;
-  }
 `
 
 const NextPrevWrapper = styled.a`
@@ -197,6 +181,8 @@ class GigTemplate extends React.Component {
       </NextPrevWrapper>
     )
 
+    this.gigDescription = `See photos, audio and video from ${this.post.frontmatter.title} at ${this.venueDetails.frontmatter.title} and heaps of other local gigs.`
+
     this.state = {
       scrolled: false,
       lightboxOpen: false,
@@ -280,12 +266,12 @@ class GigTemplate extends React.Component {
   render = () => {
 
     const siteTitle = this.props.data.site.siteMetadata.title
-    const gigDescription = "Media from " + this.post.frontmatter.title
 
     return (
       <Layout
         location={this.props.location}
-        description={gigDescription}
+        description={this.gigDescription}
+        image={this.cover.src}
         title={`${this.post.frontmatter.title} | ${siteTitle}`}
         hideBrand={this.state.scrolled}
         hideNav={this.state.scrolled}
@@ -295,7 +281,7 @@ class GigTemplate extends React.Component {
           id="top"
           title={this.post.frontmatter.title}
           backgroundImage={this.cover} customContent={(
-            <><BackToGigsWrapper title="BACK TO GIGS ☝" href="/gigs"><p>☝ BACK TO GIGS ☝</p><MdKeyboardArrowUp/></BackToGigsWrapper>{this.prevTile}{this.nextTile}</>
+            <><ZoopUpWrapper title="BACK TO GIGS ☝" href="/gigs/"><p>☝ BACK TO GIGS ☝</p><MdKeyboardArrowUp/></ZoopUpWrapper>{this.prevTile}{this.nextTile}</>
           )}
         >
           <HorizontalNav>

@@ -54,7 +54,14 @@ class Layout extends React.Component {
             htmlAttributes={{ lang: 'en' }}
             meta={[{ name: 'description', content: this.props.description }]}
             title={this.props.title}
-          />
+          >
+            <meta property="og:site_name" content="dunedinsound" />
+            <meta property="og:url" content={location.href} />
+            <meta property="og:type" content="article" />
+            <meta property="og:title" content={this.props.title} />
+            <meta property="og:description" content={this.props.description} />
+            {this.props.image && <meta property="og:image" content={this.props.image} />}
+          </Helmet>
           <GlobalStyle/>
           <HeaderWrapper>
             <MobileNav className="showMobile">
@@ -121,6 +128,19 @@ export const query = graphql`
     }
   }
 
+  fragment BlogFrontmatter on MarkdownRemark {
+    excerpt
+    html
+    ...DefaultFields
+    frontmatter {
+      title
+      cover {
+        ...FullImage
+      }
+      date(formatString: "DD-MM-YY")
+    }
+  }
+
   fragment GigFrontmatter on MarkdownRemark {
     ...DefaultFields
     frontmatter {
@@ -134,6 +154,7 @@ export const query = graphql`
       }
     }
   }
+
   fragment ArtistFrontmatter on MarkdownRemark {
     ...DefaultFields
     frontmatter {
@@ -147,12 +168,18 @@ export const query = graphql`
       }
     }
   }
+
   fragment VenueFrontmatter on MarkdownRemark {
     ...DefaultFields
     frontmatter {
+      title
+      description
       lat
       lng
-      title
+      bandcamp
+      facebook
+      website
+      soundcloud
       cover {
         ...SmallImage
       }
