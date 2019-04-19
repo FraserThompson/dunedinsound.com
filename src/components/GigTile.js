@@ -7,7 +7,7 @@ import { MdPhotoCamera, MdAudiotrack, MdVideocam } from 'react-icons/md'
 const MediaCounts = styled.div`
   position: absolute;
   top: 0px;
-  left: 0px;
+  right: 0px;
   > div {
     display: block;
   }

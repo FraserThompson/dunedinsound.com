@@ -63,7 +63,6 @@ class ArtistTemplate extends React.Component {
       return object
     }, {})
 
-
     this.state = {
       scrolled: false,
       openTab: "gigs"
@@ -79,7 +78,7 @@ class ArtistTemplate extends React.Component {
   }
 
   onScroll = () => {
-    if (window.pageYOffset > window.innerHeight * 0.8) {
+    if (window.pageYOffset > window.innerHeight * 0.6) {
       !this.state.scrolled && this.setState({scrolled: true})
     } else {
       this.state.scrolled && this.setState({scrolled: false})

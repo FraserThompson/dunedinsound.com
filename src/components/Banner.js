@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { rhythm } from '../utils/typography'
 import BackgroundImage from './BackgroundImage';
 
-const DefaultBannerHeight = "80vh";
+const DefaultBannerHeight = "60vh";
 
 const BannerWrapper = styled.div`
   background: #40E0D0;  /* fallback for old browsers */

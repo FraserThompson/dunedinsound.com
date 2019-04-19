@@ -25,7 +25,8 @@ const WaveWrapper = styled.div`
 `
 
 const LengthWrapper = styled.div`
-  ${scale(-0.5)};
+  font-size: 14px;
+  line-height: 1em;
   background: white;
   color: #000;
   z-index: 11;

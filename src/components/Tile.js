@@ -34,7 +34,7 @@ const Label = styled.span`
   writing-mode: vertical-rl;
 
   top: ${rhythm(0.5)};
-  right: ${rhythm(0.5)};
+  left: 0px;
 `
 
 const TitleWrapper = styled.div`
