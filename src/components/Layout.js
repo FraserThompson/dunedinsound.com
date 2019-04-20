@@ -128,12 +128,30 @@ export const query = graphql`
     }
   }
 
+  fragment VenueFrontmatter on MarkdownRemark {
+    ...DefaultFields
+    frontmatter {
+      title
+      description
+      lat
+      lng
+      bandcamp
+      facebook
+      website
+      soundcloud
+      cover {
+        ...SmallImage
+      }
+    }
+  }
+
   fragment BlogFrontmatter on MarkdownRemark {
     excerpt
     html
     ...DefaultFields
     frontmatter {
       title
+      gallery
       cover {
         ...FullImage
       }
@@ -148,7 +166,13 @@ export const query = graphql`
       date(formatString: "DD-MM-YY")
       venue
       description
-      artists { name, vid {link, title} }
+      artists {
+        name
+        vid {
+          link,
+          title
+        }
+      }
       cover {
         ...LargeImage
       }
@@ -169,22 +193,6 @@ export const query = graphql`
     }
   }
 
-  fragment VenueFrontmatter on MarkdownRemark {
-    ...DefaultFields
-    frontmatter {
-      title
-      description
-      lat
-      lng
-      bandcamp
-      facebook
-      website
-      soundcloud
-      cover {
-        ...SmallImage
-      }
-    }
-  }
 `
 
 export default Layout

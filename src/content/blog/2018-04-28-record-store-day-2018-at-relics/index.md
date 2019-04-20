@@ -15,7 +15,9 @@ Twenty years ago if you wanted music you had to leave your house, go to a record
 
 
 
-{% include youtube_video.html link="gk8VI5wyGTs" title="Record Store Day 2018 at Relics" vanilla="true" %}
+<div class="youtubeEmbed">
+  <iframe src="https://www.youtube.com/embed/gk8VI5wyGTs/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
+</div>
 
 Well there’s certainly less demand but the few record stores left are quietly thriving. And what better proof of this than International Record Store Day? The annual event, now in its tenth year, sees artists, labels, and record stores banding together to provide music lovers with limited releases to add to their collections. Although, as I found out, record store day is about much more than just the limited releases.
 

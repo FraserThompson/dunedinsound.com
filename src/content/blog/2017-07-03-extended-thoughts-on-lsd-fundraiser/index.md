@@ -21,9 +21,11 @@ This has been a big story internationally, covered in the NME and Spin as well a
 
 For those of you, especially in other cities, not aware of his work as a musician and multimedia artist, I wanted to post a good example - shot by me at the Atonal Eclipse of the Charts festival at None Gallery in 2012 - and talk a little bit about how I see it, and about some of the misconceptions I've seen and heard about his work, and what happened.
 
+![NME News Article](./nme.jpg)
+*<a href='http://www.nme.com/news/new-zealand-city-evacuated-noise-rock-cassette-bomb-threat-2091172'>Source</a>*
 
-
-{% include blog_images.html images="nme.jpg|<a href='http://www.nme.com/news/new-zealand-city-evacuated-noise-rock-cassette-bomb-threat-2091172'>Source</a>\\spin.jpg|<a href='http://www.spin.com/2017/06/noise-band-bomb-cassette-lsd-fundraiser/'>Source</a>" col="col-xs-12 col-md-6 col-md-offset-3" %}
+![NME News Article](./spin.jpg)
+*<a href='http://www.spin.com/2017/06/noise-band-bomb-cassette-lsd-fundraiser/'>Source</a>*
 
 The artist known as L$D Fundraiser is one of Dunedin's more coherent, sustained and prolific artists. He's had a developing international audience as a noise musician/sound artist, and an underacknowledged local role as Dunedin's sharpest and most critical street artist. However like other experimental Dunedin artists, this is largely through word of mouth. There is very little overground coverage of Dunedin's underground communities even in Dunedin, let alone in the rest of the country. One exception was the local critical culture magazine Point, which was produced for a couple of years but barely seen out side of Dunedin and Christchurch (and which I contributed to, including writing about L$D Fundraiser). The arts and culture institutions of the city are very limited in funds, scope and local knowledge, so both the scenes L$D Fundraiser operates within and the media that seeks to formalise, acknowledge and discuss it are by necessity non-institutional, artist-run, often short term frameworks that also largely operate outside of the limited funding systems available as well.
 

@@ -21,8 +21,9 @@ Fast forward to 2018 and SPLASH CLUB 7 has hundreds of thousands of fans from al
 I somehow convinced the elusive Jamie Dickson into an interview to try explain this post-internet tragedy.
 
 
-
-{% include youtube_video.html link="3gGA3GC31lE" title="How Splash Club 7 became a meme page" vanilla="true" %}
+<div class="youtubeEmbed">
+  <iframe src="https://www.youtube.com/embed/3gGA3GC31lE/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
+</div>
 
 “I originally had a music page for SPLASH CLUB 7 and I got about 2,000 likes somehow” he begins. He’s referring to a Facebook “page” which is a profile made to represent a non-person entity that fans can “like” to receive updates.
 
@@ -40,7 +41,8 @@ The reason for the page’s popularity is obvious: people desire bite-sized piec
 
 “It’s a lot easier just to like scroll past a meme and be like ha that’s funny and share it.”
 
-{% include blog_images.html images="3.jpg|\\4.jpg|" col="col-xs-12 col-md-6 col-md-offset-3" %}
+![3](./3.jpg)
+![4](./4.jpg)
 
 After his seapunk releases he started to take on aspects of vaporwave, another internet micro-genre defined by its obsession with 80s aesthetics and exotic hyper-consumerist imagery. It highlights the hollow promises and “nothingness” at the heart of capitalism.
 

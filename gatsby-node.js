@@ -1,7 +1,7 @@
 // This is duplicated from helper.js because we can't do ES6 imports in gatsby-node.js but we want to do them everywhere else
 const toMachineName = (string, space_character) => {
   space_character = space_character || "_";
-  return string.toLowerCase().replace(/[!,.']/g,'').replace(/\s/g, space_character).replace(/[$]/g, 'z');
+  return string.toLowerCase().replace(/[!,.':?]/g,'').replace(/\s/g, space_character).replace(/[$]/g, 'z');
 }
 
 const path = require('path')
@@ -31,6 +31,7 @@ exports.createPages = ({ graphql, actions }) => {
               slug
               type
               machine_name
+              parentDir
             }
             frontmatter {
               title
@@ -49,112 +50,52 @@ exports.createPages = ({ graphql, actions }) => {
       }
 
       const { createPage } = actions
-      const gigLayout = path.resolve('./src/templates/gig.js')
-      const blogLayout = path.resolve('./src/templates/blog.js')
-      const artistLayout = path.resolve('./src/templates/artist.js')
-      const venueLayout = path.resolve('./src/templates/venue.js')
 
-      // Create pages.
-      // We split it like this (pretty inefficiently) so we can treat them as seperate collections.
+      const layouts = {
+        gigs: path.resolve('./src/templates/gig.js'),
+        blog: path.resolve('./src/templates/blog.js'),
+        artists: path.resolve('./src/templates/artist.js'),
+        venues: path.resolve('./src/templates/venue.js')
+      }
+
+      // We split it like this (pretty inefficiently) so we can treat them as seperate collections for the next/prev
       const gigs = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "gigs")
       const blogs = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "blog")
       const venues = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "venues")
       const artists = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "artists")
 
-      gigs.forEach((post, index) => {
+      const createPages = (post, index, posts) => {
 
-        const previous = index === gigs.length - 1 ? null : gigs[index + 1].node
-        const next = index === 0 ? null : gigs[index - 1].node
-
-        const context = {
-          slug: post.node.fields.slug,
-          previous,
-          next,
-          prevSlug: previous && previous.fields.slug,
-          nextSlug: next && next.fields.slug
-        }
-
-        context.machine_name = post.node.fields.machine_name
-        context.gigDir = path.dirname(post.node.fileAbsolutePath).split("/").pop()
-        context.artists = post.node.frontmatter.artists.map(artist => toMachineName(artist.name))
-        context.venue = post.node.frontmatter.venue
-
-        createPage({
-          path: post.node.fields.slug,
-          component: gigLayout,
-          context: context,
-        })
-
-      })
-
-      blogs.forEach((post, index) => {
-
-        const previous = index === blogs.length - 1 ? null : blogs[index + 1].node
-        const next = index === 0 ? null : blogs[index - 1].node
+        const previous = index === posts.length - 1 ? null : posts[index + 1].node
+        const next = index === 0 ? null : posts[index - 1].node
 
         const context = {
           slug: post.node.fields.slug,
           previous,
           next,
           prevSlug: previous && previous.fields.slug,
-          nextSlug: next && next.fields.slug
+          nextSlug: next && next.fields.slug,
+          machine_name: post.node.fields.machine_name,
+          parentDir: post.node.fields.parentDir,
+          title: post.node.frontmatter.title
         }
+
+        if (post.node.frontmatter.artists) context.artists = post.node.frontmatter.artists.map(artist => toMachineName(artist.name))
+        if (post.node.frontmatter.venue) context.venue = post.node.frontmatter.venue
 
         createPage({
           path: post.node.fields.slug,
-          component: blogLayout,
+          component: layouts[post.node.fields.type],
           context: context,
         })
 
-      })
+      }
 
-      artists.forEach((post, index) => {
-
-        const previous = index === artists.length - 1 ? null : artists[index + 1].node
-        const next = index === 0 ? null : artists[index - 1].node
-
-        const context = {
-          slug: post.node.fields.slug,
-          previous,
-          next,
-          prevSlug: previous && previous.fields.slug,
-          nextSlug: next && next.fields.slug
-        }
-
-        context.machine_name = post.node.fields.machine_name
-        context.title = post.node.frontmatter.title
-
-        createPage({
-          path: post.node.fields.slug,
-          component: artistLayout,
-          context: context,
-        })
-
-      })
-
-      venues.forEach((post, index) => {
-
-        const previous = index === venues.length - 1 ? null : venues[index + 1].node
-        const next = index === 0 ? null : venues[index - 1].node
-
-        const context = {
-          slug: post.node.fields.slug,
-          previous,
-          next,
-          prevSlug: previous && previous.fields.slug,
-          nextSlug: next && next.fields.slug
-        }
-
-        context.machine_name = post.node.fields.machine_name
-        context.title = post.node.frontmatter.title
-
-        createPage({
-          path: post.node.fields.slug,
-          component: venueLayout,
-          context: context,
-        })
-
-      })
+      // Create pages.
+      gigs.forEach((post, index) => createPages(post, index, gigs))
+      blogs.forEach((post, index) => createPages(post, index, blogs))
+      venues.forEach((post, index) => createPages(post, index, venues))
+      artists.forEach((post, index) => createPages(post, index, artists))
 
     })
 }
@@ -162,33 +103,49 @@ exports.createPages = ({ graphql, actions }) => {
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
-  // For media associated w gigs we want to add fields indicating where it's from
+  // We want to add fields indicating what folder media is in so we add a parentDir field
+  // and a gigDir field if it's media part of gig
   if (node.internal.type === 'File') {
-    const nodeType = getNodeType(node.absolutePath)
-    if (nodeType === "gigs") {
-      switch (node.ext) {
-        case ".mp3":
-        case ".json":
-        case ".jpg":
-        case ".JPG":
+
+    switch (node.ext) {
+      case ".mp3":
+      case ".json":
+      case ".jpg":
+      case ".JPG":
+
+        const parsedPath = path.parse(node.absolutePath)
+        const parentDir = path.basename(parsedPath.dir)
+        const nodeType = getNodeType(node.absolutePath)
+
+        createNodeField({
+          name: `parentDir`,
+          node,
+          value: parentDir
+        })
+
+        if (nodeType) {
+          createNodeField({
+            name: `type`,
+            node,
+            value: nodeType
+          })
+        }
+
+        if (nodeType === "gigs") {
           const pathComponents = node.relativeDirectory.split("\\")
           if (pathComponents.length === 2) {
             const gigDir = pathComponents[0]
-            const artist = pathComponents[1]
             createNodeField({
               name: `gigDir`,
               node,
               value: gigDir
             })
-            createNodeField({
-              name: `artist`,
-              node,
-              value: artist
-            })
           }
-          break;
-      }
+        }
+
+      break;
     }
+
   }
   // For the actual gig posts we need to add some fields
   else if (node.internal.type === `MarkdownRemark`) {
@@ -215,11 +172,19 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       node,
       value: nodeSlug
     })
-    createNodeField({
-      name: `type`,
-      node,
-      value: nodeType
-    })
+
+    if (nodeType) {
+      createNodeField({
+        name: `type`,
+        node,
+        value: nodeType
+      })
+      createNodeField({
+        name: `${nodeType}_id`, // this field is used for mappings
+        node,
+        value: toMachineName(node.frontmatter.title, "_")
+      })
+    }
 
   }
 }

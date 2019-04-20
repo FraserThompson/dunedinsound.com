@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link, graphql } from 'gatsby'
-
+import Img from 'gatsby-image'
 import Layout from '../components/Layout'
 import { rhythm, scale } from '../utils/typography'
 import BlogContainer from '../components/BlogContainer';
 import Banner from '../components/Banner';
+import GridContainer from '../components/GridContainer';
 
 const BlogPostNav = styled.ul`
   display: flex;
@@ -18,10 +19,17 @@ const BlogPostNav = styled.ul`
 
 class BlogPostTemplate extends React.Component {
   render() {
+
     const post = this.props.data.markdownRemark
     const siteTitle = this.props.data.site.siteMetadata.title
-    const siteDescription = post.excerpt
+    const siteDescription = post.excerpt ? post.excerpt : this.props.data.site.siteMetadata.description
     const { previous, next } = this.props.pageContext
+
+    const imageElements = this.props.data.images && this.props.data.images['edges'].map(({node}) => {
+      return <a href={node.publicURL} style={{cursor: "pointer"}} key={node.name}>
+        <Img className="backgroundImage" fluid={node.childImageSharp.fluid} />
+      </a>
+    })
 
     return (
       <Layout location={this.props.location} description={siteDescription} title={`${post.frontmatter.title} | ${siteTitle}`} overrideBackgroundColor="white">
@@ -39,6 +47,13 @@ class BlogPostTemplate extends React.Component {
             {post.frontmatter.date}
           </p>
           <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        </BlogContainer>
+        {post.frontmatter.gallery &&
+          <GridContainer>
+            {imageElements}
+          </GridContainer>
+        }
+        <BlogContainer>
           <hr style={{marginBottom: rhythm(1)}}/>
           <BlogPostNav>
             <li>
@@ -67,12 +82,21 @@ class BlogPostTemplate extends React.Component {
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query BlogPostBySlug($slug: String!, $parentDir: String!) {
     site {
       ...SiteInformation
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       ...BlogFrontmatter
+    }
+    images: allFile( filter: { extension: { in: ["jpg", "JPG"]}, fields: { parentDir: {eq: $parentDir}}}) {
+      edges {
+        node {
+          name
+          publicURL
+          ...FullImage
+        }
+      }
     }
   }
 `

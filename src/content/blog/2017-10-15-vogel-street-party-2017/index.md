@@ -12,6 +12,7 @@ media:
     Maryland: {machine_name: maryland}
 description: 'The third annual Vogel Street Party happened yesterday and was a hell of a lot of fun despite decidedly dodgy weather. Check out these photos and videos!'
 cover: ./cover.jpg
+gallery: true
 ---
 
 
@@ -21,12 +22,10 @@ A sudden thunderstorm hit at around 6:30pm and scared away the weak, but the tru
 
 
 
-Check out the gig page here for photos and videos of some of the bands who played
-
-{% include gig_embed.html gig_title="Vogel Street Party 2017" %}
+Check out the gig page <a title="Vogel Street Party 2017" href="/gigs/vogel-street-party-2017/">here</a> for photos and videos of some of the bands who played.
 
 And here's the rest of the media from the event (93 photos and one video)
 
-{% include youtube_video.html link="fLu5OLM7u68" title="The Vogel Street Party 2017 Experience" vanilla="true" %}
-
-{% include blog_images.html images="indexed-media" col="col-xs-6" %}
+<div class="youtubeEmbed">
+  <iframe src="https://www.youtube.com/embed/fLu5OLM7u68/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
+</div>

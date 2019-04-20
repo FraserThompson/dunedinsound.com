@@ -380,7 +380,7 @@ class GigTemplate extends React.Component {
 export default GigTemplate
 
 export const pageQuery = graphql`
-  query GigsBySlug($slug: String!, $prevSlug: String, $nextSlug: String, $artists: [String]!, $venue: String!, $gigDir: String! ) {
+  query GigsBySlug($slug: String!, $prevSlug: String, $nextSlug: String, $artists: [String]!, $venue: String!, $parentDir: String! ) {
     site {
       ...SiteInformation
     }
@@ -393,8 +393,8 @@ export const pageQuery = graphql`
     prevPost: markdownRemark(fields: { slug: { eq: $prevSlug } }) {
       ...GigFrontmatter
     }
-    images: allFile( filter: {extension: {in: ["jpg", "JPG"]}, fields: { gigDir: {eq: $gigDir}}}) {
-      group(field: fields___artist) {
+    images: allFile( filter: {extension: {in: ["jpg", "JPG"]}, fields: { gigDir: {eq: $parentDir}, type: { eq: "gigs"}}}) {
+      group(field: fields___parentDir) {
         fieldValue
         edges {
           node {
@@ -405,8 +405,8 @@ export const pageQuery = graphql`
         }
       }
     }
-    audio: allFile( filter: {extension: {in: ["mp3", "json"]}, fields: { gigDir: {eq: $gigDir}}}) {
-      group(field: fields___artist) {
+    audio: allFile( filter: {extension: {in: ["mp3", "json"]}, fields: { gigDir: {eq: $parentDir}, type: { eq: "gigs"}}}) {
+      group(field: fields___parentDir) {
         fieldValue
         edges {
           node {

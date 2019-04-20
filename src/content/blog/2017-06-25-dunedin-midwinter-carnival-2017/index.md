@@ -6,6 +6,7 @@ tags:
 description: 'Saturday the 25th of June was the shortest day of the year and to celebrate a group of dedicated volunteers supported by the Dunedin City Council turned the octagon into a midwinter themed carnival. Check out my photos and videos!'
 author: Fraser
 cover: ./cover.jpg
+gallery: true
 ---
 
 
@@ -14,8 +15,9 @@ Saturday the 24th of June was the shortest day of the year and to celebrate a gr
 This isn't the sort of thing I usually document but it was a beautiful experience and I wanted to share it for anyone who didn't get a chance to go.
 
 
-
-{% include youtube_video.html link="dlplX0ayIzs" title="Dunedin Midwinter Carnival 2017 - Full video" vanilla="true" %}
+<div class="youtubeEmbed">
+  <iframe src="https://www.youtube.com/embed/dlplX0ayIzs/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
+</div>
 
 The sheer amount of people packed into the octagon was staggering. It seemed like half of dunedin had turned out. In reality it was around 15,000 people, which is still an especially impressive number for a cold winters night. 
 
@@ -26,5 +28,3 @@ Somewhat disappointingly there was no firework display to cap off the evening th
 The procession itself was the highlight of the evening, a splendor of sight and sound where beautifully crafted lanterns, lit by safe and efficient LED lights, came alive as they were paraded around the octagon.
 
 Anyway, here's ~~Wonderwall~~ some photos.
-
-{% include blog_images.html images="indexed-media" col="col-xs-6" %}

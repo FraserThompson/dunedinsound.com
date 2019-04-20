@@ -44,9 +44,11 @@ My next iteration was making it prettier, trying to make it feel less like an en
 
 And since then the basic design has solidified and it's just been progressive enhancements and new features. The biggest changes have been in the layout for individual gigs which moved from using a sidebar for artist navigation to just letting people scroll. 
 
-{% include blog_image.html src="oldlayout1.jpg" medium_image="true" description="Layout for a gig page on April 20, 2017. Imagine the images are there." %}
+![Old Layout 1](./oldlayout1.jpg)
+*Layout for a gig page on April 20, 2017. Imagine the images are there.*
 
-{% include blog_image.html src="oldlayout2.jpg" medium_image="true" description="Layout for a gig page in November 2017." %}
+![Old Layout 2](./oldlayout2.jpg)
+*Layout for a gig page in November 2017.*
 
 To be honest I'm still not too happy with this so expect more changes in the future.
 
@@ -68,13 +70,15 @@ The result of all this is very tiny assets. My CSS file is 19kb gzipped and my m
 
 Currently the total size of the website is about 26gb, which is pretty small really, but obviously it'll grow more and more the longer I do this.
 
-{% include blog_image.html src="files2.jpg" medium_image="true" description="Breakdown of where that 26gb goes." %}
+![Files 2](./files2.jpg)
+*Breakdown of where that 26gb goes.*
 
 It's all hosted on Amazon S3 because I think that's the most reliable way to store it long term. It's also reasonably cheap, currently data storage costs are around $2 a month and transfer is like $5. 
 
 I use also use CloudFlare's free plan so assets are cached nearby which saves me bandwidth and makes it faster.
 
-{% include blog_image.html src="files.jpg" medium_image="true" description="Just a pretty graph of all the files 😍" %}
+![Files](./files.jpg)
+*Just a pretty graph of all the files 😍*
 
 **Process (ensuring I don't lose my sanity)**
 

@@ -113,13 +113,13 @@ export const pageQuery = graphql`
         }
       }
     }
-    imagesByArtist: allFile( filter: {extension: {eq: "jpg"}}) {
-      group(field: fields___artist, limit: 1) {
+    imagesByArtist: allFile( filter: {extension: {eq: "jpg"}, fields: {type: { eq: "gigs"}} }) {
+      group(field: fields___parentDir, limit: 1) {
         fieldValue
         edges {
           node {
             fields {
-              artist
+              parentDir
             }
             ...MediumImage
           }

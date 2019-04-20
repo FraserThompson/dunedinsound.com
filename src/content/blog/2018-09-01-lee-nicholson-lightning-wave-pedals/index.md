@@ -21,4 +21,6 @@ I caught up with him to find out how it's going and why there's so much buzz aro
 
 
 
-{% include youtube_video.html link="GC3qZLIn8gs" title="Talking to Lee Nicolson of Lightning Wave pedals" vanilla="true" %}
+<div class="youtubeEmbed">
+  <iframe src="https://www.youtube.com/embed/GC3qZLIn8gs/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
+</div>
