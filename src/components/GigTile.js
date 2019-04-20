@@ -65,8 +65,8 @@ const GigTile = props => {
           href={props.node.fields.slug}
         >
           <MediaCounts>
-            {imageCountByGig[node.fields.gigDir] > 0 && <div><MdPhotoCamera/> <span className="smaller">{imageCountByGig[node.fields.gigDir]}</span></div>}
-            {audioCountByGig[node.fields.gigDir] > 0 &&  <div><MdAudiotrack/> <span className="smaller">{audioCountByGig[node.fields.gigDir]}</span></div>}
+            {imageCountByGig[node.fields.parentDir] > 0 && <div><MdPhotoCamera/> <span className="smaller">{imageCountByGig[node.fields.parentDir]}</span></div>}
+            {audioCountByGig[node.fields.parentDir] > 0 &&  <div><MdAudiotrack/> <span className="smaller">{audioCountByGig[node.fields.parentDir]}</span></div>}
             {videoCount > 0 && <div><MdVideocam/> <span className="smaller">{videoCount}</span></div>}
           </MediaCounts>
         </Tile>
