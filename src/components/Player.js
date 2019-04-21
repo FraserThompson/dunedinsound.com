@@ -1,13 +1,20 @@
+// Player.js
+// An audio player for playing media from one or more artists.
+// Parameters:
+//  - artistMedia: Media to be displayed
+//  - onPlay (optional): Callback for when it's played
+//  - onPause (optional): Callback for when it's paused
+//  - onFileChange (optional): Callback for when the song changes
+//  - selectedArtist (optional): The artist to start with. Defaults to the first.
+
+
 import React from 'react'
 import styled from 'styled-components'
 import { MdPlayArrow, MdPause, MdSkipNext, MdSkipPrevious } from 'react-icons/md';
 import { theme } from '../utils/theme'
-import Dropdown from './Dropdown';
+import PlayerMenu from './PlayerMenu';
 import RoundButton from './RoundButton';
 import { scale } from '../utils/typography';
-
-const PlayerControls = styled.div`
-`
 
 const PlayerWrapper = styled.div`
   box-shadow: 0 -6px 12px rgba(0,0,0,.175);
@@ -217,17 +224,17 @@ export default class Player extends React.Component {
   render = () => {
     return (
       <PlayerWrapper>
-        <PlayerControls>
+        <div>
           <RoundButton size="30px" onClick={this.previous}><MdSkipPrevious/></RoundButton>
           <RoundButton className={this.state.playing ? "active" : ""} size="40px" onClick={this.playPause}>{!this.state.playing ? <MdPlayArrow/> : <MdPause/>}</RoundButton>
           <RoundButton size="30px" onClick={this.next}><MdSkipNext/></RoundButton>
-        </PlayerControls>
+        </div>
         <WaveWrapper ref={el => (this.el = el)}>
           <LengthWrapper style={{left: "0px"}}>{this.formatTime(this.state.currentTime)}</LengthWrapper>
           <LengthWrapper style={{right: "0px"}}>{this.formatTime(this.state.duration)}</LengthWrapper>
           <TitleWrapper className="title-wrapper"><span>{this.props.artistMedia[this.state.selectedArtist].audio[0][".mp3"].name}</span></TitleWrapper>
         </WaveWrapper>
-        <Dropdown width="100%" selected={this.state.selectedArtist} callback={this.selectArtist} list={this.props.artistMedia}/>
+        <PlayerMenu width="100%" selected={this.state.selectedArtist} callback={this.selectArtist} list={this.props.artistMedia}/>
       </PlayerWrapper>
     )
   }

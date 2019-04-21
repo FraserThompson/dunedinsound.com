@@ -22,7 +22,7 @@ const YouTubeWrapper = styled.div`
 `
 
 
-class YouTubeResponsive extends React.Component {
+class YouTubeResponsive extends React.PureComponent {
 
   render() {
     return <YouTubeWrapper odd={this.props.odd}>

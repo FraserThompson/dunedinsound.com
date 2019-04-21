@@ -1,3 +1,12 @@
+// GridContainer.js
+// A grid. Will display items in a grid.
+//
+// Params (breakpoints) will use theme defaults if not supplied
+//  - xs (optional)
+//  - sm (optional)
+//  - md (optional)
+//  - lg (optional)
+
 import styled from 'styled-components'
 
 const GridContainer = styled.div`

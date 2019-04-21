@@ -29,7 +29,7 @@ const PlayerWrapper = styled.div`
   opacity: 1;
   background-color: ${props => props.theme.headerColor};
   width: 100%;
-  transition: bottom 300ms ease-in-out;
+  transition: bottom 150ms ease-in-out;
   .handle {
     position: absolute;
     text-align: center;
@@ -216,7 +216,6 @@ class GigTemplate extends React.Component {
       lightboxOpen: false,
       playerOpen: false,
       selectedImage: undefined,
-      selectedArtist: this.artistMedia[0],
       playing: false,
       selectedAudio: null
     }
@@ -326,20 +325,7 @@ class GigTemplate extends React.Component {
             }
           </HorizontalNav>
         </Banner>
-        {this.artistAudio.length > 0 &&
-          <PlayerWrapper show={this.state.playerOpen}>
-            <div className="handle"><button title="Audio Player" onClick={() => this.setState({playerOpen: !this.state.playerOpen})}><MdKeyboardArrowUp/></button></div>
-            <Player
-              ref={this.player}
-              artistMedia={this.artistAudio}
-              onPlay={() => this.setState({playing: true, playerOpen: true})}
-              onPause={() => this.setState({playing: false})}
-              onFileChange={(index) => this.setState({selectedAudio: index, playerOpen: true})}
-            />
-          </PlayerWrapper>
-        }
-        {
-          this.artistMedia.map((artist, artistIndex) => {
+        {this.artistMedia.map((artist, artistIndex) => {
 
             const imageElements = artist.images && artist.images.map((fluidImage, artistImageIndex) => {
               return <a style={{cursor: "pointer"}} key={artistImageIndex} onClick={e => this.openLightbox(artistIndex, artistImageIndex, e)}>
@@ -391,6 +377,18 @@ class GigTemplate extends React.Component {
               </div>
             )
           })
+        }
+        {this.artistAudio.length > 0 &&
+          <PlayerWrapper show={this.state.playerOpen}>
+            <div className="handle"><button title="Audio Player" onClick={() => this.setState({playerOpen: !this.state.playerOpen})}><MdKeyboardArrowUp/></button></div>
+            <Player
+              ref={this.player}
+              artistMedia={this.artistAudio}
+              onPlay={() => this.setState({playing: true, playerOpen: true})}
+              onPause={() => this.setState({playing: false})}
+              onFileChange={(index) => this.setState({selectedAudio: index, playerOpen: true})}
+            />
+          </PlayerWrapper>
         }
         {this.state.lightboxOpen &&
           <Lightbox

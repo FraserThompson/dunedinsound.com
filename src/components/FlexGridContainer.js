@@ -1,3 +1,12 @@
+// FlexGridContainer.js
+// A flexible grid. Will display items in a grid but will also grow to take up space if there is any.
+//
+// Params (breakpoints) will use theme defaults if not supplied
+//  - xs (optional)
+//  - sm (optional)
+//  - md (optional)
+//  - lg (optional)
+
 import styled from "styled-components"
 
 const FlexGridContainer = styled.div`

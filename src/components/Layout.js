@@ -4,13 +4,13 @@ import SiteHeader from './SiteHeader'
 import styled, { ThemeProvider } from "styled-components"
 import { theme } from '../utils/theme'
 import 'react-image-lightbox/style.css'
-import SiteFooter from './SiteFooter';
-import { lighten } from 'polished';
-import { Helmet } from 'react-helmet';
-import SiteNav from './SiteNav';
-import Menu from './Menu';
-import { rhythm } from '../utils/typography';
-import GlobalStyle from './GlobalStyle';
+import SiteFooter from './SiteFooter'
+import { lighten } from 'polished'
+import { Helmet } from 'react-helmet'
+import SiteNav from './SiteNav'
+import Menu from './Menu'
+import { rhythm } from '../utils/typography'
+import GlobalStyle from './GlobalStyle'
 
 const HeaderWrapper = styled.div`
   position: sticky;
@@ -19,7 +19,7 @@ const HeaderWrapper = styled.div`
   z-index: 12;
 `
 const SiteContainer = styled.div`
-  min-height: ${props => "calc(100vh - " + props.theme.headerHeight + " - " + props.theme.footerHeight + " - " + rhythm(3) + ")"};
+  min-height: ${props => `calc(100vh - ${props.theme.headerHeight} - ${props.theme.footerHeight} - ${rhythm(3)})`};
   background-color: ${props => props.overrideBackgroundColor};
   height: 100%;
   width: 100%;
@@ -41,11 +41,10 @@ const MobileNav = styled.div`
   }
 `
 
-class Layout extends React.Component {
+class Layout extends React.PureComponent {
 
   render() {
-    const { location, title, children } = this.props
-    const rootPath = `${__PATH_PREFIX__}/`
+    const { location, children } = this.props
 
     return (
       <ThemeProvider theme={this.props.theme || theme.default}>

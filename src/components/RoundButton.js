@@ -1,3 +1,9 @@
+// RoundButton.js
+// Like a regular button except round
+// Props
+//  - size: width and height
+
+
 import styled from 'styled-components'
 import { lighten } from 'polished';
 

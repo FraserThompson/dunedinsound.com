@@ -1,14 +1,24 @@
+// Banner.js
+// A big full width banner.
+//
+// Params:
+//  - title (optional)
+//  - children: Displayed in a box in the middle.
+//  - height (optional): Height the banner should be
+//  - backgroundImage (optional): Fluid image to use as background
+//  - background (optional): Misc content to display in the background
+//  - customContent (optional): Misc content to display in the foreground
+
 import React from 'react'
 import styled from 'styled-components'
 import { rhythm } from '../utils/typography'
-import BackgroundImage from './BackgroundImage';
+import BackgroundImage from './BackgroundImage'
 
-const DefaultBannerHeight = "70vh";
+const DefaultBannerHeight = "70vh"
 
 const BannerWrapper = styled.div`
   background: #40E0D0;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
   height: ${props => props.height ? props.height : DefaultBannerHeight};
   overflow: hidden;
   position: relative;
@@ -45,7 +55,7 @@ const BannerText = styled.div`
 
 `
 
-class Banner extends React.Component {
+class Banner extends React.PureComponent {
   render() {
     return (
       <BannerWrapper className="banner" {...this.props}>

@@ -6,4 +6,4 @@ const Content = styled.div`
   padding: ${rhythm(0.5)};
   margin: 0 auto;
 `
-export default Content;
+export default Content

@@ -1,11 +1,13 @@
+// Menu.js
+// Parameters:
+//  - horizontal (optional): Defines whether it should be displayed as a horizontal list or vertical list. Collapses at 992px by default.
+//  - backgroundColor
+//  - height
+//  - width
+
 import styled from "styled-components"
 import { rhythm, scale } from '../utils/typography';
 import { lighten } from 'polished';
-
-
-// Menu
-// Parameters
-// Horizontal: Defines whether it should be displayed as a horizontal list or vertical list. Collapses at 992px by default.
 
 const Menu = styled.div`
   width: ${props => props.width};

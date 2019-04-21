@@ -1,9 +1,11 @@
+// PlayerMenu.js
+// A menu used by Player.js
+
 import React from 'react'
 import styled from "styled-components"
-import { MdPlaylistPlay, MdFileDownload } from 'react-icons/md';
+import { MdPlaylistPlay, MdFileDownload } from 'react-icons/md'
 import Menu from './Menu';
-import MenuButton from './MenuButton';
-import { scale, rhythm } from '../utils/typography';
+import MenuButton from './MenuButton'
 
 const DropdownMenu = styled(Menu)`
   position: absolute;
@@ -20,10 +22,10 @@ const DropdownMenu = styled(Menu)`
   box-shadow: 0 6px 12px rgba(0,0,0,.250);
 `
 
-class Dropdown extends React.Component {
+class PlayerMenu extends React.Component {
 
   state = {
-    open: false,
+    open: false
   }
 
   toggleMenu = (e) => {
@@ -56,4 +58,4 @@ class Dropdown extends React.Component {
   }
 }
 
-export default Dropdown
+export default PlayerMenu

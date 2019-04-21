@@ -1,3 +1,13 @@
+// Divider.js
+// A divider.
+//
+// Params:
+//  - children: content to display in the divider
+//  - color (optional): Text color
+//  - sticky (optional): Makes it sticky
+//  - backgroundColor (optional): Background color
+//  - href (optional): Makes it a link
+
 import React from 'react'
 import styled from 'styled-components'
 import { rhythm } from '../utils/typography'
@@ -26,17 +36,17 @@ const DividerWrapper = styled.div`
     vertical-align: middle;
   }
   a {
-    color: ${props => props.highlight ? "white" : "black"};
+    color: black;
     &:hover, &:active {
-      color: ${props => props.highlight ? "white" : "black"};
+      color: black;
     }
   }
 `
-export default class Divider extends React.Component {
+export default class Divider extends React.PureComponent {
   render() {
-  return <DividerWrapper {...this.props}>
-    {this.props.href && <a href={this.props.href}>{this.props.children}</a>}
-    {!this.props.href && this.props.children}
-  </DividerWrapper>
+    return <DividerWrapper {...this.props}>
+      {this.props.href && <a href={this.props.href}>{this.props.children}</a>}
+      {!this.props.href && this.props.children}
+    </DividerWrapper>
   }
 }

@@ -1,7 +1,6 @@
 import styled from 'styled-components'
-import { rhythm } from '../utils/typography'
-import Content from './Content';
-import { darken } from 'polished';
+import Content from './Content'
+import { darken } from 'polished'
 
 const BlogContainer = styled(Content)`
   max-width: ${props => props.theme.contentContainerWidth};

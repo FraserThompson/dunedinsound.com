@@ -1,3 +1,12 @@
+// SiteHeader.js
+// The header for the site.
+// Props
+//  - backgroundColor (optional): Will use theme headerColor if not supplied
+//  - hideOnMobile (optional): Whether to hide it on mobile
+//  - headerContent (optional): Extra content to put in the header
+//  - hideBrand (optional): Hide the brand
+//  - hideNav (optional): Hide the navigation
+
 import React from 'react'
 import { Link } from 'gatsby'
 import styled from "styled-components"
