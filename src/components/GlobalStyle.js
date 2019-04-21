@@ -99,17 +99,6 @@ const GlobalStyle = createGlobalStyle`
     transition: color 0.3s ease-in-out;
   }
 
-  a .backgroundImage{
-    transition: transform 0.3s ease-in-out;
-    transform: scale(1,1);
-  }
-
-  a:hover {
-    .backgroundImage {
-      transform: scale(1.02,1.02);
-    }
-  }
-
   li.active {
     a {
       color: white;
@@ -174,14 +163,65 @@ const GlobalStyle = createGlobalStyle`
     overflow:hidden;
     background-color: transparent;
 
+    .backgroundImage{
+      transition: transform 0.3s ease-in-out;
+      transform: scale(1,1);
+    }
+
+    &.trippy {
+      z-index: 1000;
+      display: inline-block;
+      color: white;
+      transition: all 0.2s ease-in-out;
+    }
+
+    &.trippy:hover {
+      color: limegreen;
+      text-decoration: none;
+      transform: scaleY(10) scaleX(5) rotateX(360deg) translateX(20px);
+    }
+
+    &.trippy2 {
+      display: inline-block;
+      z-index: 1000;
+      color: #0ce3ac;
+      transition: all 0.2s ease-in-out;
+    }
+
+    &.trippy2:hover {
+      text-decoration: none;
+      transform: skewY(10deg) scaleY(5) scaleX(10) rotateZ(360deg) translateX(0px);
+    }
+
     &:hover {
       color: ${props => props.theme.highlightColor2};
+      .backgroundImage {
+        transform: scale(1.02,1.02);
+      }
     }
 
     &:active, &:hover {
       outline: 0;
     }
 
+  }
+
+  .wobbly-content {
+      -webkit-animation: wobble 5s infinite linear;
+      height: 300px;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  }
+
+  @-webkit-keyframes wobble {
+      0%  { -webkit-transform:  rotate(0deg); color: limegreen; }
+      20%  { -webkit-transform:  rotate(2deg); color: purple; }
+      50%  { -webkit-transform:  rotate(-2deg); color: aquamarine; }
+      100%  { -webkit-transform:  rotate(0deg); color: hotpink; }
   }
 
   ${TransitionStyles}

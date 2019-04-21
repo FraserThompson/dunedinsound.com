@@ -23,6 +23,10 @@ const Container = styled.div`
     display: flex;
   }
 
+  h1 {
+    color: ${props => props.theme.textColor}
+  }
+
   .miscContent {
     margin: 0 auto;
     height: 100%;

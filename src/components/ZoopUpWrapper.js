@@ -14,6 +14,7 @@ const ZoopUpWrapper = styled.a`
   p {
     ${scale(0.5)};
     margin-bottom: -${rhythm(1)};
+    text-transform: uppercase;
   }
   &:hover {
     top: 0px;

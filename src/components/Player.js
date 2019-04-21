@@ -67,7 +67,6 @@ export default class Player extends React.Component {
   }
 
   componentDidMount() {
-
     window.cached_json = window.cached_json || {};
 
     // because otherwise window is not defined

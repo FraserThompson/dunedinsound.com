@@ -199,7 +199,7 @@ class GigTemplate extends React.Component {
   }
 
   componentDidMount = () => {
-    window.addEventListener('scroll', this.onScroll);
+    window.addEventListener('scroll', this.onScroll, {passive: true});
   }
 
   componentWillUnmount = () => {
@@ -268,7 +268,6 @@ class GigTemplate extends React.Component {
   }
 
   render = () => {
-
     const siteTitle = this.props.data.site.siteMetadata.title
 
     return (
@@ -306,7 +305,7 @@ class GigTemplate extends React.Component {
           <PlayerWrapper show={this.state.selectedAudio !== null}>
             <Player
               ref={this.player}
-              artistMedia={this.artistMedia.filter(artist => artist.audio)}
+              artistMedia={this.artistAudio}
               onPlay={() => this.setState({playing: true})}
               onPause={() => this.setState({playing: false})}
               onFileChange={(index) => this.setState({selectedAudio: index})}

@@ -121,7 +121,7 @@ export const pageQuery = graphql`
             fields {
               parentDir
             }
-            ...MediumImage
+            ...SmallImage
           }
         }
       }

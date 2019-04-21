@@ -16,6 +16,7 @@ getNodeType = (path) => {
   if (/\/blog/.test(path)) return "blog";
   if (/\/venues/.test(path)) return "venues";
   if (/\/artists/.test(path)) return "artists";
+  return "page"; //default to page
 }
 
 exports.createPages = ({ graphql, actions }) => {
@@ -55,7 +56,8 @@ exports.createPages = ({ graphql, actions }) => {
         gigs: path.resolve('./src/templates/gig.js'),
         blog: path.resolve('./src/templates/blog.js'),
         artists: path.resolve('./src/templates/artist.js'),
-        venues: path.resolve('./src/templates/venue.js')
+        venues: path.resolve('./src/templates/venue.js'),
+        page: path.resolve('./src/templates/page.js')
       }
 
       // We split it like this (pretty inefficiently) so we can treat them as seperate collections for the next/prev
@@ -63,6 +65,7 @@ exports.createPages = ({ graphql, actions }) => {
       const blogs = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "blog")
       const venues = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "venues")
       const artists = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "artists")
+      const pages = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "page")
 
       const createPages = (post, index, posts) => {
 
@@ -96,7 +99,7 @@ exports.createPages = ({ graphql, actions }) => {
       blogs.forEach((post, index) => createPages(post, index, blogs))
       venues.forEach((post, index) => createPages(post, index, venues))
       artists.forEach((post, index) => createPages(post, index, artists))
-
+      pages.forEach((post, index) => createPages(post, index, pages))
     })
 }
 
@@ -172,19 +175,16 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       node,
       value: nodeSlug
     })
-
-    if (nodeType) {
-      createNodeField({
-        name: `type`,
-        node,
-        value: nodeType
-      })
-      createNodeField({
-        name: `${nodeType}_id`, // this field is used for mappings
-        node,
-        value: toMachineName(node.frontmatter.title, "_")
-      })
-    }
+    createNodeField({
+      name: `type`,
+      node,
+      value: nodeType
+    })
+    createNodeField({
+      name: `${nodeType}_id`, // this field is used for mappings
+      node,
+      value: toMachineName(node.frontmatter.title, "_")
+    })
 
   }
 }
