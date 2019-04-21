@@ -18,6 +18,7 @@ const Menu = styled.div`
   border-radius: 0;
   margin: 0;
   overflow-y: hidden;
+  scroll-behavior: smooth;
 
   a {
     color: ${props => props.theme.textColor};

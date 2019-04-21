@@ -52,7 +52,7 @@ class Venues extends React.Component {
   }
 
   markerClick = (index) => {
-    this.sidebarRef.current.scrollTo(0, this.listRefs[index].offsetTop);
+    this.listRefs[index].scrollIntoView({behavior: "smooth"})
     this.setState({selected: index})
   }
 
@@ -92,12 +92,12 @@ class Venues extends React.Component {
         <SidebarNav ref={this.sidebarRef} width="300px" open={this.state.sidebarOpen} left>
           {
             this.state.filteredPosts.map(({ node }, index) =>
-                <li key={index} ref={this.setRef} className={index === this.state.selected ? "active" : ""}>
-                  <a onClick={() => this.select(index, [node.frontmatter.lat, node.frontmatter.lng])}>
-                    {node.frontmatter.title}
-                  </a>
-                </li>
-              )
+              <li key={index} ref={this.setRef} className={index === this.state.selected ? "active" : ""}>
+                <a onClick={() => this.select(index, [node.frontmatter.lat, node.frontmatter.lng])}>
+                  {node.frontmatter.title}
+                </a>
+              </li>
+            )
           }
         </SidebarNav>
         <MapWrapper>

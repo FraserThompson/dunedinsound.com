@@ -87,6 +87,13 @@ class ContentByEntityTemplate extends React.Component {
     }
   }
 
+  // Scrolling to an achor. We do this because hash changes trigger re-renders.
+  scrollTo = (e, anchor) => {
+    e.preventDefault()
+    e.stopPropagation()
+    document.getElementById(anchor).scrollIntoView({behavior: "smooth"})
+  }
+
   componentDidMount = () => {
     window.addEventListener('scroll', this.onScroll, {passive: true});
   }
@@ -106,8 +113,8 @@ class ContentByEntityTemplate extends React.Component {
   render() {
 
     const gigTiles = this.gigs && Object.keys(this.postsByDate).sort((a, b) => b - a).map(year => {
-      return <React.Fragment key={year}>
-        <Divider backgroundColor={theme.default.highlightColor} color="white" sticky>{year}</Divider>
+      return <div id={year} key={year}>
+        <Divider backgroundColor={theme.default.highlightColor} color="white" sticky><a style={{width: "100%"}} onClick={(e) => this.scrollTo(e, year)} href={"#" + year}>{year}</a></Divider>
         <FlexGridContainer>
           {Object.keys(this.postsByDate[year]).sort((a, b) => b - a).map(month => {
             return <React.Fragment key={month}>
@@ -115,7 +122,7 @@ class ContentByEntityTemplate extends React.Component {
             </React.Fragment>
           })}
         </FlexGridContainer>
-      </React.Fragment>
+      </div>
     })
 
     const blogTiles = this.blogs && this.blogs.map(({node}) => {
@@ -140,7 +147,7 @@ class ContentByEntityTemplate extends React.Component {
         title={`${this.post.frontmatter.title} | ${this.siteTitle}`}
         hideBrand={this.state.scrolled}
         hideNav={this.state.scrolled}
-        headerContent={this.state.scrolled && <a href="#top" title="Scroll to top"><h1 className="semi-big">{this.post.frontmatter.title}</h1></a>}
+        headerContent={this.state.scrolled && <a onClick={(e) => this.scrollTo(e, "top")} href="#top" title="Scroll to top"><h1 className="semi-big">{this.post.frontmatter.title}</h1></a>}
       >
         <Banner title={this.post.frontmatter.title} backgroundImage={this.cover} background={this.background} customContent={(
             <><ZoopUpWrapper title="BACK TO ARTISTS ☝" href={this.parent.href}><p>☝ Back to {this.parent.title} ☝</p><MdKeyboardArrowUp/></ZoopUpWrapper></>

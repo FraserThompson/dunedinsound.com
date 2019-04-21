@@ -2,22 +2,22 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 import styled from "styled-components"
 import Img from 'gatsby-image'
-import Lightbox from 'react-image-lightbox';
+import Lightbox from 'react-image-lightbox'
 import Layout from '../components/Layout'
-import { toMachineName } from  '../utils/helper';
-import GridContainer from '../components/GridContainer';
-import Banner from '../components/Banner';
-import Divider from '../components/Divider';
-import Player from '../components/Player';
-import { rhythm, scale } from '../utils/typography';
-import YouTubeResponsive from '../components/YouTubeResponsive';
-import Tile from '../components/Tile';
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowUp, MdPlayArrow, MdPause } from 'react-icons/md';
-import HorizontalNav from '../components/HorizontalNav';
-import RoundButton from '../components/RoundButton';
-import ZoopUpWrapper from '../components/ZoopUpWrapper';
-import FlexGridContainer from '../components/FlexGridContainer';
-import { lighten } from 'polished';
+import { toMachineName } from  '../utils/helper'
+import GridContainer from '../components/GridContainer'
+import Banner from '../components/Banner'
+import Divider from '../components/Divider'
+import Player from '../components/Player'
+import { rhythm, scale } from '../utils/typography'
+import YouTubeResponsive from '../components/YouTubeResponsive'
+import Tile from '../components/Tile'
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowUp, MdPlayArrow, MdPause } from 'react-icons/md'
+import HorizontalNav from '../components/HorizontalNav'
+import RoundButton from '../components/RoundButton'
+import ZoopUpWrapper from '../components/ZoopUpWrapper'
+import FlexGridContainer from '../components/FlexGridContainer'
+import { lighten } from 'polished'
 
 const PlayerWrapper = styled.div`
   position: fixed;
@@ -238,6 +238,13 @@ class GigTemplate extends React.Component {
     }
   }
 
+  // Scrolling to an achor. We do this because hash changes trigger re-renders.
+  scrollTo = (e, anchor) => {
+    e.preventDefault()
+    e.stopPropagation()
+    document.getElementById(anchor).scrollIntoView({behavior: "smooth"})
+  }
+
   openLightbox = (artistIndex, imageIndex, event) => {
     event.preventDefault()
     this.gotoLightboxImage({ artistIndex, imageIndex })
@@ -302,7 +309,7 @@ class GigTemplate extends React.Component {
         title={`${this.post.frontmatter.title} | ${siteTitle}`}
         hideBrand={this.state.scrolled}
         hideNav={this.state.scrolled}
-        headerContent={this.state.scrolled && <a href="#top" title="Scroll to top"><h1 className="semi-big">{this.post.frontmatter.title}</h1></a>}
+        headerContent={this.state.scrolled && <a onClick={(e) => this.scrollTo(e, "top")} href="#top" title="Scroll to top"><h1 className="semi-big">{this.post.frontmatter.title}</h1></a>}
       >
         <Banner
           id="top"
@@ -318,7 +325,7 @@ class GigTemplate extends React.Component {
               this.artistMedia.map((artist, index) => {
                 return (
                   <li key={index}>
-                    <a className="button" href={"#" + artist.machineName}>{artist.title}</a>
+                    <a className="button" onClick={(e) => this.scrollTo(e, artist.machineName)} href={"#" + artist.machineName}>{artist.title}</a>
                   </li>
                 )
               })
@@ -354,7 +361,7 @@ class GigTemplate extends React.Component {
             return (
               <div key={artistIndex} id={artist.machineName}>
                 <Divider sticky={true}>
-                  <a href={"#" + artist.machineName}><p style={{marginRight: rhythm(0.5)}}>{artist.title}</p></a>
+                  <a onClick={(e) => this.scrollTo(e, artist.machineName)} href={"#" + artist.machineName}><p style={{marginRight: rhythm(0.5)}}>{artist.title}</p></a>
                   {artist.audio && <>
                     <RoundButton
                       className={isPlaying ? "active" : ""}

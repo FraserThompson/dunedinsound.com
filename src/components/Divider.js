@@ -36,9 +36,9 @@ const DividerWrapper = styled.div`
     vertical-align: middle;
   }
   a {
-    color: black;
+    color: ${props => props.color || "black"};
     &:hover, &:active {
-      color: black;
+      color: ${props => props.color || "black"};
     }
   }
 `

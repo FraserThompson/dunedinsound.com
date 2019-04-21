@@ -67,8 +67,15 @@ class Gigs extends React.Component {
     this.setState({sidebarOpen: !this.state.sidebarOpen})
   }
 
-  render() {
+  // Scrolling to an achor. We do this because hash changes trigger re-renders.
+  scrollTo = (e, anchor) => {
+    e.preventDefault()
+    e.stopPropagation()
+    document.getElementById(anchor).scrollIntoView({behavior: "smooth"})
+  }
 
+  render() {
+    console.log('render')
     const postsByDate = this.state.filteredPosts.reduce((object, {node}) => {
       const splitDate = node.frontmatter.date.split("-");
       const date = new Date("20" + splitDate[2], splitDate[1] - 1, splitDate[0]);
@@ -83,11 +90,11 @@ class Gigs extends React.Component {
     const menuItems = Object.keys(postsByDate).sort((a, b) => b - a).map(year => {
       return (
         <li key={year}>
-          <a href={`#${year}`}><strong>{year}</strong></a>
+          <a onClick={(e) => this.scrollTo(e, year)} href={`#${year}`}><strong>{year}</strong></a>
           <ul>
             {Object.keys(postsByDate[year]).sort(sortByMonth).map(month => {
               const className = `${year}-${month}`
-              return <li key={month}><a href={`#${className}`}>{month}</a></li>
+              return <li key={month}><a onClick={(e) => this.scrollTo(e, year)} href={`#${className}`}>{month}</a></li>
             })}
           </ul>
         </li>
@@ -100,26 +107,25 @@ class Gigs extends React.Component {
         title={`Gigs | ${this.siteTitle}`}
         hideBrandOnMobile={true}
         hideFooter={true}
-        headerContent={<><MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton><Search placeholder="Search gigs" toggleSidebar={this.toggleSidebar} filter={this.filter}/></>}>
+        headerContent={<><MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton><Search placeholder="Search gigs" toggleSidebar={this.toggleSidebar} filter={this.filter}/></>}
+      >
         <PageContent>
-          {Object.keys(postsByDate).sort((a, b) => b - a).map((year) => {
+          {Object.keys(postsByDate).sort((a, b) => b - a).map((year) =>
+            <section key={year} id={year}>
+              {
+                Object.keys(postsByDate[year]).sort((a, b) => b - a).map(month => {
 
-            const monthPosts = Object.keys(postsByDate[year]).sort((a, b) => b - a).map(month => {
+                  const posts = postsByDate[year][month]
+                  const id = `${year}-${month}`
 
-              const posts = postsByDate[year][month]
-              const id = `${year}-${month}`
+                  return <section key={id} id={id}>
+                    {posts.map((node, index) => <GigTile key={index} height="30vh" node={node}/>)}
+                  </section>
 
-              return <section key={id} id={id}>
-                {posts.map((node, index) => <GigTile key={index} height="30vh" node={node}/>)}
-              </section>
-
-            })
-
-            return <section key={year} id={year}>
-              {monthPosts}
+                })
+              }
             </section>
-
-            })}
+            )}
         </PageContent>
         <SidebarNav open={this.state.sidebarOpen} left>
           <ul id="sidebarNav">

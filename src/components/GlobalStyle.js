@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components"
-import { rhythm, scale } from '../utils/typography';
-import TransitionStyles from './TransitionStyles';
-import { lighten, darken } from "polished";
+import { rhythm, scale } from '../utils/typography'
+import TransitionStyles from './TransitionStyles'
+import { lighten, darken } from "polished"
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -10,7 +10,6 @@ const GlobalStyle = createGlobalStyle`
     max-width: 100vw;
     height: 100%;
     width: 100%;
-    scroll-behavior: smooth;
   }
 
   * {
