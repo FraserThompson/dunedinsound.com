@@ -6,6 +6,7 @@ import { MdPhotoCamera, MdAudiotrack, MdVideocam } from 'react-icons/md'
 
 const MediaCounts = styled.div`
   position: absolute;
+  color: ${props => props.theme.textColor};
   top: 0px;
   right: 0px;
   > div {

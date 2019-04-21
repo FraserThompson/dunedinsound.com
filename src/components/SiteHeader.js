@@ -48,6 +48,7 @@ const Brand = styled.div`
   }
 
   a {
+    color: ${props => props.theme.textColor};
     padding: ${rhythm(0.5)};
     line-height: ${props => props.theme.headerHeight};
     &:hover {

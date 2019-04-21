@@ -60,6 +60,7 @@ const SidebarNav = styled(Menu)`
     padding: 0;
     margin: 0;
     a {
+      color: ${props => props.theme.textColor};
       display: block;
     }
   }

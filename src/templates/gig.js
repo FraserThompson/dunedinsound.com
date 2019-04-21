@@ -16,6 +16,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowUp, MdPlayArr
 import HorizontalNav from '../components/HorizontalNav';
 import RoundButton from '../components/RoundButton';
 import ZoopUpWrapper from '../components/ZoopUpWrapper';
+import FlexGridContainer from '../components/FlexGridContainer';
 
 const PlayerWrapper = styled.div`
   position: fixed;
@@ -31,6 +32,7 @@ const PlayerWrapper = styled.div`
 `
 
 const NextPrevWrapper = styled.a`
+  color: ${props => props.theme.textColor};
   position: absolute;
   right: ${props => props.prev ? "-10vw" : null};
   left: ${props => props.next ? "-10vw" : null};
@@ -51,12 +53,14 @@ const NextPrevWrapper = styled.a`
     right: ${props => props.prev ? "10vw" : null};
     left: ${props => props.next ? "10vw" : null};
   }
+
   .tile {
     position: absolute;
     width: 100%;
     opacity: 0;
     transition: opacity 300ms ease-in-out;
   }
+
   &:hover {
     right: ${props => props.prev ? "0px" : null};
     left: ${props => props.next ? "0px" : null};
@@ -181,7 +185,7 @@ class GigTemplate extends React.Component {
       </NextPrevWrapper>
     )
 
-    this.gigDescription = `See photos, audio and video from ${this.post.frontmatter.title} at ${this.venueDetails.frontmatter.title} and heaps of other local gigs.`
+    this.gigDescription = `See photos, audio and video from ${this.post.frontmatter.title} and heaps of other local gigs.`
 
     this.state = {
       scrolled: false,
@@ -203,7 +207,7 @@ class GigTemplate extends React.Component {
   }
 
   onScroll = () => {
-    if (window.pageYOffset > window.innerHeight * 0.6) {
+    if (window.pageYOffset > window.innerHeight * 0.7) {
       !this.state.scrolled && this.setState({scrolled: true})
     } else {
       this.state.scrolled && this.setState({scrolled: false})
@@ -271,7 +275,7 @@ class GigTemplate extends React.Component {
       <Layout
         location={this.props.location}
         description={this.gigDescription}
-        image={this.cover.src}
+        image={this.cover && this.cover.src}
         title={`${this.post.frontmatter.title} | ${siteTitle}`}
         hideBrand={this.state.scrolled}
         hideNav={this.state.scrolled}
@@ -302,7 +306,7 @@ class GigTemplate extends React.Component {
           <PlayerWrapper show={this.state.selectedAudio !== null}>
             <Player
               ref={this.player}
-              artistMedia={this.artistMedia}
+              artistMedia={this.artistMedia.filter(artist => artist.audio)}
               onPlay={() => this.setState({playing: true})}
               onPause={() => this.setState({playing: false})}
               onFileChange={(index) => this.setState({selectedAudio: index})}
@@ -331,7 +335,7 @@ class GigTemplate extends React.Component {
               xs: "6",
               sm: "4",
               md: "3",
-              lg: imageElements.length <= 6 ? "4" : imageElements.length <= 16 ? "3" : "2"
+              lg: (imageElements && imageElements.length <= 6) ? "4" : (imageElements && imageElements.length <= 16) ? "3" : "2"
             }
 
             const isPlaying = this.state.playing && this.state.selectedAudio == artistIndex
@@ -340,23 +344,25 @@ class GigTemplate extends React.Component {
               <div key={artistIndex} id={artist.machineName}>
                 <Divider sticky={true}>
                   <a href={"#" + artist.machineName}><p style={{marginRight: rhythm(0.5)}}>{artist.title}</p></a>
-                  <RoundButton
-                    className={isPlaying ? "active" : ""}
-                    onClick={() => this.playPause(artistIndex)}
-                    size="30px"
-                  >
-                    {!isPlaying ? <MdPlayArrow/> : <MdPause/>}
-                  </RoundButton>
-                  <div onClick={this.seekAudio} style={{flexGrow: 1,display: "flex", alignSelf: "stretch", alignItems: "center"}}>
-                    <AudioSeek style={{width: "100%"}} max="100" value={isPlaying && this.player.current && (this.player.current.wavesurfer.getCurrentTime() /this.player.current.wavesurfer.getDuration()) * 100}/>
-                  </div>
+                  {artist.audio && <>
+                    <RoundButton
+                      className={isPlaying ? "active" : ""}
+                      onClick={() => this.playPause(artistIndex)}
+                      size="30px"
+                    >
+                      {!isPlaying ? <MdPlayArrow/> : <MdPause/>}
+                    </RoundButton>
+                    <div onClick={this.seekAudio} style={{flexGrow: 1,display: "flex", alignSelf: "stretch", alignItems: "center"}}>
+                      <AudioSeek style={{width: "100%"}} max="100" value={isPlaying && this.player.current && (this.player.current.wavesurfer.getCurrentTime() /this.player.current.wavesurfer.getDuration()) * 100}/>
+                    </div>
+                  </>}
                 </Divider>
                 <GridContainer xs="12" sm="6" md="6" lg="6">
                   {vidElements}
                 </GridContainer>
-                <GridContainer {...imageGridSize}>
+                <FlexGridContainer {...imageGridSize}>
                   {imageElements}
-                </GridContainer>
+                </FlexGridContainer>
               </div>
             )
           })

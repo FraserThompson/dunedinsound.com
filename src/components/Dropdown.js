@@ -12,7 +12,7 @@ const DropdownMenu = styled(Menu)`
   left: auto;
   visibility: ${props => props.open ? "1" : "0"};
   opacity: ${props => props.open ? "1" : "0"};
-  transform: ${props => props.open ? "translateY(0)" : "translateY(" + props.theme.headerHeight + ")"};
+  transform: ${props => props.open ? "translateY(0)" : `translateY(${props.theme.headerHeight})`};
   pointer-events: ${props => props.open ? "auto" : "none"};
   transition-property: all;
 	transition-duration: .3s;

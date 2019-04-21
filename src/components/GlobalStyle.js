@@ -110,19 +110,6 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  a {
-    transition: color 0.1s ease-in-out;
-    color: ${props => props.theme.textColor};
-    text-decoration: none;
-    overflow:hidden;
-    background-color: transparent;
-
-    &:active, &:hover {
-      outline: 0;
-    }
-
-  }
-
   li.active {
     a {
       color: white;
@@ -178,6 +165,23 @@ const GlobalStyle = createGlobalStyle`
       color: ${props => lighten(0.5, props.theme.textColor)};
       text-decoration: none;
     }
+  }
+
+  a {
+    transition: color 0.1s ease-in-out;
+    color: ${props => darken(0.2, props.theme.highlightColor)};
+    text-decoration: none;
+    overflow:hidden;
+    background-color: transparent;
+
+    &:hover {
+      color: ${props => props.theme.highlightColor2};
+    }
+
+    &:active, &:hover {
+      outline: 0;
+    }
+
   }
 
   ${TransitionStyles}

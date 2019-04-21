@@ -58,7 +58,8 @@ Ben: And then Blasphemy thirty years. Just getting to see how professional they 
 
 Daniel: Fuck yeah.
 
-{% include blog_images.html images="blasphemy.jpg|Blasphemy in Auckland" col="col-xs-12 col-md-6 col-md-offset-3" %}
+![Blasphemy in Auckland](./blasphemy.jpg)
+*Blasphemy in Auckland*
 
 **What about since then?**
 

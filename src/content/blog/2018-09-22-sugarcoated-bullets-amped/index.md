@@ -48,7 +48,8 @@ Ayden: Gigs I’d say
 
 Jack: Yeah I would say our amped gis are probably the most impactful, like we’ve had heaps of fun. Like last time with the whole buzz lightyear masks and the pink singlet. Last year someone threw a toy caterpillar at our guitarist. A lot of good memories have been at those gigs.
 
-{% include image.html href="/assets/img/AMPED%2018%20Gig%203/sugarcoated_bullets/P1350535_DxO.jpg" description="Sugarcoated Bullets at AMPED 18 Gig 3" %}
+![Sugarcoated Bullets at AMPED 18 Gig 3](../../gigs/2018-9-1-amped-18-gig-3/sugarcoated_bullets/P1350535_DxO.jpg)
+*Sugarcoated Bullets at <a title='AMPED 18 Gig 3' href='/gigs/amped-18-gig-3/'>AMPED 18 Gig 3</a>*
 
 **When and how did you guys form as a band?**
 
@@ -76,7 +77,8 @@ Jack: Yeah because Callum, you’ve always been interested in music right since 
 
 Jack: Yeah, I would say so because I saw them at The Attic, because, but yeah it was one of the first shows I went to in The Attic, it was the EP release for doomsurfdoom I think? But anyway I saw The Rothmans but it was just this crazy stage presence, and mosh pits, and him just slamming into the crowd and stuff. So after that I was thinking that I can do that because obviously punk is about rage and stuff so that’s what we try to do.
 
-{% include image.html href="/assets/img/Koizilla%20EP%20Release/the_rothmans/P1100112.jpg" description="The Rothmans at Koizilla's <a href='/gigs/koizilla-ep-release/'>doomsurfdoom EP release</a>" %}
+![The Rothmans](../../gigs/2017-09-30-koizilla-ep-release/the_rothmans/P1100112.jpg)
+*The Rothmans at Koizilla's <a href='/gigs/koizilla-ep-release/'>doomsurfdoom EP release</a>*
 
 **So this EP you’re releasing, how did you record it?**
 

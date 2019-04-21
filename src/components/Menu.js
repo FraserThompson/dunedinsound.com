@@ -18,6 +18,7 @@ const Menu = styled.div`
   overflow-y: hidden;
 
   a {
+    color: ${props => props.theme.textColor};
     &:hover, &:focus {
       color: ${props => lighten(0.5, props.theme.textColor)};
       text-decoration: none;
@@ -26,6 +27,7 @@ const Menu = styled.div`
 
   > a, li {
     position: relative;
+    color: ${props => props.theme.textColor};
     line-height: ${props => props.height || props.theme.headerHeight};
     margin: 0px;
     display: ${props => props.horizontal ? "inline-block" : "block"};

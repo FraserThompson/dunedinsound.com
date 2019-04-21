@@ -78,7 +78,7 @@ class ArtistTemplate extends React.Component {
   }
 
   onScroll = () => {
-    if (window.pageYOffset > window.innerHeight * 0.6) {
+    if (window.pageYOffset > window.innerHeight * 0.7) {
       !this.state.scrolled && this.setState({scrolled: true})
     } else {
       this.state.scrolled && this.setState({scrolled: false})

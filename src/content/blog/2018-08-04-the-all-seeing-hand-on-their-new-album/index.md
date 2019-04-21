@@ -34,7 +34,8 @@ Benjamin Michael Knight (drums) explained to me the concept behind the album
 
 The result is an album which feels very 2018. Compared to Sand to Glass there are fewer moments of peace and instead just sheer turbulent energy. With dozens of social media streams shouting at you about the newest Thing there aren’t many moments of peace anymore. 
 
-{% include image.html href="/assets/img/The%20All%20Seeing%20Hand%20Syntax%20Error%20release%20tour/the_all_seeing_hand/P1330422_DxO.jpg" %}
+![The All Seeing Hand 1](../../gigs/2018-7-27-the-all-seeing-hand-syntax-error-release-tour/the_all_seeing_hand/P1330422_DxO.jpg)
+*The All Seeing Hand At at <a title='The All Seeing Hand Syntax Error Release Tour' href='/gigs/the-all-seeing-hand-syntax-error-release-tour/'>The All Seeing Hand Syntax Error Release Tour, Dunedin</a>*
 
 And neither were there moments of peace at Fridays gig. Instead of throat singing rituals and gentle bells there was driving, frenetic rhythms and basslines with barely a moment to catch your breath.
 
@@ -46,7 +47,8 @@ For The All Seeing Hand, the live experience has always been important, and they
 
 “We don’t want to have the world that’s created by the sound to be broken by being snapped back to the reality that it’s just coming out of some instrument in front of me. I dunno, the surrealism of it is appealing to us.”
 
-{% include image.html href="/assets/img/The%20All%20Seeing%20Hand%20Syntax%20Error%20release%20tour/the_all_seeing_hand/P1330608_DxO.jpg" %}
+![The All Seeing Hand 1](../../gigs/2018-7-27-the-all-seeing-hand-syntax-error-release-tour/the_all_seeing_hand/P1330608_DxO.jpg)
+*The All Seeing Hand At at <a title='The All Seeing Hand Syntax Error Release Tour' href='/gigs/the-all-seeing-hand-syntax-error-release-tour/'>The All Seeing Hand Syntax Error Release Tour, Dunedin</a>*
 
 While the surrealism on Friday wasn’t quite at blob levels, it was definitely there. The costumes the band wore were imagined and created for the tour by Wellington based musician/artist Cooki M. who performs as Strange Stains. Amazingly the band also deployed original scents created by another artist, Nathan Taare, 
 
