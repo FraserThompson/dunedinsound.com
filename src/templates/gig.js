@@ -17,6 +17,7 @@ import HorizontalNav from '../components/HorizontalNav';
 import RoundButton from '../components/RoundButton';
 import ZoopUpWrapper from '../components/ZoopUpWrapper';
 import FlexGridContainer from '../components/FlexGridContainer';
+import { lighten } from 'polished';
 
 const PlayerWrapper = styled.div`
   position: fixed;
@@ -29,6 +30,29 @@ const PlayerWrapper = styled.div`
   background-color: ${props => props.theme.headerColor};
   width: 100%;
   transition: bottom 300ms ease-in-out;
+  .handle {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom:  ${props => props.theme.headerHeight};
+    svg {
+      font-size: 2em;
+      right: 12px;
+      bottom: 2px;
+      position: relative;
+    }
+    button {
+      border: none;
+      width: 40px;
+      height: 30px;
+      background-color: ${props => props.theme.highlightColor};
+      border-top-left-radius: 60px;
+      border-top-right-radius: 60px;
+      &:hover {
+        background-color: ${props => lighten(0.2, props.theme.highlightColor)};
+      }
+    }
+  }
 `
 
 const NextPrevWrapper = styled.a`
@@ -190,6 +214,7 @@ class GigTemplate extends React.Component {
     this.state = {
       scrolled: false,
       lightboxOpen: false,
+      playerOpen: false,
       selectedImage: undefined,
       selectedArtist: this.artistMedia[0],
       playing: false,
@@ -302,13 +327,14 @@ class GigTemplate extends React.Component {
           </HorizontalNav>
         </Banner>
         {this.artistAudio.length > 0 &&
-          <PlayerWrapper show={this.state.selectedAudio !== null}>
+          <PlayerWrapper show={this.state.playerOpen}>
+            <div className="handle"><button title="Audio Player" onClick={() => this.setState({playerOpen: !this.state.playerOpen})}><MdKeyboardArrowUp/></button></div>
             <Player
               ref={this.player}
               artistMedia={this.artistAudio}
-              onPlay={() => this.setState({playing: true})}
+              onPlay={() => this.setState({playing: true, playerOpen: true})}
               onPause={() => this.setState({playing: false})}
-              onFileChange={(index) => this.setState({selectedAudio: index})}
+              onFileChange={(index) => this.setState({selectedAudio: index, playerOpen: true})}
             />
           </PlayerWrapper>
         }

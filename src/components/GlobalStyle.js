@@ -148,6 +148,11 @@ const GlobalStyle = createGlobalStyle`
     &.active, &:active {
       background-color: ${props => props.theme.highlightColor2};
       color: ${props => lighten(0.5, props.theme.textColor)};
+      outline: 0;
+    }
+
+    &:focus {
+      outline: 0;
     }
 
     &:hover:not(.active) {
