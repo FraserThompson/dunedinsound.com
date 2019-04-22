@@ -40,9 +40,12 @@ export const pageQuery = graphql`
       ...VenueFrontmatter
     }
     gigs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}, frontmatter: {venue: {eq: $machine_name}}}) {
-      edges {
-        node {
-          ...GigFrontmatter
+      group(field:fields___year) {
+      fieldValue
+        edges {
+          node {
+            ...GigFrontmatter
+          }
         }
       }
     }

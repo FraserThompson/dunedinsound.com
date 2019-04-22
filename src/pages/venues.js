@@ -8,10 +8,9 @@ import SidebarNav from '../components/SidebarNav'
 import Search from '../components/Search'
 import MenuButton from '../components/MenuButton'
 import { MdMenu } from 'react-icons/md'
-import AwesomeDebouncePromise from 'awesome-debounce-promise'
 import HorizontalNav from '../components/HorizontalNav';
 
-const filterDebounced = AwesomeDebouncePromise((needle, haystack) => haystack.filter(({node}) => node.frontmatter.title.toLowerCase().includes(needle)), 500);
+//const filterDebounced = AwesomeDebouncePromise((needle, haystack) => haystack.filter(({node}) => node.frontmatter.title.toLowerCase().includes(needle)), 500);
 
 const MapWrapper = styled.div`
   width: 100%;
@@ -60,13 +59,12 @@ class Venues extends React.Component {
     this.setState({sidebarOpen: !this.state.sidebarOpen})
   }
 
-  filter = async (e) => {
-    const searchInput = e.target.value;
-    if (!searchInput || searchInput == "") {
-      const filteredPosts = this.props.data.allVenues.edges;
+  filter = async (searchInput) => {
+    if (!searchInput || searchInput.length == 0) {
+      const filteredPosts = this.props.data.allVenues.edges
       this.setState({filteredPosts})
     } else {
-      const filteredPosts = await filterDebounced(searchInput, this.props.data.allVenues.edges)
+      const filteredPosts = this.props.data.allVenues.edges.filter(({node}) => node.frontmatter.title.toLowerCase().includes(searchInput))
       this.setState({filteredPosts})
     }
   }

@@ -65,21 +65,9 @@ class ContentByEntityTemplate extends React.Component {
     this.post = this.props.data.thisPost
     this.cover = this.props.data.images && this.props.data.images.edges[0].node.childImageSharp.fluid
 
-    this.gigs = this.props.data.gigs && this.props.data.gigs.edges
+    this.gigs = this.props.data.gigs && this.props.data.gigs.group.reverse() // it expects them grouped by year in ascending order
     this.blogs = this.props.data.blogs && this.props.data.blogs.edges
     this.siteTitle = this.props.data.site.siteMetadata.title
-
-    // sort our filtered posts by year and month
-    this.postsByDate = this.gigs.reduce((object, {node}) => {
-      const splitDate = node.frontmatter.date.split("-");
-      const date = new Date("20" + splitDate[2], splitDate[1] - 1, splitDate[0]);
-      const year = date.getFullYear().toString()
-      const month = date.toLocaleString('en-GB', { month: 'long' });
-      object[year] || (object[year] = {})
-      object[year][month] || (object[year][month] = [])
-      object[year][month].push(node)
-      return object
-    }, {})
 
     this.state = {
       scrolled: false,
@@ -112,15 +100,11 @@ class ContentByEntityTemplate extends React.Component {
 
   render() {
 
-    const gigTiles = this.gigs && Object.keys(this.postsByDate).sort((a, b) => b - a).map(year => {
-      return <div id={year} key={year}>
-        <Divider backgroundColor={theme.default.highlightColor} color="white" sticky><a style={{width: "100%"}} onClick={(e) => this.scrollTo(e, year)} href={"#" + year}>{year}</a></Divider>
+    const gigTiles = this.gigs && this.gigs.map(({fieldValue, edges}) => {
+      return <div id={fieldValue} key={fieldValue}>
+        <Divider backgroundColor={theme.default.highlightColor} color="white" sticky><a style={{width: "100%"}} onClick={(e) => this.scrollTo(e, fieldValue)} href={"#" + fieldValue}>{fieldValue}</a></Divider>
         <FlexGridContainer>
-          {Object.keys(this.postsByDate[year]).sort((a, b) => b - a).map(month => {
-            return <React.Fragment key={month}>
-                {this.postsByDate[year][month].map((node) => <GigTile node={node} key={node.fields.slug}/>)}
-            </React.Fragment>
-          })}
+          {edges.map(({node}) => <GigTile node={node} key={node.fields.slug}/>)}
         </FlexGridContainer>
       </div>
     })

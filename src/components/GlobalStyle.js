@@ -104,23 +104,6 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  .tile {
-    a {
-      &:hover, &:focus {
-        h4 {
-          color: ${props => lighten(0.5, props.theme.textColor)};
-        }
-        color: ${props => lighten(0.5, props.theme.textColor)};
-        text-decoration: none;
-      }
-
-      &.active {
-        background-color: ${props => props.theme.highlightColor2};
-        color: ${props => lighten(0.5, props.theme.textColor)};
-      }
-    }
-  }
-
   progress {
     -webkit-appearance: none;
     appearance: none;
@@ -177,12 +160,16 @@ const GlobalStyle = createGlobalStyle`
       display: inline-block;
       color: white;
       transition: all 0.2s ease-in-out;
+      transform: skew(-30deg) scale(1, 2);
+      background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     &.trippy:hover {
       color: limegreen;
       text-decoration: none;
-      transform: scaleY(10) scaleX(5) rotateX(360deg) translateX(20px);
+      transform: scaleY(10) scaleX(5) rotateX(360deg) translateX(20px) translateY(-5px);
     }
 
     &.trippy2 {

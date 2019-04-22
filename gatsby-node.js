@@ -36,6 +36,7 @@ exports.createPages = ({ graphql, actions }) => {
             }
             frontmatter {
               title
+              date
               artists { name }
               venue
             }
@@ -160,6 +161,22 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     const parsedPath = path.parse(node.fileAbsolutePath)
     const parentDir = path.basename(parsedPath.dir)
 
+    const date = new Date(node.frontmatter.date)
+    const year = date.getFullYear()
+    const month = date.getMonth()
+
+    // So we can group and sort by these
+    createNodeField({
+      name: `year`,
+      node,
+      value: year
+    })
+    createNodeField({
+      name: `month`,
+      node,
+      value: month
+    })
+
     createNodeField({
       name: `machine_name`,
       node,
@@ -180,12 +197,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       node,
       value: nodeType
     })
-    createNodeField({
-      name: `${nodeType}_id`, // this field is used for mappings
-      node,
-      value: toMachineName(node.frontmatter.title, "_")
-    })
-
   }
 }
 

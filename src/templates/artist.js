@@ -39,9 +39,12 @@ export const pageQuery = graphql`
       }
     }
     gigs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}, frontmatter: {artists: {elemMatch: {name: {eq: $title}}}}}) {
-      edges {
-        node {
-          ...GigFrontmatter
+      group(field:fields___year) {
+        fieldValue
+        edges {
+          node {
+            ...GigFrontmatter
+          }
         }
       }
     }

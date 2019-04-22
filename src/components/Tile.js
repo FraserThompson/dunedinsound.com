@@ -19,6 +19,7 @@ import styled from "styled-components"
 import BackgroundImage from './BackgroundImage'
 import Content from './Content'
 import { rhythm } from '../utils/typography'
+import { lighten } from 'polished';
 
 const Container = styled.div`
   background: #40E0D0;
@@ -31,6 +32,22 @@ const Container = styled.div`
   h1,h2,h3,h4 {
     text-shadow: 1px 1px #000;
   }
+
+  a {
+    &:hover, &:focus {
+      h4 {
+        color: ${props => lighten(0.5, props.theme.textColor)};
+      }
+      color: ${props => lighten(0.5, props.theme.textColor)};
+      text-decoration: none;
+    }
+
+    &.active {
+      background-color: ${props => props.theme.highlightColor2};
+      color: ${props => lighten(0.5, props.theme.textColor)};
+    }
+  }
+
 `
 
 const Label = styled.span`

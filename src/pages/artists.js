@@ -6,7 +6,7 @@ import Search from '../components/Search'
 import FlexGridContainer from '../components/FlexGridContainer'
 import Shuffle from 'shufflejs'
 import { theme } from '../utils/theme'
-import { shuffleFilterDebounced } from '../utils/helper'
+import { shuffleFilter } from '../utils/helper'
 
 class Artists extends React.Component {
 
@@ -42,12 +42,11 @@ class Artists extends React.Component {
     this.shuffle = null;
   }
 
-  filter = async (e) => {
-    const searchInput = e.target.value.toLowerCase()
-    if (!searchInput || searchInput.trim() == "") {
+  filter = (searchInput) => {
+    if (!searchInput || searchInput.length == 0) {
       this.shuffle.filter('all')
     } else {
-      await shuffleFilterDebounced(searchInput, this.shuffle)
+      shuffleFilter(searchInput, this.shuffle)
     }
   }
 

@@ -28,6 +28,18 @@ const Menu = styled.div`
     }
   }
 
+  li {
+    > a {
+      display: block;
+    }
+
+    &.active {
+      a {
+        color: ${props => lighten(0.5, props.theme.textColor)};
+      }
+    }
+  }
+
   > a, li {
     position: relative;
     color: ${props => props.theme.textColor};
