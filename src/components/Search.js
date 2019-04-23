@@ -22,7 +22,7 @@ class Search extends React.PureComponent {
       searchQuery: ""
     }
 
-    this.searchDebounced = debounce(200, this.props.filter);
+    this.searchDebounced = debounce(100, this.props.filter);
   }
 
   onChange = (e) => {

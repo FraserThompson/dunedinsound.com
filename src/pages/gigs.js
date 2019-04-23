@@ -28,7 +28,7 @@ class Gigs extends React.Component {
     const { data } = this.props
     this.siteTitle = data.site.siteMetadata.title
     this.siteDescription = data.site.siteMetadata.description
-    this.allPosts = data.allMarkdownRemark.group.reverse() //because for some reason it returns it ascending order
+    this.allPosts = data.allMarkdownRemark.group.slice().reverse() //because for some reason it returns it ascending order
 
     this.state = {
       searchQuery: "",
@@ -37,7 +37,7 @@ class Gigs extends React.Component {
     }
   }
 
-  componentDidMount() {
+  initGumshoe() {
     this.gumshoe = new Gumshoe('#sidebarNav a',
       {
         offset: 60,
@@ -47,17 +47,30 @@ class Gigs extends React.Component {
     )
   }
 
+  componentDidMount() {
+    this.initGumshoe()
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.state.filteredPosts !== prevState.filteredPosts) {
+      this.state.filteredPosts.length !== 0 && this.initGumshoe()
+    }
+  }
+
   componentWillUnmount() {
-    // this throws an error in the current version of gumshoe, when it's fixed i'll uncomment it
-    //this.gumshoe.destroy()
+    this.gumshoe.destroy()
   }
 
   filter = (searchInput) => {
+    // We destroy and remake it on each time because setup doesnt seem to work right
+    this.gumshoe && this.gumshoe.destroy()
+    this.gumshoe = null
+
     if (!searchInput || searchInput.length == 0) {
       const filteredPosts = this.allPosts
       this.setState({filteredPosts})
     } else {
-      const filteredPosts = postFilter(searchInput, this.props.data.allMarkdownRemark.group)
+      const filteredPosts = postFilter(searchInput, this.allPosts)
       this.setState({filteredPosts})
     }
   }
