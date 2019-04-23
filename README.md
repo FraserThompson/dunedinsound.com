@@ -2,6 +2,18 @@
 
 Media from gigs in Dunedin New Zealand and more.
 
+## Running in development
+
+`gatsby develop`
+
+## Build
+
+`gatsby build`
+
+Beware that building from scratch (ie. from no public folder) takes a veeery long time (like an hour) because it has to go through all the images and resize/compress them.
+
+It still shouldn't take that long (previously my custom Jekyll solution was much quicker) so I might look into that.
+
 ## What have we got here 
 
 ### Components
@@ -44,6 +56,3 @@ A gig folder in `content/gigs` contains an `index.md` with metadata, zero or mor
   * `vid` is array of video objects of `link` and `title`
 * `venue` is the machine name of the venue
 * `cover` is the path to the cover, usually ./cover.jpg
-
-## Running in development
-`gatsby develop`

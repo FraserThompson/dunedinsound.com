@@ -3,19 +3,6 @@ import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import BlogContainer from '../components/BlogContainer';
 
-window.speak = (text) => {
-  const msg = new SpeechSynthesisUtterance();
-
-  msg.voiceURI = 'native';
-  msg.volume = 1;
-  msg.rate = 0.1;
-  msg.pitch = Math.floor(Math.random() * (2 - 0 + 1));
-  msg.text = text;
-  msg.lang = 'en-US';
-
-  speechSynthesis.speak(msg);
-};
-
 class PageTemplate extends React.Component {
   render() {
 

@@ -200,12 +200,27 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 }
 
-exports.onCreateWebpackConfig = ({ actions, stage }) => {
+exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
   // If production JavaScript and CSS build
   if (stage === 'build-javascript') {
     // Turn off source maps
     actions.setWebpackConfig({
       devtool: false,
     })
+  } else if (stage === "build-html") {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /_closest.polyfill/,
+            use: loaders.null(),
+          },
+          {
+            test: /_customEvent.polyfill/,
+            use: loaders.null(),
+          }
+        ],
+      },
+    })
   }
-};
+}

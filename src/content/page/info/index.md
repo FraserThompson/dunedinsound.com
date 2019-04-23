@@ -35,6 +35,22 @@ I've got something to say!
 --------------------------
 Want uncompressed images or copies of videos? Want me to come to your gig? Or something else? You can contact me here: <a href="mailto:fraser@dunedinsound.com">fraser@dunedinsound.com</a>
 
-<h2>Okay <a onmouseover="window.speak('cool')" class="trippy" href="/">cool</a></h2>
+<h2>Okay <a onmouseover="speak('cool')" class="trippy" href="/">cool</a></h2>
 
 
+<script>
+
+const speak = (text) => {
+  const msg = new SpeechSynthesisUtterance();
+
+  msg.voiceURI = 'native';
+  msg.volume = 1;
+  msg.rate = 0.1;
+  msg.pitch = Math.floor(Math.random() * (2 - 0 + 1));
+  msg.text = text;
+  msg.lang = 'en-US';
+
+  speechSynthesis.speak(msg);
+};
+
+</script>

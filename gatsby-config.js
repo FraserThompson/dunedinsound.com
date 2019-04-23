@@ -66,7 +66,7 @@ module.exports = {
       resolve: `gatsby-plugin-sharp`,
       options: {
         useMozJpeg: true,
-        stripMetadata: true,
+        stripMetadata: false,
         concurrency: 4
       },
     },
