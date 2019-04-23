@@ -97,5 +97,11 @@ module.exports = {
         omitGoogleFont: true
       },
     },
+    {
+      resolve: `gatsby-plugin-s3`,
+      options: {
+          bucketName: 'beta.dunedinsound.com'
+      },
+  },
   ],
 }
