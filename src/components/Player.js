@@ -111,7 +111,8 @@ export default class Player extends React.Component {
   }
 
   loadSelectedMedia = () => {
-    this.load(this.props.artistMedia[this.state.selectedArtist].audio[0][".mp3"].publicURL, this.props.artistMedia[this.state.selectedArtist].audio[0][".json"].publicURL)
+    const selectedArtistMedia = this.props.artistMedia[this.state.selectedArtist];
+    this.load(Object.values(selectedArtistMedia.audio)[0][".mp3"].publicURL, Object.values(selectedArtistMedia.audio)[0][".json"].publicURL)
   }
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -222,6 +223,7 @@ export default class Player extends React.Component {
   }
 
   render = () => {
+    const selectedArtistMedia = this.props.artistMedia[this.state.selectedArtist];
     return (
       <PlayerWrapper>
         <div>
@@ -232,7 +234,7 @@ export default class Player extends React.Component {
         <WaveWrapper ref={el => (this.el = el)}>
           <LengthWrapper style={{left: "0px"}}>{this.formatTime(this.state.currentTime)}</LengthWrapper>
           <LengthWrapper style={{right: "0px"}}>{this.formatTime(this.state.duration)}</LengthWrapper>
-          <TitleWrapper className="title-wrapper"><span>{this.props.artistMedia[this.state.selectedArtist].audio[0][".mp3"].name}</span></TitleWrapper>
+          <TitleWrapper className="title-wrapper"><span>{Object.values(selectedArtistMedia.audio)[0][".mp3"].name}</span></TitleWrapper>
         </WaveWrapper>
         <PlayerMenu width="100%" selected={this.state.selectedArtist} callback={this.selectArtist} list={this.props.artistMedia}/>
       </PlayerWrapper>

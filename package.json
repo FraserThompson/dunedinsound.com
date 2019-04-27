@@ -5,13 +5,13 @@
   "author": "Fraser Thompson",
   "dependencies": {
     "gatsby": "^2.3.23",
-    "gatsby-image": "^2.0.39",
+    "gatsby-image": "^2.0.40",
     "gatsby-plugin-google-analytics": "^2.0.5",
     "gatsby-plugin-manifest": "^2.0.29",
     "gatsby-plugin-offline": "^2.0.5",
     "gatsby-plugin-react-helmet": "^3.0.0",
     "gatsby-plugin-react-leaflet": "^2.0.4",
-    "gatsby-plugin-s3": "^0.2.5",
+    "gatsby-plugin-s3": "../gatsby-plugin-s3",
     "gatsby-plugin-sharp": "^2.0.34",
     "gatsby-plugin-styled-components": "^3.0.4",
     "gatsby-plugin-typography": "^2.2.13",
@@ -22,7 +22,6 @@
     "gatsby-source-filesystem": "^2.0.29",
     "gatsby-transformer-remark": "^2.1.15",
     "gatsby-transformer-sharp": "^2.1.18",
-    "graceful-fs": "^4.1.15",
     "gumshoejs": "^5.1.1",
     "leaflet": "^1.4.0",
     "polished": "^3.1.0",
@@ -50,6 +49,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-react": "^7.11.1",
     "gh-pages": "^2.0.1",
+    "graceful-fs": "^4.1.15",
     "prettier": "^1.17.0"
   },
   "homepage": "https://dunedinsound.com",
@@ -64,12 +64,13 @@
   },
   "scripts": {
     "dev": "gatsby develop",
+    "audio": "docker-compose up --build",
     "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js' 'src/**/*.md'",
     "develop": "gatsby develop",
     "start": "npm run develop",
     "build": "gatsby build",
-    "deploy": "gatsby-plugin-s3 deploy",
+    "deploy": "gatsby-plugin-s3 deploy -y",
     "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js"
   }
 }

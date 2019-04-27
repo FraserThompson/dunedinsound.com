@@ -100,7 +100,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-s3`,
       options: {
-          bucketName: 'beta.dunedinsound.com'
+          bucketName: 'beta.dunedinsound.com',
+          protocol: "https",
+          hostname: "beta.dunedinsound.com",
       },
   },
   ],
