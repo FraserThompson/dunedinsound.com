@@ -28,7 +28,7 @@ export const pageQuery = graphql`
     thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
       ...ArtistFrontmatter
     }
-    images: allFile( filter: {extension: {in: ["jpg", "JPG"]}, fields: { parentDir: {eq: $machine_name}}}) {
+    images: allFile(limit: 1, filter: {extension: {in: ["jpg", "JPG"]}, fields: { parentDir: {eq: $machine_name}}}) {
       edges {
         node {
           fields {

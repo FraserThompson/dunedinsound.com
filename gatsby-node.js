@@ -1,7 +1,13 @@
-// This is duplicated from helper.js because we can't do ES6 imports in gatsby-node.js but we want to do them everywhere else
+// These are duplicated from helper.js because we can't do ES6 imports in gatsby-node.js but we want to do them everywhere else
 const toMachineName = (string, space_character) => {
   space_character = space_character || "_";
   return string.toLowerCase().replace(/[!,.':?]/g,'').replace(/\s/g, space_character).replace(/[$]/g, 'z');
+}
+const graphqlGroupToObject = (queryResult) => {
+  return queryResult.reduce((obj, item) => {
+    obj[item.fieldValue] = item.edges
+    return obj
+  }, {})
 }
 
 const path = require('path')
@@ -25,20 +31,22 @@ exports.createPages = ({ graphql, actions }) => {
     `
     {
       allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-        edges {
-          node {
-            fileAbsolutePath
-            fields {
-              slug
-              type
-              machine_name
-              parentDir
-            }
-            frontmatter {
-              title
-              date
-              artists { name }
-              venue
+        group(field: fields___type) {
+          fieldValue
+          edges {
+            node {
+              fileAbsolutePath
+              fields {
+                slug
+                type
+                machine_name
+                parentDir
+              }
+              frontmatter {
+                title
+                artists { name }
+                venue
+              }
             }
           }
         }
@@ -61,50 +69,47 @@ exports.createPages = ({ graphql, actions }) => {
         page: path.resolve('./src/templates/page.js')
       }
 
-      // We split it like this (pretty inefficiently) so we can treat them as seperate collections for the next/prev
-      const gigs = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "gigs")
-      const blogs = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "blog")
-      const venues = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "venues")
-      const artists = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "artists")
-      const pages = result.data.allMarkdownRemark.edges.filter(({node}) => node.fields.type === "page")
+      // We split it into collections of nodes by type so we can treat them as seperate collections for the next/prev
+      const nodesByType = graphqlGroupToObject(result.data.allMarkdownRemark.group)
 
-      const createPages = (post, index, posts) => {
+      // This is called on each markdown node in each collection
+      const createPages = (node, index, posts) => {
 
         const previous = index === posts.length - 1 ? null : posts[index + 1].node
         const next = index === 0 ? null : posts[index - 1].node
 
         const context = {
-          slug: post.node.fields.slug,
+          slug: node.fields.slug,
           previous,
           next,
           prevSlug: previous && previous.fields.slug,
           nextSlug: next && next.fields.slug,
-          machine_name: post.node.fields.machine_name,
-          parentDir: post.node.fields.parentDir,
-          title: post.node.frontmatter.title
+          machine_name: node.fields.machine_name,
+          parentDir: node.fields.parentDir,
+          title: node.frontmatter.title
         }
 
-        if (post.node.frontmatter.artists) context.artists = post.node.frontmatter.artists.map(artist => toMachineName(artist.name))
-        if (post.node.frontmatter.venue) context.venue = post.node.frontmatter.venue
+        if (node.frontmatter.artists) context.artists = node.frontmatter.artists.map(artist => toMachineName(artist.name))
+        if (node.frontmatter.venue) context.venue = node.frontmatter.venue
 
         createPage({
-          path: post.node.fields.slug,
-          component: layouts[post.node.fields.type],
+          path: node.fields.slug,
+          component: layouts[node.fields.type],
           context: context,
         })
 
       }
 
       // Create pages.
-      gigs.forEach((post, index) => createPages(post, index, gigs))
-      blogs.forEach((post, index) => createPages(post, index, blogs))
-      venues.forEach((post, index) => createPages(post, index, venues))
-      artists.forEach((post, index) => createPages(post, index, artists))
-      pages.forEach((post, index) => createPages(post, index, pages))
+      nodesByType['gigs'].forEach(({node}, index) => createPages(node, index, nodesByType['gigs']))
+      nodesByType['blog'].forEach(({node}, index) => createPages(node, index, nodesByType['blog']))
+      nodesByType['venues'].forEach(({node}, index) => createPages(node, index, nodesByType['venues']))
+      nodesByType['artists'].forEach(({node}, index) => createPages(node, index, nodesByType['artists']))
+      nodesByType['page'].forEach(({node}, index) => createPages(node, index,  nodesByType['page']))
     })
 }
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
+exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
 
   // We want to add fields indicating what folder media is in so we add a parentDir field

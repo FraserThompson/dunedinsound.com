@@ -1,5 +1,3 @@
-// This file used RequireJS because in gatsby-node.js we have to use this (for some reason, I should revisit this)
-
 const toMachineName = (string, space_character) => {
   space_character = space_character || "_"
   return string.toLowerCase().replace(/[!,.']/g,'').replace(/\s/g, space_character).replace(/[$]/g, 'z')
@@ -16,6 +14,13 @@ const nodeTypeToHuman = (string) => {
     case "artists":
       return "Artist"
   }
+}
+
+const graphqlGroupToObject = (queryResult) => {
+  return queryResult.reduce((obj, item) => {
+    obj[item.fieldValue] = item.edges
+    return obj
+  }, {})
 }
 
 const postFilter = (needle, haystack) => {
@@ -55,4 +60,4 @@ const sortByMonth = (a, b) => {
   return allMonths.indexOf(a) > allMonths.indexOf(b)
 }
 
-export { toMachineName, nodeTypeToHuman, sortByMonth, postFilter, shuffleFilter, dateStrToDateObj }
+export { toMachineName, nodeTypeToHuman, sortByMonth, postFilter, shuffleFilter, graphqlGroupToObject, dateStrToDateObj }
