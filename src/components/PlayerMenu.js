@@ -43,7 +43,7 @@ class PlayerMenu extends React.Component {
 
     const list = this.props.list.map((item, index) =>
       <a className={this.props.selected == index ? "active" : ""} key={index} onClick={() => this.select(index)}>
-        <span className="title">{index + 1}. {item.title}</span><span className="listButton"><a title={"Download MP3:" + item.title} href={Object.values(item.audio)[0]['.mp3']['publicURL']} target="_blank"><MdFileDownload/></a></span>
+        <span className="title">{index + 1}. {item.title}</span><span className="listButton"><a title={"Download MP3:" + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank"><MdFileDownload/></a></span>
       </a>
     )
 
