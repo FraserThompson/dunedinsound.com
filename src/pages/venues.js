@@ -140,7 +140,7 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    allVenues: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "venues"}}}) {
+    allVenues: allMarkdownRemark(sort: { fields: [frontmatter___title], order: ASC }, filter: {fields: {type: { eq: "venues"}}}) {
       edges {
         node {
           ...VenueFrontmatter

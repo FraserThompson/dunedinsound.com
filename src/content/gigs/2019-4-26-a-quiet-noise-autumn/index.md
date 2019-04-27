@@ -1,7 +1,7 @@
 ---
 title: "A Quiet Noise (Autumn)"
 date: 2019-4-27 06:30:00 Z
-venue: RdC
+venue: rdc
 artists:
     - name: 'Chris Hesitation'
       vid:
