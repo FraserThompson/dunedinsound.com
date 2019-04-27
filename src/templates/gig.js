@@ -4,7 +4,7 @@ import styled from "styled-components"
 import Img from 'gatsby-image'
 import Lightbox from 'react-image-lightbox'
 import Layout from '../components/Layout'
-import { toMachineName } from  '../utils/helper'
+import { toMachineName, graphqlGroupToObject } from  '../utils/helper'
 import GridContainer from '../components/GridContainer'
 import Banner from '../components/Banner'
 import Divider from '../components/Divider'
@@ -69,7 +69,6 @@ const NextPrevWrapper = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-
   .icon {
     ${scale(4)};
     position: absolute;
@@ -77,14 +76,12 @@ const NextPrevWrapper = styled.a`
     right: ${props => props.prev ? "10vw" : null};
     left: ${props => props.next ? "10vw" : null};
   }
-
   .tile {
     position: absolute;
     width: 100%;
     opacity: 0;
     transition: opacity 300ms ease-in-out;
   }
-
   &:hover {
     right: ${props => props.prev ? "0px" : null};
     left: ${props => props.next ? "0px" : null};
@@ -116,15 +113,30 @@ class GigTemplate extends React.Component {
 
     this.player = React.createRef();
 
-    this.post = this.props.pageContext.thisPost
-    this.nextPost = this.props.pageContext.next
-    this.prevPost = this.props.pageContext.previous
+    this.post = this.props.data.thisPost
+    this.nextPost = this.props.data.nextPost
+    this.prevPost = this.props.data.prevPost
 
-    const imagesByArtist = this.props.pageContext.images
-    const audioByArtist = this.props.pageContext.audio
+    /* Pre-processed data */
+    // Key-value object of images by artist
+    const imagesByArtist = this.props.data.images && graphqlGroupToObject(this.props.data.images.group)
+
+    // Key-value object of audio files by artist
+    const audioByArtist = this.props.data.audio && this.props.data.audio['group'].reduce((obj, item) => {
+      const machineName = item.fieldValue
+      const grouped_audio = item.edges.reduce((obj, item) => {
+        const name = item.node.name.replace(".mp3", "") // because old audio file JSON has mp3 in the name
+        if (!obj[name]) obj[name] = {};
+        obj[name][item.node.ext] = item.node;
+        return obj;
+      }, {});
+
+      obj[machineName] = Object.keys(grouped_audio).map(item => grouped_audio[item])
+      return obj
+    }, {})
 
     // Key-value object of details by artist
-    const detailsByArtist = this.props.pageContext.artists
+    const detailsByArtist = this.props.data.artists && graphqlGroupToObject(this.props.data.artists.group)
 
     // Collect all the above into one array of artists with all their media
     this.artistMedia = this.post.frontmatter.artists.map(artist => {
@@ -132,20 +144,20 @@ class GigTemplate extends React.Component {
       return {
         ...artist,
         machineName,
-        title: detailsByArtist && detailsByArtist[machineName] ? detailsByArtist[machineName].title : artist.name,
+        title: detailsByArtist && detailsByArtist[machineName] ? detailsByArtist[machineName][0].node.frontmatter.title : artist.name,
         images: imagesByArtist && imagesByArtist[machineName],
         audio: audioByArtist && audioByArtist[machineName]
       }
     })
 
     // Cover image is either one image or all the images in the _header folder
-    this.cover = (imagesByArtist && imagesByArtist['_header']) || (this.post.frontmatter.cover && this.post.frontmatter.cover.childImageSharp.fluid)
+    this.cover = imagesByArtist['_header'] || (this.post.frontmatter.cover && this.post.frontmatter.cover.childImageSharp.fluid)
 
     // Audio by artist
     this.artistAudio = this.artistMedia.filter(thing => thing.audio)
 
     // Details for the venue
-    this.venueDetails = this.props.pageContext.venue
+    this.venueDetails = this.props.data.venue && this.props.data.venue.edges.length > 0 && this.props.data.venue.edges[0].node
 
     /* Display elements */
     // Tile for next gig
@@ -252,7 +264,7 @@ class GigTemplate extends React.Component {
   }
 
   getImageSrc = ({ artistIndex, imageIndex }) => {
-    return this.artistMedia[artistIndex].images[imageIndex] && this.artistMedia[artistIndex].images[imageIndex].src;
+    return this.artistMedia[artistIndex].images[imageIndex] && this.artistMedia[artistIndex].images[imageIndex].node.childImageSharp.fluid.src;
   }
 
   onYouTubeReady = (event) => {
@@ -309,9 +321,9 @@ class GigTemplate extends React.Component {
         </Banner>
         {this.artistMedia.map((artist, artistIndex) => {
 
-            const imageElements = artist.images && artist.images.map((fluidImage, artistImageIndex) => {
+            const imageElements = artist.images && artist.images.map(({node}, artistImageIndex) => {
               return <a style={{cursor: "pointer"}} key={artistImageIndex} onClick={e => this.openLightbox(artistIndex, artistImageIndex, e)}>
-                <Img className="backgroundImage" fluid={fluidImage} />
+                <Img className="backgroundImage" fluid={node.childImageSharp.fluid} />
               </a>
             })
 
@@ -391,9 +403,75 @@ class GigTemplate extends React.Component {
 export default GigTemplate
 
 export const pageQuery = graphql`
-  query {
+  query GigsBySlug($slug: String!, $prevSlug: String, $nextSlug: String, $artists: [String]!, $venue: String!, $parentDir: String! ) {
     site {
       ...SiteInformation
+    }
+    thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
+      ...GigFrontmatter
+    }
+    nextPost: markdownRemark(fields: { slug: { eq: $nextSlug } }) {
+      ...GigFrontmatter
+    }
+    prevPost: markdownRemark(fields: { slug: { eq: $prevSlug } }) {
+      ...GigFrontmatter
+    }
+    images: allFile( filter: {extension: {in: ["jpg", "JPG"]}, fields: { gigDir: {eq: $parentDir}, type: { eq: "gigs"}}}) {
+      group(field: fields___parentDir) {
+        fieldValue
+        edges {
+          node {
+            name
+            publicURL
+            ...FullImage
+          }
+        }
+      }
+    }
+    audio: allFile( filter: {extension: {in: ["mp3", "json"]}, fields: { gigDir: {eq: $parentDir}, type: { eq: "gigs"}}}) {
+      group(field: fields___parentDir) {
+        fieldValue
+        edges {
+          node {
+            name
+            publicURL
+            ext
+          }
+        }
+      }
+    }
+    artists: allMarkdownRemark(filter: { fields: { machine_name: { in: $artists }, type: { eq: "artists" } } } ) {
+      group(field: fields___machine_name) {
+        fieldValue
+        edges {
+          node {
+            fields {
+              machine_name
+            }
+            frontmatter {
+              title
+              bandcamp
+              facebook
+              soundcloud
+              origin
+              website
+            }
+          }
+        }
+      }
+    }
+    venue: allMarkdownRemark(filter: { fields: { machine_name: { eq: $venue }, type: { eq: "venues" } } } ) {
+      edges {
+        node {
+          fields {
+            machine_name
+            slug
+          }
+          frontmatter {
+            title
+          }
+        }
+      }
     }
   }
 `

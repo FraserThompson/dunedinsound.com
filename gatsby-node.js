@@ -44,64 +44,9 @@ exports.createPages = ({ graphql, actions }) => {
               }
               frontmatter {
                 title
-                description
-                bandcamp
-                facebook
-                website
-                soundcloud
-                date(formatString: "DD-MM-YY")
                 artists { name }
                 venue
-                cover {
-                  childImageSharp {
-                    fluid(maxWidth: 2400) {
-                      src
-                      srcSet
-                      aspectRatio
-                      sizes
-                      base64
-                    }
-                  }
-                }
               }
-            }
-          }
-        }
-      }
-      images: allFile( filter: {extension: {in: ["jpg", "JPG"]}, fields: { type: { eq: "gigs"}} } ) {
-        group(field: fields___gigDir) {
-          fieldValue
-          edges {
-            node {
-              fields {
-                parentDir
-              }
-              name
-              publicURL
-              childImageSharp {
-                fluid(maxWidth: 2400) {
-                  src
-                  srcSet
-                  aspectRatio
-                  sizes
-                  base64
-                }
-              }
-            }
-          }
-        }
-      }
-      audio: allFile( filter: {extension: {in: ["mp3", "json"]}, fields: { type: { eq: "gigs"}} } ) {
-        group(field: fields___gigDir) {
-          fieldValue
-          edges {
-            node {
-              fields {
-                parentDir
-              }
-              name
-              publicURL
-              ext
             }
           }
         }
@@ -126,19 +71,6 @@ exports.createPages = ({ graphql, actions }) => {
 
       // We split it into collections of nodes by type so we can treat them as seperate collections for the next/prev
       const nodesByType = graphqlGroupToObject(result.data.allMarkdownRemark.group)
-      // So we can attach gig media to gigs here
-      const imagesByGig = graphqlGroupToObject(result.data.images.group)
-      const audioByGig = graphqlGroupToObject(result.data.audio.group)
-
-      // So we can attach the stuff we've already queried here instead of having to query it on each page
-      const artistsByName = nodesByType["artists"].reduce((obj, {node}) => {
-        obj[node.frontmatter.title] = node;
-        return obj;
-      }, {})
-      const venuesByName = nodesByType["venues"].reduce((obj, {node}) => {
-        obj[node.fields.machine_name] = node;
-        return obj;
-      }, {})
 
       // This is called on each markdown node in each collection
       const createPages = (node, index, posts) => {
@@ -150,45 +82,15 @@ exports.createPages = ({ graphql, actions }) => {
           slug: node.fields.slug,
           previous,
           next,
-          thisPost: node,
+          prevSlug: previous && previous.fields.slug,
+          nextSlug: next && next.fields.slug,
           machine_name: node.fields.machine_name,
           parentDir: node.fields.parentDir,
           title: node.frontmatter.title
         }
 
-        if (node.frontmatter.artists) context.artists = node.frontmatter.artists.reduce((obj, artist) => {
-          if (artistsByName[artist.name]) obj[artist.name] = artistsByName[artist.name]
-          return obj
-        }, {})
-
-        if (node.frontmatter.venue) context.venue = venuesByName[node.frontmatter.venue]
-
-        // We pre-process an object containing all media for a gig sorted by artist so we don't have to do this on clientside
-        if (node.fields.type === "gigs"){
-
-          if (imagesByGig[node.fields.parentDir]) {
-            const imagesByGigByArtist = imagesByGig[node.fields.parentDir].reduce((obj, {node}) => {
-              obj[node.fields.parentDir] = obj[node.fields.parentDir] || []
-              obj[node.fields.parentDir].push(node.childImageSharp.fluid)
-              return obj
-            }, {})
-
-            context.images = imagesByGigByArtist
-          }
-
-          if (audioByGig[node.fields.parentDir]) {
-            const audioByGigByArtist = audioByGig[node.fields.parentDir].reduce((obj, {node}) => {
-              const name = node.name.replace(".mp3", "")
-              obj[node.fields.parentDir] = obj[node.fields.parentDir] || {}
-              obj[node.fields.parentDir][name] = obj[node.fields.parentDir][name] || {}
-              obj[node.fields.parentDir][name][node.ext] = node
-              return obj
-            }, {})
-
-            context.audio = audioByGigByArtist
-          }
-
-        }
+        if (node.frontmatter.artists) context.artists = node.frontmatter.artists.map(artist => toMachineName(artist.name))
+        if (node.frontmatter.venue) context.venue = node.frontmatter.venue
 
         createPage({
           path: node.fields.slug,
