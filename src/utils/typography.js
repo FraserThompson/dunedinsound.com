@@ -6,7 +6,8 @@ Noriega.overrideThemeStyles = () => ({
     boxShadow: 'none',
   },
   "ul": {
-    marginLeft: "auto"
+    marginLeft: "auto",
+    paddingLeft: "auto"
   }
 })
 

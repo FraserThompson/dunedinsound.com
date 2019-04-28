@@ -4,6 +4,7 @@
 import React from 'react'
 import styled from "styled-components"
 import { MdPlaylistPlay, MdFileDownload } from 'react-icons/md'
+import { scale } from '../utils/typography'
 import Menu from './Menu';
 import MenuButton from './MenuButton'
 
@@ -20,6 +21,9 @@ const DropdownMenu = styled(Menu)`
 	transition-duration: .3s;
 	transition-timing-function: cubic-bezier(0,0,0,1.2);
   box-shadow: 0 6px 12px rgba(0,0,0,.250);
+  .title {
+    ${scale(1)}
+  }
 `
 
 class PlayerMenu extends React.Component {
@@ -43,7 +47,7 @@ class PlayerMenu extends React.Component {
 
     const list = this.props.list.map((item, index) =>
       <a className={this.props.selected == index ? "active" : ""} key={index} onClick={() => this.select(index)}>
-        <span className="title">{index + 1}. {item.title}</span><span className="listButton"><a title={"Download MP3:" + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank"><MdFileDownload/></a></span>
+        <span id="title">{index + 1}. {item.title}</span><span className="listButton"><a title={"Download MP3: " + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank"><MdFileDownload/></a></span>
       </a>
     )
 
