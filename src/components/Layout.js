@@ -5,7 +5,7 @@ import styled, { ThemeProvider } from "styled-components"
 import { theme } from '../utils/theme'
 import 'react-image-lightbox/style.css'
 import SiteFooter from './SiteFooter'
-import { lighten } from 'polished'
+import { lighten, darken } from 'polished'
 import { Helmet } from 'react-helmet'
 import SiteNav from './SiteNav'
 import Menu from './Menu'
@@ -17,6 +17,8 @@ const HeaderWrapper = styled.div`
   top: 0px;
   width: 100%;
   z-index: 12;
+  box-shadow: 0 6px 12px rgba(0,0,0,.25);
+  border-bottom: 1px solid ${props => darken(0.025, props.theme.headerColor)};
 `
 const SiteContainer = styled.div`
   min-height: ${props => `calc(100vh - ${props.theme.headerHeight} - ${props.theme.footerHeight} - ${rhythm(3)})`};

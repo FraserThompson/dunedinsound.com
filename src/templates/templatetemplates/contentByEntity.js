@@ -63,7 +63,7 @@ class ContentByEntityTemplate extends React.Component {
     super(props)
 
     this.post = this.props.data.thisPost
-    this.cover = this.props.data.images && this.props.data.images.edges.length !== 0 && this.props.data.images.edges[0]
+    this.cover = this.props.data.images && this.props.data.images.edges.length !== 0 && this.props.data.images.edges[0].node
 
     this.gigs = this.props.data.gigs && this.props.data.gigs.group.reverse() // it expects them grouped by year in ascending order
     this.blogs = this.props.data.blogs && this.props.data.blogs.edges

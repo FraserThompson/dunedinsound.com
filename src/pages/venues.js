@@ -33,7 +33,6 @@ class Venues extends React.Component {
 
     this.state = {
       filteredPosts: this.props.data.allVenues.edges,
-      sidebarOpen: true,
       selected: null,
       zoomLevel: 13,
       center: [-45.8745557, 170.5016047] // the octagon
@@ -85,19 +84,22 @@ class Venues extends React.Component {
         title={`Venues | ${siteTitle}`}
         hideBrandOnMobile={true}
         hideFooter={true}
-        headerContent={<><MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton><Search placeholder="Search venues" toggleSidebar={this.toggleSidebar} filter={this.filter}/></>}
+        headerContent={<>
+            <SidebarNav ref={this.sidebarRef} width="300px" left>
+              {
+                this.state.filteredPosts.map(({ node }, index) =>
+                  <li key={index} ref={this.setRef} className={index === this.state.selected ? "active" : ""}>
+                    <a onClick={() => this.select(index, [node.frontmatter.lat, node.frontmatter.lng])}>
+                      {node.frontmatter.title}
+                    </a>
+                  </li>
+                )
+              }
+            </SidebarNav>
+            <Search placeholder="Search venues" toggleSidebar={this.toggleSidebar} filter={this.filter}/>
+          </>
+        }
       >
-        <SidebarNav ref={this.sidebarRef} width="300px" open={this.state.sidebarOpen} left>
-          {
-            this.state.filteredPosts.map(({ node }, index) =>
-              <li key={index} ref={this.setRef} className={index === this.state.selected ? "active" : ""}>
-                <a onClick={() => this.select(index, [node.frontmatter.lat, node.frontmatter.lng])}>
-                  {node.frontmatter.title}
-                </a>
-              </li>
-            )
-          }
-        </SidebarNav>
         <MapWrapper>
           {
             typeof window !== 'undefined' && <Map style={{height: "100%", width: "100%"}} center={this.state.center} zoom={this.state.zoomLevel}>

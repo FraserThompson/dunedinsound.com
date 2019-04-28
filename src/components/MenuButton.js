@@ -4,7 +4,7 @@ import { lighten } from 'polished';
 
 const MenuButton = styled.button`
   ${scale(1)};
-  width: 30px;
+  width: ${props => props.theme.headerHeightMobile};
   height: ${props => props.theme.headerHeight};
   padding: 0;
   outline: 0;

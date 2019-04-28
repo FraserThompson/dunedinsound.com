@@ -32,15 +32,14 @@ class Gigs extends React.Component {
 
     this.state = {
       searchQuery: "",
-      filteredPosts: this.allPosts,
-      sidebarOpen: true
+      filteredPosts: this.allPosts
     }
   }
 
   initGumshoe() {
     this.gumshoe = new Gumshoe('#sidebarNav a',
       {
-        offset: 60,
+        offset: 90,
         nested: true,
         nestedClass: 'active-parent'
       }
@@ -67,32 +66,20 @@ class Gigs extends React.Component {
     this.gumshoe = null
 
     if (!searchInput || searchInput.length == 0) {
-      const filteredPosts = this.allPosts
-      this.setState({filteredPosts})
+      var filteredPosts = this.allPosts
     } else {
-      const filteredPosts = postFilter(searchInput, this.allPosts)
-      this.setState({filteredPosts})
+      var filteredPosts = postFilter(searchInput, this.allPosts)
     }
+
+    this.setState({filteredPosts})
   }
 
-  toggleSidebar = () => {
-    this.setState({sidebarOpen: !this.state.sidebarOpen})
-  }
-
-  // Scrolling to an achor. We do this because hash changes trigger re-renders.
-  scrollTo = (e, anchor) => {
-    e.preventDefault()
-    e.stopPropagation()
-    document.getElementById(anchor).scrollIntoView({behavior: "smooth"})
-  }
-
-  render() {
-
-    // Turn the posts sorted by years into two things:
-    //    - A list of years and unique months for each year
-    //    - A list of gig tiles wrapped by year and month
-    // Do this in one reduce for performance (albeit slightly worse readability)
-    const elements = this.state.filteredPosts.reduce((obj, group) => {
+  // Turn the posts sorted by years into two things:
+  //    - A list of years and unique months for each year
+  //    - A list of gig tiles wrapped by year and month
+  // Do this in one reduce for performance (albeit slightly worse readability)
+  constructElementsFromPosts = (posts) => {
+    return posts.reduce((obj, group) => {
 
       const year = group.fieldValue
 
@@ -118,7 +105,7 @@ class Gigs extends React.Component {
 
       }
 
-      const list = (
+      const sidebarList = (
         <li key={year}>
           <a onClick={(e) => this.scrollTo(e, year)} href={`#${year}`}><strong>{year}</strong></a>
           <ul>
@@ -138,12 +125,27 @@ class Gigs extends React.Component {
         }
       </section>
 
-      obj.menuItems.push(list)
+      obj.menuItems.push(sidebarList)
       obj.posts.push(yearSection)
 
       return obj
 
     }, { menuItems: [], posts: [] } )
+  }
+
+  toggleSidebar = () => {
+    this.setState({sidebarOpen: !this.state.sidebarOpen})
+  }
+
+  // Scrolling to an achor. We do this because hash changes trigger re-renders.
+  scrollTo = (e, anchor) => {
+    e.preventDefault()
+    e.stopPropagation()
+    document.getElementById(anchor).scrollIntoView({behavior: "smooth"})
+  }
+
+  render() {
+    const elements = this.constructElementsFromPosts(this.state.filteredPosts)
 
     return (
       <Layout
@@ -151,16 +153,19 @@ class Gigs extends React.Component {
         title={`Gigs | ${this.siteTitle}`}
         hideBrandOnMobile={true}
         hideFooter={true}
-        headerContent={<><MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton><Search placeholder="Search gigs" toggleSidebar={this.toggleSidebar} filter={this.filter}/></>}
+        headerContent={<>
+            <SidebarNav left>
+              <ul id="sidebarNav">
+                {elements.menuItems.map(item => item)}
+              </ul>
+            </SidebarNav>
+            <Search placeholder="Search gigs" toggleSidebar={this.toggleSidebar} filter={this.filter}/>
+          </>
+        }
       >
         <PageContent>
           {elements.posts.map(item => item)}
         </PageContent>
-        <SidebarNav open={this.state.sidebarOpen} left>
-          <ul id="sidebarNav">
-            {elements.menuItems.map(item => item)}
-          </ul>
-        </SidebarNav>
       </Layout>
     )
   }
