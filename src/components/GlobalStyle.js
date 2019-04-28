@@ -64,6 +64,11 @@ const GlobalStyle = createGlobalStyle`
     &.smaller {
       ${scale(-0.4)};
     }
+    &.rainbowBackground {
+      background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
   }
 
   h1.big {

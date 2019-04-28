@@ -21,6 +21,24 @@ const PlayerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  #prev {
+    display: none;
+  }
+
+  #next {
+    display: none;
+  }
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
+    #prev {
+      display: initial;
+    }
+
+    #next {
+      display: initial;
+    }
+  }
 `
 
 const WaveWrapper = styled.div`
@@ -32,27 +50,27 @@ const WaveWrapper = styled.div`
 `
 
 const LengthWrapper = styled.div`
-  font-size: 14px;
+  ${scale(-0.8)};
   line-height: 1em;
   background: white;
   color: #000;
   z-index: 11;
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 0px;
 `
 
 const TitleWrapper = styled.div`
   ${scale(-0.5)};
+  line-height: 1em;
   position: absolute;
-  width: 100%;
+  display: inline-block;
   text-align: center;
-  bottom: -10px;
+  top: 0px;
   z-index: 11;
   color: #000;
-  span {
-    background-color: white;
-  }
+  background-color: ${props => props.theme.highlightColor2};
+  color: white;
+
 `
 
 export default class Player extends React.Component {
@@ -225,15 +243,15 @@ export default class Player extends React.Component {
     return (
       <PlayerWrapper>
         <div>
-          <RoundButton size="30px" onClick={this.previous}><MdSkipPrevious/></RoundButton>
+          <RoundButton id="prev" size="30px" onClick={this.previous}><MdSkipPrevious/></RoundButton>
           <RoundButton className={this.state.playing ? "active" : ""} size="40px" onClick={this.playPause}>{!this.state.playing ? <MdPlayArrow/> : <MdPause/>}</RoundButton>
-          <RoundButton size="30px" onClick={this.next}><MdSkipNext/></RoundButton>
+          <RoundButton id="next" size="30px" onClick={this.next}><MdSkipNext/></RoundButton>
         </div>
         <WaveWrapper ref={el => (this.el = el)}>
           <LengthWrapper style={{left: "0px"}}>{this.formatTime(this.state.currentTime)}</LengthWrapper>
           <LengthWrapper style={{right: "0px"}}>{this.formatTime(this.state.duration)}</LengthWrapper>
-          <TitleWrapper className="title-wrapper"><span>{this.props.artistMedia[this.state.selectedArtist].audio[0][".mp3"].name}</span></TitleWrapper>
         </WaveWrapper>
+        <TitleWrapper className="title-wrapper"><span>{this.props.artistMedia[this.state.selectedArtist].title}</span></TitleWrapper>
         <PlayerMenu width="100%" selected={this.state.selectedArtist} callback={this.selectArtist} list={this.props.artistMedia}/>
       </PlayerWrapper>
     )

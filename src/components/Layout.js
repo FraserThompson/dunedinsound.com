@@ -54,6 +54,7 @@ class Layout extends React.PureComponent {
             meta={[{ name: 'description', content: this.props.description }]}
             title={this.props.title}
           >
+            <meta name="theme-color" content={theme.default.headerColor}/>
             <meta property="og:site_name" content="dunedinsound" />
             <meta property="og:url" content={location.href} />
             <meta property="og:type" content="article" />

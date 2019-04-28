@@ -59,7 +59,7 @@ class Banner extends React.PureComponent {
   render() {
     return (
       <BannerWrapper className="banner" {...this.props}>
-        {this.props.backgroundImage && <BackgroundImage fluid={this.props.backgroundImage} />}
+        {this.props.backgroundImage && <BackgroundImage image={this.props.backgroundImage} />}
         {(this.props.title || this.props.children) &&
           <BannerText>
             {this.props.title && <h1 className="big">{this.props.title}</h1>}

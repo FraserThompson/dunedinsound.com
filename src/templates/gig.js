@@ -119,7 +119,7 @@ class GigTemplate extends React.Component {
 
     /* Pre-processed data */
     // Key-value object of images by artist
-    const imagesByArtist = this.props.data.images && graphqlGroupToObject(this.props.data.images.group)
+    const imagesByArtist = this.props.data.images && graphqlGroupToObject(this.props.data.images.group, true)
 
     // Key-value object of audio files by artist
     const audioByArtist = this.props.data.audio && this.props.data.audio['group'].reduce((obj, item) => {
@@ -151,7 +151,7 @@ class GigTemplate extends React.Component {
     })
 
     // Cover image is either one image or all the images in the _header folder
-    this.cover = imagesByArtist['_header'] || (this.post.frontmatter.cover && this.post.frontmatter.cover.childImageSharp.fluid)
+    this.cover = imagesByArtist['_header'] || this.post.frontmatter.cover
 
     // Audio by artist
     this.artistAudio = this.artistMedia.filter(thing => thing.audio)
@@ -170,7 +170,7 @@ class GigTemplate extends React.Component {
         <Tile
           key={this.nextPost.fields.slug}
           title={this.nextPost.frontmatter.title}
-          image={this.nextPost.frontmatter.cover && this.nextPost.frontmatter.cover.childImageSharp.fluid}
+          image={this.nextPost.frontmatter.cover}
           label={this.nextPost.frontmatter.date}
           height="100%"
           href={this.nextPost.fields.slug}
@@ -188,7 +188,7 @@ class GigTemplate extends React.Component {
         <Tile
           key={this.prevPost.fields.slug}
           title={this.prevPost.frontmatter.title}
-          image={this.prevPost.frontmatter.cover && this.prevPost.frontmatter.cover.childImageSharp.fluid}
+          image={this.prevPost.frontmatter.cover}
           label={this.prevPost.frontmatter.date}
           height="100%"
           href={this.prevPost.fields.slug}

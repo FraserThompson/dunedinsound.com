@@ -63,7 +63,7 @@ class ContentByEntityTemplate extends React.Component {
     super(props)
 
     this.post = this.props.data.thisPost
-    this.cover = this.props.data.images && this.props.data.images.edges.length !== 0 && this.props.data.images.edges[0].node.childImageSharp.fluid
+    this.cover = this.props.data.images && this.props.data.images.edges.length !== 0 && this.props.data.images.edges[0]
 
     this.gigs = this.props.data.gigs && this.props.data.gigs.group.reverse() // it expects them grouped by year in ascending order
     this.blogs = this.props.data.blogs && this.props.data.blogs.edges
@@ -110,13 +110,12 @@ class ContentByEntityTemplate extends React.Component {
     })
 
     const blogTiles = this.blogs && this.blogs.map(({node}) => {
-      const coverImage = node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid
       return (
         <Tile
           key={node.fields.slug}
           title={node.frontmatter.title}
           subtitle={node.excerpt}
-          image={coverImage}
+          image={node.frontmatter.cover}
           label={node.frontmatter.date}
           href={node.fields.slug}
         />

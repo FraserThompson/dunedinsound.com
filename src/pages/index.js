@@ -46,8 +46,35 @@ class Homepage extends React.Component {
     this.siteTitle = data.site.siteMetadata.title
     this.siteDescription = data.site.siteMetadata.description
     this.posts = data.allMarkdownRemark.edges
-    this.firstNode = this.posts.find(({node}) => node.fields.type === "gigs").node
+    this.firstGig = this.posts.find(({node}) => node.fields.type === "gigs").node
 
+    this.postSections = this.posts.reduce((obj, { node }) => {
+      const title = nodeTypeToHuman(node.fields.type).toUpperCase() + ": " + node.frontmatter.title || node.fields.slug
+
+      let tile = undefined;
+      if (node.fields.type === "gigs" && node.fields.machine_name != this.firstGig.fields.machine_name) {
+        tile = <GigTile title={"GIG: " + node.frontmatter.title} node={node} height="30vh" key={node.fields.slug}/>
+      } else if (node.fields.type === "blog") {
+        tile = <Tile
+          key={node.fields.slug}
+          title={title}
+          subtitle={node.excerpt}
+          image={node.frontmatter.cover}
+          label={node.frontmatter.date}
+          height={"30vh"}
+          href={node.fields.slug}
+        />
+      }
+
+      if (tile && obj.firstTwo.length < 2) {
+        obj.firstTwo.push(tile)
+      } else if (tile && obj.nextThree.length < 3) {
+        obj.nextThree.push(tile);
+      }
+
+      return obj;
+
+    }, {firstTwo: [], nextThree: []})
   }
 
   render() {
@@ -56,48 +83,14 @@ class Homepage extends React.Component {
       <Layout description={this.siteDescription} location={this.props.location} title={this.siteTitle}>
         <HomePageGridContainer>
           <div>
-            <GigTile title={"LATEST GIG: " + this.firstNode.frontmatter.title} node={this.firstNode} height="60vh"/>
+            <GigTile title={"LATEST GIG: " + this.firstGig.frontmatter.title} node={this.firstGig} height="60vh"/>
           </div>
           <div>
-            {this.posts.slice(4, 6).map(({ node }) => {
-              const title = nodeTypeToHuman(node.fields.type).toUpperCase() + ": " + node.frontmatter.title || node.fields.slug
-              if (node.fields.type === "gigs") {
-                return <GigTile title={"GIG: " + node.frontmatter.title} node={node} height="30vh" key={node.fields.slug}/>
-              } else {
-                return <Tile
-                  key={node.fields.slug}
-                  title={title}
-                  image={node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid}
-                  label={node.frontmatter.date}
-                  height={"30vh"}
-                  href={node.fields.slug}
-                />
-              }
-            })}
+            {this.postSections.firstTwo.map(tile => tile)}
           </div>
           <GridContainer>
-            {this.posts.slice(1, 4).map(({ node }, index) => {
-              const title = nodeTypeToHuman(node.fields.type).toUpperCase() + ": " + node.frontmatter.title || node.fields.slug
-              if (node.fields.type === "gigs") {
-                return <GigTile title={"GIG: " + node.frontmatter.title} node={node} height="30vh" key={node.fields.slug}/>
-              } else {
-                return <Tile
-                  key={node.fields.slug}
-                  title={title}
-                  subtitle={node.excerpt}
-                  image={node.frontmatter.cover && node.frontmatter.cover.childImageSharp.fluid}
-                  label={node.frontmatter.date}
-                  height={"30vh"}
-                  href={node.fields.slug}
-                />
-              }
-            })}
+            {this.postSections.nextThree.map(tile => tile)}
           </GridContainer>
-          <Tile height="50px" href="/gigs/">
-            <div style={{alignItems: "center", display: "flex"}}>
-              This way to more gigs 😲 <span style={{fontSize: "3em", height: "100%"}}><MdKeyboardArrowRight/></span>
-            </div>
-          </Tile>
         </HomePageGridContainer>
       </Layout>
     )
@@ -111,7 +104,7 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    allMarkdownRemark(limit: 7, sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { regex: "/gigs|blog$/"}}}) {
+    allMarkdownRemark(limit: 10, sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { regex: "/gigs|blog$/"}}}) {
       edges {
         node {
           excerpt

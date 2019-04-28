@@ -33,7 +33,7 @@ class BlogPostTemplate extends React.Component {
 
     return (
       <Layout location={this.props.location} description={siteDescription} title={`${post.frontmatter.title} | ${siteTitle}`} overrideBackgroundColor="white">
-        {post.frontmatter.cover && <Banner backgroundImage={post.frontmatter.cover.childImageSharp.fluid}></Banner>}
+        {post.frontmatter.cover && <Banner backgroundImage={post.frontmatter.cover}></Banner>}
         <BlogContainer>
           <h1>{post.frontmatter.title}</h1>
           <p

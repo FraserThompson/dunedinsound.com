@@ -16,9 +16,9 @@ const nodeTypeToHuman = (string) => {
   }
 }
 
-const graphqlGroupToObject = (queryResult) => {
+const graphqlGroupToObject = (queryResult, sortByName) => {
   return queryResult.reduce((obj, item) => {
-    obj[item.fieldValue] = item.edges
+    obj[item.fieldValue] = !sortByName ? item.edges : item.edges.slice().sort((a, b) =>  a.node.name < b.node.name ? -1 : 1 )
     return obj
   }, {})
 }

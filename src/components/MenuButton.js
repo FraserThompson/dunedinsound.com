@@ -4,7 +4,7 @@ import { lighten } from 'polished';
 
 const MenuButton = styled.button`
   ${scale(1)};
-  width: 50px;
+  width: 30px;
   height: ${props => props.theme.headerHeight};
   padding: 0;
   outline: 0;
@@ -20,6 +20,7 @@ const MenuButton = styled.button`
 
   @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
     display: ${props => props.hideMobile && "none"};
+    width: 50px;
   }
 
   svg {

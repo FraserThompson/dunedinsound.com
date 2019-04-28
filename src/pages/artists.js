@@ -21,7 +21,7 @@ class Artists extends React.Component {
     this.gigCountsByArtist = this.props.data.gigsByArtist['group'].reduce((obj, item) => {
       obj[item.fieldValue] = item.totalCount
       return obj
-    })
+    }, {})
 
     this.element = React.createRef();
   }
@@ -68,7 +68,7 @@ class Artists extends React.Component {
 
     const artistTiles = this.state.filteredPosts.map(({ node }) => {
       const title = node.frontmatter.title || node.fields.slug
-      const coverImage = node.frontmatter.cover ? node.frontmatter.cover.childImageSharp.fluid : (imagesByArtist[node.fields.machine_name] && imagesByArtist[node.fields.machine_name][0].node.childImageSharp.fluid)
+      const coverImage = node.frontmatter.cover ? node.frontmatter.cover : (imagesByArtist[node.fields.machine_name] && imagesByArtist[node.fields.machine_name][0].node)
 
       return (
         <Tile

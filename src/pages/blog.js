@@ -34,7 +34,7 @@ class Blog extends React.Component {
       <Post key={node.fields.slug}>
         <h1><Link to={node.fields.slug}>{node.frontmatter.title}</Link></h1>
         <h4>{node.frontmatter.date}</h4>
-        {node.frontmatter.cover && <Link to={node.fields.slug}><Banner height="20vh" backgroundImage={node.frontmatter.cover.childImageSharp.fluid}></Banner></Link>}
+        {node.frontmatter.cover && <Link to={node.fields.slug}><Banner height="20vh" backgroundImage={node.frontmatter.cover}></Banner></Link>}
         <p>{node.excerpt} <small><Link to={node.fields.slug}>More</Link></small></p>
         <hr/>
       </Post>

@@ -18,6 +18,7 @@ const MediaCounts = styled.div`
   color: ${props => props.theme.textColor};
   top: 0px;
   right: 0px;
+  text-align: right;
   > div {
     display: block;
   }
@@ -69,16 +70,16 @@ class GigTile extends React.PureComponent {
             key={this.props.node.fields.slug}
             title={title}
             subtitle={artists}
-            image={this.props.node.frontmatter.cover && this.props.node.frontmatter.cover.childImageSharp.fluid}
+            image={this.props.node.frontmatter.cover}
             label={this.props.node.frontmatter.date}
             width={this.props.width}
             height={this.props.height}
             href={this.props.node.fields.slug}
           >
             <MediaCounts>
-              {imageCountByGig[node.fields.parentDir] > 0 && <div><MdPhotoCamera/> <span className="smaller">{imageCountByGig[node.fields.parentDir]}</span></div>}
-              {audioCountByGig[node.fields.parentDir] > 0 &&  <div><MdAudiotrack/> <span className="smaller">{audioCountByGig[node.fields.parentDir]}</span></div>}
-              {videoCount > 0 && <div><MdVideocam/> <span className="smaller">{videoCount}</span></div>}
+              {imageCountByGig[node.fields.parentDir] > 0 && <div><span className="smaller">{imageCountByGig[node.fields.parentDir]}</span> <MdPhotoCamera/> </div>}
+              {audioCountByGig[node.fields.parentDir] > 0 &&  <div><span className="smaller">{audioCountByGig[node.fields.parentDir]}</span> <MdAudiotrack/></div>}
+              {videoCount > 0 && <div><span className="smaller">{videoCount}</span> <MdVideocam/></div>}
             </MediaCounts>
           </Tile>
           )
