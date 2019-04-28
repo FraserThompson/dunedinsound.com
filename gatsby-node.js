@@ -16,15 +16,6 @@ const realFs = require('fs')
 const gracefulFs = require('graceful-fs')
 gracefulFs.gracefulify(realFs)
 
-// Takes the slug and returns the node type
-getNodeType = (path) => {
-  if (/\/gigs/.test(path)) return "gigs";
-  if (/\/blog/.test(path)) return "blog";
-  if (/\/venues/.test(path)) return "venues";
-  if (/\/artists/.test(path)) return "artists";
-  return "page"; //default to page
-}
-
 exports.createPages = ({ graphql, actions }) => {
 
   return graphql(
@@ -35,7 +26,6 @@ exports.createPages = ({ graphql, actions }) => {
           fieldValue
           edges {
             node {
-              fileAbsolutePath
               fields {
                 slug
                 type
@@ -116,6 +106,8 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   // and a gigDir field if it's media part of gig
   if (node.internal.type === 'File') {
 
+    const nodeType = node.sourceInstanceName
+
     switch (node.ext) {
       case ".mp3":
       case ".json":
@@ -124,7 +116,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
         const parsedPath = path.parse(node.absolutePath)
         const parentDir = path.basename(parsedPath.dir)
-        const nodeType = getNodeType(node.absolutePath)
 
         createNodeField({
           name: `parentDir`,
@@ -132,13 +123,11 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
           value: parentDir
         })
 
-        if (nodeType) {
-          createNodeField({
-            name: `type`,
-            node,
-            value: nodeType
-          })
-        }
+        createNodeField({
+          name: `type`,
+          node,
+          value: nodeType
+        })
 
         if (nodeType === "gigs") {
           const pathComponents = node.relativeDirectory.split("\\")
@@ -159,7 +148,8 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   // For the actual gig posts we need to add some fields
   else if (node.internal.type === `MarkdownRemark`) {
 
-    const nodeType = getNodeType(node.fileAbsolutePath)
+    const parent = getNode(node.parent)
+    const nodeType = parent.sourceInstanceName
     const nodeTitle = nodeType === "gigs" ? toMachineName(node.frontmatter.title, "-") : toMachineName(node.frontmatter.title, "_") // to preserve URLs from old site
     const nodeSlug = "/" + nodeType + "/" + nodeTitle + "/"
 
