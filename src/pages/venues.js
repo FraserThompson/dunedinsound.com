@@ -6,8 +6,6 @@ import styled from "styled-components"
 import { Map, Popup, TileLayer, Marker } from 'react-leaflet'
 import SidebarNav from '../components/SidebarNav'
 import Search from '../components/Search'
-import MenuButton from '../components/MenuButton'
-import { MdMenu } from 'react-icons/md'
 import HorizontalNav from '../components/HorizontalNav';
 
 //const filterDebounced = AwesomeDebouncePromise((needle, haystack) => haystack.filter(({node}) => node.frontmatter.title.toLowerCase().includes(needle)), 500);

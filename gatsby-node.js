@@ -109,7 +109,7 @@ exports.createPages = ({ graphql, actions }) => {
     })
 }
 
-exports.onCreateNode = ({ node, actions }) => {
+exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
   // We want to add fields indicating what folder media is in so we add a parentDir field
