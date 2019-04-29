@@ -10,6 +10,9 @@ import 'gumshoejs/src/js/gumshoe/_closest.polyfill'
 import 'gumshoejs/src/js/gumshoe/_customEvent.polyfill'
 import Gumshoe from 'gumshoejs/src/js/gumshoe/gumshoe'
 
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"]
+
 const PageContent = styled.div`
   padding-left: 0px;
 
@@ -79,21 +82,21 @@ class Gigs extends React.Component {
   sortPosts = (posts) => {
     return posts.reduce((obj, group, index) => {
 
-      const previousYearAndMonth = index - 1 >= 0 ? posts[index - 1].fieldValue.split(",") : false
-      const previousYear = previousYearAndMonth && previousYearAndMonth[0]
-      const previousMonth = previousYearAndMonth && previousYearAndMonth[1]
+      const previousYear = index - 1 >= 0 && posts[index - 1].fieldValue.substring(0, 4)
+      const previousMonth = index - 1 >= 0 && posts[index - 1].fieldValue.substring(4)
 
-      const yearAndMonth = group.fieldValue.split(",")
-      const year = yearAndMonth[0]
-      const month = yearAndMonth[1]
+      const year = group.fieldValue.substring(0, 4)
+      const month = group.fieldValue.substring(4)
+
+      const monthName = monthNames[parseInt(month)]
 
       if (year != previousYear) {
-        obj.menuItems.push({year: year, months: [month]});
-        obj.posts.push({year: year, months: [{month: month, posts: group.edges}]})
+        obj.menuItems.push({year: year, months: [monthName]});
+        obj.posts.push({year: year, months: [{month: monthName, posts: group.edges}]})
       } else {
-        obj.menuItems[obj.menuItems.length - 1].months.push(month);
+        obj.menuItems[obj.menuItems.length - 1].months.push(monthName);
         if (month != previousMonth) {
-          obj.posts[obj.posts.length - 1].months.push({month: month, posts: group.edges});
+          obj.posts[obj.posts.length - 1].months.push({month: monthName, posts: group.edges});
         } else {
           obj.posts[obj.posts.length - 1].months[obj.posts[obj.posts.length - 1].months.length - 1].posts.push(group.edges);
         }

@@ -160,7 +160,7 @@ const GlobalStyle = createGlobalStyle`
       transform: scale(1,1);
     }
 
-    &:hover. &:active {
+    &:hover, &:active {
       color: ${props => props.theme.secondaryColor};
       outline: 0;
       .backgroundImage {
