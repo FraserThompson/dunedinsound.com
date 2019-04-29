@@ -35,7 +35,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   input[type=text]:focus {
-    border: 1px solid ${props => props.theme.highlightColor2};
+    border: 1px solid ${props => props.theme.secondaryColor};
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
     outline: 0;
   }
@@ -130,10 +130,10 @@ const GlobalStyle = createGlobalStyle`
     color: ${props => props.theme.textColor};
     background-color: transparent;
     border-radius: 5px;
-    border: 2px solid ${props => props.theme.highlightColor2};
+    border: 2px solid ${props => props.theme.secondaryColor};
 
     &.active, &:active {
-      background-color: ${props => props.theme.highlightColor2};
+      background-color: ${props => props.theme.secondaryColor};
       color: ${props => lighten(0.5, props.theme.textColor)};
       outline: 0;
     }
@@ -150,14 +150,27 @@ const GlobalStyle = createGlobalStyle`
 
   a {
     transition: color 0.1s ease-in-out;
-    color: ${props => darken(0.2, props.theme.highlightColor)};
+    color: ${props => darken(0.2, props.theme.foregroundColor)};
     text-decoration: none;
     overflow:hidden;
     background-color: transparent;
+    -webkit-tap-highlight-color: ${props => props.theme.foregroundColor};
 
     .backgroundImage{
       transition: transform 0.3s ease-in-out;
       transform: scale(1,1);
+    }
+
+   &:active {
+    background-color: ${props => props.theme.foregroundColor};
+   }
+
+    &:hover. &:active {
+      color: ${props => props.theme.secondaryColor};
+      outline: 0;
+      .backgroundImage {
+        transform: scale(1.02,1.02);
+      }
     }
 
     &.trippy {
@@ -188,18 +201,6 @@ const GlobalStyle = createGlobalStyle`
       text-decoration: none;
       transform: skewY(10deg) scaleY(5) scaleX(10) rotateZ(360deg) translateX(0px);
     }
-
-    &:hover {
-      color: ${props => props.theme.highlightColor2};
-      .backgroundImage {
-        transform: scale(1.02,1.02);
-      }
-    }
-
-    &:active, &:hover {
-      outline: 0;
-    }
-
   }
 
   .wobbly-content {

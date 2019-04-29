@@ -14,12 +14,10 @@ import styled from 'styled-components'
 import { rhythm } from '../utils/typography'
 import BackgroundImage from './BackgroundImage'
 
-const DefaultBannerHeight = "70vh"
-
 const BannerWrapper = styled.div`
   background: #40E0D0;  /* fallback for old browsers */
   background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
-  height: ${props => props.height ? props.height : DefaultBannerHeight};
+  height: ${props => props.height ? props.height : props.theme.defaultBannerHeight};
   overflow: hidden;
   position: relative;
   display: flex;
@@ -42,7 +40,13 @@ const BannerText = styled.div`
   margin: 0 auto;
   text-align: center;
   background: rgba(0,0,0,.8);
-  padding: ${rhythm(1)};
+  padding: ${rhythm(0.5)};
+  width: 100%;
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    padding: ${rhythm(1)};
+    width: auto;
+  }
 
   h1 {
     color: ${props => props.theme.contrastColor};

@@ -1,7 +1,7 @@
 // SidebarNav.js
 // Vertical sidebar navigation menu.
 // Props
-//  - backgroundColor (optional): Will use theme headercolor if not supplied.
+//  - backgroundColor (optional): Will use theme primaryColor if not supplied.
 //  - width (optional): Defaults to 250px
 //  - left: Display it on the left
 //  - right: Display it on the right
@@ -17,7 +17,7 @@ const DefaultWidth = "60vw"
 
 const SidebarNavWrapper = styled(Menu)`
 
-  background-color: ${props => props.backgroundColor || props.theme.headerColor};
+  background-color: ${props => props.backgroundColor || props.theme.primaryColor};
   height: ${props => `calc(100vh - ${props.theme.headerHeightWithMobile })`};
   overflow-x: hidden;
   overflow-y: auto;
@@ -30,7 +30,7 @@ const SidebarNavWrapper = styled(Menu)`
   padding: 0;
   margin: 0;
   box-shadow: 0 6px 12px rgba(0,0,0,.25);
-  border-right: 1px solid ${props => darken(0.025, props.theme.headerColor)};
+  border-right: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     height: ${props => `calc(100vh - ${props.theme.headerHeight })`};

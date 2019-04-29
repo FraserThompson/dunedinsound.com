@@ -43,7 +43,7 @@ const Container = styled.div`
     }
 
     &.active {
-      background-color: ${props => props.theme.highlightColor2};
+      background-color: ${props => props.theme.foregroundColor2};
       color: ${props => lighten(0.5, props.theme.textColor)};
     }
   }

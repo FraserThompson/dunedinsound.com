@@ -7,6 +7,7 @@ const HorizontalNav = styled.ul`
   max-height: 40vh;
   overflow-y: auto;
   margin-bottom: 0px;
+  padding: 0px;
 
   li {
     display: inline-block;

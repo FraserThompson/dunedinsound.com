@@ -1,3 +1,6 @@
+import { theme } from '../utils/theme'
+import { stripUnit } from 'polished'
+
 const toMachineName = (string, space_character) => {
   space_character = space_character || "_"
   return string.toLowerCase().replace(/[!,.']/g,'').replace(/\s/g, space_character).replace(/[$]/g, 'z')
@@ -54,10 +57,16 @@ const dateStrToDateObj = (date) => {
   return new Date("20" + splitDate[2], splitDate[1] - 1, splitDate[0])
 }
 
+// Decides when the header should change. On mobile this is the window minus the headerheight * the banner height as a decimal. On desktop it's just the window height * the banner height as a decimal.
+const calculateScrollHeaderOffset = (window) => {
+  return window.innerWidth < stripUnit(theme.default.breakpoints.xs) ? (window.innerHeight - stripUnit(theme.default.headerHeightWithMobile) * 16) * (stripUnit(theme.default.defaultBannerHeight) / 100)
+      : window.innerHeight * (stripUnit(theme.default.defaultBannerHeight) / 100);
+}
+
 // Sort an array by text month
 const sortByMonth = (a, b) => {
   const allMonths = ['Jan','Feb','Mar', 'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
   return allMonths.indexOf(a) > allMonths.indexOf(b)
 }
 
-export { toMachineName, nodeTypeToHuman, sortByMonth, postFilter, shuffleFilter, graphqlGroupToObject, dateStrToDateObj }
+export { toMachineName, nodeTypeToHuman, sortByMonth, postFilter, shuffleFilter, graphqlGroupToObject, calculateScrollHeaderOffset, dateStrToDateObj }

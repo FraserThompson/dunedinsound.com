@@ -7,7 +7,7 @@ import Img from 'gatsby-image'
 import { rhythm } from '../utils/typography'
 
 const Container = styled.div`
-  background-color: ${props => props.theme.headerColor};
+  background-color: ${props => props.theme.primaryColor};
   min-height: ${props => props.theme.footerHeight};
 `
 

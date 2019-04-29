@@ -68,7 +68,7 @@ const TitleWrapper = styled.div`
   top: 0px;
   z-index: 11;
   color: #000;
-  background-color: ${props => props.theme.highlightColor2};
+  background-color: ${props => props.theme.secondaryColor};
   color: white;
 
 `

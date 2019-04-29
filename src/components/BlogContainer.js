@@ -25,10 +25,10 @@ const BlogContainer = styled(Content)`
   }
 
   a {
-    color: ${props => darken(0.2, props.theme.highlightColor)};
+    color: ${props => darken(0.2, props.theme.foregroundColor)};
     text-decoration: none;
     &:hover {
-      color: ${props => props.theme.highlightColor2};
+      color: ${props => props.theme.secondaryColor};
     }
   }
 `

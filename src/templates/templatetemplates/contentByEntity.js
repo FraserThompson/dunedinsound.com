@@ -27,6 +27,7 @@ import Tile from '../../components/Tile'
 import Divider from '../../components/Divider'
 import HorizontalNav from '../../components/HorizontalNav'
 import { theme } from '../../utils/theme'
+import { calculateScrollHeaderOffset } from '../../utils/helper'
 import FlexGridContainer from '../../components/FlexGridContainer'
 import { rhythm } from '../../utils/typography';
 import { invert } from 'polished';
@@ -62,6 +63,9 @@ class ContentByEntityTemplate extends React.Component {
   constructor(props) {
     super(props)
 
+    // Decides when the header should change. On mobile this is the window minus the headerheight * the banner height as a decimal. On desktop it's just the window height * the banner height as a decimal.
+    this.scrollHeaderOffset = calculateScrollHeaderOffset(window)
+
     this.post = this.props.data.thisPost
     this.cover = this.props.data.images && this.props.data.images.edges.length !== 0 && this.props.data.images.edges[0].node
 
@@ -91,7 +95,7 @@ class ContentByEntityTemplate extends React.Component {
   }
 
   onScroll = () => {
-    if (window.pageYOffset > window.innerHeight * 0.7) {
+    if (window.pageYOffset > this.scrollHeaderOffset) {
       !this.state.scrolled && this.setState({scrolled: true})
     } else {
       this.state.scrolled && this.setState({scrolled: false})
@@ -102,7 +106,7 @@ class ContentByEntityTemplate extends React.Component {
 
     const gigTiles = this.gigs && this.gigs.map(({fieldValue, edges}) => {
       return <div id={fieldValue} key={fieldValue}>
-        <Divider backgroundColor={theme.default.highlightColor} color="white" sticky><a style={{width: "100%"}} onClick={(e) => this.scrollTo(e, fieldValue)} href={"#" + fieldValue}>{fieldValue}</a></Divider>
+        <Divider backgroundColor={theme.default.foregroundColor} color="white" sticky><a style={{width: "100%"}} onClick={(e) => this.scrollTo(e, fieldValue)} href={"#" + fieldValue}>{fieldValue}</a></Divider>
         <FlexGridContainer>
           {edges.map(({node}) => <GigTile node={node} key={node.fields.slug}/>)}
         </FlexGridContainer>

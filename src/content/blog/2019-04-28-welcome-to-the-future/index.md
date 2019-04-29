@@ -22,7 +22,6 @@ Aside from this there's also been a few bonus features implemented along the way
 * Improved audio player user experience
 * Better quality images
 * Improved mobile user experience
-* Improved performance
 
 It's the culmination of many months of sporadic work. If you want to know more about the process and reasoning in *excruciating* detail then read on (if not start using the rest of the site and let me know what you think).
 
@@ -68,13 +67,13 @@ The most awesome thing to be honest has just been using ReactJS. Creating the ne
 
 The flipside of using a framework rather than my light vanilla JS is a larger JS bundle. Clientside performance is super important and I care heaps about it, but also if I'm sacrificing ease of development for clientside performance then that negatively impacts everyone because it'll be slower to add new features. So making things easier for me isn't purely selfish.
 
-Clientside performance also didn't end up being degraded too much. All of my JS adds up to around 500kb minified but subjectively it feels faster somehow. I still want to do more performance optimization but it's not too bad straight out of the box. The one thing which does bother me a bit is the 400kb of JSON files Gatsby requires clients to download for some reason. But when it comes down to it I should really stop fretting about mere hundreds of kilobytes... It's a site about sharing media, it's going to be pretty heavy no matter what.
+Clientside performance also didn't end up being degraded too much but it's definitely worse. All of my JS adds up to around 500kb minified, which is much larger than it was before, and switching between pages feels much slower. I still want to do more performance optimization though, I think I can make it roughly feel like it did before. Also Gatsby requires clients to download around 400kb of JSON files for some reason. But when it comes down to it I should really stop fretting about mere hundreds of kilobytes... It's a site about sharing media, it's going to be pretty heavy no matter what.
 
 ### Future 😎 sailors on an ocean of discovery ⛵⛵⛵
 
 I had a lot of fun using newer technologies like CSS grid and saying 𝓪𝓾 𝓻𝓮𝓿𝓸𝓲𝓻 to supporting ancient browsers. Gone are the days of hefty CSS frameworks like Bootstrap, most of which you end up overriding to the point that you're basically just using the grid. Also gone are the days of JavaScript libraries like Masonry, smooth scrolling, etc. Browser APIs have it covered.
 
-If you're using Internet Explorer 11 you'll be looking at a garbled mess and that's on you. As the owner of a device it's up to you to ensure it's using up to date sofwtare, if you don't know how to do that then you risk much more than websites looking broken or weird, you risk having your credit card details or your files stolen.
+If you're using Internet Explorer 11 you'll be looking at a garbled mess and that's on you. As the owner of a device it's up to you to ensure it's using up to date software, if you don't know how to do that then you risk much more than websites looking broken or weird, you risk having your credit card details or your files stolen.
 
 ## ☀☀☀ Towards a brighter tomorrow ☀☀☀
 

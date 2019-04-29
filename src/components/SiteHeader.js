@@ -1,7 +1,7 @@
 // SiteHeader.js
 // The header for the site.
 // Props
-//  - backgroundColor (optional): Will use theme headerColor if not supplied
+//  - backgroundColor (optional): Will use theme primaryColor if not supplied
 //  - hideOnMobile (optional): Whether to hide it on mobile
 //  - headerContent (optional): Extra content to put in the header
 //  - hideBrand (optional): Hide the brand
@@ -15,7 +15,7 @@ import SiteNav from './SiteNav';
 import { darken } from 'polished';
 
 const Container = styled.div`
-  background-color: ${props => props.backgroundColor || props.theme.headerColor};
+  background-color: ${props => props.backgroundColor || props.theme.primaryColor};
   position: sticky;
   width: 100%;
   display: ${props => props.hideOnMobile && "none"};
@@ -26,7 +26,7 @@ const Container = styled.div`
   height: ${props => props.theme.headerHeight};
   color: ${props => props.theme.textColor};
   box-shadow: 0 6px 12px rgba(0,0,0,.25);
-  border-bottom: 1px solid ${props => darken(0.025, props.theme.headerColor)};
+  border-bottom: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     display: flex;
@@ -66,7 +66,7 @@ const Brand = styled.div`
     line-height: ${props => props.theme.headerHeight};
     &:hover {
       text-decoration: none;
-      color: ${props => props.theme.highlightColor2};
+      color: ${props => props.theme.secondaryColor};
     }
   }
 `

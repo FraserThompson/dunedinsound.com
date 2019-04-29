@@ -12,10 +12,10 @@ const MenuButton = styled.button`
   color: ${props => props.theme.textColor};
   border: none;
   border-radius: 0px;
-  background-color: ${props => props.theme.highlightColor2};
+  background-color: ${props => props.theme.secondaryColor};
 
   &:hover {
-    background-color: ${props => lighten(0.1, props.theme.highlightColor2)};
+    background-color: ${props => lighten(0.1, props.theme.secondaryColor)};
   }
 
   @media screen and (min-width: ${props => props.theme.breakpoints.md}) {

@@ -9,8 +9,8 @@ import { lighten } from 'polished';
 
 const RoundButton = styled.button`
   z-index: 11;
-  color: ${props => props.theme.highlightColor2};
-  border-color: ${props => props.theme.highlightColor2};
+  color: ${props => props.theme.secondaryColor};
+  border-color: ${props => props.theme.secondaryColor};
   border-radius: 50%;
   background-color: transparent;
   height: ${props => props.size};
@@ -19,8 +19,8 @@ const RoundButton = styled.button`
   outline: 0;
 
   &:hover:not(.active) {
-    color: ${props => lighten(0.2, props.theme.highlightColor2)};
-    border-color: ${props => lighten(0.2, props.theme.highlightColor2)};
+    color: ${props => lighten(0.2, props.theme.secondaryColor)};
+    border-color: ${props => lighten(0.2, props.theme.secondaryColor)};
   }
 
   svg {

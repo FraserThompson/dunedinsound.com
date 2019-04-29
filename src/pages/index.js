@@ -108,7 +108,7 @@ export const pageQuery = graphql`
       edges {
         node {
           excerpt
-          ...GigFrontmatter
+          ...GigTileFrontmatter
         }
       }
     }

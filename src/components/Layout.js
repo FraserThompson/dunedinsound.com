@@ -18,7 +18,7 @@ const HeaderWrapper = styled.div`
   width: 100%;
   z-index: 12;
   box-shadow: 0 6px 12px rgba(0,0,0,.25);
-  border-bottom: 1px solid ${props => darken(0.025, props.theme.headerColor)};
+  border-bottom: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
 `
 const SiteContainer = styled.div`
   min-height: ${props => `calc(100vh - ${props.theme.headerHeight} - ${props.theme.footerHeight} - ${rhythm(3)})`};
@@ -29,7 +29,7 @@ const SiteContainer = styled.div`
 
 const MobileNav = styled.div`
   height: ${props => props.theme.headerHeightMobile};
-  background-color: ${props => props.theme.headerColor};
+  background-color: ${props => props.theme.primaryColor};
   z-index: 12;
   width: 100%;
   ${Menu} {
@@ -56,7 +56,7 @@ class Layout extends React.PureComponent {
             meta={[{ name: 'description', content: this.props.description }]}
             title={this.props.title}
           >
-            <meta name="theme-color" content={theme.default.headerColor}/>
+            <meta name="theme-color" content={theme.default.primaryColor}/>
             <meta property="og:site_name" content="dunedinsound" />
             <meta property="og:url" content={location.href} />
             <meta property="og:type" content="article" />
@@ -67,7 +67,7 @@ class Layout extends React.PureComponent {
           <GlobalStyle/>
           <HeaderWrapper>
             <MobileNav className="showMobile">
-              <SiteNav backgroundColor={lighten(0.1, theme.default.headerColor)} height={theme.default.headerHeightMobile}/>
+              <SiteNav backgroundColor={lighten(0.1, theme.default.primaryColor)} height={theme.default.headerHeightMobile}/>
             </MobileNav>
             <SiteHeader {...this.props}/>
           </HeaderWrapper>
@@ -157,11 +157,31 @@ export const query = graphql`
       cover {
         ...FullImage
       }
-      date(formatString: "DD-MM-YY")
+      date(formatString: "MMMM DD, YYYY")
     }
   }
 
   fragment GigFrontmatter on MarkdownRemark {
+    ...DefaultFields
+    frontmatter {
+      title
+      date(formatString: "MMMM DD, YYYY")
+      venue
+      description
+      artists {
+        name
+        vid {
+          link,
+          title
+        }
+      }
+      cover {
+        ...LargeImage
+      }
+    }
+  }
+
+  fragment GigTileFrontmatter on MarkdownRemark {
     ...DefaultFields
     frontmatter {
       title

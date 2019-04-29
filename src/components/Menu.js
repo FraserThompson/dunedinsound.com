@@ -12,7 +12,7 @@ import { lighten } from 'polished';
 const Menu = styled.div`
   width: ${props => props.width};
   text-align: left;
-  background-color: ${props => props.backgroundColor || props.theme.headerColor};
+  background-color: ${props => props.backgroundColor || props.theme.primaryColor};
   background-clip: padding-box;
   border: none;
   border-radius: 0;
@@ -42,6 +42,7 @@ const Menu = styled.div`
 
   > a, li {
     position: relative;
+    white-space: nowrap;
     color: ${props => props.theme.textColor};
     line-height: ${props => props.height || props.theme.headerHeight};
     margin: 0px;
@@ -52,12 +53,12 @@ const Menu = styled.div`
     cursor: pointer;
 
     &.active {
-      background-color: ${props => props.theme.highlightColor2};
+      background-color: ${props => props.theme.secondaryColor};
       color: ${props => lighten(0.5, props.theme.textColor)};
     }
 
     &.active-parent {
-      border-left: 5px solid ${props => props.theme.highlightColor};
+      border-left: 5px solid ${props => props.theme.foregroundColor};
       padding-left: ${"calc(" + rhythm(0.5) + " - 5px)"};
       > a {
         color: white;
@@ -78,7 +79,7 @@ const Menu = styled.div`
       a:hover {
         text-decoration: none;
         cursor: pointer;
-        color: ${props => lighten(0.1, props.theme.highlightColor)};
+        color: ${props => lighten(0.1, props.theme.foregroundColor)};
       }
     }
 

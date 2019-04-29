@@ -10,6 +10,7 @@ import Banner from '../components/Banner'
 import Divider from '../components/Divider'
 import Player from '../components/Player'
 import { rhythm, scale } from '../utils/typography'
+import { calculateScrollHeaderOffset } from '../utils/helper'
 import YouTubeResponsive from '../components/YouTubeResponsive'
 import Tile from '../components/Tile'
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowUp, MdPlayArrow, MdPause } from 'react-icons/md'
@@ -27,7 +28,7 @@ const PlayerWrapper = styled.div`
   height: ${props => props.theme.headerHeight};
   margin-top: ${props => props.theme.headerHeightNeg};
   opacity: 1;
-  background-color: ${props => props.theme.headerColor};
+  background-color: ${props => props.theme.primaryColor};
   width: 100%;
   transition: bottom 150ms ease-in-out;
   .handle {
@@ -45,11 +46,11 @@ const PlayerWrapper = styled.div`
       border: none;
       width: 40px;
       height: 30px;
-      background-color: ${props => props.theme.highlightColor};
+      background-color: ${props => props.theme.foregroundColor};
       border-top-left-radius: 60px;
       border-top-right-radius: 60px;
       &:hover {
-        background-color: ${props => lighten(0.2, props.theme.highlightColor)};
+        background-color: ${props => lighten(0.2, props.theme.foregroundColor)};
       }
     }
   }
@@ -96,23 +97,24 @@ const NextPrevWrapper = styled.a`
 const AudioSeek = styled.progress`
   height: 2px;
   &::-webkit-progress-bar {
-    background-color: ${props => props.theme.highlightColor};
+    background-color: ${props => props.theme.foregroundColor};
   }
   &::-webkit-progress-value {
-    background-color: ${props => props.theme.highlightColor2};
+    background-color: ${props => props.theme.secondaryColor};
   }
   &::-moz-progress-bar {
-    background-color: ${props => props.theme.highlightColor};
+    background-color: ${props => props.theme.foregroundColor};
   }
 `
 
 class GigTemplate extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.player = React.createRef();
+    this.scrollHeaderOffset = calculateScrollHeaderOffset(window)
 
+    this.player = React.createRef()
     this.post = this.props.data.thisPost
     this.nextPost = this.props.data.nextPost
     this.prevPost = this.props.data.prevPost
@@ -218,7 +220,7 @@ class GigTemplate extends React.Component {
   }
 
   onScroll = () => {
-    if (window.pageYOffset > window.innerHeight * 0.7) {
+    if (window.pageYOffset > this.scrollHeaderOffset) {
       !this.state.scrolled && this.setState({scrolled: true})
     } else {
       this.state.scrolled && this.setState({scrolled: false})
