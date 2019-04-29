@@ -154,16 +154,11 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     overflow:hidden;
     background-color: transparent;
-    -webkit-tap-highlight-color: ${props => props.theme.foregroundColor};
 
     .backgroundImage{
       transition: transform 0.3s ease-in-out;
       transform: scale(1,1);
     }
-
-   &:active {
-    background-color: ${props => props.theme.foregroundColor};
-   }
 
     &:hover. &:active {
       color: ${props => props.theme.secondaryColor};

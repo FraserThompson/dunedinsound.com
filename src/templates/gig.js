@@ -112,7 +112,7 @@ class GigTemplate extends React.Component {
   constructor(props) {
     super(props)
 
-    this.scrollHeaderOffset = calculateScrollHeaderOffset(window)
+    this.scrollHeaderOffset = typeof window !== `undefined` && calculateScrollHeaderOffset(window)
 
     this.player = React.createRef()
     this.post = this.props.data.thisPost

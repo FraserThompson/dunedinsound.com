@@ -53,10 +53,9 @@ class Layout extends React.PureComponent {
         <>
           <Helmet
             htmlAttributes={{ lang: 'en' }}
-            meta={[{ name: 'description', content: this.props.description }]}
             title={this.props.title}
           >
-            <meta name="theme-color" content={theme.default.primaryColor}/>
+            <meta name="description" content={this.props.description} />
             <meta property="og:site_name" content="dunedinsound" />
             <meta property="og:url" content={location.href} />
             <meta property="og:type" content="article" />

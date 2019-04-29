@@ -5,7 +5,7 @@ module.exports = {
     description: 'Documenting and archiving the Dunedin music scene since 2014.',
     siteUrl: 'https://dunedinsound.com',
   },
-  pathPrefix: '/gatsby-starter-blog',
+  pathPrefix: '/',
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,

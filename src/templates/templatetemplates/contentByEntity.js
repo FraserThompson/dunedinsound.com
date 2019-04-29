@@ -30,7 +30,7 @@ import { theme } from '../../utils/theme'
 import { calculateScrollHeaderOffset } from '../../utils/helper'
 import FlexGridContainer from '../../components/FlexGridContainer'
 import { rhythm } from '../../utils/typography';
-import { invert } from 'polished';
+import { invert, stripUnit } from 'polished';
 import ZoopUpWrapper from '../../components/ZoopUpWrapper';
 import { MdKeyboardArrowUp } from 'react-icons/md';
 import GigTile from '../../components/GigTile';
@@ -63,8 +63,7 @@ class ContentByEntityTemplate extends React.Component {
   constructor(props) {
     super(props)
 
-    // Decides when the header should change. On mobile this is the window minus the headerheight * the banner height as a decimal. On desktop it's just the window height * the banner height as a decimal.
-    this.scrollHeaderOffset = calculateScrollHeaderOffset(window)
+    this.scrollHeaderOffset = typeof window !== `undefined` && calculateScrollHeaderOffset(window, stripUnit(rhythm(2)) * 16)
 
     this.post = this.props.data.thisPost
     this.cover = this.props.data.images && this.props.data.images.edges.length !== 0 && this.props.data.images.edges[0].node
@@ -147,8 +146,8 @@ class ContentByEntityTemplate extends React.Component {
           </HorizontalNav>
         </Banner>
         <Tabs>
-          <button className={this.state.openTab === "gigs" && "active"} onClick={() => this.setState({openTab: "gigs"})}>Gigs ({this.gigs.length})</button>
-          {this.blogs && this.blogs.length > 0 && <button className={this.state.openTab === "blogs" && "active"} onClick={() => this.setState({openTab: "blogs"})}>Blogs ({this.blogs.length})</button>}
+          <button className={this.state.openTab === "gigs" ? "active" : ""} onClick={() => this.setState({openTab: "gigs"})}>Gigs ({this.gigs.length})</button>
+          {this.blogs && this.blogs.length > 0 && <button className={this.state.openTab === "blogs" ? "active" : ""} onClick={() => this.setState({openTab: "blogs"})}>Blogs ({this.blogs.length})</button>}
         </Tabs>
           {this.state.openTab === "gigs" && gigTiles}
           {this.state.openTab === "blogs" && <FlexGridContainer>{blogTiles}</FlexGridContainer>}

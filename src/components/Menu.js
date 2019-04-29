@@ -26,6 +26,9 @@ const Menu = styled.div`
       color: ${props => lighten(0.5, props.theme.textColor)};
       text-decoration: none;
     }
+    &:active {
+      background-color: ${props => props.theme.foregroundColor};
+    }
   }
 
   li {
