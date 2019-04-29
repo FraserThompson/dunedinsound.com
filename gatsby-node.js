@@ -9,6 +9,8 @@ const graphqlGroupToObject = (queryResult) => {
     return obj
   }, {})
 }
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"]
 
 const path = require('path')
 
@@ -170,6 +172,11 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       name: `month`,
       node,
       value: month
+    })
+    createNodeField({
+      name: `yearAndMonth`,
+      node,
+      value: year + "," + monthNames[month]
     })
 
     createNodeField({
