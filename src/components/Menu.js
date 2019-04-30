@@ -27,7 +27,7 @@ const Menu = styled.div`
       text-decoration: none;
     }
     &:active {
-      background-color: ${props => props.theme.foregroundColor};
+      background-color: ${props => props.theme.foregroundColor} !important;
     }
   }
 
@@ -44,6 +44,8 @@ const Menu = styled.div`
   }
 
   > a, li {
+
+    cursor: pointer;
     position: relative;
     white-space: nowrap;
     color: ${props => props.theme.textColor};
@@ -55,9 +57,13 @@ const Menu = styled.div`
 
     cursor: pointer;
 
-    &.active {
+    &.active, &:active {
       background-color: ${props => props.theme.secondaryColor};
       color: ${props => lighten(0.5, props.theme.textColor)};
+    }
+
+    &:hover{
+      color: white;
     }
 
     &.active-parent {

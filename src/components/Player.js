@@ -52,11 +52,12 @@ const WaveWrapper = styled.div`
 const LengthWrapper = styled.div`
   ${scale(-0.8)};
   line-height: 1em;
-  background: white;
-  color: #000;
+  color: ${props => props.theme.textColor};
+  pointer-events: none;
   z-index: 11;
   position: absolute;
-  bottom: 0px;
+  top: 50%;
+  transform: translateY(-50%);
 `
 
 const TitleWrapper = styled.div`

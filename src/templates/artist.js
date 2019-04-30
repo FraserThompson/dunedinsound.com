@@ -43,7 +43,7 @@ export const pageQuery = graphql`
         fieldValue
         edges {
           node {
-            ...GigFrontmatter
+            ...GigTileFrontmatter
           }
         }
       }

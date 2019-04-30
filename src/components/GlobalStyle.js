@@ -60,6 +60,7 @@ const GlobalStyle = createGlobalStyle`
   p, span {
     small {
       color: ${props => darken(0.1, props.theme.textColor)};
+      font-size: 16px;
     }
     &.smaller {
       ${scale(-0.4)};

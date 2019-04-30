@@ -23,6 +23,13 @@ class Artists extends React.Component {
       return obj
     }, {})
 
+    this.imagesByArtist = this.props.data.imagesByArtist['group'].reduce((obj, item) => {
+      const name = item.fieldValue
+      if (!obj[name]) obj[name] = {}
+      obj[name] = item.edges
+      return obj
+    }, {})
+
     this.element = React.createRef();
   }
 
@@ -59,30 +66,6 @@ class Artists extends React.Component {
     const siteTitle = data.site.siteMetadata.title
     const siteDescription = data.site.siteMetadata.description
 
-    const imagesByArtist = data.imagesByArtist['group'].reduce((obj, item) => {
-      const name = item.fieldValue
-      if (!obj[name]) obj[name] = {}
-      obj[name] = item.edges
-      return obj
-    }, {});
-
-    const artistTiles = this.state.filteredPosts.map(({ node }) => {
-      const title = node.frontmatter.title || node.fields.slug
-      const coverImage = node.frontmatter.cover ? node.frontmatter.cover : (imagesByArtist[node.fields.machine_name] && imagesByArtist[node.fields.machine_name][0].node)
-
-      return (
-        <Tile
-          key={node.fields.slug}
-          title={title}
-          subtitle={`${this.gigCountsByArtist[title]} gigs`}
-          image={coverImage}
-          label={node.frontmatter.date}
-          href={node.fields.slug}
-          height={this.state.filteredPosts.length == 1 ? "calc(100vh - " + theme.default.headerHeight + ")" : this.state.filteredPosts.length <= 8  ? "40vh" : "20vh"}
-        />
-      )
-    });
-
     return (
       <Layout
         location={this.props.location} description={siteDescription}
@@ -91,7 +74,22 @@ class Artists extends React.Component {
         hideFooter={true}
         headerContent={<Search placeholder="Search artists" toggleSidebar={this.toggleSidebar} filter={this.filter} />}>
         <FlexGridContainer fixedWidth ref={this.element} xs="6" sm="4" md="3" lg="2">
-          {artistTiles}
+          {this.state.filteredPosts.map(({ node }) => {
+            const title = node.frontmatter.title || node.fields.slug
+            const coverImage = node.frontmatter.cover ? node.frontmatter.cover : (this.imagesByArtist[node.fields.machine_name] && this.imagesByArtist[node.fields.machine_name][0].node)
+
+            return (
+              <Tile
+                key={node.fields.slug}
+                title={title}
+                subtitle={`${this.gigCountsByArtist[title]} gigs`}
+                image={coverImage}
+                label={node.frontmatter.date}
+                href={node.fields.slug}
+                height={this.state.filteredPosts.length == 1 ? "calc(100vh - " + theme.default.headerHeight + ")" : this.state.filteredPosts.length <= 8  ? "40vh" : "20vh"}
+              />
+            )
+          })}
         </FlexGridContainer>
       </Layout>
     )
@@ -105,7 +103,7 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    allArtists: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "artists"}}}) {
+    allArtists: allMarkdownRemark(sort: { fields: [frontmatter___title], order: ASC }, filter: {fields: {type: { eq: "artists"}}}) {
       edges {
         node {
           ...ArtistFrontmatter

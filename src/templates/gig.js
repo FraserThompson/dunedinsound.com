@@ -56,7 +56,7 @@ const PlayerWrapper = styled.div`
   }
 `
 
-const NextPrevWrapper = styled.a`
+const NextPrevWrapper = styled.div`
   color: ${props => props.theme.textColor};
   position: absolute;
   right: ${props => props.prev ? "-10vw" : null};
@@ -413,10 +413,10 @@ export const pageQuery = graphql`
       ...GigFrontmatter
     }
     nextPost: markdownRemark(fields: { slug: { eq: $nextSlug } }) {
-      ...GigFrontmatter
+      ...GigTileFrontmatter
     }
     prevPost: markdownRemark(fields: { slug: { eq: $prevSlug } }) {
-      ...GigFrontmatter
+      ...GigTileFrontmatter
     }
     images: allFile( filter: {extension: {in: ["jpg", "JPG"]}, fields: { gigDir: {eq: $parentDir}, type: { eq: "gigs"}}}) {
       group(field: fields___parentDir) {

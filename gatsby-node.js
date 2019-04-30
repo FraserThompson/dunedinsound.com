@@ -1,7 +1,7 @@
 // These are duplicated from helper.js because we can't do ES6 imports in gatsby-node.js but we want to do them everywhere else
 const toMachineName = (string, space_character) => {
   space_character = space_character || "_";
-  return string.toLowerCase().replace(/[!,.':?]/g,'').replace(/\s/g, space_character).replace(/[$]/g, 'z');
+  return string.toLowerCase().replace(/[!,.':#?]/g,'').replace(/\s/g, space_character).replace(/[$]/g, 'z');
 }
 const graphqlGroupToObject = (queryResult) => {
   return queryResult.reduce((obj, item) => {
