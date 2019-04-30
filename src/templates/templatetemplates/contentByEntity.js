@@ -63,7 +63,7 @@ class ContentByEntityTemplate extends React.Component {
   constructor(props) {
     super(props)
 
-    this.scrollHeaderOffset = typeof window !== `undefined` && calculateScrollHeaderOffset(window, stripUnit(rhythm(2)) * 16)
+    this.scrollHeaderOffset = typeof window !== `undefined` && calculateScrollHeaderOffset(window)
 
     this.post = this.props.data.thisPost
     this.cover = this.props.data.images && this.props.data.images.edges.length !== 0 && this.props.data.images.edges[0].node

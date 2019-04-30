@@ -57,13 +57,13 @@ const Menu = styled.div`
 
     cursor: pointer;
 
+    &:hover{
+      color: white;
+    }
+
     &.active, &:active {
       background-color: ${props => props.theme.secondaryColor};
       color: ${props => lighten(0.5, props.theme.textColor)};
-    }
-
-    &:hover{
-      color: white;
     }
 
     &.active-parent {

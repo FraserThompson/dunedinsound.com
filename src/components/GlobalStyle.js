@@ -41,19 +41,19 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .showMobile {
-    display: initial;
+    display: initial !important;
   }
 
   .hideMobile {
-    display: none;
+    display: none !important;
   }
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     .showMobile {
-      display: none;
+      display: none !important;
     }
     .hideMobile {
-      display: initial;
+      display: initial !important;
     }
   }
 

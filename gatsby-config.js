@@ -60,7 +60,6 @@ module.exports = {
               showCaptions: true
             },
           },
-          'gatsby-remark-prismjs',
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
         ],
@@ -95,7 +94,7 @@ module.exports = {
         icon: `src/assets/site-icon.jpg`,
       },
     },
-    `gatsby-plugin-offline`,
+    'gatsby-plugin-remove-serviceworker',
     `gatsby-plugin-react-helmet`,
     {
       resolve: 'gatsby-plugin-typography',

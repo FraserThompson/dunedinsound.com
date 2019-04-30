@@ -74,8 +74,12 @@ const NextPrevWrapper = styled.div`
     ${scale(4)};
     position: absolute;
     z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     right: ${props => props.prev ? "10vw" : null};
     left: ${props => props.next ? "10vw" : null};
+    height: 100%;
   }
   .tile {
     position: absolute;
@@ -165,7 +169,7 @@ class GigTemplate extends React.Component {
     // Tile for next gig
     this.nextTile = (
       this.nextPost &&
-      <NextPrevWrapper next>
+      <NextPrevWrapper className="hideMobile" next>
         <div className="icon">
         <MdKeyboardArrowLeft/>
         </div>
@@ -183,7 +187,7 @@ class GigTemplate extends React.Component {
     // Tile for previous gig
     this.prevTile = (
       this.prevPost &&
-      <NextPrevWrapper prev>
+      <NextPrevWrapper className="hideMobile" prev>
         <div className="icon">
           <MdKeyboardArrowRight/>
         </div>
