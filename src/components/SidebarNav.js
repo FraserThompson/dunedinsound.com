@@ -27,8 +27,6 @@ const SidebarNavWrapper = styled(Menu)`
   left: ${props => props.left && 0};
   right: ${props => props.right && 0};
   z-index: 10;
-  padding: 0;
-  margin: 0;
   box-shadow: 0 6px 12px rgba(0,0,0,.25);
   border-right: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
 
@@ -57,19 +55,25 @@ const SidebarNavWrapper = styled(Menu)`
     top: ${props => props.theme.headerHeight};
   }
 
-  .active-top {
-    > a {
-      color: white;
-    }
-  }
-
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    a {
-      color: ${props => props.theme.textColor};
-      display: block;
+  }
+
+  > ul {
+    > li {
+      border-left: 5px solid transparent;
+      &.active-parent {
+        border-left: 5px solid ${props => props.theme.foregroundColor};
+        &:active {
+          background-color: transparent !important;
+        }
+        > a {
+          color: white;
+          background-color: ${props => props.theme.foregroundColor};
+        }
+      }
     }
   }
 `

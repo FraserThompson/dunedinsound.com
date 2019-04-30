@@ -136,7 +136,7 @@ class Gigs extends React.Component {
                     <ul>
                       {months.map(month => {
                         const className = `${year}-${month}`
-                        return <li key={month}><a onClick={(e) => this.scrollTo(e, year)} href={`#${className}`}>{month}</a></li>
+                        return <li key={month}><a onClick={(e) => this.scrollTo(e, className)} href={`#${className}`}>{month}</a></li>
                       })}
                     </ul>
                   </li>

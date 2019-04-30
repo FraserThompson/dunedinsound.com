@@ -236,6 +236,9 @@ export default class Player extends React.Component {
       this.playPause();
       return;
     }
+
+    this.wavesurfer.stop()
+    this.wavesurfer.empty()
     this.props.onFileChange && this.props.onFileChange(selectedArtist)
     this.setState({selectedArtist, queuePlay: play})
   }

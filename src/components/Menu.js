@@ -20,18 +20,28 @@ const Menu = styled.div`
   overflow-y: hidden;
   scroll-behavior: smooth;
 
+  a, span {
+    padding-left: ${rhythm(0.5)};
+    padding-right: ${rhythm(0.5)};
+  }
+
   a {
     color: ${props => props.theme.textColor};
+
     &:hover, &:focus {
       color: ${props => lighten(0.5, props.theme.textColor)};
       text-decoration: none;
     }
+
     &:active {
       background-color: ${props => props.theme.foregroundColor} !important;
     }
+
   }
 
   li {
+    padding: 0;
+
     > a {
       display: block;
     }
@@ -44,9 +54,9 @@ const Menu = styled.div`
   }
 
   > a, li {
-
     cursor: pointer;
     position: relative;
+    text-decoration: none;
     white-space: nowrap;
     color: ${props => props.theme.textColor};
     line-height: ${props => props.height || props.theme.headerHeight};
@@ -54,8 +64,6 @@ const Menu = styled.div`
     display: ${props => props.horizontal ? "inline-block" : "block"};
     border-bottom: ${props => props.horizontal && "none"};
     border-top: ${props => props.horizontal && "none"};
-
-    cursor: pointer;
 
     &:hover{
       color: white;
@@ -65,19 +73,6 @@ const Menu = styled.div`
       background-color: ${props => props.theme.secondaryColor};
       color: ${props => lighten(0.5, props.theme.textColor)};
     }
-
-    &.active-parent {
-      border-left: 5px solid ${props => props.theme.foregroundColor};
-      padding-left: ${"calc(" + rhythm(0.5) + " - 5px)"};
-      > a {
-        color: white;
-      }
-    }
-
-    padding-left: ${rhythm(0.5)};
-    padding-right: ${rhythm(0.5)};
-
-    text-decoration: none;
 
     .title {
       ${scale(0.5)};
