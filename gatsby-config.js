@@ -73,7 +73,7 @@ module.exports = {
       options: {
         useMozJpeg: true,
         stripMetadata: false,
-        concurrency: 4
+        concurrency: 8
       },
     },
     {

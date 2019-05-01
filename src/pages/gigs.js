@@ -9,6 +9,8 @@ import GigTile from '../components/GigTile'
 import 'gumshoejs/src/js/gumshoe/_closest.polyfill'
 import 'gumshoejs/src/js/gumshoe/_customEvent.polyfill'
 import Gumshoe from 'gumshoejs/src/js/gumshoe/gumshoe'
+import { theme } from '../utils/theme'
+import Divider from '../components/Divider'
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"]

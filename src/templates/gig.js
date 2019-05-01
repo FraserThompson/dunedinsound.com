@@ -371,7 +371,7 @@ class GigTemplate extends React.Component {
                 <GridContainer xs="12" sm="6" md="6" lg="6">
                   {vidElements}
                 </GridContainer>
-                <FlexGridContainer {...imageGridSize}>
+                <FlexGridContainer {...imageGridSize} maxWidth="1200px">
                   {imageElements}
                 </FlexGridContainer>
               </div>

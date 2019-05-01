@@ -74,7 +74,7 @@ class Banner extends React.PureComponent {
             }
           </BannerText>
         }
-        {this.props.background && <div class="background">{this.props.background}</div>}
+        {this.props.background && <div className="background">{this.props.background}</div>}
         {this.props.customContent}
       </BannerWrapper>
     )

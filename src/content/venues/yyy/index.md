@@ -1,6 +1,6 @@
 ---
 title: YYY
-lat: -45.880352
-lng: 170.4982659
+lat: -45.880380
+lng: 170.500440
 cover: ./cover.jpg
 ---

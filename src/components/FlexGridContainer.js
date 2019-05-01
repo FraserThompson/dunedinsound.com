@@ -12,10 +12,12 @@ import styled from "styled-components"
 const FlexGridContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 
   > * {
     flex: 1 1 ${props => (100 * ((props.xs || 6) / 12)) + "%"};
     width: ${props => props.fixedWidth && ((100 * ((props.xs || 6) / 12)) + "%")};
+    max-width: ${props => props.maxWidth && props.maxWidth};
   }
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {

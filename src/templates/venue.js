@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
-import ContentByEntityTemplate from './templatetemplates/contentByEntity';
+import ContentByEntityTemplate from './templatetemplates/contentByEntity'
 
 class VenueTemplate extends ContentByEntityTemplate {
 
@@ -16,7 +16,7 @@ class VenueTemplate extends ContentByEntityTemplate {
     this.pageDescription = `See photos, videos and audio recordings of live gigs at ${this.post.frontmatter.title} and heaps of other local venues.`
     const position = [this.post.frontmatter.lat, this.post.frontmatter.lng]
     this.background = (
-      typeof window !== 'undefined' && <Map style={{height: "100%", width: "100%"}} center={position} zoom={18} zoomControl={false}>
+      typeof window !== 'undefined' && <Map style={{height: "100%", width: "100%"}} center={position} zoom={18} zoomControl={false} dragging={false} touchZoom={false} scrollWheelZoom={false} keyboard={false}>
         <TileLayer
           url='https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnJhc2VydGhvbXBzb24iLCJhIjoiY2llcnF2ZXlhMDF0cncwa21yY2tyZjB5aCJ9.iVxJbdbZiWVfHItWtZfKPQ'
           attribution='Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
