@@ -248,29 +248,36 @@ class GigTemplate extends React.Component {
   }
 
   getNextImage = () => {
-    const currentArtistIndex = this.state.selectedImage.artistIndex;
+    const currentArtistIndex = this.state.selectedImage.artistIndex
     const currentImageIndex = this.state.selectedImage.imageIndex
 
-    if ((currentImageIndex + 1) >= this.artistMedia[currentArtistIndex].images.length && (currentArtistIndex + 1) <= this.artistMedia.length) {
-      return { artistIndex: currentArtistIndex + 1, imageIndex: 0 }
+    if (currentImageIndex == this.artistMedia[currentArtistIndex].images.length - 1) {
+      if (currentArtistIndex < this.artistMedia.length - 1) {
+        return { artistIndex: currentArtistIndex + 1, imageIndex: 0 }
+      }
     } else {
       return { artistIndex: currentArtistIndex, imageIndex: currentImageIndex + 1 }
     }
+    return { artistIndex: false, imageIndex: false }
   }
 
   getPrevImage = () => {
-    const currentArtistIndex = this.state.selectedImage.artistIndex;
-    const currentImageIndex = this.state.selectedImage.imageIndex;
+    const currentArtistIndex = this.state.selectedImage.artistIndex
+    const currentImageIndex = this.state.selectedImage.imageIndex
 
-    if (currentImageIndex < 0 && currentArtistIndex > 0) {
-      return { artistIndex: currentArtistIndex - 1, imageIndex: this.artistMedia[artistIndex - 1].images.length }
+    if (currentImageIndex == 0) {
+      if (currentArtistIndex > 0) {
+        const newArtistIndex = currentArtistIndex - 1
+        return { artistIndex: newArtistIndex, imageIndex: this.artistMedia[newArtistIndex].images.length }
+      }
     } else {
       return { artistIndex: currentArtistIndex, imageIndex: currentImageIndex - 1 }
     }
+    return { artistIndex: false, imageIndex: false }
   }
 
   getImageSrc = ({ artistIndex, imageIndex }) => {
-    return this.artistMedia[artistIndex].images[imageIndex] && this.artistMedia[artistIndex].images[imageIndex].node.childImageSharp.fluid.src;
+    return artistIndex !== false && imageIndex !== false && this.artistMedia[artistIndex].images[imageIndex] && this.artistMedia[artistIndex].images[imageIndex].node.publicURL;
   }
 
   onYouTubeReady = (event) => {
@@ -429,7 +436,7 @@ export const pageQuery = graphql`
           node {
             name
             publicURL
-            ...FullImage
+            ...MediumImage
           }
         }
       }

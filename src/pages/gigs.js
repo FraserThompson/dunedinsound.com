@@ -154,7 +154,7 @@ class Gigs extends React.Component {
                 months.map(({month, posts}) => {
                   const id = `${year}-${month}`
                   return <section key={id} id={id}>
-                    {posts.map(({node}, index) => <GigTile key={index} height="30vh" node={node}/>)}
+                    {posts.map(({node}) => <GigTile key={node.fields.slug} height="30vh" node={node}/>)}
                   </section>
                 })
               }

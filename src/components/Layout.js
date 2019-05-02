@@ -123,7 +123,7 @@ export const query = graphql`
 
   fragment FullImage on File {
     childImageSharp {
-      fluid(maxWidth: 2400) {
+      fluid(maxWidth: 2400, srcSetBreakpoints: [ 200, 340, 520, 890 ]) {
         ...GatsbyImageSharpFluid
       }
     }

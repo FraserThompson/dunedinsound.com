@@ -94,7 +94,7 @@ export const pageQuery = graphql`
         node {
           name
           publicURL
-          ...FullImage
+          ...LargeImage
         }
       }
     }

@@ -9,7 +9,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Menu from '../components/Menu'
-import { darken } from 'polished';
+import { darken, lighten } from 'polished';
 import MenuButton from './MenuButton';
 import { MdMenu } from 'react-icons/md';
 
