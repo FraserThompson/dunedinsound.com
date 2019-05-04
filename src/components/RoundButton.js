@@ -3,7 +3,6 @@
 // Props
 //  - size: width and height
 
-
 import styled from '@emotion/styled'
 import { lighten } from 'polished';
 

@@ -2,11 +2,15 @@ import { css } from '@emotion/core'
 import { scale, rhythm } from '../utils/typography'
 import TransitionStyles from './TransitionStyles'
 import { lighten, darken } from "polished"
-import { theme } from '../utils/theme';
+import { theme } from '../utils/theme'
 
+// we can't call functions in emotion css so these are out here... it's ok for now
 const lightText = lighten(0.5, theme.default.textColor)
 const darkText = darken(0.2, theme.default.foregroundColor)
 const padding = rhythm(0.5)
+const scale2 = scale(2)
+const scale1 = scale(1)
+const scale04 = scale(-0.4)
 
 const GlobalStyle = css`
   body {
@@ -73,7 +77,7 @@ const GlobalStyle = css`
       font-size: 16px;
     }
     &.smaller {
-      ${scale(-0.4)};
+      ${scale04};
     }
     &.rainbowBackground {
       background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
@@ -83,7 +87,7 @@ const GlobalStyle = css`
   }
 
   h1.big {
-    ${scale(1)};
+    ${scale1};
     text-align: center;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -92,7 +96,7 @@ const GlobalStyle = css`
     text-shadow: -1px -1px 0 rgba(0,0,0,.3);
 
     @media screen and (min-width: ${theme.default.breakpoints.md}) {
-      ${scale(2)}
+      ${scale2};
     }
 
   }
