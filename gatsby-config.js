@@ -65,7 +65,7 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-styled-components`,
+    `gatsby-plugin-emotion`,
     'gatsby-plugin-react-leaflet',
     `gatsby-transformer-sharp`,
     {

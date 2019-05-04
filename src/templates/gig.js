@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
-import styled from "styled-components"
+import styled from '@emotion/styled'
 import Img from 'gatsby-image'
 import Lightbox from 'react-image-lightbox'
 import Layout from '../components/Layout'
@@ -13,12 +13,13 @@ import { rhythm, scale } from '../utils/typography'
 import { calculateScrollHeaderOffset } from '../utils/helper'
 import YouTubeResponsive from '../components/YouTubeResponsive'
 import Tile from '../components/Tile'
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowUp, MdPlayArrow, MdPause } from 'react-icons/md'
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowUp, MdPlayArrow, MdPause, MdFileDownload } from 'react-icons/md'
 import HorizontalNav from '../components/HorizontalNav'
 import RoundButton from '../components/RoundButton'
 import ZoopUpWrapper from '../components/ZoopUpWrapper'
 import FlexGridContainer from '../components/FlexGridContainer'
-import { lighten } from 'polished'
+import { lighten, stripUnit } from 'polished'
+import { theme } from '../utils/theme';
 
 const PlayerWrapper = styled.div`
   position: fixed;
@@ -111,6 +112,17 @@ const AudioSeek = styled.progress`
   }
 `
 
+const LightBoxToolbarButton = styled.a`
+  color: #ccc;
+  width: 40px;
+  height: 35px;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  padding-right: 10px;
+  top: 5px;
+`
+
 class GigTemplate extends React.Component {
 
   constructor(props) {
@@ -151,6 +163,7 @@ class GigTemplate extends React.Component {
         ...artist,
         machineName,
         title: detailsByArtist && detailsByArtist[machineName] ? detailsByArtist[machineName][0].node.frontmatter.title : artist.name,
+        details: detailsByArtist && detailsByArtist[machineName] && detailsByArtist[machineName][0].node,
         images: imagesByArtist && imagesByArtist[machineName],
         audio: audioByArtist && audioByArtist[machineName]
       }
@@ -276,8 +289,15 @@ class GigTemplate extends React.Component {
     return { artistIndex: false, imageIndex: false }
   }
 
-  getImageSrc = ({ artistIndex, imageIndex }) => {
-    return artistIndex !== false && imageIndex !== false && this.artistMedia[artistIndex].images[imageIndex] && this.artistMedia[artistIndex].images[imageIndex].node.publicURL;
+  getImageSrc = ({ artistIndex, imageIndex }, size) => {
+    if (artistIndex !== false && imageIndex !== false && this.artistMedia[artistIndex].images[imageIndex]) {
+      switch(size) {
+        default:
+          return this.artistMedia[artistIndex].images[imageIndex].node.publicURL
+        case "thumbnail":
+          return this.artistMedia[artistIndex].images[imageIndex].node.childImageSharp.fluid.src;
+      }
+    }
   }
 
   onYouTubeReady = (event) => {
@@ -309,7 +329,7 @@ class GigTemplate extends React.Component {
         title={`${this.post.frontmatter.title} | ${siteTitle}`}
         hideBrand={this.state.scrolled}
         hideNav={this.state.scrolled}
-        headerContent={this.state.scrolled && <a onClick={(e) => this.scrollTo(e, "top")} href="#top" title="Scroll to top"><h1 className="semi-big">{this.post.frontmatter.title}</h1></a>}
+        headerContent={this.state.scrolled && <a onClick={(e) => this.scrollTo(e, "top")} href="#top" title="Scroll to top"><h1 className="big">{this.post.frontmatter.title}</h1></a>}
       >
         <Banner
           id="top"
@@ -400,11 +420,27 @@ class GigTemplate extends React.Component {
         {this.state.lightboxOpen &&
           <Lightbox
             mainSrc={this.getImageSrc({ artistIndex: this.state.selectedImage.artistIndex, imageIndex: this.state.selectedImage.imageIndex })}
+            mainSrcThumbnail={this.getImageSrc({ artistIndex: this.state.selectedImage.artistIndex, imageIndex: this.state.selectedImage.imageIndex }, "thumbnail")}
             nextSrc={this.getImageSrc(this.getNextImage())}
+            nextSrcThumbnail={this.getImageSrc(this.getNextImage(), "thumbnail")}
             prevSrc={this.getImageSrc(this.getPrevImage())}
+            prevSrcThumbnail={this.getImageSrc(this.getPrevImage(), "thumbnail")}
             onMovePrevRequest={() => this.gotoLightboxImage(this.getPrevImage())}
             onMoveNextRequest={() => this.gotoLightboxImage(this.getNextImage())}
-            imageCaption={this.artistMedia[this.state.selectedImage.artistIndex].title}
+            toolbarButtons={
+              [
+                <LightBoxToolbarButton title="Download" target="_blank" href={this.getImageSrc({ artistIndex: this.state.selectedImage.artistIndex, imageIndex: this.state.selectedImage.imageIndex })}>
+                  <MdFileDownload/>
+                </LightBoxToolbarButton>
+              ]
+            }
+            imageTitle={this.post.frontmatter.title}
+            imageCaption={
+              <>
+                {this.artistMedia[this.state.selectedImage.artistIndex].title}
+                {this.artistMedia[this.state.selectedImage.artistIndex].details && <a href={this.artistMedia[this.state.selectedImage.artistIndex].details.fields.slug} target="_blank" title="Go to artist page"> More media from this artist</a>}
+              </>
+            }
             onCloseRequest={() => this.setState({ lightboxOpen: false })}
           />
         }
@@ -460,6 +496,7 @@ export const pageQuery = graphql`
           node {
             fields {
               machine_name
+              slug
             }
             frontmatter {
               title

@@ -7,7 +7,7 @@
 //  - right: Display it on the right
 
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import Menu from '../components/Menu'
 import { darken, lighten } from 'polished';
 import MenuButton from './MenuButton';
@@ -64,6 +64,13 @@ const SidebarNavWrapper = styled(Menu)`
   > ul {
     > li {
       border-left: 5px solid transparent;
+      &:hover:not(.active-parent) {
+        border-left: 5px solid ${props => lighten(0.3, props.theme.backgroundColor)};
+        > a {
+          color: white;
+          background-color: ${props => lighten(0.3, props.theme.backgroundColor)};
+        }
+      }
       &.active-parent {
         border-left: 5px solid ${props => props.theme.foregroundColor};
         &:active {
@@ -72,6 +79,13 @@ const SidebarNavWrapper = styled(Menu)`
         > a {
           color: white;
           background-color: ${props => props.theme.foregroundColor};
+        }
+      }
+      > ul {
+        > li {
+          &:hover:not(.active) {
+            background-color: ${props => lighten(0.1, props.theme.backgroundColor)};
+          }
         }
       }
     }

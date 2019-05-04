@@ -15,7 +15,7 @@
 
 import React from 'react'
 import { Link } from 'gatsby'
-import styled from "styled-components"
+import styled from '@emotion/styled'
 import BackgroundImage from './BackgroundImage'
 import Content from './Content'
 import { rhythm } from '../utils/typography'
@@ -31,6 +31,7 @@ const Container = styled.div`
   overflow: hidden;
   h1,h2,h3,h4 {
     text-shadow: 1px 1px #000;
+    transition: color 0.3s ease-in-out;
   }
 
   a {

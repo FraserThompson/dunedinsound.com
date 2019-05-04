@@ -9,7 +9,7 @@
 
 import { StaticQuery, graphql } from 'gatsby'
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import Tile from './Tile';
 import { MdPhotoCamera, MdAudiotrack, MdVideocam } from 'react-icons/md'
 

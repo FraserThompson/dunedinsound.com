@@ -9,12 +9,13 @@
 
 
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { MdPlayArrow, MdPause, MdSkipNext, MdSkipPrevious } from 'react-icons/md';
 import { theme } from '../utils/theme'
 import PlayerMenu from './PlayerMenu';
 import RoundButton from './RoundButton';
 import { scale } from '../utils/typography';
+import LoadingSpinner from './LoadingSpinner';
 
 const PlayerWrapper = styled.div`
   box-shadow: 0 -6px 12px rgba(0,0,0,.175);
@@ -71,7 +72,10 @@ const TitleWrapper = styled.div`
   color: #000;
   background-color: ${props => props.theme.secondaryColor};
   color: white;
+`
 
+const LoadingProgress = styled.div`
+  position: absolute;
 `
 
 export default class Player extends React.Component {
@@ -124,9 +128,13 @@ export default class Player extends React.Component {
       this.wavesurfer.on('play', this.onPlay)
       this.wavesurfer.on('pause', this.onPause)
       this.wavesurfer.on('audioprocess', this.updateTime)
+      this.wavesurfer.on('loading', this.loading)
 
       this.loadSelectedMedia()
     }
+  }
+
+  ready = () => {
   }
 
   loadSelectedMedia = () => {
@@ -144,6 +152,7 @@ export default class Player extends React.Component {
   }
 
   load = (src, jsonSrc) => {
+    this.setState({ready: false})
     if (jsonSrc && !window.cached_json[jsonSrc]) {
       fetch(jsonSrc)
         .then(response => response.json())
@@ -160,10 +169,11 @@ export default class Player extends React.Component {
   }
 
   onReady = () => {
-    this.updateDuration();
-    this.updateTime();
+    this.updateDuration()
+    this.updateTime()
+    this.setState({ready: true})
     if (this.state.queuePlay) {
-      this.wavesurfer.playPause();
+      this.wavesurfer.playPause()
       this.setState({queuePlay: false})
     }
   }
@@ -246,15 +256,16 @@ export default class Player extends React.Component {
   render = () => {
     return (
       <PlayerWrapper>
-        <div>
+        {this.state.ready && <div>
           <RoundButton id="prev" size="30px" onClick={this.previous}><MdSkipPrevious/></RoundButton>
           <RoundButton className={this.state.playing ? "active" : ""} size="40px" onClick={this.playPause}>{!this.state.playing ? <MdPlayArrow/> : <MdPause/>}</RoundButton>
           <RoundButton id="next" size="30px" onClick={this.next}><MdSkipNext/></RoundButton>
-        </div>
+        </div>}
         <WaveWrapper ref={el => (this.el = el)}>
-          <LengthWrapper style={{left: "0px"}}>{this.formatTime(this.state.currentTime)}</LengthWrapper>
-          <LengthWrapper style={{right: "0px"}}>{this.formatTime(this.state.duration)}</LengthWrapper>
+          {this.state.ready && <LengthWrapper style={{left: "0px"}}>{this.formatTime(this.state.currentTime)}</LengthWrapper>}
+          {this.state.ready && <LengthWrapper style={{right: "0px"}}>{this.formatTime(this.state.duration)}</LengthWrapper>}
         </WaveWrapper>
+        {!this.state.ready && <LoadingProgress>{LoadingSpinner}</LoadingProgress>}
         <TitleWrapper className="title-wrapper"><span>{this.props.artistMedia[this.state.selectedArtist].title}</span></TitleWrapper>
         <PlayerMenu width="100%" selected={this.state.selectedArtist} callback={this.selectArtist} list={this.props.artistMedia}/>
       </PlayerWrapper>

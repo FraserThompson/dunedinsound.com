@@ -9,7 +9,7 @@
 //  - href (optional): Makes it a link
 
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { rhythm } from '../utils/typography'
 
 const DividerWrapper = styled.div`

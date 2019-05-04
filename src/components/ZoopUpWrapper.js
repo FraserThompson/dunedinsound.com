@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from '@emotion/styled'
 import { scale, rhythm } from "../utils/typography";
 
 const ZoopUpWrapper = styled.a`

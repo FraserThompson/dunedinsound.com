@@ -5,7 +5,7 @@
 //  - placeholder (optional): Placeholder text (will use Search if not supplied)
 import { debounce } from 'throttle-debounce'
 import React from 'react'
-import styled from "styled-components"
+import styled from '@emotion/styled'
 import { rhythm } from '../utils/typography';
 
 const HeaderSearch = styled.input`

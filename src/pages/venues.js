@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import Img from 'gatsby-image'
-import styled from "styled-components"
+import styled from '@emotion/styled'
 import { Map, Popup, TileLayer, Marker } from 'react-leaflet'
 import SidebarNav from '../components/SidebarNav'
 import Search from '../components/Search'

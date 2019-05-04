@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import Content from './Content'
 import { darken } from 'polished'
 
@@ -22,14 +22,6 @@ const BlogContainer = styled(Content)`
     left: 0;
     width: 100%;
     height: 100%;
-  }
-
-  a {
-    color: ${props => darken(0.2, props.theme.foregroundColor)};
-    text-decoration: none;
-    &:hover {
-      color: ${props => props.theme.secondaryColor};
-    }
   }
 `
 export default BlogContainer;

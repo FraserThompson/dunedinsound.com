@@ -10,7 +10,7 @@
 //  - customContent (optional): Misc content to display in the foreground
 
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { rhythm } from '../utils/typography'
 import BackgroundImage from './BackgroundImage'
 

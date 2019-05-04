@@ -1,7 +1,9 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import SiteHeader from './SiteHeader'
-import styled, { ThemeProvider } from "styled-components"
+import { Global, css } from '@emotion/core'
+import styled from '@emotion/styled'
+import { ThemeProvider } from 'emotion-theming'
 import { theme } from '../utils/theme'
 import 'react-image-lightbox/style.css'
 import SiteFooter from './SiteFooter'
@@ -51,6 +53,7 @@ class Layout extends React.PureComponent {
     return (
       <ThemeProvider theme={this.props.theme || theme.default}>
         <>
+          <Global styles={theme => GlobalStyle}/>
           <Helmet
             htmlAttributes={{ lang: 'en' }}
             title={this.props.title}
@@ -63,7 +66,6 @@ class Layout extends React.PureComponent {
             <meta property="og:description" content={this.props.description} />
             {this.props.image && <meta property="og:image" content={this.props.image} />}
           </Helmet>
-          <GlobalStyle/>
           <HeaderWrapper>
             <MobileNav className="showMobile">
               <SiteNav backgroundColor={lighten(0.1, theme.default.primaryColor)} height={theme.default.headerHeightMobile}/>
@@ -123,7 +125,7 @@ export const query = graphql`
 
   fragment FullImage on File {
     childImageSharp {
-      fluid(maxWidth: 2400, srcSetBreakpoints: [ 200, 340, 520, 890 ]) {
+      fluid(maxWidth: 2400) {
         ...GatsbyImageSharpFluid
       }
     }

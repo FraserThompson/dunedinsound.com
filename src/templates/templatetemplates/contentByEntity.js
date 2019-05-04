@@ -22,7 +22,7 @@
 import React from 'react'
 import Layout from '../../components/Layout'
 import Banner from '../../components/Banner'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import Tile from '../../components/Tile'
 import Divider from '../../components/Divider'
 import HorizontalNav from '../../components/HorizontalNav'
@@ -133,7 +133,7 @@ class ContentByEntityTemplate extends React.Component {
         title={`${this.post.frontmatter.title} | ${this.siteTitle}`}
         hideBrand={this.state.scrolled}
         hideNav={this.state.scrolled}
-        headerContent={this.state.scrolled && <a onClick={(e) => this.scrollTo(e, "top")} href="#top" title="Scroll to top"><h1 className="semi-big">{this.post.frontmatter.title}</h1></a>}
+        headerContent={this.state.scrolled && <a onClick={(e) => this.scrollTo(e, "top")} href="#top" title="Scroll to top"><h1 className="big">{this.post.frontmatter.title}</h1></a>}
       >
         <Banner title={this.post.frontmatter.title} backgroundImage={this.cover} background={this.background} customContent={(
             <><ZoopUpWrapper title="BACK TO ARTISTS ☝" href={this.parent.href}><p>☝ Back to {this.parent.title} ☝</p><MdKeyboardArrowUp/></ZoopUpWrapper></>

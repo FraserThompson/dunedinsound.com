@@ -2,11 +2,12 @@
 // A menu used by Player.js
 
 import React from 'react'
-import styled from "styled-components"
+import styled from '@emotion/styled'
 import { MdPlaylistPlay, MdFileDownload } from 'react-icons/md'
 import { scale } from '../utils/typography'
 import Menu from './Menu';
 import MenuButton from './MenuButton'
+import { lighten } from 'polished';
 
 const DropdownMenu = styled(Menu)`
   position: absolute;
@@ -23,6 +24,9 @@ const DropdownMenu = styled(Menu)`
   box-shadow: 0 6px 12px rgba(0,0,0,.250);
   .title {
     ${scale(1)}
+  }
+  > li:hover:not(.active) {
+    background-color: ${props => lighten(0.1, props.theme.backgroundColor)};
   }
 `
 

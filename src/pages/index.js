@@ -1,37 +1,36 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import Layout from '../components/Layout'
 import Tile from '../components/Tile';
 import { nodeTypeToHuman } from '../utils/helper';
 import GridContainer from '../components/GridContainer';
 import GigTile from '../components/GigTile';
-import { MdKeyboardArrowRight } from 'react-icons/md';
 
 const HomePageGridContainer = styled(GridContainer)`
-  > div:nth-child(1) {
+  > div:nth-of-type(1) {
     grid-column: span 12;
   }
-  > div:nth-child(2) {
+  > div:nth-of-type(2) {
     grid-column: span 12;
   }
-  > div:nth-child(3) {
+  > div:nth-of-type(3) {
     grid-column: span 12;
   }
-  > div:nth-child(4) {
+  > div:nth-of-type(4) {
     display: initial;
   }
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    > div:nth-child(1) {
+    > div:nth-of-type(1) {
       grid-column: span 8;
     }
-    > div:nth-child(2) {
+    > div:nth-of-type(2) {
       grid-column: span 4;
     }
-    > div:nth-child(3) {
+    > div:nth-of-type(3) {
       grid-column: span 12;
     }
-    > div:nth-child(4) {
+    > div:nth-of-type(4) {
       display: none;
     }
   }

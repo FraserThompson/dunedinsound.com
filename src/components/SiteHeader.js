@@ -9,7 +9,7 @@
 
 import React from 'react'
 import { Link } from 'gatsby'
-import styled from "styled-components"
+import styled from '@emotion/styled'
 import { rhythm } from '../utils/typography'
 import SiteNav from './SiteNav';
 import { darken } from 'polished';

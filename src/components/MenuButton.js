@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { scale } from '../utils/typography';
 import { lighten } from 'polished';
 

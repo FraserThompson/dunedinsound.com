@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import { rhythm } from '../utils/typography';
+import styled from '@emotion/styled'
+import { rhythm } from '../utils/typography'
 
 const HorizontalNav = styled.ul`
   background-color: transparent;

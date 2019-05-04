@@ -2,7 +2,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import React from 'react'
 import { Link } from 'gatsby'
 import Divider from './Divider'
-import styled from "styled-components"
+import styled from '@emotion/styled'
 import Img from 'gatsby-image'
 import { rhythm } from '../utils/typography'
 

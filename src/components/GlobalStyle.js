@@ -1,12 +1,17 @@
-import { createGlobalStyle } from "styled-components"
-import { rhythm, scale } from '../utils/typography'
+import { css } from '@emotion/core'
+import { scale, rhythm } from '../utils/typography'
 import TransitionStyles from './TransitionStyles'
 import { lighten, darken } from "polished"
+import { theme } from '../utils/theme';
 
-const GlobalStyle = createGlobalStyle`
+const lightText = lighten(0.5, theme.default.textColor)
+const darkText = darken(0.2, theme.default.foregroundColor)
+const padding = rhythm(0.5)
+
+const GlobalStyle = css`
   body {
-    background-color: ${props => props.theme.backgroundColor};
-    color: ${props => props.theme.textColor};
+    background-color: ${theme.default.backgroundColor};
+    color: ${theme.default.textColor};
     max-width: 100vw;
     height: 100%;
     width: 100%;
@@ -27,17 +32,22 @@ const GlobalStyle = createGlobalStyle`
   input[type=text] {
     background-image: none;
     padding: 8px 12px;
-    line-height: ${rhythm(1)};
+    line-height: ${theme.default.headerHeightMobile};
     border: 1px solid #000;
     border-radius: 4px;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   }
 
   input[type=text]:focus {
-    border: 1px solid ${props => props.theme.secondaryColor};
+    border: 1px solid ${theme.default.secondaryColor};
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
     outline: 0;
+  }
+
+  progress {
+    -webkit-appearance: none;
+    appearance: none;
   }
 
   .showMobile {
@@ -48,7 +58,7 @@ const GlobalStyle = createGlobalStyle`
     display: none !important;
   }
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${theme.default.breakpoints.xs}) {
     .showMobile {
       display: none !important;
     }
@@ -59,7 +69,7 @@ const GlobalStyle = createGlobalStyle`
 
   p, span {
     small {
-      color: ${props => darken(0.1, props.theme.textColor)};
+      color: ${theme.default.textColor};
       font-size: 16px;
     }
     &.smaller {
@@ -81,38 +91,10 @@ const GlobalStyle = createGlobalStyle`
     margin-bottom: 0;
     text-shadow: -1px -1px 0 rgba(0,0,0,.3);
 
-    @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
+    @media screen and (min-width: ${theme.default.breakpoints.md}) {
       ${scale(2)}
     }
 
-  }
-
-  h1.semi-big {
-    ${scale(1)};
-    text-align: center;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    text-transform: uppercase;
-    margin-bottom: 0;
-    margin-left: ${rhythm(0.5)};
-    @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
-      ${scale(2)};
-    }
-  }
-
-  h4 {
-    transition: color 0.3s ease-in-out;
-  }
-
-  li.active {
-    a {
-      color: white;
-    }
-  }
-
-  progress {
-    -webkit-appearance: none;
-    appearance: none;
   }
 
   button, .button {
@@ -126,16 +108,16 @@ const GlobalStyle = createGlobalStyle`
 
     padding-top: 0px;
     padding-bottom: 0px;
-    padding-right: ${rhythm(0.5)};
-    padding-left: ${rhythm(0.5)};
-    color: ${props => props.theme.textColor};
+    padding-right: ${padding};
+    padding-left: ${padding};
+    color: ${theme.default.textColor};
     background-color: transparent;
     border-radius: 5px;
-    border: 2px solid ${props => props.theme.secondaryColor};
+    border: 2px solid ${theme.default.secondaryColor};
 
     &.active, &:active {
-      background-color: ${props => props.theme.secondaryColor};
-      color: ${props => lighten(0.5, props.theme.textColor)};
+      background-color: ${theme.default.secondaryColor};
+      color: ${lightText};
       outline: 0;
     }
 
@@ -144,14 +126,14 @@ const GlobalStyle = createGlobalStyle`
     }
 
     &:hover:not(.active) {
-      color: ${props => lighten(0.5, props.theme.textColor)};
+      color: ${lightText};
       text-decoration: none;
     }
   }
 
   a {
+    color: ${darkText};
     transition: color 0.1s ease-in-out;
-    color: ${props => darken(0.2, props.theme.foregroundColor)};
     text-decoration: none;
     overflow:hidden;
     background-color: transparent;
@@ -162,7 +144,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     &:hover, &:active {
-      color: ${props => props.theme.secondaryColor};
+      color: ${theme.default.secondaryColor};
       outline: 0;
       .backgroundImage {
         transform: scale(1.02,1.02);
@@ -200,21 +182,21 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .wobbly-content {
-      -webkit-animation: wobble 5s infinite linear;
-      height: 300px;
-      width: 90%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    -webkit-animation: wobble 5s infinite linear;
+    height: 300px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
   }
 
   @-webkit-keyframes wobble {
-      0%  { -webkit-transform:  rotate(0deg); color: limegreen; }
-      20%  { -webkit-transform:  rotate(2deg); color: purple; }
-      50%  { -webkit-transform:  rotate(-2deg); color: aquamarine; }
-      100%  { -webkit-transform:  rotate(0deg); color: hotpink; }
+    0%  { -webkit-transform:  rotate(0deg); color: limegreen; }
+    20%  { -webkit-transform:  rotate(2deg); color: purple; }
+    50%  { -webkit-transform:  rotate(-2deg); color: aquamarine; }
+    100%  { -webkit-transform:  rotate(0deg); color: hotpink; }
   }
 
   ${TransitionStyles}

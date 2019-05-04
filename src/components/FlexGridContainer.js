@@ -7,7 +7,7 @@
 //  - md (optional)
 //  - lg (optional)
 
-import styled from "styled-components"
+import styled from '@emotion/styled'
 
 const FlexGridContainer = styled.div`
   display: flex;

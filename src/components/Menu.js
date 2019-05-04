@@ -5,7 +5,7 @@
 //  - height
 //  - width
 
-import styled from "styled-components"
+import styled from '@emotion/styled'
 import { rhythm, scale } from '../utils/typography';
 import { lighten } from 'polished';
 
