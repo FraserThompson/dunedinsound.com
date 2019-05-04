@@ -139,10 +139,10 @@ class ContentByEntityTemplate extends React.Component {
             <><ZoopUpWrapper title="BACK TO ARTISTS ☝" href={this.parent.href}><p>☝ Back to {this.parent.title} ☝</p><MdKeyboardArrowUp/></ZoopUpWrapper></>
           )}>
           <HorizontalNav>
-            {this.post.frontmatter.facebook && <li><a className="button" href={this.post.frontmatter.facebook}>Facebook</a></li>}
-            {this.post.frontmatter.bandcamp && <li><a className="button" href={this.post.frontmatter.bandcamp}>Bandcamp</a></li>}
-            {this.post.frontmatter.soundcloud && <li><a className="button" href={this.post.frontmatter.soundcloud}>Soundcloud</a></li>}
-            {this.post.frontmatter.Website && <li><a className="button" href={this.post.frontmatter.Website}>Website</a></li>}
+            {this.post.frontmatter.facebook && <li><a className="button" rel="noopener" href={this.post.frontmatter.facebook}>Facebook</a></li>}
+            {this.post.frontmatter.bandcamp && <li><a className="button" rel="noopener" href={this.post.frontmatter.bandcamp}>Bandcamp</a></li>}
+            {this.post.frontmatter.soundcloud && <li><a className="button" rel="noopener" href={this.post.frontmatter.soundcloud}>Soundcloud</a></li>}
+            {this.post.frontmatter.Website && <li><a className="button" rel="noopener" href={this.post.frontmatter.Website}>Website</a></li>}
           </HorizontalNav>
         </Banner>
         <Tabs>

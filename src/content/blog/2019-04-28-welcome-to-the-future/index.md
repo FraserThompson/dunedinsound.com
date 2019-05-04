@@ -20,7 +20,7 @@ Aside from this there's also been a few bonus features implemented along the way
 * See all <a href="/venues/">venues on a map!</a>
 * Artist gigs sorted by year (handy for pages like <a href="/artists/the_rothmans/">this one</a> with like 50 gigs)
 * Improved audio player user experience
-* Better quality images
+* Better quality images: Access to all images at their original resolution.
 * Improved mobile user experience
 
 It's the culmination of many months of sporadic work. If you want to know more about the process and reasoning in *excruciating* detail then read on (if not start using the rest of the site and let me know what you think).
