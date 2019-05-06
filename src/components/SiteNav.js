@@ -11,7 +11,7 @@ class SiteNav extends React.PureComponent {
 
     return (
       <Menu {...this.props} horizontal right open>
-        <Link activeClassName="active" to="/">Home</Link>
+        <Link className="showMobile" activeClassName="active" to="/">Home</Link>
         <Link getProps={isPartiallyActive} to="/gigs/">Gigs</Link>
         <Link getProps={isPartiallyActive} to="/artists/">Artists</Link>
         <Link getProps={isPartiallyActive} to="/venues/">Venues</Link>

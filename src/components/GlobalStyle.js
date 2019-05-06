@@ -55,7 +55,7 @@ const GlobalStyle = css`
   }
 
   .showMobile {
-    display: initial !important;
+    display: inline-block !important;
   }
 
   .hideMobile {
@@ -67,7 +67,7 @@ const GlobalStyle = css`
       display: none !important;
     }
     .hideMobile {
-      display: initial !important;
+      display: inline-block !important;
     }
   }
 

@@ -361,12 +361,7 @@ class GigTemplate extends React.Component {
             })
 
             const vidElements = artist.vid && artist.vid.map((video, vidIndex) => {
-              const opts = {
-                playerVars: {
-                  modestbranding: "1"
-                }
-              };
-              return <YouTubeResponsive videoId={video.link} onReady={this.onYouTubeReady} opts={opts} key={video.link} odd={(artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1) ? true : false}/>
+              return <YouTubeResponsive videoId={video.link} onReady={this.onYouTubeReady} key={video.link} odd={(artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1) ? true : false}/>
             })
 
             const imageGridSize = {
