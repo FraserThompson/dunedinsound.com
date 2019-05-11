@@ -99,6 +99,14 @@ export const query = graphql`
     }
   }
 
+  fragment TinyImage on File {
+    childImageSharp {
+      fluid(maxWidth: 200) {
+        ...GatsbyImageSharpFluid
+      }
+    }
+  }
+
   fragment SmallImage on File {
     childImageSharp {
       fluid(maxWidth: 400) {
@@ -210,6 +218,7 @@ export const query = graphql`
       facebook
       soundcloud
       website
+      origin
       cover {
         ...SmallImage
       }

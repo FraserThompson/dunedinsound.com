@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { scale, rhythm } from "../utils/typography";
+import { theme } from '../utils/theme';
 
 const ZoopUpWrapper = styled.a`
   ${scale(4)};
@@ -9,6 +10,7 @@ const ZoopUpWrapper = styled.a`
   top: -${rhythm(1)};
   transition: all 300ms ease-in-out;
   opacity: 0.5;
+  display: none !important;
 
   p {
     ${scale(0.5)};
@@ -18,6 +20,10 @@ const ZoopUpWrapper = styled.a`
   &:hover {
     top: 0px;
     opacity: 1;
+  }
+
+  @media screen and (min-width: ${theme.default.breakpoints.xs}) {
+    display: inline-block !important;
   }
 `
 export default ZoopUpWrapper

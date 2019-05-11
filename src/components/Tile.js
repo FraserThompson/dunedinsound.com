@@ -98,7 +98,7 @@ class Tile extends React.Component {
       <Container {...this.props} className="tile">
         <Link to={this.props.href} style={{display: "block", width: "100%", height: "100%"}}>
           {this.props.label && <Label><small>{this.props.label}</small></Label>}
-          {this.props.image && <BackgroundImage image={this.props.image}/>}
+          {this.props.image && <BackgroundImage sizes={this.props.sizes} image={this.props.image}/>}
           <TitleWrapper shadowBottom={this.props.title || this.props.subtitle}>
             <Content>
               {this.props.title && <h4 className="title">{this.props.title}</h4>}

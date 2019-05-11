@@ -6,9 +6,9 @@ What is this?
 --------------------------
 The aim of dunedinsound.com is to document a slice of the current music scene in Dunedin as it happens.
 
-Part of that involves going to gigs, documenting them via photo, video and audio, then archiving them here.
+Part of that involves going to gigs, documenting them via photo, video and audio, then archiving them here. I'm not affiliated with any venue or band so consider my recordings bootlegs.
 
-I'm not affiliated with any venue or band so consider my recordings bootlegs.
+<a title="Dunedin Sound on Wikipedia" href="https://en.wikipedia.org/wiki/Dunedin_sound" target="_blank">The Dunedin Sound</a> is often described as a movement from the past. This site is a reminder that great music never stopped coming out of Dunedin.
 
 Are you making money?
 ------------------------------
@@ -18,7 +18,7 @@ Why not just put stuff on Facebook like everyone else?
 --------------------------
 I don't think Facebook is designed for long term storage, and I also don't think the user experience is very good for this sort of thing.
 
-dunedinsound.com is meant to be a more permanent archive, the goal is that artists/fans will be able to access it decades from now.
+dunedinsound.com is meant to be a more permanent archive, the idea is that artists/fans will be able to access it decades from now.
 
 What equipment do you use?
 ---------------------------

@@ -56,6 +56,7 @@ exports.createPages = ({ graphql, actions }) => {
         blog: path.resolve('./src/templates/blog.js'),
         artists: path.resolve('./src/templates/artist.js'),
         venues: path.resolve('./src/templates/venue.js'),
+        vaultsessions: path.resolve('./src/templates/vaultsession.js'),
         page: path.resolve('./src/templates/page.js')
       }
 
@@ -92,6 +93,7 @@ exports.createPages = ({ graphql, actions }) => {
 
       // Create pages.
       nodesByType['gigs'].forEach(({node}, index) => createPages(node, index, nodesByType['gigs']))
+      nodesByType['vaultsessions'].forEach(({node}, index) => createPages(node, index, nodesByType['vaultsessions']))
       nodesByType['blog'].forEach(({node}, index) => createPages(node, index, nodesByType['blog']))
       nodesByType['venues'].forEach(({node}, index) => createPages(node, index, nodesByType['venues']))
       nodesByType['artists'].forEach(({node}, index) => createPages(node, index, nodesByType['artists']))

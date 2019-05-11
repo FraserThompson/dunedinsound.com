@@ -39,13 +39,16 @@ const BannerText = styled.div`
   flex-direction: column;
   margin: 0 auto;
   text-align: center;
+  justify-content: center;
   background: rgba(0,0,0,.8);
   padding: ${rhythm(0.5)};
   width: 100%;
+  height: 100%;
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     padding: ${rhythm(1)};
     width: auto;
+    height: auto;
   }
 
   h1 {

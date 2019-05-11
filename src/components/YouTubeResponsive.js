@@ -109,8 +109,7 @@ class YouTubeResponsive extends React.Component {
 
   render() {
     return <YouTubeWrapper odd={this.props.odd}>
-      {!this.state.clicked &&
-        <PlaceholderContent>
+      {!this.state.clicked && !this.props.vanilla && <PlaceholderContent>
           <a onClick={() => this.setState({clicked: true})}>
             <img src={this.state.thumbnail} width="100%" height="auto"/>
             <div className="overlay">
@@ -119,9 +118,9 @@ class YouTubeResponsive extends React.Component {
             </div>
           </a>
           <WatchOnYoutubeLink href={"https://www.youtube.com/watch?v=" + this.props.videoId} rel="noopener" target="_blank" title="Watch video on YouTube"><small>Watch on YouTube</small></WatchOnYoutubeLink>
-        </PlaceholderContent>
+        </PlaceholderContent>}
       }
-      {this.state.clicked && <YouTube onReady={this.onReady} opts={{modestbranding: 1, playerVars: {autoplay: 1}}} {...this.props} />}
+      {(this.state.clicked || this.props.vanilla) && <YouTube onReady={this.onReady} opts={{modestbranding: 1, playerVars: {autoplay: 1}}} {...this.props} />}
     </YouTubeWrapper>
   }
 

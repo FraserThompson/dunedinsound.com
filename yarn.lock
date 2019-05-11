@@ -12130,6 +12130,13 @@ srcset@^1.0.0:
     array-uniq "^1.0.2"
     number-is-nan "^1.0.0"
 
+srcset@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/srcset/-/srcset-2.0.0.tgz#7d66b2cf223980ff1aa9d8389c23a449f00ad753"
+  integrity sha512-5/8AN7K95Ymo0xT9fL05wZGZEjbdyJh9NMc66NJK+qYaMfm3jJGmEOVfrp81kRauJC1fcqglUWY5mDLnILyfjw==
+  dependencies:
+    array-uniq "^2.1.0"
+
 sshpk@^1.7.0:
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/sshpk/-/sshpk-1.16.1.tgz#fb661c0bef29b39db40769ee39fa70093d6f6877"

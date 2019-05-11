@@ -22,7 +22,7 @@ class BackgroundImage extends React.PureComponent {
           }} fluid={node.childImageSharp.fluid}/>
         )
         :
-        <Img className="backgroundImage" style={{width: "100%", zIndex: 0, height: "100%"}} fluid={this.props.image.childImageSharp.fluid}/>
+        <Img className="backgroundImage" style={{width: "100%", zIndex: 0, height: "100%"}} fluid={{...this.props.image.childImageSharp.fluid, sizes: this.props.sizes || this.props.image.childImageSharp.fluid.sizes}}/>
       }
     </div>
   }

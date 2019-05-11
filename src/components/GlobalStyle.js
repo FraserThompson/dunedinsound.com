@@ -79,10 +79,14 @@ const GlobalStyle = css`
     &.smaller {
       ${scale04};
     }
-    &.rainbowBackground {
-      background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+  }
+
+  .rainbowBackground {
+    background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    &:hover {
+      filter: invert(1);
     }
   }
 

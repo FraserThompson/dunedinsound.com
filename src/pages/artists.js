@@ -6,7 +6,7 @@ import Search from '../components/Search'
 import FlexGridContainer from '../components/FlexGridContainer'
 import Shuffle from 'shufflejs'
 import { theme } from '../utils/theme'
-import { shuffleFilter } from '../utils/helper'
+import { shuffleFilter, toMachineName, gridToSizes } from '../utils/helper'
 
 class Artists extends React.Component {
 
@@ -19,7 +19,8 @@ class Artists extends React.Component {
     }
 
     this.gigCountsByArtist = this.props.data.gigsByArtist['group'].reduce((obj, item) => {
-      obj[item.fieldValue] = item.totalCount
+      if (obj[toMachineName(item.fieldValue)]) obj[toMachineName(item.fieldValue)] += item.totalCount
+      else obj[toMachineName(item.fieldValue)] = item.totalCount
       return obj
     }, {})
 
@@ -65,6 +66,12 @@ class Artists extends React.Component {
     const { data } = this.props;
     const siteTitle = data.site.siteMetadata.title
     const siteDescription = data.site.siteMetadata.description
+    const grid = {
+      xs: "6",
+      sm: "4",
+      md: "3",
+      lg: "2"
+    }
 
     return (
       <Layout
@@ -73,19 +80,20 @@ class Artists extends React.Component {
         hideBrandOnMobile={true}
         hideFooter={true}
         headerContent={<Search placeholder="Search artists" toggleSidebar={this.toggleSidebar} filter={this.filter} />}>
-        <FlexGridContainer fixedWidth ref={this.element} xs="6" sm="4" md="3" lg="2">
+        <FlexGridContainer fixedWidth ref={this.element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
           {this.state.filteredPosts.map(({ node }) => {
-            const title = node.frontmatter.title || node.fields.slug
+            const title = (node.frontmatter.title || node.fields.slug) + (node.frontmatter.origin ? ` (${node.frontmatter.origin})` : "")
             const coverImage = node.frontmatter.cover ? node.frontmatter.cover : (this.imagesByArtist[node.fields.machine_name] && this.imagesByArtist[node.fields.machine_name][0].node)
 
             return (
               <Tile
                 key={node.fields.slug}
                 title={title}
-                subtitle={`${this.gigCountsByArtist[title]} gigs`}
+                subtitle={`${this.gigCountsByArtist[node.fields.machine_name]} gigs`}
                 image={coverImage}
                 label={node.frontmatter.date}
                 href={node.fields.slug}
+                sizes={gridToSizes(grid)}
                 height={this.state.filteredPosts.length == 1 ? "calc(100vh - " + theme.default.headerHeight + ")" : this.state.filteredPosts.length <= 8  ? "40vh" : "20vh"}
               />
             )

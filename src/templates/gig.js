@@ -4,13 +4,12 @@ import styled from '@emotion/styled'
 import Img from 'gatsby-image'
 import Lightbox from 'react-image-lightbox'
 import Layout from '../components/Layout'
-import { toMachineName, graphqlGroupToObject } from  '../utils/helper'
+import { toMachineName, graphqlGroupToObject, calculateScrollHeaderOffset, gridToSizes } from  '../utils/helper'
 import GridContainer from '../components/GridContainer'
 import Banner from '../components/Banner'
 import Divider from '../components/Divider'
 import Player from '../components/Player'
 import { rhythm, scale } from '../utils/typography'
-import { calculateScrollHeaderOffset } from '../utils/helper'
 import YouTubeResponsive from '../components/YouTubeResponsive'
 import Tile from '../components/Tile'
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowUp, MdPlayArrow, MdPause, MdFileDownload } from 'react-icons/md'
@@ -18,8 +17,7 @@ import HorizontalNav from '../components/HorizontalNav'
 import RoundButton from '../components/RoundButton'
 import ZoopUpWrapper from '../components/ZoopUpWrapper'
 import FlexGridContainer from '../components/FlexGridContainer'
-import { lighten, stripUnit } from 'polished'
-import { theme } from '../utils/theme';
+import { lighten } from 'polished'
 
 const PlayerWrapper = styled.div`
   position: fixed;
@@ -293,6 +291,9 @@ class GigTemplate extends React.Component {
     if (artistIndex !== false && imageIndex !== false && this.artistMedia[artistIndex].images[imageIndex]) {
       switch(size) {
         default:
+          const parsed_srcset = parse(this.artistMedia[artistIndex].images[imageIndex].node.childImageSharp.fluid.srcSet)
+          return parsed_srcset.find(image => image.width == 1200).url
+        case "full":
           return this.artistMedia[artistIndex].images[imageIndex].node.publicURL
         case "thumbnail":
           return this.artistMedia[artistIndex].images[imageIndex].node.childImageSharp.fluid.src;
@@ -340,7 +341,7 @@ class GigTemplate extends React.Component {
         >
           <HorizontalNav>
             <p>{this.post.frontmatter.date} {this.venueDetails && <>at <Link to={this.venueDetails.fields.slug}>{this.venueDetails.frontmatter.title}</Link></>}</p>
-            {this.post.frontmatter.description && <p>{this.post.frontmatter.description}</p>}
+            {this.post.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: this.post.frontmatter.description }}></p>}
             {
               this.artistMedia.map((artist, index) => {
                 return (
@@ -354,22 +355,24 @@ class GigTemplate extends React.Component {
         </Banner>
         {this.artistMedia.map((artist, artistIndex) => {
 
+            const imageGridSize = {
+              xs: "12",
+              sm: "4",
+              md: "3",
+              lg: ( artist.images &&  artist.images.length <= 6) ? "4" : ( artist.images &&  artist.images.length <= 16) ? "3" : "2"
+            }
+
             const imageElements = artist.images && artist.images.map(({node}, artistImageIndex) => {
-              return <a style={{cursor: "pointer"}} key={artistImageIndex} onClick={e => this.openLightbox(artistIndex, artistImageIndex, e)}>
-                <Img className="backgroundImage" fluid={node.childImageSharp.fluid} />
-              </a>
+              return (
+                <a style={{cursor: "pointer", display: "block", width: "100%", height: "100%"}} key={artistImageIndex} onClick={e => this.openLightbox(artistIndex, artistImageIndex, e)}>
+                  <Img fluid={{...node.childImageSharp.fluid, sizes: gridToSizes(imageGridSize)}} />
+                </a>
+              )
             })
 
             const vidElements = artist.vid && artist.vid.map((video, vidIndex) => {
               return <YouTubeResponsive videoId={video.link} onReady={this.onYouTubeReady} key={video.link} odd={(artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1) ? true : false}/>
             })
-
-            const imageGridSize = {
-              xs: "6",
-              sm: "4",
-              md: "3",
-              lg: (imageElements && imageElements.length <= 6) ? "4" : (imageElements && imageElements.length <= 16) ? "3" : "2"
-            }
 
             const isPlaying = this.state.playing && this.state.selectedAudio == artistIndex
 
@@ -393,7 +396,7 @@ class GigTemplate extends React.Component {
                 <GridContainer xs="12" sm="6" md="6" lg="6">
                   {vidElements}
                 </GridContainer>
-                <FlexGridContainer {...imageGridSize} maxWidth="1200px">
+                <FlexGridContainer {...imageGridSize} maxWidth="600px">
                   {imageElements}
                 </FlexGridContainer>
               </div>
@@ -424,7 +427,7 @@ class GigTemplate extends React.Component {
             onMoveNextRequest={() => this.gotoLightboxImage(this.getNextImage())}
             toolbarButtons={
               [
-                <LightBoxToolbarButton title="Download" target="_blank" href={this.getImageSrc({ artistIndex: this.state.selectedImage.artistIndex, imageIndex: this.state.selectedImage.imageIndex })}>
+                <LightBoxToolbarButton title="Download" target="_blank" href={this.getImageSrc({ artistIndex: this.state.selectedImage.artistIndex, imageIndex: this.state.selectedImage.imageIndex }, "full")}>
                   <MdFileDownload/>
                 </LightBoxToolbarButton>
               ]
@@ -467,7 +470,7 @@ export const pageQuery = graphql`
           node {
             name
             publicURL
-            ...MediumImage
+            ...SmallImage
           }
         }
       }
