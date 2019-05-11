@@ -102,7 +102,7 @@ class VaultSessionTemplate extends React.Component {
     const artist = data.artist.edges[0].node
 
     return (
-      <Layout location={this.props.location} description={siteDescription} title={`${post.frontmatter.title} | ${siteTitle}`} overrideBackgroundColor="white">
+      <Layout location={this.props.location} description={siteDescription} image={post.frontmatter.cover.publicURL} title={`VAULT SESSION: ${post.frontmatter.title} | ${siteTitle}`} overrideBackgroundColor="white">
         <World lights={this.state.lights}>
           <Title>
             <h1>{post.frontmatter.title}</h1>
@@ -169,6 +169,9 @@ export const pageQuery = graphql`
         title
         full_video
         videos { title, link }
+        cover {
+          publicURL
+        }
       }
     }
   }

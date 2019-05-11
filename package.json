@@ -39,6 +39,7 @@
     "react-typography": "^0.16.13",
     "react-youtube": "^7.9.0",
     "shufflejs": "^5.2.1",
+    "srcset": "^2.0.0",
     "throttle-debounce": "^2.1.0",
     "typography": "^0.16.17",
     "typography-theme-noriega": "^0.16.19",

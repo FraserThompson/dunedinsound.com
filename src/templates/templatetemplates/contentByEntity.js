@@ -70,6 +70,7 @@ class ContentByEntityTemplate extends React.Component {
 
     this.gigs = this.props.data.gigs && this.props.data.gigs.group.reverse() // it expects them grouped by year in ascending order
     this.blogs = this.props.data.blogs && this.props.data.blogs.edges
+    this.vaultsessions = this.props.data.vaultsessions && this.props.data.vaultsessions.edges
     this.siteTitle = this.props.data.site.siteMetadata.title
 
     this.state = {
@@ -125,6 +126,17 @@ class ContentByEntityTemplate extends React.Component {
       )
     })
 
+    const vaultsessions = this.vaultsessions && this.vaultsessions.map(({node}) =>
+      <Tile
+        key={node.fields.slug}
+        title={node.frontmatter.title}
+        image={node.frontmatter.cover}
+        href={node.fields.slug}
+      />
+    )
+
+    console.log(vaultsessions);
+
     return (
       <Layout
         location={this.props.location}
@@ -148,9 +160,11 @@ class ContentByEntityTemplate extends React.Component {
         <Tabs>
           <button className={this.state.openTab === "gigs" ? "active" : ""} onClick={() => this.setState({openTab: "gigs"})}>Gigs ({this.gigs.length})</button>
           {this.blogs && this.blogs.length > 0 && <button className={this.state.openTab === "blogs" ? "active" : ""} onClick={() => this.setState({openTab: "blogs"})}>Blogs ({this.blogs.length})</button>}
+          {this.vaultsessions && this.vaultsessions.length > 0 && <button className={this.state.openTab === "vaultsessions" ? "active" : ""} onClick={() => this.setState({openTab: "vaultsessions"})}><span class="rainbowBackground">VAULT SESSION</span></button>}
         </Tabs>
           {this.state.openTab === "gigs" && gigTiles}
           {this.state.openTab === "blogs" && <FlexGridContainer>{blogTiles}</FlexGridContainer>}
+          {this.state.openTab === "vaultsessions" && <FlexGridContainer>{vaultsessions}</FlexGridContainer>}
       </Layout>
     )
   }

@@ -55,5 +55,21 @@ export const pageQuery = graphql`
         }
       }
     }
+    vaultsessions: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "vaultsessions"}}, frontmatter: {artist: {eq: $machine_name}}}) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            cover {
+              ...LargeImage
+              publicURL
+            }
+          }
+        }
+      }
+    }
   }
 `

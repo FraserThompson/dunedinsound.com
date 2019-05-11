@@ -18,6 +18,7 @@ import RoundButton from '../components/RoundButton'
 import ZoopUpWrapper from '../components/ZoopUpWrapper'
 import FlexGridContainer from '../components/FlexGridContainer'
 import { lighten } from 'polished'
+import { parse } from 'srcset'
 
 const PlayerWrapper = styled.div`
   position: fixed;

@@ -2,6 +2,7 @@
 date: 2019-05-11T05:00:00.000Z
 title: Koizilla
 artist: koizilla
+cover: ./cover.jpg
 full_video: ex7zP4bunjQ
 videos:
   - title: "Sandflies"
