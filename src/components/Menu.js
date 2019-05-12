@@ -20,7 +20,7 @@ const Menu = styled.div`
   overflow-y: hidden;
   scroll-behavior: smooth;
 
-  .vaultSessionsHeaderLink {
+  #vaultSessionsHeaderLink {
     font-size: 0.5em;
     max-width: 60px;
     line-height: 1;

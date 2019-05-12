@@ -16,7 +16,7 @@ class SiteNav extends React.PureComponent {
         <Link getProps={isPartiallyActive} to="/artists/">Artists</Link>
         <Link getProps={isPartiallyActive} to="/venues/">Venues</Link>
         <Link getProps={isPartiallyActive} to="/blog/">Blog</Link>
-        <Link className="rainbowBackground vaultSessionsHeaderLink" getProps={isPartiallyActive} to="/vaultsessions/"><span>VAULT<br/>SESSIONS</span></Link>
+        <Link className="rainbowBackground" id="vaultSessionsHeaderLink" getProps={isPartiallyActive} to="/vaultsessions/"><span>VAULT<br/>SESSIONS</span></Link>
       </Menu>
     )
   }

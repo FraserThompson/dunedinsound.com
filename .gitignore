@@ -72,6 +72,10 @@ yarn-error.log
 src/content/gigs/**/*.jpg
 src/content/gigs/**/**/*.jpg
 src/content/gigs/**/**/*.mp3
+src/content/vaultsessions/**/*.jpg
+src/content/vaultsessions/**/*.mp3
+
+audio
 
 # Blog assets
 src/content/blog/**/*.jpg

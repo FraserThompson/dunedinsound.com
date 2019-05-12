@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 import styled from '@emotion/styled'
 import Layout from '../components/Layout'
-import { toMachineName, graphqlGroupToObject, calculateScrollHeaderOffset, gridToSizes } from  '../utils/helper'
+import { toMachineName, graphqlGroupToObject, calculateScrollHeaderOffset } from  '../utils/helper'
 import GridContainer from '../components/GridContainer'
 import Banner from '../components/Banner'
 import Divider from '../components/Divider'
@@ -10,48 +10,13 @@ import Player from '../components/Player'
 import { rhythm, scale } from '../utils/typography'
 import YouTubeResponsive from '../components/YouTubeResponsive'
 import Tile from '../components/Tile'
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowUp, MdPlayArrow, MdPause, MdFileDownload } from 'react-icons/md'
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowUp, MdPlayArrow, MdPause } from 'react-icons/md'
 import HorizontalNav from '../components/HorizontalNav'
 import RoundButton from '../components/RoundButton'
 import ZoopUpWrapper from '../components/ZoopUpWrapper'
-import { lighten } from 'polished'
 import ImageGallery from '../components/ImageGallery'
+import PlayerWrapper from '../components/PlayerWrapper';
 
-const PlayerWrapper = styled.div`
-  position: fixed;
-  bottom: ${props => props.show ? "0px" : props.theme.headerHeightNeg };
-  z-index: 11;
-  overflow: visible;
-  height: ${props => props.theme.headerHeight};
-  margin-top: ${props => props.theme.headerHeightNeg};
-  opacity: 1;
-  background-color: ${props => props.theme.primaryColor};
-  width: 100%;
-  transition: bottom 150ms ease-in-out;
-  .handle {
-    position: absolute;
-    text-align: center;
-    width: 100%;
-    bottom:  ${props => props.theme.headerHeight};
-    svg {
-      font-size: 2em;
-      right: 12px;
-      bottom: 2px;
-      position: relative;
-    }
-    button {
-      border: none;
-      width: 40px;
-      height: 30px;
-      background-color: ${props => props.theme.foregroundColor};
-      border-top-left-radius: 60px;
-      border-top-right-radius: 60px;
-      &:hover {
-        background-color: ${props => lighten(0.2, props.theme.foregroundColor)};
-      }
-    }
-  }
-`
 
 const NextPrevWrapper = styled.div`
   color: ${props => props.theme.textColor};

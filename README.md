@@ -14,6 +14,11 @@ Beware that building from scratch (ie. from no public folder) takes a veeery lon
 
 It still shouldn't take that long (previously my custom Jekyll solution was much quicker) so I might look into that.
 
+## Process audio
+
+1. Put audio into ./audio in a subfolder for 
+2. Run docker-compose up
+
 ## What have we got here 
 
 ### Components

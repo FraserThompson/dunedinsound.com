@@ -4,6 +4,9 @@ import styled from '@emotion/styled'
 import Layout from '../components/Layout'
 import World from '../components/World'
 import YouTubeResponsive from '../components/YouTubeResponsive'
+import PlayerWrapper from '../components/PlayerWrapper';
+import Player from '../components/Player';
+import { MdKeyboardArrowUp } from 'react-icons/md';
 
 const Title = styled.div`
   position: absolute;
@@ -82,8 +85,30 @@ const Metadata = styled.div`
 `
 
 class VaultSessionTemplate extends React.Component {
-  state = {
-    lights: "off"
+
+  constructor(props) {
+    super(props)
+
+    const audio = this.props.data.audio.edges.reduce((obj, item) => {
+      const name = item.node.name.replace(".mp3", "") // because old audio file JSON has mp3 in the name
+      if (!obj[name]) obj[name] = {};
+      obj[name][item.node.ext] = item.node;
+      return obj;
+    }, {})
+
+    this.audio = [
+      {
+        title: 'Koizilla',
+        audio: Object.values(audio)
+      }
+   ]
+
+   console.log(this.audio)
+
+    this.state = {
+      lights: "off",
+      playerOpen: false
+    }
   }
 
   lightsOn = () => {
@@ -130,6 +155,10 @@ class VaultSessionTemplate extends React.Component {
             <Link title="Back to all sessions" onMouseOver={this.lightsOn} onMouseOut={this.lightsOff} to="/vaultsessions"><img style={{filter: "invert(80%)"}} src={this.state.lights == "off" ? data.logoMono.publicURL : data.logo.publicURL}/></Link>
           </Logo>
         </World>
+        <PlayerWrapper show={this.state.playerOpen}>
+            <div className="handle"><button title="Audio Player" onClick={() => this.setState({playerOpen: !this.state.playerOpen})}><MdKeyboardArrowUp/></button></div>
+            <Player artistMedia={this.audio}/>
+          </PlayerWrapper>
       </Layout>
     )
   }
@@ -147,6 +176,15 @@ export const pageQuery = graphql`
     }
     logoMono: file(name: { eq: "vslogo_mono" }) {
       publicURL
+    }
+    audio: allFile( filter: {extension: {in: ["mp3", "json"]}, fields: { parentDir: {eq: $parentDir}, type: { eq: "vaultsessions"}}}) {
+      edges {
+        node {
+          name
+          publicURL
+          ext
+        }
+      }
     }
     artist: allMarkdownRemark(filter: { fields: { machine_name: { eq: $parentDir }, type: { eq: "artists" } } } ) {
       edges {
