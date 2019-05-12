@@ -1,8 +1,6 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import styled from '@emotion/styled'
-import Img from 'gatsby-image'
-import Lightbox from 'react-image-lightbox'
 import Layout from '../components/Layout'
 import { toMachineName, graphqlGroupToObject, calculateScrollHeaderOffset, gridToSizes } from  '../utils/helper'
 import GridContainer from '../components/GridContainer'
@@ -16,9 +14,8 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowUp, MdPlayArr
 import HorizontalNav from '../components/HorizontalNav'
 import RoundButton from '../components/RoundButton'
 import ZoopUpWrapper from '../components/ZoopUpWrapper'
-import FlexGridContainer from '../components/FlexGridContainer'
 import { lighten } from 'polished'
-import { parse } from 'srcset'
+import ImageGallery from '../components/ImageGallery'
 
 const PlayerWrapper = styled.div`
   position: fixed;
@@ -109,17 +106,6 @@ const AudioSeek = styled.progress`
   &::-moz-progress-bar {
     background-color: ${props => props.theme.foregroundColor};
   }
-`
-
-const LightBoxToolbarButton = styled.a`
-  color: #ccc;
-  width: 40px;
-  height: 35px;
-  cursor: pointer;
-  border: none;
-  position: relative;
-  padding-right: 10px;
-  top: 5px;
 `
 
 class GigTemplate extends React.Component {
@@ -218,9 +204,7 @@ class GigTemplate extends React.Component {
 
     this.state = {
       scrolled: false,
-      lightboxOpen: false,
       playerOpen: false,
-      selectedImage: undefined,
       playing: false,
       selectedAudio: null
     }
@@ -248,58 +232,6 @@ class GigTemplate extends React.Component {
     e.preventDefault()
     e.stopPropagation()
     document.getElementById(anchor).scrollIntoView({behavior: "smooth"})
-  }
-
-  openLightbox = (artistIndex, imageIndex, event) => {
-    event.preventDefault()
-    this.gotoLightboxImage({ artistIndex, imageIndex })
-  }
-
-  gotoLightboxImage = ({ artistIndex, imageIndex }) => {
-    this.setState({ lightboxOpen: true, selectedImage: { artistIndex, imageIndex } })
-  }
-
-  getNextImage = () => {
-    const currentArtistIndex = this.state.selectedImage.artistIndex
-    const currentImageIndex = this.state.selectedImage.imageIndex
-
-    if (currentImageIndex == this.artistMedia[currentArtistIndex].images.length - 1) {
-      if (currentArtistIndex < this.artistMedia.length - 1) {
-        return { artistIndex: currentArtistIndex + 1, imageIndex: 0 }
-      }
-    } else {
-      return { artistIndex: currentArtistIndex, imageIndex: currentImageIndex + 1 }
-    }
-    return { artistIndex: false, imageIndex: false }
-  }
-
-  getPrevImage = () => {
-    const currentArtistIndex = this.state.selectedImage.artistIndex
-    const currentImageIndex = this.state.selectedImage.imageIndex
-
-    if (currentImageIndex == 0) {
-      if (currentArtistIndex > 0) {
-        const newArtistIndex = currentArtistIndex - 1
-        return { artistIndex: newArtistIndex, imageIndex: this.artistMedia[newArtistIndex].images.length }
-      }
-    } else {
-      return { artistIndex: currentArtistIndex, imageIndex: currentImageIndex - 1 }
-    }
-    return { artistIndex: false, imageIndex: false }
-  }
-
-  getImageSrc = ({ artistIndex, imageIndex }, size) => {
-    if (artistIndex !== false && imageIndex !== false && this.artistMedia[artistIndex].images[imageIndex]) {
-      switch(size) {
-        default:
-          const parsed_srcset = parse(this.artistMedia[artistIndex].images[imageIndex].node.childImageSharp.fluid.srcSet)
-          return parsed_srcset.find(image => image.width == 1200).url
-        case "full":
-          return this.artistMedia[artistIndex].images[imageIndex].node.publicURL
-        case "thumbnail":
-          return this.artistMedia[artistIndex].images[imageIndex].node.childImageSharp.fluid.src;
-      }
-    }
   }
 
   onYouTubeReady = (event) => {
@@ -356,20 +288,12 @@ class GigTemplate extends React.Component {
         </Banner>
         {this.artistMedia.map((artist, artistIndex) => {
 
-            const imageGridSize = {
+            const gridSize = {
               xs: "12",
               sm: "4",
               md: "3",
               lg: ( artist.images &&  artist.images.length <= 6) ? "4" : ( artist.images &&  artist.images.length <= 16) ? "3" : "2"
             }
-
-            const imageElements = artist.images && artist.images.map(({node}, artistImageIndex) => {
-              return (
-                <a style={{cursor: "pointer", display: "block", width: "100%", height: "100%"}} key={artistImageIndex} onClick={e => this.openLightbox(artistIndex, artistImageIndex, e)}>
-                  <Img fluid={{...node.childImageSharp.fluid, sizes: gridToSizes(imageGridSize)}} />
-                </a>
-              )
-            })
 
             const vidElements = artist.vid && artist.vid.map((video, vidIndex) => {
               return <YouTubeResponsive videoId={video.link} onReady={this.onYouTubeReady} key={video.link} odd={(artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1) ? true : false}/>
@@ -397,9 +321,15 @@ class GigTemplate extends React.Component {
                 <GridContainer xs="12" sm="6" md="6" lg="6">
                   {vidElements}
                 </GridContainer>
-                <FlexGridContainer {...imageGridSize} maxWidth="600px">
-                  {imageElements}
-                </FlexGridContainer>
+                <ImageGallery
+                  gridSize={gridSize}
+                  images={artist.images}
+                  title={this.post.frontmatter.title}
+                  imageCaption={<>
+                    {artist.title}
+                    {artist.details && <a href={artist.details.fields.slug} target="_blank" title="Go to artist page"> More media from this artist</a>}
+                  </>}
+                />
               </div>
             )
           })
@@ -415,33 +345,6 @@ class GigTemplate extends React.Component {
               onFileChange={(index) => this.setState({selectedAudio: index, playerOpen: true})}
             />
           </PlayerWrapper>
-        }
-        {this.state.lightboxOpen &&
-          <Lightbox
-            mainSrc={this.getImageSrc({ artistIndex: this.state.selectedImage.artistIndex, imageIndex: this.state.selectedImage.imageIndex })}
-            mainSrcThumbnail={this.getImageSrc({ artistIndex: this.state.selectedImage.artistIndex, imageIndex: this.state.selectedImage.imageIndex }, "thumbnail")}
-            nextSrc={this.getImageSrc(this.getNextImage())}
-            nextSrcThumbnail={this.getImageSrc(this.getNextImage(), "thumbnail")}
-            prevSrc={this.getImageSrc(this.getPrevImage())}
-            prevSrcThumbnail={this.getImageSrc(this.getPrevImage(), "thumbnail")}
-            onMovePrevRequest={() => this.gotoLightboxImage(this.getPrevImage())}
-            onMoveNextRequest={() => this.gotoLightboxImage(this.getNextImage())}
-            toolbarButtons={
-              [
-                <LightBoxToolbarButton title="Download" target="_blank" href={this.getImageSrc({ artistIndex: this.state.selectedImage.artistIndex, imageIndex: this.state.selectedImage.imageIndex }, "full")}>
-                  <MdFileDownload/>
-                </LightBoxToolbarButton>
-              ]
-            }
-            imageTitle={this.post.frontmatter.title}
-            imageCaption={
-              <>
-                {this.artistMedia[this.state.selectedImage.artistIndex].title}
-                {this.artistMedia[this.state.selectedImage.artistIndex].details && <a href={this.artistMedia[this.state.selectedImage.artistIndex].details.fields.slug} target="_blank" title="Go to artist page"> More media from this artist</a>}
-              </>
-            }
-            onCloseRequest={() => this.setState({ lightboxOpen: false })}
-          />
         }
       </Layout>
     )

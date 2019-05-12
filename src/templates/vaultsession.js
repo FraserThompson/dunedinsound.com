@@ -108,11 +108,12 @@ class VaultSessionTemplate extends React.Component {
             <h1>{post.frontmatter.title}</h1>
           </Title>
           <Tracklist>
-          {
-            post.frontmatter.videos.map(video =>
-              <li key={video.link}>{video.title} <a target="_blank" href={`https://youtube.com/watch?v=${video.link}`}>(Video)</a></li>
-            )
-          }
+            <h2>Tracklist</h2>
+            {
+              post.frontmatter.videos.map(video =>
+                <li key={video.link}>{video.title} <a target="_blank" href={`https://youtube.com/watch?v=${video.link}`}>(Video)</a></li>
+              )
+            }
           </Tracklist>
           <Metadata>
             <h2>More from this artist</h2>

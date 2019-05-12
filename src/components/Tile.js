@@ -14,7 +14,6 @@
 
 
 import React from 'react'
-import { Link } from 'gatsby'
 import styled from '@emotion/styled'
 import BackgroundImage from './BackgroundImage'
 import Content from './Content'
@@ -96,7 +95,7 @@ class Tile extends React.Component {
 
     return (
       <Container {...this.props} className="tile">
-        <Link to={this.props.href} style={{display: "block", width: "100%", height: "100%"}}>
+        <a href={this.props.href} style={{display: "block", width: "100%", height: "100%"}}>
           {this.props.label && <Label><small>{this.props.label}</small></Label>}
           {this.props.image && <BackgroundImage sizes={this.props.sizes} image={this.props.image}/>}
           <TitleWrapper shadowBottom={this.props.title || this.props.subtitle}>
@@ -106,7 +105,7 @@ class Tile extends React.Component {
             </Content>
             {this.props.children}
           </TitleWrapper>
-        </Link>
+        </a>
       </Container>
     )
   }

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Link } from "gatsby";
-import Menu from './Menu';
+import { Link } from "gatsby"
+import Menu from './Menu'
 
 class SiteNav extends React.PureComponent {
 
@@ -16,7 +16,7 @@ class SiteNav extends React.PureComponent {
         <Link getProps={isPartiallyActive} to="/artists/">Artists</Link>
         <Link getProps={isPartiallyActive} to="/venues/">Venues</Link>
         <Link getProps={isPartiallyActive} to="/blog/">Blog</Link>
-        <Link className="rainbowBackground" getProps={isPartiallyActive} to="/vaultsessions/" style={{fontSize: "0.5em", maxWidth: "60px", lineHeight: "1", height: "100%", textAlign: "center", paddingTop: "18px"}}><span style={{marginTop: "25px"}}>VAULT<br/>SESSIONS</span></Link>
+        <Link className="rainbowBackground vaultSessionsHeaderLink" getProps={isPartiallyActive} to="/vaultsessions/"><span>VAULT<br/>SESSIONS</span></Link>
       </Menu>
     )
   }

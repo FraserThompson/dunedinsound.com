@@ -20,6 +20,18 @@ const Menu = styled.div`
   overflow-y: hidden;
   scroll-behavior: smooth;
 
+  .vaultSessionsHeaderLink {
+    font-size: 0.5em;
+    max-width: 60px;
+    line-height: 1;
+    height: 100%;
+    text-align: center;
+    padding-top: 0px;
+    @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+      padding-top: 18px;
+    }
+  }
+
   a, span {
     padding-left: ${rhythm(0.5)};
     padding-right: ${rhythm(0.5)};
