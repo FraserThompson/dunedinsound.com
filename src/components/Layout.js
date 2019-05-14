@@ -102,7 +102,7 @@ export const query = graphql`
   fragment TinyImage on File {
     childImageSharp {
       fluid(maxWidth: 200) {
-        ...GatsbyImageSharpFluid
+        ...GatsbyImageSharpFluid_withWebp
       }
     }
   }
@@ -110,15 +110,15 @@ export const query = graphql`
   fragment SmallImage on File {
     childImageSharp {
       fluid(maxWidth: 400) {
-        ...GatsbyImageSharpFluid
+        ...GatsbyImageSharpFluid_withWebp
       }
     }
   }
 
   fragment MediumImage on File {
     childImageSharp {
-      fluid(maxWidth: 800) {
-        ...GatsbyImageSharpFluid
+      fluid(maxWidth: 800, quality: 75) {
+        ...GatsbyImageSharpFluid_withWebp
       }
     }
   }
@@ -126,15 +126,7 @@ export const query = graphql`
   fragment LargeImage on File {
     childImageSharp {
       fluid(maxWidth: 1600) {
-        ...GatsbyImageSharpFluid
-      }
-    }
-  }
-
-  fragment FullImage on File {
-    childImageSharp {
-      fluid(maxWidth: 2400) {
-        ...GatsbyImageSharpFluid
+        ...GatsbyImageSharpFluid_withWebp
       }
     }
   }
@@ -164,7 +156,7 @@ export const query = graphql`
       title
       gallery
       cover {
-        ...FullImage
+        ...LargeImage
       }
       date(formatString: "MMMM DD, YYYY")
     }

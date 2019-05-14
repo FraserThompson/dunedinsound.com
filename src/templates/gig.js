@@ -339,7 +339,7 @@ export const pageQuery = graphql`
           node {
             name
             publicURL
-            ...SmallImage
+            ...MediumImage
           }
         }
       }

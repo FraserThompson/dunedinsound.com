@@ -61,6 +61,14 @@ const SidebarNavWrapper = styled(Menu)`
     margin: 0;
   }
 
+  > li {
+    &:hover:not(.active-parent) {
+      > a {
+        background-color: ${props => lighten(0.1, props.theme.backgroundColor)};
+      }
+    }
+  }
+
   > ul {
     > li {
       border-left: 5px solid transparent;

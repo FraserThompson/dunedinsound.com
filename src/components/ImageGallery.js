@@ -65,11 +65,9 @@ class ImageGallery extends React.Component {
       switch(size) {
         default:
           const parsed_srcset = parse(this.props.images[imageIndex].node.childImageSharp.fluid.srcSet)
-          return parsed_srcset.find(image => image.width == 1200).url
+          return parsed_srcset.find(image => image.width == 1600).url
         case "full":
           return this.props.images[imageIndex].node.publicURL
-        case "thumbnail":
-          return this.props.images[imageIndex].node.childImageSharp.fluid.src;
       }
     }
   }
@@ -92,11 +90,8 @@ class ImageGallery extends React.Component {
         {this.state.lightboxOpen &&
           <Lightbox
             mainSrc={this.getImageSrc(this.state.selectedImage)}
-            mainSrcThumbnail={this.getImageSrc(this.state.selectedImage, "thumbnail")}
             nextSrc={this.getImageSrc(this.getNextImage())}
-            nextSrcThumbnail={this.getImageSrc(this.getNextImage(), "thumbnail")}
             prevSrc={this.getImageSrc(this.getPrevImage())}
-            prevSrcThumbnail={this.getImageSrc(this.getPrevImage(), "thumbnail")}
             onMovePrevRequest={() => this.gotoLightboxImage(this.getPrevImage())}
             onMoveNextRequest={() => this.gotoLightboxImage(this.getNextImage())}
             toolbarButtons={
