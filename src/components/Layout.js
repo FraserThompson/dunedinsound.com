@@ -64,6 +64,7 @@ class Layout extends React.PureComponent {
             <meta property="og:type" content="article" />
             <meta property="og:title" content={this.props.title} />
             <meta property="og:description" content={this.props.description} />
+            {this.props.date && <meta itemprop="datePublished" content={this.props.date}/>}
             {this.props.image && <meta property="og:image" content={this.props.image} />}
           </Helmet>
           <HeaderWrapper>
@@ -117,7 +118,7 @@ export const query = graphql`
 
   fragment MediumImage on File {
     childImageSharp {
-      fluid(maxWidth: 800, quality: 75) {
+      fluid(maxWidth: 800, quality: 80) {
         ...GatsbyImageSharpFluid_withWebp
       }
     }
@@ -125,7 +126,7 @@ export const query = graphql`
 
   fragment LargeImage on File {
     childImageSharp {
-      fluid(maxWidth: 1600) {
+      fluid(maxWidth: 1600, quality: 80) {
         ...GatsbyImageSharpFluid_withWebp
       }
     }

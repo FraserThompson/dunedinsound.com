@@ -143,7 +143,7 @@ class Gigs extends React.Component {
                 )}
               </ul>
             </SidebarNav>
-            <Search placeholder="Search gigs" toggleSidebar={this.toggleSidebar} filter={this.filter}/>
+            <Search placeholder="Search gigs by title, artist, or venue..." toggleSidebar={this.toggleSidebar} filter={this.filter}/>
           </>
         }
       >

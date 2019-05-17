@@ -226,6 +226,7 @@ class GigTemplate extends React.Component {
         description={this.gigDescription}
         image={this.cover && this.cover.src}
         title={`${this.post.frontmatter.title} | ${siteTitle}`}
+        date={this.post.frontmatter.date}
         hideBrand={this.state.scrolled}
         hideNav={this.state.scrolled}
         headerContent={this.state.scrolled && <a onClick={(e) => this.scrollTo(e, "top")} href="#top" title="Scroll to top"><h1 className="big">{this.post.frontmatter.title}</h1></a>}

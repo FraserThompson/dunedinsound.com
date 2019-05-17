@@ -31,19 +31,19 @@ const graphqlGroupToObject = (queryResult, sortByName) => {
 }
 
 const postFilter = (needle, haystack) => {
+
+  const filterFunction = ({node}) => {
+    const titleResult = node.frontmatter.title.toLowerCase().includes(needle)
+    const artistResult = node.frontmatter.artists && node.frontmatter.artists.map(({name}) => name.toLowerCase()).join(" ").includes(needle)
+    const venueResult = node.frontmatter.venue && node.frontmatter.venue.replace(/_/g, " ").includes(needle);
+    return titleResult || artistResult || venueResult;
+  }
+
   if (!haystack[0].edges) {
-    return haystack.filter(({node}) => {
-      const titleResult = node.frontmatter.title.toLowerCase().includes(needle)
-      const artistResult = node.frontmatter.artists && node.frontmatter.artists.map(({name}) => name.toLowerCase()).join(" ").includes(needle)
-      return titleResult || artistResult
-    })
+    return haystack.filter(filterFunction)
   } else {
     return haystack.reduce((arr, {fieldValue, edges}) => {
-      const filteredEdges = edges.filter(({node}) => {
-        const titleResult = node.frontmatter.title.toLowerCase().includes(needle)
-        const artistResult = node.frontmatter.artists && node.frontmatter.artists.map(({name}) => name.toLowerCase()).join(" ").includes(needle)
-        return titleResult || artistResult
-      })
+      const filteredEdges = edges.filter(filterFunction);
       const newGroup = {fieldValue, edges: filteredEdges}
       if (filteredEdges.length !== 0) arr.push(newGroup)
       return arr
