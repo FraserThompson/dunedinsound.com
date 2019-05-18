@@ -51,11 +51,6 @@ const postFilter = (needle, haystack) => {
   }
 }
 
-const shuffleFilter = (needle, shuffleInstance) =>
-  shuffleInstance.filter((element) => {
-    return element.getAttribute('title').toLowerCase().indexOf(needle) !== -1
-  });
-
 const dateStrToDateObj = (date) => {
   const splitDate = date.split("-")
   return new Date("20" + splitDate[2], splitDate[1] - 1, splitDate[0])
@@ -78,4 +73,4 @@ const sortByMonth = (a, b) => {
   return allMonths.indexOf(a) > allMonths.indexOf(b)
 }
 
-export { toMachineName, nodeTypeToHuman, sortByMonth, postFilter, shuffleFilter, graphqlGroupToObject, calculateScrollHeaderOffset, dateStrToDateObj, gridToSizes }
+export { toMachineName, nodeTypeToHuman, sortByMonth, postFilter, graphqlGroupToObject, calculateScrollHeaderOffset, dateStrToDateObj, gridToSizes }

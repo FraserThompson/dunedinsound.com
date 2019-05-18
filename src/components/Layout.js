@@ -61,9 +61,9 @@ class Layout extends React.PureComponent {
             <meta name="description" content={this.props.description} />
             <meta property="og:site_name" content="dunedinsound" />
             <meta property="og:url" content={location.href} />
-            <meta property="og:type" content="article" />
             <meta property="og:title" content={this.props.title} />
             <meta property="og:description" content={this.props.description} />
+            {this.props.type && <meta property="og:type" content={this.props.type} />}
             {this.props.date && <meta itemprop="datePublished" content={this.props.date}/>}
             {this.props.image && <meta property="og:image" content={this.props.image} />}
           </Helmet>
@@ -102,7 +102,7 @@ export const query = graphql`
 
   fragment TinyImage on File {
     childImageSharp {
-      fluid(maxWidth: 200) {
+      fluid(maxWidth: 200, srcSetBreakpoints: [ 50, 200, 400 ]) {
         ...GatsbyImageSharpFluid_withWebp
       }
     }
@@ -110,7 +110,7 @@ export const query = graphql`
 
   fragment SmallImage on File {
     childImageSharp {
-      fluid(maxWidth: 400) {
+      fluid(maxWidth: 400, srcSetBreakpoints: [ 100, 400, 800 ]) {
         ...GatsbyImageSharpFluid_withWebp
       }
     }
@@ -118,7 +118,7 @@ export const query = graphql`
 
   fragment MediumImage on File {
     childImageSharp {
-      fluid(maxWidth: 800, quality: 80) {
+      fluid(maxWidth: 800, quality: 80, srcSetBreakpoints: [ 200, 800, 1600 ]) {
         ...GatsbyImageSharpFluid_withWebp
       }
     }
@@ -126,7 +126,7 @@ export const query = graphql`
 
   fragment LargeImage on File {
     childImageSharp {
-      fluid(maxWidth: 1600, quality: 80) {
+      fluid(maxWidth: 1600, quality: 80, srcSetBreakpoints: [ 400, 1600, 3200 ]) {
         ...GatsbyImageSharpFluid_withWebp
       }
     }
@@ -172,6 +172,7 @@ export const query = graphql`
       description
       artists {
         name
+        tracklist {time, title}
         vid {
           link,
           title

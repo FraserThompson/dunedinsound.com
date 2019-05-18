@@ -23,6 +23,41 @@ const PlayerWrapper = styled.div`
   align-items: center;
   justify-content: center;
 
+  region.wavesurfer-region {
+    cursor: pointer !important;
+    width: 2px !important;
+    z-index: 4 !important;
+    background-color: rgba(255,255,255,0.5) !important;
+  }
+
+  region.wavesurfer-region:hover {
+    background-color: rgba(255,255,255,1) !important;
+    z-index: 5 !important;
+  }
+
+  region.wavesurfer-region:hover::after {
+    background-color: rgba(255,255,255,1);
+    z-index: 5 !important;
+    max-width: 1000px;
+  }
+
+  region.wavesurfer-region::after {
+    content: attr(data-id);
+    z-index: 4 !important;
+    -webkit-transition: background-color 100ms ease-in-out;
+    -moz-transition: background-color 100ms ease-in-out;
+    transition: background-color 100ms ease-in-out;
+    position: absolute;
+    bottom: 0;
+    color: black;
+    background-color: rgba(255,255,255,0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    line-height: 85%;
+  }
+
   #prev {
     display: none;
   }
@@ -89,9 +124,9 @@ export default class Player extends React.Component {
       currentFile: undefined,
       currentTime: undefined,
       duration: undefined,
-      progress: 0,
       selectedArtist: this.props.selectedArtist || 0,
-      queuePlay: false
+      queuePlay: false,
+      queueSeek: false
     }
 
   }
@@ -128,13 +163,9 @@ export default class Player extends React.Component {
       this.wavesurfer.on('play', this.onPlay)
       this.wavesurfer.on('pause', this.onPause)
       this.wavesurfer.on('audioprocess', this.updateTime)
-      this.wavesurfer.on('loading', this.loading)
 
       this.loadSelectedMedia()
     }
-  }
-
-  ready = () => {
   }
 
   loadSelectedMedia = () => {
@@ -157,25 +188,46 @@ export default class Player extends React.Component {
       fetch(jsonSrc)
         .then(response => response.json())
         .then(data => {
-            window.cached_json[jsonSrc] = data;
-            this.wavesurfer.load(src, window.cached_json[jsonSrc], "metadata");
+            window.cached_json[jsonSrc] = data
+            this.wavesurfer.load(src, window.cached_json[jsonSrc], "metadata")
         })
         .catch(err => {
-          console.log('Fetch Error :-S', err);
+          console.log('Fetch Error :-S', err)
         });
     } else {
-      this.wavesurfer.load(src, window.cached_json[jsonSrc], "metadata");
+      this.wavesurfer.load(src, window.cached_json[jsonSrc], "metadata")
     }
   }
 
   onReady = () => {
-    this.updateDuration()
-    this.updateTime()
-    this.setState({ready: true})
-    if (this.state.queuePlay) {
-      this.wavesurfer.playPause()
-      this.setState({queuePlay: false})
-    }
+    // sometimes its not ready so we have to do this horrible timeout thing
+    setTimeout(() => {
+      const currentTime = this.wavesurfer.getCurrentTime()
+      const duration = this.wavesurfer.getDuration()
+      this.setState({duration, currentTime, ready: true})
+
+      this.wavesurfer.clearRegions()
+
+      if (this.state.queuePlay) {
+        this.wavesurfer.playPause()
+        this.setState({queuePlay: false})
+      }
+
+      if (this.state.queueSeek) {
+        this.seekToTime(this.state.queueSeek, this.state.selectedArtist, true)
+        this.setState({queueSeek: false})
+      }
+
+      if (this.props.artistMedia[this.state.selectedArtist].tracklist) {
+        this.props.artistMedia[this.state.selectedArtist].tracklist.forEach((region) => {
+          region.drag = false
+          region.resize = false
+          region.start = this.timeToSeconds(region.time)
+          region.id = region.title
+          this.wavesurfer.addRegion(region)
+        });
+      }
+    }, 250)
   }
 
   onPlay = () => {
@@ -193,19 +245,29 @@ export default class Player extends React.Component {
   }
 
   progressFromTime = (time, duration) => {
-    const timeSeconds = this.timeToSeconds(time);
-    return timeSeconds/duration;
+    const timeSeconds = this.timeToSeconds(time)
+    return timeSeconds/duration
   }
 
   timeToSeconds = (str) => {
-    const p = str.split(':'), s = 0, m = 1;
+    const a = str.split(':')
+    return (+a[0]) * 60 + (+a[1])
+  }
 
-    while (p.length > 0) {
-        s += m * parseInt(p.pop(), 10);
-        m *= 60;
+  seekToTime = (time, artistIndex, play) => {
+
+    // If we haven't loaded it we need to load THEN seek
+    if (artistIndex !== this.state.selectedArtist) {
+      this.selectArtist(artistIndex, play, time)
+      return
     }
 
-    return s;
+    const timeSeconds = this.timeToSeconds(time)
+    const totalTimeSeconds = this.wavesurfer.getDuration()
+    const ratio = timeSeconds/totalTimeSeconds
+
+    this.wavesurfer.seekTo(ratio)
+    if (play) this.wavesurfer.play()
   }
 
   formatTime = (time) => {
@@ -225,7 +287,7 @@ export default class Player extends React.Component {
   }
 
   playPause = () => {
-    this.wavesurfer.playPause();
+    this.wavesurfer.playPause()
   }
 
   previous = () => {
@@ -240,17 +302,17 @@ export default class Player extends React.Component {
     this.props.onFileChange && this.props.onFileChange(selectedArtist)
   }
 
-  selectArtist = (selectedArtist, play) => {
+  selectArtist = (selectedArtist, play, seek) => {
     // If we're trying to select an artist we already have loaded and we want to play then just do it
-    if (play && selectedArtist === this.state.selectedArtist) {
-      this.playPause();
-      return;
+    if (selectedArtist === this.state.selectedArtist) {
+      if (play) this.playPause()
+      return
     }
 
     this.wavesurfer.stop()
     this.wavesurfer.empty()
     this.props.onFileChange && this.props.onFileChange(selectedArtist)
-    this.setState({selectedArtist, queuePlay: play})
+    this.setState({selectedArtist, queuePlay: play, queueSeek: seek})
   }
 
   render = () => {
@@ -267,7 +329,7 @@ export default class Player extends React.Component {
         </WaveWrapper>
         {!this.state.ready && <LoadingProgress>{LoadingSpinner}</LoadingProgress>}
         <TitleWrapper className="title-wrapper"><span>{this.props.artistMedia[this.state.selectedArtist].title}</span></TitleWrapper>
-        <PlayerMenu width="100%" selected={this.state.selectedArtist} callback={this.selectArtist} list={this.props.artistMedia}/>
+        <PlayerMenu width="100%" selected={this.state.selectedArtist} selectCallback={this.selectArtist} seekCallback={this.seekToTime} list={this.props.artistMedia}/>
       </PlayerWrapper>
     )
   }

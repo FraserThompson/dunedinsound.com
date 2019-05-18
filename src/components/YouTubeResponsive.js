@@ -103,6 +103,7 @@ class YouTubeResponsive extends React.Component {
   }
 
   onReady = (event) => {
+    event.target.setPlaybackQuality("hd720")
     // this doesn't seem to work
     event.target.playVideo()
   }

@@ -6,7 +6,22 @@ import Search from '../components/Search'
 import FlexGridContainer from '../components/FlexGridContainer'
 import Shuffle from 'shufflejs'
 import { theme } from '../utils/theme'
-import { shuffleFilter, toMachineName, gridToSizes } from '../utils/helper'
+import { toMachineName, gridToSizes } from '../utils/helper'
+import Tabs from '../components/Tabs'
+import styled from '@emotion/styled'
+
+const Pills = styled(Tabs)`
+  position:absolute;
+  width: auto;
+  z-index: 4;
+  top: auto !important;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0,0,0,.25);
+  button {
+    border: none;
+    border-radius: 10px;
+  }
+`
 
 class Artists extends React.Component {
 
@@ -15,7 +30,7 @@ class Artists extends React.Component {
 
     this.state = {
       filteredPosts: this.props.data.allArtists.edges,
-      sidebarOpen: true
+      sortBy: "title"
     }
 
     this.gigCountsByArtist = this.props.data.gigsByArtist['group'].reduce((obj, item) => {
@@ -31,7 +46,7 @@ class Artists extends React.Component {
       return obj
     }, {})
 
-    this.element = React.createRef();
+    this.element = React.createRef()
   }
 
   componentDidMount() {
@@ -41,29 +56,42 @@ class Artists extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    this.shuffle.resetItems();
-  }
-
-  componentWillUnmount() {
-    this.shuffle.destroy();
-    this.shuffle = null;
-  }
-
-  filter = (searchInput) => {
-    if (!searchInput || searchInput.length == 0) {
-      this.shuffle.filter('all')
-    } else {
-      shuffleFilter(searchInput, this.shuffle)
+  componentDidUpdate(prevProps, prevState) {
+    this.shuffle.resetItems()
+    if (this.state.sortBy !== prevState.sortBy) {
+      if (this.state.sortBy === "title") {
+        this.sortByTitle()
+      } else {
+        this.sortByNumberOfGigs()
+      }
     }
   }
 
-  toggleSidebar = () => {
-    this.setState({sidebarOpen: !this.state.sidebarOpen})
+  componentWillUnmount() {
+    this.shuffle.destroy()
+    this.shuffle = null
+  }
+
+  search = (searchInput) => {
+    if (!searchInput || searchInput.length == 0) {
+      this.shuffle.filter('all')
+    } else {
+      this.shuffle.filter((element) => {
+        return element.getAttribute('title').toLowerCase().indexOf(searchInput) !== -1
+      });
+    }
+  }
+
+  sortByNumberOfGigs = () => {
+    this.shuffle.sort({reverse: true, by: (element) => this.gigCountsByArtist[element.getAttribute("data-machinename")]})
+  }
+
+  sortByTitle = () => {
+    this.shuffle.sort({by: (element) => element.getAttribute('title').toLowerCase()})
   }
 
   render() {
-    const { data } = this.props;
+    const { data } = this.props
     const siteTitle = data.site.siteMetadata.title
     const siteDescription = data.site.siteMetadata.description
     const grid = {
@@ -79,7 +107,14 @@ class Artists extends React.Component {
         title={`Artists | ${siteTitle}`}
         hideBrandOnMobile={true}
         hideFooter={true}
-        headerContent={<Search placeholder="Search artists" toggleSidebar={this.toggleSidebar} filter={this.filter} />}>
+        headerContent={<Search placeholder="Search artists" toggleSidebar={this.toggleSidebar} filter={this.search}/>}
+      >
+        <Pills>
+          <small>
+            <button className={this.state.sortBy === "title" ? "active" : ""} onClick={() => this.setState({sortBy: "title"})}>Title</button>
+            <button className={this.state.sortBy === "numberOfGigs" ? "active" : ""} onClick={() => this.setState({sortBy: "numberOfGigs"})}>Number of Gigs</button>
+          </small>
+        </Pills>
         <FlexGridContainer fixedWidth ref={this.element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
           {this.state.filteredPosts.map(({ node }) => {
             const title = (node.frontmatter.title || node.fields.slug) + (node.frontmatter.origin ? ` (${node.frontmatter.origin})` : "")
@@ -89,6 +124,7 @@ class Artists extends React.Component {
               <Tile
                 key={node.fields.slug}
                 title={title}
+                data-machinename={node.fields.machine_name}
                 subtitle={`${this.gigCountsByArtist[node.fields.machine_name]} gigs`}
                 image={coverImage}
                 label={node.frontmatter.date}

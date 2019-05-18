@@ -84,15 +84,17 @@ class Venues extends React.Component {
         hideFooter={true}
         headerContent={<>
             <SidebarNav ref={this.sidebarRef} width="300px" left>
-              {
-                this.state.filteredPosts.map(({ node }, index) =>
-                  <li key={index} ref={this.setRef} className={index === this.state.selected ? "active" : ""}>
-                    <a onClick={() => this.select(index, [node.frontmatter.lat, node.frontmatter.lng])}>
-                      {node.frontmatter.title}
-                    </a>
-                  </li>
-                )
-              }
+              <ul>
+                {
+                  this.state.filteredPosts.map(({ node }, index) =>
+                    <li key={index} ref={this.setRef} className={index === this.state.selected ? "active" : ""}>
+                      <a onClick={() => this.select(index, [node.frontmatter.lat, node.frontmatter.lng])}>
+                        {node.frontmatter.title}
+                      </a>
+                    </li>
+                  )
+                }
+              </ul>
             </SidebarNav>
             <Search placeholder="Search venues" toggleSidebar={this.toggleSidebar} filter={this.filter}/>
           </>

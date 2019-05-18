@@ -31,6 +31,8 @@ class Gigs extends React.Component {
     this.siteDescription = data.site.siteMetadata.description
     this.allPosts = data.gigsByDate.group.slice().reverse() //because for some reason it returns it ascending order
 
+    this.sidebarRef = React.createRef()
+
     this.state = {
       searchQuery: "",
       filteredPosts: this.allPosts
@@ -128,7 +130,7 @@ class Gigs extends React.Component {
         hideBrandOnMobile={true}
         hideFooter={true}
         headerContent={<>
-            <SidebarNav left>
+            <SidebarNav sidebarRef={this.sidebarRef} left>
               <ul id="sidebarNav">
                 {sortedPosts.menuItems.map(({year, months}) =>
                   <li key={year}>

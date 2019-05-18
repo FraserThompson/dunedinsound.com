@@ -19,13 +19,16 @@ const PlayerWrapper = styled.div`
     bottom:  ${props => props.theme.headerHeight};
     svg {
       font-size: 2em;
-      right: 12px;
-      bottom: 2px;
       position: relative;
     }
+    small {
+      position: relative;
+      bottom: 12px;
+    }
     button {
+      box-shadow: 0 -6px 12px rgba(0,0,0,.175);
       border: none;
-      width: 40px;
+      padding-right: 5px;
       height: 30px;
       background-color: ${props => props.theme.foregroundColor};
       border-top-left-radius: 60px;

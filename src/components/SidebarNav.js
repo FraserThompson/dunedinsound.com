@@ -20,7 +20,6 @@ const SidebarNavWrapper = styled(Menu)`
   background-color: ${props => props.backgroundColor || props.theme.primaryColor};
   height: ${props => `calc(100vh - ${props.theme.headerHeightWithMobile })`};
   overflow-x: hidden;
-  overflow-y: auto;
   position: fixed;
   max-width: ${props => props.width || "250px"};
   top: ${props => props.theme.headerHeightWithMobile};
@@ -70,6 +69,8 @@ const SidebarNavWrapper = styled(Menu)`
   }
 
   > ul {
+    overflow-y: auto;
+    height: 100vh;
     > li {
       border-left: 5px solid transparent;
       &:hover:not(.active-parent) {
@@ -108,7 +109,7 @@ class SidebarNav extends React.Component {
   render() {
     return <>
       <MenuButton hideMobile={true} onClick={() => this.setState({open: !this.state.open})}><MdMenu/></MenuButton>
-      <SidebarNavWrapper left={this.props.left} right={this.props.right} width={this.props.width} backgroundColor={this.props.backgroundColor} open={this.state.open}>{this.props.children}</SidebarNavWrapper>
+      <SidebarNavWrapper ref={this.props.sidebarRef} left={this.props.left} right={this.props.right} width={this.props.width} backgroundColor={this.props.backgroundColor} open={this.state.open}>{this.props.children}</SidebarNavWrapper>
     </>
   }
 }

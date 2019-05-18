@@ -22,41 +22,16 @@
 import React from 'react'
 import Layout from '../../components/Layout'
 import Banner from '../../components/Banner'
-import styled from '@emotion/styled'
 import Tile from '../../components/Tile'
 import Divider from '../../components/Divider'
 import HorizontalNav from '../../components/HorizontalNav'
 import { theme } from '../../utils/theme'
 import { calculateScrollHeaderOffset } from '../../utils/helper'
 import FlexGridContainer from '../../components/FlexGridContainer'
-import { rhythm } from '../../utils/typography';
-import { invert, stripUnit } from 'polished';
 import ZoopUpWrapper from '../../components/ZoopUpWrapper';
 import { MdKeyboardArrowUp } from 'react-icons/md';
 import GigTile from '../../components/GigTile';
-
-const Tabs = styled(Divider)`
-  padding: 0;
-  height: ${rhythm(1.5)};
-  > button {
-    padding: 0;
-    border-radius: 4px 4px 0 0;
-    color: ${props => invert(props.theme.textColor)};
-    border-left: 1px solid ${props => props.theme.contrastColor};
-    border-right: 1px solid ${props => props.theme.contrastColor};
-    border-bottom: 1px solid ${props => props.theme.contrastColor};
-    border-bottom-color: transparent;
-    border-top: none;
-    height: 100%;
-    line-height: ${rhythm(1.5)};
-    padding-left: ${rhythm(0.5)};
-    padding-right: ${rhythm(0.5)};
-    &:active, &.active {
-      color: white;
-      outline: 0;
-    }
-  }
-`
+import Tabs from '../../components/Tabs';
 
 class ContentByEntityTemplate extends React.Component {
 

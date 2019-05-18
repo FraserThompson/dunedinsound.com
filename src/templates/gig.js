@@ -15,8 +15,7 @@ import HorizontalNav from '../components/HorizontalNav'
 import RoundButton from '../components/RoundButton'
 import ZoopUpWrapper from '../components/ZoopUpWrapper'
 import ImageGallery from '../components/ImageGallery'
-import PlayerWrapper from '../components/PlayerWrapper';
-
+import PlayerWrapper from '../components/PlayerWrapper'
 
 const NextPrevWrapper = styled.div`
   color: ${props => props.theme.textColor};
@@ -177,6 +176,9 @@ class GigTemplate extends React.Component {
   }
 
   componentDidMount = () => {
+    if (typeof window !== `undefined` && window.location.hash) {
+      this.scrollTo(null, window.location.hash.substring(1));
+    }
     window.addEventListener('scroll', this.onScroll, {passive: true});
   }
 
@@ -194,13 +196,10 @@ class GigTemplate extends React.Component {
 
   // Scrolling to an achor. We do this because hash changes trigger re-renders.
   scrollTo = (e, anchor) => {
-    e.preventDefault()
-    e.stopPropagation()
-    document.getElementById(anchor).scrollIntoView({behavior: "smooth"})
-  }
-
-  onYouTubeReady = (event) => {
-    event.target.setPlaybackQuality("hd720")
+    e && e.preventDefault()
+    e && e.stopPropagation()
+    const element = document.getElementById(anchor)
+    element && element.scrollIntoView({behavior: "smooth"})
   }
 
   playPause = (index) => {
@@ -227,6 +226,7 @@ class GigTemplate extends React.Component {
         image={this.cover && this.cover.src}
         title={`${this.post.frontmatter.title} | ${siteTitle}`}
         date={this.post.frontmatter.date}
+        type="article"
         hideBrand={this.state.scrolled}
         hideNav={this.state.scrolled}
         headerContent={this.state.scrolled && <a onClick={(e) => this.scrollTo(e, "top")} href="#top" title="Scroll to top"><h1 className="big">{this.post.frontmatter.title}</h1></a>}
@@ -262,7 +262,7 @@ class GigTemplate extends React.Component {
             }
 
             const vidElements = artist.vid && artist.vid.map((video, vidIndex) => {
-              return <YouTubeResponsive videoId={video.link} onReady={this.onYouTubeReady} key={video.link} odd={(artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1) ? true : false}/>
+              return <YouTubeResponsive videoId={video.link}key={video.link} odd={(artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1) ? true : false}/>
             })
 
             const isPlaying = this.state.playing && this.state.selectedAudio == artistIndex
@@ -302,7 +302,7 @@ class GigTemplate extends React.Component {
         }
         {this.artistAudio.length > 0 &&
           <PlayerWrapper show={this.state.playerOpen}>
-            <div className="handle"><button title="Audio Player" onClick={() => this.setState({playerOpen: !this.state.playerOpen})}><MdKeyboardArrowUp/></button></div>
+            <div className="handle"><button title="Audio Player" onClick={() => this.setState({playerOpen: !this.state.playerOpen})}><small>AUDIO</small><MdKeyboardArrowUp/></button></div>
             <Player
               ref={this.player}
               artistMedia={this.artistAudio}

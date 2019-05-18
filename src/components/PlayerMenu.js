@@ -14,6 +14,8 @@ const DropdownMenu = styled(Menu)`
   bottom: 100%;
   right: 0!important;
   left: auto;
+  max-height: 80vh;
+  overflow-y: auto;
   visibility: ${props => props.open ? "1" : "0"};
   opacity: ${props => props.open ? "1" : "0"};
   transform: ${props => props.open ? "translateY(0)" : `translateY(${props.theme.headerHeight})`};
@@ -27,6 +29,13 @@ const DropdownMenu = styled(Menu)`
   }
   > li:hover:not(.active) {
     background-color: ${props => lighten(0.1, props.theme.backgroundColor)};
+  }
+  .tracklist {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    li {
+      ${scale(-0.5)};
+    }
   }
 `
 
@@ -43,16 +52,25 @@ class PlayerMenu extends React.Component {
   }
 
   select = (index) => {
-    this.props.callback && this.props.callback(index)
+    this.props.selectCallback && this.props.selectCallback(index)
     this.setState({open: false})
   }
 
   render = () => {
 
     const list = this.props.list.map((item, index) =>
-      <li className={this.props.selected == index ? "active" : ""} key={index} onClick={() => this.select(index)}>
-        <span id="title">{index + 1}. {item.title}</span><span className="listButton"><a title={"Download MP3: " + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank"><MdFileDownload/></a></span>
-      </li>
+      <div key={index}>
+        <li className={this.props.selected == index ? "active" : ""} onClick={() => this.select(index)}>
+          <span id="title">{index + 1}. {item.title}</span><span className="listButton"><a title={"Download MP3: " + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank"><MdFileDownload/></a></span>
+        </li>
+        {item.tracklist &&
+          <ul className="tracklist">
+            {item.tracklist.map((item) => {
+              return <li key={item.title} onClick={() => this.props.seekCallback(item.time, index, true)}>{item.title} ({item.time})</li>
+            })}
+          </ul>
+        }
+      </div>
     )
 
     return (
