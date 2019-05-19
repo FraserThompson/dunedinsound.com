@@ -251,7 +251,7 @@ export default class Player extends React.Component {
 
   timeToSeconds = (str) => {
     const a = str.split(':')
-    return (+a[0]) * 60 + (+a[1])
+    return a.length == 2 ? (+a[0]) * 60 + (+a[1]) : (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2])
   }
 
   seekToTime = (time, artistIndex, play) => {

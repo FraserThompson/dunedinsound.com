@@ -16,6 +16,7 @@ import RoundButton from '../components/RoundButton'
 import ZoopUpWrapper from '../components/ZoopUpWrapper'
 import ImageGallery from '../components/ImageGallery'
 import PlayerWrapper from '../components/PlayerWrapper'
+import PlayerContainer from '../components/PlayerContainer';
 
 const NextPrevWrapper = styled.div`
   color: ${props => props.theme.textColor};
@@ -301,16 +302,14 @@ class GigTemplate extends React.Component {
           })
         }
         {this.artistAudio.length > 0 &&
-          <PlayerWrapper show={this.state.playerOpen}>
-            <div className="handle"><button title="Audio Player" onClick={() => this.setState({playerOpen: !this.state.playerOpen})}><small>AUDIO</small><MdKeyboardArrowUp/></button></div>
-            <Player
-              ref={this.player}
-              artistMedia={this.artistAudio}
-              onPlay={() => this.setState({playing: true, playerOpen: true})}
-              onPause={() => this.setState({playing: false})}
-              onFileChange={(index) => this.setState({selectedAudio: index, playerOpen: true})}
-            />
-          </PlayerWrapper>
+          <PlayerContainer
+            playerRef={this.player}
+            show={this.state.playerOpen}
+            artistMedia={this.artistAudio}
+            onPlay={() => this.setState({playing: true, playerOpen: true})}
+            onPause={() => this.setState({playing: false})}
+            onFileChange={(index) => this.setState({selectedAudio: index, playerOpen: true})}
+          />
         }
       </Layout>
     )

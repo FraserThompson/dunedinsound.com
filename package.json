@@ -73,6 +73,7 @@
     "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js' 'src/**/*.md'",
     "develop": "gatsby develop",
+    "new": "node generate_gig.js",
     "start": "npm run develop",
     "build": "gatsby build",
     "deploy": "gatsby-plugin-s3 deploy -y",

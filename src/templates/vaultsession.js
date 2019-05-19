@@ -4,9 +4,7 @@ import styled from '@emotion/styled'
 import Layout from '../components/Layout'
 import World from '../components/World'
 import YouTubeResponsive from '../components/YouTubeResponsive'
-import PlayerWrapper from '../components/PlayerWrapper';
-import Player from '../components/Player';
-import { MdKeyboardArrowUp } from 'react-icons/md';
+import PlayerContainer from '../components/PlayerContainer';
 
 const Title = styled.div`
   position: absolute;
@@ -89,7 +87,10 @@ class VaultSessionTemplate extends React.Component {
   constructor(props) {
     super(props)
 
-    const audio = this.props.data.audio.edges.reduce((obj, item) => {
+    const {data} = this.props
+    const post = data.markdownRemark
+
+    const audio = data.audio.edges.reduce((obj, item) => {
       const name = item.node.name.replace(".mp3", "") // because old audio file JSON has mp3 in the name
       if (!obj[name]) obj[name] = {};
       obj[name][item.node.ext] = item.node;
@@ -99,15 +100,13 @@ class VaultSessionTemplate extends React.Component {
     this.audio = [
       {
         title: 'Koizilla',
-        audio: Object.values(audio)
+        audio: Object.values(audio),
+        tracklist: post.frontmatter.tracklist
       }
    ]
 
-   console.log(this.audio)
-
     this.state = {
-      lights: "off",
-      playerOpen: false
+      lights: "off"
     }
   }
 
@@ -122,8 +121,8 @@ class VaultSessionTemplate extends React.Component {
   render() {
     const {data} = this.props
     const post = data.markdownRemark
-    const siteTitle = this.props.data.site.siteMetadata.title
-    const siteDescription = post.excerpt ? post.excerpt : this.props.data.site.siteMetadata.description
+    const siteTitle = data.site.siteMetadata.title
+    const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
     const artist = data.artist.edges[0].node
 
     return (
@@ -135,8 +134,8 @@ class VaultSessionTemplate extends React.Component {
           <Tracklist>
             <h2>Tracklist</h2>
             {
-              post.frontmatter.videos.map(video =>
-                <li key={video.link}>{video.title} <a target="_blank" href={`https://youtube.com/watch?v=${video.link}`}>(Video)</a></li>
+              post.frontmatter.tracklist.map(video =>
+                <li key={video.link}>{video.title} ({video.time}) <a target="_blank" href={`https://youtube.com/watch?v=${video.link}`}>(Video)</a></li>
               )
             }
           </Tracklist>
@@ -155,10 +154,7 @@ class VaultSessionTemplate extends React.Component {
             <Link title="Back to all sessions" onMouseOver={this.lightsOn} onMouseOut={this.lightsOff} to="/vaultsessions"><img style={{filter: "invert(80%)"}} src={this.state.lights == "off" ? data.logoMono.publicURL : data.logo.publicURL}/></Link>
           </Logo>
         </World>
-        <PlayerWrapper show={this.state.playerOpen}>
-            <div className="handle"><button title="Audio Player" onClick={() => this.setState({playerOpen: !this.state.playerOpen})}><MdKeyboardArrowUp/></button></div>
-            <Player artistMedia={this.audio}/>
-          </PlayerWrapper>
+        <PlayerContainer artistMedia={this.audio}/>
       </Layout>
     )
   }
@@ -207,7 +203,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         full_video
-        videos { title, link }
+        tracklist { title, link, time }
         cover {
           publicURL
         }

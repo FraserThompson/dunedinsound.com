@@ -4,13 +4,17 @@ title: Koizilla
 artist: koizilla
 cover: ./cover.jpg
 full_video: ex7zP4bunjQ
-videos:
+tracklist:
   - title: "Sandflies"
     link: r5MnyOX972A
+    time: "00:03"
   - title: "I can't see anything!"
     link: tXLsVaYXWnQ
+    time: "04:50"
   - title: "Metapod Song (Mr Biscuits cover)"
     link: 3jy91CmaklE
+    time: "10:30"
   - title: "Under the sea"
     link: UYaSZB1imlQ
+    time: "12:31"
 ---
