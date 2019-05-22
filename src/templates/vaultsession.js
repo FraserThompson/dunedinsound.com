@@ -99,7 +99,7 @@ class VaultSessionTemplate extends React.Component {
 
     this.audio = [
       {
-        title: 'Koizilla',
+        title: post.frontmatter.title,
         audio: Object.values(audio),
         tracklist: post.frontmatter.tracklist
       }

@@ -70,50 +70,64 @@ const WorldWrapper = styled.div`
   h1 {
     margin: 0;
     color: yellow;
-    letter-spacing: 60px;
+    letter-spacing: 2px;
+    height: auto;
+    text-align: center;
+    text-shadow: 2px 2px 0px black, -2px -2px 0px white, 4px 4px 0px black, -4px -4px 0px white, 0 0 60px purple;
     font-size: 16vh;
-    height: 20vh;
   }
 
-  .post {
+  article {
     z-index: 4;
-    transform: translateZ(-300px) translateY(200px) translateX(-200px) skewY(-12deg);
     position: absolute;
     text-align: center;
-    background-color: mediumpurple;
-    text-shadow: 2px 2px 0px black, -2px -2px 0px white, 4px 4px 0px black, -4px -4px 0px white, 0 0 60px purple;
+    transition: transform 0.3s ease-in-out;
+
+    h1 {
+      font-size: 4em;
+    }
+
+    @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+      h1 {
+        letter-spacing: 60px;
+        height: 20vh;
+        font-size: 16vh;
+      }
+    }
 
     &:hover {
       filter: invert(1);
     }
 
-    @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-      transform: translateZ(-300px) translateY(200px) skewY(-12deg);
+    &:nth-of-type(1) {
+      transform-origin: left center;
+      background-color: mediumpurple;
+      transform: translateZ(0px) translateY(15vh) translateX(0px) skewY(-12deg);
+
+      @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+        transform: translateZ(-300px) translateY(15vh) translateX(-20vh) skewY(-12deg);
+      }
+
+      &:hover {
+        transform: translateZ(-320px) translateY(200px) translateX(-200px) skewY(-8deg);
+      }
     }
-  }
 
-  .post:nth-of-type(1) {
-    width: 50vw;
-    transform-origin: left center;
-    transform: translateZ(-600px) rotateY(-30deg) scaleY(1.4);
-    background-color: black;
-  }
+    &:nth-of-type(2) {
+      transform: translateZ(0px) translateY(40vh) translateX(0px) skewY(-6deg) scaleY(1.4);
+      background-color: mediumaquamarine;
+      font-size: 0.8em;
 
-  .post:nth-of-type(2) {
-    transform: translateZ(-250px) skewY(-6deg) scaleY(1.4);
-    background-color: #fff;
-    top: 50%;
-    left: 50%;
-    margin-left: -700px;
-    margin-top: -10vh;
-  }
+      @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+        transform: translateZ(-320px) translateY(60vh) translateX(20vh) skewY(-6deg) scaleY(1.4);
+        font-size: 16vh;
+      }
 
-  .post:nth-of-type(3) {
-    width: 50vw;
-    right: 0;
-    transform-origin: right center;
-    transform: rotateY(-40deg) scaleY(1.4);
-    bottom: 0;
+      &:hover {
+        transform: translateZ(-300px) translateY(60vh) translateX(20vh) skewY(-4deg) scaleY(1.4);
+      }
+    }
+
   }
 
   @keyframes camFocus {

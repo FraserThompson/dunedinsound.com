@@ -42,9 +42,9 @@ class VaultSessions extends React.Component {
     const posts = data.allBlogs.edges
 
     const postElements = posts.map(({node}) =>
-      <div className="post" key={node.fields.slug}>
+      <article key={node.fields.slug}>
         <Link onMouseOver={this.lightsOn} onMouseOut={this.lightsOff} to={node.fields.slug}><h1>{node.frontmatter.title}</h1></Link>
-      </div>
+      </article>
     )
 
     return (
@@ -82,7 +82,7 @@ export const pageQuery = graphql`
     logoMono: file(name: { eq: "vslogo_mono" }) {
       publicURL
     }
-    allBlogs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "vaultsessions"}}}) {
+    allBlogs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: ASC }, filter: {fields: {type: { eq: "vaultsessions"}}}) {
       edges {
         node {
           ...BlogFrontmatter
