@@ -63,6 +63,14 @@ class Homepage extends React.Component {
           height={"30vh"}
           href={node.fields.slug}
         />
+      } else if (node.fields.type === "vaultsessions") {
+        tile = <Tile
+          key={node.fields.slug}
+          image={node.frontmatter.cover}
+          height={"30vh"}
+          title={title}
+          href={node.fields.slug}
+        />
       }
 
       if (tile && obj.firstTwo.length < 2) {
@@ -103,7 +111,10 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    allMarkdownRemark(limit: 10, sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { regex: "/gigs|blog$/"}}}) {
+    vaultSessionLogo: file(name: { eq: "vslogo" }) {
+      publicURL
+    }
+    allMarkdownRemark(limit: 10, sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { regex: "/gigs|blog|vaultsessions$/"}}}) {
       edges {
         node {
           excerpt

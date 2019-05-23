@@ -20,6 +20,8 @@ const nodeTypeToHuman = (string) => {
       return "Venue"
     case "artists":
       return "Artist"
+    case "vaultsessions":
+      return "Vault Session"
   }
 }
 
