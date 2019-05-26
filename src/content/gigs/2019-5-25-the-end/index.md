@@ -22,7 +22,7 @@ artists:
   - name: Mud Death
     vid:
       - link: pXHSDYIaWcM
-      - link: 79QIohZcyA
+      - link: 079QIohZcyA
   - name: Wolfskull
 cover: ./cover.jpg
 ---
