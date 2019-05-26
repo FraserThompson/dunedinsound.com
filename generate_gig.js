@@ -72,7 +72,7 @@ date: ${yamlDate}
 venue: ${machine_name(venue)}
 artists:
   ${artists.map((artist, i) => `
-  - name: ${artist}:
+  - name: ${artist}
     vid:
       - link:
   `.trim()).join('\n  ')}

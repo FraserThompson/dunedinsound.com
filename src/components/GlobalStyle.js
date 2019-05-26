@@ -71,6 +71,10 @@ const GlobalStyle = css`
     }
   }
 
+  figcaption {
+    font-style: italic;
+  }
+
   p, span {
     small {
       color: ${theme.default.textColor};
