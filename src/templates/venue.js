@@ -39,6 +39,13 @@ export const pageQuery = graphql`
     thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
       ...VenueFrontmatter
     }
+    blogs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "blog"}}, frontmatter: {tags: {eq: $machine_name}}}) {
+      edges {
+        node {
+          ...BlogFrontmatter
+        }
+      }
+    }
     gigs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}, frontmatter: {venue: {eq: $machine_name}}}) {
       group(field:fields___year) {
       fieldValue

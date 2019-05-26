@@ -3,6 +3,7 @@ title: 'Goodbye None'
 date: 2019-05-25T21:00:00.000Z
 tags:
     - article
+    - none_gallery
 author: Fraser Thompson
 background_position: center
 background_size: contain
