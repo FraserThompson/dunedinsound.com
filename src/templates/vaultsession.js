@@ -138,6 +138,7 @@ class VaultSessionTemplate extends React.Component {
                 <li key={video.link}>{video.title} ({video.time}) <a target="_blank" href={`https://youtube.com/watch?v=${video.link}`}>(Video)</a></li>
               )
             }
+            <a title="FULL MP3 DOWNLOAD" target="_blank" href={this.audio[0].audio[0][".mp3"].publicURL}><h3 className="coolText">🌟FULL MP3 DOWNLOAD🌟</h3></a>
           </Tracklist>
           <Metadata>
             <h2>More from this artist</h2>

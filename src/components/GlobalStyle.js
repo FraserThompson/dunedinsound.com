@@ -94,6 +94,16 @@ const GlobalStyle = css`
     }
   }
 
+  .coolText {
+    background: rgb(34,195,174);
+    background: linear-gradient(0deg, rgba(34,195,174,1) 25%, rgba(255,0,190,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    &:hover {
+      filter: invert(1);
+    }
+  }
+
   h1.big {
     ${scale1};
     text-align: center;
