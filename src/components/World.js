@@ -82,12 +82,16 @@ const WorldWrapper = styled.div`
     position: absolute;
     text-align: center;
     transition: transform 0.3s ease-in-out;
+    width: 100vw;
+    font-size: 0.6em;
 
     h1 {
       font-size: 4em;
     }
 
     @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+      width: auto;
+      font-size: 16vh;
       h1 {
         letter-spacing: 60px;
         height: 20vh;
@@ -102,29 +106,40 @@ const WorldWrapper = styled.div`
     &:nth-of-type(1) {
       transform-origin: left center;
       background-color: mediumpurple;
-      transform: translateZ(0px) translateY(15vh) translateX(0px) skewY(-12deg);
+      transform: translateZ(0px) translateY(20vh) translateX(0px) skewY(-12deg);
 
       @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-        transform: translateZ(-300px) translateY(15vh) translateX(-20vh) skewY(-12deg);
+        transform: translateZ(-600px) translateY(15vh) translateX(-40vh) skewY(-12deg);
       }
 
       &:hover {
-        transform: translateZ(-320px) translateY(200px) translateX(-200px) skewY(-8deg);
+        transform: translateZ(-520px) translateY(200px) translateX(-200px) skewY(-8deg);
       }
     }
 
     &:nth-of-type(2) {
       transform: translateZ(0px) translateY(40vh) translateX(0px) skewY(-6deg) scaleY(1.4);
       background-color: mediumaquamarine;
-      font-size: 0.8em;
 
       @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-        transform: translateZ(-320px) translateY(60vh) translateX(20vh) skewY(-6deg) scaleY(1.4);
-        font-size: 16vh;
+        transform: translateZ(-820px) translateY(60vh) translateX(20vh) skewY(-6deg) scaleY(1.4);
       }
 
       &:hover {
-        transform: translateZ(-300px) translateY(60vh) translateX(20vh) skewY(-4deg) scaleY(1.4);
+        transform: translateZ(-700px) translateY(60vh) translateX(20vh) skewY(-4deg) scaleY(1.4);
+      }
+    }
+
+    &:nth-of-type(3) {
+      transform: translateZ(0px) translateY(70vh) translateX(0px) skewY(-6deg) scaleY(1.4);
+      background-color: orchid;
+
+      @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+        transform: translateZ(-1000px) translateY(10vh) translateX(50vh) skewY(10deg) scaleY(1.4);
+      }
+
+      &:hover {
+        transform: translateZ(-800px) translateY(10vh) translateX(50vh) skewY(10deg) scaleY(1.4);
       }
     }
 

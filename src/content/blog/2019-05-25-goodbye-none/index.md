@@ -127,7 +127,13 @@ I didn’t expect it to last this long! But it’s testament to a strong communi
 
 **How do you feel about the closure?**
 
-I feel for the current collective, I hope they can find  another space. 
+I feel for the current collective, I hope they can find  another space.
+
+![Hallway from front gallery space to kitchen in rear](./hallway.jpg)
+
+![Kitchen](./kitchen.jpg)
+
+![One of many storage rooms](./cupboard.jpg)
 
 ### Edwina Stevens
 
@@ -200,6 +206,12 @@ mm I guess it's sad. I'm not really surprised when things close down or get sold
 Similar to what happened in Wgtn before they finally made the bypass- prior to that they'd been a few cool little pockets of people doing stuff and living their lives
 
 -always the premise being 'this won't last forever' so the impermanence gives it something special I guess.
+
+![Stairs from second to first floor (previously lined with gig posters)](./stairs_to_first_floor.jpg)
+
+![Stairs to basement](./basement_stairs.jpg)
+
+![Basement](./basement.jpg)
 
 ### Matthew George Richard Ward
 

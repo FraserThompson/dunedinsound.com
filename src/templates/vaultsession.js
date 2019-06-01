@@ -144,8 +144,8 @@ class VaultSessionTemplate extends React.Component {
             <h2>More from this artist</h2>
             <ul>
               <li><Link to={artist.fields.slug}>Gigs</Link></li>
-              <li><a href={artist.frontmatter.facebook}>Facebook</a></li>
-              <li><a href={artist.frontmatter.bandcamp}>Bandcamp</a></li>
+              {artist.frontmatter.facebook && <li><a href={artist.frontmatter.facebook}>Facebook</a></li>}
+              {artist.frontmatter.bandcamp && <li><a href={artist.frontmatter.bandcamp}>Bandcamp</a></li>}
             </ul>
           </Metadata>
           <VideoWrapper>
