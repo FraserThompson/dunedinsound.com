@@ -222,6 +222,5 @@ const GlobalStyle = css`
   }
 
   ${TransitionStyles}
-
 `
 export default GlobalStyle;

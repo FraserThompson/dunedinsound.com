@@ -52,20 +52,21 @@ const Container = styled.div`
 
 const Label = styled.span`
   position: absolute;
-  background: black;
-  margin-right: -0.8em;
-  margin-top: -0.8em;
-  color: ${props => props.textColor};
+  background-color: white;
   z-index: 5;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
   line-height: 1;
-  text-orientation: upright;
-  writing-mode: vertical-rl;
-
-  top: ${rhythm(0.5)};
+  padding-left: ${rhythm(0.5)};
+  padding-right: ${rhythm(0.5)};
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
   left: 0px;
+  top: 0px;
+  small {
+    color: ${lighten(0.2, "black")};
+  }
 `
 
 const TitleWrapper = styled.div`

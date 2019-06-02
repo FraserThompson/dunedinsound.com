@@ -159,7 +159,7 @@ export const query = graphql`
       cover {
         ...LargeImage
       }
-      date(formatString: "MMMM DD, YYYY")
+      date(formatString: "MMMM DD YY")
     }
   }
 
@@ -167,7 +167,7 @@ export const query = graphql`
     ...DefaultFields
     frontmatter {
       title
-      date(formatString: "MMMM DD, YYYY")
+      date(formatString: "MMMM DD YY")
       venue
       description
       artists {
@@ -188,7 +188,7 @@ export const query = graphql`
     ...DefaultFields
     frontmatter {
       title
-      date(formatString: "DD-MM-YY")
+      date(formatString: "MMMM DD YY")
       venue
       description
       artists {

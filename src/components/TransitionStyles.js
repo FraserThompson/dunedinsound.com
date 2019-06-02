@@ -1,4 +1,4 @@
-const TransitionStyles = props => `
+const TransitionStyles = `
   .popin-enter {
     opacity: 0;
     transform: scale(0.001);

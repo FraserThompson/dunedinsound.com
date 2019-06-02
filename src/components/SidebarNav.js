@@ -88,6 +88,7 @@ const SidebarNavWrapper = styled(Menu)`
         > a {
           color: white;
           background-color: ${props => props.theme.foregroundColor};
+          border-bottom: 1px solid ${props => darken(0.2, props.theme.foregroundColor)};
         }
       }
       > ul {
