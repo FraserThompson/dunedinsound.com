@@ -7,15 +7,17 @@ const fs = require('fs-extra'),
 // to do this is compares filenames, if there are duplicate filenames it then checks the path for the artist name
 // it's pretty cool
 function getOriginalFiles() {
-  const good_jpgs = fg.sync('F:/Recordings/**/**/*.jpg');
-  fg('./src/content/gigs/**/**/*[^cover|^vlcsnap].jpg').then((files) => {
+  const good_jpgs = fg.sync('F:/Recordings/**/**/*.{jpg,JPG}');
+  fg('G:/dev/dunedinsound-gatsby/src/content/gigs/**/**/*.{jpg,JPG}').then((files) => {
 
     const multipleMatches = []
 
     files.forEach((file) => {
 
       const parsedPath = path.parse(file)
-      const filename = parsedPath.name
+      const filename = parsedPath.name.replace("-min", "").replace("_min", "")
+
+      if (filename == "cover" || filename == "vlcsnap") return
 
       const matches = good_jpgs.filter(item => {
         const parsedPath = path.parse(item)
@@ -38,9 +40,11 @@ function getOriginalFiles() {
         const potentialMatchIndex = []
 
         matches.forEach((match, index) => {
-          const artist = match.split("/")[2]
-          if (file.includes(artist)) {
-            potentialMatchIndex.push(index)
+          const artist = match.split("/")[2].toLowerCase().replace(" ", "_")
+          if (file.toLowerCase().replace(" ", "_").includes(artist)) {
+            if (match.includes("processed") || (!match.includes("eis") && !match.includes("optimized") && !match.includes("compressed"))) {
+              potentialMatchIndex.push(index)
+            }
           }
         })
 
@@ -59,13 +63,12 @@ function getOriginalFiles() {
         }
       }
     })
+
     console.log("DONE");
     console.log(multipleMatches);
 
   })
 }
-
-//getOriginalFiles();
 
 // this is just for checking what files I have left which are the compressed versions
 function whatFilesAreSmall() {
@@ -78,8 +81,6 @@ function whatFilesAreSmall() {
     })
   })
 }
-
-//whatFilesAreSmall();
 
 // YO THIS ONE IS THE CRAZIEST
 // it goes through the cover.jpg images and checks their MD5's against the original images from the old site
@@ -157,4 +158,21 @@ function findBiggerCovers() {
   });
 }
 
+// This was basically just used once to correct an error I made copying files, but it's left here for posterity.
+const findDuplicateMP3 = () => {
+  fg('G:/dev/dunedinsound-gatsby/src/content/gigs/**/**/*.{mp3,json}').then((files) => {
+    const processed = files.map((file) => file.replace(" - Full Set", ""))
+    const duplicates = processed.reduce(function(acc, el, i, arr) {
+      if (arr.indexOf(el) !== i && acc.indexOf(el) < 0) acc.push(el); return acc;
+    }, []);
+    duplicates.map((file) => {
+      console.log("REMOVING: " + file);
+      fs.removeSync(file)
+    });
+  })
+}
+
+//findDuplicateMP3();
+//whatFilesAreSmall();
+//getOriginalFiles();
 //findBiggerCovers();

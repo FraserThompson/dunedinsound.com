@@ -102,7 +102,7 @@ export const query = graphql`
 
   fragment TinyImage on File {
     childImageSharp {
-      fluid(maxWidth: 200, srcSetBreakpoints: [ 50, 200, 400 ]) {
+      fluid(maxWidth: 200, quality: 80, srcSetBreakpoints: [ 50, 200, 400 ]) {
         ...GatsbyImageSharpFluid_withWebp
       }
     }
@@ -110,7 +110,7 @@ export const query = graphql`
 
   fragment SmallImage on File {
     childImageSharp {
-      fluid(maxWidth: 400, srcSetBreakpoints: [ 100, 400, 800 ]) {
+      fluid(maxWidth: 400, quality: 80, srcSetBreakpoints: [ 100, 400, 800 ]) {
         ...GatsbyImageSharpFluid_withWebp
       }
     }
@@ -159,7 +159,7 @@ export const query = graphql`
       cover {
         ...LargeImage
       }
-      date(formatString: "MMMM DD YY")
+      date(formatString: "MMMM DD YYYY")
     }
   }
 
@@ -167,7 +167,7 @@ export const query = graphql`
     ...DefaultFields
     frontmatter {
       title
-      date(formatString: "MMMM DD YY")
+      date(formatString: "MMMM DD YYYY")
       venue
       description
       artists {
@@ -188,7 +188,7 @@ export const query = graphql`
     ...DefaultFields
     frontmatter {
       title
-      date(formatString: "MMMM DD YY")
+      date(formatString: "MMMM DD YYYY")
       venue
       description
       artists {

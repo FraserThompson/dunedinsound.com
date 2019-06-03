@@ -332,7 +332,7 @@ export const pageQuery = graphql`
     prevPost: markdownRemark(fields: { slug: { eq: $prevSlug } }) {
       ...GigTileFrontmatter
     }
-    images: allFile( filter: {extension: {in: ["jpg", "JPG"]}, fields: { gigDir: {eq: $parentDir}, type: { eq: "gigs"}}}) {
+    images: allFile( filter: {extension: {in: ["jpg", "JPG"]}, name: { ne: "cover.jpg"}, fields: { gigDir: {eq: $parentDir}, type: { eq: "gigs"}}}) {
       group(field: fields___parentDir) {
         fieldValue
         edges {

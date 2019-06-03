@@ -175,16 +175,6 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}}) {
-      group(field:fields___year) {
-        fieldValue
-        edges {
-          node {
-            ...GigTileFrontmatter
-          }
-        }
-      }
-    }
     gigsByDate: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "gigs"}}}) {
       group(field: fields___yearAndMonth) {
         fieldValue

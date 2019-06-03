@@ -83,7 +83,7 @@ class Artists extends React.Component {
   }
 
   sortByNumberOfGigs = () => {
-    this.shuffle.sort({reverse: true, by: (element) => this.gigCountsByArtist[element.getAttribute("data-machinename")]})
+    this.shuffle.sort({reverse: true, by: (element) => this.gigCountsByArtist[element.getAttribute("data-machinename")] || 0 })
   }
 
   sortByTitle = () => {

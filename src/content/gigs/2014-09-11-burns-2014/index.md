@@ -6,6 +6,6 @@ venue: robbie_burns
 artists:
     - {name: 'Jay Kill Rolling', vid: [{link: Q7BRdaKl5lk}]}
     - {name: 'Sloth Vegas', vid: [{link: 1cMjYXubCHI}]}
-    - {name: Clones}
+    - {name: 'Clones'}
 cover: ./cover.jpg
 ---
