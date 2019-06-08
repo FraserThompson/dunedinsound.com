@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from '@emotion/styled'
 
 const LoadingSpinnerWrapper = styled.div`
@@ -58,6 +59,6 @@ const LoadingSpinnerWrapper = styled.div`
   }
 `
 
-const LoadingSpinner = <LoadingSpinnerWrapper><div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div></LoadingSpinnerWrapper>
+const LoadingSpinner = props => <LoadingSpinnerWrapper><div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div></LoadingSpinnerWrapper>
 
 export default LoadingSpinner

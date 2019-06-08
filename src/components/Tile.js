@@ -20,11 +20,12 @@ import Content from './Content'
 import { rhythm } from '../utils/typography'
 import { lighten } from 'polished';
 
-const Container = styled.div`
+const Container = styled.a`
   background: #40E0D0;
   background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
   color: ${props => props.theme.textColor};
   position: relative;
+  display: block;
   height: ${props => props.height ? props.height : "500px"};
   width: ${props => props.width};
   overflow: hidden;
@@ -52,7 +53,7 @@ const Container = styled.div`
 
 const Label = styled.span`
   position: absolute;
-  background-color: white;
+  background-color: ${props => props.theme.contrastColor};
   z-index: 5;
   text-align: center;
   white-space: nowrap;
@@ -95,18 +96,16 @@ class Tile extends React.Component {
   render() {
 
     return (
-      <Container {...this.props} className="tile">
-        <a href={this.props.href} style={{display: "block", width: "100%", height: "100%"}}>
-          {this.props.label && <Label><small>{this.props.label}</small></Label>}
-          {this.props.image && <BackgroundImage sizes={this.props.sizes} image={this.props.image}/>}
-          <TitleWrapper shadowBottom={this.props.title || this.props.subtitle}>
-            <Content>
-              {this.props.title && <h4 className="title">{this.props.title}</h4>}
-              {this.props.subtitle && <p className="subtitle"><small>{this.props.subtitle}</small></p>}
-            </Content>
-            {this.props.children}
-          </TitleWrapper>
-        </a>
+      <Container {...this.props}  className="tile">
+        {this.props.label && <Label><small>{this.props.label}</small></Label>}
+        {this.props.image && <BackgroundImage sizes={this.props.sizes} image={this.props.image}/>}
+        <TitleWrapper shadowBottom={this.props.title || this.props.subtitle}>
+          <Content>
+            {this.props.title && <h4 className="title">{this.props.title}</h4>}
+            {this.props.subtitle && <p className="subtitle"><small>{this.props.subtitle}</small></p>}
+          </Content>
+          {this.props.children}
+        </TitleWrapper>
       </Container>
     )
   }
