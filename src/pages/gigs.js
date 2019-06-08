@@ -22,7 +22,7 @@ const PageContent = styled.div`
   padding-left: 0px;
 
   @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
-    padding-left: 250px;
+    padding-left: 300px;
   }
 `
 
@@ -56,7 +56,7 @@ class Gigs extends React.Component {
     this.gumshoe = null
     this.gumshoe = new Gumshoe('#sidebarNav a',
       {
-        offset: 90,
+        offset: 120,
         nested: true,
         nestedClass: 'active-parent'
       }
@@ -86,6 +86,8 @@ class Gigs extends React.Component {
     this.gumshoe && this.gumshoe.destroy()
     this.gumshoe = null
 
+    window.scrollTo(0, 0);
+
     if (!searchInput || searchInput.length == 0) {
       this.setState({postsSorted: this.allPostsSorted, pageUpTo: 1, menuItems: this.allMenuItems})
     } else {
@@ -111,10 +113,11 @@ class Gigs extends React.Component {
       const monthName = monthNames[parseInt(month)]
 
       if (year != previousYear) {
-        obj.menuItems.push({year: year, months: [monthName]})
+        obj.menuItems.push({year: year, count: group.edges.length, months: [monthName]})
         obj.posts.push({year: year, months: [{month: monthName, posts: group.edges}]})
       } else {
         obj.menuItems[obj.menuItems.length - 1].months.push(monthName)
+        obj.menuItems[obj.menuItems.length - 1].count = obj.menuItems[obj.menuItems.length - 1].count + group.edges.length
         if (month != previousMonth) {
           obj.posts[obj.posts.length - 1].months.push({month: monthName, posts: group.edges})
         } else {
@@ -129,7 +132,9 @@ class Gigs extends React.Component {
 
   // Scrolling to an achor. We do this because hash changes trigger re-renders.
   scrollTo = (anchor) => {
-    document.getElementById(anchor).scrollIntoView()
+    const element = document.getElementById(anchor)
+    const y = element.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo(0, y - 90)
   }
 
   menuItemClick = (e, anchor, yearIndex) => {
@@ -142,6 +147,10 @@ class Gigs extends React.Component {
     this.setState({pageUpTo: index + 1})
   }
 
+  toggleSidebar = () => {
+    this.setState({sidebarOpen: !this.state.sidebarOpen})
+  }
+
   render() {
     return (
       <Layout
@@ -151,11 +160,11 @@ class Gigs extends React.Component {
         hideFooter={true}
         headerContent={
           <>
-            <SidebarNav button={<MenuButton hideMobile={true} onClick={() => this.setState({sidebarOpen: !this.state.sidebarOpen})}><MdMenu/></MenuButton>} open={this.state.sidebarOpen} sidebarRef={this.sidebarRef} left>
+            <SidebarNav toggle={this.toggleSidebar} button={<MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton>} open={this.state.sidebarOpen} sidebarRef={this.sidebarRef} left>
               <ul id="sidebarNav">
-                {this.state.menuItems.map(({year, months}, yearIndex) =>
+                {this.state.menuItems.map(({year, months, count}, yearIndex) =>
                   <li key={year}>
-                    <a onClick={(e) => this.menuItemClick(e, year, yearIndex)} href={`#${year}`}><strong>{year}</strong></a>
+                    <a onClick={(e) => this.menuItemClick(e, year, yearIndex)} href={`#${year}`}><strong>{year}</strong> <span className="label">({count})</span></a>
                     <ul>
                       {months.map(month => {
                         const className = `${year}-${month}`

@@ -121,7 +121,7 @@ class ContentByEntityTemplate extends React.Component {
         headerContent={this.state.scrolled && <a onClick={(e) => this.scrollTo(e, "top")} href="#top" title="Scroll to top"><h1 className="big">{this.post.frontmatter.title}</h1></a>}
       >
         <Banner title={(this.post.frontmatter.title || this.post.fields.slug) + (this.post.frontmatter.origin ? ` (${this.post.frontmatter.origin})` : "")} backgroundImage={this.cover} background={this.background} customContent={(
-            <><ZoopUpWrapper title="BACK TO ARTISTS ☝" href={this.parent.href}><p>☝ Back to {this.parent.title} ☝</p><MdKeyboardArrowUp/></ZoopUpWrapper></>
+            <><ZoopUpWrapper title="Back" href={this.parent.href}><p>☝ Back to {this.parent.title} ☝</p><MdKeyboardArrowUp/></ZoopUpWrapper></>
           )}>
           <HorizontalNav>
             {this.post.frontmatter.facebook && <li><a className="button" rel="noopener" href={this.post.frontmatter.facebook}>Facebook</a></li>}

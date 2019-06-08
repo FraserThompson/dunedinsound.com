@@ -327,7 +327,7 @@ export default class Player extends React.Component {
           {this.state.ready && <LengthWrapper style={{left: "0px"}}>{this.formatTime(this.state.currentTime)}</LengthWrapper>}
           {this.state.ready && <LengthWrapper style={{right: "0px"}}>{this.formatTime(this.state.duration)}</LengthWrapper>}
         </WaveWrapper>
-        {!this.state.ready && <LoadingProgress>{LoadingSpinner}</LoadingProgress>}
+        {!this.state.ready && <LoadingProgress><LoadingSpinner/></LoadingProgress>}
         <TitleWrapper className="title-wrapper"><span>{this.props.artistMedia[this.state.selectedArtist].title}</span></TitleWrapper>
         <PlayerMenu width="100%" selected={this.state.selectedArtist} selectCallback={this.selectArtist} seekCallback={this.seekToTime} list={this.props.artistMedia}/>
       </PlayerWrapper>

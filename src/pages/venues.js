@@ -68,6 +68,10 @@ class Venues extends React.Component {
     this.listRefs.push(ref);
   };
 
+  toggleSidebar = () => {
+    this.setState({sidebarOpen: !this.state.sidebarOpen})
+  }
+
   render() {
     const { data } = this.props
     const siteTitle = data.site.siteMetadata.title
@@ -81,7 +85,7 @@ class Venues extends React.Component {
         hideBrandOnMobile={true}
         hideFooter={true}
         headerContent={<>
-            <SidebarNav width="300px" button={<MenuButton hideMobile={true} onClick={() => this.setState({sidebarOpen: !this.state.sidebarOpen})}><MdMenu/></MenuButton>} open={this.state.sidebarOpen} left>
+            <SidebarNav toggle={this.toggleSidebar} width="100vw" button={<MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton>} open={this.state.sidebarOpen} left>
               <ul>
                 {
                   this.state.filteredPosts.map(({ node }, index) =>
