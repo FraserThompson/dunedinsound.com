@@ -10,8 +10,6 @@ import React from 'react'
 import styled from '@emotion/styled'
 import Menu from '../components/Menu'
 import { darken, lighten } from 'polished';
-import MenuButton from './MenuButton';
-import { MdMenu } from 'react-icons/md';
 
 const DefaultWidth = "60vw"
 
@@ -103,14 +101,12 @@ const SidebarNavWrapper = styled(Menu)`
 `
 class SidebarNav extends React.Component {
 
-  state = {
-    open: true,
-  }
-
   render() {
     return <>
-      <MenuButton hideMobile={true} onClick={() => this.setState({open: !this.state.open})}><MdMenu/></MenuButton>
-      <SidebarNavWrapper ref={this.props.sidebarRef} left={this.props.left} right={this.props.right} width={this.props.width} backgroundColor={this.props.backgroundColor} open={this.state.open}>{this.props.children}</SidebarNavWrapper>
+      {this.props.button}
+      <SidebarNavWrapper left={this.props.left} right={this.props.right} width={this.props.width} backgroundColor={this.props.backgroundColor} open={this.props.open}>
+        {this.props.children}
+      </SidebarNavWrapper>
     </>
   }
 }

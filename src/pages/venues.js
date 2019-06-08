@@ -7,6 +7,8 @@ import { Map, Popup, TileLayer, Marker } from 'react-leaflet'
 import SidebarNav from '../components/SidebarNav'
 import Search from '../components/Search'
 import HorizontalNav from '../components/HorizontalNav';
+import MenuButton from '../components/MenuButton';
+import { MdMenu } from 'react-icons/md';
 
 //const filterDebounced = AwesomeDebouncePromise((needle, haystack) => haystack.filter(({node}) => node.frontmatter.title.toLowerCase().includes(needle)), 500);
 
@@ -21,7 +23,6 @@ class Venues extends React.Component {
   constructor(props) {
     super(props)
 
-    this.sidebarRef = React.createRef()
     this.listRefs = [];
 
     this.imageCountByGig = this.props.data.gigCountByVenue['group'].reduce((obj, item) => {
@@ -31,6 +32,7 @@ class Venues extends React.Component {
 
     this.state = {
       filteredPosts: this.props.data.allVenues.edges,
+      sidebarOpen: true,
       selected: null,
       zoomLevel: 13,
       center: [-45.8745557, 170.5016047] // the octagon
@@ -50,10 +52,6 @@ class Venues extends React.Component {
   markerClick = (index) => {
     this.listRefs[index].scrollIntoView({behavior: "smooth"})
     this.setState({selected: index})
-  }
-
-  toggleSidebar = () => {
-    this.setState({sidebarOpen: !this.state.sidebarOpen})
   }
 
   filter = async (searchInput) => {
@@ -83,7 +81,7 @@ class Venues extends React.Component {
         hideBrandOnMobile={true}
         hideFooter={true}
         headerContent={<>
-            <SidebarNav ref={this.sidebarRef} width="300px" left>
+            <SidebarNav width="300px" button={<MenuButton hideMobile={true} onClick={() => this.setState({sidebarOpen: !this.state.sidebarOpen})}><MdMenu/></MenuButton>} open={this.state.sidebarOpen} left>
               <ul>
                 {
                   this.state.filteredPosts.map(({ node }, index) =>
@@ -96,7 +94,7 @@ class Venues extends React.Component {
                 }
               </ul>
             </SidebarNav>
-            <Search placeholder="Search venues" toggleSidebar={this.toggleSidebar} filter={this.filter}/>
+            <Search placeholder="Search venues" filter={this.filter}/>
           </>
         }
       >

@@ -9,6 +9,8 @@ import GigTile from '../components/GigTile'
 import 'gumshoejs/src/js/gumshoe/_closest.polyfill'
 import 'gumshoejs/src/js/gumshoe/_customEvent.polyfill'
 import Gumshoe from 'gumshoejs/src/js/gumshoe/gumshoe'
+import MenuButton from '../components/MenuButton';
+import { MdMenu } from 'react-icons/md';
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"]
@@ -35,6 +37,7 @@ class Gigs extends React.Component {
 
     this.state = {
       searchQuery: "",
+      sidebarOpen: true,
       filteredPosts: this.allPosts
     }
   }
@@ -109,15 +112,16 @@ class Gigs extends React.Component {
     }, { menuItems: [], posts: [] } )
   }
 
-  toggleSidebar = () => {
-    this.setState({sidebarOpen: !this.state.sidebarOpen})
-  }
-
   // Scrolling to an achor. We do this because hash changes trigger re-renders.
   scrollTo = (e, anchor) => {
     e.preventDefault()
     e.stopPropagation()
     document.getElementById(anchor).scrollIntoView({behavior: "smooth"})
+  }
+
+  menuItemClick = (e, anchor) => {
+    this.scrollTo(e, anchor);
+    this.setState({sidebarOpen: true});
   }
 
   render() {
@@ -130,22 +134,22 @@ class Gigs extends React.Component {
         hideBrandOnMobile={true}
         hideFooter={true}
         headerContent={<>
-            <SidebarNav sidebarRef={this.sidebarRef} left>
+            <SidebarNav button={<MenuButton hideMobile={true} onClick={() => this.setState({sidebarOpen: !this.state.sidebarOpen})}><MdMenu/></MenuButton>} open={this.state.sidebarOpen} sidebarRef={this.sidebarRef} left>
               <ul id="sidebarNav">
                 {sortedPosts.menuItems.map(({year, months}) =>
                   <li key={year}>
-                    <a onClick={(e) => this.scrollTo(e, year)} href={`#${year}`}><strong>{year}</strong></a>
+                    <a onClick={(e) => this.menuItemClick(e, year)} href={`#${year}`}><strong>{year}</strong></a>
                     <ul>
                       {months.map(month => {
                         const className = `${year}-${month}`
-                        return <li key={month}><a onClick={(e) => this.scrollTo(e, className)} href={`#${className}`}>{month}</a></li>
+                        return <li key={month}><a onClick={(e) => this.menuItemClick(e, className)} href={`#${className}`}>{month}</a></li>
                       })}
                     </ul>
                   </li>
                 )}
               </ul>
             </SidebarNav>
-            <Search placeholder="Search gigs by title, artist, or venue..." toggleSidebar={this.toggleSidebar} filter={this.filter}/>
+            <Search placeholder="Search gigs by title, artist, or venue..." filter={this.filter}/>
           </>
         }
       >
