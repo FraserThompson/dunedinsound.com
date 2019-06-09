@@ -8,8 +8,9 @@
 import styled from '@emotion/styled'
 import { rhythm, scale } from '../utils/typography';
 import { lighten } from 'polished';
+import FadeInOut from './FadeInOut';
 
-const Menu = styled.div`
+const Menu = styled(FadeInOut)`
   width: ${props => props.width};
   text-align: left;
   background-color: ${props => props.backgroundColor || props.theme.primaryColor};

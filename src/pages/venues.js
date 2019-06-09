@@ -85,7 +85,7 @@ class Venues extends React.Component {
         hideBrandOnMobile={true}
         hideFooter={true}
         headerContent={<>
-            <SidebarNav toggle={this.toggleSidebar} width="100vw" button={<MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton>} open={this.state.sidebarOpen} left>
+            <SidebarNav toggle={this.toggleSidebar} button={<MenuButton hideMobile={true} onClick={this.toggleSidebar}><MdMenu/></MenuButton>} open={this.state.sidebarOpen} left>
               <ul>
                 {
                   this.state.filteredPosts.map(({ node }, index) =>

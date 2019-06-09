@@ -9,11 +9,13 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import Menu from '../components/Menu'
-import { darken, lighten } from 'polished';
+import { darken, lighten } from 'polished'
+import { Transition } from 'react-transition-group'
+import FadeInOut from './FadeInOut';
 
 const DefaultWidth = "80vw"
 
-const PageOverlay = styled.div`
+const PageOverlay = styled(FadeInOut)`
   position: absolute;
   top: 0;
   left: 0;
@@ -122,7 +124,7 @@ class SidebarNav extends React.Component {
       <SidebarNavWrapper left={this.props.left} right={this.props.right} width={this.props.width} backgroundColor={this.props.backgroundColor} open={this.props.open}>
         {this.props.children}
       </SidebarNavWrapper>
-      {!this.props.open && <PageOverlay onClick={this.props.toggle}/>}
+      <Transition mountOnEnter={true} unmountOnExit={true} in={!this.props.open} timeout={200}>{state => <PageOverlay state={state} onClick={this.props.toggle}/>}</Transition>
     </>
   }
 }

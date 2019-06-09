@@ -6,7 +6,6 @@ import { toMachineName, graphqlGroupToObject, calculateScrollHeaderOffset } from
 import GridContainer from '../components/GridContainer'
 import Banner from '../components/Banner'
 import Divider from '../components/Divider'
-import Player from '../components/Player'
 import { rhythm, scale } from '../utils/typography'
 import YouTubeResponsive from '../components/YouTubeResponsive'
 import Tile from '../components/Tile'
@@ -15,8 +14,7 @@ import HorizontalNav from '../components/HorizontalNav'
 import RoundButton from '../components/RoundButton'
 import ZoopUpWrapper from '../components/ZoopUpWrapper'
 import ImageGallery from '../components/ImageGallery'
-import PlayerWrapper from '../components/PlayerWrapper'
-import PlayerContainer from '../components/PlayerContainer';
+import PlayerContainer from '../components/PlayerContainer'
 
 const NextPrevWrapper = styled.div`
   color: ${props => props.theme.textColor};
@@ -89,6 +87,9 @@ class GigTemplate extends React.Component {
     // Key-value object of images by artist
     const imagesByArtist = this.props.data.images && graphqlGroupToObject(this.props.data.images.group, true)
 
+    // Cover image is either one image or all the images in the _header folder
+    this.cover = imagesByArtist['_header'] || this.post.frontmatter.cover
+
     // Key-value object of audio files by artist
     const audioByArtist = this.props.data.audio && this.props.data.audio['group'].reduce((obj, item) => {
       const machineName = item.fieldValue
@@ -118,9 +119,6 @@ class GigTemplate extends React.Component {
         audio: audioByArtist && audioByArtist[machineName]
       }
     })
-
-    // Cover image is either one image or all the images in the _header folder
-    this.cover = imagesByArtist['_header'] || this.post.frontmatter.cover
 
     // Audio by artist
     this.artistAudio = this.artistMedia.filter(thing => thing.audio)
@@ -164,8 +162,6 @@ class GigTemplate extends React.Component {
         />
       </NextPrevWrapper>
     )
-
-    this.gigDescription = `See photos, audio and video from ${this.post.frontmatter.title} and heaps of other local gigs.`
 
     this.state = {
       scrolled: false,
@@ -218,19 +214,21 @@ class GigTemplate extends React.Component {
   }
 
   render = () => {
+
     const siteTitle = this.props.data.site.siteMetadata.title
+    const headerContent = this.state.scrolled && <a onClick={(e) => this.scrollTo(e, "top")} href="#top" title="Scroll to top"><h1 className="big">{this.post.frontmatter.title}</h1></a>
 
     return (
       <Layout
         location={this.props.location}
-        description={this.gigDescription}
+        description={`See photos, audio and video from ${this.post.frontmatter.title} and heaps of other local gigs.`}
         image={this.cover && this.cover.src}
         title={`${this.post.frontmatter.title} | ${siteTitle}`}
         date={this.post.frontmatter.date}
         type="article"
         hideBrand={this.state.scrolled}
         hideNav={this.state.scrolled}
-        headerContent={this.state.scrolled && <a onClick={(e) => this.scrollTo(e, "top")} href="#top" title="Scroll to top"><h1 className="big">{this.post.frontmatter.title}</h1></a>}
+        headerContent={headerContent}
       >
         <Banner
           id="top"

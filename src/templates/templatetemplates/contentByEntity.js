@@ -134,7 +134,7 @@ class ContentByEntityTemplate extends React.Component {
         <Tabs>
           <button className={this.state.openTab === "gigs" ? "active" : ""} onClick={() => this.setState({openTab: "gigs"})}>Gigs ({this.gigs.length})</button>
           {this.blogs && this.blogs.length > 0 && <button className={this.state.openTab === "blogs" ? "active" : ""} onClick={() => this.setState({openTab: "blogs"})}>Blogs ({this.blogs.length})</button>}
-          {this.vaultsessions && this.vaultsessions.length > 0 && <button className={this.state.openTab === "vaultsessions" ? "active" : ""} onClick={() => this.setState({openTab: "vaultsessions"})}><span class="rainbowBackground">VAULT SESSION</span></button>}
+          {this.vaultsessions && this.vaultsessions.length > 0 && <button className={this.state.openTab === "vaultsessions" ? "active" : ""} onClick={() => this.setState({openTab: "vaultsessions"})}><span className="rainbowBackground">VAULT SESSION</span></button>}
         </Tabs>
           {this.state.openTab === "gigs" && gigTiles}
           {this.state.openTab === "blogs" && <FlexGridContainer>{blogTiles}</FlexGridContainer>}

@@ -11,8 +11,8 @@ import React from 'react'
 import { Link } from 'gatsby'
 import styled from '@emotion/styled'
 import { rhythm } from '../utils/typography'
-import SiteNav from './SiteNav';
-import { darken } from 'polished';
+import SiteNav from './SiteNav'
+import { darken } from 'polished'
 
 const Container = styled.div`
   background-color: ${props => props.backgroundColor || props.theme.primaryColor};
@@ -35,20 +35,20 @@ const Container = styled.div`
   h1 {
     color: ${props => props.theme.textColor}
   }
+`
 
-  .miscContent {
-    margin: 0 auto;
-    height: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    align-self: center;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: row;
-    justify-items: center;
-    align-items: center;
-  }
+const HeaderContent = styled.div`
+  margin: 0 auto;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  align-self: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
 `
 
 const Brand = styled.div`
@@ -77,7 +77,7 @@ class SiteHeader extends React.Component {
     return (
       <Container className="header" hideOnMobile={!this.props.headerContent} backgroundColor={this.props.backgroundColor}>
         {!this.props.hideBrand && <Brand hideOnMobile={this.props.hideBrandOnMobile}><Link to="/">Dunedin Gig Archives</Link></Brand>}
-        {this.props.headerContent && <div className="miscContent">{this.props.headerContent}</div>}
+        {this.props.headerContent && <HeaderContent>{this.props.headerContent}</HeaderContent>}
         {!this.props.hideNav && <SiteNav className="hideMobile"/>}
       </Container>
     )

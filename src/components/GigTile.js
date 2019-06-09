@@ -75,6 +75,7 @@ class GigTile extends React.PureComponent {
             width={this.props.width}
             height={this.props.height}
             href={this.props.node.fields.slug}
+            linkType={this.props.linkType}
           >
             <MediaCounts>
               {imageCountByGig[node.fields.parentDir] > 0 && <div><span className="smaller">{imageCountByGig[node.fields.parentDir]}</span> <MdPhotoCamera/> </div>}

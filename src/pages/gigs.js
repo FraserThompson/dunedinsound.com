@@ -86,7 +86,7 @@ class Gigs extends React.Component {
     this.gumshoe && this.gumshoe.destroy()
     this.gumshoe = null
 
-    window.scrollTo(0, 0);
+    if (typeof window !== `undefined`) window.scrollTo(0, 0)
 
     if (!searchInput || searchInput.length == 0) {
       this.setState({postsSorted: this.allPostsSorted, pageUpTo: 1, menuItems: this.allMenuItems})
@@ -133,8 +133,10 @@ class Gigs extends React.Component {
   // Scrolling to an achor. We do this because hash changes trigger re-renders.
   scrollTo = (anchor) => {
     const element = document.getElementById(anchor)
-    const y = element.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo(0, y - 90)
+    if (typeof window !== `undefined`) {
+      const y = element.getBoundingClientRect().top + window.scrollY
+      window.scrollTo(0, y - 90)
+    }
   }
 
   menuItemClick = (e, anchor, yearIndex) => {
