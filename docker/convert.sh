@@ -19,19 +19,19 @@ do
     if [ ${extension} == "wav" ]
     then
         # Trim silence from end
-        echo "Trimming silence..."
-        sox "$file" "$filename"-silence.wav reverse silence 1 0.1 0.1% reverse
+        # echo "Trimming silence..."
+        # sox "$file" "$filename"-silence.wav reverse silence 1 0.1 0.1% reverse
         # Convert to mp3
         echo "Converting to mp3..."
-        lame -V2 --noreplaygain --tt "$artist" --ta "$artist" --tl "$gig" --ty 2016 --tc dunedinsound.com "$filename"-silence.wav "$filename".mp3
+        lame -V 0 --noreplaygain --tt "$artist" --ta "$artist" --tl "$gig" --ty 2019 --tc dunedinsound.com "$filename".wav "$filename".mp3
         # Tag
-        mid3v2 -v --artist="$artist" --song="$artist at $gig" --album="$gig" --comment="dunedinsound.com" --year="2018" "$filename".mp3
+        mid3v2 -v --artist="$artist" --song="$artist at $gig" --album="$gig" --comment="dunedinsound.com" --year="2019" "$filename".mp3
         # Generate waveform
         echo "Generating waveform..."
-        RUBYOPT=-Ku json-waveform "$filename"-silence.wav > "$filename".mp3.json
+        RUBYOPT=-Ku json-waveform "$filename".wav > "$filename".mp3.json
     else
         # Tag
-        mid3v2 -v --artist="$artist" --song="$artist at $gig" --album="$gig" --comment="dunedinsound.com" --year="2018" "$filename".mp3
+        mid3v2 -v --artist="$artist" --song="$artist at $gig" --album="$gig" --comment="dunedinsound.com" --year="2019" "$filename".mp3
         # Convert to wav
         sox "$filename".mp3 temp.wav
         # Generate waveform

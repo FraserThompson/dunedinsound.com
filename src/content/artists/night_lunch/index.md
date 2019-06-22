@@ -1,7 +1,4 @@
 ---
-title: 'Night Lunch'
-permalink: /artists/night_lunch/
-layout: band
+title: Night Lunch
 facebook: https://www.facebook.com/NachtMittagessen/
-parent: Artists
 ---

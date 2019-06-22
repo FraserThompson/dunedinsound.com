@@ -11,6 +11,9 @@
 //  - textColor (optional)
 //  - height (optional): Defaults to 500px
 //  - shadowBottom(optional) : Whether to show a shadow on the bottom
+//  - imageSizes (optional): This is an array which helps gatsby decide what size image to show.
+//    By default it assumes all images are displayed at 100vw. Check the gridToSizes method
+//    in utility.js and use it to turn an array of grid sizes into something this can use.
 
 
 import React from 'react'
@@ -26,8 +29,8 @@ const Container = styled.a`
   color: ${props => props.theme.textColor};
   position: relative;
   display: block;
-  height: ${props => props.height ? props.height : "500px"};
-  width: ${props => props.width};
+  height: ${props => props.containerHeight ? props.containerHeight : "500px"};
+  width: ${props => props.containerWidth};
   overflow: hidden;
   h1,h2,h3,h4 {
     text-shadow: 1px 1px #000;
@@ -91,24 +94,16 @@ const TitleWrapper = styled.div`
   }
 `
 
-class Tile extends React.Component {
-
-  render() {
-
-    return (
-      <Container {...this.props}  className="tile">
-        {this.props.label && <Label><small>{this.props.label}</small></Label>}
-        {this.props.image && <BackgroundImage sizes={this.props.sizes} image={this.props.image}/>}
-        <TitleWrapper shadowBottom={this.props.title || this.props.subtitle}>
-          <Content>
-            {this.props.title && <h4 className="title">{this.props.title}</h4>}
-            {this.props.subtitle && <p className="subtitle"><small>{this.props.subtitle}</small></p>}
-          </Content>
-          {this.props.children}
-        </TitleWrapper>
-      </Container>
-    )
-  }
-}
-
-export default Tile
+export default (props) => (
+  <Container containerHeight={props.height} containerWidth={props.width} href={props.href} title={props.title} className="tile">
+    {props.label && <Label><small>{props.label}</small></Label>}
+    {props.image && <BackgroundImage sizes={props.imageSizes} image={props.image}/>}
+    <TitleWrapper shadowBottom={props.title || props.subtitle}>
+      <Content>
+        {props.title && <h4 className="title">{props.title}</h4>}
+        {props.subtitle && <p className="subtitle"><small>{props.subtitle}</small></p>}
+      </Content>
+      {props.children}
+    </TitleWrapper>
+  </Container>
+)

@@ -1,7 +1,4 @@
 ---
-title: 'Hermann Doose'
-permalink: /artists/hermann_doose/
-layout: band
-parent: Artists
-bandcamp: 'https://hermanndoose.bandcamp.com/'
+title: Hermann Doose
+bandcamp: https://hermanndoose.bandcamp.com/
 ---

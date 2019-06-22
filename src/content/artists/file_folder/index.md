@@ -1,8 +1,5 @@
 ---
-title: 'File Folder'
-permalink: /artists/file_folder/
-layout: band
-parent: Artists
+title: File Folder
 origin: Auckland
-bandcamp: 'https://filefolder.bandcamp.com/'
+bandcamp: https://filefolder.bandcamp.com/
 ---

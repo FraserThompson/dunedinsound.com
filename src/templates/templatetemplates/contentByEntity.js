@@ -48,6 +48,42 @@ class ContentByEntityTemplate extends React.Component {
     this.vaultsessions = this.props.data.vaultsessions && this.props.data.vaultsessions.edges
     this.siteTitle = this.props.data.site.siteMetadata.title
 
+    this.gigCount = this.gigs.reduce((acc, {edges}) => {
+      acc += edges.length
+      return acc;
+    }, 0)
+
+    this.gigTiles = this.gigs && this.gigs.map(({fieldValue, edges}) => {
+      return <div id={fieldValue} key={fieldValue}>
+        <Divider backgroundColor={theme.default.foregroundColor} color="white" sticky><a style={{width: "100%"}} onClick={(e) => this.scrollTo(e, fieldValue)} href={"#" + fieldValue}>{fieldValue}</a></Divider>
+        <FlexGridContainer>
+          {edges.map(({node}) => <GigTile node={node} key={node.fields.slug}/>)}
+        </FlexGridContainer>
+      </div>
+    })
+
+    this.blogTiles = this.blogs && this.blogs.map(({node}) => {
+      return (
+        <Tile
+          key={node.fields.slug}
+          title={node.frontmatter.title}
+          subtitle={node.excerpt}
+          image={node.frontmatter.cover}
+          label={node.frontmatter.date}
+          href={node.fields.slug}
+        />
+      )
+    })
+
+    this.vaultsessions = this.vaultsessions && this.vaultsessions.map(({node}) =>
+      <Tile
+        key={node.fields.slug}
+        title={node.frontmatter.title}
+        image={node.frontmatter.cover}
+        href={node.fields.slug}
+      />
+    )
+
     this.state = {
       scrolled: false,
       openTab: "gigs"
@@ -79,37 +115,6 @@ class ContentByEntityTemplate extends React.Component {
 
   render() {
 
-    const gigTiles = this.gigs && this.gigs.map(({fieldValue, edges}) => {
-      return <div id={fieldValue} key={fieldValue}>
-        <Divider backgroundColor={theme.default.foregroundColor} color="white" sticky><a style={{width: "100%"}} onClick={(e) => this.scrollTo(e, fieldValue)} href={"#" + fieldValue}>{fieldValue}</a></Divider>
-        <FlexGridContainer>
-          {edges.map(({node}) => <GigTile node={node} key={node.fields.slug}/>)}
-        </FlexGridContainer>
-      </div>
-    })
-
-    const blogTiles = this.blogs && this.blogs.map(({node}) => {
-      return (
-        <Tile
-          key={node.fields.slug}
-          title={node.frontmatter.title}
-          subtitle={node.excerpt}
-          image={node.frontmatter.cover}
-          label={node.frontmatter.date}
-          href={node.fields.slug}
-        />
-      )
-    })
-
-    const vaultsessions = this.vaultsessions && this.vaultsessions.map(({node}) =>
-      <Tile
-        key={node.fields.slug}
-        title={node.frontmatter.title}
-        image={node.frontmatter.cover}
-        href={node.fields.slug}
-      />
-    )
-
     return (
       <Layout
         location={this.props.location}
@@ -132,13 +137,13 @@ class ContentByEntityTemplate extends React.Component {
           {this.post.frontmatter.description && <p>{this.post.frontmatter.description}</p>}
         </Banner>
         <Tabs>
-          <button className={this.state.openTab === "gigs" ? "active" : ""} onClick={() => this.setState({openTab: "gigs"})}>Gigs ({this.gigs.length})</button>
+          <button className={this.state.openTab === "gigs" ? "active" : ""} onClick={() => this.setState({openTab: "gigs"})}>Gigs ({this.gigCount})</button>
           {this.blogs && this.blogs.length > 0 && <button className={this.state.openTab === "blogs" ? "active" : ""} onClick={() => this.setState({openTab: "blogs"})}>Blogs ({this.blogs.length})</button>}
           {this.vaultsessions && this.vaultsessions.length > 0 && <button className={this.state.openTab === "vaultsessions" ? "active" : ""} onClick={() => this.setState({openTab: "vaultsessions"})}><span className="rainbowBackground">VAULT SESSION</span></button>}
         </Tabs>
-          {this.state.openTab === "gigs" && gigTiles}
-          {this.state.openTab === "blogs" && <FlexGridContainer>{blogTiles}</FlexGridContainer>}
-          {this.state.openTab === "vaultsessions" && <FlexGridContainer>{vaultsessions}</FlexGridContainer>}
+          {this.state.openTab === "gigs" && this.gigTiles}
+          {this.state.openTab === "blogs" && <FlexGridContainer>{this.blogTiles}</FlexGridContainer>}
+          {this.state.openTab === "vaultsessions" && <FlexGridContainer>{this.vaultsessions}</FlexGridContainer>}
       </Layout>
     )
   }

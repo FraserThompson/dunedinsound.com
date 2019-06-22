@@ -1,8 +1,5 @@
 ---
-title: 'Raw Panic'
-permalink: /artists/raw_panic/
-bandcamp: 'https://zero-style.bandcamp.com/album/raw-panic'
-layout: band
+title: Raw Panic
+bandcamp: https://zero-style.bandcamp.com/album/raw-panic
 origin: Wellington
-parent: Artists
 ---

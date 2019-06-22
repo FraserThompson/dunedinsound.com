@@ -1,9 +1,6 @@
 ---
-title: 'Log Horn Breed'
-permalink: /artists/log_horn_breed/
-layout: band
+title: Log Horn Breed
 origin: Christchurch
-facebook: 'https://www.facebook.com/LogHornBreed/'
-bandcamp: 'https://loghornbreed.bandcamp.com/'
-parent: Artists
+facebook: https://www.facebook.com/LogHornBreed/
+bandcamp: https://loghornbreed.bandcamp.com/
 ---

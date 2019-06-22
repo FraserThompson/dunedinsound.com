@@ -9,14 +9,22 @@ import { theme } from '../utils/theme'
 import { toMachineName, gridToSizes } from '../utils/helper'
 import Tabs from '../components/Tabs'
 import styled from '@emotion/styled'
+import { rhythm } from '../utils/typography';
 
 const Pills = styled(Tabs)`
-  position:absolute;
+  position:fixed;
   width: auto;
   z-index: 4;
   top: auto !important;
   border-radius: 10px;
   box-shadow: 0 6px 12px rgba(0,0,0,.25);
+  opacity: 0.6;
+  transition: opacity 200ms ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+
   button {
     border: none;
     border-radius: 10px;
@@ -109,12 +117,12 @@ class Artists extends React.Component {
         hideFooter={true}
         headerContent={<Search placeholder="Search artists" toggleSidebar={this.toggleSidebar} filter={this.search}/>}
       >
-        <Pills>
+        {!this.state.searching && <Pills>
           <small>
             <button className={this.state.sortBy === "title" ? "active" : ""} onClick={() => this.setState({sortBy: "title"})}>Title</button>
-            <button className={this.state.sortBy === "numberOfGigs" ? "active" : ""} onClick={() => this.setState({sortBy: "numberOfGigs"})}>Number of Gigs</button>
+            <button className={this.state.sortBy === "numberOfGigs" ? "active" : ""} onClick={() => this.setState({sortBy: "numberOfGigs"})}>Gigs</button>
           </small>
-        </Pills>
+        </Pills>}
         <FlexGridContainer fixedWidth ref={this.element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
           {this.state.filteredPosts.map(({ node }) => {
             const title = (node.frontmatter.title || node.fields.slug) + (node.frontmatter.origin ? ` (${node.frontmatter.origin})` : "")
@@ -129,7 +137,7 @@ class Artists extends React.Component {
                 image={coverImage}
                 label={node.frontmatter.date}
                 href={node.fields.slug}
-                sizes={gridToSizes(grid)}
+                imageSizes={gridToSizes(grid, "400px")}
                 height={this.state.filteredPosts.length == 1 ? "calc(100vh - " + theme.default.headerHeight + ")" : this.state.filteredPosts.length <= 8  ? "40vh" : "20vh"}
               />
             )

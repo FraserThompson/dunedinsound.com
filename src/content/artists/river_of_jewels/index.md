@@ -1,7 +1,4 @@
 ---
-title: 'River of Jewels'
-permalink: /artists/river_of_jewels/
+title: River of Jewels
 origin: California
-layout: band
-parent: Artists
 ---

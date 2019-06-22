@@ -1,9 +1,6 @@
 ---
-title: 'Chesta Hedron'
-permalink: /artists/chesta_hedron/
-layout: band
+title: Chesta Hedron
 origin: Australia
-facebook: 'https://www.facebook.com/chesta.hedron/'
-bandcamp: 'https://chestahedron.bandcamp.com/releases'
-parent: Artists
+facebook: https://www.facebook.com/chesta.hedron/
+bandcamp: https://chestahedron.bandcamp.com/releases
 ---

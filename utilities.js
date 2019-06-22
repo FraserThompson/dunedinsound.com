@@ -1,12 +1,13 @@
 const fs = require('fs-extra'),
   fg = require('fast-glob'),
   path = require('path'),
+  yaml = require('yaml'),
   md5File = require('md5-file');
 
 // this gets all the original uncompressed files
 // to do this is compares filenames, if there are duplicate filenames it then checks the path for the artist name
 // it's pretty cool
-function getOriginalFiles() {
+const getOriginalFiles = () => {
   const good_jpgs = fg.sync('F:/Recordings/**/**/*.{jpg,JPG}');
   fg('G:/dev/dunedinsound-gatsby/src/content/gigs/**/**/*.{jpg,JPG}').then((files) => {
 
@@ -71,7 +72,7 @@ function getOriginalFiles() {
 }
 
 // this is just for checking what files I have left which are the compressed versions
-function whatFilesAreSmall() {
+const whatFilesAreSmall = () => {
   fg('./src/content/gigs/**/**/*[^cover].jpg').then((files) => {
     files.forEach((file) => {
       const current_size = fs.statSync(file).size
@@ -87,7 +88,7 @@ function whatFilesAreSmall() {
 // this is because the cover is usually just one of the images renamed to cover
 // so it does this just so it can find the filename THEN it checks all the original uncompressed images
 // to find the one with teh same filename and then it copies it wtf
-function findBiggerCovers() {
+const findBiggerCovers = () => {
   const multipleMatches = []
 
   const good_jpgs = fg.sync('F:/Recordings/**/**/*.jpg');
@@ -159,6 +160,7 @@ function findBiggerCovers() {
 }
 
 // This was basically just used once to correct an error I made copying files, but it's left here for posterity.
+// It found MP3 files which were duplicates and deleted them
 const findDuplicateMP3 = () => {
   fg('G:/dev/dunedinsound-gatsby/src/content/gigs/**/**/*.{mp3,json}').then((files) => {
     const processed = files.map((file) => file.replace(" - Full Set", ""))
@@ -172,7 +174,28 @@ const findDuplicateMP3 = () => {
   })
 }
 
+// We had leftover fields on the artist YAML which we didn't want so this removed them.
+const fixArtistYaml = () => {
+  fg('G:/dev/dunedinsound-gatsby/src/content/artists/**/index.md').then((files) => {
+
+    files.forEach((file) => {
+      const loadedFile = fs.readFileSync(file)
+      const frontmatter = loadedFile.toString().split("---")
+
+      const parsed = yaml.parse(frontmatter[1])
+      delete parsed['permalink']
+      delete parsed['layout']
+      delete parsed['parent']
+
+      console.log(parsed)
+
+      fs.writeFileSync(file, "---\n" + yaml.stringify(parsed, 2) + "---\n")
+    })
+  })
+}
+
 //findDuplicateMP3();
 //whatFilesAreSmall();
 //getOriginalFiles();
 //findBiggerCovers();
+//fixArtistYaml();

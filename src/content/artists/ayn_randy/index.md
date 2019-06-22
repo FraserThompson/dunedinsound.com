@@ -1,7 +1,4 @@
 ---
-title: 'Ayn Randy'
-permalink: /artists/ayn_randy/
-layout: band
+title: Ayn Randy
 origin: Wellington
-parent: Artists
 ---

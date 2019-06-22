@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import Layout from '../components/Layout'
 import Tile from '../components/Tile';
-import { nodeTypeToHuman } from '../utils/helper';
+import { nodeTypeToHuman, gridToSizes } from '../utils/helper';
 import GridContainer from '../components/GridContainer';
 import GigTile from '../components/GigTile';
 
@@ -52,7 +52,7 @@ class Homepage extends React.Component {
 
       let tile = undefined;
       if (node.fields.type === "gigs" && node.fields.machine_name != this.firstGig.fields.machine_name) {
-        tile = <GigTile title={"GIG: " + node.frontmatter.title} node={node} height="30vh" key={node.fields.slug}/>
+        tile = <GigTile title={"GIG: " + node.frontmatter.title} node={node} height="30vh" key={node.fields.slug} imageSizes={gridToSizes({xs: 12, md: 4, lg: 4})}/>
       } else if (node.fields.type === "blog") {
         tile = <Tile
           key={node.fields.slug}
@@ -61,6 +61,7 @@ class Homepage extends React.Component {
           image={node.frontmatter.cover}
           label={node.frontmatter.date}
           height={"30vh"}
+          imageSizes={gridToSizes({xs: 12, md: 4, lg: 4})}
           href={node.fields.slug}
         />
       } else if (node.fields.type === "vaultsessions") {
@@ -69,6 +70,7 @@ class Homepage extends React.Component {
           image={node.frontmatter.cover}
           height={"30vh"}
           title={title}
+          imageSizes={gridToSizes({xs: 12, md: 4, lg: 4})}
           href={node.fields.slug}
         />
       }
@@ -90,7 +92,7 @@ class Homepage extends React.Component {
       <Layout description={this.siteDescription} location={this.props.location} title={this.siteTitle}>
         <HomePageGridContainer>
           <div>
-            <GigTile title={"LATEST GIG: " + this.firstGig.frontmatter.title} node={this.firstGig} height="60vh"/>
+            <GigTile imageSizes={gridToSizes({xs: 12, md: 8, lg: 8})} title={"LATEST GIG: " + this.firstGig.frontmatter.title} node={this.firstGig} height="60vh"/>
           </div>
           <div>
             {this.postSections.firstTwo.map(tile => tile)}

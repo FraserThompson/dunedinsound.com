@@ -1,9 +1,6 @@
 ---
-title: 'Yukon Era'
-permalink: /artists/yukon_era/
-layout: band
-parent: Artists
+title: Yukon Era
 origin: Auckland
-bandcamp: 'https://yukonera.bandcamp.com/'
-facebook: 'https://www.facebook.com/yukonera/'
+bandcamp: https://yukonera.bandcamp.com/
+facebook: https://www.facebook.com/yukonera/
 ---

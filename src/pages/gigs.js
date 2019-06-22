@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import Layout from '../components/Layout'
 import Search from '../components/Search'
 import SidebarNav from '../components/SidebarNav'
-import { postFilter } from  '../utils/helper'
+import { postFilter, gridToSizes } from  '../utils/helper'
 import GigTile from '../components/GigTile'
 import 'gumshoejs/src/js/gumshoe/_closest.polyfill'
 import 'gumshoejs/src/js/gumshoe/_customEvent.polyfill'
@@ -196,7 +196,7 @@ class Gigs extends React.Component {
                     months.map(({month, posts}) => {
                       const id = `${year}-${month}`
                       return <section key={id} id={id}>
-                        {posts.map(({node}) => <GigTile key={node.fields.slug} height="30vh" node={node}/>)}
+                        {posts.map(({node}) => <GigTile key={node.fields.slug} height="30vh" node={node} imageSizes={gridToSizes({xs: 12, sm: 8, lg: 8})}/>)}
                       </section>
                     })
                   }

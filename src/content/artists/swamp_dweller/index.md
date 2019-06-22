@@ -1,7 +1,4 @@
 ---
-title: 'Swamp Dweller'
-permalink: /artists/swamp_dweller/
-layout: band
-parent: Artists
-facebook: 'https://www.facebook.com/swampdwellersludge/'
+title: Swamp Dweller
+facebook: https://www.facebook.com/swampdwellersludge/
 ---

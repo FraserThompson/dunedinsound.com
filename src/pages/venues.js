@@ -6,11 +6,9 @@ import styled from '@emotion/styled'
 import { Map, Popup, TileLayer, Marker } from 'react-leaflet'
 import SidebarNav from '../components/SidebarNav'
 import Search from '../components/Search'
-import HorizontalNav from '../components/HorizontalNav';
-import MenuButton from '../components/MenuButton';
-import { MdMenu } from 'react-icons/md';
-
-//const filterDebounced = AwesomeDebouncePromise((needle, haystack) => haystack.filter(({node}) => node.frontmatter.title.toLowerCase().includes(needle)), 500);
+import HorizontalNav from '../components/HorizontalNav'
+import MenuButton from '../components/MenuButton'
+import { MdMenu } from 'react-icons/md'
 
 const MapWrapper = styled.div`
   width: 100%;

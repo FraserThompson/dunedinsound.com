@@ -6,8 +6,10 @@ const toMachineName = (string, space_character) => {
   return string.toLowerCase().replace(/[!,.']/g,'').replace(/\s/g, space_character).replace(/[$]/g, 'z')
 }
 
-const gridToSizes = (grid) => {
-  return `(max-width: ${theme.default.breakpoints.xs}) ${100 * (grid.xs / 12)}vw, (max-width: ${theme.default.breakpoints.md}) ${100 * (grid.md / 12)}vw, (max-width: ${theme.default.breakpoints.lg}) ${100 * (grid.lg / 12)}vw, 400px`
+const decimalToPercentage = (number) => 100 * number
+
+const gridToSizes = (grid, maxSize) => {
+  return `(max-width: ${theme.default.breakpoints.xs}) ${decimalToPercentage(grid.xs / 12)}vw, (max-width: ${theme.default.breakpoints.md}) ${decimalToPercentage(grid.md / 12)}vw, (max-width: ${theme.default.breakpoints.lg}) ${decimalToPercentage(grid.lg / 12)}vw, (max-width: 3000px) ${decimalToPercentage(grid.lg / 12)}vw, ${maxSize || "800px"}`
 }
 
 const nodeTypeToHuman = (string) => {

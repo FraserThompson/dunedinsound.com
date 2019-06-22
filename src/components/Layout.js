@@ -126,7 +126,7 @@ export const query = graphql`
 
   fragment LargeImage on File {
     childImageSharp {
-      fluid(maxWidth: 1600, quality: 80, srcSetBreakpoints: [ 400, 1600, 3200 ]) {
+      fluid(maxWidth: 1600, quality: 80, srcSetBreakpoints: [ 400, 800, 1600, 3200 ]) {
         ...GatsbyImageSharpFluid_withWebp
       }
     }

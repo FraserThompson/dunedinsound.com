@@ -6,26 +6,26 @@
 
 import React from 'react'
 import Img from 'gatsby-image'
+import { gridToSizes } from '../utils/helper';
 
-class BackgroundImage extends React.PureComponent {
-
-  render() {
-    return <div style={{display: "flex", justifyContent: 'center', alignItems: 'center', width: "100%", height: "100%"}}>
-      {Array.isArray(this.props.image) ?
-        this.props.image.map(({node}, index) => <Img
+export default (props) => (
+  <div style={{display: "flex", justifyContent: 'center', alignItems: 'center', width: "100%", height: "100%"}}>
+    {Array.isArray(props.image) ?
+      props.image.map(({node}, index) =>
+        <Img
           className="backgroundImage"
           key={index}
           style={{
-            width: ((1 / this.props.image.length) * 100) + "%",
+            width: ((1 / props.image.length) * 100) + "%",
             zIndex: 0,
             height: "100%"
-          }} fluid={node.childImageSharp.fluid}/>
-        )
-        :
-        <Img className="backgroundImage" style={{width: "100%", zIndex: 0, height: "100%"}} fluid={{...this.props.image.childImageSharp.fluid, sizes: this.props.sizes || this.props.image.childImageSharp.fluid.sizes}}/>
-      }
-    </div>
-  }
-}
+          }}
+          fluid={{...node.childImageSharp.fluid, sizes: gridToSizes({xs: 12, md: 12 / props.image.length, lg: 12 / props.image.length})}}
+        />
+      )
+      :
+      <Img className="backgroundImage" style={{width: "100%", zIndex: 0, height: "100%"}} fluid={{...props.image.childImageSharp.fluid, sizes: props.sizes || gridToSizes({xs: 12, md: 12, lg: 12})}}/>
+    }
+  </div>
+)
 
-export default BackgroundImage

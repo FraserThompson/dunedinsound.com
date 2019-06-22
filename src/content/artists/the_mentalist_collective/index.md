@@ -1,8 +1,5 @@
 ---
-title: 'The Mentalist Collective'
-permalink: /artists/the_mentalist_collective/
-layout: band
-parent: Artists
-bandcamp: 'https://thementalistcollective.bandcamp.com/'
-facebook: 'https://www.facebook.com/TheMentalistCollective/'
+title: The Mentalist Collective
+bandcamp: https://thementalistcollective.bandcamp.com/
+facebook: https://www.facebook.com/TheMentalistCollective/
 ---

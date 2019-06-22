@@ -1,9 +1,6 @@
 ---
-title: 'Long Distance Runner'
-permalink: /artists/long_distance_runner/
-layout: band
+title: Long Distance Runner
 origin: Auckland
-bandcamp: 'http://longdistancerunnernz.bandcamp.com/'
-facebook: 'https://www.facebook.com/longdistancerunnernz/'
-parent: Artists
+bandcamp: http://longdistancerunnernz.bandcamp.com/
+facebook: https://www.facebook.com/longdistancerunnernz/
 ---

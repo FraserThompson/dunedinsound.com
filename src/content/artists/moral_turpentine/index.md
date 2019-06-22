@@ -1,9 +1,6 @@
 ---
-title: 'Moral Turpentine'
-permalink: /artists/moral_turpentine/
-layout: band
+title: Moral Turpentine
 origin: Napier
-facebook: 'https://www.facebook.com/moralturpentine/'
-bandcamp: 'https://moralturpentine.bandcamp.com/'
-parent: Artists
+facebook: https://www.facebook.com/moralturpentine/
+bandcamp: https://moralturpentine.bandcamp.com/
 ---

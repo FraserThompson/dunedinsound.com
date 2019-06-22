@@ -1,7 +1,4 @@
 ---
-title: 'The Bamboo'
-permalink: /artists/the_bamboo/
-layout: band
+title: The Bamboo
 origin: Oamaru
-parent: Artists
 ---

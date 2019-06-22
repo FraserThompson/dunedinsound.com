@@ -1,8 +1,5 @@
 ---
-title: 'LA Suffocated'
-permalink: /artists/_la_suffocated/
-layout: band
+title: LA Suffocated
 origin: Australia
-facebook: 'https://www.facebook.com/L.Asuffocated/'
-parent: Artists
+facebook: https://www.facebook.com/L.Asuffocated/
 ---

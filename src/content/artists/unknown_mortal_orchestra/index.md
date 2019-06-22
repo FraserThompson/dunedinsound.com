@@ -1,9 +1,6 @@
 ---
-title: 'Unknown Mortal Orchestra'
-permalink: /artists/unknown_mortal_orchestra/
-layout: band
-facebook: 'https://www.facebook.com/unknownmortalorchestra/'
-bandcamp: 'https://unknown-mortal-orchestra.bandcamp.com/'
+title: Unknown Mortal Orchestra
+facebook: https://www.facebook.com/unknownmortalorchestra/
+bandcamp: https://unknown-mortal-orchestra.bandcamp.com/
 origin: Auckland
-parent: Artists
 ---

@@ -1,8 +1,5 @@
 ---
-title: 'Carradine Choke'
-permalink: /artists/carradine_choke/
-layout: band
+title: Carradine Choke
 origin: Christchurch
-facebook: 'https://www.facebook.com/carradinechoke/'
-parent: Artists
+facebook: https://www.facebook.com/carradinechoke/
 ---

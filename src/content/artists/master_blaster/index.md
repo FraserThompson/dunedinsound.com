@@ -1,8 +1,5 @@
 ---
-title: 'Master Blaster'
-permalink: /artists/master_blaster/
-layout: band
-parent: Artists
+title: Master Blaster
 origin: Auckland
-bandcamp: 'https://masterblaster.bandcamp.com/'
+bandcamp: https://masterblaster.bandcamp.com/
 ---

@@ -1,9 +1,6 @@
 ---
-title: 'The Dance Asthmatics'
-permalink: /artists/the_dance_asthmatics/
-layout: band
-parent: Artists
+title: The Dance Asthmatics
 origin: Christchurch
-bandcamp: 'https://thedanceasthmatics.bandcamp.com/'
-facebook: 'https://www.facebook.com/TheDanceAsthmatics/'
+bandcamp: https://thedanceasthmatics.bandcamp.com/
+facebook: https://www.facebook.com/TheDanceAsthmatics/
 ---

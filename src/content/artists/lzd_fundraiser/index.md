@@ -1,7 +1,4 @@
 ---
-title: 'L$D Fundraiser'
-permalink: /artists/lzd_fundraiser/
-layout: band
-parent: Artists
-bandcamp: 'https://lsdfunraiser.bandcamp.com/'
+title: L$D Fundraiser
+bandcamp: https://lsdfunraiser.bandcamp.com/
 ---

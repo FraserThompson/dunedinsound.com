@@ -1,9 +1,6 @@
 ---
-title: 'Frankie Cosmos'
-permalink: /artists/frankie_cosmos/
-layout: band
-parent: Artists
+title: Frankie Cosmos
 origin: USA
-facebook: 'https://www.facebook.com/FrankieCosmos/'
-bandcamp: 'https://ingridsuperstar.bandcamp.com/'
+facebook: https://www.facebook.com/FrankieCosmos/
+bandcamp: https://ingridsuperstar.bandcamp.com/
 ---

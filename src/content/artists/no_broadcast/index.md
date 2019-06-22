@@ -1,9 +1,6 @@
 ---
-title: 'No Broadcast'
-permalink: /artists/no_broadcast/
-layout: band
-parent: Artists
+title: No Broadcast
 origin: Christchurch
-bandcamp: 'https://nobroadcast.bandcamp.com/'
-facebook: 'https://www.facebook.com/nobroadcast'
+bandcamp: https://nobroadcast.bandcamp.com/
+facebook: https://www.facebook.com/nobroadcast
 ---

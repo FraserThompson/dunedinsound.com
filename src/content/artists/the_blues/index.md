@@ -1,8 +1,5 @@
 ---
-title: 'The BLUES'
-permalink: /artists/the_blues/
-layout: band
-parent: Artists
+title: The BLUES
 origin: California
-website: 'http://thebluessingstheblues.org/'
+website: http://thebluessingstheblues.org/
 ---

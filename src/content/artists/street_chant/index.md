@@ -1,9 +1,6 @@
 ---
-title: 'Street Chant'
-permalink: /artists/street_chant/
-layout: band
-parent: Artists
+title: Street Chant
 origin: Auckland
-bandcamp: 'https://streetchant.bandcamp.com/'
-facebook: 'https://www.facebook.com/streetchant/'
+bandcamp: https://streetchant.bandcamp.com/
+facebook: https://www.facebook.com/streetchant/
 ---

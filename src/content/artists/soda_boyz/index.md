@@ -1,9 +1,6 @@
 ---
-title: 'Soda Boyz'
-permalink: /artists/soda_boyz/
-layout: band
-parent: Artists
+title: Soda Boyz
 origin: Ashhurst
-bandcamp: 'https://sodaboyz.bandcamp.com/'
-facebook: 'https://www.facebook.com/sodaboyzz/'
+bandcamp: https://sodaboyz.bandcamp.com/
+facebook: https://www.facebook.com/sodaboyzz/
 ---

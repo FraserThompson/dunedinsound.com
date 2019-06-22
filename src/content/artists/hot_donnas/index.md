@@ -1,7 +1,4 @@
 ---
-title: 'HOT Donnas'
-permalink: /artists/hot_donnas/
-facebook: 'https://www.facebook.com/HOTdonnas/'
-layout: band
-parent: Artists
+title: HOT Donnas
+facebook: https://www.facebook.com/HOTdonnas/
 ---

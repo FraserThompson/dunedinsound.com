@@ -1,9 +1,6 @@
 ---
-title: 'Earth Tongue'
-permalink: /artists/earth_tongue/
-layout: band
+title: Earth Tongue
 origin: Wellington
-bandcamp: 'https://earthtongue.bandcamp.com/'
-facebook: 'https://www.facebook.com/earthtongueband/'
-parent: Artists
+bandcamp: https://earthtongue.bandcamp.com/
+facebook: https://www.facebook.com/earthtongueband/
 ---

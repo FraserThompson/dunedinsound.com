@@ -1,9 +1,6 @@
 ---
-title: 'Phone Sex Robots'
-permalink: /artists/phone_sex_robots/
-bandcamp: 'https://phonesexrobots.bandcamp.com/'
-facebook: 'https://www.facebook.com/psrpoppunk'
-layout: band
+title: Phone Sex Robots
+bandcamp: https://phonesexrobots.bandcamp.com/
+facebook: https://www.facebook.com/psrpoppunk
 origin: Wellington
-parent: Artists
 ---

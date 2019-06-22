@@ -1,8 +1,5 @@
 ---
-title: 'Tyrannosaurus Wreck'
-permalink: /artists/tyrannosaurus_wreck/
-layout: band
+title: Tyrannosaurus Wreck
 origin: Christchurch
-facebook: 'https://www.facebook.com/Tyrannosaurus-Wreck-1581983162046062/'
-parent: Artists/
+facebook: https://www.facebook.com/Tyrannosaurus-Wreck-1581983162046062/
 ---
