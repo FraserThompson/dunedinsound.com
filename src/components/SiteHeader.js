@@ -71,17 +71,10 @@ const Brand = styled.div`
   }
 `
 
-class SiteHeader extends React.Component {
-
-  render() {
-    return (
-      <Container className="header" hideOnMobile={!this.props.headerContent} backgroundColor={this.props.backgroundColor}>
-        {!this.props.hideBrand && <Brand hideOnMobile={this.props.hideBrandOnMobile}><Link to="/">Dunedin Gig Archives</Link></Brand>}
-        {this.props.headerContent && <HeaderContent>{this.props.headerContent}</HeaderContent>}
-        {!this.props.hideNav && <SiteNav className="hideMobile"/>}
-      </Container>
-    )
-  }
-}
-
-export default SiteHeader
+export default (props) => (
+  <Container className="header" hideOnMobile={!props.headerContent} backgroundColor={props.backgroundColor}>
+    {!props.hideBrand && <Brand hideOnMobile={props.hideBrandOnMobile}><Link to="/">Dunedin Gig Archives</Link></Brand>}
+    {props.headerContent && <HeaderContent>{props.headerContent}</HeaderContent>}
+    {!props.hideNav && <SiteNav className="hideMobile"/>}
+  </Container>
+)

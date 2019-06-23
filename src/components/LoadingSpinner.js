@@ -59,6 +59,4 @@ const LoadingSpinnerWrapper = styled.div`
   }
 `
 
-const LoadingSpinner = props => <LoadingSpinnerWrapper><div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div></LoadingSpinnerWrapper>
-
-export default LoadingSpinner
+export default () => <LoadingSpinnerWrapper><div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div></LoadingSpinnerWrapper>

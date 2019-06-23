@@ -62,26 +62,20 @@ const BannerText = styled.div`
 
 `
 
-class Banner extends React.PureComponent {
-  render() {
-    return (
-      <BannerWrapper className="banner" {...this.props}>
-        {this.props.backgroundImage && <BackgroundImage image={this.props.backgroundImage} />}
-        {(this.props.title || this.props.children) &&
-          <BannerText>
-            {this.props.title && <h1 className="big">{this.props.title}</h1>}
-            {this.props.children &&
-              <div className="center-content">
-                {this.props.children}
-              </div>
-            }
-          </BannerText>
+export default (props) => (
+  <BannerWrapper className="banner" {...props}>
+    {props.backgroundImage && <BackgroundImage image={props.backgroundImage} />}
+    {(props.title || props.children) &&
+      <BannerText>
+        {props.title && <h1 className="big">{props.title}</h1>}
+        {props.children &&
+          <div className="center-content">
+            {props.children}
+          </div>
         }
-        {this.props.background && <div className="background">{this.props.background}</div>}
-        {this.props.customContent}
-      </BannerWrapper>
-    )
-  }
-}
-
-export default Banner
+      </BannerText>
+    }
+    {props.background && <div className="background">{props.background}</div>}
+    {props.customContent}
+  </BannerWrapper>
+)

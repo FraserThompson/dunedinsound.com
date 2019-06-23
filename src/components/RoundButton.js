@@ -4,9 +4,9 @@
 //  - size: width and height
 
 import styled from '@emotion/styled'
-import { lighten } from 'polished';
+import { lighten } from 'polished'
 
-const RoundButton = styled.button`
+export default styled.button`
   z-index: 11;
   color: ${props => props.theme.secondaryColor};
   border-color: ${props => props.theme.secondaryColor};
@@ -27,5 +27,3 @@ const RoundButton = styled.button`
     height: 100%;
   }
 `
-
-export default RoundButton

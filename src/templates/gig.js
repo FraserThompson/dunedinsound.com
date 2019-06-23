@@ -262,14 +262,14 @@ class GigTemplate extends React.Component {
               lg: ( artist.images &&  artist.images.length <= 6) ? "4" : ( artist.images &&  artist.images.length <= 16) ? "3" : "2"
             }
 
-            const vidElements = artist.vid && artist.vid.map((video, vidIndex) => {
-              return <YouTubeResponsive videoId={video.link}key={video.link} odd={(artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1) ? true : false}/>
-            })
+            const vidElements = artist.vid && artist.vid.map((video, vidIndex) =>
+              <YouTubeResponsive key={video.link} videoId={video.link}key={video.link} odd={(artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1) ? true : false}/>
+            )
 
             const isPlaying = this.state.playing && this.state.selectedAudio == artistIndex
 
             return (
-              <div key={artistIndex} id={artist.machineName}>
+              <div key={artist.machineName} id={artist.machineName}>
                 <Divider sticky={true}>
                   <a onClick={(e) => this.scrollTo(e, artist.machineName)} href={"#" + artist.machineName}><p style={{marginRight: rhythm(0.5)}}>{artist.title}</p></a>
                   {artist.audio && <>

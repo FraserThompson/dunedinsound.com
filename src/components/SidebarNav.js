@@ -116,18 +116,12 @@ const SidebarNavWrapper = styled(Menu)`
     }
   }
 `
-class SidebarNav extends React.Component {
-
-  render() {
-    return <>
-      {this.props.button}
-      <SidebarNavWrapper left={this.props.left} right={this.props.right} width={this.props.width} backgroundColor={this.props.backgroundColor} open={this.props.open}>
-        {this.props.children}
-      </SidebarNavWrapper>
-      <Transition mountOnEnter={true} unmountOnExit={true} in={!this.props.open} timeout={200}>{state => <PageOverlay state={state} onClick={this.props.toggle}/>}</Transition>
-    </>
-  }
-}
-
-
-export default SidebarNav
+export default (props) => (
+  <>
+    {props.button}
+    <SidebarNavWrapper left={props.left} right={props.right} width={props.width} backgroundColor={props.backgroundColor} open={props.open}>
+      {props.children}
+    </SidebarNavWrapper>
+    <Transition mountOnEnter={true} unmountOnExit={true} in={!props.open} timeout={200}>{state => <PageOverlay state={state} onClick={props.toggle}/>}</Transition>
+  </>
+)

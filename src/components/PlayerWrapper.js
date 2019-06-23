@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { lighten } from 'polished'
 
-const PlayerWrapper = styled.div`
+export default styled.div`
   position: fixed;
   bottom: ${props => props.show ? "0px" : props.theme.headerHeightNeg };
   z-index: 11;
@@ -39,5 +39,3 @@ const PlayerWrapper = styled.div`
     }
   }
 `
-
-export default PlayerWrapper

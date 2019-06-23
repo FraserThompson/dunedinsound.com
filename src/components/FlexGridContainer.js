@@ -9,7 +9,7 @@
 
 import styled from '@emotion/styled'
 
-const FlexGridContainer = styled.div`
+export default styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -40,7 +40,4 @@ const FlexGridContainer = styled.div`
       width: ${props => props.fixedWidth && ((100 * ((props.lg || 3) / 12)) + "%")};
     }
   }
-
 `
-
-export default FlexGridContainer

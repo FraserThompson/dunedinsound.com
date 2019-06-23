@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { scale } from '../utils/typography';
 import { lighten } from 'polished';
 
-const MenuButton = styled.button`
+export default  styled.button`
   ${scale(1)};
   width: ${props => props.theme.headerHeightMobile};
   height: ${props => props.theme.headerHeight};
@@ -28,5 +28,3 @@ const MenuButton = styled.button`
     height: 100%;
   }
 `
-
-export default MenuButton

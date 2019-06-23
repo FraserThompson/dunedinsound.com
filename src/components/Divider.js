@@ -42,11 +42,9 @@ const DividerWrapper = styled.div`
     }
   }
 `
-export default class Divider extends React.PureComponent {
-  render() {
-    return <DividerWrapper {...this.props}>
-      {this.props.href && <a href={this.props.href}>{this.props.children}</a>}
-      {!this.props.href && this.props.children}
-    </DividerWrapper>
-  }
-}
+export default (props) => (
+  <DividerWrapper {...props}>
+    {props.href && <a href={props.href}>{props.children}</a>}
+    {!props.href && props.children}
+  </DividerWrapper>
+)

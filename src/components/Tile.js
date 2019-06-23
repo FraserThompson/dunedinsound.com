@@ -21,9 +21,10 @@ import styled from '@emotion/styled'
 import BackgroundImage from './BackgroundImage'
 import Content from './Content'
 import { rhythm } from '../utils/typography'
-import { lighten } from 'polished';
+import { lighten } from 'polished'
+import { Link as RouterLink } from '@reach/router'
 
-const Container = styled.a`
+const Container = styled.div`
   background: #40E0D0;
   background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
   color: ${props => props.theme.textColor};
@@ -95,15 +96,17 @@ const TitleWrapper = styled.div`
 `
 
 export default (props) => (
-  <Container containerHeight={props.height} containerWidth={props.width} href={props.href} title={props.title} className="tile">
-    {props.label && <Label><small>{props.label}</small></Label>}
-    {props.image && <BackgroundImage sizes={props.imageSizes} image={props.image}/>}
-    <TitleWrapper shadowBottom={props.title || props.subtitle}>
-      <Content>
-        {props.title && <h4 className="title">{props.title}</h4>}
-        {props.subtitle && <p className="subtitle"><small>{props.subtitle}</small></p>}
-      </Content>
-      {props.children}
-    </TitleWrapper>
+  <Container containerHeight={props.height} data-machinename={props.machineName} containerWidth={props.width} className="tile">
+    <RouterLink to={props.href} title={props.title}>
+      {props.label && <Label><small>{props.label}</small></Label>}
+      {props.image && <BackgroundImage sizes={props.imageSizes} image={props.image}/>}
+      <TitleWrapper shadowBottom={props.title || props.subtitle}>
+        <Content>
+          {props.title && <h4 className="title">{props.title}</h4>}
+          {props.subtitle && <p className="subtitle"><small>{props.subtitle}</small></p>}
+        </Content>
+        {props.children}
+      </TitleWrapper>
+    </RouterLink>
   </Container>
 )

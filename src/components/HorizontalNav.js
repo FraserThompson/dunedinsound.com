@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { rhythm } from '../utils/typography'
 
-const HorizontalNav = styled.ul`
+export default  styled.ul`
   background-color: transparent;
   width: auto;
   max-height: 40vh;
@@ -17,7 +17,6 @@ const HorizontalNav = styled.ul`
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+    }
   }
-}`
-
-export default HorizontalNav
+`

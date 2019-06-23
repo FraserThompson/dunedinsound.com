@@ -9,7 +9,6 @@ import { theme } from '../utils/theme'
 import { toMachineName, gridToSizes } from '../utils/helper'
 import Tabs from '../components/Tabs'
 import styled from '@emotion/styled'
-import { rhythm } from '../utils/typography';
 
 const Pills = styled(Tabs)`
   position:fixed;
@@ -132,7 +131,7 @@ class Artists extends React.Component {
               <Tile
                 key={node.fields.slug}
                 title={title}
-                data-machinename={node.fields.machine_name}
+                machineName={node.fields.machine_name}
                 subtitle={`${this.gigCountsByArtist[node.fields.machine_name]} gigs`}
                 image={coverImage}
                 label={node.frontmatter.date}

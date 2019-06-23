@@ -22,54 +22,46 @@ const Content = styled.div`
   }
 `
 
-class SiteFooter extends React.Component {
-
-  render() {
-
-    return (
-      <StaticQuery
-        query={graphql`
-          query {
-            facebook: file(name: { eq: "fb-icon" }) {
-              childImageSharp {
-                fixed(width: 30, height: 30) {
-                  ...GatsbyImageSharpFixed
-                }
-              }
-            }
-            instagram: file(name: { eq: "instagram-icon" }) {
-              childImageSharp {
-                fixed(width: 30, height: 30) {
-                  ...GatsbyImageSharpFixed
-                }
-              }
-            }
-            youtube: file(name: { eq: "youtube-icon" }) {
-              childImageSharp {
-                fixed(width: 30, height: 30) {
-                  ...GatsbyImageSharpFixed
-                }
-              }
+export default () => (
+  <StaticQuery
+    query={graphql`
+      query {
+        facebook: file(name: { eq: "fb-icon" }) {
+          childImageSharp {
+            fixed(width: 30, height: 30) {
+              ...GatsbyImageSharpFixed
             }
           }
-        `}
-        render={data =>
-          <Container>
-            <Divider/>
-            <Content>
-              <p>Obscure and unofficial media from gigs in Dunedin, New Zealand since 2014. <Link to="/page/info/">More Info</Link></p>
-              <p>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a></p>
-              <div id="footer-social-icons">
-                <a title="Facebook" target="_blank" rel="noopener" href="https://facebook.com/dunedinsound/"><Img fixed={data.facebook.childImageSharp.fixed}/></a>
-                <a title="Instagram" target="_blank" rel="noopener" href="https://instagram.com/dunedinsound/"><Img fixed={data.instagram.childImageSharp.fixed}/></a>
-                <a title="YouTube" target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCcou-Lq6d-AMOkg2UKVEhhg"><Img fixed={data.youtube.childImageSharp.fixed}/></a>
-              </div>
-            </Content>
-          </Container>
         }
-      />
-    )
-  }
-}
-
-export default SiteFooter
+        instagram: file(name: { eq: "instagram-icon" }) {
+          childImageSharp {
+            fixed(width: 30, height: 30) {
+              ...GatsbyImageSharpFixed
+            }
+          }
+        }
+        youtube: file(name: { eq: "youtube-icon" }) {
+          childImageSharp {
+            fixed(width: 30, height: 30) {
+              ...GatsbyImageSharpFixed
+            }
+          }
+        }
+      }
+    `}
+    render={data =>
+      <Container>
+        <Divider/>
+        <Content>
+          <p>Obscure and unofficial media from gigs in Dunedin, New Zealand since 2014. <Link to="/page/info/">More Info</Link></p>
+          <p>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a></p>
+          <div id="footer-social-icons">
+            <a title="Facebook" target="_blank" rel="noopener" href="https://facebook.com/dunedinsound/"><Img fixed={data.facebook.childImageSharp.fixed}/></a>
+            <a title="Instagram" target="_blank" rel="noopener" href="https://instagram.com/dunedinsound/"><Img fixed={data.instagram.childImageSharp.fixed}/></a>
+            <a title="YouTube" target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCcou-Lq6d-AMOkg2UKVEhhg"><Img fixed={data.youtube.childImageSharp.fixed}/></a>
+          </div>
+        </Content>
+      </Container>
+    }
+  />
+)

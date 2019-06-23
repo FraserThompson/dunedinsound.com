@@ -3,7 +3,7 @@ import { rhythm } from '../utils/typography'
 import styled from '@emotion/styled'
 import Divider from './Divider';
 
-const Tabs = styled(Divider)`
+export default styled(Divider)`
   padding: 0;
   height: ${rhythm(1.5)};
   button {
@@ -28,5 +28,3 @@ const Tabs = styled(Divider)`
     }
   }
 `
-
-export default Tabs

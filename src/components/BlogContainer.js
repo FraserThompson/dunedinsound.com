@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import Content from './Content'
 import { darken } from 'polished'
 
-const BlogContainer = styled(Content)`
+export default styled(Content)`
   max-width: ${props => props.theme.contentContainerWidth};
   height: 100%;
   width: 100%;
@@ -24,4 +24,3 @@ const BlogContainer = styled(Content)`
     height: 100%;
   }
 `
-export default BlogContainer;

@@ -3,7 +3,7 @@ title: "Repulsive Woman Dunedin"
 date: 2019-5-18 06:30:00 Z
 venue: st_pauls_cathedral
 artists:
-  - name: Julie Dunn
+  - name: Bathysphere
     vid:
       - link: _g3Pq-u7QI8
   - name: Lucy Hunter
