@@ -1,24 +1,19 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import ContentByEntityTemplate from './templatetemplates/contentByEntity'
+import ContentByEntity from './templatetemplates/ContentByEntity';
 
+export default ({data}) => {
 
-class ArtistTemplate extends ContentByEntityTemplate {
-
-  constructor(props) {
-    super(props)
-
-    this.parent = {
-      title: "Artists",
-      href: "/artists/"
-    }
-
-    this.pageDescription = `See photos, videos and audio recordings of live gigs featuring ${this.post.frontmatter.title} and heaps of other local artists.`
+  const parent = {
+    title: "Artists",
+    href: "/artists/"
   }
 
-}
+  const pageDescription = `See photos, videos and audio recordings of live gigs featuring ${data.thisPost.frontmatter.title} and heaps of other local artists.`
 
-export default ArtistTemplate
+  return <ContentByEntity pageDescription={pageDescription} parent={parent} data={data}/>
+
+}
 
 export const pageQuery = graphql`
   query ArtistsBySlug($slug: String!, $machine_name: String!, $title: String!) {

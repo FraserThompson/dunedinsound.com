@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from '../components/Layout'
 import { Link } from 'gatsby';
 
-class NotFoundPage extends React.Component {
+export default ({location}) => {
 
   speak = (text) => {
     const msg = new SpeechSynthesisUtterance();
@@ -17,16 +17,12 @@ class NotFoundPage extends React.Component {
     speechSynthesis.speak(msg);
   }
 
-  render() {
-    return (
-      <Layout location={this.props.location}>
-        <div className="wobbly-content">
-          <h1 className="big">You've hit a dead link 😭</h1>
-          <p>Maybe you were looking for a particular <Link to="/gigs/">gig</Link>?</p>
-        </div>
-      </Layout>
-    )
-  }
+  return (
+    <Layout location={location}>
+      <div className="wobbly-content">
+        <h1 className="big">You've hit a dead link 😭</h1>
+        <p>Maybe you were looking for a particular <Link to="/gigs/">gig</Link>?</p>
+      </div>
+    </Layout>
+  )
 }
-
-export default NotFoundPage

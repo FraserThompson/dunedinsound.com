@@ -36,22 +36,18 @@ const HomePageGridContainer = styled(GridContainer)`
   }
 `
 
-class Homepage extends React.Component {
+export default ({data, location}) => {
 
-  constructor(props) {
-    super(props)
-    const { data } = this.props
+    const siteTitle = data.site.siteMetadata.title
+    const siteDescription = data.site.siteMetadata.description
+    const posts = data.allMarkdownRemark.edges
+    const firstGig = posts.find(({node}) => node.fields.type === "gigs").node
 
-    this.siteTitle = data.site.siteMetadata.title
-    this.siteDescription = data.site.siteMetadata.description
-    this.posts = data.allMarkdownRemark.edges
-    this.firstGig = this.posts.find(({node}) => node.fields.type === "gigs").node
-
-    this.postSections = this.posts.reduce((obj, { node }) => {
+    const postSections = posts.reduce((obj, { node }) => {
       const title = nodeTypeToHuman(node.fields.type).toUpperCase() + ": " + node.frontmatter.title || node.fields.slug
 
       let tile = undefined;
-      if (node.fields.type === "gigs" && node.fields.machine_name != this.firstGig.fields.machine_name) {
+      if (node.fields.type === "gigs" && node.fields.machine_name != firstGig.fields.machine_name) {
         tile = <GigTile title={"GIG: " + node.frontmatter.title} node={node} height="30vh" key={node.fields.slug} imageSizes={gridToSizes({xs: 12, md: 4, lg: 4})}/>
       } else if (node.fields.type === "blog") {
         tile = <Tile
@@ -82,31 +78,24 @@ class Homepage extends React.Component {
       }
 
       return obj;
+  }, {firstTwo: [], nextThree: []})
 
-    }, {firstTwo: [], nextThree: []})
-  }
-
-  render() {
-
-    return (
-      <Layout description={this.siteDescription} location={this.props.location} title={this.siteTitle}>
-        <HomePageGridContainer>
-          <div>
-            <GigTile imageSizes={gridToSizes({xs: 12, md: 8, lg: 8})} title={"LATEST GIG: " + this.firstGig.frontmatter.title} node={this.firstGig} height="60vh"/>
-          </div>
-          <div>
-            {this.postSections.firstTwo.map(tile => tile)}
-          </div>
-          <GridContainer>
-            {this.postSections.nextThree.map(tile => tile)}
-          </GridContainer>
-        </HomePageGridContainer>
-      </Layout>
-    )
-  }
+  return (
+    <Layout description={siteDescription} location={location} title={siteTitle}>
+      <HomePageGridContainer>
+        <div>
+          <GigTile imageSizes={gridToSizes({xs: 12, md: 8, lg: 8})} title={"LATEST GIG: " + firstGig.frontmatter.title} node={firstGig} height="60vh"/>
+        </div>
+        <div>
+          {postSections.firstTwo.map(tile => tile)}
+        </div>
+        <GridContainer>
+          {postSections.nextThree.map(tile => tile)}
+        </GridContainer>
+      </HomePageGridContainer>
+    </Layout>
+  )
 }
-
-export default Homepage
 
 export const pageQuery = graphql`
   query {

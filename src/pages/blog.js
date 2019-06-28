@@ -23,34 +23,30 @@ const Post = styled.div`
   }
 `
 
-class Blog extends React.Component {
-  render() {
-    const { data } = this.props;
-    const siteTitle = data.site.siteMetadata.title
-    const siteDescription = data.site.siteMetadata.description
-    const posts = data.allBlogs.edges
+export default ({data, location}) => {
 
-    const postElements = posts.map(({node}) =>
-      <Post key={node.fields.slug}>
-        <h1><Link to={node.fields.slug}>{node.frontmatter.title}</Link></h1>
-        <h4>{node.frontmatter.date}</h4>
-        {node.frontmatter.cover && <Link to={node.fields.slug}><Banner height="20vh" backgroundImage={node.frontmatter.cover}></Banner></Link>}
-        <p>{node.excerpt} <small><Link to={node.fields.slug}>More</Link></small></p>
-        <hr/>
-      </Post>
-    )
+  const siteTitle = data.site.siteMetadata.title
+  const siteDescription = data.site.siteMetadata.description
+  const posts = data.allBlogs.edges
 
-    return (
-      <Layout location={this.props.location} description={siteDescription} title={`Blog | ${siteTitle}`} overrideBackgroundColor="white">
-        <BlogContainer>
-          {postElements}
-        </BlogContainer>
-      </Layout>
-    )
-  }
+  const postElements = posts.map(({node}) =>
+    <Post key={node.fields.slug}>
+      <h1><Link to={node.fields.slug}>{node.frontmatter.title}</Link></h1>
+      <h4>{node.frontmatter.date}</h4>
+      {node.frontmatter.cover && <Link to={node.fields.slug}><Banner height="20vh" backgroundImage={node.frontmatter.cover}></Banner></Link>}
+      <p>{node.excerpt} <small><Link to={node.fields.slug}>More</Link></small></p>
+      <hr/>
+    </Post>
+  )
+
+  return (
+    <Layout location={location} description={siteDescription} title={`Blog | ${siteTitle}`} overrideBackgroundColor="white">
+      <BlogContainer>
+        {postElements}
+      </BlogContainer>
+    </Layout>
+  )
 }
-
-export default Blog
 
 export const pageQuery = graphql`
   query {

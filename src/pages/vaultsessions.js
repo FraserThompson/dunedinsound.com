@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import styled from '@emotion/styled'
@@ -20,56 +20,41 @@ const Logo = styled.div`
   }
 `
 
-class VaultSessions extends React.Component {
+export default ({data, location}) => {
 
-  state = {
-    lights: "off",
-    perspective: "300px"
-  }
+  const [lights, setLights] = useState("off")
+  const [perspective, setPerspective] = useState("300px")
 
-  lightsOn = () => {
-    this.setState({lights: "on", perspective: "350px"});
-  }
+  const siteTitle = data.site.siteMetadata.title
+  const siteDescription = data.site.siteMetadata.description
+  const posts = data.allBlogs.edges
 
-  lightsOff = () => {
-    this.setState({lights: "off", perspective: "300px"});
-  }
+  const postElements = posts.map(({node}) =>
+    <article key={node.fields.slug}>
+      <Link onMouseOver={() => setLights("on")} onMouseOut={() => setLights("off")} to={node.fields.slug}><h1>{node.frontmatter.title}</h1></Link>
+    </article>
+  )
 
-  render = () => {
-    const { data } = this.props;
-    const siteTitle = data.site.siteMetadata.title
-    const siteDescription = data.site.siteMetadata.description
-    const posts = data.allBlogs.edges
-
-    const postElements = posts.map(({node}) =>
-      <article key={node.fields.slug}>
-        <Link onMouseOver={this.lightsOn} onMouseOut={this.lightsOff} to={node.fields.slug}><h1>{node.frontmatter.title}</h1></Link>
-      </article>
-    )
-
-    return (
-      <Layout location={this.props.location} description={siteDescription} title={`VAULT SESSIONS | ${siteTitle}`} overrideBackgroundColor="white">
-        <World perspective={this.state.perspective} lights={this.state.lights}>
-          {this.state.lights == "off" && <Logo position="top">
-            <img style={{filter: "invert(80%)"}} src={data.logoMono.publicURL}/>
-          </Logo>}
-          {this.state.lights == "on" && <Logo position="top">
-            <img src={data.logo.publicURL}/>
-          </Logo>}
-          {this.state.lights == "off" && <Logo position="bottom">
-            <img style={{filter: "invert(80%)"}} src={data.logoMono.publicURL}/>
-          </Logo>}
-          {this.state.lights == "on" && <Logo position="bottom">
-            <img src={data.logo.publicURL}/>
-          </Logo>}
-          {postElements}
-        </World>
-      </Layout>
-    )
-  }
+  return (
+    <Layout location={location} description={siteDescription} title={`VAULT SESSIONS | ${siteTitle}`} overrideBackgroundColor="white">
+      <World perspective={perspective} lights={lights}>
+        {lights == "off" && <Logo position="top">
+          <img style={{filter: "invert(80%)"}} src={data.logoMono.publicURL}/>
+        </Logo>}
+        {lights == "on" && <Logo position="top">
+          <img src={data.logo.publicURL}/>
+        </Logo>}
+        {lights == "off" && <Logo position="bottom">
+          <img style={{filter: "invert(80%)"}} src={data.logoMono.publicURL}/>
+        </Logo>}
+        {lights == "on" && <Logo position="bottom">
+          <img src={data.logo.publicURL}/>
+        </Logo>}
+        {postElements}
+      </World>
+    </Layout>
+  )
 }
-
-export default VaultSessions
 
 export const pageQuery = graphql`
   query {
