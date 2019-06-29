@@ -198,7 +198,7 @@ class GigTemplate extends React.Component {
     e && e.preventDefault()
     e && e.stopPropagation()
     const element = document.getElementById(anchor)
-    element && element.scrollIntoView()
+    element && element.scrollIntoView({behavior: "smooth"})
   }
 
   playPause = (index) => {

@@ -24,7 +24,7 @@ const allowedTagPages = [
 export default (props) => (
   <Tags>
     {props.blogTags.map( ({fieldValue, totalCount}) => (
-      allowedTagPages.includes(fieldValue) && <span key={fieldValue} className={fieldValue == props.selected && "selected"}><Link to={`/blog/tags/${fieldValue}`}>{fieldValue} ({totalCount})</Link></span>)
+      allowedTagPages.includes(fieldValue) && <span key={fieldValue} className={fieldValue == props.selected ? "selected": undefined}><Link to={`/blog/tags/${fieldValue}`}>{fieldValue} ({totalCount})</Link></span>)
     )}
     {props.selected && <span><Link to={`/blog/`}>all</Link></span>}
   </Tags>
