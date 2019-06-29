@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 
 export default ({location}) => {
 
-  speak = (text) => {
+  const speak = (text) => {
     const msg = new SpeechSynthesisUtterance();
 
     msg.voiceURI = 'native';
