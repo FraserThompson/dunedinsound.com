@@ -6,7 +6,7 @@ import Search from '../components/Search'
 import FlexGridContainer from '../components/FlexGridContainer'
 import Shuffle from 'shufflejs'
 import { theme } from '../utils/theme'
-import { toMachineName, gridToSizes } from '../utils/helper'
+import { toMachineName } from '../utils/helper'
 import Tabs from '../components/Tabs'
 import styled from '@emotion/styled'
 
@@ -136,7 +136,7 @@ class Artists extends React.Component {
                 image={coverImage}
                 label={node.frontmatter.date}
                 href={node.fields.slug}
-                imageSizes={gridToSizes(grid, "400px")}
+                imageSizes={grid}
                 height={this.state.filteredPosts.length == 1 ? "calc(100vh - " + theme.default.headerHeight + ")" : this.state.filteredPosts.length <= 8  ? "40vh" : "20vh"}
               />
             )

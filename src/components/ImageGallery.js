@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import Img from 'gatsby-image'
 import Lightbox from 'react-image-lightbox'
@@ -18,41 +18,37 @@ const LightBoxToolbarButton = styled.a`
   top: 5px;
 `
 
-class ImageGallery extends React.Component {
+export default ({images, gridSize, title, imageCaption}) => {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      lightboxOpen: false,
-      selectedImage: 0
-    }
-  }
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [selectedImage, setSelectedImage] = useState(0)
 
-  openLightbox = (imageIndex, event) => {
+  const openLightbox = (imageIndex, event) => {
     event.preventDefault()
-    this.gotoLightboxImage(imageIndex)
-    this.setState({ lightboxOpen: true })
+    gotoLightboxImage(imageIndex)
+    setLightboxOpen(true)
   }
 
-  closeLightbox = () => {
-    this.setState({ lightboxOpen: false })
+  const closeLightbox = () => {
+    setLightboxOpen(false)
   }
 
-  gotoLightboxImage = (imageIndex) => {
-    this.setState({ lightboxOpen: true, selectedImage: imageIndex })
+  const gotoLightboxImage = (imageIndex) => {
+    setLightboxOpen(true)
+    setSelectedImage(imageIndex)
   }
 
-  getNextImage = () => {
-    const currentImageIndex = this.state.selectedImage
+  const getNextImage = () => {
+    const currentImageIndex = selectedImage
 
-    if (currentImageIndex < this.props.images.length - 1) {
+    if (currentImageIndex < images.length - 1) {
       return currentImageIndex + 1
     }
     return false
   }
 
-  getPrevImage = () => {
-    const currentImageIndex = this.state.selectedImage
+  const getPrevImage = () => {
+    const currentImageIndex = selectedImage
 
     if (currentImageIndex != 0) {
       return currentImageIndex - 1
@@ -60,56 +56,50 @@ class ImageGallery extends React.Component {
     return false
   }
 
-  getImageSrc = (imageIndex, size) => {
-    if (imageIndex !== false && this.props.images[imageIndex]) {
+  const getImageSrc = (imageIndex, size) => {
+    if (imageIndex !== false && images[imageIndex]) {
       switch(size) {
         default:
-          const parsed_srcset = parse(this.props.images[imageIndex].node.childImageSharp.fluid.srcSet)
+          const parsed_srcset = parse(images[imageIndex].node.childImageSharp.fluid.srcSet)
           return parsed_srcset.find(image => image.width == 1600).url
         case "full":
-          return this.props.images[imageIndex].node.publicURL
+          return images[imageIndex].node.publicURL
       }
     }
   }
 
-  render() {
-
-    const imageElements = this.props.images && this.props.images.map(({node}, imageIndex) => {
-      return (
-        <a style={{cursor: "pointer", display: "block", width: "100%", height: "100%"}} key={imageIndex} onClick={e => this.openLightbox(imageIndex, e)}>
-          <Img fluid={{...node.childImageSharp.fluid, sizes: gridToSizes(this.props.gridSize)}} />
-        </a>
-      )
-    })
-
+  const imageElements = images && images.map(({node}, imageIndex) => {
     return (
-      <>
-        <FlexGridContainer {...this.props.gridSize} maxWidth="600px">
-          {imageElements}
-        </FlexGridContainer>
-        {this.state.lightboxOpen &&
-          <Lightbox
-            mainSrc={this.getImageSrc(this.state.selectedImage)}
-            nextSrc={this.getImageSrc(this.getNextImage())}
-            prevSrc={this.getImageSrc(this.getPrevImage())}
-            onMovePrevRequest={() => this.gotoLightboxImage(this.getPrevImage())}
-            onMoveNextRequest={() => this.gotoLightboxImage(this.getNextImage())}
-            toolbarButtons={
-              [
-                <LightBoxToolbarButton title="Download" target="_blank" href={this.getImageSrc(this.state.selectedImage, "full")}>
-                  <MdFileDownload/>
-                </LightBoxToolbarButton>
-              ]
-            }
-            imageTitle={this.props.title}
-            imageCaption={this.props.imageCaption}
-            onCloseRequest={this.closeLightbox}
-          />
-        }
-      </>
+      <a style={{cursor: "pointer", display: "block", width: "100%", height: "100%"}} key={imageIndex} onClick={e => openLightbox(imageIndex, e)}>
+        <Img fluid={{...node.childImageSharp.fluid, sizes: gridToSizes(gridSize)}} />
+      </a>
     )
+  })
 
-  }
+  return (
+    <>
+      <FlexGridContainer {...gridSize} maxWidth="600px">
+        {imageElements}
+      </FlexGridContainer>
+      {lightboxOpen &&
+        <Lightbox
+          mainSrc={getImageSrc(selectedImage)}
+          nextSrc={getImageSrc(getNextImage())}
+          prevSrc={getImageSrc(getPrevImage())}
+          onMovePrevRequest={() => gotoLightboxImage(getPrevImage())}
+          onMoveNextRequest={() => gotoLightboxImage(getNextImage())}
+          toolbarButtons={
+            [
+              <LightBoxToolbarButton title="Download" target="_blank" href={getImageSrc(selectedImage, "full")}>
+                <MdFileDownload/>
+              </LightBoxToolbarButton>
+            ]
+          }
+          imageTitle={title}
+          imageCaption={imageCaption}
+          onCloseRequest={closeLightbox}
+        />
+      }
+    </>
+  )
 }
-
-export default ImageGallery

@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import Layout from '../components/Layout'
 import Tile from '../components/Tile';
-import { nodeTypeToHuman, gridToSizes } from '../utils/helper';
+import { nodeTypeToHuman } from '../utils/helper';
 import GridContainer from '../components/GridContainer';
 import GigTile from '../components/GigTile';
 
@@ -48,7 +48,7 @@ export default ({data, location}) => {
 
       let tile = undefined;
       if (node.fields.type === "gigs" && node.fields.machine_name != firstGig.fields.machine_name) {
-        tile = <GigTile title={"GIG: " + node.frontmatter.title} node={node} height="30vh" key={node.fields.slug} imageSizes={gridToSizes({xs: 12, md: 4, lg: 4})}/>
+        tile = <GigTile title={node.frontmatter.title} node={node} height="30vh" key={node.fields.slug} imageSizes={{xs: 12, md: 4, lg: 4}}/>
       } else if (node.fields.type === "blog") {
         tile = <Tile
           key={node.fields.slug}
@@ -57,7 +57,7 @@ export default ({data, location}) => {
           image={node.frontmatter.cover}
           label={node.frontmatter.date}
           height={"30vh"}
-          imageSizes={gridToSizes({xs: 12, md: 4, lg: 4})}
+          imageSizes={{xs: 12, md: 4, lg: 4}}
           href={node.fields.slug}
         />
       } else if (node.fields.type === "vaultsessions") {
@@ -66,7 +66,7 @@ export default ({data, location}) => {
           image={node.frontmatter.cover}
           height={"30vh"}
           title={title}
-          imageSizes={gridToSizes({xs: 12, md: 4, lg: 4})}
+          imageSizes={{xs: 12, md: 4, lg: 4}}
           href={node.fields.slug}
         />
       }
@@ -84,7 +84,7 @@ export default ({data, location}) => {
     <Layout description={siteDescription} location={location} title={siteTitle}>
       <HomePageGridContainer>
         <div>
-          <GigTile imageSizes={gridToSizes({xs: 12, md: 8, lg: 8})} title={"LATEST GIG: " + firstGig.frontmatter.title} node={firstGig} height="60vh"/>
+          <GigTile imageSizes={{xs: 12, md: 8, lg: 8}} title={firstGig.frontmatter.title} node={firstGig} height="60vh"/>
         </div>
         <div>
           {postSections.firstTwo.map(tile => tile)}

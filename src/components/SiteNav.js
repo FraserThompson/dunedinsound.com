@@ -13,7 +13,7 @@ export default (props) => {
       <Link getProps={isPartiallyActive} to="/gigs/">Gigs</Link>
       <Link getProps={isPartiallyActive} to="/artists/">Artists</Link>
       <Link getProps={isPartiallyActive} to="/venues/">Venues</Link>
-      <Link getProps={isPartiallyActive} to="/blog/">Blog</Link>
+      <Link getProps={isPartiallyActive} to="/blog/">Articles</Link>
       <Link className="rainbowBackground" id="vaultSessionsHeaderLink" getProps={isPartiallyActive} to="/vaultsessions/"><span>VAULT<br/>SESSIONS</span></Link>
     </Menu>
   )

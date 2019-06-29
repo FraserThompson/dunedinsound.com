@@ -71,10 +71,10 @@ const Brand = styled.div`
   }
 `
 
-export default (props) => (
-  <Container className="header" hideOnMobile={!props.headerContent} backgroundColor={props.backgroundColor}>
-    {!props.hideBrand && <Brand hideOnMobile={props.hideBrandOnMobile}><Link to="/">Dunedin Gig Archives</Link></Brand>}
-    {props.headerContent && <HeaderContent>{props.headerContent}</HeaderContent>}
-    {!props.hideNav && <SiteNav className="hideMobile"/>}
+export default ({headerContent, backgroundColor, hideBrand, hideNav, hideBrandOnMobile}) => (
+  <Container className="header" hideOnMobile={!headerContent} backgroundColor={backgroundColor}>
+    {!hideBrand && <Brand hideOnMobile={hideBrandOnMobile}><Link to="/">Dunedin Gig Archives</Link></Brand>}
+    {headerContent && <HeaderContent>{headerContent}</HeaderContent>}
+    {!hideNav && <SiteNav className="hideMobile"/>}
   </Container>
 )

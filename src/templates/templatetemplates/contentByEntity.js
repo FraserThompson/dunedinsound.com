@@ -68,10 +68,13 @@ export default ({data, pageDescription, parent, background}) => {
   }, 0)
 
   const gigTiles = gigs && gigs.map(({fieldValue, edges}) => {
+    const yearSize = edges.length
+    const gridSize = yearSize > 1 ? {xs: 6, sm: 4, lg: 3} : {xs: 12, sm: 12, lg: 12}
+
     return <div id={fieldValue} key={fieldValue}>
-      <Divider backgroundColor={theme.default.foregroundColor} color="white" sticky><a style={{width: "100%"}} onClick={(e) => scrollTo(e, fieldValue)} href={"#" + fieldValue}>{fieldValue}</a></Divider>
+      <Divider backgroundColor={theme.default.foregroundColor} color="white" sticky><a style={{width: "100%"}} onClick={(e) => scrollTo(e, fieldValue)} href={"#" + fieldValue}>{fieldValue} ({yearSize})</a></Divider>
       <FlexGridContainer>
-        {edges.map(({node}) => <GigTile node={node} key={node.fields.slug}/>)}
+        {edges.map(({node}) => <GigTile node={node} key={node.fields.slug} imageSizes={gridSize}/>)}
       </FlexGridContainer>
     </div>
   })
@@ -132,7 +135,7 @@ export default ({data, pageDescription, parent, background}) => {
         </button>
         {blogs && blogs.length > 0 &&
           <button className={openTab === "blogs" ? "active" : ""} onClick={() => setOpenTab("blogs")}>
-            Blogs ({blogs.length})
+            Articles ({blogs.length})
           </button>
         }
         {vaultsessions && vaultsessions.length > 0 &&

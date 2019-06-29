@@ -41,6 +41,12 @@ exports.createPages = ({ graphql, actions }) => {
           }
         }
       }
+      blogsByTag: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "blog"}}}) {
+        group(field: frontmatter___tags) {
+          fieldValue
+          totalCount
+        }
+      }
     }
     `).then(result => {
 
@@ -57,7 +63,8 @@ exports.createPages = ({ graphql, actions }) => {
         artists: path.resolve('./src/templates/artist.js'),
         venues: path.resolve('./src/templates/venue.js'),
         vaultsessions: path.resolve('./src/templates/vaultsession.js'),
-        page: path.resolve('./src/templates/page.js')
+        page: path.resolve('./src/templates/page.js'),
+        tags: path.resolve('./src/templates/tags.js')
       }
 
       // We split it into collections of nodes by type so we can treat them as seperate collections for the next/prev
@@ -91,13 +98,35 @@ exports.createPages = ({ graphql, actions }) => {
 
       }
 
-      // Create pages.
+      // Create pages for content by type
       nodesByType['gigs'].forEach(({node}, index) => createPages(node, index, nodesByType['gigs']))
       nodesByType['vaultsessions'].forEach(({node}, index) => createPages(node, index, nodesByType['vaultsessions']))
       nodesByType['blog'].forEach(({node}, index) => createPages(node, index, nodesByType['blog']))
       nodesByType['venues'].forEach(({node}, index) => createPages(node, index, nodesByType['venues']))
       nodesByType['artists'].forEach(({node}, index) => createPages(node, index, nodesByType['artists']))
       nodesByType['page'].forEach(({node}, index) => createPages(node, index,  nodesByType['page']))
+
+      // Make tag index pages for blog content
+      const allowedTagPages = [
+        'interview',
+        'opinion',
+        'news',
+        'events',
+        'documentary',
+        'tech'
+      ]
+
+      result.data.blogsByTag.group.forEach(({fieldValue}) => {
+        if (allowedTagPages.includes(fieldValue)) {
+          createPage({
+            path: `/blog/tags/${fieldValue}/`,
+            component: layouts.tags,
+            context: {
+              tag: fieldValue,
+            },
+          })
+        }
+      })
     })
 }
 

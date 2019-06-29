@@ -24,7 +24,7 @@ const Post = styled.div`
   }
 `
 
-export default ({data, location}) => {
+export default ({data, location, pageContext}) => {
 
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = data.site.siteMetadata.description
@@ -33,7 +33,7 @@ export default ({data, location}) => {
 
   const postElements = posts.map(({node}) =>
     <Post key={node.fields.slug}>
-      <h2><Link to={node.fields.slug}>{node.frontmatter.title}</Link></h2>
+      <h1><Link to={node.fields.slug}>{node.frontmatter.title}</Link></h1>
       <h4>{node.frontmatter.date}</h4>
       {node.frontmatter.cover && <Link to={node.fields.slug}><Banner height="20vh" backgroundImage={node.frontmatter.cover}></Banner></Link>}
       <p>{node.excerpt} <small><Link to={node.fields.slug}>More</Link></small></p>
@@ -42,10 +42,9 @@ export default ({data, location}) => {
   )
 
   return (
-    <Layout location={location} description={siteDescription} title={`Blog | ${siteTitle}`} overrideBackgroundColor="white">\
+    <Layout location={location} description={siteDescription} title={`Blog | ${siteTitle}`} overrideBackgroundColor="white">
       <BlogContainer>
-        <h1>Articles</h1>
-        <TagCloud blogTags={blogTags}/>
+        <TagCloud blogTags={blogTags} selected={pageContext.tag}/>
         {postElements}
       </BlogContainer>
     </Layout>
@@ -53,11 +52,11 @@ export default ({data, location}) => {
 }
 
 export const pageQuery = graphql`
-  query {
+  query($tag: [String]) {
     site {
       ...SiteInformation
     }
-    allBlogs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: {fields: {type: { eq: "blog"}}}) {
+    allBlogs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { in: $tag } } } ) {
       edges {
         node {
           ...BlogFrontmatter

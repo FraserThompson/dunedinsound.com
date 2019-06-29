@@ -3,7 +3,6 @@
 // Params:
 //  - an image node or array of image nodes
 
-
 import React from 'react'
 import Img from 'gatsby-image'
 import { gridToSizes } from '../utils/helper';
@@ -24,7 +23,7 @@ export default (props) => (
         />
       )
       :
-      <Img className="backgroundImage" style={{width: "100%", zIndex: 0, height: "100%"}} fluid={{...props.image.childImageSharp.fluid, sizes: props.sizes || gridToSizes({xs: 12, md: 12, lg: 12})}}/>
+      <Img className="backgroundImage" style={{width: "100%", zIndex: 0, height: "100%"}} fluid={{...props.image.childImageSharp.fluid, sizes: props.sizes ? gridToSizes(props.sizes) : gridToSizes({xs: 12, md: 12, lg: 12})}}/>
     }
   </div>
 )

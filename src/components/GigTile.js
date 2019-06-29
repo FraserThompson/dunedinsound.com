@@ -27,12 +27,11 @@ const MediaCounts = styled.div`
   }
 `
 
-export default (props) => {
+export default ({node, title, id, imageSizes, width, height}) => {
 
-  const { node } = props
-  const title = props.title || props.node.frontmatter.title || props.node.fields.slug
-  const artists = props.node.frontmatter.artists.map(artist => artist.name).join(", ")
-  const videoCount = props.node.frontmatter.artists.reduce((count, artist) => { return count + (artist.vid ? artist.vid.length : 0)}, 0)
+  const tileTitle = title || node.frontmatter.title || node.fields.slug
+  const artists = node.frontmatter.artists.map(artist => artist.name).join(", ")
+  const videoCount = node.frontmatter.artists.reduce((count, artist) => { return count + (artist.vid ? artist.vid.length : 0)}, 0)
 
   return (
     <StaticQuery
@@ -65,17 +64,16 @@ export default (props) => {
         })
 
         return (<Tile
-          id={props.id}
-          key={props.node.fields.slug}
-          title={title}
+          id={id}
+          key={node.fields.slug}
+          title={tileTitle}
           subtitle={artists}
-          image={props.node.frontmatter.cover}
-          imageSizes={props.imageSizes}
-          maxImageSize={props.maxImageSize}
-          label={props.node.frontmatter.date}
-          width={props.width}
-          height={props.height}
-          href={props.node.fields.slug}
+          image={node.frontmatter.cover}
+          imageSizes={imageSizes}
+          label={node.frontmatter.date}
+          width={width}
+          height={height}
+          href={node.fields.slug}
         >
           <MediaCounts>
             {imageCountByGig[node.fields.parentDir] > 0 && <div><span className="smaller">{imageCountByGig[node.fields.parentDir]}</span> <MdPhotoCamera/> </div>}

@@ -82,12 +82,18 @@ const TitleWrapper = styled.div`
   background: ${props => props.shadowBottom && "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 40%)"};
   height: 100%;
   display: flex;
+
   ${Content} {
+
     margin-top: auto;
     margin-left: 0;
+
     .title {
+      margin-left: 0;
       margin-bottom: ${rhythm(0.5)};
+      color: white;
     }
+
     .subtitle {
       margin: 0px;
       line-height: 0.9;
@@ -95,17 +101,17 @@ const TitleWrapper = styled.div`
   }
 `
 
-export default (props) => (
-  <Container containerHeight={props.height} data-machinename={props.machineName} containerWidth={props.width} className="tile">
-    <RouterLink to={props.href} title={props.title}>
-      {props.label && <Label><small>{props.label}</small></Label>}
-      {props.image && <BackgroundImage sizes={props.imageSizes} image={props.image}/>}
-      <TitleWrapper shadowBottom={props.title || props.subtitle}>
+export default ({height, width, machineName, label, image, imageSizes, subtitle, title, children, href}) => (
+  <Container containerHeight={height} data-machinename={machineName} containerWidth={width} className="tile">
+    <RouterLink to={href} title={title}>
+      {label && <Label><small>{label}</small></Label>}
+      {image && <BackgroundImage sizes={imageSizes} image={image}/>}
+      <TitleWrapper shadowBottom={title || subtitle}>
         <Content>
-          {props.title && <h4 className="title">{props.title}</h4>}
-          {props.subtitle && <p className="subtitle"><small>{props.subtitle}</small></p>}
+          {title && <h3 className="title">{title}</h3>}
+          {subtitle && <p className="subtitle"><small>{subtitle}</small></p>}
         </Content>
-        {props.children}
+        {children}
       </TitleWrapper>
     </RouterLink>
   </Container>

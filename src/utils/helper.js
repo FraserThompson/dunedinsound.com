@@ -15,7 +15,7 @@ const nodeTypeToHuman = (string) => {
     case "gigs":
       return "Gig"
     case "blog":
-      return "Blog"
+      return "Article"
     case "venues":
       return "Venue"
     case "artists":

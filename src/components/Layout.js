@@ -71,7 +71,12 @@ class Layout extends React.PureComponent {
             <MobileNav className="showMobile">
               <SiteNav backgroundColor={lighten(0.1, theme.default.primaryColor)} height={theme.default.headerHeightMobile}/>
             </MobileNav>
-            <SiteHeader {...this.props}/>
+            <SiteHeader
+              headerContent={this.props.headerContent}
+              hideBrand={this.props.hideBrand}
+              hideNav={this.props.hideNav}
+              hideBrandOnMobile={this.props.hideBrandOnMobile}
+            />
           </HeaderWrapper>
           <SiteContainer overrideBackgroundColor={this.props.overrideBackgroundColor}>
             {children}
@@ -155,6 +160,7 @@ export const query = graphql`
     ...DefaultFields
     frontmatter {
       title
+      tags
       gallery
       cover {
         ...LargeImage

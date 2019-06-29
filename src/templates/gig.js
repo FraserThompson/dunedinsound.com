@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 import styled from '@emotion/styled'
 import Layout from '../components/Layout'
-import { toMachineName, graphqlGroupToObject, calculateScrollHeaderOffset, gridToSizes } from  '../utils/helper'
+import { toMachineName, graphqlGroupToObject, calculateScrollHeaderOffset } from  '../utils/helper'
 import GridContainer from '../components/GridContainer'
 import Banner from '../components/Banner'
 import Divider from '../components/Divider'
@@ -140,7 +140,7 @@ class GigTemplate extends React.Component {
           image={this.nextPost.frontmatter.cover}
           label={this.nextPost.frontmatter.date}
           height="100%"
-          imageSizes={gridToSizes({xs: "1", sm: "4", lg: "4"})}
+          imageSizes={{xs: "1", sm: "4", lg: "4"}}
           href={this.nextPost.fields.slug}
         />
       </NextPrevWrapper>
@@ -159,7 +159,7 @@ class GigTemplate extends React.Component {
           image={this.prevPost.frontmatter.cover}
           label={this.prevPost.frontmatter.date}
           height="100%"
-          imageSizes={gridToSizes({xs: "1", sm: "4", lg: "4"})}
+          imageSizes={{xs: "1", sm: "4", lg: "4"}}
           href={this.prevPost.fields.slug}
         />
       </NextPrevWrapper>
