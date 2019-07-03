@@ -119,7 +119,7 @@ class YouTubeResponsive extends React.Component {
             </div>
           </a>
           <WatchOnYoutubeLink href={"https://www.youtube.com/watch?v=" + this.props.videoId} rel="noopener" target="_blank" title="Watch video on YouTube"><small>Watch on YouTube</small></WatchOnYoutubeLink>
-        </PlaceholderContent>}
+        </PlaceholderContent>
       }
       {(this.state.clicked || this.props.vanilla) && <YouTube onReady={this.onReady} opts={{modestbranding: 1, playerVars: {autoplay: 1}}} {...this.props} />}
     </YouTubeWrapper>

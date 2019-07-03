@@ -102,7 +102,7 @@ const TitleWrapper = styled.div`
 `
 
 export default ({height, width, machineName, label, image, imageSizes, subtitle, title, children, href}) => (
-  <Container containerHeight={height} data-machinename={machineName} containerWidth={width} className="tile">
+  <Container containerHeight={height} data-title={title} data-machinename={machineName} containerWidth={width} className="tile">
     <RouterLink to={href} title={title}>
       {label && <Label><small>{label}</small></Label>}
       {image && <BackgroundImage sizes={imageSizes} image={image}/>}

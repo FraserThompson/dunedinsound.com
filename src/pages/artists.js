@@ -84,7 +84,7 @@ class Artists extends React.Component {
       this.shuffle.filter('all')
     } else {
       this.shuffle.filter((element) => {
-        return element.getAttribute('title').toLowerCase().indexOf(searchInput) !== -1
+        return element.getAttribute('data-title').toLowerCase().indexOf(searchInput) !== -1
       });
     }
   }
@@ -94,7 +94,7 @@ class Artists extends React.Component {
   }
 
   sortByTitle = () => {
-    this.shuffle.sort({by: (element) => element.getAttribute('title').toLowerCase()})
+    this.shuffle.sort({by: (element) => element.getAttribute('data-title').toLowerCase()})
   }
 
   render() {
