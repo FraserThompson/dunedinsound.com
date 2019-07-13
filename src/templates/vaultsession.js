@@ -1,10 +1,127 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { graphql, Link } from 'gatsby'
 import styled from '@emotion/styled'
 import Layout from '../components/Layout'
 import World from '../components/World'
 import YouTubeResponsive from '../components/YouTubeResponsive'
 import PlayerContainer from '../components/PlayerContainer';
+
+export default ({data, location}) => {
+
+  const post = data.markdownRemark
+
+  const siteTitle = data.site.siteMetadata.title
+  const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
+  const artist = data.artist.edges[0].node
+
+  const [lights, setLights] = useState("off");
+  const [audioForPlayer, setAudioForPlayer] = useState(null);
+
+  useEffect(() => {
+    const audio = data.audio.edges.reduce((obj, item) => {
+      const name = item.node.name.replace(".mp3", "") // because old audio file JSON has mp3 in the name
+      if (!obj[name]) obj[name] = {};
+      obj[name][item.node.ext] = item.node;
+      return obj;
+    }, {})
+
+    setAudioForPlayer([
+      {
+        title: post.frontmatter.title,
+        audio: Object.values(audio),
+        tracklist: post.frontmatter.tracklist
+      }
+    ])
+
+  }, [data])
+
+
+  return (
+    <Layout location={location} description={siteDescription} image={post.frontmatter.cover.publicURL} title={`VAULT SESSION: ${post.frontmatter.title} | ${siteTitle}`} overrideBackgroundColor="white">
+      <World lights={lights}>
+        <Title>
+          <h2>{post.frontmatter.title}</h2>
+          <h4>Recorded on {post.frontmatter.date}</h4>
+        </Title>
+        <Tracklist>
+          <h3>Tracklist</h3>
+          {
+            post.frontmatter.tracklist.map(video =>
+              <li key={video.link}>{video.title} ({video.time}) <a target="_blank" href={`https://youtube.com/watch?v=${video.link}`}>(Video)</a></li>
+            )
+          }
+          {audioForPlayer && <a title="FULL MP3 DOWNLOAD" target="_blank" href={audioForPlayer[0].audio[0][".mp3"].publicURL}><h3 className="coolText">🌟FULL MP3 DOWNLOAD🌟</h3></a>}
+        </Tracklist>
+        <Metadata>
+          <h3>More from this artist</h3>
+          <ul>
+            <li><Link to={artist.fields.slug}>Gigs</Link></li>
+            {artist.frontmatter.facebook && <li><a href={artist.frontmatter.facebook}>Facebook</a></li>}
+            {artist.frontmatter.bandcamp && <li><a href={artist.frontmatter.bandcamp}>Bandcamp</a></li>}
+          </ul>
+        </Metadata>
+        <VideoWrapper>
+          <YouTubeResponsive videoId={post.frontmatter.full_video} vanilla/>
+        </VideoWrapper>
+        <Logo position="bottom">
+          <Link title="Back to all sessions" onMouseOver={() => setLights("on")} onMouseOut={() => setLights("off")} to="/vaultsessions"><img style={{filter: "invert(80%)"}} src={lights == "off" ? data.logoMono.publicURL : data.logo.publicURL}/></Link>
+        </Logo>
+      </World>
+      {audioForPlayer && <PlayerContainer artistMedia={audioForPlayer}/>}
+    </Layout>
+  )
+}
+
+export const pageQuery = graphql`
+  query VaultsessionPostBySlug($slug: String!, $parentDir: String!) {
+    site {
+      ...SiteInformation
+    }
+    logo: file(name: { eq: "vslogo" }) {
+      publicURL
+    }
+    logoMono: file(name: { eq: "vslogo_mono" }) {
+      publicURL
+    }
+    audio: allFile( filter: {extension: {in: ["mp3", "json"]}, fields: { parentDir: {eq: $parentDir}, type: { eq: "vaultsessions"}}}) {
+      edges {
+        node {
+          name
+          publicURL
+          ext
+        }
+      }
+    }
+    artist: allMarkdownRemark(filter: { fields: { machine_name: { eq: $parentDir }, type: { eq: "artists" } } } ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            bandcamp
+            facebook
+            soundcloud
+            origin
+            website
+          }
+        }
+      }
+    }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
+      frontmatter {
+        title
+        date(formatString: "DD MMMM YYYY")
+        full_video
+        tracklist { title, link, time }
+        cover {
+          publicURL
+        }
+      }
+    }
+  }
+`
 
 const Title = styled.div`
   position: absolute;
@@ -79,115 +196,5 @@ const Metadata = styled.div`
     z-index: 10;
     transform: rotateY(-20deg);
     background: rgba(0,0,0,1);
-  }
-`
-
-export default ({data, location}) => {
-
-  const post = data.markdownRemark
-
-  const siteTitle = data.site.siteMetadata.title
-  const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
-  const artist = data.artist.edges[0].node
-
-  const [lights, setLights] = useState("off");
-
-  const audio = data.audio.edges.reduce((obj, item) => {
-    const name = item.node.name.replace(".mp3", "") // because old audio file JSON has mp3 in the name
-    if (!obj[name]) obj[name] = {};
-    obj[name][item.node.ext] = item.node;
-    return obj;
-  }, {})
-
-  const audioForPlayer = [
-    {
-      title: post.frontmatter.title,
-      audio: Object.values(audio),
-      tracklist: post.frontmatter.tracklist
-    }
-  ]
-
-  return (
-    <Layout location={location} description={siteDescription} image={post.frontmatter.cover.publicURL} title={`VAULT SESSION: ${post.frontmatter.title} | ${siteTitle}`} overrideBackgroundColor="white">
-      <World lights={lights}>
-        <Title>
-          <h1>{post.frontmatter.title}</h1>
-        </Title>
-        <Tracklist>
-          <h2>Tracklist</h2>
-          {
-            post.frontmatter.tracklist.map(video =>
-              <li key={video.link}>{video.title} ({video.time}) <a target="_blank" href={`https://youtube.com/watch?v=${video.link}`}>(Video)</a></li>
-            )
-          }
-          <a title="FULL MP3 DOWNLOAD" target="_blank" href={audioForPlayer[0].audio[0][".mp3"].publicURL}><h3 className="coolText">🌟FULL MP3 DOWNLOAD🌟</h3></a>
-        </Tracklist>
-        <Metadata>
-          <h2>More from this artist</h2>
-          <ul>
-            <li><Link to={artist.fields.slug}>Gigs</Link></li>
-            {artist.frontmatter.facebook && <li><a href={artist.frontmatter.facebook}>Facebook</a></li>}
-            {artist.frontmatter.bandcamp && <li><a href={artist.frontmatter.bandcamp}>Bandcamp</a></li>}
-          </ul>
-        </Metadata>
-        <VideoWrapper>
-          <YouTubeResponsive videoId={post.frontmatter.full_video} vanilla/>
-        </VideoWrapper>
-        <Logo position="bottom">
-          <Link title="Back to all sessions" onMouseOver={() => setLights("on")} onMouseOut={() => setLights("off")} to="/vaultsessions"><img style={{filter: "invert(80%)"}} src={lights == "off" ? data.logoMono.publicURL : data.logo.publicURL}/></Link>
-        </Logo>
-      </World>
-      <PlayerContainer artistMedia={audioForPlayer}/>
-    </Layout>
-  )
-}
-
-export const pageQuery = graphql`
-  query VaultsessionPostBySlug($slug: String!, $parentDir: String!) {
-    site {
-      ...SiteInformation
-    }
-    logo: file(name: { eq: "vslogo" }) {
-      publicURL
-    }
-    logoMono: file(name: { eq: "vslogo_mono" }) {
-      publicURL
-    }
-    audio: allFile( filter: {extension: {in: ["mp3", "json"]}, fields: { parentDir: {eq: $parentDir}, type: { eq: "vaultsessions"}}}) {
-      edges {
-        node {
-          name
-          publicURL
-          ext
-        }
-      }
-    }
-    artist: allMarkdownRemark(filter: { fields: { machine_name: { eq: $parentDir }, type: { eq: "artists" } } } ) {
-      edges {
-        node {
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-            bandcamp
-            facebook
-            soundcloud
-            origin
-            website
-          }
-        }
-      }
-    }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      frontmatter {
-        title
-        full_video
-        tracklist { title, link, time }
-        cover {
-          publicURL
-        }
-      }
-    }
   }
 `

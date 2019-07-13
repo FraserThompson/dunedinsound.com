@@ -223,7 +223,7 @@ class GigTemplate extends React.Component {
     return (
       <Layout
         location={this.props.location}
-        description={`See photos, audio and video from ${this.post.frontmatter.title} and heaps of other local gigs.`}
+        description={`Photos, audio and video from ${this.post.frontmatter.title}.`}
         image={this.cover && this.cover.src}
         title={`${this.post.frontmatter.title} | ${siteTitle}`}
         date={this.post.frontmatter.date}

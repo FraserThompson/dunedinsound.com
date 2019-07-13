@@ -5,7 +5,7 @@ venue: yyy
 artists:
     - {name: 'Mud Death', vid: [{link: mSTvtggd0lw}]}
     - {name: Grvdggr, vid: [{link: jWwVe16ozMw}]}
-    - {name: Smith, vid: [{link: sj5ki21CX1s}, {link: faR3JVajxCI}]}
+    - {name: Smith}
     - {name: 'The Rubbish Film Unit', vid: [{link: wKPTz6adrw4}]}
     - {name: 'L$D Fundraiser', vid: [{link: x2-dhnvQAig}]}
 cover: ./cover.jpg

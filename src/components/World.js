@@ -67,82 +67,26 @@ const WorldWrapper = styled.div`
     transform: translateZ(-600px);
   }
 
-  h1 {
+  h2 {
     margin: 0;
-    color: yellow;
+    color: cyan;
     letter-spacing: 2px;
     height: auto;
     text-align: center;
     text-shadow: 2px 2px 0px black, -2px -2px 0px white, 4px 4px 0px black, -4px -4px 0px white, 0 0 60px purple;
-    font-size: 16vh;
+    font-size: 12vh;
   }
 
-  article {
-    z-index: 4;
-    position: absolute;
-    text-align: center;
-    transition: transform 0.3s ease-in-out;
-    width: 100vw;
-    font-size: 0.6em;
-
-    h1 {
-      font-size: 4em;
-    }
-
-    @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-      width: auto;
-      font-size: 16vh;
-      h1 {
-        letter-spacing: 60px;
-        height: 20vh;
-        font-size: 16vh;
-      }
-    }
-
-    &:hover {
-      filter: invert(1);
-    }
-
-    &:nth-of-type(1) {
-      transform-origin: left center;
-      background-color: mediumpurple;
-      transform: translateZ(0px) translateY(20vh) translateX(0px) skewY(-12deg);
-
-      @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-        transform: translateZ(-600px) translateY(15vh) translateX(-40vh) skewY(-12deg);
-      }
-
+  .posts {
+    article {
+      transform: translateZ(-600px);
+      transition: all 0.3s ease-in-out;
+      background-color: rgba(0,0,0, 0.8);
+      border: 10px dotted yellow;
       &:hover {
-        transform: translateZ(-520px) translateY(200px) translateX(-200px) skewY(-8deg);
+        filter: invert(1);
       }
     }
-
-    &:nth-of-type(2) {
-      transform: translateZ(0px) translateY(40vh) translateX(0px) skewY(-6deg) scaleY(1.4);
-      background-color: mediumaquamarine;
-
-      @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-        transform: translateZ(-820px) translateY(60vh) translateX(20vh) skewY(-6deg) scaleY(1.4);
-      }
-
-      &:hover {
-        transform: translateZ(-700px) translateY(60vh) translateX(20vh) skewY(-4deg) scaleY(1.4);
-      }
-    }
-
-    &:nth-of-type(3) {
-      transform: translateZ(0px) translateY(70vh) translateX(0px) skewY(-6deg) scaleY(1.4);
-      background-color: orchid;
-
-      @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-        transform: translateZ(-1000px) translateY(10vh) translateX(50vh) skewY(10deg) scaleY(1.4);
-      }
-
-      &:hover {
-        transform: translateZ(-800px) translateY(10vh) translateX(50vh) skewY(10deg) scaleY(1.4);
-      }
-    }
-
   }
 
   @keyframes camFocus {
