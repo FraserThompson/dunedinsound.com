@@ -18,7 +18,7 @@ export default React.memo(({ artist, images, gridSize, title, imageCaption }) =>
     handleURLChange(history.location)
     const unlisten = history.listen(location => handleURLChange(location))
     return () => unlisten()
-  }, [])
+  })
 
   const handleURLChange = location => {
     if (location.search) {

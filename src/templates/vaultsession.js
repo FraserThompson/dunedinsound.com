@@ -4,40 +4,44 @@ import styled from '@emotion/styled'
 import Layout from '../components/Layout'
 import World from '../components/World'
 import YouTubeResponsive from '../components/YouTubeResponsive'
-import PlayerContainer from '../components/PlayerContainer';
+import GigContext from './GigContext'
+import PlayerContainer from '../components/PlayerContainer'
 
-export default ({data, location}) => {
-
+export default ({ data, location }) => {
   const post = data.markdownRemark
 
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
   const artist = data.artist.edges[0].node
 
-  const [lights, setLights] = useState("off");
-  const [audioForPlayer, setAudioForPlayer] = useState(null);
+  const [lights, setLights] = useState('off')
+  const [artistMedia, setArtistMedia] = useState(null)
 
   useEffect(() => {
     const audio = data.audio.edges.reduce((obj, item) => {
-      const name = item.node.name.replace(".mp3", "") // because old audio file JSON has mp3 in the name
-      if (!obj[name]) obj[name] = {};
-      obj[name][item.node.ext] = item.node;
-      return obj;
+      const name = item.node.name.replace('.mp3', '') // because old audio file JSON has mp3 in the name
+      if (!obj[name]) obj[name] = {}
+      obj[name][item.node.ext] = item.node
+      return obj
     }, {})
 
-    setAudioForPlayer([
+    setArtistMedia([
       {
         title: post.frontmatter.title,
         audio: Object.values(audio),
-        tracklist: post.frontmatter.tracklist
-      }
+        tracklist: post.frontmatter.tracklist,
+      },
     ])
-
   }, [data])
 
-
   return (
-    <Layout location={location} description={siteDescription} image={post.frontmatter.cover.publicURL} title={`VAULT SESSION: ${post.frontmatter.title} | ${siteTitle}`} overrideBackgroundColor="white">
+    <Layout
+      location={location}
+      description={siteDescription}
+      image={post.frontmatter.cover.publicURL}
+      title={`VAULT SESSION: ${post.frontmatter.title} | ${siteTitle}`}
+      overrideBackgroundColor="white"
+    >
       <World lights={lights}>
         <Title>
           <h2>{post.frontmatter.title}</h2>
@@ -45,29 +49,52 @@ export default ({data, location}) => {
         </Title>
         <Tracklist>
           <h3>Tracklist</h3>
-          {
-            post.frontmatter.tracklist.map(video =>
-              <li key={video.link}>{video.title} ({video.time}) <a target="_blank" href={`https://youtube.com/watch?v=${video.link}`}>(Video)</a></li>
-            )
-          }
-          {audioForPlayer && <a title="FULL MP3 DOWNLOAD" target="_blank" href={audioForPlayer[0].audio[0][".mp3"].publicURL}><h3 className="coolText">🌟FULL MP3 DOWNLOAD🌟</h3></a>}
+          {post.frontmatter.tracklist.map(video => (
+            <li key={video.link}>
+              {video.title} ({video.time}){' '}
+              <a target="_blank" href={`https://youtube.com/watch?v=${video.link}`}>
+                (Video)
+              </a>
+            </li>
+          ))}
+          {artistMedia && (
+            <a title="FULL MP3 DOWNLOAD" target="_blank" href={artistMedia[0].audio[0]['.mp3'].publicURL}>
+              <h3 className="coolText">🌟FULL MP3 DOWNLOAD🌟</h3>
+            </a>
+          )}
         </Tracklist>
         <Metadata>
           <h3>More from this artist</h3>
           <ul>
-            <li><Link to={artist.fields.slug}>Gigs</Link></li>
-            {artist.frontmatter.facebook && <li><a href={artist.frontmatter.facebook}>Facebook</a></li>}
-            {artist.frontmatter.bandcamp && <li><a href={artist.frontmatter.bandcamp}>Bandcamp</a></li>}
+            <li>
+              <Link to={artist.fields.slug}>Gigs</Link>
+            </li>
+            {artist.frontmatter.facebook && (
+              <li>
+                <a href={artist.frontmatter.facebook}>Facebook</a>
+              </li>
+            )}
+            {artist.frontmatter.bandcamp && (
+              <li>
+                <a href={artist.frontmatter.bandcamp}>Bandcamp</a>
+              </li>
+            )}
           </ul>
         </Metadata>
         <VideoWrapper>
-          <YouTubeResponsive videoId={post.frontmatter.full_video} vanilla/>
+          <YouTubeResponsive videoId={post.frontmatter.full_video} vanilla />
         </VideoWrapper>
         <Logo position="bottom">
-          <Link title="Back to all sessions" onMouseOver={() => setLights("on")} onMouseOut={() => setLights("off")} to="/vaultsessions"><img style={{filter: "invert(80%)"}} src={lights == "off" ? data.logoMono.publicURL : data.logo.publicURL}/></Link>
+          <Link title="Back to all sessions" onMouseOver={() => setLights('on')} onMouseOut={() => setLights('off')} to="/vaultsessions">
+            <img style={{ filter: 'invert(80%)' }} src={lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL} />
+          </Link>
         </Logo>
       </World>
-      {audioForPlayer && <PlayerContainer artistMedia={audioForPlayer}/>}
+      {artistMedia && (
+        <GigContext.Provider value={{ artistMedia, artistAudio: artistMedia }}>
+          <PlayerContainer />
+        </GigContext.Provider>
+      )}
     </Layout>
   )
 }
@@ -83,7 +110,7 @@ export const pageQuery = graphql`
     logoMono: file(name: { eq: "vslogo_mono" }) {
       publicURL
     }
-    audio: allFile( filter: {extension: {in: ["mp3", "json"]}, fields: { parentDir: {eq: $parentDir}, type: { eq: "vaultsessions"}}}) {
+    audio: allFile(filter: { extension: { in: ["mp3", "json"] }, fields: { parentDir: { eq: $parentDir }, type: { eq: "vaultsessions" } } }) {
       edges {
         node {
           name
@@ -92,7 +119,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    artist: allMarkdownRemark(filter: { fields: { machine_name: { eq: $parentDir }, type: { eq: "artists" } } } ) {
+    artist: allMarkdownRemark(filter: { fields: { machine_name: { eq: $parentDir }, type: { eq: "artists" } } }) {
       edges {
         node {
           fields {
@@ -114,7 +141,11 @@ export const pageQuery = graphql`
         title
         date(formatString: "DD MMMM YYYY")
         full_video
-        tracklist { title, link, time }
+        tracklist {
+          title
+          link
+          time
+        }
         cover {
           publicURL
         }
@@ -140,12 +171,12 @@ const Title = styled.div`
 const Logo = styled.div`
   margin: 0 auto;
   position: absolute;
-  top: ${props => props.position == "top" && "0px"};
-  bottom: ${props => props.position == "bottom" && "0px"};
+  top: ${props => props.position == 'top' && '0px'};
+  bottom: ${props => props.position == 'bottom' && '0px'};
   z-index: 2;
   width: 100%;
-  transform: ${props => props.position == "top" ? "rotateX(-90deg)" : "rotateX(90deg);"};
-  transform-origin: ${props => props.position == "top" ? "center top" : "center bottom"};
+  transform: ${props => (props.position == 'top' ? 'rotateX(-90deg)' : 'rotateX(90deg);')};
+  transform-origin: ${props => (props.position == 'top' ? 'center top' : 'center bottom')};
   img {
     transform: translateZ(-50px);
     opacity: 1;
@@ -167,7 +198,6 @@ const VideoWrapper = styled.div`
     transform: translateZ(-300px) translateY(0%);
     top: initial;
   }
-
 `
 
 const Tracklist = styled.ul`
@@ -177,11 +207,11 @@ const Tracklist = styled.ul`
   left: 0;
   z-index: 3;
   transform-origin: left center;
-  background: rgba(0,0,0,0);
+  background: rgba(0, 0, 0, 0);
   &:hover {
     z-index: 10;
     transform: rotateY(20deg);
-    background: rgba(0,0,0,1);
+    background: rgba(0, 0, 0, 1);
   }
 `
 
@@ -195,6 +225,6 @@ const Metadata = styled.div`
   &:hover {
     z-index: 10;
     transform: rotateY(-20deg);
-    background: rgba(0,0,0,1);
+    background: rgba(0, 0, 0, 1);
   }
 `
