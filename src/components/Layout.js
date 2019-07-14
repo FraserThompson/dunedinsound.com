@@ -222,6 +222,8 @@ export const query = graphql`
       origin
       audioculture {
         link
+        snippet
+        image
       }
       cover {
         ...SmallImage

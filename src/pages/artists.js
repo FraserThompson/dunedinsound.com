@@ -128,7 +128,7 @@ export default class Artists extends React.Component {
                 subtitle={`${this.gigCountsByArtist[node.fields.machine_name]} gigs`}
                 image={coverImage}
                 label={node.frontmatter.date}
-                href={node.fields.slug}
+                to={node.fields.slug}
                 imageSizes={grid}
                 height={
                   this.state.filteredPosts.length == 1

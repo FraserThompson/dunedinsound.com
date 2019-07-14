@@ -15,7 +15,6 @@
 //    By default it assumes all images are displayed at 100vw. Check the gridToSizes method
 //    in utility.js and use it to turn an array of grid sizes into something this can use.
 
-
 import React from 'react'
 import styled from '@emotion/styled'
 import BackgroundImage from './BackgroundImage'
@@ -24,22 +23,73 @@ import { rhythm } from '../utils/typography'
 import { lighten } from 'polished'
 import { Link as RouterLink } from '@reach/router'
 
+export default ({ height, width, backgroundColor, machineName, label, image, imageSizes, subtitle, title, children, href, to }) => {
+  const tileContent = (
+    <>
+      {label && (
+        <Label>
+          <small>{label}</small>
+        </Label>
+      )}
+      {image && <BackgroundImage sizes={imageSizes} image={image} />}
+      <TitleWrapper shadowBottom={title || subtitle}>
+        <Content>
+          {title && <h3 className="title">{title}</h3>}
+          {subtitle && (
+            <p className="subtitle">
+              <small>{subtitle}</small>
+            </p>
+          )}
+        </Content>
+        <TextContent>
+          <div>{children}</div>
+        </TextContent>
+      </TitleWrapper>
+    </>
+  )
+  return (
+    <Container
+      backgroundColor={backgroundColor}
+      containerHeight={height}
+      data-title={title}
+      data-machinename={machineName}
+      containerWidth={width}
+      className="tile"
+    >
+      {to && (
+        <RouterLink to={to} title={title}>
+          {tileContent}
+        </RouterLink>
+      )}
+      {href && (
+        <a href={href} target="_blank" title={title}>
+          {tileContent}
+        </a>
+      )}
+    </Container>
+  )
+}
+
 const Container = styled.div`
-  background: #40E0D0;
-  background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
+  background: ${props => props.theme.backgroundColor};
+  background: ${props => props.backgroundColor || 'radial-gradient(circle, rgba(236, 64, 103, 1) 0%, rgba(12, 24, 33, 1) 70%)'};
   color: ${props => props.theme.textColor};
   position: relative;
   display: block;
-  height: ${props => props.containerHeight ? props.containerHeight : "500px"};
+  height: ${props => (props.containerHeight ? props.containerHeight : '500px')};
   width: ${props => props.containerWidth};
   overflow: hidden;
-  h1,h2,h3,h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     text-shadow: 1px 1px #000;
     transition: color 0.3s ease-in-out;
   }
 
   a {
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       h4 {
         color: ${props => lighten(0.5, props.theme.textColor)};
       }
@@ -52,7 +102,18 @@ const Container = styled.div`
       color: ${props => lighten(0.5, props.theme.textColor)};
     }
   }
+`
 
+const TextContent = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > div {
+    max-width: ${props => props.theme.contentContainerWidth};
+  }
 `
 
 const Label = styled.span`
@@ -70,7 +131,7 @@ const Label = styled.span`
   left: 0px;
   top: 0px;
   small {
-    color: ${lighten(0.2, "black")};
+    color: ${lighten(0.2, 'black')};
   }
 `
 
@@ -79,12 +140,11 @@ const TitleWrapper = styled.div`
   width: 100%;
   position: absolute;
   bottom: 0px;
-  background: ${props => props.shadowBottom && "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 40%)"};
+  background: ${props => props.shadowBottom && 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 40%)'};
   height: 100%;
   display: flex;
 
   ${Content} {
-
     margin-top: auto;
     margin-left: 0;
 
@@ -100,19 +160,3 @@ const TitleWrapper = styled.div`
     }
   }
 `
-
-export default ({height, width, machineName, label, image, imageSizes, subtitle, title, children, href}) => (
-  <Container containerHeight={height} data-title={title} data-machinename={machineName} containerWidth={width} className="tile">
-    <RouterLink to={href} title={title}>
-      {label && <Label><small>{label}</small></Label>}
-      {image && <BackgroundImage sizes={imageSizes} image={image}/>}
-      <TitleWrapper shadowBottom={title || subtitle}>
-        <Content>
-          {title && <h3 className="title">{title}</h3>}
-          {subtitle && <p className="subtitle"><small>{subtitle}</small></p>}
-        </Content>
-        {children}
-      </TitleWrapper>
-    </RouterLink>
-  </Container>
-)

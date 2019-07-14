@@ -30,7 +30,7 @@ export default ({ data, location }) => {
             label={node.frontmatter.date}
             height={'30vh'}
             imageSizes={{ xs: 12, md: 4, lg: 4 }}
-            href={node.fields.slug}
+            to={node.fields.slug}
           />
         )
       } else if (node.fields.type === 'vaultsessions') {
@@ -41,7 +41,7 @@ export default ({ data, location }) => {
             height={'30vh'}
             title={title}
             imageSizes={{ xs: 12, md: 4, lg: 4 }}
-            href={node.fields.slug}
+            to={node.fields.slug}
           />
         )
       }

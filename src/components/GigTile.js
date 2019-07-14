@@ -60,7 +60,7 @@ export default React.memo(({ node, title, id, imageSizes, width, height }) => {
             label={node.frontmatter.date}
             width={width}
             height={height}
-            href={node.fields.slug}
+            to={node.fields.slug}
           >
             <MediaCounts>
               {imageCountByGig[node.fields.parentDir] > 0 && (

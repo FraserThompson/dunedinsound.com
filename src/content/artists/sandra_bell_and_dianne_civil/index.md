@@ -1,5 +1,7 @@
 ---
 title: Sandra Bell and Dianne Civil
 audioculture:
-  - link: https://www.audioculture.co.nz/people/sandra-bell
+  link: https://www.audioculture.co.nz/people/sandra-bell
+  snippet: 'Born in a “redundant gold mining town on the west coast of the South Island of New Zealand,” Sandra Bell began writing and playing music in her early teens.'
+  image: https://www.audioculture.co.nz/content/images/12452/modal_Berlin-1997-DunckerClub-with-Nicholas-Young.jpg
 ---

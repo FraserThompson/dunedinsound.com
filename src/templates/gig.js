@@ -32,7 +32,7 @@ const BannerContent = React.memo(({ data }) => (
           label={data.prevPost.frontmatter.date}
           height="100%"
           imageSizes={{ xs: '1', sm: '4', lg: '4' }}
-          href={data.prevPost.fields.slug}
+          to={data.prevPost.fields.slug}
         />
       </NextPrevWrapper>
     )}
@@ -48,7 +48,7 @@ const BannerContent = React.memo(({ data }) => (
           label={data.nextPost.frontmatter.date}
           height="100%"
           imageSizes={{ xs: '1', sm: '4', lg: '4' }}
-          href={data.nextPost.fields.slug}
+          to={data.nextPost.fields.slug}
         />
       </NextPrevWrapper>
     )}

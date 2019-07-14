@@ -1,9 +1,9 @@
 import { invert } from 'polished'
 import { rhythm } from '../utils/typography'
 import styled from '@emotion/styled'
-import Divider from './Divider';
+import DividerWrapper from './Divider'
 
-export default styled(Divider)`
+export default styled(DividerWrapper)`
   padding: 0;
   height: ${rhythm(1.5)};
   button {
@@ -19,7 +19,8 @@ export default styled(Divider)`
     line-height: ${rhythm(1.5)};
     padding-left: ${rhythm(0.5)};
     padding-right: ${rhythm(0.5)};
-    &:active, &.active {
+    &:active,
+    &.active {
       color: white;
       outline: 0;
     }

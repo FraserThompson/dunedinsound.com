@@ -30,6 +30,8 @@ import ZoopUpWrapper from '../../components/ZoopUpWrapper'
 import { MdKeyboardArrowUp } from 'react-icons/md'
 import GigTile from '../../components/GigTile'
 import Tabs from '../../components/Tabs'
+import { rhythm } from '../../utils/typography'
+import styled from '@emotion/styled'
 
 const ContentTabs = ({ gigTiles, blogTiles, vaultsessionTiles, gigCount, blogCount, vaultsessionCount }) => {
   const [openTab, setOpenTab] = useState('gigs')
@@ -96,8 +98,25 @@ export default ({ data, pageDescription, parent, background }) => {
       )
     })
 
-  if (post.audioculture) {
-    gigTiles.push(<Tile title="More at Audioculture" href={post.audioculture.link} />)
+  if (post.frontmatter.audioculture) {
+    const audioculture = post.frontmatter.audioculture
+    gigTiles.push(
+      <FlexGridContainer key={'audioculture'}>
+        <Tile image={audioculture.image} href={audioculture.link}>
+          <Quote>{audioculture.snippet} - Audioculture</Quote>
+        </Tile>
+      </FlexGridContainer>
+    )
+  }
+
+  if (gigTiles.length <= 3) {
+    gigTiles.push(
+      <FlexGridContainer key={'contribution'}>
+        <Tile backgroundColor="black" height="50px" to="/page/contribution_guidelines">
+          <small>Can you add to this? 🤔</small>
+        </Tile>
+      </FlexGridContainer>
+    )
   }
 
   const blogTiles =
@@ -110,7 +129,7 @@ export default ({ data, pageDescription, parent, background }) => {
           subtitle={node.excerpt}
           image={node.frontmatter.cover}
           label={node.frontmatter.date}
-          href={node.fields.slug}
+          to={node.fields.slug}
         />
       )
     })
@@ -180,6 +199,13 @@ export default ({ data, pageDescription, parent, background }) => {
               </a>
             </li>
           )}
+          {post.frontmatter.audioculture && (
+            <li>
+              <a className="button" rel="noopener" href={post.frontmatter.audioculture.link}>
+                Audioculture
+              </a>
+            </li>
+          )}
         </HorizontalNav>
         {post.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: post.frontmatter.description }} />}
       </Banner>
@@ -194,3 +220,11 @@ export default ({ data, pageDescription, parent, background }) => {
     </Layout>
   )
 }
+
+const Quote = styled.p`
+  font-style: italic;
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: ${rhythm(1)};
+`
