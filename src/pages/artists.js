@@ -10,34 +10,13 @@ import { toMachineName } from '../utils/helper'
 import Tabs from '../components/Tabs'
 import styled from '@emotion/styled'
 
-const Pills = styled(Tabs)`
-  position:fixed;
-  width: auto;
-  z-index: 4;
-  top: auto !important;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(0,0,0,.25);
-  opacity: 0.6;
-  transition: opacity 200ms ease-in-out;
-
-  &:hover {
-    opacity: 1;
-  }
-
-  button {
-    border: none;
-    border-radius: 10px;
-  }
-`
-
-class Artists extends React.Component {
-
+export default class Artists extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
       filteredPosts: this.props.data.allArtists.edges,
-      sortBy: "title"
+      sortBy: 'title',
     }
 
     this.gigCountsByArtist = this.props.data.gigsByArtist['group'].reduce((obj, item) => {
@@ -59,14 +38,14 @@ class Artists extends React.Component {
   componentDidMount() {
     // Shuffle is a nice library to make re-ordering look nicer
     this.shuffle = new Shuffle(this.element.current, {
-      itemSelector: '.tile'
-    });
+      itemSelector: '.tile',
+    })
   }
 
   componentDidUpdate(prevProps, prevState) {
     this.shuffle.resetItems()
     if (this.state.sortBy !== prevState.sortBy) {
-      if (this.state.sortBy === "title") {
+      if (this.state.sortBy === 'title') {
         this.sortByTitle()
       } else {
         this.sortByNumberOfGigs()
@@ -79,22 +58,27 @@ class Artists extends React.Component {
     this.shuffle = null
   }
 
-  search = (searchInput) => {
+  search = searchInput => {
     if (!searchInput || searchInput.length == 0) {
       this.shuffle.filter('all')
     } else {
-      this.shuffle.filter((element) => {
-        return element.getAttribute('data-title').toLowerCase().indexOf(searchInput) !== -1
-      });
+      this.shuffle.filter(element => {
+        return (
+          element
+            .getAttribute('data-title')
+            .toLowerCase()
+            .indexOf(searchInput) !== -1
+        )
+      })
     }
   }
 
   sortByNumberOfGigs = () => {
-    this.shuffle.sort({reverse: true, by: (element) => this.gigCountsByArtist[element.getAttribute("data-machinename")] || 0 })
+    this.shuffle.sort({ reverse: true, by: element => this.gigCountsByArtist[element.getAttribute('data-machinename')] || 0 })
   }
 
   sortByTitle = () => {
-    this.shuffle.sort({by: (element) => element.getAttribute('data-title').toLowerCase()})
+    this.shuffle.sort({ by: element => element.getAttribute('data-title').toLowerCase() })
   }
 
   render() {
@@ -102,30 +86,39 @@ class Artists extends React.Component {
     const siteTitle = data.site.siteMetadata.title
     const siteDescription = data.site.siteMetadata.description
     const grid = {
-      xs: "6",
-      sm: "4",
-      md: "3",
-      lg: "2"
+      xs: '6',
+      sm: '4',
+      md: '3',
+      lg: '2',
     }
 
     return (
       <Layout
-        location={this.props.location} description={siteDescription}
+        location={this.props.location}
+        description={siteDescription}
         title={`Artists | ${siteTitle}`}
         hideBrandOnMobile={true}
         hideFooter={true}
-        headerContent={<Search placeholder="Search artists" toggleSidebar={this.toggleSidebar} filter={this.search}/>}
+        headerContent={<Search placeholder="Search artists" toggleSidebar={this.toggleSidebar} filter={this.search} />}
       >
-        {!this.state.searching && <Pills>
-          <small>
-            <button className={this.state.sortBy === "title" ? "active" : ""} onClick={() => this.setState({sortBy: "title"})}>Title</button>
-            <button className={this.state.sortBy === "numberOfGigs" ? "active" : ""} onClick={() => this.setState({sortBy: "numberOfGigs"})}>Gigs</button>
-          </small>
-        </Pills>}
+        {!this.state.searching && (
+          <Pills>
+            <small>
+              <button className={this.state.sortBy === 'title' ? 'active' : ''} onClick={() => this.setState({ sortBy: 'title' })}>
+                Title
+              </button>
+              <button className={this.state.sortBy === 'numberOfGigs' ? 'active' : ''} onClick={() => this.setState({ sortBy: 'numberOfGigs' })}>
+                Gigs
+              </button>
+            </small>
+          </Pills>
+        )}
         <FlexGridContainer fixedWidth ref={this.element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
           {this.state.filteredPosts.map(({ node }) => {
-            const title = (node.frontmatter.title || node.fields.slug) + (node.frontmatter.origin ? ` (${node.frontmatter.origin})` : "")
-            const coverImage = node.frontmatter.cover ? node.frontmatter.cover : (this.imagesByArtist[node.fields.machine_name] && this.imagesByArtist[node.fields.machine_name][0].node)
+            const title = (node.frontmatter.title || node.fields.slug) + (node.frontmatter.origin ? ` (${node.frontmatter.origin})` : '')
+            const coverImage = node.frontmatter.cover
+              ? node.frontmatter.cover
+              : this.imagesByArtist[node.fields.machine_name] && this.imagesByArtist[node.fields.machine_name][0].node
 
             return (
               <Tile
@@ -137,7 +130,13 @@ class Artists extends React.Component {
                 label={node.frontmatter.date}
                 href={node.fields.slug}
                 imageSizes={grid}
-                height={this.state.filteredPosts.length == 1 ? "calc(100vh - " + theme.default.headerHeight + ")" : this.state.filteredPosts.length <= 8  ? "40vh" : "20vh"}
+                height={
+                  this.state.filteredPosts.length == 1
+                    ? 'calc(100vh - ' + theme.default.headerHeight + ')'
+                    : this.state.filteredPosts.length <= 8
+                    ? '40vh'
+                    : '20vh'
+                }
               />
             )
           })}
@@ -147,21 +146,39 @@ class Artists extends React.Component {
   }
 }
 
-export default Artists
+const Pills = styled(Tabs)`
+  position: fixed;
+  width: auto;
+  z-index: 4;
+  top: auto !important;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  opacity: 0.6;
+  transition: opacity 200ms ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  button {
+    border: none;
+    border-radius: 10px;
+  }
+`
 
 export const pageQuery = graphql`
   query {
     site {
       ...SiteInformation
     }
-    allArtists: allMarkdownRemark(sort: { fields: [frontmatter___title], order: ASC }, filter: {fields: {type: { eq: "artists"}}}) {
+    allArtists: allMarkdownRemark(sort: { fields: [frontmatter___title], order: ASC }, filter: { fields: { type: { eq: "artists" } } }) {
       edges {
         node {
           ...ArtistFrontmatter
         }
       }
     }
-    imagesByArtist: allFile( filter: {extension: {eq: "jpg"}, fields: {type: { eq: "gigs"}} }) {
+    imagesByArtist: allFile(filter: { extension: { eq: "jpg" }, fields: { type: { eq: "gigs" } } }) {
       group(field: fields___parentDir, limit: 1) {
         fieldValue
         edges {
@@ -174,7 +191,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    gigsByArtist: allMarkdownRemark(filter: {fields: {type: { eq: "gigs"}}}) {
+    gigsByArtist: allMarkdownRemark(filter: { fields: { type: { eq: "gigs" } } }) {
       group(field: frontmatter___artists___name) {
         fieldValue
         totalCount

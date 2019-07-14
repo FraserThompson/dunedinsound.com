@@ -11,9 +11,9 @@ import styled from '@emotion/styled'
 import Menu from '../components/Menu'
 import { darken, lighten } from 'polished'
 import { Transition } from 'react-transition-group'
-import FadeInOut from './FadeInOut';
+import FadeInOut from './FadeInOut'
 
-const DefaultWidth = "80vw"
+const DefaultWidth = '80vw'
 
 const PageOverlay = styled(FadeInOut)`
   position: absolute;
@@ -21,14 +21,13 @@ const PageOverlay = styled(FadeInOut)`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 9;
 `
 
 const SidebarNavWrapper = styled(Menu)`
-
   background-color: ${props => props.backgroundColor || props.theme.primaryColor};
-  height: ${props => `calc(100vh - ${props.theme.headerHeightWithMobile })`};
+  height: ${props => `calc(100vh - ${props.theme.headerHeightWithMobile})`};
   overflow-x: hidden;
   position: fixed;
   max-width: ${props => props.width || DefaultWidth};
@@ -36,7 +35,7 @@ const SidebarNavWrapper = styled(Menu)`
   left: ${props => props.left && 0};
   right: ${props => props.right && 0};
   z-index: 10;
-  box-shadow: 0 6px 12px rgba(0,0,0,.25);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
   border-right: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
 
   .label {
@@ -44,25 +43,25 @@ const SidebarNavWrapper = styled(Menu)`
   }
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    height: ${props => `calc(100vh - ${props.theme.headerHeight })`};
+    height: ${props => `calc(100vh - ${props.theme.headerHeight})`};
     width: 300px;
   }
 
   transition-property: width, visibility, opacity, transform, pointer-events;
-	transition-duration: .3s;
-	transition-timing-function: cubic-bezier(0,0,0,1.2);
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0, 0, 0, 1.2);
 
-  visibility: ${props => props.open ? "hidden" : "visible"};
-	opacity: ${props => props.open ? "0" : "1"};
-  transform: ${props => props.open ? `translateX(${(props.left ? "-" : "") + (props.width || DefaultWidth)})` : `translateY(0)`};
-  pointer-events: ${props => props.open ? "none" : "auto"};
+  visibility: ${props => (props.open ? 'hidden' : 'visible')};
+  opacity: ${props => (props.open ? '0' : '1')};
+  transform: ${props => (props.open ? `translateX(${(props.left ? '-' : '') + (props.width || DefaultWidth)})` : `translateY(0)`)};
+  pointer-events: ${props => (props.open ? 'none' : 'auto')};
   width: ${props => props.width || DefaultWidth};
 
   @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
-    visibility: ${props => !props.open ? "hidden" : "visible"};
-    opacity: ${props => !props.open ? "0" : "1"};
-    transform: ${props => !props.open ? `translateX(${(props.left ? "-" : "") + (props.width || DefaultWidth)})` : `translateY(0)`};
-    pointer-events: ${props => !props.open ? "none" : "auto"};
+    visibility: ${props => (!props.open ? 'hidden' : 'visible')};
+    opacity: ${props => (!props.open ? '0' : '1')};
+    transform: ${props => (!props.open ? `translateX(${(props.left ? '-' : '') + (props.width || DefaultWidth)})` : `translateY(0)`)};
+    pointer-events: ${props => (!props.open ? 'none' : 'auto')};
   }
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
@@ -116,12 +115,14 @@ const SidebarNavWrapper = styled(Menu)`
     }
   }
 `
-export default (props) => (
+export default React.memo(({ button, left, right, width, backgroundColor, open, toggle, children }) => (
   <>
-    {props.button}
-    <SidebarNavWrapper left={props.left} right={props.right} width={props.width} backgroundColor={props.backgroundColor} open={props.open}>
-      {props.children}
+    {button}
+    <SidebarNavWrapper left={left} right={right} width={width} backgroundColor={backgroundColor} open={open}>
+      {children}
     </SidebarNavWrapper>
-    <Transition mountOnEnter={true} unmountOnExit={true} in={!props.open} timeout={200}>{state => <PageOverlay state={state} onClick={props.toggle}/>}</Transition>
+    <Transition mountOnEnter={true} unmountOnExit={true} in={!open} timeout={200}>
+      {state => <PageOverlay state={state} onClick={toggle} />}
+    </Transition>
   </>
-)
+))

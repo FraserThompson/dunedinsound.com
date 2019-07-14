@@ -14,12 +14,53 @@ import Menu from './Menu'
 import { rhythm } from '../utils/typography'
 import GlobalStyle from './GlobalStyle'
 
+export default React.memo(
+  ({
+    location,
+    children,
+    overrideBackgroundColor,
+    description,
+    title,
+    type,
+    date,
+    image,
+    hideFooter,
+    hideBrandOnMobile,
+    headerContent,
+    scrollHeaderContent,
+  }) => (
+    <ThemeProvider theme={theme.default}>
+      <>
+        <Global styles={theme => GlobalStyle} />
+        <Helmet htmlAttributes={{ lang: 'en' }} title={title}>
+          <meta name="description" content={description} />
+          <meta property="og:site_name" content="dunedinsound" />
+          <meta property="og:url" content={location.href} />
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={description} />
+          {type && <meta property="og:type" content={type} />}
+          {date && <meta itemprop="datePublished" content={date} />}
+          {image && <meta property="og:image" content={image} />}
+        </Helmet>
+        <HeaderWrapper>
+          <MobileNav className="showMobile">
+            <SiteNav backgroundColor={lighten(0.1, theme.default.primaryColor)} height={theme.default.headerHeightMobile} />
+          </MobileNav>
+          <SiteHeader scrollHeaderContent={scrollHeaderContent} headerContent={headerContent} hideBrandOnMobile={hideBrandOnMobile} />
+        </HeaderWrapper>
+        <SiteContainer overrideBackgroundColor={overrideBackgroundColor}>{children}</SiteContainer>
+        {!hideFooter && <SiteFooter />}
+      </>
+    </ThemeProvider>
+  )
+)
+
 const HeaderWrapper = styled.div`
   position: sticky;
   top: 0px;
   width: 100%;
   z-index: 12;
-  box-shadow: 0 6px 12px rgba(0,0,0,.25);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
   border-bottom: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
 `
 const SiteContainer = styled.div`
@@ -45,49 +86,6 @@ const MobileNav = styled.div`
   }
 `
 
-class Layout extends React.PureComponent {
-
-  render() {
-    const { location, children } = this.props
-
-    return (
-      <ThemeProvider theme={this.props.theme || theme.default}>
-        <>
-          <Global styles={theme => GlobalStyle}/>
-          <Helmet
-            htmlAttributes={{ lang: 'en' }}
-            title={this.props.title}
-          >
-            <meta name="description" content={this.props.description} />
-            <meta property="og:site_name" content="dunedinsound" />
-            <meta property="og:url" content={location.href} />
-            <meta property="og:title" content={this.props.title} />
-            <meta property="og:description" content={this.props.description} />
-            {this.props.type && <meta property="og:type" content={this.props.type} />}
-            {this.props.date && <meta itemprop="datePublished" content={this.props.date}/>}
-            {this.props.image && <meta property="og:image" content={this.props.image} />}
-          </Helmet>
-          <HeaderWrapper>
-            <MobileNav className="showMobile">
-              <SiteNav backgroundColor={lighten(0.1, theme.default.primaryColor)} height={theme.default.headerHeightMobile}/>
-            </MobileNav>
-            <SiteHeader
-              headerContent={this.props.headerContent}
-              hideBrand={this.props.hideBrand}
-              hideNav={this.props.hideNav}
-              hideBrandOnMobile={this.props.hideBrandOnMobile}
-            />
-          </HeaderWrapper>
-          <SiteContainer overrideBackgroundColor={this.props.overrideBackgroundColor}>
-            {children}
-          </SiteContainer>
-          {!this.props.hideFooter && <SiteFooter/> }
-        </>
-      </ThemeProvider>
-    )
-  }
-}
-
 export const query = graphql`
   fragment SiteInformation on Site {
     siteMetadata {
@@ -107,7 +105,7 @@ export const query = graphql`
 
   fragment TinyImage on File {
     childImageSharp {
-      fluid(maxWidth: 200, quality: 80, srcSetBreakpoints: [ 50, 200, 400 ]) {
+      fluid(maxWidth: 200, quality: 80, srcSetBreakpoints: [50, 200, 400]) {
         ...GatsbyImageSharpFluid_withWebp
       }
     }
@@ -115,7 +113,7 @@ export const query = graphql`
 
   fragment SmallImage on File {
     childImageSharp {
-      fluid(maxWidth: 400, quality: 80, srcSetBreakpoints: [ 100, 400, 800 ]) {
+      fluid(maxWidth: 400, quality: 80, srcSetBreakpoints: [100, 400, 800]) {
         ...GatsbyImageSharpFluid_withWebp
       }
     }
@@ -123,7 +121,7 @@ export const query = graphql`
 
   fragment MediumImage on File {
     childImageSharp {
-      fluid(maxWidth: 800, quality: 80, srcSetBreakpoints: [ 200, 800, 1600 ]) {
+      fluid(maxWidth: 800, quality: 80, srcSetBreakpoints: [200, 800, 1600]) {
         ...GatsbyImageSharpFluid_withWebp
       }
     }
@@ -131,7 +129,7 @@ export const query = graphql`
 
   fragment LargeImage on File {
     childImageSharp {
-      fluid(maxWidth: 1600, quality: 80, srcSetBreakpoints: [ 400, 800, 1600, 3200 ]) {
+      fluid(maxWidth: 1600, quality: 80, srcSetBreakpoints: [400, 800, 1600, 3200]) {
         ...GatsbyImageSharpFluid_withWebp
       }
     }
@@ -178,9 +176,12 @@ export const query = graphql`
       description
       artists {
         name
-        tracklist {time, title}
+        tracklist {
+          time
+          title
+        }
         vid {
-          link,
+          link
           title
         }
       }
@@ -200,7 +201,7 @@ export const query = graphql`
       artists {
         name
         vid {
-          link,
+          link
           title
         }
       }
@@ -219,12 +220,12 @@ export const query = graphql`
       soundcloud
       website
       origin
+      audioculture {
+        link
+      }
       cover {
         ...SmallImage
       }
     }
   }
-
 `
-
-export default Layout

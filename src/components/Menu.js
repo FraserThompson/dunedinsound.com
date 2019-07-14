@@ -6,11 +6,11 @@
 //  - width
 
 import styled from '@emotion/styled'
-import { rhythm, scale } from '../utils/typography';
-import { lighten } from 'polished';
-import FadeInOut from './FadeInOut';
+import { rhythm, scale } from '../utils/typography'
+import { lighten } from 'polished'
+import FadeInOut from './FadeInOut'
 
-const Menu = styled(FadeInOut)`
+export default styled(FadeInOut)`
   width: ${props => props.width};
   text-align: left;
   background-color: ${props => props.backgroundColor || props.theme.primaryColor};
@@ -33,7 +33,8 @@ const Menu = styled(FadeInOut)`
     }
   }
 
-  a, span {
+  a,
+  span {
     padding-left: ${rhythm(0.5)};
     padding-right: ${rhythm(0.5)};
   }
@@ -41,7 +42,8 @@ const Menu = styled(FadeInOut)`
   a {
     color: ${props => props.theme.textColor};
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       color: ${props => lighten(0.5, props.theme.textColor)};
       text-decoration: none;
     }
@@ -49,7 +51,6 @@ const Menu = styled(FadeInOut)`
     &:active {
       background-color: ${props => props.theme.foregroundColor} !important;
     }
-
   }
 
   li {
@@ -66,7 +67,8 @@ const Menu = styled(FadeInOut)`
     }
   }
 
-  > a, li {
+  > a,
+  li {
     cursor: pointer;
     position: relative;
     text-decoration: none;
@@ -74,15 +76,16 @@ const Menu = styled(FadeInOut)`
     color: ${props => props.theme.textColor};
     line-height: ${props => props.height || props.theme.headerHeight};
     margin: 0px;
-    display: ${props => props.horizontal ? "inline-block" : "block"};
-    border-bottom: ${props => props.horizontal && "none"};
-    border-top: ${props => props.horizontal && "none"};
+    display: ${props => (props.horizontal ? 'inline-block' : 'block')};
+    border-bottom: ${props => props.horizontal && 'none'};
+    border-top: ${props => props.horizontal && 'none'};
 
-    &:hover{
+    &:hover {
       color: white;
     }
 
-    &.active, &:active {
+    &.active,
+    &:active {
       background-color: ${props => props.theme.secondaryColor};
       color: ${props => lighten(0.5, props.theme.textColor)};
     }
@@ -99,8 +102,5 @@ const Menu = styled(FadeInOut)`
         color: ${props => lighten(0.1, props.theme.foregroundColor)};
       }
     }
-
   }
 `
-
-export default Menu;

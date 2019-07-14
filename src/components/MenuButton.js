@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
-import { scale } from '../utils/typography';
-import { lighten } from 'polished';
+import { scale } from '../utils/typography'
+import { lighten } from 'polished'
 
-export default  styled.button`
+export default styled.button`
   ${scale(1)};
   width: ${props => props.theme.headerHeightMobile};
   height: ${props => props.theme.headerHeight};
@@ -19,7 +19,7 @@ export default  styled.button`
   }
 
   @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
-    display: ${props => props.hideMobile && "none"};
+    display: ${props => props.hideMobile && 'none'};
     width: 50px;
   }
 

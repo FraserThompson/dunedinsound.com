@@ -1,5 +1,5 @@
 ---
 title: Sandra Bell and Dianne Civil
-audio_culture:
+audioculture:
   - link: https://www.audioculture.co.nz/people/sandra-bell
 ---

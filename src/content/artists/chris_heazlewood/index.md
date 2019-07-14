@@ -1,5 +1,5 @@
 ---
 title: Chris Heazlewood
-audio_culture:
+audioculture:
   - link: https://www.audioculture.co.nz/people/king-loser
 ---

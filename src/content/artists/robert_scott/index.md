@@ -1,6 +1,6 @@
 ---
 title: Robert Scott
 bandcamp: https://robertscottnz.bandcamp.com/
-audio_culture:
+audioculture:
   - link: https://www.audioculture.co.nz/people/the-clean
 ---

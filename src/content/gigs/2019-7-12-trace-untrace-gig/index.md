@@ -1,11 +1,11 @@
 ---
-title: "trace untrace gig"
+title: 'trace untrace gig'
 date: 2019-7-12 08:30:00 Z
 venue: the_captain_cook_hotel
 artists:
   - name: Koizilla
     vid:
-      - link: rZz-QueQN8
+      - link: WrZz-QueQN8
   - name: Mary Berry
     vid:
       - link: Y82dPdy50W0

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
-import { scale, rhythm } from "../utils/typography";
-import { theme } from '../utils/theme';
+import { scale, rhythm } from '../utils/typography'
+import { theme } from '../utils/theme'
 
-const ZoopUpWrapper = styled.a`
+export default styled.a`
   ${scale(4)};
   color: ${props => props.theme.textColor};
   position: absolute;
@@ -26,4 +26,3 @@ const ZoopUpWrapper = styled.a`
     display: inline-block !important;
   }
 `
-export default ZoopUpWrapper

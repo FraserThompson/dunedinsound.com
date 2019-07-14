@@ -15,9 +15,9 @@ import { rhythm } from '../utils/typography'
 import BackgroundImage from './BackgroundImage'
 
 const BannerWrapper = styled.div`
-  background: #40E0D0;  /* fallback for old browsers */
-  background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
-  height: ${props => props.height ? props.height : props.theme.defaultBannerHeight};
+  background: #40e0d0; /* fallback for old browsers */
+  background: linear-gradient(to right, #ff0080, #ff8c00, #40e0d0);
+  height: ${props => (props.height ? props.height : props.theme.defaultBannerHeight)};
   overflow: hidden;
   position: relative;
   display: flex;
@@ -40,7 +40,7 @@ const BannerText = styled.div`
   margin: 0 auto;
   text-align: center;
   justify-content: center;
-  background: rgba(0,0,0,.8);
+  background: rgba(0, 0, 0, 0.8);
   padding: ${rhythm(0.5)};
   width: 100%;
   height: 100%;
@@ -59,23 +59,18 @@ const BannerText = styled.div`
     padding-top: ${rhythm(1)};
     position: relative;
   }
-
 `
 
-export default (props) => (
+export default React.memo(props => (
   <BannerWrapper className="banner" {...props}>
     {props.backgroundImage && <BackgroundImage image={props.backgroundImage} />}
-    {(props.title || props.children) &&
+    {(props.title || props.children) && (
       <BannerText>
         {props.title && <h1 className="big">{props.title}</h1>}
-        {props.children &&
-          <div className="center-content">
-            {props.children}
-          </div>
-        }
+        {props.children && <div className="center-content">{props.children}</div>}
       </BannerText>
-    }
+    )}
     {props.background && <div className="background">{props.background}</div>}
     {props.customContent}
   </BannerWrapper>
-)
+))

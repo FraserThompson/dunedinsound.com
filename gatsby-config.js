@@ -64,7 +64,7 @@ module.exports = {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 740,
-              showCaptions: true
+              showCaptions: true,
             },
           },
           'gatsby-remark-copy-linked-files',
@@ -80,7 +80,7 @@ module.exports = {
       options: {
         useMozJpeg: true,
         stripMetadata: false,
-        concurrency: 8
+        concurrency: 8,
       },
     },
     {
@@ -107,16 +107,16 @@ module.exports = {
       resolve: 'gatsby-plugin-typography',
       options: {
         pathToConfigModule: 'src/utils/typography',
-        omitGoogleFont: true
+        omitGoogleFont: true,
       },
     },
     {
       resolve: `gatsby-plugin-s3`,
       options: {
-          bucketName: 'dunedinsound.com',
-          protocol: "https",
-          hostname: "dunedinsound.com",
+        bucketName: 'dunedinsound.com',
+        protocol: 'https',
+        hostname: 'dunedinsound.com',
       },
-  },
+    },
   ],
 }

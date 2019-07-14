@@ -18,41 +18,46 @@
     - images (optional): The first image will be used as the cover.
 */
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Layout from '../../components/Layout'
 import Banner from '../../components/Banner'
 import Tile from '../../components/Tile'
 import Divider from '../../components/Divider'
 import HorizontalNav from '../../components/HorizontalNav'
 import { theme } from '../../utils/theme'
-import { calculateScrollHeaderOffset } from '../../utils/helper'
 import FlexGridContainer from '../../components/FlexGridContainer'
-import ZoopUpWrapper from '../../components/ZoopUpWrapper';
-import { MdKeyboardArrowUp } from 'react-icons/md';
-import GigTile from '../../components/GigTile';
-import Tabs from '../../components/Tabs';
+import ZoopUpWrapper from '../../components/ZoopUpWrapper'
+import { MdKeyboardArrowUp } from 'react-icons/md'
+import GigTile from '../../components/GigTile'
+import Tabs from '../../components/Tabs'
 
-export default ({data, pageDescription, parent, background}) => {
+const ContentTabs = ({ gigTiles, blogTiles, vaultsessionTiles, gigCount, blogCount, vaultsessionCount }) => {
+  const [openTab, setOpenTab] = useState('gigs')
+  return (
+    <>
+      <Tabs>
+        <button className={openTab === 'gigs' ? 'active' : ''} onClick={() => setOpenTab('gigs')}>
+          Gigs ({gigCount})
+        </button>
+        {blogCount > 0 && (
+          <button className={openTab === 'blogs' ? 'active' : ''} onClick={() => setOpenTab('blogs')}>
+            Articles ({blogCount})
+          </button>
+        )}
+        {vaultsessionCount > 0 && (
+          <button className={openTab === 'vaultsessions' ? 'active' : ''} onClick={() => setOpenTab('vaultsessions')}>
+            <span className="rainbowBackground">VAULT SESSION</span>
+          </button>
+        )}
+      </Tabs>
+      {openTab === 'gigs' && gigTiles}
+      {openTab === 'blogs' && <FlexGridContainer>{blogTiles}</FlexGridContainer>}
+      {openTab === 'vaultsessions' && <FlexGridContainer>{vaultsessionTiles}</FlexGridContainer>}
+    </>
+  )
+}
 
-  const [scrolled, setScrolled] = useState(false);
-  const [openTab, setOpenTab] = useState("gigs");
-
-  const scrollHeaderOffset = typeof window !== `undefined` && calculateScrollHeaderOffset(window)
-
-  const onScroll = () => {
-    if (window.pageYOffset > scrollHeaderOffset) {
-      setScrolled(true);
-    } else {
-      setScrolled(false);
-    }
-  }
-
-  // window scroll listener on mount, remove on unmount
-  useEffect(() => {
-    window.addEventListener('scroll', onScroll, {passive: true});
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [])
-
+export default ({ data, pageDescription, parent, background }) => {
   const siteTitle = data.site.siteMetadata.title
 
   const post = data.thisPost
@@ -62,50 +67,63 @@ export default ({data, pageDescription, parent, background}) => {
   const blogs = data.blogs && data.blogs.edges
   const vaultsessions = data.vaultsessions && data.vaultsessions.edges
 
-  const gigCount = gigs.reduce((acc, {edges}) => {
+  const gigCount = gigs.reduce((acc, { edges }) => {
     acc += edges.length
-    return acc;
+    return acc
   }, 0)
+  const blogCount = blogs ? blogs.length : 0
+  const vaultsessionCount = vaultsessions ? vaultsessions.length : 0
 
-  const gigTiles = gigs && gigs.map(({fieldValue, edges}) => {
-    const yearSize = edges.length
-    const gridSize = yearSize > 1 ? {xs: 6, sm: 4, lg: 3} : {xs: 12, sm: 12, lg: 12}
+  const gigTiles =
+    gigs &&
+    gigs.map(({ fieldValue, edges }) => {
+      const yearSize = edges.length
+      const gridSize = yearSize > 1 ? { xs: 6, sm: 4, lg: 3 } : { xs: 12, sm: 12, lg: 12 }
 
-    return <div id={fieldValue} key={fieldValue}>
-      <Divider backgroundColor={theme.default.foregroundColor} color="white" sticky><a style={{width: "100%"}} onClick={(e) => scrollTo(e, fieldValue)} href={"#" + fieldValue}>{fieldValue} ({yearSize})</a></Divider>
-      <FlexGridContainer>
-        {edges.map(({node}) => <GigTile node={node} key={node.fields.slug} imageSizes={gridSize}/>)}
-      </FlexGridContainer>
-    </div>
-  })
+      return (
+        <div id={fieldValue} key={fieldValue}>
+          <Divider backgroundColor={theme.default.foregroundColor} color="white" sticky>
+            <a style={{ width: '100%' }} onClick={e => scrollTo(e, fieldValue)} href={'#' + fieldValue}>
+              {fieldValue} ({yearSize})
+            </a>
+          </Divider>
+          <FlexGridContainer>
+            {edges.map(({ node }) => (
+              <GigTile node={node} key={node.fields.slug} imageSizes={gridSize} />
+            ))}
+          </FlexGridContainer>
+        </div>
+      )
+    })
 
-  const blogTiles = blogs && blogs.map(({node}) => {
-    return (
-      <Tile
-        key={node.fields.slug}
-        title={node.frontmatter.title}
-        subtitle={node.excerpt}
-        image={node.frontmatter.cover}
-        label={node.frontmatter.date}
-        href={node.fields.slug}
-      />
-    )
-  })
+  if (post.audioculture) {
+    gigTiles.push(<Tile title="More at Audioculture" href={post.audioculture.link} />)
+  }
 
-  const vaultsessionTiles = vaultsessions && vaultsessions.map(({node}) =>
-    <Tile
-      key={node.fields.slug}
-      title={node.frontmatter.title}
-      image={node.frontmatter.cover}
-      href={node.fields.slug}
-    />
-  )
+  const blogTiles =
+    blogs &&
+    blogs.map(({ node }) => {
+      return (
+        <Tile
+          key={node.fields.slug}
+          title={node.frontmatter.title}
+          subtitle={node.excerpt}
+          image={node.frontmatter.cover}
+          label={node.frontmatter.date}
+          href={node.fields.slug}
+        />
+      )
+    })
+
+  const vaultsessionTiles =
+    vaultsessions &&
+    vaultsessions.map(({ node }) => <Tile key={node.fields.slug} title={node.frontmatter.title} image={node.frontmatter.cover} href={node.fields.slug} />)
 
   // Scrolling to an achor. We do this because hash changes trigger re-renders.
   const scrollTo = (e, anchor) => {
     e.preventDefault()
     e.stopPropagation()
-    document.getElementById(anchor).scrollIntoView({behavior: "smooth"})
+    document.getElementById(anchor).scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
@@ -114,39 +132,65 @@ export default ({data, pageDescription, parent, background}) => {
       description={pageDescription}
       image={cover && cover.src}
       title={`${post.frontmatter.title} | ${siteTitle}`}
-      hideBrand={scrolled}
-      hideNav={scrolled}
-      headerContent={scrolled && <a onClick={(e) => scrollTo(e, "top")} href="#top" title="Scroll to top"><h1 className="big">{post.frontmatter.title}</h1></a>}
+      scrollHeaderContent={
+        <a onClick={e => scrollTo(e, 'top')} href="#top" title="Scroll to top">
+          <h1 className="big">{post.frontmatter.title}</h1>
+        </a>
+      }
     >
-      <Banner title={(post.frontmatter.title || post.fields.slug) + (post.frontmatter.origin ? ` (${post.frontmatter.origin})` : "")} backgroundImage={cover} background={background} customContent={(
-          <><ZoopUpWrapper title="Back" href={parent.href}><p>☝ Back to {parent.title} ☝</p><MdKeyboardArrowUp/></ZoopUpWrapper></>
-        )}>
+      <Banner
+        title={(post.frontmatter.title || post.fields.slug) + (post.frontmatter.origin ? ` (${post.frontmatter.origin})` : '')}
+        backgroundImage={cover}
+        background={background}
+        customContent={
+          <>
+            <ZoopUpWrapper title="Back" href={parent.href}>
+              <p>☝ Back to {parent.title} ☝</p>
+              <MdKeyboardArrowUp />
+            </ZoopUpWrapper>
+          </>
+        }
+      >
         <HorizontalNav>
-          {post.frontmatter.facebook && <li><a className="button" rel="noopener" href={post.frontmatter.facebook}>Facebook</a></li>}
-          {post.frontmatter.bandcamp && <li><a className="button" rel="noopener" href={post.frontmatter.bandcamp}>Bandcamp</a></li>}
-          {post.frontmatter.soundcloud && <li><a className="button" rel="noopener" href={post.frontmatter.soundcloud}>Soundcloud</a></li>}
-          {post.frontmatter.website && <li><a className="button" rel="noopener" href={post.frontmatter.website}>Website</a></li>}
+          {post.frontmatter.facebook && (
+            <li>
+              <a className="button" rel="noopener" href={post.frontmatter.facebook}>
+                Facebook
+              </a>
+            </li>
+          )}
+          {post.frontmatter.bandcamp && (
+            <li>
+              <a className="button" rel="noopener" href={post.frontmatter.bandcamp}>
+                Bandcamp
+              </a>
+            </li>
+          )}
+          {post.frontmatter.soundcloud && (
+            <li>
+              <a className="button" rel="noopener" href={post.frontmatter.soundcloud}>
+                Soundcloud
+              </a>
+            </li>
+          )}
+          {post.frontmatter.website && (
+            <li>
+              <a className="button" rel="noopener" href={post.frontmatter.website}>
+                Website
+              </a>
+            </li>
+          )}
         </HorizontalNav>
-        {post.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: post.frontmatter.description}}/>}
+        {post.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: post.frontmatter.description }} />}
       </Banner>
-      <Tabs>
-        <button className={openTab === "gigs" ? "active" : ""} onClick={() => setOpenTab("gigs")}>
-          Gigs ({gigCount})
-        </button>
-        {blogs && blogs.length > 0 &&
-          <button className={openTab === "blogs" ? "active" : ""} onClick={() => setOpenTab("blogs")}>
-            Articles ({blogs.length})
-          </button>
-        }
-        {vaultsessions && vaultsessions.length > 0 &&
-          <button className={openTab === "vaultsessions" ? "active" : ""} onClick={() => setOpenTab("vaultsessions")}>
-            <span className="rainbowBackground">VAULT SESSION</span>
-          </button>
-        }
-      </Tabs>
-        {openTab === "gigs" && gigTiles}
-        {openTab === "blogs" && <FlexGridContainer>{blogTiles}</FlexGridContainer>}
-        {openTab === "vaultsessions" && <FlexGridContainer>{vaultsessionTiles}</FlexGridContainer>}
+      <ContentTabs
+        gigTiles={gigTiles}
+        blogTiles={blogTiles}
+        vaultsessionTiles={vaultsessionTiles}
+        gigCount={gigCount}
+        blogCount={blogCount}
+        vaultsessionCount={vaultsessionCount}
+      />
     </Layout>
   )
 }

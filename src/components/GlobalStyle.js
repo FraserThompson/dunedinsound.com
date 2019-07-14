@@ -1,7 +1,7 @@
 import { css } from '@emotion/core'
 import { scale, rhythm } from '../utils/typography'
 import TransitionStyles from './TransitionStyles'
-import { lighten, darken } from "polished"
+import { lighten, darken } from 'polished'
 import { theme } from '../utils/theme'
 
 // we can't call functions in emotion css so these are out here... it's ok for now
@@ -27,25 +27,26 @@ const GlobalStyle = css`
     box-sizing: border-box;
   }
 
-  *:before, *:after {
+  *:before,
+  *:after {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
 
-  input[type=text] {
+  input[type='text'] {
     background-image: none;
     padding: 8px 12px;
     line-height: ${theme.default.headerHeightMobile};
     border: 1px solid #000;
     border-radius: 4px;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   }
 
-  input[type=text]:focus {
+  input[type='text']:focus {
     border: 1px solid ${theme.default.secondaryColor};
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
     outline: 0;
   }
 
@@ -75,7 +76,8 @@ const GlobalStyle = css`
     font-style: italic;
   }
 
-  p, span {
+  p,
+  span {
     small {
       color: ${theme.default.textColor};
       font-size: 16px;
@@ -86,7 +88,7 @@ const GlobalStyle = css`
   }
 
   .rainbowBackground {
-    background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
+    background: linear-gradient(to right, #ff0080, #ff8c00, #40e0d0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     &:hover {
@@ -95,8 +97,8 @@ const GlobalStyle = css`
   }
 
   .coolText {
-    background: rgb(34,195,174);
-    background: linear-gradient(0deg, rgba(34,195,174,1) 25%, rgba(255,0,190,1) 100%);
+    background: rgb(34, 195, 174);
+    background: linear-gradient(0deg, rgba(34, 195, 174, 1) 25%, rgba(255, 0, 190, 1) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     &:hover {
@@ -111,15 +113,15 @@ const GlobalStyle = css`
     overflow: hidden;
     text-transform: uppercase;
     margin-bottom: 0;
-    text-shadow: -1px -1px 0 rgba(0,0,0,.3);
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
 
     @media screen and (min-width: ${theme.default.breakpoints.md}) {
       ${scale2};
     }
-
   }
 
-  button, .button {
+  button,
+  .button {
     display: inline-block;
     margin-bottom: 0;
     text-align: center;
@@ -137,7 +139,8 @@ const GlobalStyle = css`
     border-radius: 5px;
     border: 2px solid ${theme.default.secondaryColor};
 
-    &.active, &:active {
+    &.active,
+    &:active {
       background-color: ${theme.default.secondaryColor};
       color: ${lightText};
       outline: 0;
@@ -157,19 +160,20 @@ const GlobalStyle = css`
     color: ${darkText};
     transition: color 0.1s ease-in-out;
     text-decoration: none;
-    overflow:hidden;
+    overflow: hidden;
     background-color: transparent;
 
-    .backgroundImage{
+    .backgroundImage {
       transition: transform 0.3s ease-in-out;
-      transform: scale(1,1);
+      transform: scale(1, 1);
     }
 
-    &:hover, &:active {
+    &:hover,
+    &:active {
       color: ${theme.default.secondaryColor};
       outline: 0;
       .backgroundImage {
-        transform: scale(1.02,1.02);
+        transform: scale(1.02, 1.02);
       }
     }
 
@@ -179,8 +183,9 @@ const GlobalStyle = css`
       color: white;
       transition: all 0.2s ease-in-out;
       transform: skew(-30deg) scale(1, 2);
-      background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
+      background: linear-gradient(to right, #ff0080, #ff8c00, #40e0d0);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
@@ -205,22 +210,35 @@ const GlobalStyle = css`
 
   .wobbly-content {
     -webkit-animation: wobble 5s infinite linear;
+    animation: wobble 5s infinite linear;
     height: 300px;
     width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
-  @-webkit-keyframes wobble {
-    0%  { -webkit-transform:  rotate(0deg); color: limegreen; }
-    20%  { -webkit-transform:  rotate(2deg); color: purple; }
-    50%  { -webkit-transform:  rotate(-2deg); color: aquamarine; }
-    100%  { -webkit-transform:  rotate(0deg); color: hotpink; }
+  @keyframes wobble {
+    0% {
+      -webkit-transform: rotate(0deg);
+      color: limegreen;
+    }
+    20% {
+      -webkit-transform: rotate(2deg);
+      color: purple;
+    }
+    50% {
+      -webkit-transform: rotate(-2deg);
+      color: aquamarine;
+    }
+    100% {
+      -webkit-transform: rotate(0deg);
+      color: hotpink;
+    }
   }
 
   ${TransitionStyles}
 `
-export default GlobalStyle;
+export default GlobalStyle

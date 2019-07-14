@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import Img from 'gatsby-image'
@@ -6,66 +6,81 @@ import styled from '@emotion/styled'
 import World from '../components/World'
 import { debounce } from 'throttle-debounce'
 
-export default ({data, location}) => {
-
-  const [lights, setLights] = useState("off")
+export default ({ data, location }) => {
+  const [lights, setLights] = useState('off')
   const [hoveredNode, setHoveredNode] = useState(false)
-  const [perspective, setPerspective] = useState("300px")
-  const [postElements, setPostElements] = useState(null)
+  const [perspective, setPerspective] = useState('300px')
 
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = data.site.siteMetadata.description
   const posts = data.allBlogs.edges
 
-  const speak = (text) => {
-    const msg = new SpeechSynthesisUtterance();
+  const speak = text => {
+    const msg = new SpeechSynthesisUtterance()
     msg.voiceURI = 'native'
     msg.volume = 1
     msg.rate = 0.1
-    msg.pitch = Math.floor(Math.random() * (2 - 0 + 1));
+    msg.pitch = Math.floor(Math.random() * (2 - 0 + 1))
     msg.text = text
     msg.lang = 'en-US'
 
     speechSynthesis.speak(msg)
-  };
+  }
 
   const speakDebounced = debounce(1000, speak)
 
-  const thingHover = (node) => {
+  const thingHover = node => {
     setHoveredNode(node)
-    setLights("on")
+    setLights('on')
     speakDebounced(node.frontmatter.title)
   }
 
   const thingUnhover = () => {
     setHoveredNode(false)
-    setLights("off")
+    setLights('off')
   }
 
-  useEffect(() => {
-    setPostElements(posts.map(({node}) =>
-      <article key={node.fields.slug}>
-        <Link onMouseOver={() => thingHover(node)} onMouseOut={thingUnhover} to={node.fields.slug}>
-          <h2>{node.frontmatter.title}</h2>
-        </Link>
-      </article>
-    ))
-  }, [data])
-
   return (
-    <Layout location={location} description={siteDescription} title={`VAULT SESSIONS | ${siteTitle}`} overrideBackgroundColor="white">
+    <Layout
+      location={location}
+      description={siteDescription}
+      title={`VAULT SESSIONS | ${siteTitle}`}
+      overrideBackgroundColor="white"
+    >
       <World perspective={perspective} lights={lights}>
         <Logo position="top">
-          <img style={{filter: "invert(80%)"}} src={lights == "off" ? data.logoMono.publicURL : data.logo.publicURL}/>
+          <img
+            style={{ filter: 'invert(80%)' }}
+            src={
+              lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL
+            }
+          />
         </Logo>
         <Logo position="bottom">
-          <img style={{filter: "invert(80%)"}} src={lights == "off" ? data.logoMono.publicURL : data.logo.publicURL}/>
+          <img
+            style={{ filter: 'invert(80%)' }}
+            src={
+              lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL
+            }
+          />
         </Logo>
         <div className="posts">
-        {postElements}
+          {posts.map(({ node }) => (
+            <article key={node.fields.slug}>
+              <Link
+                onMouseOver={() => thingHover(node)}
+                onMouseOut={thingUnhover}
+                to={node.fields.slug}
+              >
+                <h2>{node.frontmatter.title}</h2>
+              </Link>
+            </article>
+          ))}
         </div>
         <WallArt>
-          {hoveredNode && <Img fluid={hoveredNode.frontmatter.cover.childImageSharp.fluid}/>}
+          {hoveredNode && (
+            <Img fluid={hoveredNode.frontmatter.cover.childImageSharp.fluid} />
+          )}
         </WallArt>
       </World>
     </Layout>
@@ -83,7 +98,10 @@ export const pageQuery = graphql`
     logoMono: file(name: { eq: "vslogo_mono" }) {
       publicURL
     }
-    allBlogs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: ASC }, filter: {fields: {type: { eq: "vaultsessions"}}}) {
+    allBlogs: allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: ASC }
+      filter: { fields: { type: { eq: "vaultsessions" } } }
+    ) {
       edges {
         node {
           ...BlogFrontmatter
@@ -106,12 +124,14 @@ const WallArt = styled.div`
 const Logo = styled.div`
   margin: 0 auto;
   position: absolute;
-  top: ${props => props.position == "top" && "0px"};
-  bottom: ${props => props.position == "bottom" && "0px"};
+  top: ${props => props.position == 'top' && '0px'};
+  bottom: ${props => props.position == 'bottom' && '0px'};
   z-index: 2;
   width: 100%;
-  transform: ${props => props.position == "top" ? "rotateX(-90deg)" : "rotateX(90deg);"};
-  transform-origin: ${props => props.position == "top" ? "center top" : "center bottom"};
+  transform: ${props =>
+    props.position == 'top' ? 'rotateX(-90deg)' : 'rotateX(90deg);'};
+  transform-origin: ${props =>
+    props.position == 'top' ? 'center top' : 'center bottom'};
   img {
     transform: translateZ(-50px);
     opacity: 1;
