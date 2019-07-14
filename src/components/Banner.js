@@ -45,6 +45,8 @@ const BannerText = styled.div`
   width: 100%;
   height: 100%;
 
+  max-width: ${props => props.theme.contentContainerWidth};
+
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     padding: ${rhythm(1)};
     width: auto;

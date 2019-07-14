@@ -8,11 +8,11 @@ import FlexGridContainer from '../components/FlexGridContainer'
 import { parse } from 'srcset'
 import { createBrowserHistory } from 'history'
 
-const history = createBrowserHistory()
-
 export default React.memo(({ artist, images, gridSize, title, imageCaption }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState(0)
+
+  const history = createBrowserHistory()
 
   useEffect(() => {
     handleURLChange(history.location)
