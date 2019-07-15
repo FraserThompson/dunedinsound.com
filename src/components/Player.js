@@ -1,7 +1,7 @@
 // Player.js
 // An audio player for playing media from one or more artists.
 // Parameters:
-//  - artistMedia: Media to be displayed
+//  - artistAudio: Media to be displayed
 //  - onPlay (optional): Callback for when it's played
 //  - onPause (optional): Callback for when it's paused
 //  - onFileChange (optional): Callback for when the song changes
@@ -68,13 +68,13 @@ export default class Player extends React.PureComponent {
 
   loadSelectedMedia = () => {
     this.load(
-      this.props.artistMedia[this.state.selectedArtist].audio[0]['.mp3'].publicURL,
-      this.props.artistMedia[this.state.selectedArtist].audio[0]['.json'].publicURL
+      this.props.artistAudio[this.state.selectedArtist].audio[0]['.mp3'].publicURL,
+      this.props.artistAudio[this.state.selectedArtist].audio[0]['.json'].publicURL
     )
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (this.props.artistMedia !== prevProps.artistMedia || this.state.selectedArtist !== prevState.selectedArtist) {
+    if (this.props.artistAudio !== prevProps.artistAudio || this.state.selectedArtist !== prevState.selectedArtist) {
       this.loadSelectedMedia()
     }
   }
@@ -119,8 +119,8 @@ export default class Player extends React.PureComponent {
         this.setState({ queueSeek: false })
       }
 
-      if (this.props.artistMedia[this.state.selectedArtist].tracklist) {
-        this.props.artistMedia[this.state.selectedArtist].tracklist.forEach(region => {
+      if (this.props.artistAudio[this.state.selectedArtist].tracklist) {
+        this.props.artistAudio[this.state.selectedArtist].tracklist.forEach(region => {
           region.drag = false
           region.resize = false
           region.start = this.timeToSeconds(region.time)
@@ -197,7 +197,7 @@ export default class Player extends React.PureComponent {
   }
 
   next = () => {
-    const selectedArtist = Math.min(this.state.selectedArtist + 1, this.props.artistMedia.length - 1)
+    const selectedArtist = Math.min(this.state.selectedArtist + 1, this.props.artistAudio.length - 1)
     this.setState({ selectedArtist })
     this.props.onFileChange && this.props.onFileChange(selectedArtist)
   }
@@ -241,14 +241,14 @@ export default class Player extends React.PureComponent {
           </LoadingProgress>
         )}
         <TitleWrapper className="title-wrapper">
-          <span>{this.props.artistMedia[this.state.selectedArtist].title}</span>
+          <span>{this.props.artistAudio[this.state.selectedArtist].title}</span>
         </TitleWrapper>
         <PlayerMenu
           width="100%"
           selected={this.state.selectedArtist}
           selectCallback={this.selectArtist}
           seekCallback={this.seekToTime}
-          list={this.props.artistMedia}
+          list={this.props.artistAudio}
         />
       </PlayerWrapper>
     )

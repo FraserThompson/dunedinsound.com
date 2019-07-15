@@ -12,6 +12,13 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { rhythm } from '../utils/typography'
 
+export default React.memo(({ href, color, sticky, backgroundColor, children, className }) => (
+  <DividerWrapper color={color} sticky={sticky} backgroundColor={backgroundColor} className={className}>
+    {href && <a href={href}>{children}</a>}
+    {!href && children}
+  </DividerWrapper>
+))
+
 export const DividerWrapper = styled.div`
   color: ${props => props.color || 'black'};
   line-height: ${rhythm(1)};
@@ -43,9 +50,3 @@ export const DividerWrapper = styled.div`
     }
   }
 `
-export default React.memo(({ href, color, sticky, backgroundColor, children, className }) => (
-  <DividerWrapper color={color} sticky={sticky} backgroundColor={backgroundColor} className={className}>
-    {href && <a href={href}>{children}</a>}
-    {!href && children}
-  </DividerWrapper>
-))

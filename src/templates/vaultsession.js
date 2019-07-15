@@ -129,7 +129,7 @@ export default ({ data, location }) => {
         </Logo>
       </World>
       {artistMedia && (
-        <GigContext.Provider value={{ artistMedia, artistAudio: artistMedia }}>
+        <GigContext.Provider value={{ artistAudio: artistMedia }}>
           <PlayerContainer />
         </GigContext.Provider>
       )}

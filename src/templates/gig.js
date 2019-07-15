@@ -63,6 +63,10 @@ export default React.memo(({ data, location }) => {
   useEffect(() => {
     if (typeof window !== `undefined` && window.location.hash) {
       scrollTo(null, window.location.hash.substring(1))
+    } else if (typeof window !== `undefined` && window.previousPath && window.previousPath !== window.location.href) {
+      // We need to scroll to top manually because we disabled Gatsby's default behavior (see gatsby-browser.js) so our
+      // lightbox back button feature works.
+      window.scrollTo(0, 0)
     }
 
     // Key-value object of images by artist

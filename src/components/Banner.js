@@ -57,7 +57,7 @@ const BannerText = styled.div`
   margin: 0 auto;
   text-align: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 20%, rgba(0, 0, 0, 0) 40%);
   padding: ${rhythm(0.5)};
   height: 100%;
   width: 100%;
@@ -75,6 +75,7 @@ const BannerText = styled.div`
 
   .center-content {
     padding-top: ${rhythm(1)};
+    margin-bottom: auto;
     position: relative;
   }
 `

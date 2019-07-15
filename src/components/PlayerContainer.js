@@ -4,6 +4,7 @@ import { MdKeyboardArrowUp } from 'react-icons/md'
 import styled from '@emotion/styled'
 import { lighten } from 'polished'
 import GigContext from '../templates/GigContext'
+import { rhythm } from '../utils/typography'
 
 export default () => {
   const context = useContext(GigContext)
@@ -27,7 +28,7 @@ export default () => {
 
 const PlayerWrapper = styled.div`
   position: fixed;
-  bottom: ${props => (props.show ? '0px' : props.theme.headerHeightNeg)};
+  bottom: ${props => (props.show ? props.theme.headerHeightMobile : rhythm(-0.5))};
   z-index: 11;
   overflow: visible;
   height: ${props => props.theme.headerHeight};
@@ -36,6 +37,9 @@ const PlayerWrapper = styled.div`
   background-color: ${props => props.theme.primaryColor};
   width: 100%;
   transition: bottom 150ms ease-in-out;
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    bottom: ${props => (props.show ? '0px' : props.theme.headerHeightNeg)};
+  }
   .handle {
     position: absolute;
     text-align: center;

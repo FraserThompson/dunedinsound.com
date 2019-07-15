@@ -6,16 +6,17 @@
 import React from 'react'
 import Img from 'gatsby-image'
 import { gridToSizes } from '../utils/helper'
+import styled from '@emotion/styled'
 
 export default ({ image, sizes }) => (
-  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
+  <BackgroundImageWrapper>
     {Array.isArray(image) ? (
       image.map(({ node }) => (
         <Img
           className="backgroundImage"
           key={node.publicURL}
           style={{
-            width: (1 / image.length) * 100 + '%',
+            flex: `1 1 ${(1 / image.length) * 100}%`,
             zIndex: 0,
             height: '100%',
           }}
@@ -31,5 +32,28 @@ export default ({ image, sizes }) => (
     ) : (
       <img className="backgroundImage" src={image} />
     )}
-  </div>
+  </BackgroundImageWrapper>
 )
+
+const BackgroundImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  .backgroundImage:nth-of-type(2) {
+    display: none;
+  }
+  .backgroundImage:nth-of-type(3) {
+    display: none;
+  }
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    .backgroundImage:nth-of-type(2) {
+      display: block;
+    }
+    .backgroundImage:nth-of-type(3) {
+      display: block;
+    }
+  }
+`
