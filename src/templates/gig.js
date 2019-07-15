@@ -124,22 +124,30 @@ export default React.memo(({ data, location }) => {
       title={`${gigTitle} | ${data.site.siteMetadata.title}`}
       date={data.thisPost.frontmatter.date}
       type="article"
+      hideBrandOnMobile={true}
       scrollHeaderContent={
         <a onClick={e => scrollTo(e, 'top')} href="#top" title="Scroll to top">
           <h1 className="big">{gigTitle}</h1>
         </a>
       }
     >
-      <Banner id="top" title={gigTitle} backgroundImage={cover} customContent={<BannerContent data={data} />}>
+      <Banner
+        id="top"
+        title={gigTitle}
+        subtitle={
+          venueDetails && (
+            <>
+              at <Link to={venueDetails.fields.slug}>{venueDetails.frontmatter.title}</Link>
+              <p>
+                <small>{data.thisPost.frontmatter.date}</small>
+              </p>
+            </>
+          )
+        }
+        backgroundImage={cover}
+        customContent={<BannerContent data={data} />}
+      >
         <HorizontalNav>
-          <p>
-            {data.thisPost.frontmatter.date}{' '}
-            {venueDetails && (
-              <>
-                at <Link to={venueDetails.fields.slug}>{venueDetails.frontmatter.title}</Link>
-              </>
-            )}
-          </p>
           {data.thisPost.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: data.thisPost.frontmatter.description }}></p>}
           {artistMedia.length == 0 && <LoadingSpinner />}
           {artistMedia.map((artist, index) => {

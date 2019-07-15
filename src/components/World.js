@@ -3,24 +3,30 @@ import styled from '@emotion/styled'
 
 const WorldWrapper = styled.div`
   overflow: hidden;
-  perspective: ${props => props.perspective || "300px"};
-  transition: perspective 0.3s ease-in-out;
+  perspective: ${props => props.perspective || '300px'};
+  transition: all 0.3s ease-in-out;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - ${props => props.theme.headerHeight});
   position: relative;
   -webkit-backface-visibility: hidden;
   transform-style: preserve-3d;
-  animation: ${props => typeof InstallTrigger === 'undefined' && "camFocus 2s"};
+  animation: ${props => typeof InstallTrigger === 'undefined' && 'camFocus 2s'};
 
   .checkers {
     position: absolute;
     background-size: 30px 30px;
     background-position: 0 0, 50px 0, 50px -50px, 0px 50px;
     &.off {
-      background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(.25, #000), color-stop(.25, transparent)), -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, #050505), color-stop(.25, transparent)), -webkit-gradient(linear, 0 100%, 100% 0, color-stop(.75, transparent), color-stop(.75, #161616)), -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.75, transparent), color-stop(.75, #282828));
+      background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, #000), color-stop(0.25, transparent)),
+        -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #050505), color-stop(0.25, transparent)),
+        -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.75, transparent), color-stop(0.75, #161616)),
+        -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.75, transparent), color-stop(0.75, #282828));
     }
     &.on {
-      background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(.25, white), color-stop(.25, transparent)), -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, transparent), color-stop(.25, #050505)), -webkit-gradient(linear, 0 100%, 100% 0, color-stop(.75, #161616), color-stop(.75, transparent)), -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.75, #282828), color-stop(.75, transparent));
+      background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, white), color-stop(0.25, transparent)),
+        -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, transparent), color-stop(0.25, #050505)),
+        -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.75, #161616), color-stop(0.75, transparent)),
+        -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.75, #282828), color-stop(0.75, transparent));
     }
   }
 
@@ -78,10 +84,10 @@ const WorldWrapper = styled.div`
   }
 
   .posts {
+    transform: translateZ(-600px);
     article {
-      transform: translateZ(-600px);
       transition: all 0.3s ease-in-out;
-      background-color: rgba(0,0,0, 0.8);
+      background-color: rgba(0, 0, 0, 0.8);
       border: 10px dotted yellow;
       &:hover {
         filter: invert(1);
@@ -100,7 +106,6 @@ const WorldWrapper = styled.div`
 `
 
 class World extends React.PureComponent {
-
   render() {
     return (
       <WorldWrapper perspective={this.props.perspective}>
@@ -116,7 +121,7 @@ class World extends React.PureComponent {
 }
 
 World.defaultProps = {
-  lights: "off"
+  lights: 'off',
 }
 
-export default World;
+export default World

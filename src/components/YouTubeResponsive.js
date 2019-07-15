@@ -4,7 +4,7 @@ import YouTube from 'react-youtube'
 import { rhythm } from '../utils/typography'
 import { MdPlayCircleOutline } from 'react-icons/md'
 
-export default React.memo(({ videoId, odd, vanilla }) => {
+export default React.memo(({ videoId, odd, vanilla, getPlayerTarget }) => {
   const APIKey = 'AIzaSyBUlBQysAAKfuSmm4Z92VBMAE9lli3zL58'
   const [clicked, setClicked] = useState(false)
   const [title, setTitle] = useState('')
@@ -12,7 +12,7 @@ export default React.memo(({ videoId, odd, vanilla }) => {
 
   useEffect(() => {
     getTitle()
-  }, [])
+  }, [videoId])
 
   const getTitle = async () => {
     let response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${APIKey}`)
@@ -29,6 +29,7 @@ export default React.memo(({ videoId, odd, vanilla }) => {
     event.target.setPlaybackQuality('hd720')
     // this doesn't seem to work
     event.target.playVideo()
+    if (getPlayerTarget) getPlayerTarget(event.target)
   }
 
   return (
@@ -47,7 +48,7 @@ export default React.memo(({ videoId, odd, vanilla }) => {
           </WatchOnYoutubeLink>
         </PlaceholderContent>
       )}
-      {(clicked || vanilla) && <YouTube onReady={onReady} opts={{ modestbranding: 1, playerVars: { autoplay: 1 } }} />}
+      {(clicked || vanilla) && <YouTube videoId={videoId} onReady={onReady} opts={{ rel: 0, modestbranding: 1, playerVars: { autoplay: 1 } }} />}
     </YouTubeWrapper>
   )
 })

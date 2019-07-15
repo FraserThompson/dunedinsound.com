@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { graphql, Link } from 'gatsby'
 import styled from '@emotion/styled'
 import Layout from '../components/Layout'
@@ -6,6 +6,51 @@ import World from '../components/World'
 import YouTubeResponsive from '../components/YouTubeResponsive'
 import GigContext from './GigContext'
 import PlayerContainer from '../components/PlayerContainer'
+
+const minutesToSeconds = time => {
+  const timeComponents = time.split(':')
+  return parseInt(timeComponents[0]) * 60 + parseInt(timeComponents[1])
+}
+
+const VideoControls = ({ tracklist, playerTarget, fullDownloadLink }) => {
+  const [playerSeconds, setPlayerSeconds] = useState(0)
+
+  const seekVideoTo = time => {
+    playerTarget && playerTarget.seekTo(time, true)
+    setPlayerSeconds(time)
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPlayerSeconds(playerTarget.getCurrentTime())
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <Tracklist>
+      <h3>Tracklist (click to seek)</h3>
+      {tracklist.map((video, index) => {
+        const nextTrackSeconds = index + 1 < tracklist.length && tracklist[index + 1].seconds
+        return (
+          <Track key={video.link} active={playerSeconds >= video.seconds && (nextTrackSeconds ? playerSeconds < nextTrackSeconds : true)}>
+            <a className="trackTitle" onClick={useCallback(() => seekVideoTo(video.seconds))}>
+              {video.title}
+            </a>{' '}
+            <a target="_blank" href={`https://youtube.com/watch?v=${video.link}`}>
+              <small>(Video)</small>
+            </a>
+          </Track>
+        )
+      })}
+      {fullDownloadLink && (
+        <a title="FULL MP3 DOWNLOAD" target="_blank" href={fullDownloadLink}>
+          <h3 className="coolText">🌟FULL MP3 DOWNLOAD🌟</h3>
+        </a>
+      )}
+    </Tracklist>
+  )
+}
 
 export default ({ data, location }) => {
   const post = data.markdownRemark
@@ -16,6 +61,9 @@ export default ({ data, location }) => {
 
   const [lights, setLights] = useState('off')
   const [artistMedia, setArtistMedia] = useState(null)
+  const [playerTarget, setPlayerTarget] = useState(null)
+
+  const getPlayerTarget = target => setPlayerTarget(target)
 
   useEffect(() => {
     const audio = data.audio.edges.reduce((obj, item) => {
@@ -29,7 +77,10 @@ export default ({ data, location }) => {
       {
         title: post.frontmatter.title,
         audio: Object.values(audio),
-        tracklist: post.frontmatter.tracklist,
+        tracklist: post.frontmatter.tracklist.map(track => {
+          track.seconds = minutesToSeconds(track.time)
+          return track
+        }),
       },
     ])
   }, [data])
@@ -47,22 +98,9 @@ export default ({ data, location }) => {
           <h2>{post.frontmatter.title}</h2>
           <h4>Recorded on {post.frontmatter.date}</h4>
         </Title>
-        <Tracklist>
-          <h3>Tracklist</h3>
-          {post.frontmatter.tracklist.map(video => (
-            <li key={video.link}>
-              {video.title} ({video.time}){' '}
-              <a target="_blank" href={`https://youtube.com/watch?v=${video.link}`}>
-                (Video)
-              </a>
-            </li>
-          ))}
-          {artistMedia && (
-            <a title="FULL MP3 DOWNLOAD" target="_blank" href={artistMedia[0].audio[0]['.mp3'].publicURL}>
-              <h3 className="coolText">🌟FULL MP3 DOWNLOAD🌟</h3>
-            </a>
-          )}
-        </Tracklist>
+        {playerTarget && artistMedia && (
+          <VideoControls tracklist={artistMedia[0].tracklist} playerTarget={playerTarget} fullDownloadLink={artistMedia[0].audio[0]['.mp3'].publicURL} />
+        )}
         <Metadata>
           <h3>More from this artist</h3>
           <ul>
@@ -82,7 +120,7 @@ export default ({ data, location }) => {
           </ul>
         </Metadata>
         <VideoWrapper>
-          <YouTubeResponsive videoId={post.frontmatter.full_video} vanilla />
+          <YouTubeResponsive videoId={post.frontmatter.full_video} getPlayerTarget={getPlayerTarget} vanilla />
         </VideoWrapper>
         <Logo position="bottom">
           <Link title="Back to all sessions" onMouseOver={() => setLights('on')} onMouseOut={() => setLights('off')} to="/vaultsessions">
@@ -98,6 +136,91 @@ export default ({ data, location }) => {
     </Layout>
   )
 }
+
+const Title = styled.div`
+  position: absolute;
+  top: 0px;
+  z-index: 2;
+  width: 100%;
+  transform: rotateX(-90deg);
+  transform-origin: center top;
+  text-align: center;
+  h1 {
+    opacity: 0.5;
+    margin: 0 auto;
+  }
+`
+
+const Logo = styled.div`
+  margin: 0 auto;
+  position: absolute;
+  top: ${props => props.position == 'top' && '0px'};
+  bottom: ${props => props.position == 'bottom' && '0px'};
+  z-index: 2;
+  width: 100%;
+  transform: ${props => (props.position == 'top' ? 'rotateX(-90deg)' : 'rotateX(90deg);')};
+  transform-origin: ${props => (props.position == 'top' ? 'center top' : 'center bottom')};
+  img {
+    transform: translateZ(-50px);
+    opacity: 1;
+    width: 100%;
+  }
+`
+
+const VideoWrapper = styled.div`
+  background-color: black;
+  bottom: 0;
+  transform-origin: center bottom;
+  transform: translateZ(-50px) translateY(-50%) translateX(-50%);
+  width: 100vw;
+  z-index: 4;
+  position: relative;
+  top: 50%;
+  left: 50%;
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    width: 60vw;
+  }
+`
+
+const Tracklist = styled.ul`
+  transition: all 0.2s ease-in-out;
+  transform: rotateY(90deg);
+  position: absolute;
+  left: 0;
+  z-index: 3;
+  transform-origin: left center;
+  background: rgba(0, 0, 0, 0);
+  &:hover {
+    z-index: 10;
+    transform: rotateY(20deg);
+    background: rgba(0, 0, 0, 1);
+  }
+`
+
+const Track = styled.li`
+  a {
+    cursor: pointer;
+  }
+  .trackTitle {
+    color: ${props => props.active && props.theme.secondaryColor};
+    font-weight: ${props => props.active && 'bold'};
+  }
+`
+
+const Metadata = styled.div`
+  transition: all 0.2s ease-in-out;
+  transform: rotateY(-90deg);
+  position: absolute;
+  right: 0;
+  z-index: 3;
+  transform-origin: right center;
+  &:hover {
+    z-index: 10;
+    transform: rotateY(-20deg);
+    background: rgba(0, 0, 0, 1);
+  }
+`
 
 export const pageQuery = graphql`
   query VaultsessionPostBySlug($slug: String!, $parentDir: String!) {
@@ -151,80 +274,5 @@ export const pageQuery = graphql`
         }
       }
     }
-  }
-`
-
-const Title = styled.div`
-  position: absolute;
-  top: 0px;
-  z-index: 2;
-  width: 100%;
-  transform: rotateX(-90deg);
-  transform-origin: center top;
-  text-align: center;
-  h1 {
-    opacity: 0.5;
-    margin: 0 auto;
-  }
-`
-
-const Logo = styled.div`
-  margin: 0 auto;
-  position: absolute;
-  top: ${props => props.position == 'top' && '0px'};
-  bottom: ${props => props.position == 'bottom' && '0px'};
-  z-index: 2;
-  width: 100%;
-  transform: ${props => (props.position == 'top' ? 'rotateX(-90deg)' : 'rotateX(90deg);')};
-  transform-origin: ${props => (props.position == 'top' ? 'center top' : 'center bottom')};
-  img {
-    transform: translateZ(-50px);
-    opacity: 1;
-    width: 100%;
-  }
-`
-
-const VideoWrapper = styled.div`
-  background-color: black;
-  bottom: 0;
-  transform-origin: center bottom;
-  transform: translateZ(-50px) translateY(-50%);
-  width: 100vw;
-  z-index: 4;
-  position: relative;
-  top: 50%;
-
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    transform: translateZ(-300px) translateY(0%);
-    top: initial;
-  }
-`
-
-const Tracklist = styled.ul`
-  transition: all 0.2s ease-in-out;
-  transform: rotateY(90deg);
-  position: absolute;
-  left: 0;
-  z-index: 3;
-  transform-origin: left center;
-  background: rgba(0, 0, 0, 0);
-  &:hover {
-    z-index: 10;
-    transform: rotateY(20deg);
-    background: rgba(0, 0, 0, 1);
-  }
-`
-
-const Metadata = styled.div`
-  transition: all 0.2s ease-in-out;
-  transform: rotateY(-90deg);
-  position: absolute;
-  right: 0;
-  z-index: 3;
-  transform-origin: right center;
-  &:hover {
-    z-index: 10;
-    transform: rotateY(-20deg);
-    background: rgba(0, 0, 0, 1);
   }
 `

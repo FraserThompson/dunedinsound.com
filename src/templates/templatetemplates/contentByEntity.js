@@ -30,7 +30,7 @@ import ZoopUpWrapper from '../../components/ZoopUpWrapper'
 import { MdKeyboardArrowUp } from 'react-icons/md'
 import GigTile from '../../components/GigTile'
 import Tabs from '../../components/Tabs'
-import { rhythm } from '../../utils/typography'
+import { rhythm, scale } from '../../utils/typography'
 import styled from '@emotion/styled'
 
 const ContentTabs = ({ gigTiles, blogTiles, vaultsessionTiles, gigCount, blogCount, vaultsessionCount }) => {
@@ -103,7 +103,9 @@ export default ({ data, pageDescription, parent, background }) => {
     gigTiles.push(
       <FlexGridContainer key={'audioculture'}>
         <Tile image={audioculture.image} href={audioculture.link}>
-          <Quote>{audioculture.snippet} - Audioculture</Quote>
+          <Quote>
+            "{audioculture.snippet}" - <span>Audioculture</span>
+          </Quote>
         </Tile>
       </FlexGridContainer>
     )
@@ -207,7 +209,7 @@ export default ({ data, pageDescription, parent, background }) => {
             </li>
           )}
         </HorizontalNav>
-        {post.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: post.frontmatter.description }} />}
+        {post.frontmatter.description && <p style={{ marginTop: '1rem' }} dangerouslySetInnerHTML={{ __html: post.frontmatter.description }} />}
       </Banner>
       <ContentTabs
         gigTiles={gigTiles}
@@ -222,9 +224,19 @@ export default ({ data, pageDescription, parent, background }) => {
 }
 
 const Quote = styled.p`
+  ${scale(1)};
   font-style: italic;
   text-align: center;
   color: white;
   background: rgba(0, 0, 0, 0.5);
-  font-size: ${rhythm(1)};
+  text-shadow: 1px 1px #000;
+  > span {
+    transition: color 0.3s ease-in-out;
+    color: white;
+  }
+  &:hover {
+    > span {
+      color: #b4dc7b;
+    }
+  }
 `

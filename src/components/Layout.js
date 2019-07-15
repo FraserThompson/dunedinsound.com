@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import SiteHeader from './SiteHeader'
-import { Global, css } from '@emotion/core'
+import { Global } from '@emotion/core'
 import styled from '@emotion/styled'
 import { ThemeProvider } from 'emotion-theming'
 import { theme } from '../utils/theme'
@@ -13,6 +13,7 @@ import SiteNav from './SiteNav'
 import Menu from './Menu'
 import { rhythm } from '../utils/typography'
 import GlobalStyle from './GlobalStyle'
+import UpdateYourFrickinBrowser from './UpdateYourFrickinBrowser'
 
 export default React.memo(
   ({
@@ -48,6 +49,7 @@ export default React.memo(
           </MobileNav>
           <SiteHeader scrollHeaderContent={scrollHeaderContent} headerContent={headerContent} hideBrandOnMobile={hideBrandOnMobile} />
         </HeaderWrapper>
+        <UpdateYourFrickinBrowser />
         <SiteContainer overrideBackgroundColor={overrideBackgroundColor}>{children}</SiteContainer>
         {!hideFooter && <SiteFooter />}
       </>
@@ -71,6 +73,8 @@ const SiteContainer = styled.div`
 `
 
 const MobileNav = styled.div`
+  position: fixed;
+  bottom: 0;
   height: ${props => props.theme.headerHeightMobile};
   background-color: ${props => props.theme.primaryColor};
   z-index: 12;
@@ -81,6 +85,7 @@ const MobileNav = styled.div`
     align-items: center;
     a {
       flex-grow: 1;
+      padding: 0;
       text-align: center;
     }
   }

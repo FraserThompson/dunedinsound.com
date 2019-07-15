@@ -8,6 +8,7 @@ import { theme } from '../utils/theme'
 const lightText = lighten(0.5, theme.default.textColor)
 const darkText = darken(0.2, theme.default.foregroundColor)
 const padding = rhythm(0.5)
+const rhythm1 = rhythm(1)
 const scale2 = scale(2)
 const scale1 = scale(1)
 const scale04 = scale(-0.4)
@@ -37,7 +38,7 @@ const GlobalStyle = css`
   input[type='text'] {
     background-image: none;
     padding: 8px 12px;
-    line-height: ${theme.default.headerHeightMobile};
+    line-height: ${rhythm1};
     border: 1px solid #000;
     border-radius: 4px;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -113,11 +114,15 @@ const GlobalStyle = css`
     overflow: hidden;
     text-transform: uppercase;
     margin-bottom: 0;
-    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
 
     @media screen and (min-width: ${theme.default.breakpoints.md}) {
       ${scale2};
     }
+  }
+
+  h1,
+  h2 {
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
   }
 
   button,

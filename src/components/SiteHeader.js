@@ -34,7 +34,7 @@ export default ({ scrollHeaderContent, headerContent, hideBrandOnMobile, backgro
   }, [])
 
   return (
-    <Container className="header" hideOnMobile={!scrollHeaderContent} backgroundColor={backgroundColor}>
+    <Container className="header" hideOnMobile={scrollHeaderContent && !scrolled && !headerContent} backgroundColor={backgroundColor}>
       {!scrolled && (
         <Brand hideOnMobile={hideBrandOnMobile}>
           <Link to="/">Dunedin Gig Archives</Link>

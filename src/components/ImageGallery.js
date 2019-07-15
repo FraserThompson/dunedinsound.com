@@ -11,6 +11,7 @@ import { createBrowserHistory } from 'history'
 export default React.memo(({ artist, images, gridSize, title, imageCaption }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState(0)
+  const [directLinked, setDirectLinked] = useState(false)
 
   const history = createBrowserHistory()
 
@@ -24,6 +25,7 @@ export default React.memo(({ artist, images, gridSize, title, imageCaption }) =>
     if (location.search) {
       const searchParams = new URLSearchParams(location.search)
       if (searchParams.get('artist') == artist) {
+        if (!location.state || !location.state.lightboxOpen) setDirectLinked(true) // this won't be set if we come direct to the url
         setSelectedImage(parseInt(searchParams.get('image')))
         setLightboxOpen(true)
       }
@@ -37,15 +39,17 @@ export default React.memo(({ artist, images, gridSize, title, imageCaption }) =>
     history.push({
       pathname: history.location.pathname,
       search: `?image=${imageIndex}&artist=${artist}`,
+      state: { lightboxOpen: true },
     })
   }
 
-  const closeLightbox = () => history.goBack()
+  const closeLightbox = () => (!directLinked ? history.goBack() : history.replace({ pathname: history.location.pathname, search: '' }))
 
   const gotoLightboxImage = imageIndex =>
     history.replace({
       pathname: history.location.pathname,
       search: `?image=${imageIndex}&artist=${artist}`,
+      state: { lightboxOpen: true },
     })
 
   const getNextImage = () => (selectedImage < images.length - 1 ? selectedImage + 1 : false)
