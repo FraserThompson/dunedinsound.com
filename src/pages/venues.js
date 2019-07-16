@@ -13,12 +13,15 @@ const Sidebar = React.memo(({ menuItems, menuItemClick, setRef, selected }) => {
 
   const toggleSidebar = useCallback(() => {
     setOpen(!open)
-  })
+  }, [open])
 
-  const click = useCallback((index, center) => {
-    setOpen(true)
-    menuItemClick && menuItemClick(index, center)
-  })
+  const click = useCallback(
+    (index, center) => {
+      setOpen(true)
+      menuItemClick && menuItemClick(index, center)
+    },
+    [menuItemClick]
+  )
 
   return (
     <SidebarNav toggle={toggleSidebar} open={open} left>
@@ -72,15 +75,18 @@ export default ({ data, location }) => {
     [listRefs]
   )
 
-  const filter = useCallback(searchInput => {
-    if (!searchInput || searchInput.length == 0) {
-      const filteredPosts = data.allVenues.edges
-      setFilteredPosts(filteredPosts)
-    } else {
-      const filteredPosts = data.allVenues.edges.filter(({ node }) => node.frontmatter.title.toLowerCase().includes(searchInput))
-      setFilteredPosts(filteredPosts)
-    }
-  }, [])
+  const filter = useCallback(
+    searchInput => {
+      if (!searchInput || searchInput.length == 0) {
+        const filteredPosts = data.allVenues.edges
+        setFilteredPosts(filteredPosts)
+      } else {
+        const filteredPosts = data.allVenues.edges.filter(({ node }) => node.frontmatter.title.toLowerCase().includes(searchInput))
+        setFilteredPosts(filteredPosts)
+      }
+    },
+    [data.allVenues.edges]
+  )
 
   const setRef = useCallback(
     ref => {

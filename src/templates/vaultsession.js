@@ -14,10 +14,13 @@ const minutesToSeconds = time => {
 const VideoControls = ({ tracklist, playerTarget, fullDownloadLink }) => {
   const [playerSeconds, setPlayerSeconds] = useState(0)
 
-  const seekVideoTo = useCallback(time => {
-    playerTarget && playerTarget.seekTo(time, true)
-    setPlayerSeconds(time)
-  })
+  const seekVideoTo = useCallback(
+    time => {
+      playerTarget && playerTarget.seekTo(time, true)
+      setPlayerSeconds(time)
+    },
+    [playerTarget]
+  )
 
   useEffect(() => {
     const interval = setInterval(() => {

@@ -54,7 +54,7 @@ export default ({ data, location }) => {
         <div className="posts">
           {posts.map(({ node }) => (
             <article key={node.fields.slug}>
-              <Link onMouseOver={useCallback(() => thingHover(node))} onMouseOut={thingUnhover} to={node.fields.slug}>
+              <Link onMouseOver={() => thingHover(node)} onMouseOut={thingUnhover} to={node.fields.slug}>
                 <h2>{node.frontmatter.title}</h2>
               </Link>
             </article>

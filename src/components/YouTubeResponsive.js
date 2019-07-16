@@ -25,12 +25,14 @@ export default React.memo(({ videoId, odd, vanilla, getPlayerTarget }) => {
     }
   }
 
-  const onReady = useCallback(event => {
-    event.target.setPlaybackQuality('hd720')
-    // this doesn't seem to work
-    event.target.playVideo()
-    if (getPlayerTarget) getPlayerTarget(event.target)
-  }, [])
+  const onReady = useCallback(
+    event => {
+      event.target.setPlaybackQuality('hd720')
+      event.target.playVideo() // this doesn't seem to work
+      getPlayerTarget && getPlayerTarget(event.target)
+    },
+    [getPlayerTarget]
+  )
 
   return (
     <YouTubeWrapper odd={odd}>

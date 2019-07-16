@@ -20,14 +20,17 @@ const Sidebar = React.memo(({ menuItems, menuItemClick }) => {
 
   const toggleSidebar = useCallback(() => {
     setOpen(!open)
-  })
+  }, [open])
 
-  const click = useCallback((e, year, yearIndex) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setOpen(true)
-    menuItemClick && menuItemClick(year, yearIndex)
-  })
+  const click = useCallback(
+    (e, year, yearIndex) => {
+      e.preventDefault()
+      e.stopPropagation()
+      setOpen(true)
+      menuItemClick && menuItemClick(year, yearIndex)
+    },
+    [menuItemClick]
+  )
 
   return (
     <SidebarNav toggle={toggleSidebar} open={open} left>

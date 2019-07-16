@@ -12,16 +12,22 @@ import { lighten } from 'polished'
 export default React.memo(({ list, selected, selectCallback, seekCallback }) => {
   const [open, setOpen] = useState(false)
 
-  const toggleMenu = useCallback(e => {
-    e.stopPropagation()
-    e.preventDefault()
-    setOpen(!open)
-  }, [])
+  const toggleMenu = useCallback(
+    e => {
+      e.stopPropagation()
+      e.preventDefault()
+      setOpen(!open)
+    },
+    [open]
+  )
 
-  const select = useCallback(index => {
-    selectCallback && selectCallback(index)
-    setOpen(false)
-  }, [])
+  const select = useCallback(
+    index => {
+      selectCallback && selectCallback(index)
+      setOpen(false)
+    },
+    [selectCallback]
+  )
 
   return (
     <div>
