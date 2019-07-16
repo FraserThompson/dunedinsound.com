@@ -1,25 +1,23 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import Player from './Player'
 import { MdKeyboardArrowUp } from 'react-icons/md'
 import styled from '@emotion/styled'
 import { lighten } from 'polished'
-import GigContext from '../templates/GigContext'
 import { rhythm } from '../utils/typography'
 
-export default () => {
-  const context = useContext(GigContext)
+export default ({ artistAudio }) => {
   const [open, setOpen] = useState(false)
 
   return (
     <PlayerWrapper show={open}>
-      {context.artistAudio.length > 0 && (
+      {artistAudio.length > 0 && (
         <>
           <div className="handle">
             <button title="Audio Player" onClick={() => setOpen(!open)}>
               <small>AUDIO</small> <MdKeyboardArrowUp />
             </button>
           </div>
-          <Player {...context} />
+          <Player artistAudio={artistAudio} />
         </>
       )}
     </PlayerWrapper>

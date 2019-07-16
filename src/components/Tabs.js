@@ -5,7 +5,14 @@ import DividerWrapper from './Divider'
 
 export default styled(DividerWrapper)`
   padding: 0;
-  height: ${rhythm(1.5)};
+  height: ${props => props.theme.headerHeightMobile};
+  position: ${props => props.sticky && 'sticky'};
+  top: ${props => props.sticky && props.theme.headerHeight};
+
+  button:first-of-type {
+    border-left: 0;
+  }
+
   button {
     padding: 0;
     border-radius: 4px 4px 0 0;
@@ -19,6 +26,8 @@ export default styled(DividerWrapper)`
     line-height: ${rhythm(1.5)};
     padding-left: ${rhythm(0.5)};
     padding-right: ${rhythm(0.5)};
+    text-overflow: clip;
+    overflow: hidden;
     &:active,
     &.active {
       color: white;

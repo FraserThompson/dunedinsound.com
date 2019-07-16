@@ -23,7 +23,20 @@ import { rhythm } from '../utils/typography'
 import { lighten } from 'polished'
 import { Link as RouterLink } from '@reach/router'
 
-export default ({ height, width, backgroundColor, machineName, label, image, imageSizes, subtitle, title, children, href, to }) => {
+export default ({
+  height = '40vh',
+  backgroundColor = 'radial-gradient(circle, rgba(236, 64, 103, 1) 0%, rgba(12, 24, 33, 1) 70%)',
+  width,
+  machineName,
+  label,
+  image,
+  imageSizes,
+  subtitle,
+  title,
+  children,
+  href,
+  to,
+}) => {
   const tileContent = (
     <>
       {label && (
@@ -72,11 +85,11 @@ export default ({ height, width, backgroundColor, machineName, label, image, ima
 
 const Container = styled.div`
   background: ${props => props.theme.backgroundColor};
-  background: ${props => props.backgroundColor || 'radial-gradient(circle, rgba(236, 64, 103, 1) 0%, rgba(12, 24, 33, 1) 70%)'};
+  background: ${props => props.backgroundColor};
   color: ${props => props.theme.textColor};
   position: relative;
   display: block;
-  height: ${props => (props.containerHeight ? props.containerHeight : '500px')};
+  height: ${props => props.containerHeight};
   width: ${props => props.containerWidth};
   overflow: hidden;
   h1,

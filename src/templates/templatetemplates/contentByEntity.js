@@ -30,20 +30,20 @@ import ZoopUpWrapper from '../../components/ZoopUpWrapper'
 import { MdKeyboardArrowUp } from 'react-icons/md'
 import GigTile from '../../components/GigTile'
 import Tabs from '../../components/Tabs'
-import { rhythm, scale } from '../../utils/typography'
+import { scale } from '../../utils/typography'
 import styled from '@emotion/styled'
 
 const ContentTabs = ({ gigTiles, blogTiles, vaultsessionTiles, gigCount, blogCount, vaultsessionCount }) => {
   const [openTab, setOpenTab] = useState('gigs')
   return (
     <>
-      <Tabs>
+      <Tabs sticky>
         <button className={openTab === 'gigs' ? 'active' : ''} onClick={() => setOpenTab('gigs')}>
-          Gigs ({gigCount})
+          Gigs <small>({gigCount})</small>
         </button>
         {blogCount > 0 && (
           <button className={openTab === 'blogs' ? 'active' : ''} onClick={() => setOpenTab('blogs')}>
-            Articles ({blogCount})
+            Articles <small>({blogCount})</small>
           </button>
         )}
         {vaultsessionCount > 0 && (
@@ -84,7 +84,7 @@ export default ({ data, pageDescription, parent, background }) => {
 
       return (
         <div id={fieldValue} key={fieldValue}>
-          <Divider backgroundColor={theme.default.foregroundColor} color="white" sticky>
+          <Divider backgroundColor={theme.default.foregroundColor} color="white" sticky={2}>
             <a style={{ width: '100%' }} onClick={e => scrollTo(e, fieldValue)} href={'#' + fieldValue}>
               {fieldValue} ({yearSize})
             </a>
@@ -102,7 +102,7 @@ export default ({ data, pageDescription, parent, background }) => {
     const audioculture = post.frontmatter.audioculture
     gigTiles.push(
       <FlexGridContainer key={'audioculture'}>
-        <Tile image={audioculture.image} href={audioculture.link}>
+        <Tile href={audioculture.link}>
           <Quote>
             "{audioculture.snippet}" - <span>Audioculture</span>
           </Quote>

@@ -11,7 +11,6 @@ import HorizontalNav from '../components/HorizontalNav'
 import ZoopUpWrapper from '../components/ZoopUpWrapper'
 import PlayerContainer from '../components/PlayerContainer'
 import GigArtistMedia from '../components/GigArtistMedia'
-import GigContext from './GigContext'
 import LoadingSpinner from '../components/LoadingSpinner'
 
 const BannerContent = React.memo(({ data }) => (
@@ -165,13 +164,53 @@ export default React.memo(({ data, location }) => {
           })}
         </HorizontalNav>
       </Banner>
-      <GigContext.Provider value={{ artistMedia, artistAudio, gigTitle }}>
-        <GigArtistMedia />
-        <PlayerContainer />
-      </GigContext.Provider>
+      <GigArtistMedia artistMedia={artistMedia} gigTitle={gigTitle} />
+      <PlayerContainer artistAudio={artistAudio} />
     </Layout>
   )
 })
+
+const NextPrevWrapper = styled.div`
+  color: ${props => props.theme.textColor};
+  position: absolute;
+  right: ${props => (props.prev ? '-10vw' : null)};
+  left: ${props => (props.next ? '-10vw' : null)};
+  z-index: 5;
+  height: 100%;
+  top: 0px;
+  width: 20vw;
+  opacity: 0.5;
+  transition: all 300ms ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .icon {
+    ${scale(4)};
+    position: absolute;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: ${props => (props.prev ? '10vw' : null)};
+    left: ${props => (props.next ? '10vw' : null)};
+    height: 100%;
+  }
+  .tile {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+  }
+  &:hover {
+    right: ${props => (props.prev ? '0px' : null)};
+    left: ${props => (props.next ? '0px' : null)};
+    box-shadow: ${props => (props.prev ? '-6px 0px 12px rgba(0,0,0,.5)' : '6px 0px 12px rgba(0,0,0,.5)')};
+    opacity: 1;
+    .tile {
+      opacity: 1;
+    }
+  }
+`
 
 export const pageQuery = graphql`
   query GigsBySlug($slug: String!, $prevSlug: String, $nextSlug: String, $artists: [String]!, $venue: String!, $parentDir: String!) {
@@ -244,48 +283,6 @@ export const pageQuery = graphql`
           }
         }
       }
-    }
-  }
-`
-
-const NextPrevWrapper = styled.div`
-  color: ${props => props.theme.textColor};
-  position: absolute;
-  right: ${props => (props.prev ? '-10vw' : null)};
-  left: ${props => (props.next ? '-10vw' : null)};
-  z-index: 5;
-  height: 100%;
-  top: 0px;
-  width: 20vw;
-  opacity: 0.5;
-  transition: all 300ms ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .icon {
-    ${scale(4)};
-    position: absolute;
-    z-index: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    right: ${props => (props.prev ? '10vw' : null)};
-    left: ${props => (props.next ? '10vw' : null)};
-    height: 100%;
-  }
-  .tile {
-    position: absolute;
-    width: 100%;
-    opacity: 0;
-    transition: opacity 300ms ease-in-out;
-  }
-  &:hover {
-    right: ${props => (props.prev ? '0px' : null)};
-    left: ${props => (props.next ? '0px' : null)};
-    box-shadow: ${props => (props.prev ? '-6px 0px 12px rgba(0,0,0,.5)' : '6px 0px 12px rgba(0,0,0,.5)')};
-    opacity: 1;
-    .tile {
-      opacity: 1;
     }
   }
 `

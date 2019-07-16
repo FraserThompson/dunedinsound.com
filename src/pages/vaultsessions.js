@@ -4,7 +4,6 @@ import Layout from '../components/Layout'
 import Img from 'gatsby-image'
 import styled from '@emotion/styled'
 import World from '../components/World'
-import { debounce } from 'throttle-debounce'
 
 export default ({ data, location }) => {
   const [lights, setLights] = useState('off')
@@ -20,7 +19,7 @@ export default ({ data, location }) => {
     !hoveredNode && speechSynthesis.cancel()
   })
 
-  const speak = text => {
+  const speak = useCallback(text => {
     const msg = new SpeechSynthesisUtterance()
     msg.voiceURI = 'native'
     msg.volume = 1
@@ -29,19 +28,19 @@ export default ({ data, location }) => {
     msg.text = text
     msg.lang = 'en-US'
     speechSynthesis.speak(msg)
-  }
+  })
 
-  const thingHover = node => {
+  const thingHover = useCallback(node => {
     setHoveredNode(node)
     setLights('on')
     setPerspective('320px')
-  }
+  }, [])
 
-  const thingUnhover = () => {
+  const thingUnhover = useCallback(() => {
     setHoveredNode(false)
     setPerspective('300px')
     setLights('off')
-  }
+  })
 
   return (
     <Layout location={location} description={siteDescription} title={`VAULT SESSIONS | ${siteTitle}`} overrideBackgroundColor="white">

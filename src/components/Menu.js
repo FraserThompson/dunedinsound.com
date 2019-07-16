@@ -39,6 +39,10 @@ export default styled(FadeInOut)`
     padding-right: ${rhythm(0.5)};
   }
 
+  svg {
+    height: 100%;
+  }
+
   a {
     color: ${props => props.theme.textColor};
 

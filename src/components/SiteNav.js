@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Link } from 'gatsby'
 import Menu from './Menu'
+import { MdHome } from 'react-icons/md'
 
 export default React.memo(props => {
-  const isPartiallyActive = ({ isPartiallyCurrent }) => {
+  const isPartiallyActive = useCallback(({ isPartiallyCurrent }) => {
     return isPartiallyCurrent ? { className: 'active' } : null
-  }
+  }, [])
 
   return (
     <Menu {...props} horizontal right open>
       <Link className="showMobile" activeClassName="active" to="/">
-        Home
+        <MdHome />
       </Link>
       <Link getProps={isPartiallyActive} to="/gigs/">
         Gigs

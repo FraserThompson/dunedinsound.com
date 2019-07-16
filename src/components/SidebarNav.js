@@ -12,6 +12,24 @@ import Menu from '../components/Menu'
 import { darken, lighten } from 'polished'
 import { Transition } from 'react-transition-group'
 import FadeInOut from './FadeInOut'
+import MenuButton from './MenuButton'
+import { MdMenu } from 'react-icons/md'
+
+export default React.memo(({ left, right, width, backgroundColor, open, toggle, children }) => (
+  <>
+    <MenuButtonWrapper>
+      <MenuButton hideMobile={true} onClick={toggle}>
+        <MdMenu />
+      </MenuButton>
+    </MenuButtonWrapper>
+    <SidebarNavWrapper left={left} right={right} width={width} backgroundColor={backgroundColor} open={open}>
+      {children}
+    </SidebarNavWrapper>
+    <Transition mountOnEnter={true} unmountOnExit={true} in={!open} timeout={200}>
+      {state => <PageOverlay state={state} onClick={toggle} />}
+    </Transition>
+  </>
+))
 
 const DefaultWidth = '80vw'
 
@@ -31,7 +49,7 @@ const SidebarNavWrapper = styled(Menu)`
   overflow-x: hidden;
   position: fixed;
   max-width: ${props => props.width || DefaultWidth};
-  top: ${props => props.theme.headerHeightWithMobile};
+  top: ${props => props.theme.headerHeight};
   left: ${props => props.left && 0};
   right: ${props => props.right && 0};
   z-index: 10;
@@ -115,14 +133,10 @@ const SidebarNavWrapper = styled(Menu)`
     }
   }
 `
-export default React.memo(({ button, left, right, width, backgroundColor, open, toggle, children }) => (
-  <>
-    {button}
-    <SidebarNavWrapper left={left} right={right} width={width} backgroundColor={backgroundColor} open={open}>
-      {children}
-    </SidebarNavWrapper>
-    <Transition mountOnEnter={true} unmountOnExit={true} in={!open} timeout={200}>
-      {state => <PageOverlay state={state} onClick={toggle} />}
-    </Transition>
-  </>
-))
+
+const MenuButtonWrapper = styled.div`
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 12;
+`

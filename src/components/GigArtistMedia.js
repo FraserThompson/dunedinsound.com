@@ -1,15 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import ImageGallery from './ImageGallery'
 import GridContainer from './GridContainer'
 import Divider from './Divider'
 import YouTubeResponsive from './YouTubeResponsive'
 import { rhythm } from '../utils/typography'
-import GigContext from '../templates/GigContext'
 import LoadingSpinner from './LoadingSpinner'
 
-export default () => {
-  const { artistMedia, gigTitle } = useContext(GigContext)
-
+export default ({ artistMedia, gigTitle }) => {
   const media = artistMedia.map(artist => {
     const gridSize = {
       xs: '12',

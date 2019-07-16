@@ -1,7 +1,7 @@
 // PlayerMenu.js
 // A menu used by Player.js
 
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import styled from '@emotion/styled'
 import { MdPlaylistPlay, MdFileDownload } from 'react-icons/md'
 import { scale } from '../utils/typography'
@@ -12,16 +12,16 @@ import { lighten } from 'polished'
 export default React.memo(({ list, selected, selectCallback, seekCallback }) => {
   const [open, setOpen] = useState(false)
 
-  const toggleMenu = e => {
+  const toggleMenu = useCallback(e => {
     e.stopPropagation()
     e.preventDefault()
     setOpen(!open)
-  }
+  }, [])
 
-  const select = index => {
+  const select = useCallback(index => {
     selectCallback && selectCallback(index)
     setOpen(false)
-  }
+  }, [])
 
   return (
     <div>

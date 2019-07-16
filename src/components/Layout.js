@@ -29,6 +29,7 @@ export default React.memo(
     hideBrandOnMobile,
     headerContent,
     scrollHeaderContent,
+    isSidebar,
   }) => (
     <ThemeProvider theme={theme.default}>
       <>
@@ -47,7 +48,7 @@ export default React.memo(
           <MobileNav className="showMobile">
             <SiteNav backgroundColor={lighten(0.1, theme.default.primaryColor)} height={theme.default.headerHeightMobile} />
           </MobileNav>
-          <SiteHeader scrollHeaderContent={scrollHeaderContent} headerContent={headerContent} hideBrandOnMobile={hideBrandOnMobile} />
+          <SiteHeader scrollHeaderContent={scrollHeaderContent} headerContent={headerContent} hideBrandOnMobile={hideBrandOnMobile} isSidebar={isSidebar} />
         </HeaderWrapper>
         <UpdateYourFrickinBrowser />
         <SiteContainer overrideBackgroundColor={overrideBackgroundColor}>{children}</SiteContainer>
@@ -79,6 +80,7 @@ const MobileNav = styled.div`
   background-color: ${props => props.theme.primaryColor};
   z-index: 12;
   width: 100%;
+  box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.175);
   ${Menu} {
     display: flex;
     justify-content: center;

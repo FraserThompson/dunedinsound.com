@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import styled from '@emotion/styled'
 import YouTube from 'react-youtube'
 import { rhythm } from '../utils/typography'
@@ -25,12 +25,12 @@ export default React.memo(({ videoId, odd, vanilla, getPlayerTarget }) => {
     }
   }
 
-  const onReady = event => {
+  const onReady = useCallback(event => {
     event.target.setPlaybackQuality('hd720')
     // this doesn't seem to work
     event.target.playVideo()
     if (getPlayerTarget) getPlayerTarget(event.target)
-  }
+  }, [])
 
   return (
     <YouTubeWrapper odd={odd}>

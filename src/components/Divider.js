@@ -27,10 +27,7 @@ export const DividerWrapper = styled.div`
   position: ${props => (props.sticky ? 'sticky' : 'relative')};
   display: flex;
   align-items: center;
-  top: ${props => (props.sticky ? props.theme.headerHeightWithMobile : '0')};
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    top: ${props => (props.sticky ? props.theme.headerHeight : '0')};
-  }
+  top: ${props => (props.sticky ? (props.sticky == 2 ? props.theme.headerHeightWithMobile : props.theme.headerHeight) : '0')};
   z-index: ${props => (props.sticky ? '6' : '5')};
   min-height: ${rhythm(1)};
   padding-left: ${rhythm(0.5)};

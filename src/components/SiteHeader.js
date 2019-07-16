@@ -17,7 +17,7 @@ import { calculateScrollHeaderOffset } from '../utils/helper'
 
 const scrollHeaderOffset = typeof window !== `undefined` && calculateScrollHeaderOffset(window)
 
-export default ({ scrollHeaderContent, headerContent, hideBrandOnMobile, backgroundColor }) => {
+export default ({ scrollHeaderContent, isSidebar, headerContent, hideBrandOnMobile, backgroundColor }) => {
   const [scrolled, setScrolled] = useState(false)
 
   const onScroll = useCallback(() => {
@@ -34,7 +34,7 @@ export default ({ scrollHeaderContent, headerContent, hideBrandOnMobile, backgro
   }, [])
 
   return (
-    <Container className="header" hideOnMobile={scrollHeaderContent && !scrolled && !headerContent} backgroundColor={backgroundColor}>
+    <Container className="header" isSidebar={isSidebar} hideOnMobile={scrollHeaderContent && !scrolled && !headerContent} backgroundColor={backgroundColor}>
       {!scrolled && (
         <Brand hideOnMobile={hideBrandOnMobile}>
           <Link to="/">Dunedin Gig Archives</Link>
@@ -60,6 +60,8 @@ const Container = styled.div`
   color: ${props => props.theme.textColor};
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
   border-bottom: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
+
+  padding-left: ${props => props.isSidebar && props.theme.headerHeightMobile};
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     display: flex;

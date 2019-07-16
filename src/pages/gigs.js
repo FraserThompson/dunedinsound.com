@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import Layout from '../components/Layout'
@@ -9,13 +9,52 @@ import GigTile from '../components/GigTile'
 import 'gumshoejs/src/js/gumshoe/_closest.polyfill'
 import 'gumshoejs/src/js/gumshoe/_customEvent.polyfill'
 import Gumshoe from 'gumshoejs/src/js/gumshoe/gumshoe'
-import MenuButton from '../components/MenuButton'
-import { MdMenu } from 'react-icons/md'
 import InfiniteScroll from 'react-infinite-scroller'
 import Divider from '../components/Divider'
 import LoadingSpinner from '../components/LoadingSpinner'
 
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+const Sidebar = React.memo(({ menuItems, menuItemClick }) => {
+  const [open, setOpen] = useState(true)
+
+  const toggleSidebar = useCallback(() => {
+    setOpen(!open)
+  })
+
+  const click = useCallback((e, year, yearIndex) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setOpen(true)
+    menuItemClick && menuItemClick(year, yearIndex)
+  })
+
+  return (
+    <SidebarNav toggle={toggleSidebar} open={open} left>
+      <ul id="sidebarNav">
+        {menuItems.map(({ year, months, count }, yearIndex) => (
+          <li key={year}>
+            <a onClick={e => click(e, year, yearIndex)} href={`#${year}`}>
+              <strong>{year}</strong> <span className="label">({count})</span>
+            </a>
+            <ul>
+              {months.map(month => {
+                const className = `${year}-${month}`
+                return (
+                  <li key={month}>
+                    <a onClick={e => click(e, className, yearIndex)} href={`#${className}`}>
+                      {month}
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </SidebarNav>
+  )
+})
 
 export default class Gigs extends React.Component {
   constructor(props) {
@@ -26,15 +65,11 @@ export default class Gigs extends React.Component {
     this.siteDescription = data.site.siteMetadata.description
     this.allPosts = data.gigsByDate.group.slice().reverse() //because for some reason it returns it ascending order
 
-    this.sidebarRef = React.createRef()
-
     const { menuItems, posts } = this.sortPosts(this.allPosts)
     this.allPostsSorted = posts
     this.allMenuItems = menuItems
 
     this.state = {
-      searchQuery: '',
-      sidebarOpen: true,
       menuItems,
       pageUpTo: 1,
       postsSorted: posts,
@@ -128,18 +163,12 @@ export default class Gigs extends React.Component {
     }
   }
 
-  menuItemClick = (e, anchor, yearIndex) => {
-    e.preventDefault()
-    e.stopPropagation()
-    this.setState({ sidebarOpen: true, pageUpTo: yearIndex + 1 > this.state.pageUpTo ? yearIndex + 1 : this.state.pageUpTo, scrollTo: anchor })
+  menuItemClick = (anchor, yearIndex) => {
+    this.setState({ pageUpTo: yearIndex + 1 > this.state.pageUpTo ? yearIndex + 1 : this.state.pageUpTo, scrollTo: anchor })
   }
 
   loadMore = index => {
     this.setState({ pageUpTo: index + 1 })
-  }
-
-  toggleSidebar = () => {
-    this.setState({ sidebarOpen: !this.state.sidebarOpen })
   }
 
   render() {
@@ -150,45 +179,10 @@ export default class Gigs extends React.Component {
         title={`Gigs | ${this.siteTitle}`}
         hideBrandOnMobile={true}
         hideFooter={true}
-        headerContent={
-          <>
-            <SidebarNav
-              toggle={this.toggleSidebar}
-              button={
-                <MenuButton hideMobile={true} onClick={this.toggleSidebar}>
-                  <MdMenu />
-                </MenuButton>
-              }
-              open={this.state.sidebarOpen}
-              sidebarRef={this.sidebarRef}
-              left
-            >
-              <ul id="sidebarNav">
-                {this.state.menuItems.map(({ year, months, count }, yearIndex) => (
-                  <li key={year}>
-                    <a onClick={e => this.menuItemClick(e, year, yearIndex)} href={`#${year}`}>
-                      <strong>{year}</strong> <span className="label">({count})</span>
-                    </a>
-                    <ul>
-                      {months.map(month => {
-                        const className = `${year}-${month}`
-                        return (
-                          <li key={month}>
-                            <a onClick={e => this.menuItemClick(e, className, yearIndex)} href={`#${className}`}>
-                              {month}
-                            </a>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  </li>
-                ))}
-              </ul>
-            </SidebarNav>
-            <Search placeholder="Search gigs by title, artist, or venue..." filter={this.filter} />
-          </>
-        }
+        isSidebar={true}
+        headerContent={<Search placeholder="Search gigs by title, artist, or venue..." filter={this.filter} />}
       >
+        <Sidebar menuItems={this.state.menuItems} menuItemClick={this.menuItemClick} />
         <PageContent>
           <InfiniteScroll
             pageStart={0}

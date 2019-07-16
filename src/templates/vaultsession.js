@@ -4,7 +4,6 @@ import styled from '@emotion/styled'
 import Layout from '../components/Layout'
 import World from '../components/World'
 import YouTubeResponsive from '../components/YouTubeResponsive'
-import GigContext from './GigContext'
 import PlayerContainer from '../components/PlayerContainer'
 
 const minutesToSeconds = time => {
@@ -15,10 +14,10 @@ const minutesToSeconds = time => {
 const VideoControls = ({ tracklist, playerTarget, fullDownloadLink }) => {
   const [playerSeconds, setPlayerSeconds] = useState(0)
 
-  const seekVideoTo = time => {
+  const seekVideoTo = useCallback(time => {
     playerTarget && playerTarget.seekTo(time, true)
     setPlayerSeconds(time)
-  }
+  })
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -34,7 +33,7 @@ const VideoControls = ({ tracklist, playerTarget, fullDownloadLink }) => {
         const nextTrackSeconds = index + 1 < tracklist.length && tracklist[index + 1].seconds
         return (
           <Track key={video.link} active={playerSeconds >= video.seconds && (nextTrackSeconds ? playerSeconds < nextTrackSeconds : true)}>
-            <a className="trackTitle" onClick={useCallback(() => seekVideoTo(video.seconds))}>
+            <a className="trackTitle" onClick={() => seekVideoTo(video.seconds)}>
               {video.title}
             </a>{' '}
             <a target="_blank" href={`https://youtube.com/watch?v=${video.link}`}>
@@ -60,10 +59,10 @@ export default ({ data, location }) => {
   const artist = data.artist.edges[0].node
 
   const [lights, setLights] = useState('off')
-  const [artistMedia, setArtistMedia] = useState(null)
+  const [artistAudio, setArtistAudio] = useState(null)
   const [playerTarget, setPlayerTarget] = useState(null)
 
-  const getPlayerTarget = target => setPlayerTarget(target)
+  const getPlayerTarget = useCallback(target => setPlayerTarget(target), [])
 
   useEffect(() => {
     const audio = data.audio.edges.reduce((obj, item) => {
@@ -73,7 +72,7 @@ export default ({ data, location }) => {
       return obj
     }, {})
 
-    setArtistMedia([
+    setArtistAudio([
       {
         title: post.frontmatter.title,
         audio: Object.values(audio),
@@ -98,8 +97,8 @@ export default ({ data, location }) => {
           <h2>{post.frontmatter.title}</h2>
           <h4>Recorded on {post.frontmatter.date}</h4>
         </Title>
-        {playerTarget && artistMedia && (
-          <VideoControls tracklist={artistMedia[0].tracklist} playerTarget={playerTarget} fullDownloadLink={artistMedia[0].audio[0]['.mp3'].publicURL} />
+        {playerTarget && artistAudio && (
+          <VideoControls tracklist={artistAudio[0].tracklist} playerTarget={playerTarget} fullDownloadLink={artistAudio[0].audio[0]['.mp3'].publicURL} />
         )}
         <Metadata>
           <h3>More from this artist</h3>
@@ -128,11 +127,7 @@ export default ({ data, location }) => {
           </Link>
         </Logo>
       </World>
-      {artistMedia && (
-        <GigContext.Provider value={{ artistAudio: artistMedia }}>
-          <PlayerContainer />
-        </GigContext.Provider>
-      )}
+      {artistAudio && <PlayerContainer artistAudio={artistAudio} />}
     </Layout>
   )
 }

@@ -1,10 +1,9 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
-import BlogContainer from '../components/BlogContainer';
+import BlogContainer from '../components/BlogContainer'
 
-export default ({data, location}) => {
-
+export default ({ data, location }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description

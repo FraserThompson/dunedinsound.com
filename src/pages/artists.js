@@ -99,7 +99,7 @@ export default class Artists extends React.Component {
         title={`Artists | ${siteTitle}`}
         hideBrandOnMobile={true}
         hideFooter={true}
-        headerContent={<Search placeholder="Search artists" toggleSidebar={this.toggleSidebar} filter={this.search} />}
+        headerContent={<Search placeholder="Search artists" filter={this.search} />}
       >
         {!this.state.searching && (
           <Pills>
