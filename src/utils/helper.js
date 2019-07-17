@@ -1,7 +1,7 @@
 import { theme } from '../utils/theme'
 import { stripUnit } from 'polished'
 
-const toMachineName = (string, space_character) => {
+export const toMachineName = (string, space_character) => {
   space_character = space_character || '_'
   return string
     .toLowerCase()
@@ -10,12 +10,17 @@ const toMachineName = (string, space_character) => {
     .replace(/[$]/g, 'z')
 }
 
-const gridToSizes = (grid, maxSize) => {
+export const minutesToSeconds = time => {
+  const timeComponents = time.split(':')
+  return parseInt(timeComponents[0]) * 60 + parseInt(timeComponents[1])
+}
+
+export const gridToSizes = (grid, maxSize) => {
   return `(max-width: ${theme.default.breakpoints.xs}) ${100 * (grid.xs / 12)}vw, (max-width: ${theme.default.breakpoints.md}) ${100 *
     (grid.md / 12)}vw, (max-width: ${theme.default.breakpoints.lg}) ${100 * (grid.lg / 12)}vw, ${100 * (grid.lg / 12)}vw`
 }
 
-const nodeTypeToHuman = string => {
+export const nodeTypeToHuman = string => {
   switch (string) {
     case 'gigs':
       return 'Gig'
@@ -30,14 +35,14 @@ const nodeTypeToHuman = string => {
   }
 }
 
-const graphqlGroupToObject = (queryResult, sortByName) => {
+export const graphqlGroupToObject = (queryResult, sortByName) => {
   return queryResult.reduce((obj, item) => {
     obj[item.fieldValue] = !sortByName ? item.edges : item.edges.slice().sort((a, b) => (a.node.name < b.node.name ? -1 : 1))
     return obj
   }, {})
 }
 
-const postFilter = (needle, haystack) => {
+export const postFilter = (needle, haystack) => {
   const filterFunction = ({ node }) => {
     const titleResult = node.frontmatter.title.toLowerCase().includes(needle)
     const artistResult =
@@ -62,13 +67,13 @@ const postFilter = (needle, haystack) => {
   }
 }
 
-const dateStrToDateObj = date => {
+export const dateStrToDateObj = date => {
   const splitDate = date.split('-')
   return new Date('20' + splitDate[2], splitDate[1] - 1, splitDate[0])
 }
 
 // Decides when the header should change. On mobile this is the window minus the headerheight * the banner height as a decimal. On desktop it's just the window height * the banner height as a decimal.
-const calculateScrollHeaderOffset = (window, modifierDesktop = 0, modifierMobile = 0) => {
+export const calculateScrollHeaderOffset = (window, modifierDesktop = 0, modifierMobile = 0) => {
   const bannerHeight = stripUnit(theme.default.defaultBannerHeight) / 100
   const mobileHeaderHeight = stripUnit(theme.default.headerHeightWithMobile) * 16
   if (window.innerWidth < stripUnit(theme.default.breakpoints.xs)) {
@@ -79,9 +84,7 @@ const calculateScrollHeaderOffset = (window, modifierDesktop = 0, modifierMobile
 }
 
 // Sort an array by text month
-const sortByMonth = (a, b) => {
+export const sortByMonth = (a, b) => {
   const allMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   return allMonths.indexOf(a) > allMonths.indexOf(b)
 }
-
-export { toMachineName, nodeTypeToHuman, sortByMonth, postFilter, graphqlGroupToObject, calculateScrollHeaderOffset, dateStrToDateObj, gridToSizes }

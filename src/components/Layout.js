@@ -81,6 +81,7 @@ const MobileNav = styled.div`
   z-index: 12;
   width: 100%;
   box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.175);
+  border-top: 1px solid #091118;
   ${Menu} {
     display: flex;
     justify-content: center;

@@ -63,13 +63,13 @@ exports.createPages = ({ graphql, actions }) => {
     const { createPage } = actions
 
     const layouts = {
-      gigs: path.resolve('./src/templates/gig.js'),
-      blog: path.resolve('./src/templates/blog.js'),
-      artists: path.resolve('./src/templates/artist.js'),
-      venues: path.resolve('./src/templates/venue.js'),
-      vaultsessions: path.resolve('./src/templates/vaultsession.js'),
-      page: path.resolve('./src/templates/page.js'),
-      tags: path.resolve('./src/templates/tags.js'),
+      gigs: path.resolve('./src/templates/gig/gig.js'),
+      blog: path.resolve('./src/templates/blog/blog.js'),
+      artists: path.resolve('./src/templates/artist/artist.js'),
+      venues: path.resolve('./src/templates/venue/venue.js'),
+      vaultsessions: path.resolve('./src/templates/vaultsession/vaultsession.js'),
+      page: path.resolve('./src/templates/page/page.js'),
+      tags: path.resolve('./src/templates/tags/tags.js'),
     }
 
     // We split it into collections of nodes by type so we can treat them as seperate collections for the next/prev

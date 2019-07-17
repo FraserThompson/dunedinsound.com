@@ -8,6 +8,7 @@ export default styled(DividerWrapper)`
   height: ${props => props.theme.headerHeightMobile};
   position: ${props => props.sticky && 'sticky'};
   top: ${props => props.sticky && props.theme.headerHeight};
+  z-index: 7;
 
   button:first-of-type {
     border-left: 0;

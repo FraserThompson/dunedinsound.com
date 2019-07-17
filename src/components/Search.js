@@ -8,8 +8,8 @@ import React, { useCallback } from 'react'
 import styled from '@emotion/styled'
 import { rhythm } from '../utils/typography'
 
-export default ({ placeholder = 'Search', filter }) => {
-  const searchDebounced = useCallback(debounce(200, filter), [])
+export default React.memo(({ placeholder = 'Search', filter }) => {
+  const searchDebounced = useCallback(debounce(200, filter), [filter])
 
   const onChange = useCallback(
     e => {
@@ -19,7 +19,7 @@ export default ({ placeholder = 'Search', filter }) => {
   )
 
   return <HeaderSearch placeholder={placeholder} type="text" onChange={onChange} />
-}
+})
 
 const HeaderSearch = styled.input`
   width: 100%;

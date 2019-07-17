@@ -47,7 +47,7 @@ export default ({
       {image && <BackgroundImage sizes={imageSizes} image={image} />}
       <TitleWrapper shadowBottom={title || subtitle}>
         <Content>
-          {title && <h3 className="title">{title}</h3>}
+          {title && <h4 className="title">{title}</h4>}
           {subtitle && (
             <p className="subtitle">
               <small>{subtitle}</small>

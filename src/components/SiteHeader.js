@@ -17,7 +17,7 @@ import { calculateScrollHeaderOffset } from '../utils/helper'
 
 const scrollHeaderOffset = typeof window !== `undefined` && calculateScrollHeaderOffset(window)
 
-export default ({ scrollHeaderContent, isSidebar, headerContent, hideBrandOnMobile, backgroundColor }) => {
+export default React.memo(({ scrollHeaderContent, isSidebar, headerContent, hideBrandOnMobile, backgroundColor }) => {
   const [scrolled, setScrolled] = useState(false)
 
   const onScroll = useCallback(() => {
@@ -45,7 +45,7 @@ export default ({ scrollHeaderContent, isSidebar, headerContent, hideBrandOnMobi
       {!scrolled && <SiteNav className="hideMobile" />}
     </Container>
   )
-}
+})
 
 const Container = styled.div`
   background-color: ${props => props.backgroundColor || props.theme.primaryColor};
@@ -60,11 +60,11 @@ const Container = styled.div`
   color: ${props => props.theme.textColor};
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
   border-bottom: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
-
   padding-left: ${props => props.isSidebar && props.theme.headerHeightMobile};
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     display: flex;
+    padding-left: 0;
   }
 
   h1 {
@@ -84,6 +84,9 @@ const HeaderContent = styled.div`
   flex-direction: row;
   justify-items: center;
   align-items: center;
+  h1 {
+    padding-left: ${rhythm(0.5)};
+  }
 `
 
 const Brand = styled.div`

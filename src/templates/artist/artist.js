@@ -1,8 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import ContentByEntity from './templatetemplates/ContentByEntity'
+import ContentByEntity from '../contentbyentity/ContentByEntity'
 
-export default ({ data }) => {
+export default React.memo(({ data }) => {
   const parent = {
     title: 'Artists',
     href: '/artists/',
@@ -11,7 +11,7 @@ export default ({ data }) => {
   const pageDescription = `See photos, videos and audio recordings of live gigs featuring ${data.thisPost.frontmatter.title} and heaps of other local artists.`
 
   return <ContentByEntity pageDescription={pageDescription} parent={parent} data={data} />
-}
+})
 
 export const pageQuery = graphql`
   query ArtistsBySlug($slug: String!, $machine_name: String!, $title: String!) {

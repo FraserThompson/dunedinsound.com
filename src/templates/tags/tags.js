@@ -1,13 +1,13 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
-import Layout from '../components/Layout'
+import Layout from '../../components/Layout'
 import styled from '@emotion/styled'
-import BlogContainer from '../components/BlogContainer'
-import TagCloud from '../components/TagCloud'
-import Banner from '../components/Banner'
-import { rhythm } from '../utils/typography'
+import BlogContainer from '../../components/BlogContainer'
+import TagCloud from '../../components/TagCloud'
+import Banner from '../../components/Banner'
+import { rhythm } from '../../utils/typography'
 
-export default ({ data, location, pageContext }) => {
+export default React.memo(({ data, location, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = data.site.siteMetadata.description
   const posts = data.allBlogs.edges
@@ -42,7 +42,7 @@ export default ({ data, location, pageContext }) => {
       </BlogContainer>
     </Layout>
   )
-}
+})
 
 const Post = styled.div`
   margin-top: ${rhythm(1)};

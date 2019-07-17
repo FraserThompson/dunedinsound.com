@@ -2,13 +2,13 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { Link, graphql } from 'gatsby'
 import Img from 'gatsby-image'
-import Layout from '../components/Layout'
-import { rhythm, scale } from '../utils/typography'
-import BlogContainer from '../components/BlogContainer'
-import Banner from '../components/Banner'
-import GridContainer from '../components/GridContainer'
+import Layout from '../../components/Layout'
+import { rhythm, scale } from '../../utils/typography'
+import BlogContainer from '../../components/BlogContainer'
+import Banner from '../../components/Banner'
+import GridContainer from '../../components/GridContainer'
 
-export default ({ data, pageContext, location }) => {
+export default React.memo(({ data, pageContext, location }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
@@ -69,7 +69,7 @@ export default ({ data, pageContext, location }) => {
       </BlogContainer>
     </Layout>
   )
-}
+})
 
 const BlogPostNav = styled.ul`
   display: flex;

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect, useMemo } from 'react'
 import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import Layout from '../components/Layout'
@@ -59,75 +59,14 @@ const Sidebar = React.memo(({ menuItems, menuItemClick }) => {
   )
 })
 
-export default class Gigs extends React.Component {
-  constructor(props) {
-    super(props)
-
-    const { data } = this.props
-    this.siteTitle = data.site.siteMetadata.title
-    this.siteDescription = data.site.siteMetadata.description
-    this.allPosts = data.gigsByDate.group.slice().reverse() //because for some reason it returns it ascending order
-
-    const { menuItems, posts } = this.sortPosts(this.allPosts)
-    this.allPostsSorted = posts
-    this.allMenuItems = menuItems
-
-    this.state = {
-      menuItems,
-      pageUpTo: 1,
-      postsSorted: posts,
-    }
-  }
-
-  initGumshoe() {
-    this.gumshoe && this.gumshoe.destroy()
-    this.gumshoe = null
-    this.gumshoe = new Gumshoe('#sidebarNav a', {
-      offset: 120,
-      nested: true,
-      nestedClass: 'active-parent',
-    })
-  }
-
-  componentDidMount() {
-    this.initGumshoe()
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
-    // scroll to after render to ensure it's loaded
-    if (this.state.scrollTo && this.state.scrollTo !== prevState.scrollTo) {
-      this.scrollTo(this.state.scrollTo)
-    }
-    if (this.state.postsSorted !== prevState.postsSorted || this.state.pageUpTo !== prevState.pageUpTo) {
-      this.state.postsSorted.length !== 0 && this.initGumshoe()
-    }
-  }
-
-  componentWillUnmount() {
-    this.gumshoe && this.gumshoe.destroy()
-  }
-
-  filter = searchInput => {
-    // We destroy and remake it on each time because setup doesnt seem to work right
-    this.gumshoe && this.gumshoe.destroy()
-    this.gumshoe = null
-
-    if (typeof window !== `undefined`) window.scrollTo(0, 0)
-
-    if (!searchInput || searchInput.length == 0) {
-      this.setState({ postsSorted: this.allPostsSorted, pageUpTo: 1, menuItems: this.allMenuItems })
-    } else {
-      const filteredPosts = postFilter(searchInput, this.allPosts)
-      const { menuItems, posts } = this.sortPosts(filteredPosts)
-      this.setState({ postsSorted: posts, pageUpTo: 1, menuItems })
-    }
-  }
+export default React.memo(({ data, location }) => {
+  const allPosts = useMemo(() => data.gigsByDate.group.slice().reverse(), []) //because for some reason it returns it ascending order
 
   // Turn the posts sorted by years into two things:
   //    - A list of years and unique months for each year
   //    - A list of posts wrapped by year and month
   // Do this in one reduce for performance (albeit slightly worse readability)
-  sortPosts = posts => {
+  const sortPosts = useCallback(posts => {
     return posts.reduce(
       (obj, group, index) => {
         const previousYear = index - 1 >= 0 && posts[index - 1].fieldValue.substring(0, 4)
@@ -155,76 +94,121 @@ export default class Gigs extends React.Component {
       },
       { menuItems: [], posts: [] }
     )
-  }
+  }, [])
+
+  const { menuItems: allMenuItems, posts: allPostsSorted } = useMemo(() => sortPosts(allPosts), []) //sort all of them and cache it
+
+  const [displayedMenuItems, setDisplayedMenuItems] = useState(allMenuItems)
+  const [postsSorted, setPostsSorted] = useState(allPostsSorted)
+  const [pageUpTo, setPageUpTo] = useState(1)
+  const [scrollToAnchor, setScrollToAnchor] = useState(null)
+  const [gumshoe, setGumshoe] = useState(null)
+
+  useEffect(() => {
+    setGumshoe(
+      new Gumshoe('#sidebarNav a', {
+        offset: 120,
+        nested: true,
+        nestedClass: 'active-parent',
+      })
+    )
+    return () => gumshoe && gumshoe.destroy()
+  }, [])
+
+  useEffect(() => scrollTo(scrollToAnchor), [scrollToAnchor])
+
+  useEffect(() => {
+    if (typeof window !== `undefined`) window.scrollTo(0, 0)
+  }, [postsSorted])
+
+  useEffect(() => {
+    if (gumshoe && postsSorted.length > 0) gumshoe.setup()
+  }, [postsSorted, pageUpTo])
+
+  const filter = useCallback(searchInput => {
+    if (!searchInput || searchInput.length == 0) {
+      setPostsSorted(allPostsSorted)
+      setDisplayedMenuItems(allMenuItems)
+      setPageUpTo(1)
+    } else {
+      const filteredPosts = postFilter(searchInput, allPosts)
+      const { menuItems, posts } = sortPosts(filteredPosts)
+      setPostsSorted(posts)
+      setDisplayedMenuItems(menuItems)
+      setPageUpTo(1)
+    }
+  }, [])
 
   // Scrolling to an achor. We do this because hash changes trigger re-renders.
-  scrollTo = anchor => {
-    const element = document.getElementById(anchor)
-    if (typeof window !== `undefined`) {
-      const y = element.getBoundingClientRect().top + window.scrollY
-      window.scrollTo(0, y - 90)
+  const scrollTo = useCallback(anchor => {
+    if (anchor) {
+      const element = document.getElementById(anchor)
+      if (typeof window !== `undefined`) {
+        const y = element.getBoundingClientRect().top + window.scrollY
+        window.scrollTo(0, y - 90)
+      }
     }
-  }
+  }, [])
 
-  menuItemClick = (anchor, yearIndex) => {
-    this.setState({ pageUpTo: yearIndex + 1 > this.state.pageUpTo ? yearIndex + 1 : this.state.pageUpTo, scrollTo: anchor })
-  }
+  const menuItemClick = useCallback(
+    (anchor, yearIndex) => {
+      setPageUpTo(yearIndex + 1 > pageUpTo ? yearIndex + 1 : pageUpTo)
+      setScrollToAnchor(anchor)
+    },
+    [pageUpTo]
+  )
 
-  loadMore = index => {
-    this.setState({ pageUpTo: index + 1 })
-  }
+  const loadMore = useCallback(index => setPageUpTo(index + 1), [])
 
-  render() {
-    return (
-      <Layout
-        location={this.props.location}
-        description={this.siteDescription}
-        title={`Gigs | ${this.siteTitle}`}
-        hideBrandOnMobile={true}
-        hideFooter={true}
-        isSidebar={true}
-        headerContent={<Search placeholder="Search gigs by title, artist, or venue..." filter={this.filter} />}
-      >
-        <Sidebar menuItems={this.state.menuItems} menuItemClick={this.menuItemClick} />
-        <PageContent>
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={this.loadMore}
-            hasMore={this.state.pageUpTo < this.allPostsSorted.length}
-            loader={
-              <div key={0} style={{ width: '100%', height: '20vh', display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
-                <LoadingSpinner />
-              </div>
-            }
-          >
-            {this.state.postsSorted.map(
-              ({ year, months }, index) =>
-                index < this.state.pageUpTo && (
-                  <section key={year} id={year}>
-                    <Divider>
-                      <strong>{year}</strong>
-                    </Divider>
-                    {months.map(({ month, posts }) => {
-                      const id = `${year}-${month}`
-                      return (
-                        <section key={id} id={id}>
-                          {posts.map(({ node }) => (
-                            <GigTile key={node.fields.slug} height="30vh" node={node} imageSizes={{ xs: 12, sm: 8, lg: 8 }} />
-                          ))}
-                        </section>
-                      )
-                    })}
-                  </section>
-                )
-            )}
-          </InfiniteScroll>
-        </PageContent>
-      </Layout>
-    )
-  }
-}
+  return (
+    <Layout
+      location={location}
+      description={data.site.siteMetadata.description}
+      title={`Gigs | ${data.site.siteMetadata.title}`}
+      hideBrandOnMobile={true}
+      hideFooter={true}
+      isSidebar={true}
+      headerContent={<Search placeholder="Search gigs by title, artist, or venue..." filter={filter} />}
+    >
+      <Sidebar menuItems={displayedMenuItems} menuItemClick={menuItemClick} />
+      <PageContentWrapper>
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={loadMore}
+          hasMore={pageUpTo < allPostsSorted.length}
+          loader={
+            <div key={0} style={{ width: '100%', height: '20vh', display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
+              <LoadingSpinner />
+            </div>
+          }
+        >
+          {postsSorted.map(
+            ({ year, months }, index) =>
+              index < pageUpTo && (
+                <section key={year} id={year}>
+                  <Divider>
+                    <strong>{year}</strong>
+                  </Divider>
+                  {months.map(({ month, posts }) => {
+                    const id = `${year}-${month}`
+                    return (
+                      <section key={id} id={id}>
+                        {posts.map(({ node }) => (
+                          <GigTile key={node.fields.slug} height="30vh" node={node} imageSizes={{ xs: 12, sm: 8, lg: 8 }} />
+                        ))}
+                      </section>
+                    )
+                  })}
+                </section>
+              )
+          )}
+        </InfiniteScroll>
+      </PageContentWrapper>
+    </Layout>
+  )
+})
 
-const PageContent = styled.div`
+const PageContentWrapper = styled.div`
   padding-left: 0px;
 
   @media screen and (min-width: ${props => props.theme.breakpoints.md}) {

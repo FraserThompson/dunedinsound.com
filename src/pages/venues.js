@@ -36,7 +36,7 @@ const Sidebar = React.memo(({ menuItems, menuItemClick, setRef, selected }) => {
   )
 })
 
-export default ({ data, location }) => {
+export default React.memo(({ data, location }) => {
   const imageCountByGig = useMemo(
     () =>
       data.gigCountByVenue['group'].reduce((obj, item) => {
@@ -156,7 +156,7 @@ export default ({ data, location }) => {
       </MapWrapper>
     </Layout>
   )
-}
+})
 
 const MapWrapper = styled.div`
   width: 100%;

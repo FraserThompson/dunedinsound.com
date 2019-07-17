@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import Tile from '../components/Tile'
@@ -10,141 +10,122 @@ import { toMachineName } from '../utils/helper'
 import Tabs from '../components/Tabs'
 import styled from '@emotion/styled'
 
-export default class Artists extends React.Component {
-  constructor(props) {
-    super(props)
+export default React.memo(({ data, location }) => {
+  const filteredPosts = data.allArtists.edges
 
-    this.state = {
-      filteredPosts: this.props.data.allArtists.edges,
-      sortBy: 'title',
-    }
+  const [sortBy, setSortBy] = useState('title')
+  const [shuffle, setShuffle] = useState(null)
 
-    this.gigCountsByArtist = this.props.data.gigsByArtist['group'].reduce((obj, item) => {
+  const element = useRef()
+
+  const grid = {
+    xs: '6',
+    sm: '4',
+    md: '3',
+    lg: '2',
+  }
+
+  const gigCountsByArtist = useMemo(() =>
+    data.gigsByArtist['group'].reduce((obj, item) => {
       if (obj[toMachineName(item.fieldValue)]) obj[toMachineName(item.fieldValue)] += item.totalCount
       else obj[toMachineName(item.fieldValue)] = item.totalCount
       return obj
     }, {})
+  )
 
-    this.imagesByArtist = this.props.data.imagesByArtist['group'].reduce((obj, item) => {
+  const imagesByArtist = useMemo(() =>
+    data.imagesByArtist['group'].reduce((obj, item) => {
       const name = item.fieldValue
       if (!obj[name]) obj[name] = {}
       obj[name] = item.edges
       return obj
     }, {})
+  )
 
-    this.element = React.createRef()
-  }
+  useEffect(() => {
+    setShuffle(new Shuffle(element.current, { itemSelector: '.tile' }))
+    return () => shuffle && shuffle.destroy()
+  }, [])
 
-  componentDidMount() {
-    // Shuffle is a nice library to make re-ordering look nicer
-    this.shuffle = new Shuffle(this.element.current, {
-      itemSelector: '.tile',
-    })
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    this.shuffle.resetItems()
-    if (this.state.sortBy !== prevState.sortBy) {
-      if (this.state.sortBy === 'title') {
-        this.sortByTitle()
-      } else {
-        this.sortByNumberOfGigs()
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    this.shuffle.destroy()
-    this.shuffle = null
-  }
-
-  search = searchInput => {
-    if (!searchInput || searchInput.length == 0) {
-      this.shuffle.filter('all')
+  useEffect(() => {
+    if (sortBy === 'title') {
+      sortByTitle()
     } else {
-      this.shuffle.filter(element => {
-        return (
-          element
-            .getAttribute('data-title')
-            .toLowerCase()
-            .indexOf(searchInput) !== -1
-        )
-      })
+      sortByNumberOfGigs()
     }
-  }
+  }, [sortBy])
 
-  sortByNumberOfGigs = () => {
-    this.shuffle.sort({ reverse: true, by: element => this.gigCountsByArtist[element.getAttribute('data-machinename')] || 0 })
-  }
+  const sortByNumberOfGigs = useCallback(() => {
+    shuffle && shuffle.sort({ reverse: true, by: element => gigCountsByArtist[element.getAttribute('data-machinename')] || 0 })
+  }, [shuffle])
 
-  sortByTitle = () => {
-    this.shuffle.sort({ by: element => element.getAttribute('data-title').toLowerCase() })
-  }
+  const sortByTitle = useCallback(() => {
+    shuffle && shuffle.sort({ by: element => element.getAttribute('data-title').toLowerCase() })
+  }, [shuffle])
 
-  render() {
-    const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
-    const siteDescription = data.site.siteMetadata.description
-    const grid = {
-      xs: '6',
-      sm: '4',
-      md: '3',
-      lg: '2',
-    }
+  const search = useCallback(
+    searchInput => {
+      if (!shuffle) return
+      if (!searchInput || searchInput.length == 0) {
+        shuffle.filter('all')
+      } else {
+        shuffle.filter(element => {
+          return (
+            element
+              .getAttribute('data-title')
+              .toLowerCase()
+              .indexOf(searchInput) !== -1
+          )
+        })
+      }
+    },
+    [shuffle]
+  )
 
-    return (
-      <Layout
-        location={this.props.location}
-        description={siteDescription}
-        title={`Artists | ${siteTitle}`}
-        hideBrandOnMobile={true}
-        hideFooter={true}
-        headerContent={<Search placeholder="Search artists" filter={this.search} />}
-      >
-        {!this.state.searching && (
-          <Pills>
-            <small>
-              <button className={this.state.sortBy === 'title' ? 'active' : ''} onClick={() => this.setState({ sortBy: 'title' })}>
-                Title
-              </button>
-              <button className={this.state.sortBy === 'numberOfGigs' ? 'active' : ''} onClick={() => this.setState({ sortBy: 'numberOfGigs' })}>
-                Gigs
-              </button>
-            </small>
-          </Pills>
-        )}
-        <FlexGridContainer fixedWidth ref={this.element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
-          {this.state.filteredPosts.map(({ node }) => {
-            const title = (node.frontmatter.title || node.fields.slug) + (node.frontmatter.origin ? ` (${node.frontmatter.origin})` : '')
-            const coverImage = node.frontmatter.cover
-              ? node.frontmatter.cover
-              : this.imagesByArtist[node.fields.machine_name] && this.imagesByArtist[node.fields.machine_name][0].node
+  return (
+    <Layout
+      location={location}
+      description={data.site.siteMetadata.description}
+      title={`Artists | ${data.site.siteMetadata.title}`}
+      hideBrandOnMobile={true}
+      hideFooter={true}
+      headerContent={<Search placeholder="Search artists" filter={search} />}
+    >
+      <Pills>
+        <small>
+          <button className={sortBy === 'title' ? 'active' : ''} onClick={() => setSortBy('title')}>
+            Title
+          </button>
+          <button className={sortBy === 'numberOfGigs' ? 'active' : ''} onClick={() => setSortBy('numberOfGigs')}>
+            Gigs
+          </button>
+        </small>
+      </Pills>
+      <FlexGridContainer fixedWidth ref={element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
+        {filteredPosts.map(({ node }) => {
+          const title = (node.frontmatter.title || node.fields.slug) + (node.frontmatter.origin ? ` (${node.frontmatter.origin})` : '')
+          const coverImage = node.frontmatter.cover
+            ? node.frontmatter.cover
+            : imagesByArtist[node.fields.machine_name] && imagesByArtist[node.fields.machine_name][0].node
 
-            return (
-              <Tile
-                key={node.fields.slug}
-                title={title}
-                machineName={node.fields.machine_name}
-                subtitle={`${this.gigCountsByArtist[node.fields.machine_name]} gigs`}
-                image={coverImage}
-                label={node.frontmatter.date}
-                to={node.fields.slug}
-                imageSizes={grid}
-                height={
-                  this.state.filteredPosts.length == 1
-                    ? 'calc(100vh - ' + theme.default.headerHeight + ')'
-                    : this.state.filteredPosts.length <= 8
-                    ? '40vh'
-                    : '20vh'
-                }
-              />
-            )
-          })}
-        </FlexGridContainer>
-      </Layout>
-    )
-  }
-}
+          return (
+            <Tile
+              key={node.fields.slug}
+              title={title}
+              machineName={node.fields.machine_name}
+              subtitle={`${gigCountsByArtist[node.fields.machine_name]} gigs`}
+              image={coverImage}
+              label={node.frontmatter.date}
+              to={node.fields.slug}
+              imageSizes={grid}
+              height={filteredPosts.length == 1 ? 'calc(100vh - ' + theme.default.headerHeight + ')' : filteredPosts.length <= 8 ? '40vh' : '20vh'}
+            />
+          )
+        })}
+      </FlexGridContainer>
+    </Layout>
+  )
+})
 
 const Pills = styled(Tabs)`
   position: fixed;

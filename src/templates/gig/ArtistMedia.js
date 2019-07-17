@@ -1,12 +1,12 @@
 import React from 'react'
-import ImageGallery from './ImageGallery'
-import GridContainer from './GridContainer'
-import Divider from './Divider'
-import YouTubeResponsive from './YouTubeResponsive'
-import { rhythm } from '../utils/typography'
-import LoadingSpinner from './LoadingSpinner'
+import ImageGallery from '../../components/ImageGallery'
+import GridContainer from '../../components/GridContainer'
+import Divider from '../../components/Divider'
+import YouTubeResponsive from '../../components/YouTubeResponsive'
+import { rhythm } from '../../utils/typography'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
-export default ({ artistMedia, gigTitle }) => {
+export default React.memo(({ artistMedia, gigTitle }) => {
   const media = artistMedia.map(artist => {
     const gridSize = {
       xs: '12',
@@ -63,4 +63,4 @@ export default ({ artistMedia, gigTitle }) => {
       <LoadingSpinner />
     </div>
   )
-}
+})

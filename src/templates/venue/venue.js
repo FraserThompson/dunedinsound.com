@@ -1,9 +1,9 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
-import ContentByEntity from './templatetemplates/ContentByEntity'
+import ContentByEntity from '../contentbyentity/ContentByEntity'
 
-export default ({ data }) => {
+export default React.memo(({ data }) => {
   const parent = {
     title: 'Venues',
     href: '/venues/',
@@ -34,7 +34,7 @@ export default ({ data }) => {
   )
 
   return <ContentByEntity pageDescription={pageDescription} parent={parent} data={data} background={background} />
-}
+})
 
 export const pageQuery = graphql`
   query VenuesBySlug($slug: String!, $machine_name: String!) {

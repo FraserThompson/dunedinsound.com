@@ -18,7 +18,7 @@
     - images (optional): The first image will be used as the cover.
 */
 
-import React, { useState } from 'react'
+import React, { useCallback } from 'react'
 import Layout from '../../components/Layout'
 import Banner from '../../components/Banner'
 import Tile from '../../components/Tile'
@@ -29,37 +29,11 @@ import FlexGridContainer from '../../components/FlexGridContainer'
 import ZoopUpWrapper from '../../components/ZoopUpWrapper'
 import { MdKeyboardArrowUp } from 'react-icons/md'
 import GigTile from '../../components/GigTile'
-import Tabs from '../../components/Tabs'
 import { scale } from '../../utils/typography'
 import styled from '@emotion/styled'
+import ContentTabs from './ContentTabs'
 
-const ContentTabs = ({ gigTiles, blogTiles, vaultsessionTiles, gigCount, blogCount, vaultsessionCount }) => {
-  const [openTab, setOpenTab] = useState('gigs')
-  return (
-    <>
-      <Tabs sticky>
-        <button className={openTab === 'gigs' ? 'active' : ''} onClick={() => setOpenTab('gigs')}>
-          Gigs <small>({gigCount})</small>
-        </button>
-        {blogCount > 0 && (
-          <button className={openTab === 'blogs' ? 'active' : ''} onClick={() => setOpenTab('blogs')}>
-            Articles <small>({blogCount})</small>
-          </button>
-        )}
-        {vaultsessionCount > 0 && (
-          <button className={openTab === 'vaultsessions' ? 'active' : ''} onClick={() => setOpenTab('vaultsessions')}>
-            <span className="rainbowBackground">VAULT SESSION</span>
-          </button>
-        )}
-      </Tabs>
-      {openTab === 'gigs' && gigTiles}
-      {openTab === 'blogs' && <FlexGridContainer>{blogTiles}</FlexGridContainer>}
-      {openTab === 'vaultsessions' && <FlexGridContainer>{vaultsessionTiles}</FlexGridContainer>}
-    </>
-  )
-}
-
-export default ({ data, pageDescription, parent, background }) => {
+export default React.memo(({ data, pageDescription, parent, background }) => {
   const siteTitle = data.site.siteMetadata.title
 
   const post = data.thisPost
@@ -141,11 +115,11 @@ export default ({ data, pageDescription, parent, background }) => {
     vaultsessions.map(({ node }) => <Tile key={node.fields.slug} title={node.frontmatter.title} image={node.frontmatter.cover} href={node.fields.slug} />)
 
   // Scrolling to an achor. We do this because hash changes trigger re-renders.
-  const scrollTo = (e, anchor) => {
+  const scrollTo = useCallback((e, anchor) => {
     e.preventDefault()
     e.stopPropagation()
     document.getElementById(anchor).scrollIntoView({ behavior: 'smooth' })
-  }
+  }, [])
 
   return (
     <Layout
@@ -221,7 +195,7 @@ export default ({ data, pageDescription, parent, background }) => {
       />
     </Layout>
   )
-}
+})
 
 const Quote = styled.p`
   ${scale(1)};
