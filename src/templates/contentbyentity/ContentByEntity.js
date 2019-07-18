@@ -26,7 +26,7 @@ import Divider from '../../components/Divider'
 import HorizontalNav from '../../components/HorizontalNav'
 import { theme } from '../../utils/theme'
 import FlexGridContainer from '../../components/FlexGridContainer'
-import ZoopUpWrapper from '../../components/ZoopUpWrapper'
+import ZoopUpWrapper from '../../components/BackButton'
 import { MdKeyboardArrowUp } from 'react-icons/md'
 import GigTile from '../../components/GigTile'
 import { scale } from '../../utils/typography'
@@ -137,14 +137,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
         title={(post.frontmatter.title || post.fields.slug) + (post.frontmatter.origin ? ` (${post.frontmatter.origin})` : '')}
         backgroundImage={cover}
         background={background}
-        customContent={
-          <>
-            <ZoopUpWrapper title="Back" href={parent.href}>
-              <p>☝ Back to {parent.title} ☝</p>
-              <MdKeyboardArrowUp />
-            </ZoopUpWrapper>
-          </>
-        }
+        customContent={<ZoopUpWrapper title={parent.title} to={parent.href} />}
       >
         <HorizontalNav>
           {post.frontmatter.facebook && (

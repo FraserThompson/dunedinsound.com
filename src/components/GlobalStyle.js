@@ -107,16 +107,22 @@ const GlobalStyle = css`
     }
   }
 
-  h1.big {
-    ${scale1};
-    text-align: center;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    text-transform: uppercase;
-    margin-bottom: 0;
+  h1 {
+    &.big {
+      ${scale1};
+      text-align: center;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      text-transform: uppercase;
+      margin-bottom: 0;
 
-    @media screen and (min-width: ${theme.default.breakpoints.md}) {
-      ${scale2};
+      @media screen and (min-width: ${theme.default.breakpoints.md}) {
+        ${scale2};
+      }
+    }
+    &.center {
+      text-align: center;
+      width: 100%;
     }
   }
 

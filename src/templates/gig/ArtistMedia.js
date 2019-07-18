@@ -5,6 +5,8 @@ import Divider from '../../components/Divider'
 import YouTubeResponsive from '../../components/YouTubeResponsive'
 import { rhythm } from '../../utils/typography'
 import LoadingSpinner from '../../components/LoadingSpinner'
+import DropdownMenu from '../../components/DropdownMenu'
+import { scrollTo } from '../../utils/helper'
 
 export default React.memo(({ artistMedia, gigTitle }) => {
   const media = artistMedia.map(artist => {
@@ -29,9 +31,16 @@ export default React.memo(({ artistMedia, gigTitle }) => {
     return (
       <div key={artist.machineName} id={artist.machineName}>
         <Divider sticky={true}>
-          <a onClick={e => scrollTo(e, artist.machineName)} href={'#' + artist.machineName}>
-            <p style={{ marginRight: rhythm(0.5) }}>{artist.title}</p>
-          </a>
+          <DropdownMenu
+            width="100%"
+            textAlign="center"
+            height={rhythm(1)}
+            list={artistMedia.filter(item => item.machineName != artist.machineName)}
+            direction="down"
+            selectCallback={(e, item) => scrollTo(e, item.machineName)}
+          >
+            <p style={{ marginRight: rhythm(0.5), textAlign: 'center', width: '100%' }}>{artist.title}</p>
+          </DropdownMenu>
         </Divider>
         <GridContainer xs="12" sm="6" md="6" lg="6">
           {vidElements}

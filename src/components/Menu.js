@@ -12,7 +12,7 @@ import FadeInOut from './FadeInOut'
 
 export default styled(FadeInOut)`
   width: ${props => props.width};
-  text-align: left;
+  text-align: ${props => props.textAlign || 'left'};
   background-color: ${props => props.backgroundColor || props.theme.primaryColor};
   background-clip: padding-box;
   border: none;

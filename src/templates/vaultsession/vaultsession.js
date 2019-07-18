@@ -5,7 +5,8 @@ import Layout from '../../components/Layout'
 import World from '../../components/World'
 import YouTubeResponsive from '../../components/YouTubeResponsive'
 import PlayerContainer from '../../components/PlayerContainer'
-import { minutesToSeconds } from '../../utils/helper'
+import VideoControls from './VideoControls'
+import { timeToSeconds } from '../../utils/helper'
 
 export default ({ data, location }) => {
   const post = data.markdownRemark
@@ -33,7 +34,7 @@ export default ({ data, location }) => {
         title: post.frontmatter.title,
         audio: Object.values(audio),
         tracklist: post.frontmatter.tracklist.map(track => {
-          track.seconds = minutesToSeconds(track.time)
+          track.seconds = timeToSeconds(track.time)
           return track
         }),
       },

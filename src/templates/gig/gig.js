@@ -1,13 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../../components/Layout'
-import { toMachineName, graphqlGroupToObject } from '../../utils/helper'
+import { toMachineName, graphqlGroupToObject, scrollTo } from '../../utils/helper'
 import Banner from '../../components/Banner'
 import HorizontalNav from '../../components/HorizontalNav'
 import PlayerContainer from '../../components/PlayerContainer'
 import GigArtistMedia from './ArtistMedia'
 import LoadingSpinner from '../../components/LoadingSpinner'
 import BannerContent from './BannerContent'
+import { MdKeyboardArrowLeft } from 'react-icons/md'
+import styled from '@emotion/styled'
+import { rhythm } from '../../utils/typography'
 
 export default React.memo(({ data, location }) => {
   const [artistMedia, setArtistMedia] = useState([])
@@ -64,13 +67,6 @@ export default React.memo(({ data, location }) => {
     setArtistMedia(combinedMedia)
   }, [])
 
-  const scrollTo = useCallback((e, anchor) => {
-    e && e.preventDefault()
-    e && e.stopPropagation()
-    const element = document.getElementById(anchor)
-    element && element.scrollIntoView({ behavior: 'smooth' })
-  }, [])
-
   const gigTitle = data.thisPost.frontmatter.title
   const venueDetails = data.venue && data.venue.edges.length > 0 && data.venue.edges[0].node
 
@@ -84,9 +80,21 @@ export default React.memo(({ data, location }) => {
       type="article"
       hideBrandOnMobile={true}
       scrollHeaderContent={
-        <a onClick={e => scrollTo(e, 'top')} href="#top" title="Scroll to top">
-          <h1 className="big">{gigTitle}</h1>
-        </a>
+        <>
+          <BackButton>
+            <Link
+              style={{ position: 'absolute', left: '0px' }}
+              title="gigs"
+              to="/gigs/"
+              state={{ gigFrom: { slug: data.thisPost.fields.slug, year: data.thisPost.frontmatter.date.split(' ')[2] } }}
+            >
+              <MdKeyboardArrowLeft />
+            </Link>
+          </BackButton>
+          <a style={{ paddingLeft: rhythm(1), width: '100%' }} onClick={e => scrollTo(e, 'top')} href="#top" title="Scroll to top">
+            <h1 className="big center">{gigTitle}</h1>
+          </a>
+        </>
       }
     >
       <Banner
@@ -124,6 +132,24 @@ export default React.memo(({ data, location }) => {
     </Layout>
   )
 })
+
+const BackButton = styled.div`
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  > a {
+    svg {
+      height: ${props => props.theme.headerHeight};
+      font-size: ${rhythm(1.8)};
+      color: ${props => props.theme.textColor};
+    }
+    &:hover {
+      svg {
+        color: ${props => props.theme.secondaryColor};
+      }
+    }
+  }
+`
 
 export const pageQuery = graphql`
   query GigsBySlug($slug: String!, $prevSlug: String, $nextSlug: String, $artists: [String]!, $venue: String!, $parentDir: String!) {

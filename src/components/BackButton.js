@@ -1,8 +1,20 @@
+import React from 'react'
 import styled from '@emotion/styled'
 import { scale, rhythm } from '../utils/typography'
 import { theme } from '../utils/theme'
+import { Link } from 'gatsby'
+import { MdKeyboardArrowUp } from 'react-icons/md'
 
-export default styled.a`
+export default React.memo(({ title, to, state }) => (
+  <Wrapper>
+    <Link title={title} to={to} state={state}>
+      <p>☝ Back to {title} ☝</p>
+      <MdKeyboardArrowUp />
+    </Link>
+  </Wrapper>
+))
+
+const Wrapper = styled.span`
   ${scale(4)};
   color: ${props => props.theme.textColor};
   position: absolute;
@@ -17,6 +29,7 @@ export default styled.a`
     margin-bottom: -${rhythm(1)};
     text-transform: uppercase;
   }
+
   &:hover {
     top: 0px;
     opacity: 1;

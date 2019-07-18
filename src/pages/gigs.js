@@ -104,7 +104,14 @@ export default React.memo(({ data, location }) => {
   const [scrollToAnchor, setScrollToAnchor] = useState(null)
   const [gumshoe, setGumshoe] = useState(null)
 
+  const yearPages = { '2019': 0, '2018': 1, '2017': 2, '2016': 3, '2015': 4, '2014': 5 } //should refactor this to be dynamic
+
+  const scrollToGig = useCallback((anchor, year) => {
+    menuItemClick(anchor, yearPages[year])
+  }, [])
+
   useEffect(() => {
+    location.state && location.state.gigFrom && scrollToGig(location.state.gigFrom.slug, location.state.gigFrom.year)
     setGumshoe(
       new Gumshoe('#sidebarNav a', {
         offset: 120,
@@ -112,8 +119,11 @@ export default React.memo(({ data, location }) => {
         nestedClass: 'active-parent',
       })
     )
-    return () => gumshoe && gumshoe.destroy()
   }, [])
+
+  useEffect(() => {
+    return () => gumshoe && gumshoe.destroy()
+  }, [gumshoe])
 
   useEffect(() => scrollTo(scrollToAnchor), [scrollToAnchor])
 
@@ -122,7 +132,10 @@ export default React.memo(({ data, location }) => {
   }, [postsSorted])
 
   useEffect(() => {
-    if (gumshoe && postsSorted.length > 0) gumshoe.setup()
+    if (gumshoe && postsSorted.length > 0) {
+      gumshoe.setup()
+      gumshoe.detect()
+    }
   }, [postsSorted, pageUpTo])
 
   const filter = useCallback(searchInput => {
@@ -139,7 +152,6 @@ export default React.memo(({ data, location }) => {
     }
   }, [])
 
-  // Scrolling to an achor. We do this because hash changes trigger re-renders.
   const scrollTo = useCallback(anchor => {
     if (anchor) {
       const element = document.getElementById(anchor)
@@ -192,9 +204,9 @@ export default React.memo(({ data, location }) => {
                   {months.map(({ month, posts }) => {
                     const id = `${year}-${month}`
                     return (
-                      <section key={id} id={id}>
+                      <section data-yearindex={index} key={id} id={id}>
                         {posts.map(({ node }) => (
-                          <GigTile key={node.fields.slug} height="30vh" node={node} imageSizes={{ xs: 12, sm: 8, lg: 8 }} />
+                          <GigTile id={node.fields.slug} key={node.fields.slug} height="30vh" node={node} imageSizes={{ xs: 12, sm: 8, lg: 8 }} />
                         ))}
                       </section>
                     )

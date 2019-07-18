@@ -21,6 +21,7 @@ export default React.memo(({ href, color, sticky, backgroundColor, children, cla
 
 export const DividerWrapper = styled.div`
   color: ${props => props.color || 'black'};
+  position: relative;
   line-height: ${rhythm(1)};
   vertical-align: middle;
   width: 100%;

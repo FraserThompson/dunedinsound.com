@@ -2,15 +2,12 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { scale } from '../../utils/typography'
 import Tile from '../../components/Tile'
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdKeyboardArrowUp } from 'react-icons/md'
-import ZoopUpWrapper from '../../components/ZoopUpWrapper'
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
+import ZoopUpWrapper from '../../components/BackButton'
 
 export default React.memo(({ data }) => (
   <>
-    <ZoopUpWrapper title="BACK TO GIGS ☝" href="/gigs/">
-      <p>☝ BACK TO GIGS ☝</p>
-      <MdKeyboardArrowUp />
-    </ZoopUpWrapper>
+    <ZoopUpWrapper title="gigs" to="/gigs/" state={{ gigFrom: { slug: data.thisPost.fields.slug, year: data.thisPost.frontmatter.date.split(' ')[2] } }} />
     {data.prevPost && (
       <NextPrevWrapper className="hideMobile" prev>
         <div className="icon">

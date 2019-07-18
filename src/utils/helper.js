@@ -10,9 +10,16 @@ export const toMachineName = (string, space_character) => {
     .replace(/[$]/g, 'z')
 }
 
-export const minutesToSeconds = time => {
-  const timeComponents = time.split(':')
-  return parseInt(timeComponents[0]) * 60 + parseInt(timeComponents[1])
+export const scrollTo = (e, anchor) => {
+  e && e.preventDefault()
+  e && e.stopPropagation()
+  const element = document.getElementById(anchor)
+  element && element.scrollIntoView({ behavior: 'smooth' })
+}
+
+export const timeToSeconds = str => {
+  const a = str.split(':')
+  return a.length == 2 ? +a[0] * 60 + +a[1] : +a[0] * 60 * 60 + +a[1] * 60 + +a[2]
 }
 
 export const gridToSizes = (grid, maxSize) => {

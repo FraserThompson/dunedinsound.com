@@ -2,12 +2,8 @@
 // An audio player for playing media from one or more artists.
 // Parameters:
 //  - artistAudio: Media to be displayed
-//  - onPlay (optional): Callback for when it's played
-//  - onPause (optional): Callback for when it's paused
-//  - onFileChange (optional): Callback for when the song changes
-//  - selectedArtist (optional): The artist to start with. Defaults to the first.
 
-import React from 'react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import styled from '@emotion/styled'
 import { MdPlayArrow, MdPause, MdSkipNext, MdSkipPrevious } from 'react-icons/md'
 import { theme } from '../utils/theme'
@@ -15,33 +11,32 @@ import PlayerMenu from './PlayerMenu'
 import RoundButton from './RoundButton'
 import { scale } from '../utils/typography'
 import LoadingSpinner from './LoadingSpinner'
+import { timeToSeconds } from '../utils/helper'
 
-export default class Player extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.waveformRef = React.createRef()
-    this.state = {
-      playing: false,
-      ready: false,
-      currentFile: undefined,
-      currentTime: undefined,
-      duration: undefined,
-      selectedArtist: this.props.selectedArtist || 0,
-      queuePlay: false,
-      queueSeek: false,
-    }
-  }
+export default React.memo(({ artistAudio }) => {
+  const waveformRef = useRef()
 
-  componentDidMount() {
+  const [playing, setPlaying] = useState(false)
+  const [ready, setReady] = useState(false)
+  const [currentTime, setCurrentTime] = useState(undefined)
+  const [duration, setDuration] = useState(undefined)
+  const [selectedArtist, setSelectedArtist] = useState(0)
+  const [queuePlay, setQueuePlay] = useState(false)
+  const [queueSeek, setQueueSeek] = useState(false)
+
+  const [wavesurfer, setWaveSurfer] = useState(undefined)
+
+  // Create instance on mount
+  useEffect(() => {
     window.cached_json = window.cached_json || {}
 
     // because otherwise window is not defined
-    this.wavesurfer = require('wavesurfer.js')
-    this.RegionsPlugin = require('wavesurfer.js/dist/plugin/wavesurfer.regions')
+    const WavesurferJS = require('wavesurfer.js')
+    const RegionsPlugin = require('wavesurfer.js/dist/plugin/wavesurfer.regions')
 
-    if (this.el) {
-      this.wavesurfer = this.wavesurfer.create({
-        container: this.el,
+    setWaveSurfer(
+      WavesurferJS.create({
+        container: waveformRef.current,
         waveColor: theme.default.waveformColor,
         height: 45,
         hideScrollbar: true,
@@ -52,213 +47,162 @@ export default class Player extends React.PureComponent {
         forceDecode: false,
         progressColor: theme.default.waveformProgressColor,
         barWidth: '2',
-        plugins: [this.RegionsPlugin.create()],
+        plugins: [RegionsPlugin.create()],
       })
-
-      this.wavesurfer.on('ready', this.onReady)
-      this.wavesurfer.on('seek', this.updateTime)
-      this.wavesurfer.on('finish', this.onFinish)
-      this.wavesurfer.on('play', this.onPlay)
-      this.wavesurfer.on('pause', this.onPause)
-      this.wavesurfer.on('audioprocess', this.updateTime)
-
-      this.loadSelectedMedia()
-    }
-  }
-
-  loadSelectedMedia = () => {
-    this.load(
-      this.props.artistAudio[this.state.selectedArtist].audio[0]['.mp3'].publicURL,
-      this.props.artistAudio[this.state.selectedArtist].audio[0]['.json'].publicURL
     )
-  }
+  }, [])
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (this.props.artistAudio !== prevProps.artistAudio || this.state.selectedArtist !== prevState.selectedArtist) {
-      this.loadSelectedMedia()
-    }
-  }
+  // Attach callbacks when we have the instance
+  useEffect(() => {
+    if (!wavesurfer) return
+    wavesurfer.on('ready', () => setReady(true))
+    wavesurfer.on('finish', () => next())
+    wavesurfer.on('play', () => setPlaying(true))
+    wavesurfer.on('pause', () => setPlaying(false))
+    wavesurfer.on('seek', () => setCurrentTime(wavesurfer.getCurrentTime()))
+    wavesurfer.on('audioprocess', () => setCurrentTime(wavesurfer.getCurrentTime()))
+    return () => wavesurfer && wavesurfer.destroy()
+  }, [wavesurfer])
 
-  componentWillUnmount = () => {
-    this.wavesurfer && this.wavesurfer.destroy()
-  }
+  // Update UI when ready
+  useEffect(() => {
+    if (!wavesurfer) return
 
-  load = (src, jsonSrc) => {
-    this.setState({ ready: false })
-    if (jsonSrc && !window.cached_json[jsonSrc]) {
-      fetch(jsonSrc.replace('#', '%23'))
-        .then(response => response.json())
-        .then(data => {
-          window.cached_json[jsonSrc] = data
-          this.wavesurfer.load(src, window.cached_json[jsonSrc], 'metadata')
-        })
-        .catch(err => {
-          console.log('Fetch Error :-S', err)
-        })
-    } else {
-      this.wavesurfer.load(src, window.cached_json[jsonSrc], 'metadata')
-    }
-  }
+    setDuration(wavesurfer.getDuration())
+    setCurrentTime(wavesurfer.getCurrentTime())
 
-  onReady = () => {
-    // sometimes its not ready so we have to do this horrible timeout thing
-    setTimeout(() => {
-      const currentTime = this.wavesurfer.getCurrentTime()
-      const duration = this.wavesurfer.getDuration()
-      this.setState({ duration, currentTime, ready: true })
+    wavesurfer.clearRegions()
 
-      this.wavesurfer.clearRegions()
-
-      if (this.state.queuePlay) {
-        this.wavesurfer.playPause()
-        this.setState({ queuePlay: false })
-      }
-
-      if (this.state.queueSeek) {
-        this.seekToTime(this.state.queueSeek, this.state.selectedArtist, true)
-        this.setState({ queueSeek: false })
-      }
-
-      if (this.props.artistAudio[this.state.selectedArtist].tracklist) {
-        this.props.artistAudio[this.state.selectedArtist].tracklist.forEach(region => {
-          region.drag = false
-          region.resize = false
-          region.start = this.timeToSeconds(region.time)
-          region.id = region.title
-          this.wavesurfer.addRegion(region)
-        })
-      }
-    }, 250)
-  }
-
-  onPlay = () => {
-    this.setState({ playing: true })
-    this.props.onPlay && this.props.onPlay()
-  }
-
-  onPause = () => {
-    this.setState({ playing: false })
-    this.props.onPause && this.props.onPause()
-  }
-
-  onFinish = () => {
-    this.next()
-  }
-
-  progressFromTime = (time, duration) => {
-    const timeSeconds = this.timeToSeconds(time)
-    return timeSeconds / duration
-  }
-
-  timeToSeconds = str => {
-    const a = str.split(':')
-    return a.length == 2 ? +a[0] * 60 + +a[1] : +a[0] * 60 * 60 + +a[1] * 60 + +a[2]
-  }
-
-  seekToTime = (time, artistIndex, play) => {
-    // If we haven't loaded it we need to load THEN seek
-    if (artistIndex !== this.state.selectedArtist) {
-      this.selectArtist(artistIndex, play, time)
-      return
+    if (queuePlay) {
+      wavesurfer.playPause()
+      setQueuePlay(false)
     }
 
-    const timeSeconds = this.timeToSeconds(time)
-    const totalTimeSeconds = this.wavesurfer.getDuration()
-    const ratio = timeSeconds / totalTimeSeconds
+    if (queueSeek) {
+      seekToTime(queueSeek, selectedArtist, true)
+      setQueueSeek(false)
+    }
 
-    this.wavesurfer.seekTo(ratio)
-    if (play) this.wavesurfer.play()
-  }
+    if (artistAudio[selectedArtist].tracklist) {
+      artistAudio[selectedArtist].tracklist.forEach(region => {
+        region.drag = false
+        region.resize = false
+        region.start = timeToSeconds(region.time)
+        region.id = region.title
+        wavesurfer.addRegion(region)
+      })
+    }
+  }, [ready])
 
-  formatTime = time => {
+  // Load media if selected artist changes
+  useEffect(() => {
+    wavesurfer && load(artistAudio[selectedArtist].audio[0]['.mp3'].publicURL, artistAudio[selectedArtist].audio[0]['.json'].publicURL)
+  }, [artistAudio, selectedArtist, wavesurfer])
+
+  // Fetches the file and loads it into wavesurfer
+  const load = useCallback(
+    (src, jsonSrc) => {
+      setReady(false)
+      if (jsonSrc && !window.cached_json[jsonSrc]) {
+        fetch(jsonSrc.replace('#', '%23'))
+          .then(response => response.json())
+          .then(data => {
+            window.cached_json[jsonSrc] = data
+            wavesurfer.load(src, window.cached_json[jsonSrc], 'metadata')
+          })
+          .catch(err => {
+            console.log('Fetch Error :-S', err)
+          })
+      } else {
+        wavesurfer.load(src, window.cached_json[jsonSrc], 'metadata')
+      }
+    },
+    [wavesurfer]
+  )
+
+  const seekToTime = useCallback(
+    (time, artistIndex, play) => {
+      // If we haven't loaded it we need to load THEN seek
+      if (artistIndex !== selectedArtist) {
+        selectArtist(artistIndex, play, time)
+        return
+      }
+
+      const timeSeconds = timeToSeconds(time)
+      const totalTimeSeconds = wavesurfer.getDuration()
+      const ratio = timeSeconds / totalTimeSeconds
+
+      wavesurfer.seekTo(ratio)
+      if (play) wavesurfer.play()
+    },
+    [wavesurfer]
+  )
+
+  const formatTime = useCallback(time => {
     const mins = ~~(time / 60)
     const secs = ('0' + ~~(time % 60)).slice(-2)
     return mins + ':' + secs
-  }
+  })
 
-  updateTime = () => {
-    const currentTime = this.wavesurfer.getCurrentTime()
-    this.setState({ currentTime })
-  }
+  const previous = useCallback(() => {
+    const newSelectedArtist = Math.max(selectedArtist - 1, 0)
+    setSelectedArtist(newSelectedArtist)
+  }, [selectedArtist])
 
-  updateDuration = () => {
-    const duration = this.wavesurfer.getDuration()
-    this.setState({ duration })
-  }
+  const next = useCallback(() => {
+    const newSelectedArtist = Math.min(selectedArtist + 1, artistAudio.length - 1)
+    setSelectedArtist(newSelectedArtist)
+  }, [selectedArtist, artistAudio])
 
-  playPause = () => {
-    this.wavesurfer.playPause()
-  }
+  const selectArtist = useCallback(
+    (newSelectedArtist, play, seek) => {
+      // If we're trying to select an artist we already have loaded and we want to play then just do it
+      if (selectedArtist === newSelectedArtist) {
+        if (play) wavesurfer.playPause()
+        return
+      }
 
-  previous = () => {
-    const selectedArtist = Math.max(this.state.selectedArtist - 1, 0)
-    this.setState({ selectedArtist })
-    this.props.onFileChange && this.props.onFileChange(selectedArtist)
-  }
+      wavesurfer.stop()
+      wavesurfer.empty()
 
-  next = () => {
-    const selectedArtist = Math.min(this.state.selectedArtist + 1, this.props.artistAudio.length - 1)
-    this.setState({ selectedArtist })
-    this.props.onFileChange && this.props.onFileChange(selectedArtist)
-  }
+      setSelectedArtist(newSelectedArtist)
+      setQueuePlay(play)
+      setQueueSeek(seek)
+    },
+    [selectedArtist, wavesurfer]
+  )
 
-  selectArtist = (selectedArtist, play, seek) => {
-    // If we're trying to select an artist we already have loaded and we want to play then just do it
-    if (selectedArtist === this.state.selectedArtist) {
-      if (play) this.playPause()
-      return
-    }
-
-    this.wavesurfer.stop()
-    this.wavesurfer.empty()
-    this.props.onFileChange && this.props.onFileChange(selectedArtist)
-    this.setState({ selectedArtist, queuePlay: play, queueSeek: seek })
-  }
-
-  render = () => {
-    return (
-      <PlayerWrapper>
-        {this.state.ready && (
-          <div>
-            <RoundButton id="prev" size="30px" onClick={this.previous}>
-              <MdSkipPrevious />
-            </RoundButton>
-            <RoundButton className={this.state.playing ? 'active' : ''} size="40px" onClick={this.playPause}>
-              {!this.state.playing ? <MdPlayArrow /> : <MdPause />}
-            </RoundButton>
-            <RoundButton id="next" size="30px" onClick={this.next}>
-              <MdSkipNext />
-            </RoundButton>
-          </div>
-        )}
-        <WaveWrapper ref={el => (this.el = el)}>
-          {this.state.ready && <LengthWrapper style={{ left: '0px' }}>{this.formatTime(this.state.currentTime)}</LengthWrapper>}
-          {this.state.ready && <LengthWrapper style={{ right: '0px' }}>{this.formatTime(this.state.duration)}</LengthWrapper>}
-        </WaveWrapper>
-        {!this.state.ready && (
-          <LoadingProgress>
-            <LoadingSpinner />
-          </LoadingProgress>
-        )}
-        <TitleWrapper className="title-wrapper">
-          <span>{this.props.artistAudio[this.state.selectedArtist].title}</span>
-        </TitleWrapper>
-        <PlayerMenu
-          width="100%"
-          selected={this.state.selectedArtist}
-          selectCallback={this.selectArtist}
-          seekCallback={this.seekToTime}
-          list={this.props.artistAudio}
-        />
-      </PlayerWrapper>
-    )
-  }
-}
-
-Player.defaultProps = {
-  src: '',
-  jsonSrc: null,
-}
+  return (
+    <PlayerWrapper>
+      {ready && (
+        <div>
+          <RoundButton id="prev" size="30px" onClick={previous}>
+            <MdSkipPrevious />
+          </RoundButton>
+          <RoundButton className={playing ? 'active' : ''} size="40px" onClick={() => wavesurfer.playPause()}>
+            {!playing ? <MdPlayArrow /> : <MdPause />}
+          </RoundButton>
+          <RoundButton id="next" size="30px" onClick={next}>
+            <MdSkipNext />
+          </RoundButton>
+        </div>
+      )}
+      <WaveWrapper ref={waveformRef}>
+        {ready && <LengthWrapper style={{ left: '0px' }}>{formatTime(currentTime)}</LengthWrapper>}
+        {ready && <LengthWrapper style={{ right: '0px' }}>{formatTime(duration)}</LengthWrapper>}
+      </WaveWrapper>
+      {!ready && (
+        <LoadingProgress>
+          <LoadingSpinner />
+        </LoadingProgress>
+      )}
+      <TitleWrapper className="title-wrapper">
+        <span>{artistAudio[selectedArtist].title}</span>
+      </TitleWrapper>
+      <PlayerMenu width="100%" selected={selectedArtist} selectCallback={selectArtist} seekCallback={seekToTime} list={artistAudio} />
+    </PlayerWrapper>
+  )
+})
 
 const PlayerWrapper = styled.div`
   box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.175);

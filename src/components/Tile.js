@@ -36,6 +36,7 @@ export default ({
   children,
   href,
   to,
+  id,
 }) => {
   const tileContent = (
     <>
@@ -68,6 +69,7 @@ export default ({
       data-machinename={machineName}
       containerWidth={width}
       className="tile"
+      id={id}
     >
       {to && (
         <RouterLink to={to} title={title}>

@@ -9,9 +9,10 @@ import { theme } from '../utils/theme'
 import { toMachineName } from '../utils/helper'
 import Tabs from '../components/Tabs'
 import styled from '@emotion/styled'
+import LoadingSpinner from '../components/LoadingSpinner'
 
 export default React.memo(({ data, location }) => {
-  const filteredPosts = data.allArtists.edges
+  const [filteredPosts, setFilteredPosts] = useState(null)
 
   const [sortBy, setSortBy] = useState('title')
   const [shuffle, setShuffle] = useState(null)
@@ -43,9 +44,16 @@ export default React.memo(({ data, location }) => {
   )
 
   useEffect(() => {
-    setShuffle(new Shuffle(element.current, { itemSelector: '.tile' }))
-    return () => shuffle && shuffle.destroy()
+    setFilteredPosts(data.allArtists.edges)
   }, [])
+
+  useEffect(() => {
+    setShuffle(new Shuffle(element.current, { itemSelector: '.tile' }))
+  }, [filteredPosts])
+
+  useEffect(() => {
+    return () => shuffle && shuffle.destroy()
+  }, [shuffle])
 
   useEffect(() => {
     if (sortBy === 'title') {
@@ -91,41 +99,59 @@ export default React.memo(({ data, location }) => {
       hideFooter={true}
       headerContent={<Search placeholder="Search artists" filter={search} />}
     >
-      <Pills>
-        <small>
-          <button className={sortBy === 'title' ? 'active' : ''} onClick={() => setSortBy('title')}>
-            Title
-          </button>
-          <button className={sortBy === 'numberOfGigs' ? 'active' : ''} onClick={() => setSortBy('numberOfGigs')}>
-            Gigs
-          </button>
-        </small>
-      </Pills>
-      <FlexGridContainer fixedWidth ref={element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
-        {filteredPosts.map(({ node }) => {
-          const title = (node.frontmatter.title || node.fields.slug) + (node.frontmatter.origin ? ` (${node.frontmatter.origin})` : '')
-          const coverImage = node.frontmatter.cover
-            ? node.frontmatter.cover
-            : imagesByArtist[node.fields.machine_name] && imagesByArtist[node.fields.machine_name][0].node
+      {!filteredPosts && (
+        <LoadingWrapper>
+          <LoadingSpinner />
+        </LoadingWrapper>
+      )}
+      {filteredPosts && (
+        <Pills>
+          <small>
+            <button className={sortBy === 'title' ? 'active' : ''} onClick={() => setSortBy('title')}>
+              Title
+            </button>
+            <button className={sortBy === 'numberOfGigs' ? 'active' : ''} onClick={() => setSortBy('numberOfGigs')}>
+              Gigs
+            </button>
+          </small>
+        </Pills>
+      )}
+      <ArtistGrid fixedWidth ref={element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
+        {filteredPosts &&
+          filteredPosts.map(({ node }) => {
+            const title = (node.frontmatter.title || node.fields.slug) + (node.frontmatter.origin ? ` (${node.frontmatter.origin})` : '')
+            const coverImage = node.frontmatter.cover
+              ? node.frontmatter.cover
+              : imagesByArtist[node.fields.machine_name] && imagesByArtist[node.fields.machine_name][0].node
 
-          return (
-            <Tile
-              key={node.fields.slug}
-              title={title}
-              machineName={node.fields.machine_name}
-              subtitle={`${gigCountsByArtist[node.fields.machine_name]} gigs`}
-              image={coverImage}
-              label={node.frontmatter.date}
-              to={node.fields.slug}
-              imageSizes={grid}
-              height={filteredPosts.length == 1 ? 'calc(100vh - ' + theme.default.headerHeight + ')' : filteredPosts.length <= 8 ? '40vh' : '20vh'}
-            />
-          )
-        })}
-      </FlexGridContainer>
+            return (
+              <Tile
+                key={node.fields.slug}
+                title={title}
+                machineName={node.fields.machine_name}
+                subtitle={`${gigCountsByArtist[node.fields.machine_name]} gigs`}
+                image={coverImage}
+                label={node.frontmatter.date}
+                to={node.fields.slug}
+                imageSizes={grid}
+                height={filteredPosts.length == 1 ? 'calc(100vh - ' + theme.default.headerHeight + ')' : filteredPosts.length <= 8 ? '40vh' : '20vh'}
+              />
+            )
+          })}
+      </ArtistGrid>
     </Layout>
   )
 })
+
+const ArtistGrid = styled(FlexGridContainer)`
+  position: relative;
+`
+
+const LoadingWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 const Pills = styled(Tabs)`
   position: fixed;
