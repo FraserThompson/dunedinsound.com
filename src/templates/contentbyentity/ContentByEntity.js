@@ -27,11 +27,11 @@ import HorizontalNav from '../../components/HorizontalNav'
 import { theme } from '../../utils/theme'
 import FlexGridContainer from '../../components/FlexGridContainer'
 import ZoopUpWrapper from '../../components/BackButton'
-import { MdKeyboardArrowUp } from 'react-icons/md'
 import GigTile from '../../components/GigTile'
 import { scale } from '../../utils/typography'
 import styled from '@emotion/styled'
 import ContentTabs from './ContentTabs'
+import { lighten } from 'polished'
 
 export default React.memo(({ data, pageDescription, parent, background }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -58,7 +58,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
 
       return (
         <div id={fieldValue} key={fieldValue}>
-          <Divider backgroundColor={theme.default.foregroundColor} color="white" sticky={2}>
+          <Divider backgroundColor={lighten(0.3, theme.default.primaryColor)} color={theme.default.textColor} sticky={2}>
             <a style={{ width: '100%' }} onClick={e => scrollTo(e, fieldValue)} href={'#' + fieldValue}>
               {fieldValue} ({yearSize})
             </a>
