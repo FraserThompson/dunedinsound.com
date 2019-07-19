@@ -86,7 +86,8 @@ const DropdownLink = styled.a`
   .icon {
     color: ${props => props.open && props.theme.secondaryColor};
     position: absolute;
-    right: 0;
+    right: 0px;
+    top: 0px;
     font-size: 1.8em;
   }
 `
