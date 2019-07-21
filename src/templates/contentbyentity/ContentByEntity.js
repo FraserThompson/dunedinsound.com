@@ -36,7 +36,7 @@ import { lighten } from 'polished'
 
 export default React.memo(({ location, data, pageDescription, parent, background }) => {
   useEffect(() => {
-    location.state && location.state.gigFrom && scrollTo(null, location.state.gigFrom.slug, 57 + 43 + 29)
+    location.state && location.state.gigFrom && setTimeout(() => scrollTo(null, location.state.gigFrom.slug, 57 + 43 + 29))
   }, [gigTiles])
 
   const cover = data.images && data.images.edges.length !== 0 && data.images.edges[0].node
@@ -56,57 +56,6 @@ export default React.memo(({ location, data, pageDescription, parent, background
 
   const blogCount = blogs ? blogs.length : 0
   const vaultsessionCount = vaultsessions ? vaultsessions.length : 0
-
-  const gigTiles =
-    gigs &&
-    useMemo(
-      () =>
-        gigs.map(({ fieldValue, edges }) => {
-          const yearSize = edges.length
-          const gridSize = yearSize > 1 ? { xs: 6, sm: 4, lg: 3 } : { xs: 12, sm: 12, lg: 12 }
-
-          return (
-            <div id={fieldValue} key={fieldValue}>
-              <Divider backgroundColor={lighten(0.5, theme.default.primaryColor)} color={theme.default.textColor} sticky={2}>
-                <a style={{ width: '100%' }} onClick={e => scrollTo(e, fieldValue)} href={'#' + fieldValue}>
-                  <small>
-                    {fieldValue} ({yearSize})
-                  </small>
-                </a>
-              </Divider>
-              <FlexGridContainer>
-                {edges.map(({ node }) => (
-                  <GigTile id={node.fields.slug} node={node} key={node.fields.slug} imageSizes={gridSize} />
-                ))}
-              </FlexGridContainer>
-            </div>
-          )
-        }),
-      []
-    )
-
-  if (data.thisPost.frontmatter.audioculture) {
-    const audioculture = data.thisPost.frontmatter.audioculture
-    gigTiles.push(
-      <FlexGridContainer key={'audioculture'}>
-        <Tile href={audioculture.link}>
-          <Quote>
-            "{audioculture.snippet}" - <span>Audioculture</span>
-          </Quote>
-        </Tile>
-      </FlexGridContainer>
-    )
-  }
-
-  if (gigTiles.length <= 3) {
-    gigTiles.push(
-      <FlexGridContainer key={'contribution'}>
-        <Tile backgroundColor="black" height="50px" to="/page/contribution_guidelines">
-          <small>Can you add to this? 🤔</small>
-        </Tile>
-      </FlexGridContainer>
-    )
-  }
 
   const blogTiles =
     blogs &&
@@ -134,6 +83,57 @@ export default React.memo(({ location, data, pageDescription, parent, background
         vaultsessions.map(({ node }) => <Tile key={node.fields.slug} title={node.frontmatter.title} image={node.frontmatter.cover} href={node.fields.slug} />),
       []
     )
+
+  const gigTiles =
+    gigs &&
+    useMemo(() => {
+      const thing = gigs.map(({ fieldValue, edges }) => {
+        const yearSize = edges.length
+        const gridSize = yearSize > 1 ? { xs: 6, sm: 4, lg: 3 } : { xs: 12, sm: 12, lg: 12 }
+
+        return (
+          <div id={fieldValue} key={fieldValue}>
+            <Divider backgroundColor={lighten(0.5, theme.default.primaryColor)} color={theme.default.textColor} sticky={2}>
+              <a style={{ width: '100%' }} onClick={e => scrollTo(e, fieldValue)} href={'#' + fieldValue}>
+                <small>
+                  {fieldValue} ({yearSize})
+                </small>
+              </a>
+            </Divider>
+            <FlexGridContainer>
+              {edges.map(({ node }) => (
+                <GigTile id={node.fields.slug} node={node} key={node.fields.slug} location={location} imageSizes={gridSize} />
+              ))}
+            </FlexGridContainer>
+          </div>
+        )
+      })
+
+      if (data.thisPost.frontmatter.audioculture) {
+        const audioculture = data.thisPost.frontmatter.audioculture
+        thing.push(
+          <FlexGridContainer key={'audioculture'}>
+            <Tile href={audioculture.link}>
+              <Quote>
+                "{audioculture.snippet}" - <span>Audioculture</span>
+              </Quote>
+            </Tile>
+          </FlexGridContainer>
+        )
+      }
+
+      if (thing.length <= 3) {
+        thing.push(
+          <FlexGridContainer key={'contribution'}>
+            <Tile backgroundColor="black" height="50px" to="/page/contribution_guidelines">
+              <small>Can you add to this? 🤔</small>
+            </Tile>
+          </FlexGridContainer>
+        )
+      }
+
+      return thing
+    }, [])
 
   return (
     <Layout

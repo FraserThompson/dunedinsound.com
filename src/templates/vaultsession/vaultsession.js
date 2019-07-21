@@ -49,7 +49,7 @@ export default ({ data, location }) => {
       title={`VAULT SESSION: ${post.frontmatter.title} | ${siteTitle}`}
       overrideBackgroundColor="white"
     >
-      <World lights={lights}>
+      <World lights={lights} animated={false}>
         <Title>
           <h2>{post.frontmatter.title}</h2>
           <h4>Recorded on {post.frontmatter.date}</h4>

@@ -22,7 +22,6 @@ import Content from './Content'
 import { rhythm } from '../utils/typography'
 import { lighten } from 'polished'
 import { Link as RouterLink } from '@reach/router'
-import { Location } from '@reach/router'
 
 export default ({
   height = '40vh',
@@ -37,6 +36,7 @@ export default ({
   children,
   href,
   to,
+  location,
   id,
 }) => {
   const tileContent = (
@@ -73,13 +73,9 @@ export default ({
       id={id}
     >
       {to && (
-        <Location>
-          {({ location }) => (
-            <RouterLink to={to} title={title} state={{ from: location.pathname }}>
-              {tileContent}
-            </RouterLink>
-          )}
-        </Location>
+        <RouterLink to={to} title={title} state={{ from: location && location.pathname }}>
+          {tileContent}
+        </RouterLink>
       )}
       {href && (
         <a href={href} target="_blank" title={title}>

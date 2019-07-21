@@ -13,7 +13,7 @@ import styled from '@emotion/styled'
 import Tile from './Tile'
 import { MdPhotoCamera, MdAudiotrack, MdVideocam } from 'react-icons/md'
 
-export default React.memo(({ node, title, id, imageSizes, width, height }) => {
+export default React.memo(({ node, title, id, imageSizes, width, height, location }) => {
   const tileTitle = title || node.frontmatter.title || node.fields.slug
   const artists = node.frontmatter.artists.map(artist => artist.name).join(', ')
   const videoCount = node.frontmatter.artists.reduce((count, artist) => {
@@ -61,6 +61,7 @@ export default React.memo(({ node, title, id, imageSizes, width, height }) => {
             width={width}
             height={height}
             to={node.fields.slug}
+            location={location}
           >
             <MediaCounts>
               {imageCountByGig[node.fields.parentDir] > 0 && (
