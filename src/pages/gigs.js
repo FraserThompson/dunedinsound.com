@@ -1,10 +1,10 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react'
+import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react'
 import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import Layout from '../components/Layout'
 import Search from '../components/Search'
 import SidebarNav from '../components/SidebarNav'
-import { postFilter } from '../utils/helper'
+import { postFilter, scrollTo } from '../utils/helper'
 import GigTile from '../components/GigTile'
 import 'gumshoejs/src/js/gumshoe/_closest.polyfill'
 import 'gumshoejs/src/js/gumshoe/_customEvent.polyfill'
@@ -17,6 +17,20 @@ const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'Jul
 
 const Sidebar = React.memo(({ menuItems, menuItemClick }) => {
   const [open, setOpen] = useState(true)
+  const ref = useRef()
+
+  useEffect(() => {
+    document.addEventListener('gumshoeActivate', scrollToActive)
+    return () => document.removeEventListener('gumshoeActivate', scrollToActive)
+  }, [])
+
+  const scrollToActive = useCallback(
+    event => {
+      const year = event.target.parentElement.parentElement
+      ref.current.scrollTop = year.offsetTop
+    },
+    [ref]
+  )
 
   const toggleSidebar = useCallback(() => {
     setOpen(!open)
@@ -34,7 +48,7 @@ const Sidebar = React.memo(({ menuItems, menuItemClick }) => {
 
   return (
     <SidebarNav toggle={toggleSidebar} open={open} left>
-      <ul id="sidebarNav">
+      <ul ref={ref} id="sidebarNav">
         {menuItems.map(({ year, months, count }, yearIndex) => (
           <li key={year}>
             <a onClick={e => click(e, year, yearIndex)} href={`#${year}`}>
@@ -125,7 +139,7 @@ export default React.memo(({ data, location }) => {
     return () => gumshoe && gumshoe.destroy()
   }, [gumshoe])
 
-  useEffect(() => scrollTo(scrollToAnchor), [scrollToAnchor])
+  useEffect(() => scrollTo(null, scrollToAnchor, 57), [scrollToAnchor])
 
   useEffect(() => {
     if (typeof window !== `undefined`) window.scrollTo(0, 0)
@@ -149,16 +163,6 @@ export default React.memo(({ data, location }) => {
       setPostsSorted(posts)
       setDisplayedMenuItems(menuItems)
       setPageUpTo(1)
-    }
-  }, [])
-
-  const scrollTo = useCallback(anchor => {
-    if (anchor) {
-      const element = document.getElementById(anchor)
-      if (typeof window !== `undefined`) {
-        const y = element.getBoundingClientRect().top + window.scrollY
-        window.scrollTo(0, y - 90)
-      }
     }
   }, [])
 

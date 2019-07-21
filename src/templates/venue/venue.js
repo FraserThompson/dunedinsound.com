@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import ContentByEntity from '../contentbyentity/ContentByEntity'
 
-export default React.memo(({ data }) => {
+export default React.memo(({ location, data }) => {
   const parent = {
     title: 'Venues',
     href: '/venues/',
@@ -33,7 +33,7 @@ export default React.memo(({ data }) => {
     </Map>
   )
 
-  return <ContentByEntity pageDescription={pageDescription} parent={parent} data={data} background={background} />
+  return <ContentByEntity pageDescription={pageDescription} parent={parent} location={location} data={data} background={background} />
 })
 
 export const pageQuery = graphql`

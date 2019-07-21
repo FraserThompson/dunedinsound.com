@@ -85,15 +85,15 @@ export default React.memo(({ data, location }) => {
             <Link
               style={{ position: 'absolute', left: '0px' }}
               title="gigs"
-              to="/gigs/"
+              to={location.state && location.state.from ? location.state.from : '/gigs/'}
               state={{ gigFrom: { slug: data.thisPost.fields.slug, year: data.thisPost.frontmatter.date.split(' ')[2] } }}
             >
               <MdKeyboardArrowLeft />
             </Link>
           </BackButton>
-          <a style={{ paddingLeft: rhythm(1), width: '100%' }} onClick={e => scrollTo(e, 'top')} href="#top" title="Scroll to top">
-            <h1 className="big center">{gigTitle}</h1>
-          </a>
+          <HeaderTitle onClick={e => scrollTo(e, 'top')} href="#top" title="Scroll to top">
+            <h1 className="big">{gigTitle}</h1>
+          </HeaderTitle>
         </>
       }
     >
@@ -132,6 +132,17 @@ export default React.memo(({ data, location }) => {
     </Layout>
   )
 })
+
+const HeaderTitle = styled.a`
+  padding-left: ${rhythm(1)};
+  width: 100%;
+  h1 {
+    font-size: 100%;
+    @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+      font-size: ${rhythm(1.8)};
+    }
+  }
+`
 
 const BackButton = styled.div`
   position: absolute;

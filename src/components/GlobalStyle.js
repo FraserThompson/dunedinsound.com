@@ -111,6 +111,7 @@ const GlobalStyle = css`
     &.big {
       ${scale1};
       text-align: center;
+      width: 100%;
       text-overflow: ellipsis;
       overflow: hidden;
       text-transform: uppercase;
@@ -119,10 +120,6 @@ const GlobalStyle = css`
       @media screen and (min-width: ${theme.default.breakpoints.md}) {
         ${scale2};
       }
-    }
-    &.center {
-      text-align: center;
-      width: 100%;
     }
   }
 

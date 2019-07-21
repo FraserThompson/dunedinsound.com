@@ -88,6 +88,7 @@ const SidebarNavWrapper = styled(Menu)`
 
   ul {
     list-style: none;
+    scroll-behavior: smooth;
     padding: 0;
     margin: 0;
   }

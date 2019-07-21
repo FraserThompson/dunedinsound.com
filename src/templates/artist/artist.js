@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import ContentByEntity from '../contentbyentity/ContentByEntity'
 
-export default React.memo(({ data }) => {
+export default React.memo(({ data, location }) => {
   const parent = {
     title: 'Artists',
     href: '/artists/',
@@ -10,7 +10,7 @@ export default React.memo(({ data }) => {
 
   const pageDescription = `See photos, videos and audio recordings of live gigs featuring ${data.thisPost.frontmatter.title} and heaps of other local artists.`
 
-  return <ContentByEntity pageDescription={pageDescription} parent={parent} data={data} />
+  return <ContentByEntity pageDescription={pageDescription} parent={parent} location={location} data={data} />
 })
 
 export const pageQuery = graphql`

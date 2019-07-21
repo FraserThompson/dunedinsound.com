@@ -18,7 +18,7 @@
     - images (optional): The first image will be used as the cover.
 */
 
-import React, { useCallback } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import Layout from '../../components/Layout'
 import Banner from '../../components/Banner'
 import Tile from '../../components/Tile'
@@ -31,49 +31,61 @@ import GigTile from '../../components/GigTile'
 import { scale } from '../../utils/typography'
 import styled from '@emotion/styled'
 import ContentTabs from './ContentTabs'
-import { lighten } from 'polished'
+import { scrollTo } from '../../utils/helper'
 
-export default React.memo(({ data, pageDescription, parent, background }) => {
-  const siteTitle = data.site.siteMetadata.title
+export default React.memo(({ location, data, pageDescription, parent, background }) => {
+  useEffect(() => {
+    location.state && location.state.gigFrom && scrollTo(null, location.state.gigFrom.slug, 57 + 43 + 29)
+  }, [gigTiles])
 
-  const post = data.thisPost
   const cover = data.images && data.images.edges.length !== 0 && data.images.edges[0].node
 
-  const gigs = data.gigs && data.gigs.group.slice().reverse() // it expects them grouped by year in ascending order
+  const gigs = data.gigs && useMemo(() => data.gigs.group.slice().reverse()) // it expects them grouped by year in ascending order
   const blogs = data.blogs && data.blogs.edges
   const vaultsessions = data.vaultsessions && data.vaultsessions.edges
 
-  const gigCount = gigs.reduce((acc, { edges }) => {
-    acc += edges.length
-    return acc
-  }, 0)
+  const gigCount = useMemo(
+    () =>
+      gigs.reduce((acc, { edges }) => {
+        acc += edges.length
+        return acc
+      }, 0),
+    []
+  )
+
   const blogCount = blogs ? blogs.length : 0
   const vaultsessionCount = vaultsessions ? vaultsessions.length : 0
 
   const gigTiles =
     gigs &&
-    gigs.map(({ fieldValue, edges }) => {
-      const yearSize = edges.length
-      const gridSize = yearSize > 1 ? { xs: 6, sm: 4, lg: 3 } : { xs: 12, sm: 12, lg: 12 }
+    useMemo(
+      () =>
+        gigs.map(({ fieldValue, edges }) => {
+          const yearSize = edges.length
+          const gridSize = yearSize > 1 ? { xs: 6, sm: 4, lg: 3 } : { xs: 12, sm: 12, lg: 12 }
 
-      return (
-        <div id={fieldValue} key={fieldValue}>
-          <Divider backgroundColor={lighten(0.3, theme.default.primaryColor)} color={theme.default.textColor} sticky={2}>
-            <a style={{ width: '100%' }} onClick={e => scrollTo(e, fieldValue)} href={'#' + fieldValue}>
-              {fieldValue} ({yearSize})
-            </a>
-          </Divider>
-          <FlexGridContainer>
-            {edges.map(({ node }) => (
-              <GigTile node={node} key={node.fields.slug} imageSizes={gridSize} />
-            ))}
-          </FlexGridContainer>
-        </div>
-      )
-    })
+          return (
+            <div id={fieldValue} key={fieldValue}>
+              <Divider backgroundColor={theme.default.primaryColor} color={theme.default.textColor} sticky={2}>
+                <a style={{ width: '100%' }} onClick={e => scrollTo(e, fieldValue)} href={'#' + fieldValue}>
+                  <small>
+                    {fieldValue} ({yearSize})
+                  </small>
+                </a>
+              </Divider>
+              <FlexGridContainer>
+                {edges.map(({ node }) => (
+                  <GigTile id={node.fields.slug} node={node} key={node.fields.slug} imageSizes={gridSize} />
+                ))}
+              </FlexGridContainer>
+            </div>
+          )
+        }),
+      []
+    )
 
-  if (post.frontmatter.audioculture) {
-    const audioculture = post.frontmatter.audioculture
+  if (data.thisPost.frontmatter.audioculture) {
+    const audioculture = data.thisPost.frontmatter.audioculture
     gigTiles.push(
       <FlexGridContainer key={'audioculture'}>
         <Tile href={audioculture.link}>
@@ -97,86 +109,91 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
 
   const blogTiles =
     blogs &&
-    blogs.map(({ node }) => {
-      return (
-        <Tile
-          key={node.fields.slug}
-          title={node.frontmatter.title}
-          subtitle={node.excerpt}
-          image={node.frontmatter.cover}
-          label={node.frontmatter.date}
-          to={node.fields.slug}
-        />
-      )
-    })
+    useMemo(
+      () =>
+        blogs.map(({ node }) => {
+          return (
+            <Tile
+              key={node.fields.slug}
+              title={node.frontmatter.title}
+              subtitle={node.excerpt}
+              image={node.frontmatter.cover}
+              label={node.frontmatter.date}
+              to={node.fields.slug}
+            />
+          )
+        }),
+      []
+    )
 
   const vaultsessionTiles =
     vaultsessions &&
-    vaultsessions.map(({ node }) => <Tile key={node.fields.slug} title={node.frontmatter.title} image={node.frontmatter.cover} href={node.fields.slug} />)
-
-  // Scrolling to an achor. We do this because hash changes trigger re-renders.
-  const scrollTo = useCallback((e, anchor) => {
-    e.preventDefault()
-    e.stopPropagation()
-    document.getElementById(anchor).scrollIntoView({ behavior: 'smooth' })
-  }, [])
+    useMemo(
+      () =>
+        vaultsessions.map(({ node }) => <Tile key={node.fields.slug} title={node.frontmatter.title} image={node.frontmatter.cover} href={node.fields.slug} />),
+      []
+    )
 
   return (
     <Layout
       location={parent}
       description={pageDescription}
       image={cover && cover.src}
-      title={`${post.frontmatter.title} | ${siteTitle}`}
+      title={`${data.thisPost.frontmatter.title} | ${data.site.siteMetadata.title}`}
       scrollHeaderContent={
-        <a onClick={e => scrollTo(e, 'top')} href="#top" title="Scroll to top">
-          <h1 className="big">{post.frontmatter.title}</h1>
+        <a style={{ width: '100%' }} onClick={e => scrollTo(e, 'top')} href="#top" title="Scroll to top">
+          <h1 className="big">{data.thisPost.frontmatter.title}</h1>
         </a>
       }
     >
       <Banner
-        title={(post.frontmatter.title || post.fields.slug) + (post.frontmatter.origin ? ` (${post.frontmatter.origin})` : '')}
+        title={
+          (data.thisPost.frontmatter.title || data.thisPost.fields.slug) + (data.thisPost.frontmatter.origin ? ` (${data.thisPost.frontmatter.origin})` : '')
+        }
         backgroundImage={cover}
         background={background}
         customContent={<ZoopUpWrapper title={parent.title} to={parent.href} />}
       >
         <HorizontalNav>
-          {post.frontmatter.facebook && (
+          {data.thisPost.frontmatter.facebook && (
             <li>
-              <a className="button" rel="noopener" href={post.frontmatter.facebook}>
+              <a className="button" rel="noopener" href={data.thisPost.frontmatter.facebook}>
                 Facebook
               </a>
             </li>
           )}
-          {post.frontmatter.bandcamp && (
+          {data.thisPost.frontmatter.bandcamp && (
             <li>
-              <a className="button" rel="noopener" href={post.frontmatter.bandcamp}>
+              <a className="button" rel="noopener" href={data.thisPost.frontmatter.bandcamp}>
                 Bandcamp
               </a>
             </li>
           )}
-          {post.frontmatter.soundcloud && (
+          {data.thisPost.frontmatter.soundcloud && (
             <li>
-              <a className="button" rel="noopener" href={post.frontmatter.soundcloud}>
+              <a className="button" rel="noopener" href={data.thisPost.frontmatter.soundcloud}>
                 Soundcloud
               </a>
             </li>
           )}
-          {post.frontmatter.website && (
+          {data.thisPost.frontmatter.website && (
             <li>
-              <a className="button" rel="noopener" href={post.frontmatter.website}>
+              <a className="button" rel="noopener" href={data.thisPost.frontmatter.website}>
                 Website
               </a>
             </li>
           )}
-          {post.frontmatter.audioculture && (
+          {data.thisPost.frontmatter.audioculture && (
             <li>
-              <a className="button" rel="noopener" href={post.frontmatter.audioculture.link}>
+              <a className="button" rel="noopener" href={data.thisPost.frontmatter.audioculture.link}>
                 Audioculture
               </a>
             </li>
           )}
         </HorizontalNav>
-        {post.frontmatter.description && <p style={{ marginTop: '1rem' }} dangerouslySetInnerHTML={{ __html: post.frontmatter.description }} />}
+        {data.thisPost.frontmatter.description && (
+          <p style={{ marginTop: '1rem' }} dangerouslySetInnerHTML={{ __html: data.thisPost.frontmatter.description }} />
+        )}
       </Banner>
       <ContentTabs
         gigTiles={gigTiles}

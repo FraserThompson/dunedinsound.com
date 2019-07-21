@@ -49,8 +49,16 @@ const Post = styled.div`
 
   .banner,
   hr {
-    margin-left: -5vw;
-    margin-right: -5vw;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    .banner,
+    hr {
+      margin-left: -5vw;
+      margin-right: -5vw;
+    }
   }
 
   .banner {

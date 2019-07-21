@@ -26,21 +26,25 @@ export default React.memo(({ data, location }) => {
     lg: '2',
   }
 
-  const gigCountsByArtist = useMemo(() =>
-    data.gigsByArtist['group'].reduce((obj, item) => {
-      if (obj[toMachineName(item.fieldValue)]) obj[toMachineName(item.fieldValue)] += item.totalCount
-      else obj[toMachineName(item.fieldValue)] = item.totalCount
-      return obj
-    }, {})
+  const gigCountsByArtist = useMemo(
+    () =>
+      data.gigsByArtist['group'].reduce((obj, item) => {
+        if (obj[toMachineName(item.fieldValue)]) obj[toMachineName(item.fieldValue)] += item.totalCount
+        else obj[toMachineName(item.fieldValue)] = item.totalCount
+        return obj
+      }, {}),
+    []
   )
 
-  const imagesByArtist = useMemo(() =>
-    data.imagesByArtist['group'].reduce((obj, item) => {
-      const name = item.fieldValue
-      if (!obj[name]) obj[name] = {}
-      obj[name] = item.edges
-      return obj
-    }, {})
+  const imagesByArtist = useMemo(
+    () =>
+      data.imagesByArtist['group'].reduce((obj, item) => {
+        const name = item.fieldValue
+        if (!obj[name]) obj[name] = {}
+        obj[name] = item.edges
+        return obj
+      }, {}),
+    []
   )
 
   useEffect(() => {

@@ -43,7 +43,8 @@ export default React.memo(({ data, location }) => {
         obj[item.fieldValue] = item.totalCount
         return obj
       }),
-    [data]
+    [data],
+    []
   )
 
   const [filteredPosts, setFilteredPosts] = useState(data.allVenues.edges)

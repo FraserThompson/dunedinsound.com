@@ -10,11 +10,20 @@ export const toMachineName = (string, space_character) => {
     .replace(/[$]/g, 'z')
 }
 
-export const scrollTo = (e, anchor) => {
-  e && e.preventDefault()
-  e && e.stopPropagation()
+export const scrollTo = (e, anchor, headerOffset, behavior) => {
+  e && e.preventDefault() && e.stopPropagation()
+
   const element = document.getElementById(anchor)
-  element && element.scrollIntoView({ behavior: 'smooth' })
+  if (!element) return
+
+  if (!headerOffset) {
+    element && element.scrollIntoView({ behavior: behavior || 'smooth' })
+  } else {
+    if (typeof window !== `undefined`) {
+      const y = element.getBoundingClientRect().top + window.scrollY
+      window.scrollTo(0, y - headerOffset)
+    }
+  }
 }
 
 export const timeToSeconds = str => {

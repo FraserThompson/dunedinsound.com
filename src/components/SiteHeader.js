@@ -84,9 +84,6 @@ const HeaderContent = styled.div`
   flex-direction: row;
   justify-items: center;
   align-items: center;
-  h1 {
-    padding-left: ${rhythm(0.5)};
-  }
 `
 
 const Brand = styled.div`
