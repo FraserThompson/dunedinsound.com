@@ -26,12 +26,13 @@ import Divider from '../../components/Divider'
 import HorizontalNav from '../../components/HorizontalNav'
 import { theme } from '../../utils/theme'
 import FlexGridContainer from '../../components/FlexGridContainer'
-import ZoopUpWrapper from '../../components/BackButton'
 import GigTile from '../../components/GigTile'
 import { scale } from '../../utils/typography'
 import styled from '@emotion/styled'
 import ContentTabs from './ContentTabs'
 import { scrollTo } from '../../utils/helper'
+import BackButton from '../../components/BackButton'
+import { lighten } from 'polished'
 
 export default React.memo(({ location, data, pageDescription, parent, background }) => {
   useEffect(() => {
@@ -66,7 +67,7 @@ export default React.memo(({ location, data, pageDescription, parent, background
 
           return (
             <div id={fieldValue} key={fieldValue}>
-              <Divider backgroundColor={theme.default.primaryColor} color={theme.default.textColor} sticky={2}>
+              <Divider backgroundColor={lighten(0.5, theme.default.primaryColor)} color={theme.default.textColor} sticky={2}>
                 <a style={{ width: '100%' }} onClick={e => scrollTo(e, fieldValue)} href={'#' + fieldValue}>
                   <small>
                     {fieldValue} ({yearSize})
@@ -152,7 +153,7 @@ export default React.memo(({ location, data, pageDescription, parent, background
         }
         backgroundImage={cover}
         background={background}
-        customContent={<ZoopUpWrapper title={parent.title} to={parent.href} />}
+        customContent={<BackButton title={parent.title} to={parent.href} />}
       >
         <HorizontalNav>
           {data.thisPost.frontmatter.facebook && (

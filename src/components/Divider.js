@@ -11,6 +11,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { rhythm } from '../utils/typography'
+import { darken } from 'polished'
 
 export default React.memo(({ href, color, sticky, backgroundColor, children, className }) => (
   <DividerWrapper color={color} sticky={sticky} backgroundColor={backgroundColor} className={className}>
@@ -34,6 +35,7 @@ export const DividerWrapper = styled.div`
   padding-left: ${rhythm(0.5)};
   padding-right: ${rhythm(0.5)};
   background-color: ${props => props.backgroundColor || props.theme.contrastColor};
+  border-bottom: 1px solid ${props => darken(0.025, props.backgroundColor || props.theme.contrastColor)};
   p {
     margin: 0;
     line-height: ${rhythm(1)};

@@ -18,7 +18,7 @@ export default ({ data, location }) => {
 
   useEffect(() => {
     if (window.DeviceMotionEvent) {
-      window.addEventListener('devicemotion', deviceMotionHandler)
+      window.addEventListener('devicemotion', deviceMotionHandler, true)
     }
   }, [])
 
@@ -73,6 +73,8 @@ export default ({ data, location }) => {
             </article>
           ))}
         </div>
+
+        <WallArt>{devicePosition && <h2>{Object.values(devicePosition).map(thing => thing)}</h2>}</WallArt>
         <WallArt>{hoveredNode && <Img fluid={hoveredNode.frontmatter.cover.childImageSharp.fluid} />}</WallArt>
       </World>
     </Layout>

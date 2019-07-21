@@ -105,23 +105,13 @@ const WorldWrapper = styled.div`
   }
 `
 
-class World extends React.PureComponent {
-  render() {
-    return (
-      <WorldWrapper perspective={this.props.perspective}>
-        <div className={`checkers ${this.props.lights}`} id="checkersBack"></div>
-        <div className={`checkers ${this.props.lights}`} id="checkersT"></div>
-        <div className={`checkers ${this.props.lights}`} id="checkersL"></div>
-        <div className={`checkers ${this.props.lights}`} id="checkersR"></div>
-        <div className={`checkers ${this.props.lights}`} id="checkersB"></div>
-        {this.props.children}
-      </WorldWrapper>
-    )
-  }
-}
-
-World.defaultProps = {
-  lights: 'off',
-}
-
-export default World
+export default React.memo(({ perspective, lights = 'off', children, devicePosition }) => (
+  <WorldWrapper perspective={perspective}>
+    <div className={`checkers ${lights}`} id="checkersBack"></div>
+    <div className={`checkers ${lights}`} id="checkersT"></div>
+    <div className={`checkers ${lights}`} id="checkersL"></div>
+    <div className={`checkers ${lights}`} id="checkersR"></div>
+    <div className={`checkers ${lights}`} id="checkersB"></div>
+    {children}
+  </WorldWrapper>
+))

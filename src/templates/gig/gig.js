@@ -8,9 +8,9 @@ import PlayerContainer from '../../components/PlayerContainer'
 import GigArtistMedia from './ArtistMedia'
 import LoadingSpinner from '../../components/LoadingSpinner'
 import BannerContent from './BannerContent'
-import { MdKeyboardArrowLeft } from 'react-icons/md'
 import styled from '@emotion/styled'
 import { rhythm } from '../../utils/typography'
+import BackButton from '../../components/BackButton'
 
 export default React.memo(({ data, location }) => {
   const [artistMedia, setArtistMedia] = useState([])
@@ -81,16 +81,7 @@ export default React.memo(({ data, location }) => {
       hideBrandOnMobile={true}
       scrollHeaderContent={
         <>
-          <BackButton>
-            <Link
-              style={{ position: 'absolute', left: '0px' }}
-              title="gigs"
-              to={location.state && location.state.from ? location.state.from : '/gigs/'}
-              state={{ gigFrom: { slug: data.thisPost.fields.slug, year: data.thisPost.frontmatter.date.split(' ')[2] } }}
-            >
-              <MdKeyboardArrowLeft />
-            </Link>
-          </BackButton>
+          <BackButton to={location.state && location.state.from} gigSlug={data.thisPost.fields.slug} gigYear={data.thisPost.frontmatter.date.split(' ')[2]} />
           <HeaderTitle onClick={e => scrollTo(e, 'top')} href="#top" title="Scroll to top">
             <h1 className="big">{gigTitle}</h1>
           </HeaderTitle>
@@ -111,7 +102,7 @@ export default React.memo(({ data, location }) => {
           )
         }
         backgroundImage={cover}
-        customContent={<BannerContent data={data} />}
+        customContent={<BannerContent data={data} location={location} />}
       >
         <HorizontalNav>
           {data.thisPost.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: data.thisPost.frontmatter.description }}></p>}
@@ -140,24 +131,6 @@ const HeaderTitle = styled.a`
     font-size: 100%;
     @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
       font-size: ${rhythm(1.8)};
-    }
-  }
-`
-
-const BackButton = styled.div`
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  > a {
-    svg {
-      height: ${props => props.theme.headerHeight};
-      font-size: ${rhythm(1.8)};
-      color: ${props => props.theme.textColor};
-    }
-    &:hover {
-      svg {
-        color: ${props => props.theme.secondaryColor};
-      }
     }
   }
 `
