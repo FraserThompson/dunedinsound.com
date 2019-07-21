@@ -72,7 +72,7 @@ export default ({
       id={id}
     >
       {to && (
-        <RouterLink to={to} title={title} state={{ from: window.location.pathname }}>
+        <RouterLink to={to} title={title} state={{ from: typeof window !== `undefined` && window.location.pathname }}>
           {tileContent}
         </RouterLink>
       )}

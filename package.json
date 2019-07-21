@@ -71,11 +71,11 @@
     "url": "git+https://github.com/FraserThompson/dunedinsound.com.git"
   },
   "scripts": {
-    "dev": "gatsby develop",
+    "dev": "gatsby develop --host=0.0.0.0",
     "audio": "docker-compose up --build",
     "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js' 'src/**/*.md'",
-    "develop": "gatsby develop",
+    "develop": "gatsby develop --host=0.0.0.0",
     "new": "node generate_gig.js",
     "start": "npm run develop",
     "build": "gatsby build",

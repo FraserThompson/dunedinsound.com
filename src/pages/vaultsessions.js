@@ -10,14 +10,27 @@ export default ({ data, location }) => {
   const [hoveredNode, setHoveredNode] = useState(false)
   const [perspective, setPerspective] = useState('300px')
 
+  const [devicePosition, setDevicePosition] = useState(null)
+
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = data.site.siteMetadata.description
   const posts = data.allBlogs.edges
 
   useEffect(() => {
+    if (window.DeviceMotionEvent) {
+      window.addEventListener('devicemotion', deviceMotionHandler)
+    }
+  }, [])
+
+  const deviceMotionHandler = e => {
+    console.log(e)
+    setDevicePosition(e.acceleration)
+  }
+
+  useEffect(() => {
     hoveredNode && speak(hoveredNode.frontmatter.title)
     !hoveredNode && speechSynthesis.cancel()
-  })
+  }, [hoveredNode])
 
   const speak = useCallback(text => {
     const msg = new SpeechSynthesisUtterance()
@@ -44,7 +57,7 @@ export default ({ data, location }) => {
 
   return (
     <Layout location={location} description={siteDescription} title={`VAULT SESSIONS | ${siteTitle}`} overrideBackgroundColor="white">
-      <World perspective={perspective} lights={lights}>
+      <World perspective={perspective} lights={lights} devicePosition={devicePosition}>
         <Logo position="top">
           <img style={{ filter: 'invert(80%)' }} src={lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL} />
         </Logo>

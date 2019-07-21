@@ -4,13 +4,13 @@ date: 2019-07-21T00:00:00.000Z
 tags:
   - interview
 author: 'Fraser Thompson'
-description: 'This was a weird interview.'
+description: 'Thanks to capitalism, making money is an essential part of not starving to death. Unfortunately for most musicians though, converting their immense cultural capital into food on the table is a problem the wondrous free market has yet to fully solve.'
 cover: ./cover.jpg
 ---
 
 Thanks to capitalism, making money is an essential part of not starving to death. Unfortunately for most musicians though, converting their immense cultural capital into food on the table is a problem the wondrous free market has yet to fully solve.
 
-If it were up to me instead of spending [\$14.1 billion a year on a non means-tested benefit](https://insights.nzherald.co.nz/article/budget-treemap-2018/ 'superannuation costs almost as much as our entire healthcare budget') [for one of our wealthiest demographics](./old-people-are-entitled-bludgers.jpg 'old people have a lot of money') we’d instead give \$14.1 billion to anyone who wants to make music.
+If it were up to me instead of spending [\$14.1 billion a year on a non means-tested benefit](https://insights.nzherald.co.nz/article/budget-treemap-2018/ 'superannuation costs almost as much as our entire healthcare budget') for one of our wealthiest demographics we’d instead give \$14.1 billion to anyone who wants to make music.
 
 But it’s not up to me. It’s up to the fat cats in government, exchanging insults while their [vast housing portfolios](https://www.rnz.co.nz/news/political/330459/government-mps'-property-ownership-revealed 'a third of MPs own multiple properties') steadily appreciate and occasionally showing up to work to [make decisions to ensure that their wealth continues to rise.](https://www.rnz.co.nz/news/political/387253/no-mandate-for-capital-gains-tax-pm 'PM rules out capital gains tax') Ah well, that’s life in a democracy I guess haha!!!
 
