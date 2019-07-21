@@ -8,7 +8,7 @@ export default React.memo(({ videoId, odd, vanilla, getPlayerTarget }) => {
   const APIKey = 'AIzaSyBUlBQysAAKfuSmm4Z92VBMAE9lli3zL58'
   const [clicked, setClicked] = useState(false)
   const [title, setTitle] = useState('')
-  const [thumbnail, setThumbnail] = useState(`http://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`)
+  const [thumbnail, setThumbnail] = useState(`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`)
 
   useEffect(() => {
     getTitle()

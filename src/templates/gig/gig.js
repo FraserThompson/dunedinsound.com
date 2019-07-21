@@ -18,6 +18,7 @@ export default React.memo(({ data, location }) => {
   const [cover, setCover] = useState(data.thisPost.frontmatter.cover)
 
   useEffect(() => {
+    console.log(location.state)
     if (typeof window !== `undefined` && window.location.hash) {
       scrollTo(null, window.location.hash.substring(1))
     } else if (typeof window !== `undefined` && window.previousPath && window.previousPath !== window.location.href) {

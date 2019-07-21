@@ -8,14 +8,19 @@ import { MdKeyboardArrowUp, MdKeyboardArrowLeft } from 'react-icons/md'
 export default React.memo(({ to, gigSlug, gigYear, title, type = 'left' }) =>
   type == 'left' ? (
     <BackButton>
-      <Link style={{ position: 'absolute', left: '0px' }} title="Back to Gigs" to={to || '/gigs/'} state={{ gigFrom: { slug: gigSlug, year: gigYear } }}>
+      <Link
+        style={{ position: 'absolute', left: '0px' }}
+        title={title || 'Back to Gigs'}
+        to={to || '/gigs/'}
+        state={{ gigFrom: { slug: gigSlug, year: gigYear } }}
+      >
         <MdKeyboardArrowLeft />
       </Link>
     </BackButton>
   ) : (
     <Wrapper>
-      <Link title={title} to={to || '/gigs/'} state={{ gigFrom: { slug: gigSlug, year: gigYear } }}>
-        <p>☝ {title} ☝</p>
+      <Link title={title || 'Back to Gigs'} to={to || '/gigs/'} state={{ gigFrom: { slug: gigSlug, year: gigYear } }}>
+        <p>☝ {title || 'Back to Gigs'} ☝</p>
         <MdKeyboardArrowUp />
       </Link>
     </Wrapper>

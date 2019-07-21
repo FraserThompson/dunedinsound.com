@@ -10,22 +10,9 @@ export default ({ data, location }) => {
   const [hoveredNode, setHoveredNode] = useState(false)
   const [perspective, setPerspective] = useState('300px')
 
-  const [devicePosition, setDevicePosition] = useState(null)
-
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = data.site.siteMetadata.description
   const posts = data.allBlogs.edges
-
-  useEffect(() => {
-    if (window.DeviceMotionEvent) {
-      window.addEventListener('devicemotion', deviceMotionHandler, true)
-    }
-  }, [])
-
-  const deviceMotionHandler = e => {
-    console.log(e)
-    setDevicePosition(e.acceleration)
-  }
 
   useEffect(() => {
     hoveredNode && speak(hoveredNode.frontmatter.title)
@@ -57,7 +44,7 @@ export default ({ data, location }) => {
 
   return (
     <Layout location={location} description={siteDescription} title={`VAULT SESSIONS | ${siteTitle}`} overrideBackgroundColor="white">
-      <World perspective={perspective} lights={lights} devicePosition={devicePosition}>
+      <World perspective={perspective} lights={lights}>
         <Logo position="top">
           <img style={{ filter: 'invert(80%)' }} src={lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL} />
         </Logo>
@@ -73,8 +60,6 @@ export default ({ data, location }) => {
             </article>
           ))}
         </div>
-
-        <WallArt>{devicePosition && <h2>{Object.values(devicePosition).map(thing => thing)}</h2>}</WallArt>
         <WallArt>{hoveredNode && <Img fluid={hoveredNode.frontmatter.cover.childImageSharp.fluid} />}</WallArt>
       </World>
     </Layout>

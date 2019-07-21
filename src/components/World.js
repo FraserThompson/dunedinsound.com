@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 
 const WorldWrapper = styled.div`
   overflow: hidden;
+  background-color: black;
   perspective: ${props => props.perspective || '300px'};
   transition: all 0.3s ease-in-out;
   width: 100%;
@@ -34,7 +35,7 @@ const WorldWrapper = styled.div`
     background-color: black;
     bottom: 0;
     transform-origin: center bottom;
-    transform: rotateX(90deg);
+    transform: rotateX(90deg) skew(${props => -props.deviceTiltDeg}deg);
     height: 600px;
     width: 100vw;
   }
@@ -43,7 +44,7 @@ const WorldWrapper = styled.div`
     background-color: #191919;
     top: 0;
     transform-origin: center top;
-    transform: rotateX(-90deg);
+    transform: rotateX(-90deg) skew(${props => props.deviceTiltDeg}deg);
     height: 600px;
     width: 100vw;
   }
@@ -52,7 +53,7 @@ const WorldWrapper = styled.div`
     background-color: #191919;
     left: 0;
     transform-origin: left center;
-    transform: rotateY(90deg);
+    transform: rotateY(${props => 90 - props.deviceTiltDeg}deg);
     height: 100vh;
     width: 600px;
   }
@@ -61,7 +62,7 @@ const WorldWrapper = styled.div`
     background-color: #191919;
     right: 0;
     transform-origin: right center;
-    transform: rotateY(-90deg);
+    transform: rotateY(${props => -90 - props.deviceTiltDeg}deg);
     height: 100vh;
     width: 600px;
   }
@@ -70,7 +71,7 @@ const WorldWrapper = styled.div`
     height: 100vh;
     width: 100vw;
     background-color: darkblue;
-    transform: translateZ(-600px);
+    transform: translateZ(-600px) translateX(${props => props.deviceTilt}px);
   }
 
   h2 {
@@ -84,7 +85,7 @@ const WorldWrapper = styled.div`
   }
 
   .posts {
-    transform: translateZ(-600px);
+    transform: translateZ(-600px) translateX(${props => props.deviceTilt}px);
     article {
       transition: all 0.3s ease-in-out;
       background-color: rgba(0, 0, 0, 0.8);
@@ -105,13 +106,34 @@ const WorldWrapper = styled.div`
   }
 `
 
-export default React.memo(({ perspective, lights = 'off', children, devicePosition }) => (
-  <WorldWrapper perspective={perspective}>
-    <div className={`checkers ${lights}`} id="checkersBack"></div>
-    <div className={`checkers ${lights}`} id="checkersT"></div>
-    <div className={`checkers ${lights}`} id="checkersL"></div>
-    <div className={`checkers ${lights}`} id="checkersR"></div>
-    <div className={`checkers ${lights}`} id="checkersB"></div>
-    {children}
-  </WorldWrapper>
-))
+export default React.memo(({ perspective, lights = 'off', children }) => {
+  const [deviceTilt, setDeviceTilt] = useState(0)
+  var averageGamma = []
+  window.requestAnimationFrame =
+    window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
+
+  useEffect(() => {
+    if (window.DeviceMotionEvent) {
+      window.addEventListener(
+        'deviceorientation',
+        eventData => {
+          if (averageGamma.length > 8) averageGamma.shift()
+          averageGamma.push(eventData.gamma)
+          window.requestAnimationFrame(() => setDeviceTilt(averageGamma.reduce((a, b) => a + b) / averageGamma.length))
+        },
+        false
+      )
+    }
+  }, [])
+
+  return (
+    <WorldWrapper perspective={perspective} deviceTilt={deviceTilt} deviceTiltDeg={deviceTilt / 10.5}>
+      <div className={`checkers ${lights}`} id="checkersBack"></div>
+      <div className={`checkers ${lights}`} id="checkersT"></div>
+      <div className={`checkers ${lights}`} id="checkersL"></div>
+      <div className={`checkers ${lights}`} id="checkersR"></div>
+      <div className={`checkers ${lights}`} id="checkersB"></div>
+      {children}
+    </WorldWrapper>
+  )
+})
