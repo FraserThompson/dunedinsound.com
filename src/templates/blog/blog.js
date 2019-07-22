@@ -8,7 +8,7 @@ import BlogContainer from '../../components/BlogContainer'
 import Banner from '../../components/Banner'
 import GridContainer from '../../components/GridContainer'
 
-export default React.memo(({ data, pageContext, location }) => {
+export default React.memo(({ data, pageContext }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
@@ -26,7 +26,7 @@ export default React.memo(({ data, pageContext, location }) => {
 
   return (
     <Layout
-      location={location}
+      location={typeof window !== `undefined` && window.location}
       date={post.frontmatter.date}
       description={siteDescription}
       title={`${post.frontmatter.title} | ${siteTitle}`}

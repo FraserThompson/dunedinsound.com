@@ -36,7 +36,10 @@ import { lighten } from 'polished'
 
 export default React.memo(({ location, data, pageDescription, parent, background }) => {
   useEffect(() => {
-    location.state && location.state.gigFrom && setTimeout(() => scrollTo(null, location.state.gigFrom.slug, 57 + 43 + 29))
+    typeof window !== `undefined` &&
+      window.history.state &&
+      window.history.state.gigFrom &&
+      setTimeout(() => scrollTo(null, window.history.state.gigFrom.slug, 57 + 43 + 29), 50)
   }, [gigTiles])
 
   const cover = data.images && data.images.edges.length !== 0 && data.images.edges[0].node

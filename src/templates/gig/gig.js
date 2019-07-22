@@ -18,7 +18,6 @@ export default React.memo(({ data, location }) => {
   const [cover, setCover] = useState(data.thisPost.frontmatter.cover)
 
   useEffect(() => {
-    console.log(location.state)
     if (typeof window !== `undefined` && window.location.hash) {
       scrollTo(null, window.location.hash.substring(1))
     } else if (typeof window !== `undefined` && window.previousPath && window.previousPath !== window.location.href) {
@@ -73,7 +72,7 @@ export default React.memo(({ data, location }) => {
 
   return (
     <Layout
-      location={location}
+      location={typeof window !== `undefined` && window.location}
       description={`Photos, audio and video from ${gigTitle}.`}
       image={cover && cover.src}
       title={`${gigTitle} | ${data.site.siteMetadata.title}`}
@@ -82,7 +81,11 @@ export default React.memo(({ data, location }) => {
       hideBrandOnMobile={true}
       scrollHeaderContent={
         <>
-          <BackButton to={location.state && location.state.from} gigSlug={data.thisPost.fields.slug} gigYear={data.thisPost.frontmatter.date.split(' ')[2]} />
+          <BackButton
+            to={typeof window !== `undefined` && window.history.state && window.history.state.from}
+            gigSlug={data.thisPost.fields.slug}
+            gigYear={data.thisPost.frontmatter.date.split(' ')[2]}
+          />
           <HeaderTitle onClick={e => scrollTo(e, 'top')} href="#top" title="Scroll to top">
             <h1 className="big">{gigTitle}</h1>
           </HeaderTitle>

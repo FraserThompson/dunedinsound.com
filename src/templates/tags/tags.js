@@ -7,7 +7,7 @@ import TagCloud from '../../components/TagCloud'
 import Banner from '../../components/Banner'
 import { rhythm } from '../../utils/typography'
 
-export default React.memo(({ data, location, pageContext }) => {
+export default React.memo(({ data, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = data.site.siteMetadata.description
   const posts = data.allBlogs.edges
@@ -35,7 +35,12 @@ export default React.memo(({ data, location, pageContext }) => {
   ))
 
   return (
-    <Layout location={location} description={siteDescription} title={`Blog | ${siteTitle}`} overrideBackgroundColor="white">
+    <Layout
+      location={typeof window !== `undefined` && window.location}
+      description={siteDescription}
+      title={`Blog | ${siteTitle}`}
+      overrideBackgroundColor="white"
+    >
       <BlogContainer>
         <TagCloud blogTags={blogTags} selected={pageContext.tag} />
         {postElements}

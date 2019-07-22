@@ -42,29 +42,44 @@ export default ({ data, location }) => {
     setLights('off')
   })
 
+  const backWallContent = (
+    <Posts>
+      {posts.map(({ node }) => (
+        <article key={node.fields.slug}>
+          <Link onMouseOver={() => thingHover(node)} onMouseOut={thingUnhover} to={node.fields.slug}>
+            <h2>{node.frontmatter.title}</h2>
+          </Link>
+        </article>
+      ))}
+    </Posts>
+  )
+
   return (
     <Layout location={location} description={siteDescription} hideBrandOnMobile={true} title={`VAULT SESSIONS | ${siteTitle}`} overrideBackgroundColor="white">
-      <World perspective={perspective} lights={lights} animated={true}>
+      <World perspective={perspective} lights={lights} animated={true} backWallContent={backWallContent}>
         <Logo position="top">
           <img style={{ filter: 'invert(80%)' }} src={lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL} />
         </Logo>
         <Logo position="bottom">
           <img style={{ filter: 'invert(80%)' }} src={lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL} />
         </Logo>
-        <div className="posts">
-          {posts.map(({ node }) => (
-            <article key={node.fields.slug}>
-              <Link onMouseOver={() => thingHover(node)} onMouseOut={thingUnhover} to={node.fields.slug}>
-                <h2>{node.frontmatter.title}</h2>
-              </Link>
-            </article>
-          ))}
-        </div>
+
         <WallArt>{hoveredNode && <Img fluid={hoveredNode.frontmatter.cover.childImageSharp.fluid} />}</WallArt>
       </World>
     </Layout>
   )
 }
+
+const Posts = styled.div`
+  article {
+    transition: filter 0.3s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 10px dotted yellow;
+    &:hover {
+      filter: invert(1);
+    }
+  }
+`
 
 export const pageQuery = graphql`
   query {

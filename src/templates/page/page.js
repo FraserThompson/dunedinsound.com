@@ -3,13 +3,18 @@ import { graphql } from 'gatsby'
 import Layout from '../../components/Layout'
 import BlogContainer from '../../components/BlogContainer'
 
-export default React.memo(({ data, location }) => {
+export default React.memo(({ data }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
 
   return (
-    <Layout location={location} description={siteDescription} title={`${post.frontmatter.title} | ${siteTitle}`} overrideBackgroundColor="white">
+    <Layout
+      location={typeof window !== `undefined` && window.location}
+      description={siteDescription}
+      title={`${post.frontmatter.title} | ${siteTitle}`}
+      overrideBackgroundColor="white"
+    >
       <BlogContainer>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
       </BlogContainer>

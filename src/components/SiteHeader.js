@@ -34,7 +34,12 @@ export default React.memo(({ scrollHeaderContent, isSidebar, headerContent, hide
   }, [])
 
   return (
-    <Container className="header" isSidebar={isSidebar} hideOnMobile={(scrollHeaderContent && !scrolled) || !headerContent} backgroundColor={backgroundColor}>
+    <Container
+      className="header"
+      isSidebar={isSidebar}
+      hideOnMobile={(!headerContent && !scrollHeaderContent) || (scrollHeaderContent && !scrolled)}
+      backgroundColor={backgroundColor}
+    >
       {!scrolled && (
         <Brand hideOnMobile={hideBrandOnMobile}>
           <Link to="/">Dunedin Gig Archives</Link>

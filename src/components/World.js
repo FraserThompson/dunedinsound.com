@@ -1,7 +1,9 @@
 import React, { useEffect, useCallback, useRef, useLayoutEffect } from 'react'
 import styled from '@emotion/styled'
 
-export default React.memo(({ perspective, lights = 'off', animated, children }) => {
+export default React.memo(({ perspective, lights = 'off', animated, backWallContent, children }) => {
+  const maxTilt = 25
+
   const callbackRef = useRef()
   const frameRef = useRef()
 
@@ -10,7 +12,6 @@ export default React.memo(({ perspective, lights = 'off', animated, children }) 
   const leftRef = useRef()
   const rightRef = useRef()
   const bottomRef = useRef()
-  const childrenRef = useRef()
 
   const loop = () => {
     frameRef.current = window.requestAnimationFrame(loop)
@@ -35,24 +36,29 @@ export default React.memo(({ perspective, lights = 'off', animated, children }) 
 
   // Update position on all faces
   const updatePosition = useCallback(({ gamma, beta }) => {
-    const gammaDeg = gamma ? gamma / 10.5 : 0
-    const betaDeg = beta ? beta / 10.5 : 0
-    backRef.current.style.transform = `translate3d(${gamma}px, ${beta}px, -600px)`
-    childrenRef.current.style.transform = `translate3d(${gamma}px, ${beta}px, -600px)`
-    topRef.current.style.transform = `translateZ(0) rotate3d(1, 0, 0, ${-90 + betaDeg}deg) skew(${gammaDeg}deg)`
-    bottomRef.current.style.transform = `translateZ(0) rotate3d(1, 0, 0, ${90 + betaDeg}deg) skew(${-gammaDeg}deg)`
-    leftRef.current.style.transform = `translateZ(0) rotate3d(0, 1, 0, ${90 - gammaDeg}deg) skew(0, ${betaDeg}deg)`
-    rightRef.current.style.transform = `translateZ(0) rotate3d(0, 1, 0, ${-90 - gammaDeg}deg) skew(0, ${-betaDeg}deg)`
+    const tiltX = gamma > 0 ? Math.min(gamma, maxTilt) : Math.max(gamma, maxTilt * -1)
+    const tiltY = beta > 0 ? Math.min(beta, maxTilt) : Math.max(beta, maxTilt * -1)
+
+    const tiltXDeg = tiltX / 10.5
+    const tiltYDeg = tiltY / 10.5
+
+    backRef.current.style.transform = `translate3d(${tiltX}px, ${tiltY}px, -600px)`
+    topRef.current.style.transform = `translateZ(0) rotate3d(1, 0, 0, ${-90 + tiltYDeg}deg) skew(${tiltXDeg}deg)`
+    bottomRef.current.style.transform = `translateZ(0) rotate3d(1, 0, 0, ${90 + tiltYDeg}deg) skew(${-tiltXDeg}deg)`
+    leftRef.current.style.transform = `translateZ(0) rotate3d(0, 1, 0, ${90 - tiltXDeg}deg) skew(0, ${tiltYDeg}deg)`
+    rightRef.current.style.transform = `translateZ(0) rotate3d(0, 1, 0, ${-90 - tiltXDeg}deg) skew(0, ${-tiltYDeg}deg)`
   }, [])
 
   return (
     <WorldWrapper perspective={perspective}>
-      <Back ref={backRef} className={`${lights}`} />
+      <Back ref={backRef} className={`${lights}`}>
+        {backWallContent}
+      </Back>
       <Top ref={topRef} className={`${lights}`} />
       <Left ref={leftRef} className={`${lights}`} />
       <Right ref={rightRef} className={`${lights}`} />
       <Bottom ref={bottomRef} className={`${lights}`} />
-      <Children ref={childrenRef}>{children}</Children>
+      <Children>{children}</Children>
     </WorldWrapper>
   )
 })
@@ -140,7 +146,10 @@ const WorldWrapper = styled.div`
     height: auto;
     text-align: center;
     text-shadow: 2px 2px 0px black, -2px -2px 0px white, 4px 4px 0px black, -4px -4px 0px white, 0 0 60px purple;
-    font-size: 12vh;
+    font-size: 10vh;
+    @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
+      font-size: 12vh;
+    }
   }
 
   @keyframes camFocus {
@@ -154,16 +163,4 @@ const WorldWrapper = styled.div`
 `
 const Children = styled.div`
   height: 100%;
-  .posts {
-    transform: translate3d(0, 0, -600px);
-    will-change: transform;
-    article {
-      transition: filter 0.3s ease-in-out;
-      background-color: rgba(0, 0, 0, 0.8);
-      border: 10px dotted yellow;
-      &:hover {
-        filter: invert(1);
-      }
-    }
-  }
 `

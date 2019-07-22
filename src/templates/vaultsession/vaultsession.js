@@ -8,7 +8,7 @@ import PlayerContainer from '../../components/PlayerContainer'
 import VideoControls from './VideoControls'
 import { timeToSeconds } from '../../utils/helper'
 
-export default ({ data, location }) => {
+export default ({ data }) => {
   const post = data.markdownRemark
 
   const siteTitle = data.site.siteMetadata.title
@@ -43,7 +43,7 @@ export default ({ data, location }) => {
 
   return (
     <Layout
-      location={location}
+      location={typeof window !== `undefined` && window.location}
       description={siteDescription}
       image={post.frontmatter.cover.publicURL}
       hideBrandOnMobile={true}

@@ -5,10 +5,10 @@ import Tile from '../../components/Tile'
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
 import BackButton from '../../components/BackButton'
 
-export default React.memo(({ data, location }) => (
+export default React.memo(({ data }) => (
   <>
     <BackButton
-      to={location.state && location.state.from}
+      to={typeof window !== `undefined` && window.history.state && window.history.state.from}
       title="Back to Gigs"
       gigSlug={data.thisPost.fields.slug}
       gigYear={data.thisPost.frontmatter.date.split(' ')[2]}
