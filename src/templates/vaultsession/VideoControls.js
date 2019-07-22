@@ -45,7 +45,9 @@ export default React.memo(({ tracklist, playerTarget, fullDownloadLink }) => {
 })
 
 const Tracklist = styled.ul`
-  transition: all 0.2s ease-in-out;
+  transition-property: z-index, transform, background;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
   transform: rotateY(90deg);
   position: absolute;
   left: 0;

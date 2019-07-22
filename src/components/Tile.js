@@ -62,6 +62,7 @@ export default ({
       </TitleWrapper>
     </>
   )
+  console.log(location)
   return (
     <Container
       backgroundColor={backgroundColor}

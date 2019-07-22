@@ -60,10 +60,11 @@ const DropdownMenu = styled(Menu)`
   transform: ${props =>
     props.open ? 'translateY(0)' : props.direction == 'up' ? `translateY(${props.theme.headerHeight})` : `translateY(-${props.theme.headerHeight})`};
   pointer-events: ${props => (props.open ? 'auto' : 'none')};
-  transition-property: all;
+  transition-property: visibility, opacity, transform;
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0, 0, 0, 1.2);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+
   .title {
     ${scale(1)}
   }

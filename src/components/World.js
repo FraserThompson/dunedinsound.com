@@ -1,24 +1,58 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useCallback, useRef, useLayoutEffect } from 'react'
 import styled from '@emotion/styled'
 
 export default React.memo(({ perspective, lights = 'off', animated, children }) => {
-  const [deviceTilt, setDeviceTilt] = useState(0)
+  const callbackRef = useRef()
+  const frameRef = useRef()
+
+  const backRef = useRef()
+  const topRef = useRef()
+  const leftRef = useRef()
+  const rightRef = useRef()
+  const bottomRef = useRef()
+  const childrenRef = useRef()
+
+  const loop = () => {
+    frameRef.current = window.requestAnimationFrame(loop)
+    const cb = callbackRef.current
+    cb && cb()
+  }
+
+  useLayoutEffect(() => {
+    frameRef.current = typeof window !== `undefined` && window.requestAnimationFrame(loop)
+    return () => typeof window !== `undefined` && window.cancelAnimationFrame(frameRef.current)
+  }, [])
 
   useEffect(() => {
     if (typeof window !== `undefined` && animated && window.DeviceMotionEvent) window.addEventListener('deviceorientation', orientationChange, false)
     return () => typeof window !== `undefined` && animated && window.removeEventListener('deviceorientation', orientationChange)
   }, [])
 
-  const orientationChange = useCallback(eventData => setDeviceTilt(eventData.gamma || 0), [])
+  // Fired whenever device orientation changes
+  const orientationChange = useCallback(eventData => {
+    callbackRef.current = () => updatePosition(eventData)
+  }, [])
+
+  // Update position on all faces
+  const updatePosition = useCallback(({ gamma, beta }) => {
+    const gammaDeg = gamma ? gamma / 10.5 : 0
+    const betaDeg = beta ? beta / 10.5 : 0
+    backRef.current.style.transform = `translate3d(${gamma}px, ${beta}px, -600px)`
+    childrenRef.current.style.transform = `translate3d(${gamma}px, ${beta}px, -600px)`
+    topRef.current.style.transform = `translateZ(0) rotate3d(1, 0, 0, ${-90 + betaDeg}deg) skew(${gammaDeg}deg)`
+    bottomRef.current.style.transform = `translateZ(0) rotate3d(1, 0, 0, ${90 + betaDeg}deg) skew(${-gammaDeg}deg)`
+    leftRef.current.style.transform = `translateZ(0) rotate3d(0, 1, 0, ${90 - gammaDeg}deg) skew(0, ${betaDeg}deg)`
+    rightRef.current.style.transform = `translateZ(0) rotate3d(0, 1, 0, ${-90 - gammaDeg}deg) skew(0, ${-betaDeg}deg)`
+  }, [])
 
   return (
     <WorldWrapper perspective={perspective}>
-      <Back className={`${lights}`} deviceTilt={deviceTilt} deviceTiltDeg={deviceTilt ? deviceTilt / 10.5 : 0} />
-      <Top className={`${lights}`} deviceTilt={deviceTilt} deviceTiltDeg={deviceTilt ? deviceTilt / 10.5 : 0} />
-      <Left className={`${lights}`} deviceTilt={deviceTilt} deviceTiltDeg={deviceTilt ? deviceTilt / 10.5 : 0} />
-      <Right className={`${lights}`} deviceTilt={deviceTilt} deviceTiltDeg={deviceTilt ? deviceTilt / 10.5 : 0} />
-      <Bottom className={`${lights}`} deviceTilt={deviceTilt} deviceTiltDeg={deviceTilt ? deviceTilt / 10.5 : 0} />
-      <Children deviceTilt={deviceTilt}>{children}</Children>
+      <Back ref={backRef} className={`${lights}`} />
+      <Top ref={topRef} className={`${lights}`} />
+      <Left ref={leftRef} className={`${lights}`} />
+      <Right ref={rightRef} className={`${lights}`} />
+      <Bottom ref={bottomRef} className={`${lights}`} />
+      <Children ref={childrenRef}>{children}</Children>
     </WorldWrapper>
   )
 })
@@ -27,6 +61,9 @@ const Surface = styled.div`
   position: absolute;
   background-size: 30px 30px;
   background-position: 0 0, 50px 0, 50px -50px, 0px 50px;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
   &.off {
     background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, #000), color-stop(0.25, transparent)),
       -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #050505), color-stop(0.25, transparent)),
@@ -45,8 +82,7 @@ const Bottom = styled(Surface)`
   background-color: black;
   bottom: 0;
   transform-origin: center bottom;
-  transform: rotateX(90deg) skew(${props => -props.deviceTiltDeg}deg);
-  will-change: transform;
+  transform: translateZ(0) rotate3d(1, 0, 0, 90deg) skew(0deg);
   height: 600px;
   width: 100vw;
 `
@@ -55,8 +91,7 @@ const Top = styled(Surface)`
   background-color: #191919;
   top: 0;
   transform-origin: center top;
-  transform: rotateX(-90deg) skew(${props => props.deviceTiltDeg}deg);
-  will-change: transform;
+  transform: translateZ(0) rotate3d(1, 0, 0, -90deg) skew(0deg);
   height: 600px;
   width: 100vw;
 `
@@ -65,8 +100,7 @@ const Left = styled(Surface)`
   background-color: #191919;
   left: 0;
   transform-origin: left center;
-  transform: rotateY(${props => 90 - props.deviceTiltDeg}deg);
-  will-change: transform;
+  transform: translateZ(0) rotate3d(0, 1, 0, 90deg) skew(0, 0deg);
   height: 100vh;
   width: 600px;
 `
@@ -75,8 +109,7 @@ const Right = styled(Surface)`
   background-color: #191919;
   right: 0;
   transform-origin: right center;
-  transform: rotateY(${props => -90 - props.deviceTiltDeg}deg);
-  will-change: transform;
+  transform: translateZ(0) rotate3d(0, 1, 0, -90deg) skew(0, 0deg);
   height: 100vh;
   width: 600px;
 `
@@ -85,18 +118,18 @@ const Back = styled(Surface)`
   height: 100vh;
   width: 100vw;
   background-color: darkblue;
-  transform: translateZ(-600px) translateX(${props => props.deviceTilt}px);
+  transform: translate3d(0, 0, -600px);
   will-change: transform;
 `
 const WorldWrapper = styled.div`
   overflow: hidden;
   background-color: black;
   perspective: ${props => props.perspective || '300px'};
-  transition: all 0.3s ease-in-out;
+  transition: perspective 0.3s ease-in-out;
   width: 100%;
   height: calc(100vh - ${props => props.theme.headerHeight});
   position: relative;
-  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   transform-style: preserve-3d;
   animation: ${props => typeof InstallTrigger === 'undefined' && 'camFocus 2s'};
 
@@ -120,11 +153,12 @@ const WorldWrapper = styled.div`
   }
 `
 const Children = styled.div`
+  height: 100%;
   .posts {
-    transform: translateZ(-600px) translateX(${props => props.deviceTilt}px);
+    transform: translate3d(0, 0, -600px);
     will-change: transform;
     article {
-      transition: all 0.3s ease-in-out;
+      transition: filter 0.3s ease-in-out;
       background-color: rgba(0, 0, 0, 0.8);
       border: 10px dotted yellow;
       &:hover {

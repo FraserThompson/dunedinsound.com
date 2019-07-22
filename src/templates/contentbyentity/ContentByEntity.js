@@ -153,7 +153,7 @@ export default React.memo(({ location, data, pageDescription, parent, background
         }
         backgroundImage={cover}
         background={background}
-        customContent={<BackButton title={parent.title} to={parent.href} />}
+        customContent={<BackButton title={parent.title} to={parent.href} type="up" />}
       >
         <HorizontalNav>
           {data.thisPost.frontmatter.facebook && (

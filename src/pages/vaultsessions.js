@@ -43,7 +43,7 @@ export default ({ data, location }) => {
   })
 
   return (
-    <Layout location={location} description={siteDescription} title={`VAULT SESSIONS | ${siteTitle}`} overrideBackgroundColor="white">
+    <Layout location={location} description={siteDescription} hideBrandOnMobile={true} title={`VAULT SESSIONS | ${siteTitle}`} overrideBackgroundColor="white">
       <World perspective={perspective} lights={lights} animated={true}>
         <Logo position="top">
           <img style={{ filter: 'invert(80%)' }} src={lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL} />

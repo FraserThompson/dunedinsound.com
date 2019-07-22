@@ -46,6 +46,7 @@ export default ({ data, location }) => {
       location={location}
       description={siteDescription}
       image={post.frontmatter.cover.publicURL}
+      hideBrandOnMobile={true}
       title={`VAULT SESSION: ${post.frontmatter.title} | ${siteTitle}`}
       overrideBackgroundColor="white"
     >
@@ -136,7 +137,9 @@ const VideoWrapper = styled.div`
 `
 
 const Metadata = styled.div`
-  transition: all 0.2s ease-in-out;
+  transition-property: z-index, transform, background;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
   transform: rotateY(-90deg);
   position: absolute;
   right: 0;
