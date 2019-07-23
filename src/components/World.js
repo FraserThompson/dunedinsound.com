@@ -2,8 +2,6 @@ import React, { useEffect, useCallback, useRef, useLayoutEffect } from 'react'
 import styled from '@emotion/styled'
 
 export default React.memo(({ perspective, lights = 'off', animated, backWallContent, children }) => {
-  const maxTilt = 25
-
   const callbackRef = useRef()
   const frameRef = useRef()
 
@@ -13,11 +11,18 @@ export default React.memo(({ perspective, lights = 'off', animated, backWallCont
   const rightRef = useRef()
   const bottomRef = useRef()
 
+  // not very reacty but w/e
+  let tiltX = 0
+  let tiltY = 0
+
   const loop = () => {
     frameRef.current = window.requestAnimationFrame(loop)
     const cb = callbackRef.current
     cb && cb()
   }
+
+  // linear interpolation: takes the current and future point and averages it to smooth the animation
+  const lerp = useCallback((start, end, amt) => (1 - amt) * start + amt * end, [])
 
   useLayoutEffect(() => {
     frameRef.current = typeof window !== `undefined` && window.requestAnimationFrame(loop)
@@ -34,10 +39,10 @@ export default React.memo(({ perspective, lights = 'off', animated, backWallCont
     callbackRef.current = () => updatePosition(eventData)
   }, [])
 
-  // Update position on all faces
+  // Update position on all faces in a non-react way because it performs better
   const updatePosition = useCallback(({ gamma, beta }) => {
-    const tiltX = gamma > 0 ? Math.min(gamma, maxTilt) : Math.max(gamma, maxTilt * -1)
-    const tiltY = beta > 0 ? Math.min(beta, maxTilt) : Math.max(beta, maxTilt * -1)
+    tiltX = lerp(tiltX, gamma, 0.1)
+    tiltY = lerp(tiltY, beta, 0.1)
 
     const tiltXDeg = tiltX / 10.5
     const tiltYDeg = tiltY / 10.5

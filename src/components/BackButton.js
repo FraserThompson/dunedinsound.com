@@ -5,29 +5,27 @@ import { theme } from '../utils/theme'
 import { Link } from 'gatsby'
 import { MdKeyboardArrowUp, MdKeyboardArrowLeft } from 'react-icons/md'
 
-export default React.memo(({ to, gigSlug, gigYear, title, type = 'left' }) =>
-  type == 'left' ? (
-    <BackButton>
-      <Link
-        style={{ position: 'absolute', left: '0px' }}
-        title={title || 'Back to Gigs'}
-        to={to || '/gigs/'}
-        state={{ gigFrom: { slug: gigSlug, year: gigYear } }}
-      >
+export default React.memo(({ to = '/gigs/', gigSlug, gigYear, type = 'left' }) => {
+  const destination = to.split('/').filter(item => item)
+  const destinationText = `Back to ${destination.length > 1 ? destination[1].replace(/\_/g, ' ') : destination[0]}`
+
+  return type == 'left' ? (
+    <BackButtonLeft destinationText={destinationText}>
+      <Link style={{ position: 'absolute', left: '0px' }} title={destinationText} to={to} state={{ gigFrom: { slug: gigSlug, year: gigYear } }}>
         <MdKeyboardArrowLeft />
       </Link>
-    </BackButton>
+    </BackButtonLeft>
   ) : (
-    <Wrapper>
-      <Link title={title || 'Back to Gigs'} to={to || '/gigs/'} state={{ gigFrom: { slug: gigSlug, year: gigYear } }}>
-        <p>☝ {title || 'Back to Gigs'} ☝</p>
+    <BackButtonUp>
+      <Link title={destinationText} to={to} state={{ gigFrom: { slug: gigSlug, year: gigYear } }}>
+        <p>☝ {destinationText} ☝</p>
         <MdKeyboardArrowUp />
       </Link>
-    </Wrapper>
+    </BackButtonUp>
   )
-)
+})
 
-const Wrapper = styled.span`
+const BackButtonUp = styled.span`
   ${scale(4)};
   color: ${props => props.theme.textColor};
   position: absolute;
@@ -53,11 +51,13 @@ const Wrapper = styled.span`
   }
 `
 
-const BackButton = styled.div`
+const BackButtonLeft = styled.div`
   position: absolute;
   left: 0px;
   top: 0px;
   > a {
+    display: flex;
+    align-items: center;
     svg {
       height: ${props => props.theme.headerHeight};
       font-size: ${rhythm(1.8)};
@@ -66,6 +66,9 @@ const BackButton = styled.div`
     &:hover {
       svg {
         color: ${props => props.theme.secondaryColor};
+      }
+      ::after {
+        content: '${props => props.destinationText}';
       }
     }
   }

@@ -10,7 +10,7 @@ import { rhythm, scale } from '../utils/typography'
 import { lighten } from 'polished'
 import FadeInOut from './FadeInOut'
 
-export default styled(FadeInOut)`
+export default styled.div`
   width: ${props => props.width};
   text-align: ${props => props.textAlign || 'left'};
   background-color: ${props => props.backgroundColor || props.theme.primaryColor};

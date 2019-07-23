@@ -36,7 +36,6 @@ export default ({
   children,
   href,
   to,
-  location,
   id,
 }) => {
   const tileContent = (
@@ -73,7 +72,7 @@ export default ({
       id={id}
     >
       {to && (
-        <RouterLink to={to} title={title} state={{ from: location && location.pathname }}>
+        <RouterLink to={to} title={title} state={{ from: typeof window !== `undefined` && window.location.pathname }}>
           {tileContent}
         </RouterLink>
       )}

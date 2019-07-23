@@ -10,7 +10,7 @@ export default React.memo(({ data }) => {
 
   const pageDescription = `See photos, videos and audio recordings of live gigs featuring ${data.thisPost.frontmatter.title} and heaps of other local artists.`
 
-  return <ContentByEntity pageDescription={pageDescription} parent={parent} location={typeof window !== `undefined` && window.location} data={data} />
+  return <ContentByEntity pageDescription={pageDescription} parent={parent} data={data} />
 })
 
 export const pageQuery = graphql`

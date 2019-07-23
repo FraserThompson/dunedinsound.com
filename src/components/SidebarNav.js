@@ -23,7 +23,7 @@ export default React.memo(({ left, right, width, backgroundColor, open, toggle, 
       </MenuButton>
     </MenuButtonWrapper>
     <SidebarNavWrapper left={left} right={right} width={width} backgroundColor={backgroundColor} open={open}>
-      {children}
+      <List>{children}</List>
     </SidebarNavWrapper>
     <Transition mountOnEnter={true} unmountOnExit={true} in={!open} timeout={200}>
       {state => <PageOverlay state={state} onClick={toggle} />}
@@ -48,6 +48,7 @@ const SidebarNavWrapper = styled(Menu)`
   height: ${props => `calc(100vh - ${props.theme.headerHeightWithMobile})`};
   overflow-x: hidden;
   position: fixed;
+  width: ${props => props.width || DefaultWidth};
   max-width: ${props => props.width || DefaultWidth};
   top: ${props => props.theme.headerHeight};
   left: ${props => props.left && 0};
@@ -56,34 +57,36 @@ const SidebarNavWrapper = styled(Menu)`
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
   border-right: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
 
-  .label {
-    float: right;
-  }
+  visibility: ${props => (props.open ? 'hidden' : 'visible')};
+  opacity: ${props => (props.open ? '0' : '1')};
+  transform: ${props => (props.open ? `translateX(${(props.left ? '-' : '') + (props.width || DefaultWidth)})` : `translateX(0)`)};
+  pointer-events: ${props => (props.open ? 'none' : 'auto')};
+
+  transition-property: opacity, transform;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0, 0, 0, 1.2);
+  will-change: transform;
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     height: ${props => `calc(100vh - ${props.theme.headerHeight})`};
     width: 300px;
   }
 
-  transition-property: width, visibility, opacity, transform, pointer-events;
-  transition-duration: 0.3s;
-  transition-timing-function: cubic-bezier(0, 0, 0, 1.2);
-
-  visibility: ${props => (props.open ? 'hidden' : 'visible')};
-  opacity: ${props => (props.open ? '0' : '1')};
-  transform: ${props => (props.open ? `translateX(${(props.left ? '-' : '') + (props.width || DefaultWidth)})` : `translateY(0)`)};
-  pointer-events: ${props => (props.open ? 'none' : 'auto')};
-  width: ${props => props.width || DefaultWidth};
-
   @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
     visibility: ${props => (!props.open ? 'hidden' : 'visible')};
     opacity: ${props => (!props.open ? '0' : '1')};
-    transform: ${props => (!props.open ? `translateX(${(props.left ? '-' : '') + (props.width || DefaultWidth)})` : `translateY(0)`)};
+    transform: ${props => (!props.open ? `translateX(${(props.left ? '-' : '') + (props.width || DefaultWidth)})` : `translateX(0)`)};
     pointer-events: ${props => (!props.open ? 'none' : 'auto')};
   }
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     top: ${props => props.theme.headerHeight};
+  }
+`
+
+const List = styled.div`
+  .label {
+    float: right;
   }
 
   ul {

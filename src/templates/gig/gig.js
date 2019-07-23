@@ -12,15 +12,17 @@ import styled from '@emotion/styled'
 import { rhythm } from '../../utils/typography'
 import BackButton from '../../components/BackButton'
 
-export default React.memo(({ data, location }) => {
+export default React.memo(({ data }) => {
   const [artistMedia, setArtistMedia] = useState([])
   const [artistAudio, setArtistAudio] = useState([])
   const [cover, setCover] = useState(data.thisPost.frontmatter.cover)
+  const location = typeof window !== `undefined` && window.location
+  const history = typeof window !== `undefined` && window.history
 
   useEffect(() => {
-    if (typeof window !== `undefined` && window.location.hash) {
-      scrollTo(null, window.location.hash.substring(1))
-    } else if (typeof window !== `undefined` && window.previousPath && window.previousPath !== window.location.href) {
+    if (location.hash) {
+      scrollTo(null, location.hash.substring(1))
+    } else if (typeof window !== `undefined` && window.previousPath && window.previousPath !== location.href) {
       // We need to scroll to top manually because we disabled Gatsby's default behavior (see gatsby-browser.js) so our
       // lightbox back button feature works.
       window.scrollTo(0, 0)
@@ -72,7 +74,7 @@ export default React.memo(({ data, location }) => {
 
   return (
     <Layout
-      location={typeof window !== `undefined` && window.location}
+      location={location}
       description={`Photos, audio and video from ${gigTitle}.`}
       image={cover && cover.src}
       title={`${gigTitle} | ${data.site.siteMetadata.title}`}
@@ -81,11 +83,7 @@ export default React.memo(({ data, location }) => {
       hideBrandOnMobile={true}
       scrollHeaderContent={
         <>
-          <BackButton
-            to={typeof window !== `undefined` && window.history.state && window.history.state.from}
-            gigSlug={data.thisPost.fields.slug}
-            gigYear={data.thisPost.frontmatter.date.split(' ')[2]}
-          />
+          <BackButton to={history.state && history.state.from} gigSlug={data.thisPost.fields.slug} gigYear={data.thisPost.frontmatter.date.split(' ')[2]} />
           <HeaderTitle onClick={e => scrollTo(e, 'top')} href="#top" title="Scroll to top">
             <h1 className="big">{gigTitle}</h1>
           </HeaderTitle>

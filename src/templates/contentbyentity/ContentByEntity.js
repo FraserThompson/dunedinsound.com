@@ -34,7 +34,7 @@ import { scrollTo } from '../../utils/helper'
 import BackButton from '../../components/BackButton'
 import { lighten } from 'polished'
 
-export default React.memo(({ location, data, pageDescription, parent, background }) => {
+export default React.memo(({ data, pageDescription, parent, background }) => {
   useEffect(() => {
     typeof window !== `undefined` &&
       window.history.state &&
@@ -105,7 +105,7 @@ export default React.memo(({ location, data, pageDescription, parent, background
             </Divider>
             <FlexGridContainer>
               {edges.map(({ node }) => (
-                <GigTile id={node.fields.slug} node={node} key={node.fields.slug} location={location} imageSizes={gridSize} />
+                <GigTile id={node.fields.slug} node={node} key={node.fields.slug} imageSizes={gridSize} />
               ))}
             </FlexGridContainer>
           </div>
