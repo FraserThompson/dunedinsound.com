@@ -7,6 +7,7 @@ import YouTubeResponsive from '../../components/YouTubeResponsive'
 import PlayerContainer from '../../components/PlayerContainer'
 import VideoControls from './VideoControls'
 import { timeToSeconds } from '../../utils/helper'
+import { Logo } from '../../pages/vaultsessions'
 
 export default ({ data }) => {
   const post = data.markdownRemark
@@ -18,8 +19,54 @@ export default ({ data }) => {
   const [lights, setLights] = useState('off')
   const [artistAudio, setArtistAudio] = useState(null)
   const [playerTarget, setPlayerTarget] = useState(null)
+  const [hovered, setHovered] = useState(false)
 
   const getPlayerTarget = useCallback(target => setPlayerTarget(target), [])
+
+  const bottomContent = (
+    <Logo position="bottom">
+      <Link title="Back to all sessions" onMouseOver={() => setLights('on')} onMouseOut={() => setLights('off')} to="/vaultsessions">
+        <img style={{ filter: 'invert(80%)' }} src={lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL} />
+      </Link>
+    </Logo>
+  )
+
+  const topContent = (
+    <Title>
+      <h2>{post.frontmatter.title}</h2>
+      <h4>Recorded on {post.frontmatter.date}</h4>
+    </Title>
+  )
+
+  const leftContent = playerTarget && artistAudio && (
+    <VideoControls
+      tracklist={artistAudio[0].tracklist}
+      onHover={inOrOut => setHovered(inOrOut)}
+      playerTarget={playerTarget}
+      fullDownloadLink={artistAudio[0].audio[0]['.mp3'].publicURL}
+    />
+  )
+
+  const rightContent = (
+    <Metadata onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+      <h3>More from this artist</h3>
+      <ul>
+        <li>
+          <Link to={artist.fields.slug}>Gigs</Link>
+        </li>
+        {artist.frontmatter.facebook && (
+          <li>
+            <a href={artist.frontmatter.facebook}>Facebook</a>
+          </li>
+        )}
+        {artist.frontmatter.bandcamp && (
+          <li>
+            <a href={artist.frontmatter.bandcamp}>Bandcamp</a>
+          </li>
+        )}
+      </ul>
+    </Metadata>
+  )
 
   useEffect(() => {
     const audio = data.audio.edges.reduce((obj, item) => {
@@ -50,40 +97,17 @@ export default ({ data }) => {
       title={`VAULT SESSION: ${post.frontmatter.title} | ${siteTitle}`}
       overrideBackgroundColor="white"
     >
-      <World lights={lights} animated={false}>
-        <Title>
-          <h2>{post.frontmatter.title}</h2>
-          <h4>Recorded on {post.frontmatter.date}</h4>
-        </Title>
-        {playerTarget && artistAudio && (
-          <VideoControls tracklist={artistAudio[0].tracklist} playerTarget={playerTarget} fullDownloadLink={artistAudio[0].audio[0]['.mp3'].publicURL} />
-        )}
-        <Metadata>
-          <h3>More from this artist</h3>
-          <ul>
-            <li>
-              <Link to={artist.fields.slug}>Gigs</Link>
-            </li>
-            {artist.frontmatter.facebook && (
-              <li>
-                <a href={artist.frontmatter.facebook}>Facebook</a>
-              </li>
-            )}
-            {artist.frontmatter.bandcamp && (
-              <li>
-                <a href={artist.frontmatter.bandcamp}>Bandcamp</a>
-              </li>
-            )}
-          </ul>
-        </Metadata>
-        <VideoWrapper>
+      <World
+        lights={lights}
+        topContent={topContent}
+        bottomContent={bottomContent}
+        leftContent={leftContent}
+        rightContent={rightContent}
+        animated={'andChildren'}
+      >
+        <VideoWrapper hovered={hovered}>
           <YouTubeResponsive videoId={post.frontmatter.full_video} getPlayerTarget={getPlayerTarget} vanilla />
         </VideoWrapper>
-        <Logo position="bottom">
-          <Link title="Back to all sessions" onMouseOver={() => setLights('on')} onMouseOut={() => setLights('off')} to="/vaultsessions">
-            <img style={{ filter: 'invert(80%)' }} src={lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL} />
-          </Link>
-        </Logo>
       </World>
       {artistAudio && <PlayerContainer artistAudio={artistAudio} />}
     </Layout>
@@ -95,8 +119,6 @@ const Title = styled.div`
   top: 0px;
   z-index: 2;
   width: 100%;
-  transform: rotateX(-90deg);
-  transform-origin: center top;
   text-align: center;
   h1 {
     opacity: 0.5;
@@ -104,32 +126,19 @@ const Title = styled.div`
   }
 `
 
-const Logo = styled.div`
-  margin: 0 auto;
-  position: absolute;
-  top: ${props => props.position == 'top' && '0px'};
-  bottom: ${props => props.position == 'bottom' && '0px'};
-  z-index: 2;
-  width: 100%;
-  transform: ${props => (props.position == 'top' ? 'rotateX(-90deg)' : 'rotateX(90deg);')};
-  transform-origin: ${props => (props.position == 'top' ? 'center top' : 'center bottom')};
-  img {
-    transform: translateZ(-50px);
-    opacity: 1;
-    width: 100%;
-  }
-`
-
 const VideoWrapper = styled.div`
   background-color: black;
   bottom: 0;
   transform-origin: center bottom;
-  transform: translateZ(-50px) translateY(-50%) translateX(-50%);
+  transform: translateZ(-50px) translateY(${props => (props.hovered ? '-20%' : '-50%')}) translateX(-50%);
   width: 100vw;
   z-index: 4;
   position: relative;
   top: 50%;
   left: 50%;
+  transition-property: transform;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     width: 60vw;
@@ -137,17 +146,17 @@ const VideoWrapper = styled.div`
 `
 
 const Metadata = styled.div`
-  transition-property: z-index, transform, background;
+  transition-property: z-index, transform, background, box-shadow;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
-  transform: rotateY(-90deg);
   position: absolute;
   right: 0;
   z-index: 3;
   transform-origin: right center;
   &:hover {
     z-index: 10;
-    transform: rotateY(-20deg);
+    box-shadow: 0 0 30px purple;
+    transform: rotateY(80deg);
     background: rgba(0, 0, 0, 1);
   }
 `

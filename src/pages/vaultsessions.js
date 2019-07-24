@@ -42,28 +42,32 @@ export default ({ data, location }) => {
     setLights('off')
   })
 
-  const backWallContent = (
+  const backContent = (
     <Posts>
       {posts.map(({ node }) => (
-        <article key={node.fields.slug}>
-          <Link onMouseOver={() => thingHover(node)} onMouseOut={thingUnhover} to={node.fields.slug}>
+        <Link key={node.fields.slug} onMouseOver={() => thingHover(node)} onMouseOut={thingUnhover} to={node.fields.slug}>
+          <article>
             <h2>{node.frontmatter.title}</h2>
-          </Link>
-        </article>
+          </article>
+        </Link>
       ))}
     </Posts>
   )
 
+  const bottomContent = (
+    <Logo position="bottom">
+      <img style={{ filter: 'invert(80%)' }} src={lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL} />
+    </Logo>
+  )
+
+  const topContent = (
+    <Logo position="top">
+      <img style={{ filter: 'invert(80%)' }} src={lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL} />
+    </Logo>
+  )
   return (
     <Layout location={location} description={siteDescription} hideBrandOnMobile={true} title={`VAULT SESSIONS | ${siteTitle}`} overrideBackgroundColor="white">
-      <World perspective={perspective} lights={lights} animated={true} backWallContent={backWallContent}>
-        <Logo position="top">
-          <img style={{ filter: 'invert(80%)' }} src={lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL} />
-        </Logo>
-        <Logo position="bottom">
-          <img style={{ filter: 'invert(80%)' }} src={lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL} />
-        </Logo>
-
+      <World perspective={perspective} lights={lights} animated={true} backContent={backContent} bottomContent={bottomContent} topContent={topContent}>
         <WallArt>{hoveredNode && <Img fluid={hoveredNode.frontmatter.cover.childImageSharp.fluid} />}</WallArt>
       </World>
     </Layout>
@@ -72,9 +76,14 @@ export default ({ data, location }) => {
 
 const Posts = styled.div`
   article {
+    border-top: 2px solid darkcyan;
+    border-bottom: 2px solid darkcyan;
     transition: filter 0.3s ease-in-out;
     background-color: rgba(0, 0, 0, 0.8);
-    border: 10px dotted yellow;
+    h2 {
+      text-transform: uppercase;
+      color: #282828;
+    }
     &:hover {
       filter: invert(1);
     }
@@ -114,17 +123,14 @@ const WallArt = styled.div`
   height: 100%;
 `
 
-const Logo = styled.div`
+export const Logo = styled.div`
   margin: 0 auto;
   position: absolute;
   top: ${props => props.position == 'top' && '0px'};
   bottom: ${props => props.position == 'bottom' && '0px'};
   z-index: 2;
   width: 100%;
-  transform: ${props => (props.position == 'top' ? 'rotateX(-90deg)' : 'rotateX(90deg);')};
-  transform-origin: ${props => (props.position == 'top' ? 'center top' : 'center bottom')};
   img {
-    transform: translateZ(-50px);
     opacity: 1;
     width: 100%;
   }

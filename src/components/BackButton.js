@@ -6,8 +6,9 @@ import { Link } from 'gatsby'
 import { MdKeyboardArrowUp, MdKeyboardArrowLeft } from 'react-icons/md'
 
 export default React.memo(({ to = '/gigs/', gigSlug, gigYear, type = 'left' }) => {
-  const destination = to.split('/').filter(item => item)
-  const destinationText = `Back to ${destination.length > 1 ? destination[1].replace(/\_/g, ' ') : destination[0]}`
+  const pathComponents = to && typeof to == `string` && to.split('/').filter(item => item)
+  const destination = pathComponents && pathComponents.length > 1 ? pathComponents[1].replace(/\_/g, ' ') : pathComponents[0] || 'gigs'
+  const destinationText = `Back to ${destination}`
 
   return type == 'left' ? (
     <BackButtonLeft destinationText={destinationText}>
@@ -68,6 +69,7 @@ const BackButtonLeft = styled.div`
         color: ${props => props.theme.secondaryColor};
       }
       ::after {
+        background-color: ${props => props.theme.primaryColor};
         content: '${props => props.destinationText}';
       }
     }

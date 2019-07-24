@@ -32,7 +32,6 @@ import styled from '@emotion/styled'
 import ContentTabs from './ContentTabs'
 import { scrollTo } from '../../utils/helper'
 import BackButton from '../../components/BackButton'
-import { lighten } from 'polished'
 
 export default React.memo(({ data, pageDescription, parent, background }) => {
   useEffect(() => {
@@ -96,7 +95,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
 
         return (
           <div id={fieldValue} key={fieldValue}>
-            <Divider backgroundColor={lighten(0.5, theme.default.primaryColor)} color={theme.default.textColor} sticky={2}>
+            <Divider backgroundColor={theme.default.foregroundColor} color={theme.default.textColor} sticky={2}>
               <a style={{ width: '100%' }} onClick={e => scrollTo(e, fieldValue)} href={'#' + fieldValue}>
                 <small>
                   {fieldValue} ({yearSize})

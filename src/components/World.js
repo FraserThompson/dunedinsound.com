@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useRef, useLayoutEffect } from 'react'
 import styled from '@emotion/styled'
 
-export default React.memo(({ perspective, lights = 'off', animated, backWallContent, children }) => {
+export default React.memo(({ perspective, lights = 'off', animated, backContent, topContent, bottomContent, rightContent, leftContent, children }) => {
   const callbackRef = useRef()
   const frameRef = useRef()
 
@@ -14,6 +14,7 @@ export default React.memo(({ perspective, lights = 'off', animated, backWallCont
   // not very reacty but w/e
   let tiltX = 0
   let tiltY = 0
+  let initialBeta = false
 
   const loop = () => {
     frameRef.current = window.requestAnimationFrame(loop)
@@ -41,8 +42,10 @@ export default React.memo(({ perspective, lights = 'off', animated, backWallCont
 
   // Update position on all faces in a non-react way because it performs better
   const updatePosition = useCallback(({ gamma, beta }) => {
-    tiltX = lerp(tiltX, gamma, 0.1)
-    tiltY = lerp(tiltY, beta, 0.1)
+    if (!initialBeta) initialBeta = beta
+
+    tiltX = lerp(tiltX, gamma * 4, 0.1)
+    tiltY = lerp(tiltY, (beta - initialBeta) * 4, 0.1)
 
     const tiltXDeg = tiltX / 10.5
     const tiltYDeg = tiltY / 10.5
@@ -52,17 +55,31 @@ export default React.memo(({ perspective, lights = 'off', animated, backWallCont
     bottomRef.current.style.transform = `translateZ(0) rotate3d(1, 0, 0, ${90 + tiltYDeg}deg) skew(${-tiltXDeg}deg)`
     leftRef.current.style.transform = `translateZ(0) rotate3d(0, 1, 0, ${90 - tiltXDeg}deg) skew(0, ${tiltYDeg}deg)`
     rightRef.current.style.transform = `translateZ(0) rotate3d(0, 1, 0, ${-90 - tiltXDeg}deg) skew(0, ${-tiltYDeg}deg)`
+
+    if (tiltX < 0) {
+      leftRef.current.style.boxShadow = `inset 10px 10px 120px 35px rgba(${-tiltX},0,${-tiltX},0.75)`
+    } else {
+      rightRef.current.style.boxShadow = `inset 10px 10px 120px 35px rgba(${tiltX},0,${tiltX},0.75)`
+    }
   }, [])
 
   return (
     <WorldWrapper perspective={perspective}>
       <Back ref={backRef} className={`${lights}`}>
-        {backWallContent}
+        {backContent}
       </Back>
-      <Top ref={topRef} className={`${lights}`} />
-      <Left ref={leftRef} className={`${lights}`} />
-      <Right ref={rightRef} className={`${lights}`} />
-      <Bottom ref={bottomRef} className={`${lights}`} />
+      <Top ref={topRef} className={`${lights}`}>
+        {topContent}
+      </Top>
+      <Left ref={leftRef} className={`${lights}`}>
+        {leftContent}
+      </Left>
+      <Right ref={rightRef} className={`${lights}`}>
+        {rightContent}
+      </Right>
+      <Bottom ref={bottomRef} className={`${lights}`}>
+        {bottomContent}
+      </Bottom>
       <Children>{children}</Children>
     </WorldWrapper>
   )
@@ -70,22 +87,20 @@ export default React.memo(({ perspective, lights = 'off', animated, backWallCont
 
 const Surface = styled.div`
   position: absolute;
-  background-size: 30px 30px;
+  box-shadow: inset 10px 10px 120px 35px rgba(0, 0, 0, 0.75);
   background-position: 0 0, 50px 0, 50px -50px, 0px 50px;
   backface-visibility: hidden;
   transform-style: preserve-3d;
-  will-change: transform;
+  will-change: transform box-shadow;
   &.off {
-    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, #000), color-stop(0.25, transparent)),
-      -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #050505), color-stop(0.25, transparent)),
-      -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.75, transparent), color-stop(0.75, #161616)),
-      -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.75, transparent), color-stop(0.75, #282828));
+    background: radial-gradient(#191919 15%, transparent 15%) 0 0, radial-gradient(#292929 15%, transparent 15%) 16px 16px,
+      radial-gradient(rgba(255, 255, 255, 0.1) 15%, transparent 20%) 0 1px, radial-gradient(rgba(255, 255, 255, 0.1) 95%, transparent 20%) 16px 17px;
+    background-size: 32px 32px;
   }
   &.on {
-    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, white), color-stop(0.25, transparent)),
-      -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, transparent), color-stop(0.25, #050505)),
-      -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.75, #161616), color-stop(0.75, transparent)),
-      -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.75, #282828), color-stop(0.75, transparent));
+    background: radial-gradient(purple 15%, transparent 15%) 0 0, radial-gradient(yellow 15%, transparent 15%) 16px 16px,
+      radial-gradient(rgba(255, 255, 255, 0.1) 15%, transparent 20%) 0 1px, radial-gradient(rgba(255, 255, 255, 0.1) 15%, transparent 20%) 16px 17px;
+    background-size: 32px 32px;
   }
 `
 
@@ -150,7 +165,7 @@ const WorldWrapper = styled.div`
     letter-spacing: 2px;
     height: auto;
     text-align: center;
-    text-shadow: 2px 2px 0px black, -2px -2px 0px white, 4px 4px 0px black, -4px -4px 0px white, 0 0 60px purple;
+    text-shadow: 2px 2px 0px black, -2px -2px 0px white, 4px 4px 0px black, -4px -4px 0px white, 0 0 30px purple;
     font-size: 10vh;
     @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
       font-size: 12vh;

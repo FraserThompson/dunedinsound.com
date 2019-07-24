@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import styled from '@emotion/styled'
 
-export default React.memo(({ tracklist, playerTarget, fullDownloadLink }) => {
+export default React.memo(({ tracklist, playerTarget, fullDownloadLink, onHover }) => {
   const [playerSeconds, setPlayerSeconds] = useState(0)
 
   const seekVideoTo = useCallback(
@@ -20,7 +20,7 @@ export default React.memo(({ tracklist, playerTarget, fullDownloadLink }) => {
   }, [])
 
   return (
-    <Tracklist>
+    <Tracklist onMouseEnter={() => onHover(true)} onMouseLeave={() => onHover(false)}>
       <h3>Tracklist (click to seek)</h3>
       {tracklist.map((video, index) => {
         const nextTrackSeconds = index + 1 < tracklist.length && tracklist[index + 1].seconds
@@ -45,18 +45,18 @@ export default React.memo(({ tracklist, playerTarget, fullDownloadLink }) => {
 })
 
 const Tracklist = styled.ul`
-  transition-property: z-index, transform, background;
+  transition-property: z-index, transform, background, box-shadow;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
-  transform: rotateY(90deg);
   position: absolute;
   left: 0;
   z-index: 3;
-  transform-origin: left center;
   background: rgba(0, 0, 0, 0);
+  transform-origin: left center;
   &:hover {
-    z-index: 10;
-    transform: rotateY(20deg);
+    z-index: 13;
+    box-shadow: 0 0 30px purple;
+    transform: rotateY(-80deg);
     background: rgba(0, 0, 0, 1);
   }
 `
