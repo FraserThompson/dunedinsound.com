@@ -130,7 +130,7 @@ const VideoWrapper = styled.div`
   background-color: black;
   bottom: 0;
   transform-origin: center bottom;
-  transform: translateZ(-50px) translateY(${props => (props.hovered ? '-20%' : '-50%')}) translateX(-50%);
+  transform: translateZ(-50px) translateY(-50%) translateX(-50%) rotateX(${props => (props.hovered ? '90deg' : '0deg')});
   width: 100vw;
   z-index: 4;
   position: relative;

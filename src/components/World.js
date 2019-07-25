@@ -11,11 +11,6 @@ export default React.memo(({ perspective, lights = 'off', animated, backContent,
   const rightRef = useRef()
   const bottomRef = useRef()
 
-  // not very reacty but w/e
-  let tiltX = 0
-  let tiltY = 0
-  let initialBeta = false
-
   const loop = () => {
     frameRef.current = window.requestAnimationFrame(loop)
     const cb = callbackRef.current
@@ -40,12 +35,21 @@ export default React.memo(({ perspective, lights = 'off', animated, backContent,
     callbackRef.current = () => updatePosition(eventData)
   }, [])
 
+  // not very reacty but w/e
+  let tiltX = 0
+  let tiltY = 0
+  let initialBeta = false
+  let initialGamma = false
+
   // Update position on all faces in a non-react way because it performs better
   const updatePosition = useCallback(({ gamma, beta }) => {
     if (!initialBeta) initialBeta = beta
+    if (!initialGamma) initialGamma = gamma
 
-    tiltX = lerp(tiltX, gamma * 4, 0.1)
-    tiltY = lerp(tiltY, (beta - initialBeta) * 4, 0.1)
+    const portrait = window.innerHeight > window.innerWidth
+
+    tiltX = lerp(tiltX, portrait ? gamma * 4 : beta * 4, 0.1)
+    tiltY = lerp(tiltY, portrait ? (beta - initialBeta) * 4 : (gamma - initialGamma) * 4, 0.1)
 
     const tiltXDeg = tiltX / 10.5
     const tiltYDeg = tiltY / 10.5
