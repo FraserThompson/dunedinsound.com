@@ -95,7 +95,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
 
         return (
           <div id={fieldValue} key={fieldValue}>
-            <Divider backgroundColor={theme.default.foregroundColor} color={theme.default.textColor} sticky={2}>
+            <Divider backgroundColor={theme.default.foregroundColor} color={'white'} sticky={2}>
               <a style={{ width: '100%' }} onClick={e => scrollTo(e, fieldValue)} href={'#' + fieldValue}>
                 <small>
                   {fieldValue} ({yearSize})
