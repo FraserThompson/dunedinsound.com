@@ -45,7 +45,7 @@ const PageOverlay = styled(FadeInOut)`
 
 const SidebarNavWrapper = styled(Menu)`
   background-color: ${props => props.backgroundColor || props.theme.primaryColor};
-  height: ${props => `calc(100vh - ${props.theme.headerHeightWithMobile})`};
+  height: ${props => `calc(100vh - ${props.theme.headerHeightMobileTwice})`};
   overflow-x: hidden;
   position: fixed;
   width: ${props => props.width || DefaultWidth};

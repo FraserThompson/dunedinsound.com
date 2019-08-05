@@ -5,7 +5,6 @@ import DividerWrapper from './Divider'
 
 export default styled(DividerWrapper)`
   padding: 0;
-  height: ${props => props.theme.headerHeightMobile};
   position: ${props => props.sticky && 'sticky'};
   top: ${props => props.sticky && props.theme.headerHeightMobile};
   z-index: 7;
@@ -24,7 +23,6 @@ export default styled(DividerWrapper)`
     border-bottom-color: transparent;
     border-top: none;
     height: 100%;
-    line-height: ${rhythm(1.5)};
     padding-left: ${rhythm(0.5)};
     padding-right: ${rhythm(0.5)};
     text-overflow: clip;
@@ -40,6 +38,7 @@ export default styled(DividerWrapper)`
   }
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    height: ${props => props.theme.headerHeightMobile};
     top: ${props => props.sticky && props.theme.headerHeight};
   }
 `

@@ -34,7 +34,7 @@ export const DividerWrapper = styled.div`
   background-color: ${props => props.backgroundColor || props.theme.contrastColor};
   border-bottom: 1px solid ${props => darken(0.025, props.backgroundColor || props.theme.contrastColor)};
 
-  top: ${props => (props.sticky ? (props.sticky == 2 ? props.theme.headerHeightWithMobile : props.theme.headerHeightMobile) : '0')};
+  top: ${props => (props.sticky ? (props.sticky == 2 ? props.theme.headerHeightMobileWithSubheader : props.theme.headerHeightMobile) : '0')};
   position: ${props => (props.sticky ? 'sticky' : 'relative')};
   z-index: ${props => (props.sticky ? '6' : '5')};
 
@@ -54,6 +54,6 @@ export const DividerWrapper = styled.div`
   }
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    top: ${props => (props.sticky ? (props.sticky == 2 ? props.theme.headerHeightWithMobile : props.theme.headerHeight) : '0')};
+    top: ${props => (props.sticky ? (props.sticky == 2 ? props.theme.headerHeightWithSubheader : props.theme.headerHeight) : '0')};
   }
 `

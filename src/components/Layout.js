@@ -90,6 +90,7 @@ const MobileNav = styled.div`
       flex-grow: 1;
       padding: 0;
       text-align: center;
+      letter-spacing: -1px;
     }
   }
 `

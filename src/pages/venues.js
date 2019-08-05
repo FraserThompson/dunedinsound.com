@@ -4,9 +4,23 @@ import Layout from '../components/Layout'
 import Img from 'gatsby-image'
 import styled from '@emotion/styled'
 import { Map, Popup, TileLayer, Marker } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css'
+import marker from 'leaflet/dist/images/marker-icon.png'
+import marker2x from 'leaflet/dist/images/marker-icon-2x.png'
+import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 import SidebarNav from '../components/SidebarNav'
 import Search from '../components/Search'
 import HorizontalNav from '../components/HorizontalNav'
+
+// Weird hack to fix leaflet.css importing relative images
+if (typeof L !== 'undefined') {
+  delete L.Icon.Default.prototype._getIconUrl
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: marker2x,
+    iconUrl: marker,
+    shadowUrl: markerShadow,
+  })
+}
 
 const Sidebar = React.memo(({ menuItems, menuItemClick, setRef, selected }) => {
   const [open, setOpen] = useState(true)

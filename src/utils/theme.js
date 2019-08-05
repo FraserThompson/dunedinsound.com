@@ -4,7 +4,9 @@ export const theme = {
   default: {
     headerHeight: rhythm(2),
     headerHeightMobile: rhythm(1.5),
-    headerHeightWithMobile: rhythm(3),
+    headerHeightMobileTwice: rhythm(3),
+    headerHeightMobileWithSubheader: rhythm(2.5),
+    headerHeightWithSubheader: rhythm(3.5),
     headerHeightNeg: rhythm(-2),
     footerHeight: rhythm(4),
     waveformColor: '#01baef',
