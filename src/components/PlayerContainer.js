@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Player from './Player'
-import { MdKeyboardArrowUp } from 'react-icons/md'
+import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md'
 import styled from '@emotion/styled'
 import { lighten } from 'polished'
 import { rhythm } from '../utils/typography'
@@ -14,7 +14,7 @@ export default ({ artistAudio }) => {
         <>
           <div className="handle">
             <button title="Audio Player" onClick={() => setOpen(!open)}>
-              <small>AUDIO</small> <MdKeyboardArrowUp />
+              <small>AUDIO</small> {!open ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
             </button>
           </div>
           <Player artistAudio={artistAudio} />
@@ -26,31 +26,42 @@ export default ({ artistAudio }) => {
 
 const PlayerWrapper = styled.div`
   position: fixed;
-  bottom: ${props => (props.show ? props.theme.headerHeightMobile : rhythm(-0.5))};
+  bottom: 0px;
   z-index: 11;
   overflow: visible;
-  height: ${props => props.theme.headerHeight};
   margin-top: ${props => props.theme.headerHeightNeg};
-  opacity: 1;
-  background-color: ${props => props.theme.primaryColor};
   width: 100%;
-  transition: bottom 150ms ease-in-out;
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    bottom: ${props => (props.show ? '0px' : props.theme.headerHeightNeg)};
+
+  transform: ${props => (props.show ? `translateY(-${props.theme.headerHeightMobile})` : `translateY(100px)`)};
+  transition: transform 150ms ease-in-out;
+
+  .player {
+    pointer-events: ${props => (props.show ? 'auto' : 'none')};
+    visibility: ${props => (props.show ? '1' : '0')};
+    opacity: ${props => (props.show ? '1' : '0')};
+    transition: all 150ms ease-in-out;
   }
+
   .handle {
-    position: absolute;
+    position: ${props => (!props.show ? 'absolute' : 'static')};
     text-align: center;
     width: 100%;
-    bottom: ${props => props.theme.headerHeight};
+    bottom: calc(${props => props.theme.headerHeightMobile} + 100px);
+
+    @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+      bottom: 100px;
+    }
+
     svg {
       font-size: 2em;
       position: relative;
     }
+
     small {
       position: relative;
       bottom: 12px;
     }
+
     button {
       box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.175);
       border: none;
@@ -63,5 +74,9 @@ const PlayerWrapper = styled.div`
         background-color: ${props => lighten(0.2, props.theme.foregroundColor)};
       }
     }
+  }
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    transform: ${props => (props.show ? `translateY(0)` : `translateY(100px)`)};
   }
 `

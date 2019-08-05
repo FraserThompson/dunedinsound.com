@@ -11,7 +11,7 @@ export default React.memo(props => {
   return (
     <Menu {...props} horizontal right open>
       <Link className="showMobile" activeClassName="active" to="/">
-        <MdHome />
+        Home
       </Link>
       <Link getProps={isPartiallyActive} to="/gigs/">
         Gigs

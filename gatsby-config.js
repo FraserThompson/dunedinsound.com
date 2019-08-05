@@ -73,7 +73,12 @@ module.exports = {
       },
     },
     `gatsby-plugin-emotion`,
-    'gatsby-plugin-react-leaflet',
+    {
+      resolve: 'gatsby-plugin-react-leaflet',
+      options: {
+        linkStyles: false, // we want to manually get the CSS so its not on every page
+      },
+    },
     `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-sharp`,

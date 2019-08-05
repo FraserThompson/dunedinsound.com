@@ -50,7 +50,7 @@ const SidebarNavWrapper = styled(Menu)`
   position: fixed;
   width: ${props => props.width || DefaultWidth};
   max-width: ${props => props.width || DefaultWidth};
-  top: ${props => props.theme.headerHeight};
+  top: ${props => props.theme.headerHeightMobile};
   left: ${props => props.left && 0};
   right: ${props => props.right && 0};
   z-index: 10;
@@ -69,6 +69,7 @@ const SidebarNavWrapper = styled(Menu)`
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     height: ${props => `calc(100vh - ${props.theme.headerHeight})`};
+    top: ${props => props.theme.headerHeight};
     width: 300px;
   }
 
@@ -78,13 +79,10 @@ const SidebarNavWrapper = styled(Menu)`
     transform: ${props => (!props.open ? `translateX(${(props.left ? '-' : '') + (props.width || DefaultWidth)})` : `translateX(0)`)};
     pointer-events: ${props => (!props.open ? 'none' : 'auto')};
   }
-
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    top: ${props => props.theme.headerHeight};
-  }
 `
 
 const List = styled.div`
+  height: 100%;
   .label {
     float: right;
   }
@@ -106,7 +104,7 @@ const List = styled.div`
 
   > ul {
     overflow-y: auto;
-    height: 100vh;
+    height: 100%;
     > li {
       border-left: 5px solid transparent;
       &:hover:not(.active-parent) {

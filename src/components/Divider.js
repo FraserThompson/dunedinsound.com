@@ -26,27 +26,34 @@ export const DividerWrapper = styled.div`
   line-height: ${rhythm(1)};
   vertical-align: middle;
   width: 100%;
-  position: ${props => (props.sticky ? 'sticky' : 'relative')};
   display: flex;
   align-items: center;
-  top: ${props => (props.sticky ? (props.sticky == 2 ? props.theme.headerHeightWithMobile : props.theme.headerHeight) : '0')};
-  z-index: ${props => (props.sticky ? '6' : '5')};
   min-height: ${rhythm(1)};
   padding-left: ${rhythm(0.5)};
   padding-right: ${rhythm(0.5)};
   background-color: ${props => props.backgroundColor || props.theme.contrastColor};
   border-bottom: 1px solid ${props => darken(0.025, props.backgroundColor || props.theme.contrastColor)};
+
+  top: ${props => (props.sticky ? (props.sticky == 2 ? props.theme.headerHeightWithMobile : props.theme.headerHeightMobile) : '0')};
+  position: ${props => (props.sticky ? 'sticky' : 'relative')};
+  z-index: ${props => (props.sticky ? '6' : '5')};
+
   p {
     margin: 0;
     line-height: ${rhythm(1)};
     display: inline-block;
     vertical-align: middle;
   }
+
   a {
     color: ${props => props.color || 'black'};
     &:hover,
     &:active {
       color: ${props => props.color || 'black'};
     }
+  }
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    top: ${props => (props.sticky ? (props.sticky == 2 ? props.theme.headerHeightWithMobile : props.theme.headerHeight) : '0')};
   }
 `

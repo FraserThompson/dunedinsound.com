@@ -24,6 +24,10 @@ export default React.memo(({ placeholder = 'Search', filter }) => {
 const HeaderSearch = styled.input`
   width: 100%;
   z-index: 10;
-  margin-left: ${rhythm(0.25)};
-  margin-right: ${rhythm(0.25)};
+  margin-left: 1px;
+  margin-right: 1px;
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    margin-left: ${rhythm(0.25)};
+    margin-right: ${rhythm(0.25)};
+  }
 `

@@ -5,13 +5,15 @@
 
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import styled from '@emotion/styled'
-import { MdPlayArrow, MdPause, MdSkipNext, MdSkipPrevious } from 'react-icons/md'
+import { MdPlayArrow, MdPause, MdSkipNext, MdSkipPrevious, MdFileDownload } from 'react-icons/md'
 import { theme } from '../utils/theme'
 import PlayerMenu from './PlayerMenu'
 import RoundButton from './RoundButton'
 import { scale } from '../utils/typography'
 import LoadingSpinner from './LoadingSpinner'
 import { timeToSeconds } from '../utils/helper'
+import Menu from './Menu'
+import { lighten } from 'polished'
 
 export default React.memo(({ artistAudio }) => {
   const waveformRef = useRef()
@@ -38,7 +40,7 @@ export default React.memo(({ artistAudio }) => {
       WavesurferJS.create({
         container: waveformRef.current,
         waveColor: theme.default.waveformColor,
-        height: 45,
+        height: 60,
         hideScrollbar: true,
         normalize: true,
         responsive: true,
@@ -173,34 +175,59 @@ export default React.memo(({ artistAudio }) => {
   )
 
   return (
-    <PlayerWrapper>
-      {ready && (
-        <div>
-          <RoundButton id="prev" size="30px" onClick={previous}>
-            <MdSkipPrevious />
-          </RoundButton>
-          <RoundButton className={playing ? 'active' : ''} size="40px" onClick={() => wavesurfer.playPause()}>
-            {!playing ? <MdPlayArrow /> : <MdPause />}
-          </RoundButton>
-          <RoundButton id="next" size="30px" onClick={next}>
-            <MdSkipNext />
-          </RoundButton>
-        </div>
-      )}
-      <WaveWrapper ref={waveformRef}>
-        {ready && <LengthWrapper style={{ left: '0px' }}>{formatTime(currentTime)}</LengthWrapper>}
-        {ready && <LengthWrapper style={{ right: '0px' }}>{formatTime(duration)}</LengthWrapper>}
-      </WaveWrapper>
-      {!ready && (
-        <LoadingProgress>
-          <LoadingSpinner />
-        </LoadingProgress>
-      )}
-      <TitleWrapper className="title-wrapper">
-        <span>{artistAudio[selectedArtist].title}</span>
-      </TitleWrapper>
-      <PlayerMenu width="100%" selected={selectedArtist} selectCallback={selectArtist} seekCallback={seekToTime} list={artistAudio} />
-    </PlayerWrapper>
+    <div className="player">
+      <PlayerWrapper>
+        {ready && (
+          <div>
+            <RoundButton id="prev" size="30px" onClick={previous}>
+              <MdSkipPrevious />
+            </RoundButton>
+            <RoundButton className={playing ? 'active' : ''} size="40px" onClick={() => wavesurfer.playPause()}>
+              {!playing ? <MdPlayArrow /> : <MdPause />}
+            </RoundButton>
+            <RoundButton id="next" size="30px" onClick={next}>
+              <MdSkipNext />
+            </RoundButton>
+          </div>
+        )}
+        <WaveWrapper ref={waveformRef}>
+          {ready && <LengthWrapper style={{ left: '0px' }}>{formatTime(currentTime)}</LengthWrapper>}
+          {ready && <LengthWrapper style={{ right: '0px' }}>{formatTime(duration)}</LengthWrapper>}
+        </WaveWrapper>
+        {!ready && (
+          <LoadingProgress>
+            <LoadingSpinner />
+          </LoadingProgress>
+        )}
+      </PlayerWrapper>
+      <TracklistWrapper>
+        {artistAudio.map((item, index) => (
+          <div key={item.title}>
+            <li className={selectedArtist == index ? 'active' : ''} onClick={() => selectArtist(index)}>
+              <span id="title">
+                {index + 1}. {item.title}
+              </span>
+              <span className="listButton">
+                <a title={'Download MP3: ' + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank">
+                  <MdFileDownload />
+                </a>
+              </span>
+            </li>
+            {item.tracklist && (
+              <ul className="tracklist">
+                {item.tracklist.map(item => {
+                  return (
+                    <li key={item.title} onClick={() => seekToTime(item.time, index, true)}>
+                      {item.title} ({item.time})
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
+          </div>
+        ))}
+      </TracklistWrapper>
+    </div>
   )
 })
 
@@ -209,6 +236,7 @@ const PlayerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: ${props => props.theme.primaryColor};
 
   region.wavesurfer-region {
     cursor: pointer !important;
@@ -260,6 +288,22 @@ const PlayerWrapper = styled.div`
 
     #next {
       display: initial;
+    }
+  }
+`
+
+const TracklistWrapper = styled(Menu)`
+  .title {
+    ${scale(1)}
+  }
+  > li:hover:not(.active) {
+    background-color: ${props => lighten(0.1, props.theme.backgroundColor)};
+  }
+  .tracklist {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    li {
+      ${scale(-0.5)};
     }
   }
 `

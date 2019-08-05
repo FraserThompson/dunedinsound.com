@@ -61,19 +61,20 @@ const Container = styled.div`
   justify-items: center;
   top: 0px;
   z-index: 10;
-  height: ${props => props.theme.headerHeight};
+  height: ${props => props.theme.headerHeightMobile};
   color: ${props => props.theme.textColor};
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
   border-bottom: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
   padding-left: ${props => props.isSidebar && props.theme.headerHeightMobile};
 
+  h1 {
+    color: ${props => props.theme.textColor};
+  }
+
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     display: flex;
     padding-left: 0;
-  }
-
-  h1 {
-    color: ${props => props.theme.textColor};
+    height: ${props => props.theme.headerHeight};
   }
 `
 
@@ -94,11 +95,7 @@ const HeaderContent = styled.div`
 const Brand = styled.div`
   margin-right: auto;
   display: ${props => props.hideOnMobile && 'none'};
-  height: ${props => props.theme.headerHeight};
-
-  @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
-    display: block;
-  }
+  height: ${props => props.theme.headerHeightMobile};
 
   a {
     color: ${props => props.theme.textColor};
@@ -108,5 +105,12 @@ const Brand = styled.div`
       text-decoration: none;
       color: ${props => props.theme.secondaryColor};
     }
+  }
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    height: ${props => props.theme.headerHeight};
+  }
+  @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
+    display: block;
   }
 `

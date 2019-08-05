@@ -8,7 +8,6 @@
 import styled from '@emotion/styled'
 import { rhythm, scale } from '../utils/typography'
 import { lighten } from 'polished'
-import FadeInOut from './FadeInOut'
 
 export default styled.div`
   width: ${props => props.width};
@@ -78,7 +77,7 @@ export default styled.div`
     text-decoration: none;
     white-space: nowrap;
     color: ${props => props.theme.textColor};
-    line-height: ${props => props.height || props.theme.headerHeight};
+    line-height: ${props => props.height || props.theme.headerHeightMobile};
     margin: 0px;
     display: ${props => (props.horizontal ? 'inline-block' : 'block')};
     border-bottom: ${props => props.horizontal && 'none'};
@@ -105,6 +104,9 @@ export default styled.div`
         cursor: pointer;
         color: ${props => lighten(0.1, props.theme.foregroundColor)};
       }
+    }
+    @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+      line-height: ${props => props.height || props.theme.headerHeight};
     }
   }
 `

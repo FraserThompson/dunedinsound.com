@@ -60,9 +60,13 @@ const BackButtonLeft = styled.div`
     display: flex;
     align-items: center;
     svg {
-      height: ${props => props.theme.headerHeight};
-      font-size: ${rhythm(1.8)};
+      height: ${props => props.theme.headerHeightMobile};
+      font-size: ${rhythm(1.2)};
       color: ${props => props.theme.textColor};
+      @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+        font-size: ${rhythm(1.8)};
+        height: ${props => props.theme.headerHeight};
+      }
     }
     &:hover {
       svg {

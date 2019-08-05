@@ -39,7 +39,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
       window.history.state &&
       window.history.state.gigFrom &&
       setTimeout(() => scrollTo(null, window.history.state.gigFrom.slug, 57 + 43 + 29), 50)
-  }, [gigTiles])
+  }, [])
 
   const cover = data.images && data.images.edges.length !== 0 && data.images.edges[0].node
 

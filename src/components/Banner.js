@@ -64,6 +64,7 @@ const BannerText = styled.div`
 
   .button {
     background-color: rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   }
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {

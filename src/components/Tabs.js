@@ -7,7 +7,7 @@ export default styled(DividerWrapper)`
   padding: 0;
   height: ${props => props.theme.headerHeightMobile};
   position: ${props => props.sticky && 'sticky'};
-  top: ${props => props.sticky && props.theme.headerHeight};
+  top: ${props => props.sticky && props.theme.headerHeightMobile};
   z-index: 7;
 
   button:first-of-type {
@@ -37,5 +37,9 @@ export default styled(DividerWrapper)`
     &:hover:not(.active) {
       color: black;
     }
+  }
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    top: ${props => props.sticky && props.theme.headerHeight};
   }
 `
