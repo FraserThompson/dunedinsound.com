@@ -37,6 +37,7 @@ export const DividerWrapper = styled.div`
   top: ${props => (props.sticky ? (props.sticky == 2 ? props.theme.headerHeightMobileWithSubheader : props.theme.headerHeightMobile) : '0')};
   position: ${props => (props.sticky ? 'sticky' : 'relative')};
   z-index: ${props => (props.sticky ? '6' : '5')};
+  box-shadow: ${props => props.sticky && '0 6px 12px rgba(0,0,0,0.25)'};
 
   p {
     margin: 0;

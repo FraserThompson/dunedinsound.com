@@ -11,11 +11,11 @@ export const theme = {
     footerHeight: rhythm(4),
     waveformColor: '#01baef',
     waveformProgressColor: '#EC4067',
-    backgroundColor: '#0C1214',
-    primaryColor: '#0C1821',
-    foregroundColor: '#01baef',
-    secondaryColor: '#EC4067',
-    contrastColor: '#EFF1ED',
+    backgroundColor: '#0C1214', // dark navy
+    primaryColor: '#0C1821', // navy
+    foregroundColor: '#01baef', // cyan
+    secondaryColor: '#EC4067', // pink
+    contrastColor: '#EFF1ED', // ice white
     textColor: '#ccc',
     contentContainerWidth: '740px',
     defaultBannerHeight: '70vh',

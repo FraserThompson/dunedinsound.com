@@ -6,7 +6,7 @@
 //  - left: Display it on the left
 //  - right: Display it on the right
 
-import React from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import styled from '@emotion/styled'
 import Menu from '../components/Menu'
 import { darken, lighten } from 'polished'
@@ -15,21 +15,35 @@ import FadeInOut from './FadeInOut'
 import MenuButton from './MenuButton'
 import { MdMenu } from 'react-icons/md'
 
-export default React.memo(({ left, right, width, backgroundColor, open, toggle, children }) => (
-  <>
-    <MenuButtonWrapper>
-      <MenuButton hideMobile={true} onClick={toggle}>
-        <MdMenu />
-      </MenuButton>
-    </MenuButtonWrapper>
-    <SidebarNavWrapper left={left} right={right} width={width} backgroundColor={backgroundColor} open={open}>
-      <List>{children}</List>
-    </SidebarNavWrapper>
-    <Transition mountOnEnter={true} unmountOnExit={true} in={!open} timeout={200}>
-      {state => <PageOverlay state={state} onClick={toggle} />}
-    </Transition>
-  </>
-))
+export default React.memo(({ left, right, width, backgroundColor, open, toggle, children }) => {
+  // So because vh units in CSS don't take into account the address bar on mobile we have to get
+  // the viewport height in js instead or the nav will be cutoff by the address bar LOL
+
+  const [viewportHeight, setViewportHeight] = useState(window.innerHeight)
+
+  const updateViewportHeight = useMemo(() => setViewportHeight(window.innerHeight), [])
+
+  useEffect(() => {
+    window.addEventListener('resize', updateViewportHeight)
+    return () => window.removeEventListener('resize', updateViewportHeight)
+  }, [])
+
+  return (
+    <>
+      <MenuButtonWrapper>
+        <MenuButton hideMobile={true} onClick={toggle}>
+          <MdMenu />
+        </MenuButton>
+      </MenuButtonWrapper>
+      <SidebarNavWrapper left={left} right={right} width={width} viewportHeight={viewportHeight} backgroundColor={backgroundColor} open={open}>
+        <List>{children}</List>
+      </SidebarNavWrapper>
+      <Transition mountOnEnter={true} unmountOnExit={true} in={!open} timeout={200}>
+        {state => <PageOverlay state={state} onClick={toggle} />}
+      </Transition>
+    </>
+  )
+})
 
 const DefaultWidth = '80vw'
 
@@ -45,7 +59,7 @@ const PageOverlay = styled(FadeInOut)`
 
 const SidebarNavWrapper = styled(Menu)`
   background-color: ${props => props.backgroundColor || props.theme.primaryColor};
-  height: ${props => `calc(100vh - ${props.theme.headerHeightMobileTwice})`};
+  height: ${props => `calc(${props.viewportHeight + 'px' || '100vh'} - ${props.theme.headerHeightMobileTwice})`};
   overflow-x: hidden;
   position: fixed;
   width: ${props => props.width || DefaultWidth};

@@ -145,7 +145,7 @@ const GlobalStyle = css`
     color: ${theme.default.textColor};
     background-color: transparent;
     border-radius: 5px;
-    border: 2px solid ${theme.default.secondaryColor};
+    border: 2px solid ${theme.default.foregroundColor};
 
     &.active,
     &:active {

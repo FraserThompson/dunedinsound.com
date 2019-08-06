@@ -12,7 +12,7 @@ export default styled.button`
   color: ${props => props.theme.textColor};
   border: none;
   border-radius: 0px;
-  background-color: ${props => props.theme.secondaryColor};
+  background-color: ${props => props.theme.primaryColor};
 
   svg {
     width: 100%;
@@ -20,7 +20,7 @@ export default styled.button`
   }
 
   &:hover {
-    background-color: ${props => lighten(0.1, props.theme.secondaryColor)};
+    background-color: ${props => lighten(0.1, props.theme.primaryColor)};
   }
 
   @media screen and (min-width: ${props => props.theme.breakpoints.md}) {

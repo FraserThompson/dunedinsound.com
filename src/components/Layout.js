@@ -80,8 +80,8 @@ const MobileNav = styled.div`
   background-color: ${props => props.theme.primaryColor};
   z-index: 12;
   width: 100%;
-  box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.175);
-  border-top: 1px solid #091118;
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.25);
+  border-top: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
   ${Menu} {
     display: flex;
     justify-content: center;

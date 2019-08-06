@@ -232,7 +232,7 @@ export default React.memo(({ artistAudio }) => {
 })
 
 const PlayerWrapper = styled.div`
-  box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;

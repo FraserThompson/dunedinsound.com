@@ -160,35 +160,35 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
         <HorizontalNav>
           {data.thisPost.frontmatter.facebook && (
             <li>
-              <a className="button" rel="noopener" href={data.thisPost.frontmatter.facebook}>
+              <a title="Facebook Page" className="button" rel="noopener" href={data.thisPost.frontmatter.facebook}>
                 Facebook
               </a>
             </li>
           )}
           {data.thisPost.frontmatter.bandcamp && (
             <li>
-              <a className="button" rel="noopener" href={data.thisPost.frontmatter.bandcamp}>
+              <a title="Listen on Bandcamp" className="button" rel="noopener" href={data.thisPost.frontmatter.bandcamp}>
                 Bandcamp
               </a>
             </li>
           )}
           {data.thisPost.frontmatter.soundcloud && (
             <li>
-              <a className="button" rel="noopener" href={data.thisPost.frontmatter.soundcloud}>
+              <a title="Listen on Soundcloud" className="button" rel="noopener" href={data.thisPost.frontmatter.soundcloud}>
                 Soundcloud
               </a>
             </li>
           )}
           {data.thisPost.frontmatter.website && (
             <li>
-              <a className="button" rel="noopener" href={data.thisPost.frontmatter.website}>
+              <a title="Website" className="button" rel="noopener" href={data.thisPost.frontmatter.website}>
                 Website
               </a>
             </li>
           )}
           {data.thisPost.frontmatter.audioculture && (
             <li>
-              <a className="button" rel="noopener" href={data.thisPost.frontmatter.audioculture.link}>
+              <a title="Audioculture article" className="button" rel="noopener" href={data.thisPost.frontmatter.audioculture.link}>
                 Audioculture
               </a>
             </li>
