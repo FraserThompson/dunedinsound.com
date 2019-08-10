@@ -13,7 +13,7 @@ import { scale } from '../utils/typography'
 import LoadingSpinner from './LoadingSpinner'
 import { timeToSeconds } from '../utils/helper'
 import Menu from './Menu'
-import { lighten } from 'polished'
+import { lighten, darken } from 'polished'
 
 export default React.memo(({ artistAudio }) => {
   const waveformRef = useRef()
@@ -233,6 +233,7 @@ export default React.memo(({ artistAudio }) => {
 
 const PlayerWrapper = styled.div`
   box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.25);
+  border-top: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
   display: flex;
   align-items: center;
   justify-content: center;

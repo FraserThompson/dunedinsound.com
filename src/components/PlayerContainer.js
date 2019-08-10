@@ -3,7 +3,6 @@ import Player from './Player'
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md'
 import styled from '@emotion/styled'
 import { lighten } from 'polished'
-import { rhythm } from '../utils/typography'
 
 export default ({ artistAudio }) => {
   const [open, setOpen] = useState(false)
@@ -12,11 +11,11 @@ export default ({ artistAudio }) => {
     <PlayerWrapper show={open}>
       {artistAudio.length > 0 && (
         <>
-          <div className="handle">
+          <OpenButton show={open}>
             <button title="Audio Player" onClick={() => setOpen(!open)}>
               <small>AUDIO</small> {!open ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
             </button>
-          </div>
+          </OpenButton>
           <Player artistAudio={artistAudio} />
         </>
       )}
@@ -42,41 +41,45 @@ const PlayerWrapper = styled.div`
     transition: all 150ms ease-in-out;
   }
 
-  .handle {
-    position: ${props => (!props.show ? 'absolute' : 'static')};
-    text-align: center;
-    width: 100%;
-    bottom: calc(${props => props.theme.headerHeightMobile} + 100px);
-
-    @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-      bottom: 100px;
-    }
-
-    svg {
-      font-size: 2em;
-      position: relative;
-    }
-
-    small {
-      position: relative;
-      bottom: 12px;
-    }
-
-    button {
-      box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.175);
-      border: none;
-      padding-right: 5px;
-      height: 30px;
-      background-color: ${props => props.theme.foregroundColor};
-      border-top-left-radius: 60px;
-      border-top-right-radius: 60px;
-      &:hover {
-        background-color: ${props => lighten(0.2, props.theme.foregroundColor)};
-      }
-    }
-  }
-
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     transform: ${props => (props.show ? `translateY(0)` : `translateY(100px)`)};
+  }
+`
+
+const OpenButton = styled.div`
+  position: ${props => (!props.show ? 'absolute' : 'static')};
+  text-align: center;
+  width: 100%;
+  bottom: calc(${props => props.theme.headerHeightMobile} + 100px);
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    bottom: 100px;
+  }
+
+  svg {
+    font-size: 2em;
+    position: relative;
+  }
+
+  small {
+    position: relative;
+    bottom: 12px;
+  }
+
+  button {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    border: none;
+    padding-right: 5px;
+    height: 30px;
+    background-color: ${props => props.theme.foregroundColor};
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+
+    &:hover {
+      background-color: ${props => lighten(0.2, props.theme.foregroundColor)};
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
   }
 `

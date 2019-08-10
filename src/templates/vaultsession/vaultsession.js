@@ -142,6 +142,7 @@ const VideoWrapper = styled.div`
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     width: 60vw;
+    transform: translateZ(-50px) translateY(-50%) translateX(-50%);
   }
 `
 

@@ -32,7 +32,7 @@ export const DividerWrapper = styled.div`
   padding-left: ${rhythm(0.5)};
   padding-right: ${rhythm(0.5)};
   background-color: ${props => props.backgroundColor || props.theme.contrastColor};
-  border-bottom: 1px solid ${props => darken(0.025, props.backgroundColor || props.theme.contrastColor)};
+  border-bottom: 1px solid ${props => darken(0.1, props.backgroundColor || props.theme.contrastColor)};
 
   top: ${props => (props.sticky ? (props.sticky == 2 ? props.theme.headerHeightMobileWithSubheader : props.theme.headerHeightMobile) : '0')};
   position: ${props => (props.sticky ? 'sticky' : 'relative')};

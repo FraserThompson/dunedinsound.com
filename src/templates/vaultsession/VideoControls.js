@@ -37,7 +37,7 @@ export default React.memo(({ tracklist, playerTarget, fullDownloadLink, onHover 
       })}
       {fullDownloadLink && (
         <a title="FULL MP3 DOWNLOAD" target="_blank" href={fullDownloadLink}>
-          <h3 className="coolText">🌟FULL MP3 DOWNLOAD🌟</h3>
+          <h3 className="coolText">🌟DOWNLOAD MP3🌟</h3>
         </a>
       )}
     </Tracklist>

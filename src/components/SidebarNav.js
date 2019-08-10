@@ -19,9 +19,9 @@ export default React.memo(({ left, right, width, backgroundColor, open, toggle, 
   // So because vh units in CSS don't take into account the address bar on mobile we have to get
   // the viewport height in js instead or the nav will be cutoff by the address bar LOL
 
-  const [viewportHeight, setViewportHeight] = useState(window.innerHeight)
+  const [viewportHeight, setViewportHeight] = useState(typeof window !== `undefined` && window.innerHeight)
 
-  const updateViewportHeight = useMemo(() => setViewportHeight(window.innerHeight), [])
+  const updateViewportHeight = useMemo(() => setViewportHeight(typeof window !== `undefined` && window.innerHeight), [])
 
   useEffect(() => {
     window.addEventListener('resize', updateViewportHeight)
