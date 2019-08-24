@@ -16,7 +16,10 @@ export default ({ data, location }) => {
   const postElements = posts.map(({ node }) => (
     <Post key={node.fields.slug}>
       <h2>
-        <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
+        <Link to={node.fields.slug}>
+          {node.frontmatter.tags.includes('interview') && 'INTERVIEW: '}
+          {node.frontmatter.title}
+        </Link>
       </h2>
       <h4>{node.frontmatter.date}</h4>
       {node.frontmatter.cover && (

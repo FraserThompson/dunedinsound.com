@@ -3,7 +3,6 @@ import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import Layout from '../components/Layout'
 import Tile from '../components/Tile'
-import { nodeTypeToHuman } from '../utils/helper'
 import GridContainer from '../components/GridContainer'
 import GigTile from '../components/GigTile'
 
@@ -15,8 +14,6 @@ export default ({ data, location }) => {
 
   const postSections = posts.reduce(
     (obj, { node }) => {
-      const title = nodeTypeToHuman(node.fields.type).toUpperCase() + ': ' + node.frontmatter.title || node.fields.slug
-
       let tile = undefined
       if (node.fields.type === 'gigs' && node.fields.machine_name != firstGig.fields.machine_name) {
         tile = <GigTile title={node.frontmatter.title} node={node} height="30vh" key={node.fields.slug} imageSizes={{ xs: 12, md: 4, lg: 4 }} />
@@ -24,7 +21,7 @@ export default ({ data, location }) => {
         tile = (
           <Tile
             key={node.fields.slug}
-            title={title}
+            title={`${node.frontmatter.tags.includes('interview') ? 'INTERVIEW: ' : 'ARTICLE: '}${node.frontmatter.title}`}
             subtitle={node.excerpt}
             image={node.frontmatter.cover}
             label={node.frontmatter.date}
@@ -39,7 +36,7 @@ export default ({ data, location }) => {
             key={node.fields.slug}
             image={node.frontmatter.cover}
             height={'30vh'}
-            title={title}
+            title={`VAULT SESSION: ${node.frontmatter.title}`}
             imageSizes={{ xs: 12, md: 4, lg: 4 }}
             to={node.fields.slug}
           />
@@ -112,6 +109,9 @@ export const pageQuery = graphql`
         node {
           excerpt
           ...GigTileFrontmatter
+          frontmatter {
+            tags
+          }
         }
       }
     }

@@ -34,7 +34,10 @@ export default React.memo(({ data, pageContext }) => {
     >
       {post.frontmatter.cover && <Banner backgroundImage={post.frontmatter.cover}></Banner>}
       <BlogContainer>
-        <h1>{post.frontmatter.title}</h1>
+        <h1>
+          {post.frontmatter.tags.includes('interview') && 'INTERVIEW: '}
+          {post.frontmatter.title}
+        </h1>
         <p
           style={{
             ...scale(-1 / 5),

@@ -1,5 +1,5 @@
 ---
-title: 'INTERVIEW: Say goodbye to Battle of the Bands and hello to Bring the Noise'
+title: 'Say goodbye to Battle of the Bands and hello to Bring the Noise'
 date: 2019-08-16T00:00:00.000Z
 tags:
   - interview

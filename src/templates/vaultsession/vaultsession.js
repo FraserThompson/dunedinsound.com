@@ -97,14 +97,7 @@ export default ({ data }) => {
       title={`VAULT SESSION: ${post.frontmatter.title} | ${siteTitle}`}
       overrideBackgroundColor="white"
     >
-      <World
-        lights={lights}
-        topContent={topContent}
-        bottomContent={bottomContent}
-        leftContent={leftContent}
-        rightContent={rightContent}
-        animated={'andChildren'}
-      >
+      <World lights={lights} topContent={topContent} bottomContent={bottomContent} leftContent={leftContent} rightContent={rightContent}>
         <VideoWrapper hovered={hovered}>
           <YouTubeResponsive videoId={post.frontmatter.full_video} getPlayerTarget={getPlayerTarget} vanilla />
         </VideoWrapper>

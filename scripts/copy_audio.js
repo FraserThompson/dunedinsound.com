@@ -24,10 +24,12 @@ const main = () => {
   const audioFiles = getAudioFiles()
   audioFiles.forEach(filename => {
     const splitted = filename.split(' - ')
-    const src = `./audio/${filename}`
-    const destination = `./src/content/gigs/${getCurrentDatePrefix()}-${machine_name(splitted[0], '-')}/${machine_name(splitted[1].split('.')[0])}`
+    const src = `${process.cwd()}\\audio\\${filename}`
+    const destination = `${process.cwd()}\\src\\content\\gigs\\${getCurrentDatePrefix()}-${machine_name(splitted[0], '-')}\\${machine_name(
+      splitted[1].split('.')[0]
+    )}`
     if (fs.existsSync(destination)) {
-      fs.copyFileSync(src, destination)
+      fs.copyFileSync(src, `${destination}\\${filename}`)
       console.log(`Copied ${src} to ${destination}`)
     }
   })
