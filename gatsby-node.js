@@ -155,7 +155,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         })
 
         if (nodeType === 'gigs') {
-          const pathComponents = node.relativeDirectory.split('\\')
+          const pathComponents = node.relativeDirectory.split('/')
           if (pathComponents.length === 2) {
             const gigDir = pathComponents[0]
             createNodeField({

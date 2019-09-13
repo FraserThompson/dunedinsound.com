@@ -2,7 +2,7 @@
 title: 'Welcome to the future'
 date: 2019-04-28T21:00:00.000Z
 tags:
-    - review
+  - tech
 author: Fraser Thompson
 background_position: center
 background_size: contain
@@ -16,14 +16,14 @@ That's because the site has been completely rebuilt from the ground up using sup
 
 Aside from this there's also been a few bonus features implemented along the way:
 
-* <span class="rainbowBackground">Bold</span> new colour scheme
-* See all <a href="/venues/">venues on a map!</a>
-* Artist gigs sorted by year (handy for pages like <a href="/artists/the_rothmans/">this one</a> with like 50 gigs)
-* Improved audio player user experience
-* Better quality images: Access to all images at their original resolution.
-* Improved mobile user experience
+- <span class="rainbowBackground">Bold</span> new colour scheme
+- See all <a href="/venues/">venues on a map!</a>
+- Artist gigs sorted by year (handy for pages like <a href="/artists/the_rothmans/">this one</a> with like 50 gigs)
+- Improved audio player user experience
+- Better quality images: Access to all images at their original resolution.
+- Improved mobile user experience
 
-It's the culmination of many months of sporadic work. If you want to know more about the process and reasoning in *excruciating* detail then read on (if not start using the rest of the site and let me know what you think).
+It's the culmination of many months of sporadic work. If you want to know more about the process and reasoning in _excruciating_ detail then read on (if not start using the rest of the site and let me know what you think).
 
 ## Why even bother?
 
@@ -39,7 +39,7 @@ I wanted to stick with a static site generator because I think it makes sense fo
 
 Gatsby uses ReactJS and JavaScript which are technologies I'm interested in getting better at (unlike Ruby and liquid templating). Also, because there can sometimes be weeks or months between looking at the code it's important I can pick it up again quickly without having to re-learn stuff. I use React and JavaScript in my day job so I'm already familiar with those, whereas I never used Jekyll outside of the old site.
 
-I'd also heard good things about Gatsby's build and clientside performance. 
+I'd also heard good things about Gatsby's build and clientside performance.
 
 ## So how did it go?
 
@@ -47,7 +47,7 @@ I get the feeling my site is quite unique amongst static sites. Typically people
 
 One of the goals was to use less custom code so I have less to maintain. Previously I had a Node script I ran manually which iterated over my photos and generated copies in various sizes. Then it would index **all** of the content in one big JSON file which I parsed and used to display a gigs media on a gigs page.
 
-Instead, Gatsby has plugins `gatsby-image` and `gatsby-transformer-sharp` which handle all of this for me. Additionally, `gatsby-source-filesystem` lets me query my filesystem as if its a database, meaning I don't need to generate a big index JSON. 
+Instead, Gatsby has plugins `gatsby-image` and `gatsby-transformer-sharp` which handle all of this for me. Additionally, `gatsby-source-filesystem` lets me query my filesystem as if its a database, meaning I don't need to generate a big index JSON.
 
 This is all nice in theory but I kind of felt like nobody had really kicked the tires on it before. GatsbyJS definitely feels like a static site generator for developers, which is nice because I'm a developer so it feels like I'm working with it rather than against it.
 

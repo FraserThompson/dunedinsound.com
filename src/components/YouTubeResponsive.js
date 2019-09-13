@@ -50,7 +50,13 @@ export default React.memo(({ videoId, odd, vanilla, getPlayerTarget }) => {
           </WatchOnYoutubeLink>
         </PlaceholderContent>
       )}
-      {(clicked || vanilla) && <YouTube videoId={videoId} onReady={onReady} opts={{ rel: 0, modestbranding: 1, playerVars: { autoplay: 1 } }} />}
+      {(clicked || vanilla) && (
+        <YouTube
+          videoId={videoId}
+          onReady={onReady}
+          opts={{ host: 'https://www.youtube-nocookie.com', rel: 0, modestbranding: 1, playerVars: { autoplay: 1 } }}
+        />
+      )}
     </YouTubeWrapper>
   )
 })
