@@ -8,7 +8,7 @@ import BackButton from '../../components/BackButton'
 export default React.memo(({ data }) => (
   <>
     <BackButton
-      to={typeof window !== `undefined` && window.history.state && window.history.state.from}
+      to={typeof window !== `undefined` && window.history.state && window.history.state.from ? window.history.state.from : undefined}
       title="Back to Gigs"
       gigSlug={data.thisPost.fields.slug}
       gigYear={data.thisPost.frontmatter.date.split(' ')[2]}

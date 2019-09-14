@@ -5,16 +5,18 @@ artist: koizilla
 cover: ./cover.jpg
 full_video: ex7zP4bunjQ
 tracklist:
-  - title: "Sandflies"
+  - title: 'Sandflies'
     link: r5MnyOX972A
-    time: "00:03"
+    time: '00:03'
   - title: "I can't see anything!"
     link: tXLsVaYXWnQ
-    time: "04:50"
-  - title: "Metapod Song (Mr Biscuits cover)"
+    time: '04:50'
+  - title: 'Metapod Song (Mr Biscuits cover)'
     link: 3jy91CmaklE
-    time: "10:30"
-  - title: "Under the sea"
+    time: '10:30'
+  - title: 'Under the sea'
     link: UYaSZB1imlQ
-    time: "12:31"
+    time: '12:31'
 ---
+
+These psychedelic fuzz buddies have been a pillar of the Dunedin music scene since 2016. Through countless memorable nights and happy crowds they've fully proven themselves... But can they handle the oppressive aura of the vault?

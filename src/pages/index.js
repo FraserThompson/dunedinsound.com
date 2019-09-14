@@ -16,7 +16,7 @@ export default ({ data, location }) => {
     (obj, { node }) => {
       let tile = undefined
       if (node.fields.type === 'gigs' && node.fields.machine_name != firstGig.fields.machine_name) {
-        tile = <GigTile title={node.frontmatter.title} node={node} height="30vh" key={node.fields.slug} imageSizes={{ xs: 12, md: 4, lg: 4 }} />
+        tile = <GigTile title={node.frontmatter.title} node={node} height="33vh" key={node.fields.slug} imageSizes={{ xs: 12, md: 4, lg: 4 }} />
       } else if (node.fields.type === 'blog') {
         tile = (
           <Tile
@@ -25,7 +25,7 @@ export default ({ data, location }) => {
             subtitle={node.excerpt}
             image={node.frontmatter.cover}
             label={node.frontmatter.date}
-            height={'30vh'}
+            height={'33vh'}
             imageSizes={{ xs: 12, md: 4, lg: 4 }}
             to={node.fields.slug}
           />
@@ -35,7 +35,7 @@ export default ({ data, location }) => {
           <Tile
             key={node.fields.slug}
             image={node.frontmatter.cover}
-            height={'30vh'}
+            height={'33vh'}
             title={`VAULT SESSION: ${node.frontmatter.title}`}
             imageSizes={{ xs: 12, md: 4, lg: 4 }}
             to={node.fields.slug}
@@ -45,7 +45,7 @@ export default ({ data, location }) => {
 
       if (tile && obj.firstTwo.length < 2) {
         obj.firstTwo.push(tile)
-      } else if (tile && obj.nextThree.length < 3) {
+      } else if (tile && obj.nextThree.length < 9) {
         obj.nextThree.push(tile)
       }
 
@@ -58,7 +58,7 @@ export default ({ data, location }) => {
     <Layout description={siteDescription} location={location} title={siteTitle}>
       <HomePageGridContainer>
         <div>
-          <GigTile imageSizes={{ xs: 12, md: 8, lg: 8 }} title={firstGig.frontmatter.title} node={firstGig} height="60vh" />
+          <GigTile imageSizes={{ xs: 12, md: 8, lg: 8 }} title={firstGig.frontmatter.title} node={firstGig} height="66vh" />
         </div>
         <div>{postSections.firstTwo.map(tile => tile)}</div>
         <GridContainer>{postSections.nextThree.map(tile => tile)}</GridContainer>
@@ -104,7 +104,7 @@ export const pageQuery = graphql`
     vaultSessionLogo: file(name: { eq: "vslogo" }) {
       publicURL
     }
-    allMarkdownRemark(limit: 10, sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { regex: "/gigs|blog|vaultsessions$/" } } }) {
+    allMarkdownRemark(limit: 16, sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { regex: "/gigs|blog|vaultsessions$/" } } }) {
       edges {
         node {
           excerpt

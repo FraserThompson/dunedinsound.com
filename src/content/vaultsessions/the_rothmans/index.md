@@ -7,17 +7,19 @@ full_video: yTfU6Im4Alk
 tracklist:
   - title: Cruach
     link: SVFhgCpo9XU
-    time: "00:05"
+    time: '00:05'
   - title: Atlas Sucked
     link: RbBJVHOFB0o
-    time: "03:01"
+    time: '03:01'
   - title: Twenty Three (Anthonie Tonnon cover)
     link: TzvgxfkqF50
-    time: "05:52"
+    time: '05:52'
   - title: Rerikh
     link: eRIQEAiIadA
-    time: "07:53"
+    time: '07:53'
   - title: John Jacob
     link: eKxql1gJ61o
-    time: "10:58"
+    time: '10:58'
 ---
+
+The Rothmans sprung out of nowhere in 2015 with a weird mix of post-punk and garage rock... And a trombone? The trombone didn't survive but the crunchy vibes did, eventually finding their way into the vault for a blistering set.

@@ -14,6 +14,9 @@ const scale1 = scale(1)
 const scale04 = scale(-0.4)
 
 const GlobalStyle = css`
+  html {
+    overflow-y: auto;
+  }
   body {
     background-color: ${theme.default.backgroundColor};
     color: ${theme.default.textColor};

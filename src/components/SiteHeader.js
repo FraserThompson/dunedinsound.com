@@ -54,7 +54,7 @@ export default React.memo(({ scrollHeaderContent, isSidebar, headerContent, hide
 
 const Container = styled.div`
   background-color: ${props => props.backgroundColor || props.theme.primaryColor};
-  position: sticky;
+  position: fixed;
   width: 100%;
   display: ${props => props.hideOnMobile && 'none'};
   flex-direction: row;

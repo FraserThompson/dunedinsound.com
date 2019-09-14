@@ -11,7 +11,6 @@ import { lighten, darken } from 'polished'
 import { Helmet } from 'react-helmet'
 import SiteNav from './SiteNav'
 import Menu from './Menu'
-import { rhythm } from '../utils/typography'
 import GlobalStyle from './GlobalStyle'
 import UpdateYourFrickinBrowser from './UpdateYourFrickinBrowser'
 
@@ -51,7 +50,14 @@ export default React.memo(
           <SiteHeader scrollHeaderContent={scrollHeaderContent} headerContent={headerContent} hideBrandOnMobile={hideBrandOnMobile} isSidebar={isSidebar} />
         </HeaderWrapper>
         <UpdateYourFrickinBrowser />
-        <SiteContainer overrideBackgroundColor={overrideBackgroundColor}>{children}</SiteContainer>
+        <SiteContainer
+          hideFooter={hideFooter}
+          hideBrandOnMobile={hideBrandOnMobile}
+          headerContent={headerContent}
+          overrideBackgroundColor={overrideBackgroundColor}
+        >
+          {children}
+        </SiteContainer>
         {!hideFooter && <SiteFooter />}
       </>
     </ThemeProvider>
@@ -67,10 +73,20 @@ const HeaderWrapper = styled.div`
   border-bottom: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
 `
 const SiteContainer = styled.div`
-  min-height: ${props => `calc(100vh - ${props.theme.headerHeight} - ${props.theme.footerHeight} - ${rhythm(3)})`};
-  background-color: ${props => props.overrideBackgroundColor};
+  min-height: ${props => `calc(100vh - ${props.theme.headerHeight} - 1px)`};
+  background-color: ${props => props.overrideBackgroundColor || props.theme.backgroundColor};
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
   height: 100%;
   width: 100%;
+  z-index: 2;
+  position: ${props => !props.hideFooter && 'relative'};
+  bottom: 0;
+  margin-bottom: ${props => !props.hideFooter && `calc(${props.theme.footerHeight})`};
+  margin-top: ${props => props.headerContent && props.theme.headerHeightMobile};
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    margin-top: ${props => props.theme.headerHeight};
+    margin-bottom: ${props => !props.hideFooter && props.theme.footerHeight};
+  }
 `
 
 const MobileNav = styled.div`

@@ -94,6 +94,7 @@ export default ({ data }) => {
       description={siteDescription}
       image={post.frontmatter.cover.publicURL}
       hideBrandOnMobile={true}
+      hideFooter={true}
       title={`VAULT SESSION: ${post.frontmatter.title} | ${siteTitle}`}
       overrideBackgroundColor="white"
     >

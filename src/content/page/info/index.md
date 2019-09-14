@@ -12,7 +12,9 @@ Part of that involves going to gigs, documenting them via photo, video and audio
 
 ## Are you making money?
 
-dunedinsound.com is completely non-commercial, no sponsors, no ads, no money. The intent is to support the music community and not take anything from it. The current cost of hosting everything is **\$23.84** a month.
+dunedinsound.com is completely non-commercial, no sponsors, no ads, no money. The intent is to support the music community and not take anything from it. The current cost of hosting everything is **\$8.45** a month.
+
+All works are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a> meaning you can do whatever you want with everything as long as you mention dunedinsound.com and you're not making loads of money.
 
 ## Why not just put stuff on Facebook like everyone else?
 

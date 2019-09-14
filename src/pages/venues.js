@@ -175,7 +175,7 @@ export default React.memo(({ data, location }) => {
 
 const MapWrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  height: ${props => `calc(100vh - ${props.theme.headerHeight} - 2px)`};
   position: relative;
   z-index: 5;
 `

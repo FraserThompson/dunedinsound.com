@@ -83,7 +83,11 @@ export default React.memo(({ data }) => {
       hideBrandOnMobile={true}
       scrollHeaderContent={
         <>
-          <BackButton to={history.state && history.state.from} gigSlug={data.thisPost.fields.slug} gigYear={data.thisPost.frontmatter.date.split(' ')[2]} />
+          <BackButton
+            to={history.state && history.state.from ? history.state.from : undefined}
+            gigSlug={data.thisPost.fields.slug}
+            gigYear={data.thisPost.frontmatter.date.split(' ')[2]}
+          />
           <HeaderTitle onClick={e => scrollTo(e, 'top')} href="#top" title="Scroll to top">
             <h1 className="big">{gigTitle}</h1>
           </HeaderTitle>

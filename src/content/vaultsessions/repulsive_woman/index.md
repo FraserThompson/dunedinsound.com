@@ -18,3 +18,5 @@ tracklist:
     link: T3r7AtBNOQY
     time: '12:52'
 ---
+
+Repulsive Woman is Millie Lovelock of Astro Children channeling a different but equally awesome energy.

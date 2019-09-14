@@ -67,28 +67,19 @@ export default ({ data, location }) => {
   )
   return (
     <Layout location={location} description={siteDescription} hideBrandOnMobile={true} title={`VAULT SESSIONS | ${siteTitle}`} overrideBackgroundColor="white">
-      <World perspective={perspective} lights={lights} animated={true} backContent={backContent} bottomContent={bottomContent} topContent={topContent}>
-        <WallArt>{hoveredNode && <Img fluid={hoveredNode.frontmatter.cover.childImageSharp.fluid} />}</WallArt>
-      </World>
+      <World
+        perspective={perspective}
+        lights={lights}
+        animated={true}
+        backContent={backContent}
+        bottomContent={bottomContent}
+        topContent={topContent}
+        rightContent={hoveredNode && <Img style={{ height: '100%', opacity: '0.6' }} fluid={hoveredNode.frontmatter.cover.childImageSharp.fluid} />}
+        leftContent={hoveredNode && <Description dangerouslySetInnerHTML={{ __html: hoveredNode.html }}></Description>}
+      ></World>
     </Layout>
   )
 }
-
-const Posts = styled.div`
-  article {
-    border-top: 2px solid darkcyan;
-    border-bottom: 2px solid darkcyan;
-    transition: filter 0.3s ease-in-out;
-    background-color: rgba(0, 0, 0, 0.8);
-    h2 {
-      text-transform: uppercase;
-      color: #282828;
-    }
-    &:hover {
-      filter: invert(1);
-    }
-  }
-`
 
 export const pageQuery = graphql`
   query {
@@ -111,16 +102,33 @@ export const pageQuery = graphql`
   }
 `
 
-const WallArt = styled.div`
-  transition: all 0.2s ease-in-out;
-  transform: rotateY(-90deg);
-  position: absolute;
-  right: 50px;
-  top: 20%;
-  z-index: 3;
-  transform-origin: right center;
-  width: 500px;
+const Posts = styled.div`
+  article {
+    border-top: 2px solid darkcyan;
+    border-bottom: 2px solid darkcyan;
+    transition: filter 0.3s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.8);
+    h2 {
+      text-transform: uppercase;
+      color: #282828;
+      font-family: monospace;
+    }
+    &:hover {
+      filter: invert(1);
+    }
+  }
+`
+
+const Description = styled.div`
+  color: white;
+  font-family: monospace;
+  font-size: 2.5em;
   height: 100%;
+  display: flex;
+  p {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
 `
 
 export const Logo = styled.div`
