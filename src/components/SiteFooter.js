@@ -61,8 +61,11 @@ const Container = styled.div`
   background-color: ${props => props.theme.primaryColor};
   min-height: ${props => props.theme.footerHeight};
   position: fixed;
-  bottom: 0;
+  bottom: ${props => props.theme.headerHeightMobile};
   width: 100%;
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    bottom: 0;
+  }
 `
 
 const Content = styled.div`

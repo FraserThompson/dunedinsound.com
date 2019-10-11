@@ -171,6 +171,7 @@ const WorldWrapper = styled.div`
     text-align: center;
     text-shadow: 2px 2px 0px black, -2px -2px 0px white, 4px 4px 0px black, -4px -4px 0px white, 0 0 30px purple;
     font-size: 10vh;
+    font-family: monospace;
     @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
       font-size: 12vh;
     }

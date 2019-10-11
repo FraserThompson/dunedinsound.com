@@ -21,7 +21,7 @@ export default React.memo(({ tracklist, playerTarget, fullDownloadLink, onHover 
 
   return (
     <Tracklist onMouseEnter={() => onHover(true)} onMouseLeave={() => onHover(false)}>
-      <h3>Tracklist (click to seek)</h3>
+      <h3 className="title">Tracklist (click to seek)</h3>
       {tracklist.map((video, index) => {
         const nextTrackSeconds = index + 1 < tracklist.length && tracklist[index + 1].seconds
         return (
@@ -53,6 +53,10 @@ const Tracklist = styled.ul`
   z-index: 3;
   background: rgba(0, 0, 0, 0);
   transform-origin: left center;
+  font-family: monospace;
+  .title {
+    font-family: monospace;
+  }
   &:hover {
     z-index: 13;
     box-shadow: 0 0 30px purple;
@@ -68,5 +72,6 @@ const Track = styled.li`
   .trackTitle {
     color: ${props => props.active && props.theme.secondaryColor};
     font-weight: ${props => props.active && 'bold'};
+    font-family: monospace;
   }
 `

@@ -33,8 +33,8 @@ export default ({ data }) => {
 
   const topContent = (
     <Title>
-      <h2>{post.frontmatter.title}</h2>
-      <h4>Recorded on {post.frontmatter.date}</h4>
+      <h2 className="title">{post.frontmatter.title}</h2>
+      <h4 className="subtitle">Recorded on {post.frontmatter.date}</h4>
     </Title>
   )
 
@@ -114,9 +114,9 @@ const Title = styled.div`
   z-index: 2;
   width: 100%;
   text-align: center;
-  h1 {
-    opacity: 0.5;
-    margin: 0 auto;
+  .title,
+  .subtitle {
+    font-family: monospace;
   }
 `
 
@@ -148,6 +148,7 @@ const Metadata = styled.div`
   right: 0;
   z-index: 3;
   transform-origin: right center;
+  font-family: monospace;
   &:hover {
     z-index: 10;
     box-shadow: 0 0 30px purple;
