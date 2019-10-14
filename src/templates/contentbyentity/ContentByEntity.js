@@ -32,6 +32,7 @@ import styled from '@emotion/styled'
 import ContentTabs from './ContentTabs'
 import { scrollTo } from '../../utils/helper'
 import BackButton from '../../components/BackButton'
+import BackToTop from '../../components/BackToTop'
 
 export default React.memo(({ data, pageDescription, parent, background }) => {
   useEffect(() => {
@@ -206,6 +207,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
         blogCount={blogCount}
         vaultsessionCount={vaultsessionCount}
       />
+      <BackToTop />
     </Layout>
   )
 })

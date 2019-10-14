@@ -11,6 +11,7 @@ import BannerContent from './BannerContent'
 import styled from '@emotion/styled'
 import { rhythm } from '../../utils/typography'
 import BackButton from '../../components/BackButton'
+import BackToTop from '../../components/BackToTop'
 
 export default React.memo(({ data }) => {
   const [artistMedia, setArtistMedia] = useState([])
@@ -126,6 +127,7 @@ export default React.memo(({ data }) => {
       </Banner>
       <GigArtistMedia artistMedia={artistMedia} gigTitle={gigTitle} />
       <PlayerContainer artistAudio={artistAudio} />
+      <BackToTop />
     </Layout>
   )
 })

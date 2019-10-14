@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react'
 import { Link } from 'gatsby'
 import Menu from './Menu'
-import { MdHome } from 'react-icons/md'
 
 export default React.memo(props => {
   const isPartiallyActive = useCallback(({ isPartiallyCurrent }) => {

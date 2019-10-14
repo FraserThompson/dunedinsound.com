@@ -51,6 +51,7 @@ export default React.memo(
         </HeaderWrapper>
         <UpdateYourFrickinBrowser />
         <SiteContainer
+          className="SiteContainer"
           hideFooter={hideFooter}
           hideBrandOnMobile={hideBrandOnMobile}
           headerContent={headerContent}

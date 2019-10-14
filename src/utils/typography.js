@@ -2,13 +2,16 @@ import Typography from 'typography'
 import Noriega from 'typography-theme-noriega'
 
 Noriega.overrideThemeStyles = () => ({
+  body: {
+    fontFamily: '-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;',
+  },
   'a.gatsby-resp-image-link': {
     boxShadow: 'none',
   },
-  "ul": {
-    marginLeft: "auto",
-    paddingLeft: "auto"
-  }
+  ul: {
+    marginLeft: 'auto',
+    paddingLeft: 'auto',
+  },
 })
 
 delete Noriega.googleFonts

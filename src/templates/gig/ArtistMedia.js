@@ -32,12 +32,11 @@ export default React.memo(({ artistMedia, gigTitle }) => {
       <div key={artist.machineName} id={artist.machineName}>
         <Divider sticky={true}>
           <DropdownMenu
-            width="100%"
-            textAlign="center"
             height={rhythm(1)}
             list={artistMedia.filter(item => item.machineName != artist.machineName)}
             direction="down"
             selectCallback={(e, item) => scrollTo(e, item.machineName)}
+            fullWidthMobile={true}
           >
             <p style={{ marginRight: rhythm(0.5), textAlign: 'center', width: '100%' }}>{artist.title}</p>
           </DropdownMenu>

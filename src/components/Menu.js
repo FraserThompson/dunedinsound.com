@@ -21,14 +21,16 @@ export default styled.div`
   scroll-behavior: smooth;
 
   #vaultSessionsHeaderLink {
+    height: 100%;
+    display: flex;
+    align-items: center;
     font-size: 0.5em;
     max-width: 60px;
     line-height: 1;
-    height: 100%;
     text-align: center;
     padding-top: 0px;
-    @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-      padding-top: 18px;
+    > span {
+      padding: 0px;
     }
   }
 

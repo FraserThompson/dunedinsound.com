@@ -72,7 +72,7 @@ const GlobalStyle = css`
       display: none !important;
     }
     .hideMobile {
-      display: inline-block !important;
+      display: flex !important;
     }
   }
 

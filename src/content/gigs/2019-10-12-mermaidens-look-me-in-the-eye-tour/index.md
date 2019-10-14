@@ -9,7 +9,7 @@ artists:
   - name: Mermaidens
     vid:
       - link: oKaFbP9BxPw
-      - link:
+      - link: Wjvq6DaByjg
       - link: 68fE5mxyGRQ
 cover: ./cover.jpg
 ---

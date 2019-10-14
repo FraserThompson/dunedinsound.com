@@ -8,7 +8,7 @@ import { scale, rhythm } from '../utils/typography'
 import Menu from './Menu'
 import { lighten } from 'polished'
 
-export default React.memo(({ list, selected, selectCallback, direction = 'up', width, height, textAlign, children }) => {
+export default React.memo(({ list, selected, selectCallback, direction = 'up', width, height, fullWidthMobile, textAlign, children }) => {
   const [open, setOpen] = useState(false)
 
   const toggleMenu = useCallback(
@@ -36,7 +36,7 @@ export default React.memo(({ list, selected, selectCallback, direction = 'up', w
           <MdKeyboardArrowDown />
         </span>
       </DropdownLink>
-      <DropdownMenu width={width} textAlign={textAlign} height={height} open={open} direction={direction}>
+      <DropdownMenu width={width} textAlign={textAlign} height={height} open={open} direction={direction} fullWidthMobile={fullWidthMobile}>
         {list.map((item, index) => (
           <li key={index} className={selected == index ? 'active' : ''} onClick={e => select(e, item, index)} style={{ paddingLeft: rhythm(0.5) }}>
             {item.title}
@@ -65,6 +65,9 @@ const DropdownMenu = styled(Menu)`
   transition-timing-function: cubic-bezier(0, 0, 0, 1.2);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 
+  text-align: ${props => (props.fullWidthMobile ? 'center' : 'auto')};
+  width: ${props => (props.fullWidthMobile ? '100%' : 'auto')};
+
   .title {
     ${scale(1)}
   }
@@ -77,6 +80,11 @@ const DropdownMenu = styled(Menu)`
     li {
       ${scale(-0.5)};
     }
+  }
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    text-align: auto;
+    width: auto;
   }
 `
 
