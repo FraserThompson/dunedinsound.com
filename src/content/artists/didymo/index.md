@@ -1,0 +1,5 @@
+---
+title: Didymo
+facebook: https://www.facebook.com/Didymo.Band/
+bandcamp: https://didymo.bandcamp.com/
+---
