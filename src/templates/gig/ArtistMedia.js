@@ -5,7 +5,7 @@ import Divider from '../../components/Divider'
 import YouTubeResponsive from '../../components/YouTubeResponsive'
 import { rhythm } from '../../utils/typography'
 import LoadingSpinner from '../../components/LoadingSpinner'
-import DropdownMenu from '../../components/DropdownMenu'
+import ArtistDropdownMenu from './ArtistDropdownMenu'
 import { scrollTo } from '../../utils/helper'
 
 export default React.memo(({ artistMedia, gigTitle }) => {
@@ -30,16 +30,17 @@ export default React.memo(({ artistMedia, gigTitle }) => {
 
     return (
       <div key={artist.machineName} id={artist.machineName}>
-        <Divider sticky={true}>
-          <DropdownMenu
+        <Divider sticky={'header'}>
+          <ArtistDropdownMenu
             height={rhythm(1)}
-            list={artistMedia.filter(item => item.machineName != artist.machineName)}
+            selected={artistMedia.findIndex(item => item.machineName == artist.machineName)}
+            list={artistMedia}
             direction="down"
             selectCallback={(e, item) => scrollTo(e, item.machineName)}
             fullWidthMobile={true}
           >
             <p style={{ marginRight: rhythm(0.5), textAlign: 'center', width: '100%' }}>{artist.title}</p>
-          </DropdownMenu>
+          </ArtistDropdownMenu>
         </Divider>
         <GridContainer xs="12" sm="6" md="6" lg="6">
           {vidElements}
@@ -53,7 +54,7 @@ export default React.memo(({ artistMedia, gigTitle }) => {
             <>
               {artist.title}
               {artist.details && (
-                <a href={artist.details.fields.slug} target="_blank" title="Go to artist page">
+                <a href={artist.details.fields.slug} title="Go to artist page">
                   {' '}
                   More media from this artist
                 </a>

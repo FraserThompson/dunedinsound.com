@@ -35,7 +35,6 @@ export default () => (
     `}
     render={data => (
       <Container>
-        <Divider />
         <Content>
           <p>
             Obscure and unofficial media from gigs in Dunedin, New Zealand since 2014. <Link to="/page/info/">More Info</Link>

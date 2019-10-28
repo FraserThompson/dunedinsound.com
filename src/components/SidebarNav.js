@@ -134,7 +134,7 @@ const List = styled.div`
           background-color: transparent !important;
         }
         > a {
-          color: white;
+          color: black;
           background-color: ${props => props.theme.foregroundColor};
           border-bottom: 1px solid ${props => darken(0.2, props.theme.foregroundColor)};
         }

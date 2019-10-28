@@ -3,10 +3,11 @@
 
 import React, { useState, useCallback } from 'react'
 import styled from '@emotion/styled'
-import { MdKeyboardArrowDown } from 'react-icons/md'
-import { scale, rhythm } from '../utils/typography'
-import Menu from './Menu'
+import { MdKeyboardArrowDown, MdExitToApp } from 'react-icons/md'
+import { scale, rhythm } from '../../utils/typography'
+import Menu from '../../components/Menu'
 import { lighten } from 'polished'
+import { Link } from 'gatsby'
 
 export default React.memo(({ list, selected, selectCallback, direction = 'up', width, height, fullWidthMobile, textAlign, children }) => {
   const [open, setOpen] = useState(false)
@@ -38,8 +39,15 @@ export default React.memo(({ list, selected, selectCallback, direction = 'up', w
       </DropdownLink>
       <DropdownMenu width={width} textAlign={textAlign} height={height} open={open} direction={direction} fullWidthMobile={fullWidthMobile}>
         {list.map((item, index) => (
-          <li key={index} className={selected == index ? 'active' : ''} onClick={e => select(e, item, index)} style={{ paddingLeft: rhythm(0.5) }}>
+          <li key={index} className={selected == index ? 'active' : ''} onClick={e => select(e, item, index)}>
             {item.title}
+            <span className="goToArtist">
+              {item.details && (
+                <Link title={`More gigs from ${item.title}`} to={item.details.fields.slug}>
+                  <MdExitToApp />
+                </Link>
+              )}
+            </span>
           </li>
         ))}
       </DropdownMenu>
@@ -68,17 +76,13 @@ const DropdownMenu = styled(Menu)`
   text-align: ${props => (props.fullWidthMobile ? 'center' : 'auto')};
   width: ${props => (props.fullWidthMobile ? '100%' : 'auto')};
 
-  .title {
-    ${scale(1)}
-  }
-  > li:hover:not(.active) {
-    background-color: ${props => lighten(0.1, props.theme.backgroundColor)};
-  }
-  .tracklist {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    li {
-      ${scale(-0.5)};
+  .goToArtist {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+      float: right;
+      position: static;
     }
   }
 

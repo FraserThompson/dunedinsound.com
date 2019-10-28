@@ -75,11 +75,13 @@ const OpenButton = styled.div`
     border: none;
     padding-right: 5px;
     height: 30px;
+    color: black;
     background-color: ${props => props.theme.foregroundColor};
     border-top-left-radius: 60px;
     border-top-right-radius: 60px;
 
     &:hover {
+      color: black;
       background-color: ${props => lighten(0.2, props.theme.foregroundColor)};
       box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     }

@@ -1,12 +1,13 @@
 import { css } from '@emotion/core'
 import { scale, rhythm } from '../utils/typography'
 import TransitionStyles from './TransitionStyles'
-import { lighten, darken } from 'polished'
+import { lighten, invert } from 'polished'
 import { theme } from '../utils/theme'
 
 // we can't call functions in emotion css so these are out here... it's ok for now
+const foregroundColor = theme.default.foregroundColor
 const lightText = lighten(0.5, theme.default.textColor)
-const darkText = darken(0.2, theme.default.foregroundColor)
+const darkText = invert(theme.default.textColor)
 const padding = rhythm(0.5)
 const rhythm1 = rhythm(1)
 const scale2 = scale(2)
@@ -173,6 +174,10 @@ const GlobalStyle = css`
     text-decoration: none;
     overflow: hidden;
     background-color: transparent;
+
+    &.highlighted {
+      color: ${foregroundColor};
+    }
 
     .backgroundImage {
       transition: transform 0.3s ease-in-out;

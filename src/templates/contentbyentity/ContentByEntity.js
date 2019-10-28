@@ -27,7 +27,7 @@ import HorizontalNav from '../../components/HorizontalNav'
 import { theme } from '../../utils/theme'
 import FlexGridContainer from '../../components/FlexGridContainer'
 import GigTile from '../../components/GigTile'
-import { scale } from '../../utils/typography'
+import { scale, rhythm } from '../../utils/typography'
 import styled from '@emotion/styled'
 import ContentTabs from './ContentTabs'
 import { scrollTo } from '../../utils/helper'
@@ -96,7 +96,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
 
         return (
           <div id={fieldValue} key={fieldValue}>
-            <Divider backgroundColor={theme.default.foregroundColor} color={'white'} sticky={2}>
+            <Divider backgroundColor={theme.default.foregroundColor} color={'black'} sticky={'headerMobile'}>
               <a style={{ width: '100%' }} onClick={e => scrollTo(e, fieldValue)} href={'#' + fieldValue}>
                 <small>
                   {fieldValue} ({yearSize})
@@ -144,10 +144,10 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
       description={pageDescription}
       image={cover && cover.src}
       title={`${data.thisPost.frontmatter.title} | ${data.site.siteMetadata.title}`}
-      scrollHeaderContent={
-        <a style={{ width: '100%' }} onClick={e => scrollTo(e, 'top')} href="#top" title="Scroll to top">
+      scrollHeaderOverlay={
+        <PageTitle>
           <h1 className="big">{data.thisPost.frontmatter.title}</h1>
-        </a>
+        </PageTitle>
       }
     >
       <Banner
@@ -226,6 +226,21 @@ const Quote = styled.p`
   &:hover {
     > span {
       color: #b4dc7b;
+    }
+  }
+`
+const PageTitle = styled.span`
+  margin-left: auto;
+  max-width: 75vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  h1 {
+    color: black;
+    font-size: 100%;
+    @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+      font-size: ${rhythm(1.8)};
+      line-height: 0.9;
     }
   }
 `

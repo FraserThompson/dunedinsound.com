@@ -56,6 +56,7 @@ export default React.memo(({ data, location }) => {
   }, [filteredPosts])
 
   useEffect(() => {
+    shuffle && shuffle.update()
     return () => shuffle && shuffle.destroy()
   }, [shuffle])
 

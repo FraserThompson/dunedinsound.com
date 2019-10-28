@@ -1,11 +1,12 @@
 // SiteHeader.js
 // The header for the site.
 // Props
-//  - backgroundColor (optional): Will use theme primaryColor if not supplied
-//  - hideOnMobile (optional): Whether to hide it on mobile
+//  - scrollHeaderContent (optional): Displays this in between the brand and the content when scrolled.
+//  - isSidebar (optional): Pass this in if the page has a sidebar so it can leave room.
 //  - headerContent (optional): Extra content to put in the header
-//  - hideBrand (optional): Hide the brand
-//  - hideNav (optional): Hide the navigation
+//  - hideBrandOnMobile (optional): Hide the brand on mobile
+//  - scrollHeaderOverlay (optional): Replaces the entire header with this and overlays the page with it when scrolled.
+//  - backgroundColor (optional): Will use theme primaryColor if not supplied
 
 import React, { useState, useCallback, useEffect } from 'react'
 import { Link } from 'gatsby'
@@ -17,7 +18,7 @@ import { calculateScrollHeaderOffset } from '../utils/helper'
 
 const scrollHeaderOffset = typeof window !== `undefined` && calculateScrollHeaderOffset(window)
 
-export default React.memo(({ scrollHeaderContent, isSidebar, headerContent, hideBrandOnMobile, backgroundColor }) => {
+export default React.memo(({ scrollHeaderContent, isSidebar, headerContent, hideBrandOnMobile, scrollHeaderOverlay, backgroundColor }) => {
   const [scrolled, setScrolled] = useState(false)
 
   const onScroll = useCallback(() => {
@@ -29,9 +30,11 @@ export default React.memo(({ scrollHeaderContent, isSidebar, headerContent, hide
   }, [])
 
   useEffect(() => {
-    scrollHeaderContent && window.addEventListener('scroll', onScroll, { passive: true })
-    return () => scrollHeaderContent && window.removeEventListener('scroll', onScroll)
+    ;(scrollHeaderContent || scrollHeaderOverlay) && window.addEventListener('scroll', onScroll, { passive: true })
+    return () => (scrollHeaderContent || scrollHeaderOverlay) && window.removeEventListener('scroll', onScroll)
   }, [])
+
+  if (scrolled && scrollHeaderOverlay) return <OverlayContainer>{scrollHeaderOverlay}</OverlayContainer>
 
   return (
     <Container
@@ -76,6 +79,16 @@ const Container = styled.div`
     padding-left: 0;
     height: ${props => props.theme.headerHeight};
   }
+`
+
+const OverlayContainer = styled.div`
+  pointer-events: none;
+  display: flex;
+  background-color: transparent;
+  position: fixed;
+  width: 100%;
+  top: 0px;
+  z-index: 10;
 `
 
 const HeaderContent = styled.div`

@@ -28,6 +28,7 @@ export default React.memo(
     hideBrandOnMobile,
     headerContent,
     scrollHeaderContent,
+    scrollHeaderOverlay,
     isSidebar,
   }) => (
     <ThemeProvider theme={theme.default}>
@@ -43,13 +44,19 @@ export default React.memo(
           {date && <meta itemprop="datePublished" content={date} />}
           {image && <meta property="og:image" content={image} />}
         </Helmet>
+        <UpdateYourFrickinBrowser />
         <HeaderWrapper>
           <MobileNav className="showMobile">
             <SiteNav backgroundColor={lighten(0.1, theme.default.primaryColor)} height={theme.default.headerHeightMobile} />
           </MobileNav>
-          <SiteHeader scrollHeaderContent={scrollHeaderContent} headerContent={headerContent} hideBrandOnMobile={hideBrandOnMobile} isSidebar={isSidebar} />
+          <SiteHeader
+            scrollHeaderOverlay={scrollHeaderOverlay}
+            scrollHeaderContent={scrollHeaderContent}
+            headerContent={headerContent}
+            hideBrandOnMobile={hideBrandOnMobile}
+            isSidebar={isSidebar}
+          />
         </HeaderWrapper>
-        <UpdateYourFrickinBrowser />
         <SiteContainer
           className="SiteContainer"
           hideFooter={hideFooter}
@@ -76,13 +83,13 @@ const HeaderWrapper = styled.div`
 const SiteContainer = styled.div`
   min-height: ${props => `calc(100vh - ${props.theme.headerHeight} - 1px)`};
   background-color: ${props => props.overrideBackgroundColor || props.theme.backgroundColor};
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
   height: 100%;
   width: 100%;
   z-index: 2;
   position: ${props => !props.hideFooter && 'relative'};
   bottom: 0;
-  margin-bottom: ${props => !props.hideFooter && `calc(${props.theme.footerHeight} + ${props.theme.headerHeightMobile} + 30px)`};
+  margin-bottom: ${props => !props.hideFooter && `calc(${props.theme.footerHeight} + 30px)`};
   margin-top: ${props => props.headerContent && props.theme.headerHeightMobile};
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
     margin-top: ${props => props.theme.headerHeight};

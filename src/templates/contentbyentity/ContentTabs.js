@@ -6,7 +6,7 @@ export default React.memo(({ gigTiles, blogTiles, vaultsessionTiles, gigCount, b
   const [openTab, setOpenTab] = useState('gigs')
   return (
     <>
-      <Tabs sticky>
+      <Tabs sticky={'top'}>
         <button className={openTab === 'gigs' ? 'active' : ''} onClick={() => setOpenTab('gigs')}>
           Gigs <small>({gigCount})</small>
         </button>

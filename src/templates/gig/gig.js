@@ -101,7 +101,10 @@ export default React.memo(({ data }) => {
         subtitle={
           venueDetails && (
             <>
-              at <Link to={venueDetails.fields.slug}>{venueDetails.frontmatter.title}</Link>
+              at{' '}
+              <Link to={venueDetails.fields.slug} className="highlighted">
+                {venueDetails.frontmatter.title}
+              </Link>
               <p>
                 <small>{data.thisPost.frontmatter.date}</small>
               </p>

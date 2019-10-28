@@ -1,12 +1,15 @@
+// Tabs.js
+// A divider which you can put buttons in to make tabs.
+// Inherits all settings from Divider
+
 import { invert } from 'polished'
 import { rhythm } from '../utils/typography'
 import styled from '@emotion/styled'
 import DividerWrapper from './Divider'
 
 export default styled(DividerWrapper)`
+  height: ${props => props.theme.headerHeightMobile};
   padding: 0;
-  position: ${props => props.sticky && 'sticky'};
-  top: ${props => props.sticky && props.theme.headerHeightMobile};
   z-index: 7;
 
   button:first-of-type {
@@ -30,15 +33,11 @@ export default styled(DividerWrapper)`
     &:active,
     &.active {
       color: white;
+      background-color: black;
       outline: 0;
     }
     &:hover:not(.active) {
       color: black;
     }
-  }
-
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    height: ${props => props.theme.headerHeightMobile};
-    top: ${props => props.sticky && props.theme.headerHeight};
   }
 `

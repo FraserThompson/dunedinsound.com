@@ -62,7 +62,7 @@ export default React.memo(({ node, title, id, imageSizes, width, height }) => {
             height={height}
             to={node.fields.slug}
           >
-            <MediaCounts>
+            {/* <MediaCounts>
               {imageCountByGig[node.fields.parentDir] > 0 && (
                 <div>
                   <span className="smaller">{imageCountByGig[node.fields.parentDir]}</span> <MdPhotoCamera />{' '}
@@ -78,7 +78,7 @@ export default React.memo(({ node, title, id, imageSizes, width, height }) => {
                   <span className="smaller">{videoCount}</span> <MdVideocam />
                 </div>
               )}
-            </MediaCounts>
+            </MediaCounts> */}
           </Tile>
         )
       }}
@@ -89,7 +89,8 @@ export default React.memo(({ node, title, id, imageSizes, width, height }) => {
 const MediaCounts = styled.div`
   position: absolute;
   color: ${props => props.theme.textColor};
-  top: 0px;
+  background-color: black;
+  top: 1em;
   right: 0px;
   text-align: right;
   > div {

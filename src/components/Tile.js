@@ -133,7 +133,7 @@ const TextContent = styled.div`
 
 const Label = styled.span`
   position: absolute;
-  background-color: ${props => props.theme.contrastColor};
+  background: rgba(0, 0, 0, 0.8);
   z-index: 5;
   text-align: center;
   white-space: nowrap;
@@ -141,12 +141,10 @@ const Label = styled.span`
   line-height: 1;
   padding-left: ${rhythm(0.5)};
   padding-right: ${rhythm(0.5)};
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  left: 0px;
+  right: 0px;
   top: 0px;
   small {
-    color: ${lighten(0.2, 'black')};
+    color: ${props => props.theme.textColor};
   }
 `
 

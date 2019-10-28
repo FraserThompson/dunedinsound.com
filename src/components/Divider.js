@@ -4,7 +4,7 @@
 // Params:
 //  - children: content to display in the divider
 //  - color (optional): Text color
-//  - sticky (optional): Makes it sticky
+//  - sticky (optional): Makes it sticky in either 'header' 'top' or 'headerMobile' location
 //  - backgroundColor (optional): Background color
 //  - href (optional): Makes it a link
 
@@ -20,6 +20,28 @@ export default React.memo(({ href, color, sticky, backgroundColor, children, cla
   </DividerWrapper>
 ))
 
+const getStickyTopDesktop = props => {
+  switch (props.sticky) {
+    case 'header':
+      return props.theme.headerHeight
+    case 'top':
+      return '0'
+    case 'headerMobile':
+      return props.theme.headerHeightMobile
+  }
+}
+
+const getStickyTopMobile = props => {
+  switch (props.sticky) {
+    case 'header':
+      return props.theme.headerHeightMobile
+    case 'top':
+      return '0'
+    case 'headerMobile':
+      return props.theme.headerHeightMobile
+  }
+}
+
 export const DividerWrapper = styled.div`
   color: ${props => props.color || 'black'};
   position: relative;
@@ -34,7 +56,7 @@ export const DividerWrapper = styled.div`
   background-color: ${props => props.backgroundColor || props.theme.contrastColor};
   border-bottom: 1px solid ${props => darken(0.1, props.backgroundColor || props.theme.contrastColor)};
 
-  top: ${props => (props.sticky ? (props.sticky == 2 ? props.theme.headerHeightMobileWithSubheader : props.theme.headerHeightMobile) : '0')};
+  top: ${getStickyTopMobile};
   position: ${props => (props.sticky ? 'sticky' : 'relative')};
   z-index: ${props => (props.sticky ? '6' : '5')};
   box-shadow: ${props => props.sticky && '0 6px 12px rgba(0,0,0,0.25)'};
@@ -55,6 +77,6 @@ export const DividerWrapper = styled.div`
   }
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    top: ${props => (props.sticky ? (props.sticky == 2 ? props.theme.headerHeightWithSubheader : props.theme.headerHeight) : '0')};
+    top: ${getStickyTopDesktop};
   }
 `

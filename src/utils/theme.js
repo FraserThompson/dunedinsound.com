@@ -13,7 +13,7 @@ export const theme = {
     waveformProgressColor: '#EC4067',
     backgroundColor: '#0C1214', // dark navy
     primaryColor: '#0C1821', // navy
-    foregroundColor: '#01baef', // cyan
+    foregroundColor: '#FDE74C', // cyan
     secondaryColor: '#EC4067', // pink
     contrastColor: '#EFF1ED', // ice white
     textColor: '#ccc',
