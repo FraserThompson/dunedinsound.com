@@ -29,9 +29,11 @@ export default React.memo(({ tracklist, playerTarget, fullDownloadLink, onHover 
             <a className="trackTitle" onClick={() => seekVideoTo(video.seconds)}>
               {video.title}
             </a>{' '}
-            <a target="_blank" href={`https://youtube.com/watch?v=${video.link}`}>
-              <small>(Video)</small>
-            </a>
+            {video.link && (
+              <a target="_blank" href={`https://youtube.com/watch?v=${video.link}`}>
+                <small>(Video)</small>
+              </a>
+            )}
           </Track>
         )
       })}

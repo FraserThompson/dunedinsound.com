@@ -44,6 +44,11 @@ export default ({ data, location }) => {
 
   const backContent = (
     <Posts>
+      {hoveredNode && (
+        <div className="background">
+          <Img style={{ height: '100%', opacity: '0.6' }} fluid={hoveredNode.frontmatter.cover.childImageSharp.fluid} />
+        </div>
+      )}
       {posts.map(({ node }) => (
         <Link key={node.fields.slug} onMouseOver={() => thingHover(node)} onMouseOut={thingUnhover} to={node.fields.slug}>
           <article>
@@ -74,7 +79,6 @@ export default ({ data, location }) => {
         backContent={backContent}
         bottomContent={bottomContent}
         topContent={topContent}
-        rightContent={hoveredNode && <Img style={{ height: '100%', opacity: '0.6' }} fluid={hoveredNode.frontmatter.cover.childImageSharp.fluid} />}
         leftContent={hoveredNode && <Description dangerouslySetInnerHTML={{ __html: hoveredNode.html }}></Description>}
       ></World>
     </Layout>
@@ -103,18 +107,37 @@ export const pageQuery = graphql`
 `
 
 const Posts = styled.div`
-  article {
-    border-top: 2px solid darkcyan;
-    border-bottom: 2px solid darkcyan;
-    transition: filter 0.3s ease-in-out;
-    background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  .background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
+  > a {
+    display: block;
+    width: 100%;
+    transition: background-color 0.3s ease-in-out;
+    background-color: rgba(0, 0, 0, 0);
     h2 {
       text-transform: uppercase;
       color: #282828;
       font-family: monospace;
     }
     &:hover {
-      filter: invert(1);
+      background-color: rgba(255, 255, 255, 0.8);
+      cursor: crosshair;
+      h2 {
+        color: black;
+      }
     }
   }
 `

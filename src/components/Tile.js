@@ -8,7 +8,7 @@
 //  - image
 //  - children (optional)
 //  - width (optional): Width of the tile
-//  - textColor (optional)
+//  - backgroundColor (optional)
 //  - height (optional): Defaults to 500px
 //  - shadowBottom(optional) : Whether to show a shadow on the bottom
 //  - imageSizes (optional): This is an array which helps gatsby decide what size image to show.

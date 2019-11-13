@@ -5,6 +5,7 @@ import Layout from '../components/Layout'
 import Tile from '../components/Tile'
 import GridContainer from '../components/GridContainer'
 import GigTile from '../components/GigTile'
+import { theme } from '../utils/theme'
 
 export default ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -57,41 +58,45 @@ export default ({ data, location }) => {
   return (
     <Layout description={siteDescription} location={location} title={siteTitle}>
       <HomePageGridContainer>
-        <div>
+        <div className="featured-gig">
           <GigTile imageSizes={{ xs: 12, md: 8, lg: 8 }} title={firstGig.frontmatter.title} node={firstGig} height="66vh" />
         </div>
-        <div>{postSections.firstTwo.map(tile => tile)}</div>
-        <GridContainer>{postSections.nextThree.map(tile => tile)}</GridContainer>
+        <div className="two-side-gigs">{postSections.firstTwo.map(tile => tile)}</div>
+        <div className="everything-else">
+          <GridContainer>{postSections.nextThree.map(tile => tile)}</GridContainer>
+          <GridContainer xs={6} sm={6} md={6} lg={6}>
+            <Tile height={'10vh'} to={'/gigs'} backgroundColor={theme.default.foregroundColor}>
+              More Gigs
+            </Tile>
+            <Tile height={'10vh'} to={'/blog'} backgroundColor={theme.default.secondaryColor}>
+              More Articles
+            </Tile>
+          </GridContainer>
+        </div>
       </HomePageGridContainer>
     </Layout>
   )
 }
 
 const HomePageGridContainer = styled(GridContainer)`
-  > div:nth-of-type(1) {
+  .featured-gig {
     grid-column: span 12;
   }
-  > div:nth-of-type(2) {
+  .two-side-gigs {
     grid-column: span 12;
   }
-  > div:nth-of-type(3) {
+  .everything-else {
     grid-column: span 12;
-  }
-  > div:nth-of-type(4) {
-    display: initial;
   }
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    > div:nth-of-type(1) {
+    .featured-gig {
       grid-column: span 8;
     }
-    > div:nth-of-type(2) {
+    .two-side-gigs {
       grid-column: span 4;
     }
-    > div:nth-of-type(3) {
+    .everything-else {
       grid-column: span 12;
-    }
-    > div:nth-of-type(4) {
-      display: none;
     }
   }
 `

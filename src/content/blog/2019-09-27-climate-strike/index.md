@@ -1,5 +1,5 @@
 ---
-title: 'Media: Strike for the Climate Dunedin'
+title: 'Media from Strike for the Climate Dunedin'
 date: 2019-09-27T00:00:00.000Z
 tags:
   - event
