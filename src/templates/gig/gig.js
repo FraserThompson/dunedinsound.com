@@ -77,7 +77,7 @@ export default React.memo(({ data }) => {
     <Layout
       location={location}
       description={`Photos, audio and video from ${gigTitle}.`}
-      image={cover && cover.src}
+      image={cover && cover.childImageSharp && cover.childImageSharp.fluid.src}
       title={`${gigTitle} | ${data.site.siteMetadata.title}`}
       date={data.thisPost.frontmatter.date}
       type="article"

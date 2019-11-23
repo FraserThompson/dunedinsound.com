@@ -3,7 +3,7 @@ date: 2019-11-12T07:30:00.000Z
 title: Sugarcoated Bullets
 artist: sugarcoated_bullets
 cover: ./cover.jpg
-full_video: NlMJZkCoCus
+full_video: MIzpML0wLZA
 tracklist:
   - title: 'Snowflake'
     time: '00:35'
@@ -17,6 +17,7 @@ tracklist:
     time: '17:44'
   - title: 'I Demand Attention'
     time: '19:40'
+    link: WmxA04iPSWg
   - title: 'Numbskull'
     time: '24:03'
 ---

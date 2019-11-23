@@ -111,14 +111,12 @@ export default React.memo(({ data, location }) => {
       )}
       {filteredPosts && (
         <Pills>
-          <small>
-            <button className={sortBy === 'title' ? 'active' : ''} onClick={() => setSortBy('title')}>
-              Title
-            </button>
-            <button className={sortBy === 'numberOfGigs' ? 'active' : ''} onClick={() => setSortBy('numberOfGigs')}>
-              Gigs
-            </button>
-          </small>
+          <button className={sortBy === 'title' ? 'active' : ''} onClick={() => setSortBy('title')}>
+            Title
+          </button>
+          <button className={sortBy === 'numberOfGigs' ? 'active' : ''} onClick={() => setSortBy('numberOfGigs')}>
+            Gigs
+          </button>
         </Pills>
       )}
       <ArtistGrid fixedWidth ref={element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
@@ -159,6 +157,7 @@ const LoadingWrapper = styled.div`
 `
 
 const Pills = styled(Tabs)`
+  color: ${props => props.theme.foregroundColor};
   position: fixed;
   width: auto;
   z-index: 4;
@@ -168,6 +167,8 @@ const Pills = styled(Tabs)`
   opacity: 0.6;
   transition: opacity 200ms ease-in-out;
 
+  font-size: 80%;
+
   &:hover {
     opacity: 1;
   }
@@ -175,6 +176,11 @@ const Pills = styled(Tabs)`
   button {
     border: none;
     border-radius: 10px;
+    height: 100%;
+    &.active {
+      color: black;
+      background-color: ${props => props.theme.foregroundColor};
+    }
   }
 `
 

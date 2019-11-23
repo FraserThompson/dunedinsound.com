@@ -65,10 +65,10 @@ export default ({ data, location }) => {
         <div className="everything-else">
           <GridContainer>{postSections.nextThree.map(tile => tile)}</GridContainer>
           <GridContainer xs={6} sm={6} md={6} lg={6}>
-            <Tile height={'10vh'} to={'/gigs'} backgroundColor={theme.default.foregroundColor}>
+            <Tile height={'10vh'} to={'/gigs/'} backgroundColor={theme.default.foregroundColor}>
               More Gigs
             </Tile>
-            <Tile height={'10vh'} to={'/blog'} backgroundColor={theme.default.secondaryColor}>
+            <Tile height={'10vh'} to={'/blog/'} backgroundColor={theme.default.secondaryColor}>
               More Articles
             </Tile>
           </GridContainer>
