@@ -210,7 +210,14 @@ export default React.memo(({ data, location }) => {
                     return (
                       <section data-yearindex={index} key={id} id={id}>
                         {posts.map(({ node }) => (
-                          <GigTile id={node.fields.slug} key={node.fields.slug} height="30vh" node={node} imageSizes={{ xs: 12, sm: 8, lg: 8 }} />
+                          <GigTile
+                            id={node.fields.slug}
+                            key={node.fields.slug}
+                            height="15vh"
+                            hoverHeight="50vh"
+                            node={node}
+                            imageSizes={{ xs: 4, sm: 4, lg: 6 }}
+                          />
                         ))}
                       </section>
                     )

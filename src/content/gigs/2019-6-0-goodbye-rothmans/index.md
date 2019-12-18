@@ -1,12 +1,12 @@
 ---
-title: "goodbye rothmans"
+title: 'goodbye rothmans'
 date: 2019-6-0 08:30:00 Z
 venue: the_attic
 artists:
   - name: Mary Berry
     vid:
       - link: jPvyZ-2xK0Q
-  - name: Milpool
+  - name: Milpool.
     vid:
       - link: IjBxULV1I4g
       - link: M7QFE8URmps

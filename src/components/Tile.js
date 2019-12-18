@@ -8,6 +8,7 @@
 //  - image
 //  - children (optional)
 //  - width (optional): Width of the tile
+//  - hoverHeight (optional): Height on hover
 //  - backgroundColor (optional)
 //  - height (optional): Defaults to 500px
 //  - shadowBottom(optional) : Whether to show a shadow on the bottom
@@ -27,6 +28,7 @@ export default ({
   height = '40vh',
   backgroundColor = 'radial-gradient(circle, rgba(236, 64, 103, 1) 0%, rgba(12, 24, 33, 1) 70%)',
   width,
+  hoverHeight,
   machineName,
   label,
   image,
@@ -68,6 +70,7 @@ export default ({
       data-title={title}
       data-machinename={machineName}
       containerWidth={width}
+      hoverHeight={hoverHeight}
       className="tile"
       id={id}
     >
@@ -94,6 +97,12 @@ const Container = styled.div`
   height: ${props => props.containerHeight};
   width: ${props => props.containerWidth};
   overflow: hidden;
+  transition: height 100ms ease-in-out;
+
+  &:hover {
+    height: ${props => props.hoverHeight};
+  }
+
   h1,
   h2,
   h3,
