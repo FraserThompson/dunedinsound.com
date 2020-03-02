@@ -2,18 +2,18 @@
 title: 'Goodbye None'
 date: 2019-05-25T21:00:00.000Z
 tags:
-    - article
-    - none_gallery
+  - article
+  - none_gallery
 author: Fraser Thompson
 background_position: center
 background_size: contain
-description: 
+description:
 cover: ../../venues/none_gallery/cover.jpg
 ---
 
 A few weeks ago the art and music community received some sad news: [None Gallery](/venues/none_gallery/) had been sold and, since it’s new owners had purchased a cashflow opportunity not an art gallery, the residents had 30 days to collect 16 years of history and get out.
 
-None Gallery was founded in 2003 as a collaborative art space. The building on Stafford Street included six huge bedrooms, studio spaces, a large basement, and a gallery space. By design it’s purpose was mutable; the “None” was to imply no fixed definition. It served as an incubator, a venue, a workspace, a support network, and a home to the hundreds of artists who came and went over the years. 
+None Gallery was founded in 2003 as a collaborative art space. The building on Stafford Street included six huge bedrooms, studio spaces, a large basement, and a gallery space. By design it’s purpose was mutable; the “None” was to imply no fixed definition. It served as an incubator, a venue, a workspace, a support network, and a home to the hundreds of artists who came and went over the years.
 
 ![Don't define None (From the archives. Photo by Oscar Francis)](./dont_define_none_processed.jpg)
 
@@ -23,21 +23,31 @@ Before it was leased by the original collective in 2003, the building was a stri
 
 Over time the original residents moved out, and a steady stream of artists and musicians came and went, sometimes staying for just a few months and leaving with new artistic perspectives and directions. 16 years later and the building is still fully occupied with incredible artists doing incredible things who are now burdened with the task of somehow packing it all up in under a month.
 
-I myself discovered it comparatively late in its existence, but some of my most memorable gigs have been there. The first time I saw [Ov Pain and Negative Nancies in 2016](/gigs/eye-negative-nancies-ov-pain/), Sewage’s [dual saxophone absurdity in late 2017](/gigs/girls-pissing-on-girls-pissing-with-sewage-and-coyote/), watching Brendan Jon Philip deliver a [screaming barrage of noise as he slowly disappeared behind layers of fog…](/gigs/from-kingdom-to-crown-(storm-channels)/) Even dancier acts like [Disasteradio](/gigs/disasteradio-sweatshop-tour/) felt right at home at None. The space was a blank canvas.
+I myself discovered it comparatively late in its existence, but some of my most memorable gigs have been there. The first time I saw [Ov Pain and Negative Nancies in 2016](/gigs/eye-negative-nancies-ov-pain/), Sewage’s [dual saxophone absurdity in late 2017](/gigs/girls-pissing-on-girls-pissing-with-sewage-and-coyote/), watching Brendan Jon Philip deliver a [screaming barrage of noise as he slowly disappeared behind layers of fog…](</gigs/from-kingdom-to-crown-(storm-channels)/>) Even dancier acts like [Disasteradio](/gigs/disasteradio-sweatshop-tour/) felt right at home at None. The space was a blank canvas.
 
 ![From Kingdom to Crown (2017)](../../gigs/2017-07-28-from-kingdom-to-crown-storm-channels/cover.jpg)
 
 Art flourishes outside of commercial pressures, and while the recent resurgence of venues is great for some, it was nice to go to a venue where the main purpose wasn’t selling alcohol. None Gallery joins The Attic on the list of DIY venues recently snuffed out by external forces.
 
-Unfortunately the cycle of gentrification means as soon as an area becomes known as an art hub, property developers pounce on it and drive out all the artists who made it desirable in the first place. It happened to K road in Auckland and it’s happening to anywhere adjacent to the “warehouse precinct”. Vogel Street used to be cool; now it’s just cafe’s. 
+Unfortunately the cycle of gentrification means as soon as an area becomes known as an art hub, property developers pounce on it and drive out all the artists who made it desirable in the first place. It happened to K road in Auckland and it’s happening to anywhere adjacent to the “warehouse precinct”. Vogel Street used to be cool; now it’s just cafe’s.
 
-[The Edinburgh Realty listing page for 22-24 Stafford Street](https://www.edinburghrealty.co.nz/listing/DO10120) described the property as: “an exciting opportunity for further development… very close to the heritage precinct area within the central city… not Heritage New Zealand listed” which is basically to say “you can take advantage of being near historic buildings but you don’t have to respect the history of this building.” 
+[The Edinburgh Realty listing page for 22-24 Stafford Street](https://www.edinburghrealty.co.nz/listing/DO10120) described the property as: “an exciting opportunity for further development… very close to the heritage precinct area within the central city… not Heritage New Zealand listed” which is basically to say “you can take advantage of being near historic buildings but you don’t have to respect the history of this building.”
 
-It’s also particularly interesting given that [in 2016 the Dunedin City Council granted $5,000 out of the heritage fund towards drainage and roof repairs](https://www.dunedin.govt.nz/services/dunedin-heritage/how-can-we-help/list-of-applicants) - odd considering it’s apparently not a heritage building. 
+![Realestate listing](./realestatelisting.jpg)
 
-The new owners, Bryan Howard Usher and Claudine Maree Usher acting as [NORTHFIELD PROPERTY & INVESTMENT COMPANY LIMITED](https://app.companiesoffice.govt.nz/companies/app/ui/pages/companies/1210486/detail) for tax purposes (probably), spent $625,000 on the property’s four buildings and 14 car parks. Bryan Hower Usher’s previous achievements include closing the BP on George Street because a tank needed replacing and he didn’t want to pay for it.
+It’s also particularly interesting given that [in 2016 the Dunedin City Council granted \$5,000 out of the heritage fund towards drainage and roof repairs](https://www.dunedin.govt.nz/services/dunedin-heritage/how-can-we-help/list-of-applicants) - odd considering it’s apparently not a heritage building.
 
-It’s hard to know what they have planned for it. Probably more car parks.
+![Heritage funding for a non-heritage building?](./heritage_fund.jpg)
+
+The new owners, Bryan Howard Usher and Claudine Maree Usher acting as [NORTHFIELD PROPERTY & INVESTMENT COMPANY LIMITED](https://app.companiesoffice.govt.nz/companies/app/ui/pages/companies/1210486/detail) for tax purposes (probably), spent \$625,000 on the property’s four buildings and 14 car parks. Bryan Hower Usher’s previous achievements include closing the BP on George Street because a tank needed replacing and he didn’t want to pay for it.
+
+It’s hard to know what they have planned for it. Probably more car parks. (Update: The building has been leased to a martial arts gym)
+
+![Posters of gigs over the years](./posters.jpg)
+
+![Previous sales listing](./old_bayleys_sale.jpg)
+
+![Parasites bragging about being parasites](./previous_sale_bayleys.jpg)
 
 ## Collected thoughts on None Gallery
 
@@ -45,11 +55,11 @@ It’s hard to know what they have planned for it. Probably more car parks.
 
 **What was your connection to None Gallery?**
 
-We started none gallery as a collective in 2003, though I fell in love with the space in 1997. Some friends of mine occupied the building, at the time known as California Girls (Cartel).  The Ho' Dogs / Crude were part of that scene. 
+We started none gallery as a collective in 2003, though I fell in love with the space in 1997. Some friends of mine occupied the building, at the time known as California Girls (Cartel). The Ho' Dogs / Crude were part of that scene.
 
 **How did it come to exist? Ie. Who's idea was it and how did they make it a reality?**
 
-In 2002 we were doing noise / installation / art based performances as The Ministry of Information (Trust).  We were looking for live-in studios around that time, around the Exchange area. 24 Stafford St appeared unoccupied, so we tried to lease the building in late '02  but it fell through - then got a call from the new property managers about 3 months later who offered us the lease. In terms of who's idea, it was a collective of 7 people, with similar ideas to co-habit a space to live, work, do exhibitions and music shows. As a multi-use three story building, none had scope for all of those things. 
+In 2002 we were doing noise / installation / art based performances as The Ministry of Information (Trust). We were looking for live-in studios around that time, around the Exchange area. 24 Stafford St appeared unoccupied, so we tried to lease the building in late '02 but it fell through - then got a call from the new property managers about 3 months later who offered us the lease. In terms of who's idea, it was a collective of 7 people, with similar ideas to co-habit a space to live, work, do exhibitions and music shows. As a multi-use three story building, none had scope for all of those things.
 
 **What was the original intent behind it's creation?**
 
@@ -65,7 +75,7 @@ https://teara.govt.nz/en/photograph/22904/the-exchange-dunedin
 
 The building itself has a colourful history, originally the HQ for Kempthorne Prosser - the leading big pharma / fertiliser company in NZ from 1869 - 1978. https://en.wikipedia.org/wiki/Kempthorne_Prosser
 
-Some artifacts remained in the building from this era, which we uncovered while digging up the dirt room underneath the adjoining building via the basement. Alistair Gailbraith recalled going there as a child, when it housed a dog food / horse meat processing plant.  Then it became California Girls Strip club.
+Some artifacts remained in the building from this era, which we uncovered while digging up the dirt room underneath the adjoining building via the basement. Alistair Gailbraith recalled going there as a child, when it housed a dog food / horse meat processing plant. Then it became California Girls Strip club.
 
 The building required a lot of work to get liveable and workable, so we negotiated the first month rent free in lieu of doing the work ourselves. We sanded and painted the gallery floor, made some modifications to the ceiling etc, removed the peep show booths, prepared and painted the walls and installed spot lights in the gallery. The initial cleaning seemed to take weeks, the patina of time was thick!. We had the building spiritually cleansed, as some residents felt there were more than just us occupying the space. none has remained very much the same as it was back in 2003, but with layers of cultural detritus added year by year.
 
@@ -83,11 +93,11 @@ As a community of people involved over the years I know it holds a special place
 
 **What was your connection to None Gallery?**
 
-One of the 7 founding members. 
+One of the 7 founding members.
 
 **How did it come to exist? Ie. Who's idea was it and how did they make it a reality?**
 
-It was a true joint venture. There was a core collective from the (Trust) Ministry of Information searching for a home along with like minded individuals. We bargined with the previous Landlady in Dec 2002, but it all fell through in a fairly spectacular fashion. Just a couple of months later it was sold to our lord and savior Kingsley Kung, a true patron of the Arts in that kvlt dunedin mental health triangle way. The weight of responsibility for none rests on many shoulders. Worth noting that the space was inhabited by the Ho' Dogs, California Girls Strip Club and a drug factory before it's baptism as none. At first we just had the top two floors, the basement being let to a paint company until we took it over, as well as taking over the adjoining basement by stealth. 
+It was a true joint venture. There was a core collective from the (Trust) Ministry of Information searching for a home along with like minded individuals. We bargined with the previous Landlady in Dec 2002, but it all fell through in a fairly spectacular fashion. Just a couple of months later it was sold to our lord and savior Kingsley Kung, a true patron of the Arts in that kvlt dunedin mental health triangle way. The weight of responsibility for none rests on many shoulders. Worth noting that the space was inhabited by the Ho' Dogs, California Girls Strip Club and a drug factory before it's baptism as none. At first we just had the top two floors, the basement being let to a paint company until we took it over, as well as taking over the adjoining basement by stealth.
 
 **What was the original intent behind it's creation?**
 
@@ -109,31 +119,33 @@ It's lived and held a million lives since we were there. It's held so many other
 
 I was part of the initial 10?! I think.
 
-**How did it come to exist? Ie. Who's idea was it and how did they make it a reality?** 
+**How did it come to exist? Ie. Who's idea was it and how did they make it a reality?**
 
-I wanted to find studio space so asked my friend to approach real estate agents. We found a great building and asked others from Art school and the music scene to get involved. Lots of people put a huge amount of work into eventually securing a lease and preparing the space. 
+I wanted to find studio space so asked my friend to approach real estate agents. We found a great building and asked others from Art school and the music scene to get involved. Lots of people put a huge amount of work into eventually securing a lease and preparing the space.
 
-**What was the original intent behind it's creation?** 
+**What was the original intent behind it's creation?**
 
 A space to experiment and work on creative projects, that was free for the community/ artists and musicians to access.
 
-**What was the area like back when it started?** 
+**What was the area like back when it started?**
 
 Perhaps a little less gentrified. Arc cafe and the Blue Oyster were still at the bottom of High Street. Maybe there were more venues back then. I’m not exactly sure how many there are now... but it’s probably gotten harder.
 
 **Did you expect it to last for this long?**
 
-I didn’t expect it to last this long! But it’s testament to a strong community that it has. I guess it’s fairly standard for creative people to live with uncertainty when it comes to real estate. 
+I didn’t expect it to last this long! But it’s testament to a strong community that it has. I guess it’s fairly standard for creative people to live with uncertainty when it comes to real estate.
 
 **How do you feel about the closure?**
 
-I feel for the current collective, I hope they can find  another space.
+I feel for the current collective, I hope they can find another space.
 
 ![Hallway from front gallery space to kitchen in rear](./hallway.jpg)
 
 ![Kitchen](./kitchen.jpg)
 
 ![One of many storage rooms](./cupboard.jpg)
+
+![Inside the elevator](./elevator.jpg)
 
 ### Edwina Stevens
 
@@ -152,7 +164,7 @@ I have about a million stories, and all the characters in my head, everyone is s
 
 **What do you think it contributed to the Dunedin art and music scene?**
 
-None was… funny cos I remember a kid telling me once at a pub - I didn’t know him and he didn’t know I lived there, that it was an opium den and all these people like lay around on mattresses and stuff… the area had a history of opium dens but anyway - I thought it was more inclusive than that, but you had to sort of make it your own, push your way in there in a way, I don’t know. There were lots of styles of events there, gallery openings, noise shows, guitar wolf (Japan) played in the basement, installations, workshops, community events, lines of flight, residencies, I think a space like that is a resource, and when there isn’t beurocrazy and paperwork and funding whatever in the way its more accessible - I never saw or asked for a proposal ever. No. 
+None was… funny cos I remember a kid telling me once at a pub - I didn’t know him and he didn’t know I lived there, that it was an opium den and all these people like lay around on mattresses and stuff… the area had a history of opium dens but anyway - I thought it was more inclusive than that, but you had to sort of make it your own, push your way in there in a way, I don’t know. There were lots of styles of events there, gallery openings, noise shows, guitar wolf (Japan) played in the basement, installations, workshops, community events, lines of flight, residencies, I think a space like that is a resource, and when there isn’t beurocrazy and paperwork and funding whatever in the way its more accessible - I never saw or asked for a proposal ever. No.
 
 **How do you feel about the closure?**
 
@@ -169,9 +181,9 @@ Lived three years around 2011
 
 **What was the experience like living there?**
 
-Inside bubble , happy art music environment, surrounded by  PC correct people , able to connect to out side of NZ through particular music style
+Inside bubble , happy art music environment, surrounded by PC correct people , able to connect to out side of NZ through particular music style
 
-**How do you feel about the closure?** 
+**How do you feel about the closure?**
 
 Not particularly feeling anything but I have so many footage of gigs , it’s great chance to make archive
 
@@ -217,49 +229,49 @@ Similar to what happened in Wgtn before they finally made the bypass- prior to t
 
 **What was your connection to None Gallery?**
 
- in 2011 I lived at none gallery for about 7 months. I originally came to have an exhibition - i had no permanent living arrangements anywhere after the earthquake in Chch. After the exhibition was over, I was already collaborating with many artists that were either living at none or affiliated with the space.
+in 2011 I lived at none gallery for about 7 months. I originally came to have an exhibition - i had no permanent living arrangements anywhere after the earthquake in Chch. After the exhibition was over, I was already collaborating with many artists that were either living at none or affiliated with the space.
 
 **What was the experience like living there?**
 
-It was a really productive time and incubated many incredible experiences of working with other artists as well as finding support as an artist on the "pace" program. I performed with "saved from the sharp teeth of a homophobic death" a few times, and also made many recordings - one which was an album as digital release online. There were a multitude of experiences, since so many people came and went I had the privilege of making new connections not found in other cities in NZ, it was a catalyst for me finding new directions as a multidisciplinary artist and activist. 
+It was a really productive time and incubated many incredible experiences of working with other artists as well as finding support as an artist on the "pace" program. I performed with "saved from the sharp teeth of a homophobic death" a few times, and also made many recordings - one which was an album as digital release online. There were a multitude of experiences, since so many people came and went I had the privilege of making new connections not found in other cities in NZ, it was a catalyst for me finding new directions as a multidisciplinary artist and activist.
 
-**How do you feel about the closure?** 
+**How do you feel about the closure?**
 
-I feel pretty sad since it's the longest running artist run space / collective in aotearoa. so many memories there, literally physical layers upon layers - some grime, paint - some just living. It is a consistent place of change but also grounding for artists working in that part of NZ. 
+I feel pretty sad since it's the longest running artist run space / collective in aotearoa. so many memories there, literally physical layers upon layers - some grime, paint - some just living. It is a consistent place of change but also grounding for artists working in that part of NZ.
 
 **Do you have a most memorable gig?**
 
-I have many, mostly in the basement, but also because a lot of international musicians would come and perform while on tour. One would be the zine fest. All the gigs that followed. Some would be the ones I also participated in. 
+I have many, mostly in the basement, but also because a lot of international musicians would come and perform while on tour. One would be the zine fest. All the gigs that followed. Some would be the ones I also participated in.
 
 ### William Henry Meung
 
 **What was your connection to None Gallery?**
 
-My connection to None was first as an audience member, then as an artist wanting to get involved in the cool stuff going down there. Later i had a studio for two years off the gallery space and then lived as a resident artist/crew member for two years. 
+My connection to None was first as an audience member, then as an artist wanting to get involved in the cool stuff going down there. Later i had a studio for two years off the gallery space and then lived as a resident artist/crew member for two years.
 
 **When was the first time you went to none gallery?**
 
-I dont exactly remember how i first found the place but i remember going to a show, i think it was rise of the city cat cult  playing.  had been enuthusatic about noise/ experimental music since high school but hadn’t really seen or herd much of anything live until then. 
+I dont exactly remember how i first found the place but i remember going to a show, i think it was rise of the city cat cult playing. had been enuthusatic about noise/ experimental music since high school but hadn’t really seen or herd much of anything live until then.
 
 **What was the experience like living there?**
 
-I used to feel like the only person paying to see the show, id get there and everyone would disappear up stairs for an hour and then comeback down for the show, something of an outsider. 
+I used to feel like the only person paying to see the show, id get there and everyone would disappear up stairs for an hour and then comeback down for the show, something of an outsider.
 
-I made few approaches to crew members as i was really keen to get involved in playing and organising experimental music shows but the None crew were very tight and very cool and pretty sceptical about an outsider like me. But as pretty much anything cool that happened in Dunedin seemed to happen there so i just kept hanging around. 
+I made few approaches to crew members as i was really keen to get involved in playing and organising experimental music shows but the None crew were very tight and very cool and pretty sceptical about an outsider like me. But as pretty much anything cool that happened in Dunedin seemed to happen there so i just kept hanging around.
 
 I saw so many inspiring shows there, it was kind of the centre of my cultural solar system.
 
-When i started playing in bands around the time i took on a studio at None, we were kind of not really accepted by the other none bands but were invited to play shows with the emerging  wave of younger artists who mostly seemed to ex logan park school people. 
+When i started playing in bands around the time i took on a studio at None, we were kind of not really accepted by the other none bands but were invited to play shows with the emerging wave of younger artists who mostly seemed to ex logan park school people.
 
-Later living at None was a crazy time, it could be pretty challenging at times but i have some good memories, i recorded a lot of solo work, played a lot with my band The Ladder is Part of the Pit. We had a lot of issues with noise complaints and so spent a fair bit of energy revamping and sound proofing the gallery space. Looking back on it was pretty cool listening to Death and the Maiden writing, practicing and recording  their first album. I felt lucky to spend some time being there and being involved in putting on the gigs and exhibitions we did have. None has meant a lot to a lot of different people over time so i feel privileged to have been a member of that community in various capacities.
+Later living at None was a crazy time, it could be pretty challenging at times but i have some good memories, i recorded a lot of solo work, played a lot with my band The Ladder is Part of the Pit. We had a lot of issues with noise complaints and so spent a fair bit of energy revamping and sound proofing the gallery space. Looking back on it was pretty cool listening to Death and the Maiden writing, practicing and recording their first album. I felt lucky to spend some time being there and being involved in putting on the gigs and exhibitions we did have. None has meant a lot to a lot of different people over time so i feel privileged to have been a member of that community in various capacities.
 
 **How do you feel about the closure?**
 
-Every thing has its time, and None has been lucky to have had many times, various waves of exciting artists and events going down, the sword has been hanging over the place ready to fall for as long as i have been involved and i guess as an artist you get used to operating in the spaces and opportunities that open up often in unstable, marginal or temporary conditions, None has been kind of exceptional in having such a long life, been a platform for so many talented people and a party to so much history. The future is looking challenging for the dunedin underground scene as developers  pick off the last few remaining out posts of affordable studio space in Dunedin, still artists are resourceful, i have hope that people with energy and ideas will find away. 
+Every thing has its time, and None has been lucky to have had many times, various waves of exciting artists and events going down, the sword has been hanging over the place ready to fall for as long as i have been involved and i guess as an artist you get used to operating in the spaces and opportunities that open up often in unstable, marginal or temporary conditions, None has been kind of exceptional in having such a long life, been a platform for so many talented people and a party to so much history. The future is looking challenging for the dunedin underground scene as developers pick off the last few remaining out posts of affordable studio space in Dunedin, still artists are resourceful, i have hope that people with energy and ideas will find away.
 
 **Do you have a most memorable gig?**
 
-I dont know how to answer that one, so so many great gigs=! the legendary Crude vs The Torcheres debacle, Three forks, DirtRoom making the glass in the windows hum, the Aesthetics rocking the crowd ecstatic, Basterdwisher making laptop music dangerous and exciting, Grvddgr playing the most visibly atmospheric show I’ve ever seen, Alex McKinnon was always amazing, The mental health triangle ! the Glean Jewellery exhibition, ! arrrrrg i dont know!, so many , i couldn’t pick one tbh., 
+I dont know how to answer that one, so so many great gigs=! the legendary Crude vs The Torcheres debacle, Three forks, DirtRoom making the glass in the windows hum, the Aesthetics rocking the crowd ecstatic, Basterdwisher making laptop music dangerous and exciting, Grvddgr playing the most visibly atmospheric show I’ve ever seen, Alex McKinnon was always amazing, The mental health triangle ! the Glean Jewellery exhibition, ! arrrrrg i dont know!, so many , i couldn’t pick one tbh.,
 
 so many highs and lows and things that couldn’t be or shouldn’t be published.
 
@@ -304,12 +316,12 @@ I was amazed at the space, although I felt very young and a bit out of place. It
 
 **How do you feel about the closure?**
 
-I am disappointed the residents are getting kicked out suddenly, and will have to find new homes at a difficult time of year. I feel sad that such an iconic Dunedin site will be gone. None really represents to me what is good about living as a creative person in Dunedin: cheap rent, and space to make things happen. None gallery has been such a huge part of so many lives, the influence is strong. None, as guided by the name, never felt limited in what it offered to the community as a space. It  was open to all, and hosted such a massive range of creative events. I do understand that nothing lasts forever though, but worry such a space might be hard to come by again.
+I am disappointed the residents are getting kicked out suddenly, and will have to find new homes at a difficult time of year. I feel sad that such an iconic Dunedin site will be gone. None really represents to me what is good about living as a creative person in Dunedin: cheap rent, and space to make things happen. None gallery has been such a huge part of so many lives, the influence is strong. None, as guided by the name, never felt limited in what it offered to the community as a space. It was open to all, and hosted such a massive range of creative events. I do understand that nothing lasts forever though, but worry such a space might be hard to come by again.
 
 **What was your most memorable gig at none gallery?**
 
-There have been so many memorable events! I enjoyed a lot of the mixed media art exhibitions I remember going to around 2012ish, "Facebook Nuns" etc. There was always a strong connection between visual art and music at None,  through the way shows and events were put together, and the community of people involved. I feel like the last stretch of Nones history was a bit more gig focused. Guitar wolf in the basement would be a highlight, it felt like raw rock n roll, legit basement vibes! As a big fan, Puce Mary was amazing!
+There have been so many memorable events! I enjoyed a lot of the mixed media art exhibitions I remember going to around 2012ish, "Facebook Nuns" etc. There was always a strong connection between visual art and music at None, through the way shows and events were put together, and the community of people involved. I feel like the last stretch of Nones history was a bit more gig focused. Guitar wolf in the basement would be a highlight, it felt like raw rock n roll, legit basement vibes! As a big fan, Puce Mary was amazing!
 
 ![Christian McNab performing at None in 2017 as Acid Police](../../gigs/2017-10-07-hotline-666/acid_police/P1100786.jpg)
 
-*Thank you to everyone who answered my questions and to Oscar Francis for helping me track down information and providing photos*
+_Thank you to everyone who answered my questions and to Oscar Francis for helping me track down information and providing photos_

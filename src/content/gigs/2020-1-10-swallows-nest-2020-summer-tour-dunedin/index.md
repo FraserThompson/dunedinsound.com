@@ -1,0 +1,19 @@
+---
+title: 'Swallows Nest 2020 Summer Tour Dunedin'
+date: 2020-1-10 08:30:00 Z
+venue: crown_hotel
+artists:
+  - name: Sugarcoated Bullets
+    vid:
+      - link: l07wKs0APS8
+  - name: Wet Specimen
+    vid:
+      - link: b9oVUPwcs90
+      - link: 1Kb24K03PJM
+  - name: Swallows Nest
+    vid:
+      - link: ItlUju9CbN4
+      - link: aFWigM035SE
+  - name: E-Kare
+cover: ./cover.jpg
+---
