@@ -8,6 +8,40 @@ export default styled(Content)`
   width: 100%;
   color: ${props => invert(props.theme.textColor)};
 
+  pre {
+    background-color: #1e1e1e;
+    color: #cccccc;
+    overflow: auto;
+    font-family: 'Monaco', monospace;
+    padding: 0 1em;
+  }
+
+  a:link,
+  a:visited {
+    color: #000080;
+  }
+
+  a:hover {
+    color: ${props => props.theme.secondaryColor};
+  }
+
+  code {
+    font-family: Monaco, monospace;
+    line-height: 100%;
+    background-color: #eee;
+    padding: 0.2em;
+    letter-spacing: -0.05em;
+    word-break: normal;
+  }
+
+  pre code {
+    border: none;
+    background: none;
+    line-height: 1em;
+    letter-spacing: normal;
+    word-break: break-all;
+  }
+
   .youtubeEmbed {
     position: relative;
     padding-bottom: 56.25%;

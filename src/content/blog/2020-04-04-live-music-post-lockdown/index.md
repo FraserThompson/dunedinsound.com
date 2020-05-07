@@ -6,7 +6,7 @@ tags:
 author: Fraser Thompson
 background_position: center
 background_size: contain
-description:
+description: For many joining a virtual "crowd" on Facebook or Zoom seems strange and antithetical, but it’s not a new concept.
 cover: ./cover.jpg
 ---
 
