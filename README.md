@@ -10,16 +10,28 @@ Media from gigs in Dunedin New Zealand and more.
 
 `gatsby build`
 
-Beware that building from scratch (ie. from no public folder) takes a veeery long time (like an hour) because it has to go through all the images and resize/compress them.
+Beware that building from scratch (ie. from no public folder) takes a veeery long time (like a day or two) because it has to go through all the images and resize/compress them.
 
-It still shouldn't take that long (previously my custom Jekyll solution was much quicker) so I might look into that.
+(previously my custom Jekyll solution was much quicker...)
+
+### Why are we holding back `gatsby-plugin-sharp`?
+
+There's a bug with thumbnail generation in versions later than 2.3.13 where it will basically regenerate all thumbnails every time the build happens. When this is fixed we can move on https://github.com/gatsbyjs/gatsby/issues/20816
+
+We also need to hold back `gatsby-transformer-sharp` and `gatsby-plugin-manifest` otherwise we run into issues with conflicting versions of Sharp.
+
+Also the version of Sharp used by these older versions requires Python2 so we have to install a deprecated version of Python unfortunately.
+
+### Why are we using our own `gatsby-plugin-s3`?
+
+There's a breaking bug which causes large files to always be reuploaded. We can't switch to the full release until https://github.com/jariz/gatsby-plugin-s3/issues/59 is fixed
 
 ## Process audio
 
-1. Put audio into ./audio in a subfolder for 
+1. Put audio into ./audio in a subfolder
 2. Run docker-compose up
 
-## What have we got here 
+## What have we got here
 
 ### Components
 
@@ -55,9 +67,9 @@ A gig folder in `content/gigs` contains an `index.md` with metadata, zero or mor
 
 **index.md**
 
-* `title` is the name of the gig
-* `date` is the date it happened
-* `artists` is an array of objects with artist `name` and media
-  * `vid` is array of video objects of `link` and `title`
-* `venue` is the machine name of the venue
-* `cover` is the path to the cover, usually ./cover.jpg
+- `title` is the name of the gig
+- `date` is the date it happened
+- `artists` is an array of objects with artist `name` and media
+  - `vid` is array of video objects of `link` and `title`
+- `venue` is the machine name of the venue
+- `cover` is the path to the cover, usually ./cover.jpg

@@ -7,7 +7,7 @@ const toMachineName = (string, space_character) => {
     .replace(/\s/g, space_character)
     .replace(/[$]/g, 'z')
 }
-const graphqlGroupToObject = queryResult => {
+const graphqlGroupToObject = (queryResult) => {
   return queryResult.reduce((obj, item) => {
     obj[item.fieldValue] = item.edges
     return obj
@@ -54,7 +54,7 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     `
-  ).then(result => {
+  ).then((result) => {
     if (result.errors) {
       console.log(result.errors)
       reject(result.errors)
@@ -91,7 +91,7 @@ exports.createPages = ({ graphql, actions }) => {
         title: node.frontmatter.title,
       }
 
-      if (node.frontmatter.artists) context.artists = node.frontmatter.artists.map(artist => toMachineName(artist.name))
+      if (node.frontmatter.artists) context.artists = node.frontmatter.artists.map((artist) => toMachineName(artist.name))
       if (node.frontmatter.venue) context.venue = node.frontmatter.venue
 
       createPage({

@@ -17,11 +17,11 @@ export default React.memo(({ artist, images, gridSize, title, imageCaption }) =>
 
   useEffect(() => {
     handleURLChange(history.location)
-    const unlisten = history.listen(location => handleURLChange(location))
+    const unlisten = history.listen((location) => handleURLChange(location.location))
     return () => unlisten()
   })
 
-  const handleURLChange = location => {
+  const handleURLChange = (location) => {
     if (location.search) {
       const searchParams = new URLSearchParams(location.search)
       if (searchParams.get('artist') == artist) {
@@ -45,7 +45,7 @@ export default React.memo(({ artist, images, gridSize, title, imageCaption }) =>
 
   const closeLightbox = () => (!directLinked ? history.goBack() : history.replace({ pathname: history.location.pathname, search: '' }))
 
-  const gotoLightboxImage = imageIndex =>
+  const gotoLightboxImage = (imageIndex) =>
     history.replace({
       pathname: history.location.pathname,
       search: `?image=${imageIndex}&artist=${artist}`,
@@ -61,7 +61,7 @@ export default React.memo(({ artist, images, gridSize, title, imageCaption }) =>
       switch (size) {
         default:
           const parsed_srcset = parse(images[imageIndex].node.childImageSharp.fluid.srcSet)
-          return parsed_srcset.find(image => image.width == 1600).url
+          return parsed_srcset.find((image) => image.width == 1600).url
         case 'full':
           return images[imageIndex].node.publicURL
       }
@@ -72,7 +72,7 @@ export default React.memo(({ artist, images, gridSize, title, imageCaption }) =>
     images &&
     images.map(({ node }, imageIndex) => {
       return (
-        <a style={{ cursor: 'pointer', display: 'block', width: '100%', height: '100%' }} key={imageIndex} onClick={e => openLightbox(imageIndex, e)}>
+        <a style={{ cursor: 'pointer', display: 'block', width: '100%', height: '100%' }} key={imageIndex} onClick={(e) => openLightbox(imageIndex, e)}>
           <Img fluid={{ ...node.childImageSharp.fluid, sizes: gridToSizes(gridSize) }} />
         </a>
       )

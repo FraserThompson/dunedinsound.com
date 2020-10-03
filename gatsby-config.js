@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
   siteMetadata: {
     title: 'dunedinsound.com',
@@ -121,6 +123,8 @@ module.exports = {
         bucketName: 'dunedinsound.com',
         protocol: 'https',
         hostname: 'dunedinsound.com',
+        partSize: '500',
+        parallelLimit: '3',
       },
     },
   ],
