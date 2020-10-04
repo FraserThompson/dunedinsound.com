@@ -71,10 +71,12 @@ export default React.memo(({ artist, images, gridSize, title, imageCaption }) =>
   const imageElements =
     images &&
     images.map(({ node }, imageIndex) => {
-      return (
+      return node.childImageSharp ? (
         <a style={{ cursor: 'pointer', display: 'block', width: '100%', height: '100%' }} key={imageIndex} onClick={(e) => openLightbox(imageIndex, e)}>
           <Img fluid={{ ...node.childImageSharp.fluid, sizes: gridToSizes(gridSize) }} />
         </a>
+      ) : (
+        console.log('BROKEN IMAGE, SKIPPING', node)
       )
     })
 
