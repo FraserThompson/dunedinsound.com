@@ -7,7 +7,6 @@ import React, { useRef, useState, useEffect, useCallback } from 'react'
 import styled from '@emotion/styled'
 import { MdPlayArrow, MdPause, MdSkipNext, MdSkipPrevious, MdFileDownload } from 'react-icons/md'
 import { theme } from '../utils/theme'
-import PlayerMenu from './PlayerMenu'
 import RoundButton from './RoundButton'
 import { scale } from '../utils/typography'
 import LoadingSpinner from './LoadingSpinner'
@@ -86,7 +85,7 @@ export default React.memo(({ artistAudio }) => {
     }
 
     if (artistAudio[selectedArtist].tracklist) {
-      artistAudio[selectedArtist].tracklist.forEach(region => {
+      artistAudio[selectedArtist].tracklist.forEach((region) => {
         region.drag = false
         region.resize = false
         region.start = timeToSeconds(region.time)
@@ -107,12 +106,12 @@ export default React.memo(({ artistAudio }) => {
       setReady(false)
       if (jsonSrc && !window.cached_json[jsonSrc]) {
         fetch(jsonSrc.replace('#', '%23'))
-          .then(response => response.json())
-          .then(data => {
+          .then((response) => response.json())
+          .then((data) => {
             window.cached_json[jsonSrc] = data
             wavesurfer.load(src, window.cached_json[jsonSrc], 'metadata')
           })
-          .catch(err => {
+          .catch((err) => {
             console.log('Fetch Error :-S', err)
           })
       } else {
@@ -140,7 +139,7 @@ export default React.memo(({ artistAudio }) => {
     [wavesurfer]
   )
 
-  const formatTime = useCallback(time => {
+  const formatTime = useCallback((time) => {
     const mins = ~~(time / 60)
     const secs = ('0' + ~~(time % 60)).slice(-2)
     return mins + ':' + secs
@@ -215,7 +214,7 @@ export default React.memo(({ artistAudio }) => {
             </li>
             {item.tracklist && (
               <ul className="tracklist">
-                {item.tracklist.map(item => {
+                {item.tracklist.map((item) => {
                   return (
                     <li key={item.title} onClick={() => seekToTime(item.time, index, true)}>
                       {item.title} ({item.time})
@@ -233,11 +232,11 @@ export default React.memo(({ artistAudio }) => {
 
 const PlayerWrapper = styled.div`
   box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.25);
-  border-top: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
+  border-top: 1px solid ${(props) => darken(0.025, props.theme.primaryColor)};
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${props => props.theme.primaryColor};
+  background-color: ${(props) => props.theme.primaryColor};
 
   region.wavesurfer-region {
     cursor: pointer !important;
@@ -282,7 +281,7 @@ const PlayerWrapper = styled.div`
     display: none;
   }
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     #prev {
       display: initial;
     }
@@ -298,7 +297,7 @@ const TracklistWrapper = styled(Menu)`
     ${scale(1)}
   }
   > li:hover:not(.active) {
-    background-color: ${props => lighten(0.1, props.theme.backgroundColor)};
+    background-color: ${(props) => lighten(0.1, props.theme.backgroundColor)};
   }
   .tracklist {
     margin-top: 0px;
@@ -320,7 +319,7 @@ const WaveWrapper = styled.div`
 const LengthWrapper = styled.div`
   ${scale(-0.8)};
   line-height: 1em;
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
   pointer-events: none;
   z-index: 11;
   position: absolute;
@@ -337,7 +336,7 @@ const TitleWrapper = styled.div`
   top: 0px;
   z-index: 11;
   color: #000;
-  background-color: ${props => props.theme.secondaryColor};
+  background-color: ${(props) => props.theme.secondaryColor};
   color: white;
 `
 

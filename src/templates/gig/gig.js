@@ -41,20 +41,25 @@ export default React.memo(({ data }) => {
       data.audio['group'].reduce((obj, item) => {
         const machineName = item.fieldValue
         const grouped_audio = item.edges.reduce((obj, item) => {
+          // There appears to be a bug in the GraphQL extension filter which sometimes allows images to slip
+          // through... So instead of pursuing that we'll just add this check here.
+          if (item.node.ext !== '.json' && item.node.ext !== '.mp3') return obj
+
           const name = item.node.name.replace('.mp3', '') // because old audio file JSON has mp3 in the name
+
           if (!obj[name]) obj[name] = {}
           obj[name][item.node.ext] = item.node
           return obj
         }, {})
 
-        obj[machineName] = Object.keys(grouped_audio).map(item => grouped_audio[item])
+        obj[machineName] = Object.keys(grouped_audio).map((item) => grouped_audio[item])
         return obj
       }, {})
 
     // Key-value object of details by artist
     const detailsByArtist = data.artists && graphqlGroupToObject(data.artists.group)
 
-    const combinedMedia = data.thisPost.frontmatter.artists.map(artist => {
+    const combinedMedia = data.thisPost.frontmatter.artists.map((artist) => {
       const machineName = toMachineName(artist.name)
       return {
         ...artist,
@@ -66,7 +71,7 @@ export default React.memo(({ data }) => {
       }
     })
 
-    setArtistAudio(combinedMedia.filter(thing => thing.audio))
+    setArtistAudio(combinedMedia.filter((thing) => thing.audio))
     setArtistMedia(combinedMedia)
   }, [])
 
@@ -89,7 +94,7 @@ export default React.memo(({ data }) => {
             gigSlug={data.thisPost.fields.slug}
             gigYear={data.thisPost.frontmatter.date.split(' ')[2]}
           />
-          <HeaderTitle onClick={e => scrollTo(e, 'top')} href="#top" title="Scroll to top">
+          <HeaderTitle onClick={(e) => scrollTo(e, 'top')} href="#top" title="Scroll to top">
             <h1 className="big">{gigTitle}</h1>
           </HeaderTitle>
         </>
@@ -120,7 +125,7 @@ export default React.memo(({ data }) => {
           {artistMedia.map((artist, index) => {
             return (
               <li key={index}>
-                <a className="button" onClick={e => scrollTo(e, artist.machineName)} href={'#' + artist.machineName}>
+                <a className="button" onClick={(e) => scrollTo(e, artist.machineName)} href={'#' + artist.machineName}>
                   {artist.title}
                 </a>
               </li>
@@ -140,7 +145,7 @@ const HeaderTitle = styled.a`
   width: 100%;
   h1 {
     font-size: 100%;
-    @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
       font-size: ${rhythm(1.8)};
     }
   }
@@ -160,7 +165,9 @@ export const pageQuery = graphql`
     prevPost: markdownRemark(fields: { slug: { eq: $prevSlug } }) {
       ...GigTileFrontmatter
     }
-    images: allFile(filter: { extension: { in: ["jpg", "JPG"] }, name: { ne: "cover.jpg" }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }) {
+    images: allFile(
+      filter: { absolutePath: { regex: "/(.jpg)|(.JPG)$/" }, name: { ne: "cover.jpg" }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }
+    ) {
       group(field: fields___parentDir) {
         fieldValue
         edges {
@@ -172,7 +179,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    audio: allFile(filter: { extension: { in: ["mp3", "json"] }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }) {
+    audio: allFile(filter: { absolutePath: { regex: "/(.json)|(.mp3)$/" }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }) {
       group(field: fields___parentDir) {
         fieldValue
         edges {
