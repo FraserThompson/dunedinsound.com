@@ -71,8 +71,9 @@ export default React.memo(({ data }) => {
       }
     })
 
+    // Set the audio and image blobs to be consumed and displayed later
     setArtistAudio(combinedMedia.filter((thing) => thing.audio))
-    setArtistMedia(combinedMedia)
+    setArtistMedia(combinedMedia.filter((thing) => thing))
   }, [])
 
   const gigTitle = data.thisPost.frontmatter.title
@@ -166,7 +167,7 @@ export const pageQuery = graphql`
       ...GigTileFrontmatter
     }
     images: allFile(
-      filter: { absolutePath: { regex: "/(.jpg)|(.JPG)$/" }, name: { ne: "cover.jpg" }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }
+      filter: { relativePath: { regex: "/(.jpg)|(.JPG)$/" }, name: { ne: "cover.jpg" }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }
     ) {
       group(field: fields___parentDir) {
         fieldValue
@@ -179,7 +180,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    audio: allFile(filter: { absolutePath: { regex: "/(.json)|(.mp3)$/" }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }) {
+    audio: allFile(filter: { relativePath: { regex: "/(.json)|(.mp3)$/" }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }) {
       group(field: fields___parentDir) {
         fieldValue
         edges {
