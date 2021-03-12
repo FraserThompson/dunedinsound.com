@@ -9,7 +9,7 @@ artists:
   - name: Murdabike
     vid:
       - link: 4XjfvCYxPkg
-  - name: Gaurdians
+  - name: Guardians
     vid:
       - link: xpGKEeYbRzg
   - name: The Futurians

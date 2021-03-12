@@ -97,7 +97,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
         return (
           <div id={fieldValue} key={fieldValue}>
             <Divider backgroundColor={theme.default.foregroundColor} color={'black'} sticky={'headerMobile'}>
-              <a style={{ width: '100%' }} onClick={e => scrollTo(e, fieldValue)} href={'#' + fieldValue}>
+              <a style={{ width: '100%' }} onClick={(e) => scrollTo(e, fieldValue)} href={'#' + fieldValue}>
                 <small>
                   {fieldValue} ({yearSize})
                 </small>
@@ -163,6 +163,13 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
             <li>
               <a title="Facebook Page" className="button" rel="noopener" href={data.thisPost.frontmatter.facebook}>
                 Facebook
+              </a>
+            </li>
+          )}
+          {data.thisPost.frontmatter.spotify && (
+            <li>
+              <a title="Listen on Spotify" className="button" rel="noopener" href={data.thisPost.frontmatter.spotify}>
+                Spotify
               </a>
             </li>
           )}
@@ -238,7 +245,7 @@ const PageTitle = styled.span`
   h1 {
     color: black;
     font-size: 100%;
-    @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+    @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
       font-size: ${rhythm(1.8)};
       line-height: 0.9;
     }

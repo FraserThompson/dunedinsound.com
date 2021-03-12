@@ -12,7 +12,7 @@ export default React.memo(({ artistMedia, gigTitle }) => {
   const media = artistMedia.map((artist) => {
     // Gatsby has been doing this weird thing where sometimes the graphql jpg filter
     // doesn't work and lets in an MP3, so we have to filter it here on the client.
-    const fixedArtistImages = artist.images.filter((thing) => thing.node.childImageSharp)
+    const fixedArtistImages = artist.images && artist.images.filter((thing) => thing.node.childImageSharp)
 
     const gridSize = {
       xs: '12',

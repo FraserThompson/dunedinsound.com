@@ -33,7 +33,7 @@ export default React.memo(
   }) => (
     <ThemeProvider theme={theme.default}>
       <>
-        <Global styles={theme => GlobalStyle} />
+        <Global styles={(theme) => GlobalStyle} />
         <Helmet htmlAttributes={{ lang: 'en' }} title={title}>
           <meta name="description" content={description} />
           <meta property="og:site_name" content="dunedinsound" />
@@ -78,34 +78,34 @@ const HeaderWrapper = styled.div`
   width: 100%;
   z-index: 12;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-  border-bottom: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
+  border-bottom: 1px solid ${(props) => darken(0.025, props.theme.primaryColor)};
 `
 const SiteContainer = styled.div`
-  min-height: ${props => `calc(100vh - ${props.theme.headerHeight} - 1px)`};
-  background-color: ${props => props.overrideBackgroundColor || props.theme.backgroundColor};
+  min-height: ${(props) => `calc(100vh - ${props.theme.headerHeight} - 1px)`};
+  background-color: ${(props) => props.overrideBackgroundColor || props.theme.backgroundColor};
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
   height: 100%;
   width: 100%;
   z-index: 2;
-  position: ${props => !props.hideFooter && 'relative'};
+  position: ${(props) => !props.hideFooter && 'relative'};
   bottom: 0;
-  margin-bottom: ${props => !props.hideFooter && `calc(${props.theme.footerHeight} + 30px)`};
-  margin-top: ${props => props.headerContent && props.theme.headerHeightMobile};
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    margin-top: ${props => props.theme.headerHeight};
-    margin-bottom: ${props => !props.hideFooter && props.theme.footerHeight};
+  margin-bottom: ${(props) => !props.hideFooter && `calc(${props.theme.footerHeight} + 30px)`};
+  margin-top: ${(props) => props.headerContent && props.theme.headerHeightMobile};
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    margin-top: ${(props) => props.theme.headerHeight};
+    margin-bottom: ${(props) => !props.hideFooter && props.theme.footerHeight};
   }
 `
 
 const MobileNav = styled.div`
   position: fixed;
   bottom: 0;
-  height: ${props => props.theme.headerHeightMobile};
-  background-color: ${props => props.theme.primaryColor};
+  height: ${(props) => props.theme.headerHeightMobile};
+  background-color: ${(props) => props.theme.primaryColor};
   z-index: 12;
   width: 100%;
   box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.25);
-  border-top: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
+  border-top: 1px solid ${(props) => darken(0.025, props.theme.primaryColor)};
   ${Menu} {
     display: flex;
     justify-content: center;
@@ -251,6 +251,7 @@ export const query = graphql`
       bandcamp
       facebook
       soundcloud
+      spotify
       website
       origin
       audioculture {
