@@ -6,7 +6,7 @@ tags:
 author: Fraser Thompson
 background_position: center
 background_size: contain
-description:
+description: On the 9th of March 2021 a local musician woke up in a rage.
 cover: ./cover.png
 ---
 
@@ -22,7 +22,7 @@ The answer, he decided, must be because:
 
 So he hopped onto Facebook at 7:35am and elucidated these concepts into this post:
 
-![](./op.jpg)
+![](./original_post.jpg)
 
 For context, the post was made in [Dunedin Music](https://www.facebook.com/groups/116402411773825), a Facebook group with 2,300 members. Most of the posts in the group usually run along lines of "starting a new band, looking for a guitarist, drummer, bassist and vocalist" or "come see my gig", and typically engagement is pretty low.
 
@@ -68,4 +68,4 @@ It was kind of a shitshow, and a bit of a circlejerk, but best of all it was an 
 
 ![](./good-discussion-3.jpg)
 
-If you're keen to experience a realistic simulation of the March 9 2021 Dunedin Music comment thread experience you can [download this 85mb PDF of the entire comment thread](./dunedinmusic-comments-simulation.pdf).
+If you're keen to experience a realistic simulation of the March 9 2021 Dunedin Music comment thread experience you can [download this 148mb PDF of the entire comment thread](./dunedinmusic-comments-simulation.pdf) or [read the comments as a 129 page text document](https://docs.google.com/document/d/1y5i5qPC60rN-y069r6IQSE9NWWxHca9AzRN0NeiuHbw/).

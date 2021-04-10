@@ -79,6 +79,7 @@ audio
 
 # Blog assets
 src/content/blog/**/*.jpg
+src/content/blog/**/*.pdf
 
 # Venue assets
 src/content/venues/**/*.jpg
