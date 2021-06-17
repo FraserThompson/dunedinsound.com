@@ -6,6 +6,22 @@ Media from gigs in Dunedin New Zealand and more.
 
 `gatsby develop`
 
+### Using the minimal dev site
+
+Because of the size of this thing, playing around with development can be difficult due to build times, even with incremental builds.
+
+So I've made a minimal version which includes all of the code but only enough assets for testing. It's located up a directory in `dunedinsound-gatsby-minimal-dev`. A good workflow is to make all the code changes in the minimal dev version then copy them to this one.
+
+To copy the code **from the main site to the minimal site** run:
+
+`npm run copy-to-dev`
+
+To copy the code **from the minimal site to the main site** run:
+
+`npm run copy-from-dev`
+
+These will only copy code and package.json, not assets or any other files.
+
 ## Build
 
 `gatsby build`

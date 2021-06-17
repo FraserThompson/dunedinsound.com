@@ -80,6 +80,8 @@
     "build": "gatsby build",
     "deploy": "node -r dotenv/config ./node_modules/gatsby-plugin-s3/bin.js deploy -y",
     "build-deploy": "npm run build && npm run deploy",
+    "copy-to-dev": "node ./scripts/copy-dev.js to",
+    "copy-from-dev": "node ./scripts/copy-dev.js from",
     "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js"
   }
 }

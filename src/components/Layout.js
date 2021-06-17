@@ -178,6 +178,7 @@ export const query = graphql`
       bandcamp
       facebook
       website
+      active
       soundcloud
       cover {
         ...SmallImage
@@ -206,6 +207,7 @@ export const query = graphql`
       title
       date(formatString: "DD MMMM YYYY")
       venue
+      feature_vid
       description
       artists {
         name

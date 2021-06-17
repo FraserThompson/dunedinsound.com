@@ -6,6 +6,7 @@ import Banner from '../../components/Banner'
 import HorizontalNav from '../../components/HorizontalNav'
 import PlayerContainer from '../../components/PlayerContainer'
 import GigArtistMedia from './ArtistMedia'
+import YouTubeResponsive from '../../components/YouTubeResponsive'
 import LoadingSpinner from '../../components/LoadingSpinner'
 import BannerContent from './BannerContent'
 import styled from '@emotion/styled'
@@ -72,8 +73,8 @@ export default React.memo(({ data }) => {
     })
 
     // Set the audio and image blobs to be consumed and displayed later
-    setArtistAudio(combinedMedia.filter((thing) => thing.audio))
-    setArtistMedia(combinedMedia.filter((thing) => thing))
+    setArtistAudio(combinedMedia.filter((thing) => thing.audio && thing.audio.length > 0))
+    setArtistMedia(combinedMedia)
   }, [])
 
   const gigTitle = data.thisPost.frontmatter.title
@@ -133,6 +134,7 @@ export default React.memo(({ data }) => {
             )
           })}
         </HorizontalNav>
+        {data.thisPost.frontmatter.feature_vid && <YouTubeResponsive videoId={data.thisPost.frontmatter.feature_vid} />}
       </Banner>
       <GigArtistMedia artistMedia={artistMedia} gigTitle={gigTitle} />
       <PlayerContainer artistAudio={artistAudio} />
