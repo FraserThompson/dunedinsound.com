@@ -33,6 +33,7 @@ import ContentTabs from './ContentTabs'
 import { scrollTo } from '../../utils/helper'
 import BackButton from '../../components/BackButton'
 import BackToTop from '../../components/BackToTop'
+import { ActiveIndicator } from '../../pages/venues'
 
 export default React.memo(({ data, pageDescription, parent, background }) => {
   useEffect(() => {
@@ -154,10 +155,18 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
         title={
           (data.thisPost.frontmatter.title || data.thisPost.fields.slug) + (data.thisPost.frontmatter.origin ? ` (${data.thisPost.frontmatter.origin})` : '')
         }
+        subtitle={
+          data.thisPost.frontmatter.active !== undefined && (
+            <ActiveWrapper>
+              <ActiveIndicator active={data.thisPost.frontmatter.active}/>
+            </ActiveWrapper>
+          )
+        }
         backgroundImage={cover}
         background={background}
         customContent={<BackButton title={parent.title} to={parent.href} type="up" />}
       >
+
         <HorizontalNav>
           {data.thisPost.frontmatter.facebook && (
             <li>
@@ -251,3 +260,7 @@ const PageTitle = styled.span`
     }
   }
 `
+
+const ActiveWrapper = styled.div`
+
+`;

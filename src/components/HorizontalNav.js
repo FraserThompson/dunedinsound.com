@@ -11,7 +11,8 @@ export default  styled.ul`
 
   li {
     display: inline-block;
-    line-height: 40px;
+    line-height: ${(props) => props.lineHeight || "40px"};
+    margin: 0;
     padding-right: ${rhythm(0.5)};
     button, .button {
       text-overflow: ellipsis;

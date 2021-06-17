@@ -71,7 +71,7 @@ export default ({ data, location }) => {
     </Logo>
   )
   return (
-    <Layout location={location} description={siteDescription} hideBrandOnMobile={true} title={`VAULT SESSIONS | ${siteTitle}`} overrideBackgroundColor="white">
+    <Layout location={location} description={siteDescription} hideNav={true} title={`VAULT SESSIONS | ${siteTitle}`} overrideBackgroundColor="white">
       <World
         perspective={perspective}
         lights={lights}

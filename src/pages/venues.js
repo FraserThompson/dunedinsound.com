@@ -11,6 +11,7 @@ import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 import SidebarNav from '../components/SidebarNav'
 import Search from '../components/Search'
 import HorizontalNav from '../components/HorizontalNav'
+import { lighten } from 'polished'
 
 // Weird hack to fix leaflet.css importing relative images
 if (typeof L !== 'undefined') {
@@ -21,6 +22,10 @@ if (typeof L !== 'undefined') {
     shadowUrl: markerShadow,
   })
 }
+
+export const ActiveIndicator = React.memo(({active, hideText = false}) => (
+  active ? <ActiveIcon title="Active">⬤ {!hideText && "Active"}</ActiveIcon> : <DefunctIcon title="Defunct">⬤ {!hideText && "Defunct"}</DefunctIcon>
+));
 
 const Sidebar = React.memo(({ menuItems, menuItemClick, setRef, selected }) => {
   const [open, setOpen] = useState(true)
@@ -42,7 +47,12 @@ const Sidebar = React.memo(({ menuItems, menuItemClick, setRef, selected }) => {
       <ul>
         {menuItems.map(({ node }, index) => (
           <li key={index} ref={setRef} className={index === selected ? 'active' : ''}>
-            <a onClick={() => click(index, [node.frontmatter.lat, node.frontmatter.lng])}>{node.frontmatter.title}</a>
+            <a onClick={() => click(index, [node.frontmatter.lat, node.frontmatter.lng])}>
+              {node.frontmatter.title}
+              <div style={{position: "absolute", right: "0px", top: "0px"}}>
+                <ActiveIndicator active={node.frontmatter.active} hideText={true}/>
+              </div>
+            </a>
           </li>
         ))}
       </ul>
@@ -133,15 +143,9 @@ export default React.memo(({ data, location }) => {
             {filteredPosts.map(({ node }, index) => (
               <Marker ref={marker => openPopup(marker, index)} key={index} position={[node.frontmatter.lat, node.frontmatter.lng]}>
                 <Popup onOpen={() => markerClick(index)}>
-                  <h3>{node.frontmatter.title}</h3>
-                  {node.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: node.frontmatter.description }}></p>}
-                  <h4>
-                    <Link to={node.fields.slug}>
-                      {node.frontmatter.cover && <Img fluid={node.frontmatter.cover.childImageSharp.fluid} />}
-                      View {imageCountByGig[node.fields.machine_name]} gigs at this venue
-                    </Link>
-                  </h4>
-                  <HorizontalNav>
+                  <h3 style={{marginBottom: "0"}}>{node.frontmatter.title}</h3>
+                  <p style={{marginTop: "0", marginBottom: "10px"}}><ActiveIndicator active={node.frontmatter.active}/></p>
+                  <HorizontalNav lineHeight="1">
                     {node.frontmatter.facebook && (
                       <li>
                         <a href={node.frontmatter.facebook}>Facebook</a>
@@ -163,6 +167,18 @@ export default React.memo(({ data, location }) => {
                       </li>
                     )}
                   </HorizontalNav>
+                  {node.frontmatter.description && <p style={{marginTop: "10px"}} dangerouslySetInnerHTML={{ __html: node.frontmatter.description }}></p>}
+                  <VenueGigsTile>
+                    <Link to={node.fields.slug}>
+                      {node.frontmatter.cover && <Img fluid={node.frontmatter.cover.childImageSharp.fluid} />}
+                      {!node.frontmatter.cover &&
+                      <div className="placeholder-image" style={{backgroundImage: "url(" + data.placeholder.publicURL + ")"}}></div>
+                      }
+                      <span>
+                        View {imageCountByGig[node.fields.machine_name]} gigs at this venue
+                      </span>
+                    </Link>
+                  </VenueGigsTile>
                 </Popup>
               </Marker>
             ))}
@@ -178,7 +194,56 @@ const MapWrapper = styled.div`
   height: ${props => `calc(100vh - ${props.theme.headerHeight} - 2px)`};
   position: relative;
   z-index: 5;
+
+  .leaflet-popup-content {
+    max-width: 230px;
+  }
 `
+
+const VenueGigsTile = styled.h4`
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  border-radius: 5px;
+
+  .placeholder-image {
+    width: 250px;
+    height: 200px;
+  }
+
+  span {
+    position: absolute;
+    bottom: 0px;
+    color: ${props => props.theme.textColor};
+    background: rgba(0,0,0,0.7);
+    padding: 5px;
+    width: 100%;
+  }
+
+  a {
+    &:hover,
+    &:focus {
+      span {
+        color: ${props => lighten(0.5, props.theme.textColor)};
+      }
+    }
+
+    &.active {
+      color: ${props => lighten(0.5, props.theme.textColor)};
+    }
+  }
+`
+
+const ActiveIcon = styled.span`
+  color: #31a24c;
+  font-weight: 600;
+`;
+
+const DefunctIcon = styled.span`
+  color: #ab0000;
+  font-weight: 600;
+`;
+
 
 export const pageQuery = graphql`
   query {
@@ -197,6 +262,9 @@ export const pageQuery = graphql`
         fieldValue
         totalCount
       }
+    }
+    placeholder: file(name: { eq: "venue-placeholder-cat" }) {
+      publicURL
     }
   }
 `

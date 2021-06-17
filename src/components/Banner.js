@@ -78,6 +78,10 @@ const BannerText = styled.div`
     color: ${props => props.theme.contrastColor};
   }
 
+  h2, p{
+    margin-bottom: 0;
+  }
+
   .center-content {
     padding-top: ${rhythm(1)};
     margin-bottom: auto;

@@ -24,13 +24,13 @@ export default React.memo(props => {
       <Link getProps={isPartiallyActive} to="/blog/">
         Articles
       </Link>
-      <Link className="rainbowBackground" id="vaultSessionsHeaderLink" getProps={isPartiallyActive} to="/vaultsessions/">
+      <a className="rainbowBackground" id="vaultSessionsHeaderLink" href="/vaultsessions/" target="_blank">
         <span>
           VAULT
           <br />
           SESSIONS
         </span>
-      </Link>
+      </a>
     </Menu>
   )
 })

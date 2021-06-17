@@ -25,6 +25,7 @@ export default React.memo(
     date,
     image,
     hideFooter,
+    hideNav = false,
     hideBrandOnMobile,
     headerContent,
     scrollHeaderContent,
@@ -45,7 +46,7 @@ export default React.memo(
           {image && <meta property="og:image" content={image} />}
         </Helmet>
         <UpdateYourFrickinBrowser />
-        <HeaderWrapper>
+        {!hideNav && <HeaderWrapper>
           <MobileNav className="showMobile">
             <SiteNav backgroundColor={lighten(0.1, theme.default.primaryColor)} height={theme.default.headerHeightMobile} />
           </MobileNav>
@@ -56,10 +57,11 @@ export default React.memo(
             hideBrandOnMobile={hideBrandOnMobile}
             isSidebar={isSidebar}
           />
-        </HeaderWrapper>
+        </HeaderWrapper>}
         <SiteContainer
           className="SiteContainer"
           hideFooter={hideFooter}
+          hideNav={hideNav}
           hideBrandOnMobile={hideBrandOnMobile}
           headerContent={headerContent}
           overrideBackgroundColor={overrideBackgroundColor}
@@ -81,7 +83,7 @@ const HeaderWrapper = styled.div`
   border-bottom: 1px solid ${(props) => darken(0.025, props.theme.primaryColor)};
 `
 const SiteContainer = styled.div`
-  min-height: ${(props) => `calc(100vh - ${props.theme.headerHeight} - 1px)`};
+  min-height: ${(props) => `calc(100vh - ${!props.hideNav ? props.theme.headerHeight : "0px"} - 1px)`};
   background-color: ${(props) => props.overrideBackgroundColor || props.theme.backgroundColor};
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
   height: 100%;
@@ -92,7 +94,7 @@ const SiteContainer = styled.div`
   margin-bottom: ${(props) => !props.hideFooter && `calc(${props.theme.footerHeight} + 30px)`};
   margin-top: ${(props) => props.headerContent && props.theme.headerHeightMobile};
   @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-    margin-top: ${(props) => props.theme.headerHeight};
+    margin-top: ${(props) => !props.hideNav && props.theme.headerHeight};
     margin-bottom: ${(props) => !props.hideFooter && props.theme.footerHeight};
   }
 `

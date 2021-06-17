@@ -157,7 +157,7 @@ const WorldWrapper = styled.div`
   perspective: ${props => props.perspective || '300px'};
   transition: perspective 0.3s ease-in-out;
   width: 100%;
-  height: calc(100vh - ${props => props.theme.headerHeightMobile});
+  height: 100vh;
   position: relative;
   backface-visibility: hidden;
   transform-style: preserve-3d;
@@ -186,7 +186,7 @@ const WorldWrapper = styled.div`
   }
 
   @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    height: calc(100vh - ${props => props.theme.headerHeight});
+    height: 100vh;
   }
 `
 const Children = styled.div`

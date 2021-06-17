@@ -7,6 +7,7 @@
 */
 
 const fs = require('fs-extra')
+const rl = require('readline')
 
 const devFiles = [
   '/src/components',
@@ -20,11 +21,20 @@ const devFiles = [
   '/static',
 ]
 
-const sourceDir = '.'
-const destDir = '../dunedinsound-minimal-dev'
-
 const args = process.argv.slice(2)
 
-devFiles.forEach((path) => {
-  args[0] === 'to' ? fs.copySync(sourceDir + path, destDir + path) : fs.copySync(destDir + path, sourceDir + path)
+const thisDir = '.'
+const devDir = '../dunedinsound-minimal-dev'
+
+const sourceDir = args[0] === 'to' ? thisDir : devDir
+const destDir = args[0] === 'to' ? devDir : thisDir
+
+var prompts = rl.createInterface(process.stdin, process.stdout)
+
+prompts.question(`This will overwrite data in ${destDir} is this okay? y/n `, (answer) => {
+  if (answer != 'y') process.exit()
+  devFiles.forEach((path) => {
+    fs.copySync(sourceDir + path, destDir + path)
+  })
+  process.exit()
 })
