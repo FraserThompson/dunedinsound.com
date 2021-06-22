@@ -23,8 +23,8 @@ if (typeof L !== 'undefined') {
   })
 }
 
-export const ActiveIndicator = React.memo(({active, hideText = false}) => (
-  active ? <ActiveIcon title="Active">⬤ {!hideText && "Active"}</ActiveIcon> : <DefunctIcon title="Defunct">⬤ {!hideText && "Defunct"}</DefunctIcon>
+export const ActiveIndicator = React.memo(({died, hideText = false}) => (
+  !died ? <ActiveIcon title="Active">⬤ {!hideText && "Active"}</ActiveIcon> : <DefunctIcon title="Defunct">⬤ {!hideText && `Defunct since ${died}`}</DefunctIcon>
 ));
 
 const Sidebar = React.memo(({ menuItems, menuItemClick, setRef, selected }) => {
@@ -50,7 +50,7 @@ const Sidebar = React.memo(({ menuItems, menuItemClick, setRef, selected }) => {
             <a onClick={() => click(index, [node.frontmatter.lat, node.frontmatter.lng])}>
               {node.frontmatter.title}
               <div style={{position: "absolute", right: "0px", top: "0px"}}>
-                <ActiveIndicator active={node.frontmatter.active} hideText={true}/>
+                <ActiveIndicator died={node.frontmatter.died} hideText={true}/>
               </div>
             </a>
           </li>
@@ -144,7 +144,7 @@ export default React.memo(({ data, location }) => {
               <Marker ref={marker => openPopup(marker, index)} key={index} position={[node.frontmatter.lat, node.frontmatter.lng]}>
                 <Popup onOpen={() => markerClick(index)}>
                   <h3 style={{marginBottom: "0"}}>{node.frontmatter.title}</h3>
-                  <p style={{marginTop: "0", marginBottom: "10px"}}><ActiveIndicator active={node.frontmatter.active}/></p>
+                  <p style={{marginTop: "0", marginBottom: "10px"}}><ActiveIndicator died={node.frontmatter.died}/></p>
                   <HorizontalNav lineHeight="1">
                     {node.frontmatter.facebook && (
                       <li>

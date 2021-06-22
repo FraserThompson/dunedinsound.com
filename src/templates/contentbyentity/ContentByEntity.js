@@ -156,9 +156,9 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
           (data.thisPost.frontmatter.title || data.thisPost.fields.slug) + (data.thisPost.frontmatter.origin ? ` (${data.thisPost.frontmatter.origin})` : '')
         }
         subtitle={
-          data.thisPost.frontmatter.active !== undefined && (
+          data.thisPost.frontmatter.died !== undefined && (
             <ActiveWrapper>
-              <ActiveIndicator active={data.thisPost.frontmatter.active}/>
+              <ActiveIndicator died={data.thisPost.frontmatter.died}/>
             </ActiveWrapper>
           )
         }

@@ -180,7 +180,7 @@ export const query = graphql`
       bandcamp
       facebook
       website
-      active
+      died
       soundcloud
       cover {
         ...SmallImage
