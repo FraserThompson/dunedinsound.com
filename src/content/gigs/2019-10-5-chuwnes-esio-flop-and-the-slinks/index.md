@@ -7,7 +7,7 @@ artists:
     vid:
       - link: evXmEPiyPfc
       - link: 7p4DWoTrfbg
-  - name: Chuwnes
+  - name: Sunflower Scent
   - name: Esio Flop
     vid:
       - link: 026ZfxXGfI0

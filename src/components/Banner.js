@@ -33,7 +33,7 @@ export default React.memo(props => (
 
 const BannerWrapper = styled.div`
   background: #40e0d0; /* fallback for old browsers */
-  background: radial-gradient(circle, rgba(236, 64, 103, 1) 0%, rgba(12, 24, 33, 1) 70%);
+  background: radial-gradient(circle, black 0%, rgba(12, 24, 33, 1) 70%);
   height: ${props => (props.height ? props.height : props.theme.defaultBannerHeight)};
   overflow: hidden;
   position: relative;

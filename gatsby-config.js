@@ -9,6 +9,7 @@ module.exports = {
   },
   pathPrefix: '/',
   plugins: [
+    'gatsby-plugin-image',
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -86,8 +87,9 @@ module.exports = {
       resolve: `gatsby-plugin-sharp`,
       options: {
         useMozJpeg: true,
-        stripMetadata: false,
-        concurrency: 8,
+        stripMetadata: true, // leaving the metadata increases filesize by about 40kb
+        failOnError: false,
+        defaultQuality: 80
       },
     },
     {

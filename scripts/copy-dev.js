@@ -14,6 +14,7 @@ const devFiles = [
   '/src/pages',
   '/src/templates',
   '/src/assets',
+  '/src/utils',
   '/gatsby-browser.js',
   '/gatsby-config.js',
   '/gatsby-node.js',

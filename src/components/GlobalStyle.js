@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { scale, rhythm } from '../utils/typography'
 import TransitionStyles from './TransitionStyles'
 import { lighten, invert } from 'polished'
@@ -8,6 +8,7 @@ import { theme } from '../utils/theme'
 const foregroundColor = theme.default.foregroundColor
 const lightText = lighten(0.5, theme.default.textColor)
 const darkText = invert(theme.default.textColor)
+const contrastColor2 = theme.default.contrastColor2
 const padding = rhythm(0.5)
 const rhythm1 = rhythm(1)
 const scale2 = scale(2)
@@ -169,7 +170,7 @@ const GlobalStyle = css`
   }
 
   a {
-    color: ${darkText};
+    color: ${contrastColor2};
     transition: color 0.1s ease-in-out;
     text-decoration: none;
     overflow: hidden;

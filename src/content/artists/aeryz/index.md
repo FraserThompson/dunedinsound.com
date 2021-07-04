@@ -1,3 +1,4 @@
 ---
 title: Aeryz
+origin: Christchurch
 ---

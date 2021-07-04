@@ -16,6 +16,7 @@ export const theme = {
     foregroundColor: '#FDE74C', // yellow
     secondaryColor: '#EC4067', // pink
     contrastColor: '#EFF1ED', // ice white
+    contrastColor2: '#40e0d0', // cyan
     textColor: '#ccc',
     contentContainerWidth: '740px',
     defaultBannerHeight: '70vh',

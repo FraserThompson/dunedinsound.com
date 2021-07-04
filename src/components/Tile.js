@@ -12,7 +12,6 @@
 //  - backgroundColor (optional)
 //  - height (optional): Defaults to 500px
 //  - shadowBottom(optional) : Whether to show a shadow on the bottom
-//  - imageSizes (optional): This is an array which helps gatsby decide what size image to show.
 //    By default it assumes all images are displayed at 100vw. Check the gridToSizes method
 //    in utility.js and use it to turn an array of grid sizes into something this can use.
 
@@ -22,39 +21,35 @@ import BackgroundImage from './BackgroundImage'
 import Content from './Content'
 import { rhythm } from '../utils/typography'
 import { lighten } from 'polished'
-import { Link as RouterLink } from '@reach/router'
+import { Link } from 'gatsby'
 
 export default ({
   height = '40vh',
-  backgroundColor = 'radial-gradient(circle, rgba(236, 64, 103, 1) 0%, rgba(12, 24, 33, 1) 70%)',
+  feature = false,
+  backgroundColor = 'radial-gradient(circle, black 0%, rgba(12, 24, 33, 1) 70%)',
   width,
   hoverHeight,
   machineName,
   label,
   image,
-  imageSizes,
   subtitle,
   title,
   children,
   href,
   to,
   id,
+  lastGig
 }) => {
+
   const tileContent = (
     <>
-      {label && (
-        <Label>
-          <small>{label}</small>
-        </Label>
-      )}
-      {image && <BackgroundImage sizes={imageSizes} image={image} />}
-      <TitleWrapper shadowBottom={title || subtitle}>
+      {image && <BackgroundImage image={image} />}
+      <TitleWrapper shadowBottom={title || subtitle} feature={feature}>
         <Content>
-          {title && <h4 className="title">{title}</h4>}
+          {title && <h2 className="title">{title}</h2>}
+          {label && <h4>{label}</h4>}
           {subtitle && (
-            <p className="subtitle">
-              <small>{subtitle}</small>
-            </p>
+            <p className="subtitle" dangerouslySetInnerHTML={{__html: subtitle}}/>
           )}
         </Content>
         <TextContent>
@@ -63,21 +58,23 @@ export default ({
       </TitleWrapper>
     </>
   )
+
   return (
     <Container
       backgroundColor={backgroundColor}
       containerHeight={height}
       data-title={title}
       data-machinename={machineName}
+      data-lastgig={lastGig || 0}
       containerWidth={width}
       hoverHeight={hoverHeight}
       className="tile"
       id={id}
     >
       {to && (
-        <RouterLink to={to} title={title} state={{ from: typeof window !== `undefined` && window.location.pathname }}>
+        <Link to={to} title={title} state={{ from: typeof window !== `undefined` && window.location.pathname }}>
           {tileContent}
-        </RouterLink>
+        </Link>
       )}
       {href && (
         <a href={href} target="_blank" title={title}>
@@ -114,7 +111,7 @@ const Container = styled.div`
   a {
     &:hover,
     &:focus {
-      h4 {
+      .title {
         color: ${props => lighten(0.5, props.theme.textColor)};
       }
       color: ${props => lighten(0.5, props.theme.textColor)};
@@ -162,23 +159,34 @@ const TitleWrapper = styled.div`
   width: 100%;
   position: absolute;
   bottom: 0px;
-  background: ${props => props.shadowBottom && 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 40%)'};
+  background: ${props => props.shadowBottom && 'rgba(0,0,0,0.4)'};
   height: 100%;
   display: flex;
+  mix-blend-mode: ${props => props.feature && 'difference'};
 
   ${Content} {
-    margin-top: auto;
     margin-left: 0;
+    display: flex;
+    flex-direction: column;
 
     .title {
       margin-left: 0;
       margin-bottom: ${rhythm(0.5)};
-      color: white;
+      color: #ccc;
+      font-size: ${props => props.feature && rhythm(2)}
     }
 
     .subtitle {
       margin: 0px;
+      margin-top: auto;
       line-height: 0.9;
     }
+
+    @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+      .title {
+        font-size: ${props => props.feature && rhythm(4)}
+      }
+    }
+
   }
 `

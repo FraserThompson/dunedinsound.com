@@ -3,7 +3,7 @@ title: 'Battle of the Bands 2014'
 date: 2014-05-01T05:00:00.000Z
 venue: u-bar
 artists:
-  - name: 'Shamus of Berry Fame'
+  - name: Shamus of Berry Fame
     tracklist:
       - time: '00:11'
         title: 'Not Straight/Burning Down'
@@ -11,7 +11,7 @@ artists:
         title: 'Spirals in my Brain/Tamagotchi'
       - time: '08:52'
         title: 'Fuck Your Binaries'
-  - name: 'Sloth Vegas'
+  - name: Sloth Vegas
     tracklist:
       - time: '00:20'
         title: 'Edmunds Song (Untitled)'

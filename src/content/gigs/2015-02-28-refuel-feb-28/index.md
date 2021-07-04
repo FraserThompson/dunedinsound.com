@@ -7,6 +7,6 @@ artists:
     tracklist:
       - time: '10:30'
         title: 'Incredible Skrillex cover omg'
-  - { name: 'Sloth Vegas' }
-  - { name: 'Jay Kill Rolling' }
+  - { name: Sloth Vegas }
+  - { name: Jay Kill Rolling }
 ---

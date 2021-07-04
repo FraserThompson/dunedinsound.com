@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { Link, graphql } from 'gatsby'
-import Img from 'gatsby-image'
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Layout from '../../components/Layout'
 import { rhythm, scale } from '../../utils/typography'
 import BlogContainer from '../../components/BlogContainer'
 import Banner from '../../components/Banner'
 import GridContainer from '../../components/GridContainer'
 
-export default React.memo(({ data, pageContext }) => {
+const Page = React.memo(({ data, pageContext }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
@@ -19,7 +19,7 @@ export default React.memo(({ data, pageContext }) => {
     data.images['edges'].map(({ node }) => {
       return (
         <a href={node.publicURL} style={{ cursor: 'pointer' }} key={node.name}>
-          <Img className="backgroundImage" fluid={node.childImageSharp.fluid} />
+          <GatsbyImage className="backgroundImage" image={getImage(node)} alt=""/>
         </a>
       )
     })
@@ -96,9 +96,11 @@ export const pageQuery = graphql`
         node {
           name
           publicURL
-          ...LargeImage
+          ...MediumImage
         }
       }
     }
   }
 `
+
+export default Page;

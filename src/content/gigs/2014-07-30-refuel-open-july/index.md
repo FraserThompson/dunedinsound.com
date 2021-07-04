@@ -5,7 +5,7 @@ audio: false
 venue: u-bar
 artists:
   - {
-      name: 'Sloth Vegas',
+      name: Sloth Vegas,
       vid:
         [
           { title: 'Disco Disco and Powerpuff Girls', link: kZBLE-tJKAI },

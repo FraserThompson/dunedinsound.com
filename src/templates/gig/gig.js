@@ -13,8 +13,9 @@ import styled from '@emotion/styled'
 import { rhythm } from '../../utils/typography'
 import BackButton from '../../components/BackButton'
 import BackToTop from '../../components/BackToTop'
+import { getImage } from 'gatsby-plugin-image'
 
-export default React.memo(({ data }) => {
+const Page = React.memo(({ data }) => {
   const [artistMedia, setArtistMedia] = useState([])
   const [artistAudio, setArtistAudio] = useState([])
   const [cover, setCover] = useState(data.thisPost.frontmatter.cover)
@@ -31,7 +32,7 @@ export default React.memo(({ data }) => {
     }
 
     // Key-value object of images by artist
-    const imagesByArtist = data.images && graphqlGroupToObject(data.images.group, true)
+    const imagesByArtist = data.images && graphqlGroupToObject(data.images.group, true, (fieldValue) => fieldValue.split('/')[1])
 
     // Cover image is either one image or all the images in the _header folder
     imagesByArtist['_header'] && setCover(imagesByArtist['_header'])
@@ -40,7 +41,7 @@ export default React.memo(({ data }) => {
     const audioByArtist =
       data.audio &&
       data.audio['group'].reduce((obj, item) => {
-        const machineName = item.fieldValue
+        const machineName = item.fieldValue.split('/')[1]
         const grouped_audio = item.edges.reduce((obj, item) => {
           // There appears to be a bug in the GraphQL extension filter which sometimes allows images to slip
           // through... So instead of pursuing that we'll just add this check here.
@@ -84,7 +85,7 @@ export default React.memo(({ data }) => {
     <Layout
       location={location}
       description={`Photos, audio and video from ${gigTitle}.`}
-      image={cover && cover.childImageSharp && cover.childImageSharp.fluid.src}
+      image={cover && getImage(cover)}
       title={`${gigTitle} | ${data.site.siteMetadata.title}`}
       date={data.thisPost.frontmatter.date}
       type="article"
@@ -171,7 +172,7 @@ export const pageQuery = graphql`
     images: allFile(
       filter: { relativePath: { regex: "/(.jpg)|(.JPG)$/" }, name: { ne: "cover.jpg" }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }
     ) {
-      group(field: fields___parentDir) {
+      group(field: relativeDirectory) {
         fieldValue
         edges {
           node {
@@ -183,7 +184,7 @@ export const pageQuery = graphql`
       }
     }
     audio: allFile(filter: { relativePath: { regex: "/(.json)|(.mp3)$/" }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }) {
-      group(field: fields___parentDir) {
+      group(field: relativeDirectory) {
         fieldValue
         edges {
           node {
@@ -230,3 +231,5 @@ export const pageQuery = graphql`
     }
   }
 `
+
+export default Page

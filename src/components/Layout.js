@@ -1,9 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import SiteHeader from './SiteHeader'
-import { Global } from '@emotion/core'
+import { Global, ThemeProvider } from '@emotion/react'
 import styled from '@emotion/styled'
-import { ThemeProvider } from 'emotion-theming'
 import { theme } from '../utils/theme'
 import 'react-image-lightbox/style.css'
 import SiteFooter from './SiteFooter'
@@ -46,18 +45,20 @@ export default React.memo(
           {image && <meta property="og:image" content={image} />}
         </Helmet>
         <UpdateYourFrickinBrowser />
-        {!hideNav && <HeaderWrapper>
-          <MobileNav className="showMobile">
-            <SiteNav backgroundColor={lighten(0.1, theme.default.primaryColor)} height={theme.default.headerHeightMobile} />
-          </MobileNav>
-          <SiteHeader
-            scrollHeaderOverlay={scrollHeaderOverlay}
-            scrollHeaderContent={scrollHeaderContent}
-            headerContent={headerContent}
-            hideBrandOnMobile={hideBrandOnMobile}
-            isSidebar={isSidebar}
-          />
-        </HeaderWrapper>}
+        {!hideNav && (
+          <HeaderWrapper>
+            <MobileNav className="showMobile">
+              <SiteNav backgroundColor={lighten(0.1, theme.default.primaryColor)} height={theme.default.headerHeightMobile} />
+            </MobileNav>
+            <SiteHeader
+              scrollHeaderOverlay={scrollHeaderOverlay}
+              scrollHeaderContent={scrollHeaderContent}
+              headerContent={headerContent}
+              hideBrandOnMobile={hideBrandOnMobile}
+              isSidebar={isSidebar}
+            />
+          </HeaderWrapper>
+        )}
         <SiteContainer
           className="SiteContainer"
           hideFooter={hideFooter}
@@ -83,7 +84,7 @@ const HeaderWrapper = styled.div`
   border-bottom: 1px solid ${(props) => darken(0.025, props.theme.primaryColor)};
 `
 const SiteContainer = styled.div`
-  min-height: ${(props) => `calc(100vh - ${!props.hideNav ? props.theme.headerHeight : "0px"} - 1px)`};
+  min-height: ${(props) => `calc(100vh - ${!props.hideNav ? props.theme.headerHeight : '0px'} - 1px)`};
   background-color: ${(props) => props.overrideBackgroundColor || props.theme.backgroundColor};
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
   height: 100%;
@@ -138,35 +139,27 @@ export const query = graphql`
     }
   }
 
-  fragment TinyImage on File {
-    childImageSharp {
-      fluid(maxWidth: 200, quality: 80, srcSetBreakpoints: [50, 200, 400]) {
-        ...GatsbyImageSharpFluid_withWebp
-      }
-    }
-  }
-
   fragment SmallImage on File {
     childImageSharp {
-      fluid(maxWidth: 400, quality: 80, srcSetBreakpoints: [100, 400, 800]) {
-        ...GatsbyImageSharpFluid_withWebp
-      }
+      gatsbyImageData(placeholder: BLURRED, outputPixelDensities: [0.5, 1, 2], width: 400)
     }
   }
 
   fragment MediumImage on File {
     childImageSharp {
-      fluid(maxWidth: 800, quality: 80, srcSetBreakpoints: [200, 800, 1600]) {
-        ...GatsbyImageSharpFluid_withWebp
-      }
+      gatsbyImageData(placeholder: BLURRED, outputPixelDensities: [0.5, 1, 2], width: 800)
     }
   }
 
   fragment LargeImage on File {
     childImageSharp {
-      fluid(maxWidth: 1600, quality: 80, srcSetBreakpoints: [400, 800, 1600, 3200]) {
-        ...GatsbyImageSharpFluid_withWebp
-      }
+      gatsbyImageData(placeholder: BLURRED, outputPixelDensities: [0.5, 1, 2], width: 1600)
+    }
+  }
+
+  fragment FullImage on File {
+    childImageSharp {
+      gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED)
     }
   }
 
@@ -223,7 +216,7 @@ export const query = graphql`
         }
       }
       cover {
-        ...LargeImage
+        ...FullImage
       }
     }
   }
@@ -258,6 +251,7 @@ export const query = graphql`
       spotify
       website
       origin
+      died
       audioculture {
         link
         snippet

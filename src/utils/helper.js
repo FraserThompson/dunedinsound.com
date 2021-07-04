@@ -26,17 +26,18 @@ export const scrollTo = (e, anchor, headerOffset, behavior) => {
   }
 }
 
-export const timeToSeconds = str => {
+export const timeToSeconds = (str) => {
   const a = str.split(':')
   return a.length == 2 ? +a[0] * 60 + +a[1] : +a[0] * 60 * 60 + +a[1] * 60 + +a[2]
 }
 
 export const gridToSizes = (grid, maxSize) => {
-  return `(max-width: ${theme.default.breakpoints.xs}) ${100 * (grid.xs / 12)}vw, (max-width: ${theme.default.breakpoints.md}) ${100 *
-    (grid.md / 12)}vw, (max-width: ${theme.default.breakpoints.lg}) ${100 * (grid.lg / 12)}vw, ${100 * (grid.lg / 12)}vw`
+  return `(max-width: ${theme.default.breakpoints.xs}) ${100 * (grid.xs / 12)}vw, (max-width: ${theme.default.breakpoints.md}) ${
+    100 * (grid.md / 12)
+  }vw, (max-width: ${theme.default.breakpoints.lg}) ${100 * (grid.lg / 12)}vw, ${100 * (grid.lg / 12)}vw`
 }
 
-export const nodeTypeToHuman = string => {
+export const nodeTypeToHuman = (string) => {
   switch (string) {
     case 'gigs':
       return 'Gig'
@@ -51,9 +52,10 @@ export const nodeTypeToHuman = string => {
   }
 }
 
-export const graphqlGroupToObject = (queryResult, sortByName) => {
+export const graphqlGroupToObject = (queryResult, sortByName, fieldValueProcessor) => {
   return queryResult.reduce((obj, item) => {
-    obj[item.fieldValue] = !sortByName ? item.edges : item.edges.slice().sort((a, b) => (a.node.name < b.node.name ? -1 : 1))
+    const fieldValue = fieldValueProcessor ? fieldValueProcessor(item.fieldValue) : item.fieldValue
+    obj[fieldValue] = !sortByName ? item.edges : item.edges.slice().sort((a, b) => (a.node.name < b.node.name ? -1 : 1))
     return obj
   }, {})
 }
@@ -83,7 +85,7 @@ export const postFilter = (needle, haystack) => {
   }
 }
 
-export const dateStrToDateObj = date => {
+export const dateStrToDateObj = (date) => {
   const splitDate = date.split('-')
   return new Date('20' + splitDate[2], splitDate[1] - 1, splitDate[0])
 }

@@ -7,7 +7,7 @@ import GridContainer from '../components/GridContainer'
 import GigTile from '../components/GigTile'
 import { theme } from '../utils/theme'
 
-export default ({ data, location }) => {
+const Page = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = data.site.siteMetadata.description
   const posts = data.allMarkdownRemark.edges
@@ -17,17 +17,15 @@ export default ({ data, location }) => {
     (obj, { node }) => {
       let tile = undefined
       if (node.fields.type === 'gigs' && node.fields.machine_name != firstGig.fields.machine_name) {
-        tile = <GigTile title={node.frontmatter.title} node={node} height="33vh" key={node.fields.slug} imageSizes={{ xs: 12, md: 4, lg: 4 }} />
+        tile = <GigTile title={node.frontmatter.title} node={node} height="33vh" key={node.fields.slug} />
       } else if (node.fields.type === 'blog') {
         tile = (
           <Tile
             key={node.fields.slug}
             title={`${node.frontmatter.tags.includes('interview') ? 'INTERVIEW: ' : 'ARTICLE: '}${node.frontmatter.title}`}
-            subtitle={node.excerpt}
             image={node.frontmatter.cover}
             label={node.frontmatter.date}
             height={'33vh'}
-            imageSizes={{ xs: 12, md: 4, lg: 4 }}
             to={node.fields.slug}
           />
         )
@@ -38,7 +36,6 @@ export default ({ data, location }) => {
             image={node.frontmatter.cover}
             height={'33vh'}
             title={`VAULT SESSION: ${node.frontmatter.title}`}
-            imageSizes={{ xs: 12, md: 4, lg: 4 }}
             to={node.fields.slug}
           />
         )
@@ -59,7 +56,7 @@ export default ({ data, location }) => {
     <Layout description={siteDescription} location={location} title={siteTitle}>
       <HomePageGridContainer>
         <div className="featured-gig">
-          <GigTile imageSizes={{ xs: 12, md: 8, lg: 8 }} title={firstGig.frontmatter.title} node={firstGig} height="66vh" />
+          <GigTile title={firstGig.frontmatter.title} node={firstGig} feature={true} height="66vh" />
         </div>
         <div className="two-side-gigs">{postSections.firstTwo.map(tile => tile)}</div>
         <div className="everything-else">
@@ -122,3 +119,5 @@ export const pageQuery = graphql`
     }
   }
 `
+
+export default Page;

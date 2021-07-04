@@ -73,7 +73,7 @@ const Sidebar = React.memo(({ menuItems, menuItemClick }) => {
   )
 })
 
-export default React.memo(({ data, location }) => {
+const Page = React.memo(({ data, location }) => {
   const allPosts = useMemo(() => data.gigsByDate.group.slice().reverse(), []) //because for some reason it returns it ascending order
 
   // Turn the posts sorted by years into two things:
@@ -210,7 +210,7 @@ export default React.memo(({ data, location }) => {
                     return (
                       <section data-yearindex={index} key={id} id={id}>
                         {posts.map(({ node }) => (
-                          <GigTile id={node.fields.slug} key={node.fields.slug} height="40vh" node={node} imageSizes={{ xs: 4, sm: 4, lg: 6 }} />
+                          <GigTile id={node.fields.slug} key={node.fields.slug} height="40vh" node={node} />
                         ))}
                       </section>
                     )
@@ -249,3 +249,5 @@ export const pageQuery = graphql`
     }
   }
 `
+
+export default Page;

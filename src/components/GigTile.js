@@ -10,9 +10,9 @@
 import React from 'react'
 import Tile from './Tile'
 
-export default React.memo(({ node, title, id, imageSizes, width, height, hoverHeight }) => {
+export default React.memo(({ node, title, id, width, height, hoverHeight, feature }) => {
   const tileTitle = title || node.frontmatter.title || node.fields.slug
-  const artists = node.frontmatter.artists.map(artist => artist.name).join(', ')
+  const artists = node.frontmatter.artists.map(artist => artist.name).join('<br/> ')
 
   return (
     <Tile
@@ -21,12 +21,12 @@ export default React.memo(({ node, title, id, imageSizes, width, height, hoverHe
       title={tileTitle}
       subtitle={artists}
       image={node.frontmatter.cover}
-      imageSizes={imageSizes}
       label={node.frontmatter.date}
       width={width}
       height={height}
       hoverHeight={hoverHeight}
       to={node.fields.slug}
+      feature={feature}
     ></Tile>
   )
 })

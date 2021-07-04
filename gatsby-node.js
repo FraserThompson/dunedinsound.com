@@ -7,12 +7,6 @@ const toMachineName = (string, space_character) => {
     .replace(/\s/g, space_character)
     .replace(/[$]/g, 'z')
 }
-const graphqlGroupToObject = (queryResult) => {
-  return queryResult.reduce((obj, item) => {
-    obj[item.fieldValue] = item.edges
-    return obj
-  }, {})
-}
 
 const path = require('path')
 
@@ -20,8 +14,8 @@ const realFs = require('fs')
 const gracefulFs = require('graceful-fs')
 gracefulFs.gracefulify(realFs)
 
-exports.createPages = ({ graphql, actions }) => {
-  return graphql(
+exports.createPages = async ({ graphql, actions }) => {
+  const result = await graphql(
     `
       {
         allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
@@ -37,6 +31,7 @@ exports.createPages = ({ graphql, actions }) => {
                 }
                 frontmatter {
                   title
+                  template
                   artists {
                     name
                   }
@@ -54,31 +49,30 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     `
-  ).then((result) => {
-    if (result.errors) {
-      console.log(result.errors)
-      reject(result.errors)
-    }
+  )
 
-    const { createPage } = actions
+  if (result.errors) {
+    console.log(result.errors)
+  }
 
-    const layouts = {
-      gigs: path.resolve('./src/templates/gig/gig.js'),
-      blog: path.resolve('./src/templates/blog/blog.js'),
-      artists: path.resolve('./src/templates/artist/artist.js'),
-      venues: path.resolve('./src/templates/venue/venue.js'),
-      vaultsessions: path.resolve('./src/templates/vaultsession/vaultsession.js'),
-      page: path.resolve('./src/templates/page/page.js'),
-      tags: path.resolve('./src/templates/tags/tags.js'),
-    }
+  const { createPage } = actions
 
-    // We split it into collections of nodes by type so we can treat them as seperate collections for the next/prev
-    const nodesByType = graphqlGroupToObject(result.data.allMarkdownRemark.group)
+  const layouts = {
+    gigs: path.resolve('./src/templates/gig/gig.js'),
+    blog: path.resolve('./src/templates/blog/blog.js'),
+    artists: path.resolve('./src/templates/artist/artist.js'),
+    venues: path.resolve('./src/templates/venue/venue.js'),
+    vaultsessions: path.resolve('./src/templates/vaultsession/vaultsession.js'),
+    page: path.resolve('./src/templates/page/page.js'),
+    tags: path.resolve('./src/templates/tags/tags.js'),
+  }
 
-    // This is called on each markdown node in each collection
-    const createPages = (node, index, posts) => {
-      const previous = index === posts.length - 1 ? null : posts[index + 1].node
-      const next = index === 0 ? null : posts[index - 1].node
+  result.data.allMarkdownRemark.group.forEach((group) => {
+    console.log('Creating ' + group.edges.length + ' ' + group.fieldValue)
+
+    group.edges.forEach(({ node }, index) => {
+      const previous = index === group.edges.length - 1 ? null : group.edges[index + 1].node
+      const next = index === 0 ? null : group.edges[index - 1].node
 
       const context = {
         slug: node.fields.slug,
@@ -94,35 +88,30 @@ exports.createPages = ({ graphql, actions }) => {
       if (node.frontmatter.artists) context.artists = node.frontmatter.artists.map((artist) => toMachineName(artist.name))
       if (node.frontmatter.venue) context.venue = node.frontmatter.venue
 
+      let component = layouts[node.fields.type]
+      if (node.frontmatter.template) component = path.resolve(`./src/templates/${node.frontmatter.template}`)
+
       createPage({
         path: node.fields.slug,
-        component: layouts[node.fields.type],
+        component,
         context: context,
       })
-    }
-
-    // Create pages for content by type
-    nodesByType['gigs'].forEach(({ node }, index) => createPages(node, index, nodesByType['gigs']))
-    nodesByType['vaultsessions'].forEach(({ node }, index) => createPages(node, index, nodesByType['vaultsessions']))
-    nodesByType['blog'].forEach(({ node }, index) => createPages(node, index, nodesByType['blog']))
-    nodesByType['venues'].forEach(({ node }, index) => createPages(node, index, nodesByType['venues']))
-    nodesByType['artists'].forEach(({ node }, index) => createPages(node, index, nodesByType['artists']))
-    nodesByType['page'].forEach(({ node }, index) => createPages(node, index, nodesByType['page']))
-
-    // Make tag index pages for blog content
-    const allowedTagPages = ['interview', 'opinion', 'news', 'events', 'documentary', 'tech']
-
-    result.data.blogsByTag.group.forEach(({ fieldValue }) => {
-      if (allowedTagPages.includes(fieldValue)) {
-        createPage({
-          path: `/blog/tags/${fieldValue}/`,
-          component: layouts.tags,
-          context: {
-            tag: fieldValue,
-          },
-        })
-      }
     })
+  })
+
+  // Make tag index pages for blog content
+  const allowedTagPages = ['interview', 'opinion', 'news', 'events', 'documentary', 'tech']
+
+  result.data.blogsByTag.group.forEach(({ fieldValue }) => {
+    if (allowedTagPages.includes(fieldValue)) {
+      createPage({
+        path: `/blog/tags/${fieldValue}/`,
+        component: layouts.tags,
+        context: {
+          tag: fieldValue,
+        },
+      })
+    }
   })
 }
 
@@ -134,39 +123,35 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   if (node.internal.type === 'File') {
     const nodeType = node.sourceInstanceName
 
-    switch (node.ext) {
-      case '.mp3':
-      case '.json':
-      case '.jpg':
-      case '.JPG':
-        const parsedPath = path.parse(node.absolutePath)
-        const parentDir = path.basename(parsedPath.dir)
+    const mediaExts = ['.mp3', '.json', '.jpg', '.JPG']
 
-        createNodeField({
-          name: `parentDir`,
-          node,
-          value: parentDir,
-        })
+    if (mediaExts.includes(node.ext)) {
+      const parsedPath = path.parse(node.absolutePath)
+      const parentDir = path.basename(parsedPath.dir)
 
-        createNodeField({
-          name: `type`,
-          node,
-          value: nodeType,
-        })
+      createNodeField({
+        name: `parentDir`,
+        node,
+        value: parentDir,
+      })
 
-        if (nodeType === 'gigs') {
-          const pathComponents = node.relativeDirectory.split('/')
-          if (pathComponents.length === 2) {
-            const gigDir = pathComponents[0]
-            createNodeField({
-              name: `gigDir`,
-              node,
-              value: gigDir,
-            })
-          }
+      createNodeField({
+        name: `type`,
+        node,
+        value: nodeType,
+      })
+
+      if (nodeType === 'gigs') {
+        const pathComponents = node.relativeDirectory.split('/')
+        if (pathComponents.length === 2) {
+          const gigDir = pathComponents[0]
+          createNodeField({
+            name: `gigDir`,
+            node,
+            value: gigDir,
+          })
         }
-
-        break
+      }
     }
   }
   // For the actual gig posts we need to add some fields
@@ -174,7 +159,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     const parent = getNode(node.parent)
     const nodeType = parent.sourceInstanceName
     const nodeTitle = nodeType === 'gigs' ? toMachineName(node.frontmatter.title, '-') : toMachineName(node.frontmatter.title, '_') // to preserve URLs from old site
-    const nodeSlug = '/' + nodeType + '/' + nodeTitle + '/'
+    const nodeSlug = '/' + nodeType + '/' + nodeTitle
 
     const parsedPath = path.parse(node.fileAbsolutePath)
     const parentDir = path.basename(parsedPath.dir)

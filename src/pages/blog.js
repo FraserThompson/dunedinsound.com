@@ -7,7 +7,7 @@ import TagCloud from '../components/TagCloud'
 import Banner from '../components/Banner'
 import { rhythm } from '../utils/typography'
 
-export default ({ data, location }) => {
+const Page = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = data.site.siteMetadata.description
   const posts = data.allBlogs.edges
@@ -93,3 +93,5 @@ export const pageQuery = graphql`
     }
   }
 `
+
+export default Page;

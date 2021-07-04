@@ -25,7 +25,6 @@ export default React.memo(({ data }) => (
           image={data.prevPost.frontmatter.cover}
           label={data.prevPost.frontmatter.date}
           height="100%"
-          imageSizes={{ xs: '1', sm: '4', lg: '4' }}
           to={data.prevPost.fields.slug}
         />
       </NextPrevWrapper>
@@ -41,7 +40,6 @@ export default React.memo(({ data }) => (
           image={data.nextPost.frontmatter.cover}
           label={data.nextPost.frontmatter.date}
           height="100%"
-          imageSizes={{ xs: '1', sm: '4', lg: '4' }}
           to={data.nextPost.fields.slug}
         />
       </NextPrevWrapper>

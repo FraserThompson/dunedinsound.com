@@ -3,7 +3,7 @@ title: 'Le weird place'
 date: 2019-9-27 08:30:00 Z
 venue: crown_hotel
 artists:
-  - name: Chuwnes
+  - name: Sunflower Scent
     vid:
       - link: gAmtet7ynW4
   - name: Sugarcoated Bullets

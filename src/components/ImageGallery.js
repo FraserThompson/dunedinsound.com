@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
-import Img from 'gatsby-image'
+import { GatsbyImage, getImage, getSrcSet } from "gatsby-plugin-image"
 import Lightbox from 'react-image-lightbox'
-import { gridToSizes } from '../utils/helper'
 import { MdFileDownload } from 'react-icons/md'
 import FlexGridContainer from '../components/FlexGridContainer'
-import { parse } from 'srcset'
 import { createBrowserHistory } from 'history'
+import { parse } from 'srcset'
 
 export default React.memo(({ artist, images, gridSize, title, imageCaption }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false)
@@ -60,8 +59,8 @@ export default React.memo(({ artist, images, gridSize, title, imageCaption }) =>
     if (imageIndex !== false && images[imageIndex]) {
       switch (size) {
         default:
-          const parsed_srcset = parse(images[imageIndex].node.childImageSharp.fluid.srcSet)
-          return parsed_srcset.find((image) => image.width == 1600).url
+          const srcSet = getSrcSet(images[imageIndex].node)
+          return parse(srcSet).find((thing) => thing.width === 1600).url
         case 'full':
           return images[imageIndex].node.publicURL
       }
@@ -71,8 +70,8 @@ export default React.memo(({ artist, images, gridSize, title, imageCaption }) =>
   const imageElements =
     images &&
     images.map(({ node }, imageIndex) => (
-      <a style={{ cursor: 'pointer', display: 'block', width: '100%', height: '100%' }} key={imageIndex} onClick={(e) => openLightbox(imageIndex, e)}>
-        <Img fluid={{ ...node.childImageSharp.fluid, sizes: gridToSizes(gridSize) }} />
+      <a style={{ cursor: 'pointer', display: 'block',  height: '100%', width: "400px" }} key={imageIndex} onClick={(e) => openLightbox(imageIndex, e)}>
+        <GatsbyImage image={getImage(node)} alt="" />
       </a>
     ))
 

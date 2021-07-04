@@ -7,9 +7,8 @@ import YouTubeResponsive from '../../components/YouTubeResponsive'
 import PlayerContainer from '../../components/PlayerContainer'
 import VideoControls from './VideoControls'
 import { timeToSeconds } from '../../utils/helper'
-import { Logo } from '../../pages/vaultsessions'
 
-export default ({ data }) => {
+const Page = ({ data }) => {
   const post = data.markdownRemark
 
   const siteTitle = data.site.siteMetadata.title
@@ -108,6 +107,18 @@ export default ({ data }) => {
   )
 }
 
+const Logo = styled.div`
+  margin: 0 auto;
+  position: absolute;
+  top: ${props => props.position == 'top' && '0px'};
+  bottom: ${props => props.position == 'bottom' && '0px'};
+  z-index: 2;
+  width: 100%;
+  img {
+    opacity: 1;
+    width: 100%;
+  }
+`
 const Title = styled.div`
   position: absolute;
   top: 0px;
@@ -211,3 +222,5 @@ export const pageQuery = graphql`
     }
   }
 `
+
+export default Page;

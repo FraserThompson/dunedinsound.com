@@ -1,9 +1,8 @@
 import { StaticQuery, graphql } from 'gatsby'
 import React from 'react'
 import { Link } from 'gatsby'
-import Divider from './Divider'
 import styled from '@emotion/styled'
-import Img from 'gatsby-image'
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { rhythm } from '../utils/typography'
 
 export default () => (
@@ -12,23 +11,29 @@ export default () => (
       query {
         facebook: file(name: { eq: "fb-icon" }) {
           childImageSharp {
-            fixed(width: 30, height: 30) {
-              ...GatsbyImageSharpFixed
-            }
+            gatsbyImageData(
+              layout: FIXED
+              width: 50
+              height: 50
+            )
           }
         }
         instagram: file(name: { eq: "instagram-icon" }) {
           childImageSharp {
-            fixed(width: 30, height: 30) {
-              ...GatsbyImageSharpFixed
-            }
+            gatsbyImageData(
+              layout: FIXED
+              width: 50
+              height: 50
+            )
           }
         }
         youtube: file(name: { eq: "youtube-icon" }) {
           childImageSharp {
-            fixed(width: 30, height: 30) {
-              ...GatsbyImageSharpFixed
-            }
+            gatsbyImageData(
+              layout: FIXED
+              width: 50
+              height: 50
+            )
           }
         }
       }
@@ -41,13 +46,13 @@ export default () => (
           </p>
           <div id="footer-social-icons">
             <a title="Facebook" target="_blank" rel="noopener" href="https://facebook.com/dunedinsound/">
-              <Img fixed={data.facebook.childImageSharp.fixed} />
+              <GatsbyImage image={getImage(data.facebook)} alt="Facebook" style={{display: "inline-block"}}/>
             </a>
             <a title="Instagram" target="_blank" rel="noopener" href="https://instagram.com/dunedinsound/">
-              <Img fixed={data.instagram.childImageSharp.fixed} />
+              <GatsbyImage image={getImage(data.instagram)} alt="Instagram" style={{display: "inline-block"}}/>
             </a>
             <a title="YouTube" target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCcou-Lq6d-AMOkg2UKVEhhg">
-              <Img fixed={data.youtube.childImageSharp.fixed} />
+              <GatsbyImage image={getImage(data.youtube)} alt="YouTube" style={{display: "inline-block"}}/>
             </a>
           </div>
         </Content>

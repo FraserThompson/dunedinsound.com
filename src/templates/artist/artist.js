@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import ContentByEntity from '../contentbyentity/ContentByEntity'
 
-export default React.memo(({ data }) => {
+const Page = React.memo(({ data }) => {
   const parent = {
     title: 'Artists',
     href: '/artists/',
@@ -75,3 +75,5 @@ export const pageQuery = graphql`
     }
   }
 `
+
+export default Page;

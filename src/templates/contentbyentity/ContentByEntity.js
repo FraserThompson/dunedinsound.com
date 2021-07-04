@@ -33,7 +33,8 @@ import ContentTabs from './ContentTabs'
 import { scrollTo } from '../../utils/helper'
 import BackButton from '../../components/BackButton'
 import BackToTop from '../../components/BackToTop'
-import { ActiveIndicator } from '../../pages/venues'
+import ActiveIndicator from '../../components/ActiveIndicator'
+import { getImage } from 'gatsby-plugin-image'
 
 export default React.memo(({ data, pageDescription, parent, background }) => {
   useEffect(() => {
@@ -106,7 +107,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
             </Divider>
             <FlexGridContainer>
               {edges.map(({ node }) => (
-                <GigTile id={node.fields.slug} node={node} key={node.fields.slug} imageSizes={gridSize} />
+                <GigTile id={node.fields.slug} node={node} key={node.fields.slug} />
               ))}
             </FlexGridContainer>
           </div>
@@ -143,7 +144,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
     <Layout
       location={parent}
       description={pageDescription}
-      image={cover && cover.childImageSharp && cover.childImageSharp.fluid.src}
+      image={cover && getImage(cover)}
       title={`${data.thisPost.frontmatter.title} | ${data.site.siteMetadata.title}`}
       scrollHeaderOverlay={
         <PageTitle>
@@ -158,7 +159,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
         subtitle={
           data.thisPost.frontmatter.died !== undefined && (
             <ActiveWrapper>
-              <ActiveIndicator died={data.thisPost.frontmatter.died}/>
+              <ActiveIndicator died={data.thisPost.frontmatter.died} inactiveText={data.thisPost.fields.type === 'artists' ? 'Inactive' : 'Defunct'} />
             </ActiveWrapper>
           )
         }
@@ -166,8 +167,20 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
         background={background}
         customContent={<BackButton title={parent.title} to={parent.href} type="up" />}
       >
-
         <HorizontalNav>
+          {data.thisPost.frontmatter.lat && (
+            <li>
+              <a
+                title="Google Maps"
+                className="button"
+                rel="noopener"
+                target="_blank"
+                href={`https://www.google.com/maps/search/?api=1&query=${data.thisPost.frontmatter.lat},${data.thisPost.frontmatter.lng}`}
+              >
+                Google Maps
+              </a>
+            </li>
+          )}
           {data.thisPost.frontmatter.facebook && (
             <li>
               <a title="Facebook Page" className="button" rel="noopener" href={data.thisPost.frontmatter.facebook}>
@@ -261,6 +274,4 @@ const PageTitle = styled.span`
   }
 `
 
-const ActiveWrapper = styled.div`
-
-`;
+const ActiveWrapper = styled.div``

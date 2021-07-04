@@ -11,7 +11,7 @@ import Tabs from '../components/Tabs'
 import styled from '@emotion/styled'
 import LoadingSpinner from '../components/LoadingSpinner'
 
-export default React.memo(({ data, location }) => {
+const Page = React.memo(({ data, location }) => {
   const [filteredPosts, setFilteredPosts] = useState(null)
 
   const [sortBy, setSortBy] = useState('title')
@@ -26,11 +26,22 @@ export default React.memo(({ data, location }) => {
     lg: '2',
   }
 
-  const gigCountsByArtist = useMemo(
+  const gigMetadataByArtist = useMemo(
     () =>
       data.gigsByArtist['group'].reduce((obj, item) => {
-        if (obj[toMachineName(item.fieldValue)]) obj[toMachineName(item.fieldValue)] += item.totalCount
-        else obj[toMachineName(item.fieldValue)] = item.totalCount
+        const machineName = toMachineName(item.fieldValue)
+        const date = new Date(item['edges'][0]['node'].frontmatter.date).getTime()
+
+        if (!obj[machineName]) {
+          obj[machineName] = { totalCount: item.totalCount || 0, lastGig: date }
+        } else {
+          obj[machineName].totalCount += item.totalCount
+        }
+
+        if (date > obj[machineName].lastGig) {
+          obj[machineName].lastGig = date
+        }
+
         return obj
       }, {}),
     []
@@ -63,32 +74,33 @@ export default React.memo(({ data, location }) => {
   useEffect(() => {
     if (sortBy === 'title') {
       sortByTitle()
-    } else {
+    } else if (sortBy === 'numberOfGigs') {
       sortByNumberOfGigs()
+    } else if (sortBy === 'lastGig') {
+      sortByLastGig()
     }
   }, [sortBy])
 
   const sortByNumberOfGigs = useCallback(() => {
-    shuffle && shuffle.sort({ reverse: true, by: element => gigCountsByArtist[element.getAttribute('data-machinename')] || 0 })
+    shuffle && shuffle.sort({ reverse: true, by: (element) => gigMetadataByArtist[element.getAttribute('data-machinename')]['totalCount'] })
   }, [shuffle])
 
   const sortByTitle = useCallback(() => {
-    shuffle && shuffle.sort({ by: element => element.getAttribute('data-title').toLowerCase() })
+    shuffle && shuffle.sort({ by: (element) => element.getAttribute('data-title').toLowerCase() })
+  }, [shuffle])
+
+  const sortByLastGig = useCallback(() => {
+    shuffle && shuffle.sort({ reverse: true, by: (element) => element.getAttribute('data-lastgig') })
   }, [shuffle])
 
   const search = useCallback(
-    searchInput => {
+    (searchInput) => {
       if (!shuffle) return
       if (!searchInput || searchInput.length == 0) {
         shuffle.filter('all')
       } else {
-        shuffle.filter(element => {
-          return (
-            element
-              .getAttribute('data-title')
-              .toLowerCase()
-              .indexOf(searchInput) !== -1
-          )
+        shuffle.filter((element) => {
+          return element.getAttribute('data-title').toLowerCase().indexOf(searchInput) !== -1
         })
       }
     },
@@ -114,14 +126,23 @@ export default React.memo(({ data, location }) => {
           <button className={sortBy === 'title' ? 'active' : ''} onClick={() => setSortBy('title')}>
             Title
           </button>
+          <button className={sortBy === 'lastGig' ? 'active' : ''} onClick={() => setSortBy('lastGig')}>
+            Last Played
+          </button>
           <button className={sortBy === 'numberOfGigs' ? 'active' : ''} onClick={() => setSortBy('numberOfGigs')}>
-            Gigs
+            Most Gigs
           </button>
         </Pills>
       )}
       <ArtistGrid fixedWidth ref={element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
         {filteredPosts &&
           filteredPosts.map(({ node }) => {
+            const metadata = gigMetadataByArtist[node.fields.machine_name]
+
+            if (!metadata) {
+              console.error('Fatal: Metadata missing for ' + node.fields.machine_name)
+            }
+
             const title = (node.frontmatter.title || node.fields.slug) + (node.frontmatter.origin ? ` (${node.frontmatter.origin})` : '')
             const coverImage = node.frontmatter.cover
               ? node.frontmatter.cover
@@ -132,12 +153,12 @@ export default React.memo(({ data, location }) => {
                 key={node.fields.slug}
                 title={title}
                 machineName={node.fields.machine_name}
-                subtitle={`${gigCountsByArtist[node.fields.machine_name]} gigs`}
+                subtitle={`${metadata ? metadata.totalCount : 0} gigs`}
                 image={coverImage}
                 label={node.frontmatter.date}
                 to={node.fields.slug}
-                imageSizes={grid}
                 height={filteredPosts.length == 1 ? 'calc(100vh - ' + theme.default.headerHeight + ')' : filteredPosts.length <= 8 ? '40vh' : '20vh'}
+                lastGig={metadata ? metadata.lastGig : 0}
               />
             )
           })}
@@ -157,7 +178,7 @@ const LoadingWrapper = styled.div`
 `
 
 const Pills = styled(Tabs)`
-  color: ${props => props.theme.foregroundColor};
+  color: ${(props) => props.theme.foregroundColor};
   position: fixed;
   width: auto;
   z-index: 4;
@@ -179,7 +200,7 @@ const Pills = styled(Tabs)`
     height: 100%;
     &.active {
       color: black;
-      background-color: ${props => props.theme.foregroundColor};
+      background-color: ${(props) => props.theme.foregroundColor};
     }
   }
 `
@@ -213,7 +234,16 @@ export const pageQuery = graphql`
       group(field: frontmatter___artists___name) {
         fieldValue
         totalCount
+        edges {
+          node {
+            frontmatter {
+              date
+            }
+          }
+        }
       }
     }
   }
 `
+
+export default Page

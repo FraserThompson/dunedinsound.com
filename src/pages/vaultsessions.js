@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
-import Img from 'gatsby-image'
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import styled from '@emotion/styled'
 import World from '../components/World'
 
-export default ({ data, location }) => {
+const Page = ({ data, location }) => {
   const [lights, setLights] = useState('off')
   const [hoveredNode, setHoveredNode] = useState(false)
   const [perspective, setPerspective] = useState('300px')
@@ -46,7 +46,7 @@ export default ({ data, location }) => {
     <Posts>
       {hoveredNode && (
         <div className="background">
-          <Img style={{ height: '100%', opacity: '0.6' }} fluid={hoveredNode.frontmatter.cover.childImageSharp.fluid} />
+          <GatsbyImage style={{ height: '100%', opacity: '0.6' }} image={getImage(hoveredNode.frontmatter.cover)} alt=""/>
         </div>
       )}
       {posts.map(({ node }) => (
@@ -105,6 +105,18 @@ export const pageQuery = graphql`
     }
   }
 `
+const Logo = styled.div`
+  margin: 0 auto;
+  position: absolute;
+  top: ${props => props.position == 'top' && '0px'};
+  bottom: ${props => props.position == 'bottom' && '0px'};
+  z-index: 2;
+  width: 100%;
+  img {
+    opacity: 1;
+    width: 100%;
+  }
+`
 
 const Posts = styled.div`
   display: flex;
@@ -154,15 +166,4 @@ const Description = styled.div`
   }
 `
 
-export const Logo = styled.div`
-  margin: 0 auto;
-  position: absolute;
-  top: ${props => props.position == 'top' && '0px'};
-  bottom: ${props => props.position == 'bottom' && '0px'};
-  z-index: 2;
-  width: 100%;
-  img {
-    opacity: 1;
-    width: 100%;
-  }
-`
+export default Page;

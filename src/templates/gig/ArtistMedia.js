@@ -57,11 +57,11 @@ export default React.memo(({ artistMedia, gigTitle }) => {
           imageCaption={
             <>
               {artist.title}
-              {artist.details && (
+              {artist.details && (<> ●{" "}
                 <a href={artist.details.fields.slug} title="Go to artist page">
-                  {' '}
                   More media from this artist
                 </a>
+                </>
               )}
             </>
           }

@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import Layout from '../../components/Layout'
 import BlogContainer from '../../components/BlogContainer'
 
-export default React.memo(({ data }) => {
+const Page = React.memo(({ data }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
@@ -32,3 +32,5 @@ export const pageQuery = graphql`
     }
   }
 `
+
+export default Page;
