@@ -9,7 +9,7 @@ import ArtistDropdownMenu from './ArtistDropdownMenu'
 import { scrollTo } from '../../utils/helper'
 
 export default React.memo(({ artistMedia, gigTitle }) => {
-  const media = artistMedia.map((artist) => {
+  const media = artistMedia.map((artist, i) => {
     // Gatsby has been doing this weird thing where sometimes the graphql jpg filter
     // doesn't work and lets in an MP3, so we have to filter it here on the client.
     const fixedArtistImages = artist.images && artist.images.filter((thing) => thing.node.childImageSharp)
@@ -51,16 +51,21 @@ export default React.memo(({ artistMedia, gigTitle }) => {
         </GridContainer>
         <ImageGallery
           artist={artist.machineName}
+          nextArtist={artistMedia[i + 1] && artistMedia[i + 1].machineName}
+          prevArtist={artistMedia[i - 1] && artistMedia[i - 1].machineName}
           gridSize={gridSize}
           images={fixedArtistImages}
           title={gigTitle}
           imageCaption={
             <>
               {artist.title}
-              {artist.details && (<> ●{" "}
-                <a href={artist.details.fields.slug} title="Go to artist page">
-                  More media from this artist
-                </a>
+              {artist.details && (
+                <>
+                  {' '}
+                  ●{' '}
+                  <a href={artist.details.fields.slug} title="Go to artist page">
+                    More media from this artist
+                  </a>
                 </>
               )}
             </>

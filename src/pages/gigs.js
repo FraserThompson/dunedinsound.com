@@ -25,7 +25,7 @@ const Sidebar = React.memo(({ menuItems, menuItemClick }) => {
   }, [])
 
   const scrollToActive = useCallback(
-    event => {
+    (event) => {
       const year = event.target.parentElement.parentElement
       ref.current.scrollTop = year.offsetTop
     },
@@ -51,15 +51,15 @@ const Sidebar = React.memo(({ menuItems, menuItemClick }) => {
       <ul ref={ref} id="sidebarNav">
         {menuItems.map(({ year, months, count }, yearIndex) => (
           <li key={year}>
-            <a onClick={e => click(e, year, yearIndex)} href={`#${year}`}>
+            <a onClick={(e) => click(e, year, yearIndex)} href={`#${year}`}>
               <strong>{year}</strong> <span className="label">({count})</span>
             </a>
             <ul>
-              {months.map(month => {
+              {months.map((month) => {
                 const className = `${year}-${month}`
                 return (
                   <li key={month}>
-                    <a onClick={e => click(e, className, yearIndex)} href={`#${className}`}>
+                    <a onClick={(e) => click(e, className, yearIndex)} href={`#${className}`}>
                       {month}
                     </a>
                   </li>
@@ -80,7 +80,7 @@ const Page = React.memo(({ data, location }) => {
   //    - A list of years and unique months for each year
   //    - A list of posts wrapped by year and month
   // Do this in one reduce for performance (albeit slightly worse readability)
-  const sortPosts = useCallback(posts => {
+  const sortPosts = useCallback((posts) => {
     return posts.reduce(
       (obj, group, index) => {
         const previousYear = index - 1 >= 0 && posts[index - 1].fieldValue.substring(0, 4)
@@ -118,7 +118,7 @@ const Page = React.memo(({ data, location }) => {
   const [scrollToAnchor, setScrollToAnchor] = useState(null)
   const [gumshoe, setGumshoe] = useState(null)
 
-  const yearPages = { '2019': 0, '2018': 1, '2017': 2, '2016': 3, '2015': 4, '2014': 5 } //should refactor this to be dynamic
+  const yearPages = { 2019: 0, 2018: 1, 2017: 2, 2016: 3, 2015: 4, 2014: 5 } //should refactor this to be dynamic
 
   const scrollToGig = useCallback((anchor, year) => {
     menuItemClick(anchor, yearPages[year])
@@ -152,7 +152,7 @@ const Page = React.memo(({ data, location }) => {
     }
   }, [postsSorted, pageUpTo])
 
-  const filter = useCallback(searchInput => {
+  const filter = useCallback((searchInput) => {
     if (!searchInput || searchInput.length == 0) {
       setPostsSorted(allPostsSorted)
       setDisplayedMenuItems(allMenuItems)
@@ -174,7 +174,7 @@ const Page = React.memo(({ data, location }) => {
     [pageUpTo]
   )
 
-  const loadMore = useCallback(index => setPageUpTo(index + 1), [])
+  const loadMore = useCallback((index) => setPageUpTo(index + 1), [])
 
   return (
     <Layout
@@ -188,7 +188,32 @@ const Page = React.memo(({ data, location }) => {
     >
       <Sidebar menuItems={displayedMenuItems} menuItemClick={menuItemClick} />
       <PageContentWrapper>
+        <FutureGigsWrapper>
+          <FutureGigs>
+            <div className="title">CONGRATULATIONS</div>
+            <div className="body">
+              <p>
+                <blink>YOU HAVE WON A GIG!</blink>
+              </p>
+              <p>
+                COLLECT YOUR PRIZE NOW FROM: <br />
+                <strong className="coolText">
+                  <a href="https://www.r1.co.nz/gig-guide" target="_blank">
+                    RAD TIMES GIG GUIDE at Radio One 91FM
+                  </a>
+                </strong>
+              </p>
+              <small>* redeem at venue of choice. door charge applies</small>
+              <div className="buttons">
+                <a href="https://www.r1.co.nz/gig-guide" target="_blank">
+                  OK
+                </a>
+              </div>
+            </div>
+          </FutureGigs>
+        </FutureGigsWrapper>
         <InfiniteScroll
+          className="infinite-scroll"
           pageStart={0}
           loadMore={loadMore}
           hasMore={pageUpTo < allPostsSorted.length}
@@ -227,8 +252,130 @@ const Page = React.memo(({ data, location }) => {
 const PageContentWrapper = styled.div`
   padding-left: 0px;
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
+  .infinite-scroll {
+    margin-top: ${(props) => `calc(350px + ${props.theme.headerHeightMobile})`};
+  }
+
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    .infinite-scroll {
+      margin-top: ${(props) => `calc(350px + ${props.theme.headerHeight})`};
+    }
+  }
+
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     padding-left: 300px;
+  }
+`
+
+const FutureGigsWrapper = styled.div`
+  border: 2px solid black;
+  height: 350px;
+  left: 0;
+  position: fixed;
+  top: ${(props) => props.theme.headerHeightMobile};
+  width: 100%;
+  background: teal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
+    padding-left: 300px;
+  }
+
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    top: ${(props) => props.theme.headerHeight};
+  }
+`
+
+const FutureGigs = styled.div`
+  position: relative;
+  margin: 1em;
+  padding: 3px;
+  max-width: ${(props) => props.theme.contentContainerWidth};
+  box-shadow: inset -1px -1px #00138c, inset 1px 1px #0831d9, inset -2px -2px #001ea0, inset 2px 2px #166aee, inset -3px -3px #003bda, inset 3px 3px #0855dd;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 0 0 3px;
+  -webkit-font-smoothing: antialiased;
+  background: #ece9d8;
+
+  blink {
+    animation: 0.5s linear infinite condemned_blink_effect;
+  }
+
+  @keyframes condemned_blink_effect {
+    0% {
+      visibility: hidden;
+    }
+    50% {
+      visibility: hidden;
+    }
+    100% {
+      visibility: visible;
+    }
+  }
+
+  .title {
+    color: white;
+    font-family: Trebuchet MS;
+    background: linear-gradient(180deg, #0997ff, #0053ee 8%, #0050ee 40%, #06f 88%, #06f 93%, #005bff 95%, #003dd7 96%, #003dd7);
+    padding: 3px 5px 3px 3px;
+    border-top: 1px solid #0831d9;
+    border-left: 1px solid #0831d9;
+    border-right: 1px solid #001ea0;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 7px;
+    font-size: 13px;
+    text-shadow: 1px 1px #0f1089;
+  }
+
+  .body {
+    color: black;
+    padding: 8px;
+    text-align: center;
+
+    small {
+      font-size: 60%;
+      position: absolute;
+      left: 10px;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+      margin-left: auto;
+      box-sizing: border-box;
+      display: inline-block;
+      text-align: center;
+      min-height: 23px;
+      min-width: 75px;
+      padding: 0 12px;
+      font-family: 'Pixelated MS Sans Serif', Arial;
+      -webkit-font-smoothing: antialiased;
+      font-size: 11px;
+      box-sizing: border-box;
+      border: 1px solid #003c74;
+      background: linear-gradient(180deg, #fff, #ecebe5 86%, #d8d0c4);
+      box-shadow: none;
+      border-radius: 3px;
+    }
+
+    a:active {
+      box-shadow: none;
+      background: linear-gradient(180deg, #cdcac3, #e3e3db 8%, #e5e5de 94%, #f2f2f1);
+    }
+
+    a:focus {
+      box-shadow: none;
+      background: linear-gradient(180deg, #cdcac3, #e3e3db 8%, #e5e5de 94%, #f2f2f1);
+    }
   }
 `
 
@@ -250,4 +397,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default Page;
+export default Page

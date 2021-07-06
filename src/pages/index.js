@@ -11,7 +11,9 @@ const Page = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = data.site.siteMetadata.description
   const posts = data.allMarkdownRemark.edges
-  const firstGig = posts.find(({ node }) => node.fields.type === 'gigs').node
+
+  // we get the firstGig in a seperate query so the others can have smaller images
+  const firstGig = data.firstGig.edges[0].node
 
   const postSections = posts.reduce(
     (obj, { node }) => {
@@ -58,9 +60,9 @@ const Page = ({ data, location }) => {
         <div className="featured-gig">
           <GigTile title={firstGig.frontmatter.title} node={firstGig} feature={true} height="66vh" />
         </div>
-        <div className="two-side-gigs">{postSections.firstTwo.map(tile => tile)}</div>
+        <div className="two-side-gigs">{postSections.firstTwo.map((tile) => tile)}</div>
         <div className="everything-else">
-          <GridContainer>{postSections.nextThree.map(tile => tile)}</GridContainer>
+          <GridContainer>{postSections.nextThree.map((tile) => tile)}</GridContainer>
           <GridContainer xs={6} sm={6} md={6} lg={6}>
             <Tile height={'10vh'} to={'/gigs/'} backgroundColor={theme.default.foregroundColor}>
               More Gigs
@@ -85,7 +87,7 @@ const HomePageGridContainer = styled(GridContainer)`
   .everything-else {
     grid-column: span 12;
   }
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     .featured-gig {
       grid-column: span 8;
     }
@@ -106,7 +108,7 @@ export const pageQuery = graphql`
     vaultSessionLogo: file(name: { eq: "vslogo" }) {
       publicURL
     }
-    allMarkdownRemark(limit: 16, sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { regex: "/gigs|blog|vaultsessions$/" } } }) {
+    firstGig: allMarkdownRemark(limit: 1, sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { regex: "/gigs$/" } } }) {
       edges {
         node {
           excerpt
@@ -117,7 +119,18 @@ export const pageQuery = graphql`
         }
       }
     }
+    allMarkdownRemark(limit: 16, sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { regex: "/gigs|blog|vaultsessions$/" } } }) {
+      edges {
+        node {
+          excerpt
+          ...GigTileSmallFrontmatter
+          frontmatter {
+            tags
+          }
+        }
+      }
+    }
   }
 `
 
-export default Page;
+export default Page

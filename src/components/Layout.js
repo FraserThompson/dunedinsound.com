@@ -226,17 +226,27 @@ export const query = graphql`
     frontmatter {
       title
       date(formatString: "DD MMMM YYYY")
-      venue
       description
       artists {
         name
-        vid {
-          link
-          title
-        }
       }
       cover {
         ...LargeImage
+      }
+    }
+  }
+
+  fragment GigTileSmallFrontmatter on MarkdownRemark {
+    ...DefaultFields
+    frontmatter {
+      title
+      date(formatString: "DD MMMM YYYY")
+      description
+      artists {
+        name
+      }
+      cover {
+        ...MediumImage
       }
     }
   }

@@ -230,7 +230,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    gigsByArtist: allMarkdownRemark(filter: { fields: { type: { eq: "gigs" } } }) {
+    gigsByArtist: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { eq: "gigs" } } }) {
       group(field: frontmatter___artists___name) {
         fieldValue
         totalCount

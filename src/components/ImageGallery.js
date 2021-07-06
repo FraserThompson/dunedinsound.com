@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
-import { GatsbyImage, getImage, getSrcSet } from "gatsby-plugin-image"
+import { GatsbyImage, getImage, getSrcSet } from 'gatsby-plugin-image'
 import Lightbox from 'react-image-lightbox'
 import { MdFileDownload } from 'react-icons/md'
 import FlexGridContainer from '../components/FlexGridContainer'
 import { createBrowserHistory } from 'history'
 import { parse } from 'srcset'
 
-export default React.memo(({ artist, images, gridSize, title, imageCaption }) => {
+export default React.memo(({ artist, nextArtist, prevArtist, images, gridSize, title, imageCaption }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState(0)
   const [directLinked, setDirectLinked] = useState(false)
@@ -70,7 +70,7 @@ export default React.memo(({ artist, images, gridSize, title, imageCaption }) =>
   const imageElements =
     images &&
     images.map(({ node }, imageIndex) => (
-      <a style={{ cursor: 'pointer', display: 'block',  height: '100%', width: "400px" }} key={imageIndex} onClick={(e) => openLightbox(imageIndex, e)}>
+      <a style={{ cursor: 'pointer', display: 'block', height: '100%', width: '400px' }} key={imageIndex} onClick={(e) => openLightbox(imageIndex, e)}>
         <GatsbyImage image={getImage(node)} alt="" />
       </a>
     ))

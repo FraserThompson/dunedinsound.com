@@ -8,7 +8,7 @@ export const theme = {
     headerHeightMobileWithSubheader: rhythm(2.5),
     headerHeightWithSubheader: rhythm(3.5),
     headerHeightNeg: rhythm(-2),
-    footerHeight: '211px',
+    footerHeight: '280px',
     waveformColor: '#01baef',
     waveformProgressColor: '#EC4067',
     backgroundColor: '#0C1214', // dark navy
