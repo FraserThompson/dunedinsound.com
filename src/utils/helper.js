@@ -13,7 +13,7 @@ export const toMachineName = (string, space_character) => {
 export const scrollTo = (e, anchor, headerOffset, behavior) => {
   e && e.preventDefault() && e.stopPropagation()
 
-  const element = document.getElementById(anchor)
+  const element = typeof document !== 'undefined' && document.getElementById(anchor)
   if (!element) return
 
   if (!headerOffset) {

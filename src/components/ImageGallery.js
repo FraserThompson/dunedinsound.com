@@ -7,12 +7,12 @@ import FlexGridContainer from '../components/FlexGridContainer'
 import { createBrowserHistory } from 'history'
 import { parse } from 'srcset'
 
-export default React.memo(({ artist, nextArtist, prevArtist, images, gridSize, title, imageCaption }) => {
+export default React.memo(({ images, gridSize, title, imageCaption }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState(0)
   const [directLinked, setDirectLinked] = useState(false)
 
-  const history = createBrowserHistory()
+  const history = typeof window !== 'undefined' && createBrowserHistory()
 
   useEffect(() => {
     handleURLChange(history.location)
@@ -23,11 +23,9 @@ export default React.memo(({ artist, nextArtist, prevArtist, images, gridSize, t
   const handleURLChange = (location) => {
     if (location.search) {
       const searchParams = new URLSearchParams(location.search)
-      if (searchParams.get('artist') == artist) {
-        if (!location.state || !location.state.lightboxOpen) setDirectLinked(true) // this won't be set if we come direct to the url
-        setSelectedImage(parseInt(searchParams.get('image')))
-        setLightboxOpen(true)
-      }
+      if (!location.state || !location.state.lightboxOpen) setDirectLinked(true) // this won't be set if we come direct to the url
+      setSelectedImage(parseInt(searchParams.get('image')))
+      setLightboxOpen(true)
     } else {
       setLightboxOpen(false)
     }
@@ -37,7 +35,7 @@ export default React.memo(({ artist, nextArtist, prevArtist, images, gridSize, t
     event.preventDefault()
     history.push({
       pathname: history.location.pathname,
-      search: `?image=${imageIndex}&artist=${artist}`,
+      search: `?image=${imageIndex}`,
       state: { lightboxOpen: true },
     })
   }
@@ -47,20 +45,20 @@ export default React.memo(({ artist, nextArtist, prevArtist, images, gridSize, t
   const gotoLightboxImage = (imageIndex) =>
     history.replace({
       pathname: history.location.pathname,
-      search: `?image=${imageIndex}&artist=${artist}`,
+      search: `?image=${imageIndex}`,
       state: { lightboxOpen: true },
     })
 
-  const getNextImage = () => (selectedImage < images.length - 1 ? selectedImage + 1 : false)
+  const nextImage = selectedImage < images.length - 1 ? selectedImage + 1 : false
 
-  const getPrevImage = () => (selectedImage != 0 ? selectedImage - 1 : false)
+  const prevImage = selectedImage != 0 ? selectedImage - 1 : false
 
   const getImageSrc = (imageIndex, size) => {
     if (imageIndex !== false && images[imageIndex]) {
       switch (size) {
         default:
           const srcSet = getSrcSet(images[imageIndex].node)
-          return parse(srcSet).find((thing) => thing.width === 1600).url
+          return parse(srcSet).find((thing) => thing.width === 1600 || thing.width === 800).url
         case 'full':
           return images[imageIndex].node.publicURL
       }
@@ -83,10 +81,10 @@ export default React.memo(({ artist, nextArtist, prevArtist, images, gridSize, t
       {lightboxOpen && (
         <Lightbox
           mainSrc={getImageSrc(selectedImage)}
-          nextSrc={getImageSrc(getNextImage())}
-          prevSrc={getImageSrc(getPrevImage())}
-          onMovePrevRequest={() => gotoLightboxImage(getPrevImage())}
-          onMoveNextRequest={() => gotoLightboxImage(getNextImage())}
+          nextSrc={getImageSrc(nextImage)}
+          prevSrc={getImageSrc(prevImage)}
+          onMovePrevRequest={() => gotoLightboxImage(prevImage)}
+          onMoveNextRequest={() => gotoLightboxImage(nextImage)}
           toolbarButtons={[
             <LightBoxToolbarButton title="Download" target="_blank" href={getImageSrc(selectedImage, 'full')}>
               <MdFileDownload />

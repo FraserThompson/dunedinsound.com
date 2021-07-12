@@ -15,7 +15,9 @@ Most of that is done by going to gigs, documenting them via photo, video and aud
 
 dunedinsound.com is completely non-commercial, no sponsors, no ads, no money. The intent is to support the music community and not take anything from it. The current cost of hosting everything is around **\$10** a month.
 
-I'm not affiliated with any venue or band so consider my recordings bootlegs. All works are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a> meaning you can do whatever you want as long as you mention dunedinsound.com and you're not making loads of money off of it.
+All works are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a> meaning you can do whatever you want as long as you mention dunedinsound.com and you're not making loads of money off of it (contact fraser@dunedinsound.com if you want to use it commercially).
+
+I'm not affiliated with any venue or band so consider my audio recordings bootlegs.
 
 ## Why not just put stuff on Facebook like everyone else?
 

@@ -10,8 +10,10 @@ const Page = React.memo(({ data }) => {
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
 
-  const totalImages = data.files.group.find(group => group.fieldValue == "jpg").totalCount
-  const totalAudio = data.files.group.find(group => group.fieldValue == "mp3").totalCount
+  const totalImages = data.files.group.find((group) => group.fieldValue == 'jpg').totalCount.toLocaleString()
+  const totalAudio = data.files.group.find((group) => group.fieldValue == 'mp3').totalCount.toLocaleString()
+
+  const currentYear = new Date().getFullYear()
 
   return (
     <Layout
@@ -27,12 +29,12 @@ const Page = React.memo(({ data }) => {
           </div>
           <MetadataTable>
             <tbody>
-              {data.counts.group.map((group) =>
+              {data.counts.group.map((group) => (
                 <tr key={group.fieldValue}>
                   <td>{group.fieldValue}</td>
                   <td>{group.totalCount}</td>
                 </tr>
-              )}
+              ))}
               <tr>
                 <td>photos</td>
                 <td>{totalImages}</td>
@@ -40,6 +42,10 @@ const Page = React.memo(({ data }) => {
               <tr>
                 <td>audio</td>
                 <td>{totalAudio}</td>
+              </tr>
+              <tr>
+                <td>years in operation</td>
+                <td>{currentYear - 2014}</td>
               </tr>
             </tbody>
           </MetadataTable>
@@ -53,23 +59,21 @@ const Page = React.memo(({ data }) => {
 })
 
 const Header = styled.div`
-  background-color:black;
-  background-image:
-  radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-  radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-  radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
-  radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+  background-color: black;
+  background-image: radial-gradient(white, rgba(255, 255, 255, 0.2) 2px, transparent 40px),
+    radial-gradient(white, rgba(255, 255, 255, 0.15) 1px, transparent 30px), radial-gradient(white, rgba(255, 255, 255, 0.1) 2px, transparent 40px),
+    radial-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1) 2px, transparent 30px);
   background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
   background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
 
   .content {
-    max-width: ${props => props.theme.contentContainerWidth};
+    max-width: ${(props) => props.theme.contentContainerWidth};
     padding: ${rhythm(0.5)};
     margin: 0 auto;
   }
 
   .title {
-    max-width: ${props => props.theme.contentContainerWidth};
+    max-width: ${(props) => props.theme.contentContainerWidth};
     margin: 0 auto;
     border-bottom: 5px solid;
     border-image-slice: 1;
@@ -101,7 +105,7 @@ const Header = styled.div`
     text-align-last: justify;
     margin: 0;
   }
-`;
+`
 
 const MetadataTable = styled.table`
   tr {
@@ -127,7 +131,7 @@ export const pageQuery = graphql`
         totalCount
       }
     }
-    files: allFile(filter: {name: { ne: "cover.jpg" }}) {
+    files: allFile(filter: { name: { ne: "cover.jpg" } }) {
       group(field: extension) {
         fieldValue
         totalCount
@@ -136,4 +140,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default Page;
+export default Page

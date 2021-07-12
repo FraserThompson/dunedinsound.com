@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { Link, graphql } from 'gatsby'
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import Layout from '../../components/Layout'
 import { rhythm, scale } from '../../utils/typography'
 import BlogContainer from '../../components/BlogContainer'
 import Banner from '../../components/Banner'
-import GridContainer from '../../components/GridContainer'
+import ImageGallery from '../../components/ImageGallery'
 
 const Page = React.memo(({ data, pageContext }) => {
   const post = data.markdownRemark
@@ -19,7 +19,7 @@ const Page = React.memo(({ data, pageContext }) => {
     data.images['edges'].map(({ node }) => {
       return (
         <a href={node.publicURL} style={{ cursor: 'pointer' }} key={node.name}>
-          <GatsbyImage className="backgroundImage" image={getImage(node)} alt=""/>
+          <GatsbyImage className="backgroundImage" image={getImage(node)} alt="" />
         </a>
       )
     })
@@ -50,7 +50,7 @@ const Page = React.memo(({ data, pageContext }) => {
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
       </BlogContainer>
-      {post.frontmatter.gallery && <GridContainer>{imageElements}</GridContainer>}
+      {post.frontmatter.gallery && <ImageGallery images={data.images['edges']} title={post.frontmatter.title} />}
       <BlogContainer>
         <hr style={{ marginBottom: rhythm(1) }} />
         <BlogPostNav>
@@ -103,4 +103,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default Page;
+export default Page
