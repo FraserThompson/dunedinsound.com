@@ -2,24 +2,21 @@
 title: 'Talking to Andrew Wilson from Die! Die! Die!'
 date: 2017-10-13T19:30:00.000Z
 tags:
-    - interview
-    - die_die_die
+  - Interview
+  - 'Die Die Die'
 description: null
 author: 'Fraser Thompson'
 background_position: 'center top'
 cover: ./cover.jpg
 ---
 
-
 Prolific post-punkers Die! Die! Die! have released another album, and are returning to Dunedin on Friday for a blistering show at None Gallery. I caught up with Andrew Wilson who’s handled lead vocals and guitar since he formed the band in 2003.
-
-
 
 <center><iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=1465622217/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="http://diediedie.bandcamp.com/album/charm-offensive">CHARM.OFFENSIVE by Die! Die! Die!</a></iframe></center>
 
 ### So CHARM.OFFENSIVE released last week. How does that feel?
 
-Yeah, good good good… It’s quite funny when you release a record because you don’t really know how people are gonna take it? And also like whether people care and that sort of stuff so it’s all good but it’s just quite funny, it’s a funny day... It’s an emotional day *laughs*
+Yeah, good good good… It’s quite funny when you release a record because you don’t really know how people are gonna take it? And also like whether people care and that sort of stuff so it’s all good but it’s just quite funny, it’s a funny day... It’s an emotional day _laughs_
 
 ### I listened to it earlier, alongside some of the older stuff in your discography, and I really liked it. It seemed pretty different, like it had a lot of experimental things towards the end?
 
@@ -39,13 +36,13 @@ I’m a little bit older, maybe my voice broke? I’m not quite as screamy as I 
 
 ### This is more of a question for me because I’m kind of a big fan of Steve Albini and his work… Can you recall what it was like recording with him back on your first album?
 
-Yeah it was cool, it was good. It was a long time ago now, but it was awesome. 
+Yeah it was cool, it was good. It was a long time ago now, but it was awesome.
 
 I mean his studio in Chicago is amazing and I think he kind of built this ideal recording studio for the type of records he likes to make and respects making. Which, you know, when I was at that point in my life I kind of thought that was the only way to do things. And I mean he’s amazing. He’s got a little factory with like people coming in and out of there every day or every second day pumping out these records which he just knows how to do. Like you put a guitar amp in front of him and explain exactly how you want to do it and he’ll just get it done.
 
 ### So that was your first album, how did you end up with such a big time producer on your first album?
 
-I remember we just saved up money and got our first record deal and yeah, this kind of shows how much the industry has changed between then and now: We got enough money from our record label to fly to Chicago to record with Steve Albini and only have the record label release an EP in New Zealand. Like you explain that to a New Zealand record label now and they’d think you were mental. 
+I remember we just saved up money and got our first record deal and yeah, this kind of shows how much the industry has changed between then and now: We got enough money from our record label to fly to Chicago to record with Steve Albini and only have the record label release an EP in New Zealand. Like you explain that to a New Zealand record label now and they’d think you were mental.
 
 So yeah, it was like that, and obviously Steve Albini liked the Dunedin band High Dependency Unit and they’d recorded their album Fire Works there, and basically I dunno, they just kind of paved the way for us to get that idea. And, you know, I was a huge Shellac fan at the time.
 
@@ -63,7 +60,7 @@ Yeah I dunno, we play in slightly bigger venues in Europe but in New Zealand we�
 
 ### Do you think you’re more popular overseas maybe?
 
-I don’t know about that… I mean in certain places definitely, but I wouldn’t say in general. I mean I do most interviews from New Zealand and I think people care about Die Die Die in New Zealand, but I think it’s just also such a weird… Well not a weird band, but we fit certain aspects of people's lives. Like someone will be into my band for a couple of years and they’ll grow out of it. I find that the people who stay with us are few and far between. Does that make any sense? It is a context band. 
+I don’t know about that… I mean in certain places definitely, but I wouldn’t say in general. I mean I do most interviews from New Zealand and I think people care about Die Die Die in New Zealand, but I think it’s just also such a weird… Well not a weird band, but we fit certain aspects of people's lives. Like someone will be into my band for a couple of years and they’ll grow out of it. I find that the people who stay with us are few and far between. Does that make any sense? It is a context band.
 
 I think New Zealand is a strange place for our band but I’m not resentful or anything, I love that we still get to do this, it’s really cool. There’s not many bands in the same context who tour as regularly as we’ve been able to in the last sort of 13 years.
 
@@ -73,7 +70,7 @@ Yeah me and Mikey started in Dunedin, we were in a band called Carriage H… We 
 
 ### And why’s that? I mean there’s definitely perks to staying in one place right?
 
-Yeah there is, at the same time it was quite fun in hindsight but it definitely took its toll. But yeah, I mean I definitely like having a home now. 
+Yeah there is, at the same time it was quite fun in hindsight but it definitely took its toll. But yeah, I mean I definitely like having a home now.
 
 ### So was it a deliberate decision to have heaps of shows or did it just happen?
 
@@ -87,7 +84,7 @@ Yeah, we all just kind of had to change tact initially because it was like woah,
 
 I think it’s so much easier to like stay in Dunedin than it was, like the separation between Auckland and Dunedin is nothing anymore. Before people kind of wouldn’t take you seriously unless you lived in Auckland or spent heaps of time up there. Now you can just come and play gigs and live in Dunedin but yeah, it’s definitely changed. It’s opened up. It’s awesome, like I’m so jealous in hindsight.
 
-When we first moved to Auckland we got in touch with all the Christchurch musicians who moved up to Auckland like Lawrence Arabia and this whole group of people who moved to Auckland at the same time. You couldn’t really stay and gig around, there was only so many times you could play between Dunedin and Christchurch. 
+When we first moved to Auckland we got in touch with all the Christchurch musicians who moved up to Auckland like Lawrence Arabia and this whole group of people who moved to Auckland at the same time. You couldn’t really stay and gig around, there was only so many times you could play between Dunedin and Christchurch.
 
 Yeah so I think I’m pretty envious. And also creatively there’s so much good stuff in Dunedin now. Like it’s easy for me to say that from a distance but it does seem a lot, there’s a much bigger community of bands than when we started, like there really weren’t many bands our own age when we started, they were all a lot older.
 
@@ -103,12 +100,12 @@ I think that’s one thing Die! Die! Die! has always done, like we haven’t rea
 
 ### So you went on a kind of hiatus a bit before this album but you came back out of it… What motivated you to return?
 
-The time we stopped was really only for like 9 months. I actually did an interview earlier today and they told me that we’d broken up like five times but it was only really once and not for that long. 
+The time we stopped was really only for like 9 months. I actually did an interview earlier today and they told me that we’d broken up like five times but it was only really once and not for that long.
 
 I mean I just think that with my music it’s been a big part of what I’ve done, and I’ve done it since I was like 14 years old so the idea of not doing it kind of makes me feel a bit strange. Like it’s quite funny, I make grand statements that I’m going to stop music and get my life together and become a functional member of society then I end up going a bit nuts and realizing I have to change and do it again, does that make sense?
 
 ### Yeah totally, like a month into getting your life back on track you’re like no actually…
-	
+
 Yeah like, “Wait a second I’ve gone too far”
 
 ### Do you get the feeling that bands that make it really big overseas they’re kind of less cool in Dunedin because they’re not struggling with everyone else?

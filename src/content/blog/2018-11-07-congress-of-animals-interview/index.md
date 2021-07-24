@@ -2,29 +2,24 @@
 title: 'What is Congress of Animals?'
 date: 2018-11-06T21:00:00.000Z
 tags:
-    - interview
-    - congress_of_animals
+  - Interview
+  - 'Congress of Animals'
 author: 'Fraser Thompson'
 background_position: center
 background_size: contain
 description: 'Congress of Animals is what happens when a bunch of NZ’s most prolific and respected musical talent gets together and jams without any particular goal in mind. Included in the group is Bret McKenzie (Flight of the Conchords), Age Pryor (Fly My Pretties, Woolshed Sessions, Wellington International Ukulele Orchestra), Justin Firefly (Fly My Pretties, Woolshed Sessions), Nigel Collins (Flight of the Conchords, Wellington International Ukulele Orchestra) and Ben Lemi (Trinity Roots, French For Rabbits).'
-media:
-    'Congress of Animals': {machine_name: congress_of_animals}
 cover: ./cover.jpg
 ---
-
 
 Congress of Animals is what happens when a bunch of NZ’s most prolific and respected musical talent gets together and jams without any particular goal in mind.
 
 Included in the group is Bret McKenzie (Flight of the Conchords), Age Pryor (Fly My Pretties, Woolshed Sessions, Wellington International Ukulele Orchestra), Justin Firefly (Fly My Pretties, Woolshed Sessions), Nigel Collins (Flight of the Conchords, Wellington International Ukulele Orchestra) and Ben Lemi (Trinity Roots, French For Rabbits).
 
-I spoke to Age Pryor who, despite the legendary lineage of the bands members, still described it as a “little collaborative project”. 
-
-
+I spoke to Age Pryor who, despite the legendary lineage of the bands members, still described it as a “little collaborative project”.
 
 **What is congress of animals?**
 
-We’re calling it a loose collective. So it’s a little collaborative project and it’s come about because a few friends were kind of jamming with each other kind of casually and we started working out these songs without really having any plan. We weren’t trying to start a band, it was nothing like that, we just wanted to play some music together just for fun and it’s grown the more we’ve done it and the more we’ve got together and we’ve kind of ended up with this quite large repertoire of songs. 
+We’re calling it a loose collective. So it’s a little collaborative project and it’s come about because a few friends were kind of jamming with each other kind of casually and we started working out these songs without really having any plan. We weren’t trying to start a band, it was nothing like that, we just wanted to play some music together just for fun and it’s grown the more we’ve done it and the more we’ve got together and we’ve kind of ended up with this quite large repertoire of songs.
 
 So we’ve kind of just decided it’s time to actually play them because it seems crazy to have all these songs that we’re working on and trying out that we think are good and nobody hearing them. So we decided it’s time to get on the road and play them.
 
@@ -40,7 +35,7 @@ So looking for little ways that we can circumvent that and get back to focusing 
 
 **How does the songwriting work?**
 
-So everyone brings songs to the group that they’ve written themselves and for that moment they’ll direct the group on what to do., So everyone is producing their own tunes for the live shows and for the recordings, so whoever wrote the song it will be their call on how it’s arranged and what it should sound like. But there’s also the joy of finding surprises in what other people from the group might bring to the song, so it’s a very kind of open collaboration in that sense. 
+So everyone brings songs to the group that they’ve written themselves and for that moment they’ll direct the group on what to do., So everyone is producing their own tunes for the live shows and for the recordings, so whoever wrote the song it will be their call on how it’s arranged and what it should sound like. But there’s also the joy of finding surprises in what other people from the group might bring to the song, so it’s a very kind of open collaboration in that sense.
 
 I’ve been comparing it most to Fly My Pretties, it’s kind of a similar model. When you go to a fly my pretties show you’ll see a bunch of different songs from a bunch of different people who are playing in the band.
 

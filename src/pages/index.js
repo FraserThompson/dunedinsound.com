@@ -24,7 +24,7 @@ const Page = ({ data, location }) => {
         tile = (
           <Tile
             key={node.fields.slug}
-            title={`${node.frontmatter.tags.includes('interview') ? 'INTERVIEW: ' : 'ARTICLE: '}${node.frontmatter.title}`}
+            title={`${node.frontmatter.tags.includes('Interview') ? 'INTERVIEW: ' : 'ARTICLE: '}${node.frontmatter.title}`}
             image={node.frontmatter.cover}
             label={node.frontmatter.date}
             height={'33vh'}

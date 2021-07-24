@@ -2,19 +2,16 @@
 title: 'Onslaught 13'
 date: 2017-08-27T19:30:00.000Z
 tags:
-    - interview
+  - Interview
 description: 'By the time you’re reading this it’ll be too late: Onslaught will have begun.'
 author: 'Fraser Thompson'
 background_position: center
 media:
-    'Infinite Justice': {machine_name: infinite_justice}
+  'Infinite Justice': { machine_name: infinite_justice }
 cover: ./cover.jpg
 ---
 
-
 By the time you’re reading this it’ll be too late: Onslaught will have begun.
-
-
 
 Probably the biggest event in Dunedin’s music calendar, the Onslaught punk festival is back for the 13th time and it’s huge. Eighteen bands from all over the country converge on the Crown Hotel to ensure your innards are fully liquified over two nights. If you weren’t there last night you missed out, but luckily you’ve still got an opportunity to get slaughtered today.
 

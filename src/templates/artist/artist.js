@@ -46,7 +46,7 @@ export const pageQuery = graphql`
     }
     blogs: allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { eq: $machine_name } } }
+      filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { eq: $title } } }
     ) {
       edges {
         node {
@@ -76,4 +76,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default Page;
+export default Page

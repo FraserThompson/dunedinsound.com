@@ -2,17 +2,14 @@
 title: 'Talking to Damin McCabe of Jack Berry fame'
 date: 2018-05-04T20:00:00.000Z
 tags:
-    - interview
-    - jack_berry_band
+  - Interview
+  - 'Jack Berry Band'
 author: 'Fraser Thompson'
 background_position: center
 background_size: contain
 description: 'Damin McCabe, otherwise known as Jack Berry, talks about his music and more.'
-media:
-    'Jack Berry Band': {machine_name: jack_berry_band}
 cover: ./cover.jpg
 ---
-
 
 Damin McCabe, otherwise known as Jack Berry, assembled a band specifically for OUSA Battle of the Bands 2017 just to play his songs and see what would happen.
 
@@ -24,8 +21,6 @@ And now, after a summer of wowing crowds across the country, they’re releasing
 
 I took the opportunity to catch up with Damin before he gets too famous and won't talk to me anymore.
 
-
-
 <center><iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/347736389&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe></center>
 
 **I saw you first at battle of the bands about a year ago I was pretty blown away. To me it seemed like you’d come out of nowhere. So where’d you come from? How’d you start out?**
@@ -34,7 +29,7 @@ I come from Dunedin. I was like in and out of the band scene with a highschool b
 
 **Were you surprised to win Battle of the Bands?**
 
-Yes very surprised, didn’t see that coming because that was the first time I’ve sang in front of people so it was pretty scary. 
+Yes very surprised, didn’t see that coming because that was the first time I’ve sang in front of people so it was pretty scary.
 
 **Is that why you used the vocoder?**
 

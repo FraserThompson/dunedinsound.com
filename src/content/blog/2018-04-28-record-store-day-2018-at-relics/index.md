@@ -2,18 +2,15 @@
 title: 'Record Store Day 2018 at Relics (video)'
 date: 2018-04-27T20:00:00.000Z
 tags:
-    - interview
-    - opinion
+  - Interview
+  - opinion
 author: 'Fraser Thompson'
 background_position: center
 description: 'Twenty years ago if you wanted music you had to leave your house, go to a record store, talk to some people, part with $30 and return with a CD to pop in your discman. But today we have near instant, near free access to most of the last few hundred years of recorded music. So that makes record stores obsolete, right?'
 cover: ./cover.jpg
 ---
 
-
 Twenty years ago if you wanted music you had to leave your house, go to a record store, talk to some people, part with $30 and return with a CD to pop in your discman. But today we have near instant, near free access to most of the last few hundred years of recorded music. So that makes record stores obsolete, right?
-
-
 
 <div class="youtubeEmbed">
   <iframe src="https://www.youtube.com/embed/gk8VI5wyGTs/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
@@ -30,7 +27,7 @@ Irene indicates two small CD bins near the entrance.
 
 Today they’ve got the biggest selection of new vinyl in the South Island, “and probably one of the biggest in the country” according to Dave. On the day I interviewed them the store was ripe with the pungent fragrance of glue from the carpet they’d just put in to extend the store further back to allow room for even more vinyl.
 
-“Probably the strongest genre if you like is NZ music and particularly Dunedin music.” says  Dave, “Our best sellers since we opened here have been Nadia Reid, The Chills, virtually any Flying Nun artist that put out an album, Kane Strang…
+“Probably the strongest genre if you like is NZ music and particularly Dunedin music.” says Dave, “Our best sellers since we opened here have been Nadia Reid, The Chills, virtually any Flying Nun artist that put out an album, Kane Strang…
 
 “And we get flying Nun tourists, people walk in and they’re like we came to Dunedin because we love Flying Nun, so how cool is that?“ adds Irene.
 
@@ -54,7 +51,7 @@ Record Store Day is a celebration of all that and more, and there’s plenty of 
 
 “It was so awesome in here,” adds Irene, “you could see people all over the store discussing albums with each other, and bands with each other, and things they did like and didn’t like… It was awesome”
 
-“Every year has been great, but this year we just got so much feedback, so many people talking about it” 
+“Every year has been great, but this year we just got so much feedback, so many people talking about it”
 
 “It’s validation and an acknowledgement of something they like, and they’re happy that it’s still around, and that’s what it is for us”
 

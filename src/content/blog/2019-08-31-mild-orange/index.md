@@ -2,11 +2,10 @@
 title: 'Mild Orange make music which feels right'
 date: 2019-08-31T00:00:00.000Z
 tags:
-  - interview
+  - Interview
+  - 'Mild Orange'
 author: 'Fraser Thompson'
 description: 'Mild Orange shuffled onto the Dunedin scene in early 2017 with a sultry mix of soft indie-rock and a splash of Mockasin creaminess and almost overnight their popularity exploded. I caught up with vocalist, guitarist and producer for the band, Josh Mehrtens.'
-media:
-  'Mild Orange': { machine_name: mild_orange }
 cover: ./cover.jpg
 ---
 

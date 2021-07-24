@@ -2,17 +2,14 @@
 title: 'Hexis and their insane 80+ show world tour'
 date: 2018-12-17T21:00:00.000Z
 tags:
-    - interview
-    - hexis
+  - Interview
+  - 'Hexis'
 author: 'Fraser Thompson'
 background_position: center
 background_size: cover
-description: 'I spoke to Filip, vocalist and founding member, while he was between gigs in Sydney to try figure out how (and why) they''ve embarked on such an insanely busy tour.'
-media:
-    Hexis: {machine_name: hexis}
+description: "I spoke to Filip, vocalist and founding member, while he was between gigs in Sydney to try figure out how (and why) they've embarked on such an insanely busy tour."
 cover: ./cover.jpg
 ---
-
 
 Over the past four months Copenhagen-based blackened-hardcore band Hexis have been on the largest tour of their career, and next week they’ll finally be arriving on our shores.
 
@@ -20,13 +17,11 @@ The tour has seen them playing non-stop since September everywhere from Sweden t
 
 I spoke to Filip, vocalist and founding member, while he was between gigs in Sydney to try figure out how (and why).
 
-
-
 <center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1827803169/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://hexisband.bandcamp.com/album/xii">XII by Hexis</a></iframe></center>
 
 **This tour you're embarking on is pretty insane... How do you have the stamina to keep on going?**
 
-Um yeah that’s actually a good question. I dunno, I mean touring is like the thing I love the most, so I mean going out and playing shows, seeing the world…  I like this more than doing a real job at home so being away from everything, that's perfect for me. But I mean of course some days you’re feeling a bit tired and just missing everything at home… But most of the time it’s cool.
+Um yeah that’s actually a good question. I dunno, I mean touring is like the thing I love the most, so I mean going out and playing shows, seeing the world… I like this more than doing a real job at home so being away from everything, that's perfect for me. But I mean of course some days you’re feeling a bit tired and just missing everything at home… But most of the time it’s cool.
 
 **Feeling tired is understandable. You’re not really taking many breaks on the way are you?**
 

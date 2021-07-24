@@ -2,20 +2,15 @@
 title: 'METHCHRIST discuss their new album and more'
 date: 2017-09-14T19:30:00.000Z
 tags:
-    - interview
-    - methchrist
+  - Interview
+  - Methchrist
 description: null
 author: 'Fraser Thompson'
 background_position: 'center top'
-media:
-    Methchrist: {machine_name: methchrist}
 cover: ./cover.jpg
 ---
 
-
 Finally some good news for local fans of war, filth, corruption, torture, scum, obliteration and death.
-
-
 
 In a ritual of hatred and disdain at Crown Hotel tonight, METHCHRIST will unleash their full-length album “Nomadic War Machine” upon the true followers. If you’re not a member of the cult elite you can still experience the desecration by checking it out on Bandcamp or picking up a cassette.
 

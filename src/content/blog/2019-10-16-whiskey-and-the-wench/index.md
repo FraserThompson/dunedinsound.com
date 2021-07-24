@@ -2,11 +2,10 @@
 title: 'Whiskey and the Wench'
 date: 2019-10-16T00:00:00.000Z
 tags:
-  - interview
+  - Interview
+  - 'Whiskey and the Wench'
 author: 'Fraser Thompson'
 description: 'Whiskey and the Wench are widely regarded as Dunedin’s loudest folk-punk band, with around a decades worth of blistering (sometimes literally) live jams behind them. This Thursday they’ll be adding another one to the pile in the form of a long overdue album release gig!'
-media:
-  'Whiskey and the Wench': { machine_name: whiskey_and_the_wench }
 cover: ./cover.jpg
 ---
 

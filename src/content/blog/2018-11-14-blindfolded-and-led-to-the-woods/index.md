@@ -2,25 +2,20 @@
 title: 'Blindfolded and Led to the Woods on their strange origins'
 date: 2018-11-13T21:00:00.000Z
 tags:
-    - interview
-    - blindfolded_and_led_to_the_woods
+  - Interview
+  - 'Blindfolded and Led to the Woods'
 author: 'Fraser Thompson'
 background_position: center
 background_size: contain
 description: 'I fondly remember the day 16 year old me came home from school, switching on the TV to semi-ironically watch mother of the nation Erin Simpson attempting to capture the young teen demographic, only to be aurally assaulted by a technical death metal band called Blindfolded and Led to the Woods. It seemed like a mistake, yet it kind of didn’t.'
-media:
-    'Blindfolded and Led to the Woods': {machine_name: blindfolded_and_led_to_the_woods}
 cover: ./cover.jpg
 ---
-
 
 I fondly remember the day 16 year old me came home from school, switching on the TV to semi-ironically watch mother of the nation Erin Simpson attempting to capture the young teen demographic, only to be aurally assaulted by a technical death metal band called Blindfolded and Led to the Woods.
 
 It seemed like a mistake, yet it kind of didn’t. “The Erin Simpson Show” was for kids, but it also made obvious attempts at being “cool”. They had a live three-piece indie band for example, who played rockin’ tunes from a mezzanine before each ad break and they had a catchy theme song you could buy on iTunes.
 
 Turns out however that it was a mistake. Stu who plays guitar and writes the songs for Blindfolded explains.
-
-
 
 <center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=943634173/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://balttw.bandcamp.com/album/modern-adoxography">Modern Adoxography by Blindfolded and Led to the Woods</a></iframe></center>
 
@@ -34,11 +29,11 @@ We’ve actually played with a lot of international bands from around the world 
 
 So we were practicing behind whitebait studios which was Jason Gunns kind of TV studio place and they heard a band practicing which wasn’t us, they were like an indie band or something, and the producer came round to the storage sheds and she was looking at that band. We kind of realized what was going on so we kind of like lied to her and said we were that band and then agreed to go on the show.
 
-And thne obviously the show happened and like it’s filmed in such a way that once it’s filmed it goes on air the next day so they couldn’t go back on it, it had to go on TV the next day, and it was just really awkward aye *laughs*
+And thne obviously the show happened and like it’s filmed in such a way that once it’s filmed it goes on air the next day so they couldn’t go back on it, it had to go on TV the next day, and it was just really awkward aye _laughs_
 
 **That’s crazy it was genuinely a really good thing for your band’s career**
 
-Yeah man we ended up having a distribution deal with a record label in texas and some other really kind of random things that came about not long after that as well which was really cool. 
+Yeah man we ended up having a distribution deal with a record label in texas and some other really kind of random things that came about not long after that as well which was really cool.
 
 **So since then you opened for Dillinger Escape Plan...**
 

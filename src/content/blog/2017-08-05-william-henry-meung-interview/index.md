@@ -2,20 +2,17 @@
 title: 'William Henry Meung on defining experimental music and more (Video)'
 date: 2017-08-04T19:30:00.000Z
 tags:
-    - interview
-    - william_henry_meung
+  - Interview
+  - william_henry_meung
 description: 'William Henry Meung recently released his latest of many experimental music releases. He spoke to me about how he defines his music, how he ended up where he is artistically, and the role of public art.'
 author: 'Fraser Thompson'
 background_position: center
 media:
-    'William Henry Meung': {machine_name: william_henry_meung}
+  'William Henry Meung': { machine_name: william_henry_meung }
 cover: ./cover.jpg
 ---
 
-
 William Henry Meung recently released his [latest of many musical projects](https://williamhenrymeung2.bandcamp.com/album/rotten-rainbows-side-x-devour-the-hands-side-y-spit-out-the-leaves-side-z-bonus-live-recording-at-the-auricle-sonic-arts-gallery). A long time member of the Dunedin "experimental" music scene, he spoke to me about how he defines his music, how he ended up where he is artistically, and the role of public art.
-
-
 
 <div class="youtubeEmbed">
   <iframe src="https://www.youtube.com/embed/F8DrsGOgI_A/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>

@@ -2,22 +2,17 @@
 title: 'An evening with Sheep and some expired chips'
 date: 2018-03-23T21:00:00.000Z
 tags:
-    - interview
-    - sheep
+  - Interview
+  - Sheep
 author: 'Fraser Thompson'
 background_position: center
-media:
-    Sheep: {machine_name: sheep}
 description: 'Graham Matrix, singer and guitarist for local post-grunge-pop band Sheep, passes around a bag of Sour Cream and Chives potato chips.'
 cover: ./cover.jpg
 ---
 
-
 Graham Matrix, singer and guitarist for local post-grunge-pop band Sheep, passes around a bag of Sour Cream and Chives potato chips.
 
 “These are dated so they might taste a bit funny” he warns.
-
-
 
 <center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3958446571/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://sheepsheeit.bandcamp.com/album/graham-matrix-vs-the-entire-galactic-chaos-empire">Graham Matrix VS The Entire Galactic Chaos Empire by Sheep</a></iframe></center>
 
@@ -35,7 +30,7 @@ I ask them the question all musicians dread: describe your sound.
 
 “I've always tried to take a mechanical and krautrocky approach to my drumming” agrees drummer Toby.
 
-“We’re kind of just like millennial Nirvana I suppose” concludes Graham, but I don’t think that’s fair. Sheep write great songs, catchy enough for the radio, but with an edge. And their sound, while being unashamedly inspired by Nirvana, is definitely unique. Nirvana didn’t even have a synth player. 
+“We’re kind of just like millennial Nirvana I suppose” concludes Graham, but I don’t think that’s fair. Sheep write great songs, catchy enough for the radio, but with an edge. And their sound, while being unashamedly inspired by Nirvana, is definitely unique. Nirvana didn’t even have a synth player.
 
 Also Sheep’s stage presence is probably even greater than Nirvana’s. For a three piece the energy is incredible. Josh somehow manages to ground his fingers to the keys while the rest of his body flies all over the place and Graham’s guitar playing perfectly balances precision and raw noisy output.
 
@@ -45,13 +40,13 @@ Also Sheep’s stage presence is probably even greater than Nirvana’s. For a t
 
 The Attic gig was the final gig in their tour which was loosely to promote the album coming out very soon on the excellent cassette label Trace/Untrace. The first single from it, The Government Can't Take My Benny, articulates a mortal fear we can all understand: the fear of losing something which is rightfully yours. I asked Graham to explain what it’s about.
 
-“Basically I’m on the benny,” he begins, “and there was the election, and Winston Peters had the country by its balls...” 
+“Basically I’m on the benny,” he begins, “and there was the election, and Winston Peters had the country by its balls...”
 
-“I was like holy shit, they're going to take my f**king benny, no way, don’t let them take my benny”
+“I was like holy shit, they're going to take my f\*\*king benny, no way, don’t let them take my benny”
 
-“But yeah I wrote that song in that little existential window and yeah… It’s just a song that pumps.” 
+“But yeah I wrote that song in that little existential window and yeah… It’s just a song that pumps.”
 
-It pumps and pretty much epitomizes what they’re about. They the sort of band who like to go with the flow, follow their buzz, rather than following someone else’s. 
+It pumps and pretty much epitomizes what they’re about. They the sort of band who like to go with the flow, follow their buzz, rather than following someone else’s.
 
 The album will be out soonish featuring more noisy pop songs and will be called something to do with Behemoth, “like taming the behemoth, or tame the behemoth.” There will probably also be an album release gig.
 

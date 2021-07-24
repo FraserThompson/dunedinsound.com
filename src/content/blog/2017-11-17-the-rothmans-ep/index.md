@@ -1,21 +1,16 @@
 ---
-title: 'The Rothmans''s on their second EP'
+title: "The Rothmans's on their second EP"
 date: 2017-11-17T00:00:00.000Z
 tags:
-    - interview
-    - the_rothmans
+  - Interview
+  - The Rothmans
 author: 'Fraser Thompson'
 background_position: 'center top'
-media:
-    'The Rothmans': {machine_name: the_rothmans}
 description: 'On a chilly August night in 2015 I went to a gig at the Robbie Burns pub and had my mind blown by a band called The Rothmans.'
 cover: ./cover.jpg
 ---
 
-
 On a chilly August night in 2015 I went to a gig at the Robbie Burns pub and had my mind blown by a band called The Rothmans.
-
-
 
 <center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3541012277/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://therothmans.bandcamp.com/album/a-s-l">A.S.L by The Rothmans</a></iframe></center>
 
@@ -23,7 +18,7 @@ I was there to support my friends in their pop punk band Slothvegas. By the time
 
 What followed was one of the greatest performances I’d ever seen. The music was raw and imperfect, but exhilarating, driven by an enigmatic frontman with a guitar and a trombone. At one point he dropped his guitar mid-song and ran the length of the building, blasting trombone braps towards confused punters. I’d never seen anything like it.
 
-Today The Rothmans are a staple of the Dunedin scene who transcend the multitude of  micro-scenes and get asked to play with pretty much everyone, from war metal to crust punk to indie rock. I’ve had plenty of opportunities to see them play and the magic hasn’t worn off.
+Today The Rothmans are a staple of the Dunedin scene who transcend the multitude of micro-scenes and get asked to play with pretty much everyone, from war metal to crust punk to indie rock. I’ve had plenty of opportunities to see them play and the magic hasn’t worn off.
 
 Now they’re planning their second EP and playing a gig tonight to raise funds. I met with vocalist Robert Wilkinson, guitarist Johnny Mann and bassist Tom Monaghan over a half-pint at Albar to discuss the past and future of The Rothmans.
 

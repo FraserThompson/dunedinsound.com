@@ -2,22 +2,15 @@
 title: 'Astro Children open up about the new album and the state of the Dunedin music scene'
 date: 2017-08-02T07:30:00.000Z
 tags:
-    - music
-    - news
-    - interview
-    - astro_children
+  - Interview
+  - Astro Children
 description: 'Recently I caught up with Millie from Astro Children to discuss their new album, One Direction, and general feelings on the Dunedin music scene.'
 author: 'Fraser Thompson'
 background_position: center
-media:
-    'Astro Children': {machine_name: astro_children}
 cover: ./cover.jpg
 ---
 
-
 Recently I caught up with Millie from Astro Children to discuss their new album, One Direction, and general feelings on the Dunedin music scene.
-
-
 
 ### This is a boring question but how would you describe your music?
 
@@ -27,7 +20,7 @@ It's kind of hard as well because our new album is quite different to other stuf
 
 ### Yeah, I noticed that your live sound is pretty different from your studio sound. Was that deliberate?
 
-Yeah I think so. I love recording. I don't like recording myself but I like working with other people to record because I think other people can pick out really different parts of the song. When we're playing it live for me it's quite a visceral experience and I tend to try to feed off the crowd and feed off how I'm feeling on any given day, and it's a huge release for me to play those songs so it often ends up a lot more aggressive and performative than it is on the record. With those records I can take more time and I have to think about how I want those songs to come across as kind of a permanent record. So the recordings have to encompass a whole lot more than the live recordings, the live recordings can change and kind of fluctuate. 
+Yeah I think so. I love recording. I don't like recording myself but I like working with other people to record because I think other people can pick out really different parts of the song. When we're playing it live for me it's quite a visceral experience and I tend to try to feed off the crowd and feed off how I'm feeling on any given day, and it's a huge release for me to play those songs so it often ends up a lot more aggressive and performative than it is on the record. With those records I can take more time and I have to think about how I want those songs to come across as kind of a permanent record. So the recordings have to encompass a whole lot more than the live recordings, the live recordings can change and kind of fluctuate.
 
 ### So is this new album still Nick Graham producing?
 
@@ -57,7 +50,7 @@ Yeah I guess... I don't know if there is an equivalent really but I guess the ki
 
 ### This is kind of a broad question, but how do you feel about the music scene in Dunedin?
 
-I think it's dead at the moment. I mean there are some really sick highschool bands unfortunately I don't get to see them basically ever but I know there are some like Painted Blind and really great bands coming up from highschool. I can't think of names off the top of my head but going around the Amped project last year I was really impressed with young bands but I think compared to what was happening in 2015 there's really just nothing going on. I guess there's None Gallery which is picking up the slack with shows but with no venues it's really hard in that sense. 
+I think it's dead at the moment. I mean there are some really sick highschool bands unfortunately I don't get to see them basically ever but I know there are some like Painted Blind and really great bands coming up from highschool. I can't think of names off the top of my head but going around the Amped project last year I was really impressed with young bands but I think compared to what was happening in 2015 there's really just nothing going on. I guess there's None Gallery which is picking up the slack with shows but with no venues it's really hard in that sense.
 
 Generally I think there's a lot of really spineless musicians in Dunedin. I'll get in trouble for saying that but it's true, it's very insular and you end up with little cliques of people doing things and there's a tendency to think that because you're recording demos and your friends are recording demos and you're talking to each other about your music that that constitutes a scene and in my opinion it doesn't. I think it needs to be more of a collective effort than that. And that's why I think what None Gallery provides is great and we try to have things at The Attic but it's difficult, and yeah. DIY ventures are difficult and I wished we had more venues but we don't.
 
@@ -84,6 +77,7 @@ It's always a hard question for me. I listen to a lot of pop music. It's like co
 ### Are you going to work the cello into Astro Children?
 
 Maybe not Astro Children, but it's on the repulsive woman single.
+
 <p>
 <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=2780263300/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://repulsivewoman.bandcamp.com/track/happily">Happily by Repulsive Woman</a></iframe>
 </p>

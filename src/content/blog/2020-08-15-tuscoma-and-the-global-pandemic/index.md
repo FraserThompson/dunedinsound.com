@@ -2,12 +2,12 @@
 title: 'Tuscoma and the global pandemic'
 date: 2020-08-15T07:00:00.000Z
 tags:
-  - article
+  - Interview
+  - Tuscoma
 author: Fraser Thompson
 background_position: center
 background_size: contain
 description: Wellington blackened post-metal-gaze duo Tuscoma released their highly anticipated second album Discourse in April - only to have their national and global tour cancelled due to the ongoing pandemic. I caught up with guitarist and vocalist Kurt Williams to talk about their second attempt at a national tour, but since then COVID has re-emerged and plunged the country into another partial lockdown, forcing them to cancel yet again.
-
 cover: ./cover.jpg
 ---
 

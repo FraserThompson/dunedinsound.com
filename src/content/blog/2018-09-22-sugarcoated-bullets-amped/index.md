@@ -2,23 +2,18 @@
 title: 'Sugarcoated Bullets on AMPED and Numbskull'
 date: 2018-09-21T21:00:00.000Z
 tags:
-    - interview
-    - sugarcoated_bullets
+  - Interview
+  - 'Sugarcoated Bullets'
 author: 'Fraser Thompson'
 background_position: center
 background_size: cover
 description: 'AMPED Project concluded again this year with a marathon 6 hour gig at Fifty Gorillas. Fifteen highschool acts played, who had all been coached and nurtured through the project (for free) by Nadia Reid, and who were all also seriously impressive. If this is the future of Dunedin music things are definitely looking good.'
-media:
-    'Sugarcoated Bullets': {machine_name: sugarcoated_bullets}
 cover: ./cover.jpg
 ---
-
 
 AMPED Project concluded again this year with a marathon 6 hour gig at Fifty Gorillas. Fifteen highschool acts played, who had all been coached and nurtured through the project (for free) by Nadia Reid, and who were all also seriously impressive. If this is the future of Dunedin music things are definitely looking good.
 
 I spoke to one of the bands who participated, Sugarcoated Bullets. They stand out as being one of the punkier ones to come out of the project, driven by their vocalist, Jack Munro’s, high energy stage presence. Where their peers are inspired by Mac DeMarco and Gus Dapperton, they’re inspired by The Ramones and The Dead Kennedy’s. They've also just released an EP.
-
-
 
 <center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2447638666/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://sugarcoatedbullets.bandcamp.com/album/numbskull">Numbskull by Sugarcoated Bullets</a></iframe></center>
 
@@ -49,7 +44,7 @@ Ayden: Gigs I’d say
 Jack: Yeah I would say our amped gis are probably the most impactful, like we’ve had heaps of fun. Like last time with the whole buzz lightyear masks and the pink singlet. Last year someone threw a toy caterpillar at our guitarist. A lot of good memories have been at those gigs.
 
 ![Sugarcoated Bullets at AMPED 18 Gig 3](../../gigs/2018-9-1-amped-18-gig-3/sugarcoated_bullets/P1350535_DxO.jpg)
-*Sugarcoated Bullets at <a title='AMPED 18 Gig 3' href='/gigs/amped-18-gig-3/'>AMPED 18 Gig 3</a>*
+_Sugarcoated Bullets at <a title='AMPED 18 Gig 3' href='/gigs/amped-18-gig-3/'>AMPED 18 Gig 3</a>_
 
 **When and how did you guys form as a band?**
 
@@ -78,7 +73,7 @@ Jack: Yeah because Callum, you’ve always been interested in music right since 
 Jack: Yeah, I would say so because I saw them at The Attic, because, but yeah it was one of the first shows I went to in The Attic, it was the EP release for doomsurfdoom I think? But anyway I saw The Rothmans but it was just this crazy stage presence, and mosh pits, and him just slamming into the crowd and stuff. So after that I was thinking that I can do that because obviously punk is about rage and stuff so that’s what we try to do.
 
 ![The Rothmans](../../gigs/2017-09-30-koizilla-ep-release/the_rothmans/P1100112.jpg)
-*The Rothmans at Koizilla's <a href='/gigs/koizilla-ep-release/'>doomsurfdoom EP release</a>*
+_The Rothmans at Koizilla's <a href='/gigs/koizilla-ep-release/'>doomsurfdoom EP release</a>_
 
 **So this EP you’re releasing, how did you record it?**
 
@@ -116,7 +111,7 @@ Callum: Mine’s just for the hell of it, I just really enjoy it.
 
 Ayden: Mine’s just like whenever I look back at gigs it’s just happy moments, just escape from everything… I don’t really have a set motivation but it definitely helps.
 
-Jack: It’s just a release for me, whenever something angers me I just write about it, or just release, like on stage you’ve seen me I’m just losing it, like an out of body experience, and I like that because it’s a safe losing control moment. Because generally at school I’m just this quiet awkward shit, and like being on stage I can be this spastic crazy guy. 
+Jack: It’s just a release for me, whenever something angers me I just write about it, or just release, like on stage you’ve seen me I’m just losing it, like an out of body experience, and I like that because it’s a safe losing control moment. Because generally at school I’m just this quiet awkward shit, and like being on stage I can be this spastic crazy guy.
 
 Also I just hope one day we’ll be able to inspire people, like kids, to make music. It’d be nice to have people like Year 8 or whatever see us and be like oh shit I can do this and I don’t need to have a massive background in music at a young age to do it.
 
@@ -136,6 +131,6 @@ Jack: Yeah… I kind of wish music wasn’t so attached to the bar laws… That�
 
 And it’s not like the people who are watching the shows are dangerous people, it’s not like I’ve ever been to a show and been punched or something or beaten the shit out of, like you never get that because generally everyone who goes to a show is a lovely person.
 
-I mean we’re almost turning 18 all of us so it kind of becomes whatever, but it is very annoying that our venues are limited because of this law. I feel like Dunedin we like to portray ourselves as like artistic, like we embrace art here, but it’s like you’re not 18? You can’t do that because I’m here to sell alcohol, not listen to your music. And I know this is businesses but I think the council should look into this, because some places put their back out for musicians like us but the risk is so high for just nothing. 
+I mean we’re almost turning 18 all of us so it kind of becomes whatever, but it is very annoying that our venues are limited because of this law. I feel like Dunedin we like to portray ourselves as like artistic, like we embrace art here, but it’s like you’re not 18? You can’t do that because I’m here to sell alcohol, not listen to your music. And I know this is businesses but I think the council should look into this, because some places put their back out for musicians like us but the risk is so high for just nothing.
 
 That’s what makes stuff like AMPED very nice because they allow you to play gigs.

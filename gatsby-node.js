@@ -36,6 +36,8 @@ exports.createPages = async ({ graphql, actions }) => {
                     name
                   }
                   venue
+                  tags
+                  related_gigs
                 }
               }
             }
@@ -83,6 +85,8 @@ exports.createPages = async ({ graphql, actions }) => {
         machine_name: node.fields.machine_name,
         parentDir: node.fields.parentDir,
         title: node.frontmatter.title,
+        tags: node.frontmatter.tags || [],
+        related_gigs: node.frontmatter.related_gigs || [],
       }
 
       if (node.frontmatter.artists) context.artists = node.frontmatter.artists.map((artist) => toMachineName(artist.name))
@@ -100,7 +104,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   // Make tag index pages for blog content
-  const allowedTagPages = ['interview', 'opinion', 'news', 'events', 'documentary', 'tech']
+  const allowedTagPages = ['Interview', 'Article', 'News', 'Events', 'Documentary', 'Tech']
 
   result.data.blogsByTag.group.forEach(({ fieldValue }) => {
     if (allowedTagPages.includes(fieldValue)) {

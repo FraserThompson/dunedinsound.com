@@ -2,11 +2,10 @@
 title: 'Eat the right lunch, eat a Night Lunch'
 date: 2019-09-18T00:00:00.000Z
 tags:
-  - interview
+  - Interview
+  - 'Night Lunch'
 author: 'Fraser Thompson'
 description: 'Known for their intense and enigmatic live performances, Night Lunch have been kicking around the local underground for about a year and have just released their first EP Double Trouble!'
-media:
-  'Night Lunch': { machine_name: night_lunch }
 cover: ./cover.jpg
 ---
 

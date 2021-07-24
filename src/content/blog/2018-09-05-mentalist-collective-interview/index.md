@@ -2,25 +2,20 @@
 title: 'The Mentalist Collective are finally releasing an album'
 date: 2018-09-04T21:00:00.000Z
 tags:
-    - interview
-    - the_mentalist_collective
+  - Interview
+  - 'The Mentalist Collective'
 author: 'Fraser Thompson'
 background_position: center
 background_size: contain
-description: 'The first time I saw The Mentalist Collective was when they played to a crowd of ten or so at one of ReFuels open mic nights. This was way back and 2014, and they''re only just now releasing an album. What''s the big idea?'
-media:
-    'The Mentalist Collective': {machine_name: the_mentalist_collective}
+description: "The first time I saw The Mentalist Collective was when they played to a crowd of ten or so at one of ReFuels open mic nights. This was way back and 2014, and they're only just now releasing an album. What's the big idea?"
 cover: ./cover.jpg
 ---
-
 
 The first time I saw The Mentalist Collective was when they played to a crowd of ten or so at one of ReFuels open mic nights.
 
 This was 2014, when ReFuel was still ReFuel and going to gigs there wasn’t cool. The open mic night performances ranged from impassioned singers with acoustic guitars covering Neil Young to the legendary banjo originals of Wolfman Stuey. It was an interesting time.
 
-And then The Mentalist Collective showed up out of nowhere one night and blew me away. Five people in one band has the potential to just be a big mess, but these guys clearly knew how to play together. Each song warmed me up like a shot of positive vibes and I loved it. 
-
-
+And then The Mentalist Collective showed up out of nowhere one night and blew me away. Five people in one band has the potential to just be a big mess, but these guys clearly knew how to play together. Each song warmed me up like a shot of positive vibes and I loved it.
 
 <center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=38699114/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://thementalistcollective.bandcamp.com/album/mandala-ep">Mandala EP by The Mentalist Collective</a></iframe></center>
 
@@ -36,7 +31,7 @@ There were also the usual responsibilities of work and family. Simon for example
 
 “We really wanted to actually have some recorded music because whilst the performing is fantastic and it’s a lot of fun and we really like composing and just meeting together as a group and refining songs, it’s nice to hear it as a polished version, like I guess it’s just a little time capsule of where you were.”
 
-“Which is interesting because the songs we’ve recorded for this EP are probably amongst our oldest songs that we’ve had for yonks” 
+“Which is interesting because the songs we’ve recorded for this EP are probably amongst our oldest songs that we’ve had for yonks”
 
 “They’re also songs that we’ve gotten the most feedback from, positive feedback at least, from audience members who follow our music, and they’re the ones that stick in their heads the most”
 
@@ -49,4 +44,3 @@ The album is named after a symbol used in Hinduism and Buddhism which represents
 “But we picked the particular one for the album because it’s symmetrical from a distance, it looks like it’s perfect, but when you look up close it’s not actually symmetrical and there’s like inaccuracies.”
 
 To me this also seems like the perfect metaphor for their music. The songs are written together in a collaborative process with no “Lennon and McCartney type ‘no one gets a word in’ thing” as Simon put it, and it’s more about the sum than it’s parts. The sum is the imperfect collision of five different creative inputs with five different backgrounds and influences, and just like the Mandala gracing the cover it’s beautiful.
-

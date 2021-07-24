@@ -1,28 +1,19 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { Link, graphql } from 'gatsby'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import Layout from '../../components/Layout'
 import { rhythm, scale } from '../../utils/typography'
 import BlogContainer from '../../components/BlogContainer'
 import Banner from '../../components/Banner'
 import ImageGallery from '../../components/ImageGallery'
+import GigTile from '../../components/GigTile'
+import FlexGridContainer from '../../components/FlexGridContainer'
 
 const Page = React.memo(({ data, pageContext }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
   const { previous, next } = pageContext
-
-  const imageElements =
-    data.images &&
-    data.images['edges'].map(({ node }) => {
-      return (
-        <a href={node.publicURL} style={{ cursor: 'pointer' }} key={node.name}>
-          <GatsbyImage className="backgroundImage" image={getImage(node)} alt="" />
-        </a>
-      )
-    })
 
   return (
     <Layout
@@ -35,7 +26,7 @@ const Page = React.memo(({ data, pageContext }) => {
       {post.frontmatter.cover && <Banner backgroundImage={post.frontmatter.cover}></Banner>}
       <BlogContainer>
         <h1>
-          {post.frontmatter.tags.includes('interview') && 'INTERVIEW: '}
+          {post.frontmatter.tags.includes('Interview') && 'INTERVIEW: '}
           {post.frontmatter.title}
         </h1>
         <p
@@ -51,6 +42,16 @@ const Page = React.memo(({ data, pageContext }) => {
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
       </BlogContainer>
       {post.frontmatter.gallery && <ImageGallery images={data.images['edges']} title={post.frontmatter.title} />}
+      {(data.artist_gigs.edges.length || data.specific_gigs.edges.length) && (
+        <BlogContainer>
+          <h2 style={{ marginBottom: '0' }}>Related Gigs</h2>
+        </BlogContainer>
+      )}
+      <FlexGridContainer>
+        {[...data.artist_gigs.edges, ...data.specific_gigs.edges].map(({ node }) => (
+          <GigTile id={node.fields.slug} node={node} key={node.fields.slug} />
+        ))}
+      </FlexGridContainer>
       <BlogContainer>
         <hr style={{ marginBottom: rhythm(1) }} />
         <BlogPostNav>
@@ -84,12 +85,33 @@ const BlogPostNav = styled.ul`
 `
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!, $parentDir: String!) {
+  query BlogPostBySlug($slug: String!, $parentDir: String!, $tags: [String], $related_gigs: [String]) {
     site {
       ...SiteInformation
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       ...BlogFrontmatter
+    }
+    specific_gigs: allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { fields: { type: { eq: "gigs" } }, frontmatter: { title: { in: $related_gigs } } }
+    ) {
+      edges {
+        node {
+          ...GigTileFrontmatter
+        }
+      }
+    }
+    artist_gigs: allMarkdownRemark(
+      limit: 3
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { fields: { type: { eq: "gigs" } }, frontmatter: { artists: { elemMatch: { name: { in: $tags } } } } }
+    ) {
+      edges {
+        node {
+          ...GigTileFrontmatter
+        }
+      }
     }
     images: allFile(filter: { extension: { in: ["jpg", "JPG"] }, fields: { parentDir: { eq: $parentDir } } }) {
       edges {

@@ -2,31 +2,25 @@
 title: 'How to organise an all ages gig when all anyone wants to do is sell alcohol'
 date: 2018-06-26T21:00:00.000Z
 tags:
-    - interview
-    - bark_like_a_dog
-    - sugarcoated_bullets
+  - Interview
+  - 'Bark Like a Dog'
+  - 'Sugarcoated Bullets'
 author: 'Fraser Thompson'
 background_position: center
 background_size: cover
 description: 'November last year a bunch of highschoolers decided to gather all of their friends and put on a big gig. They called it the Big Gig and that it was, with eight acts, five hours of music and a massive, enthusiastic crowd who were surprisingly interested in forming conga lines. Next weekend sees the much anticipated return of the Big Gig.'
-media:
-    'Bark Like a Dog': {machine_name: bark_like_a_dog}
-    'Sugarcoated Bullets': {machine_name: sugarcoated_bullets}
 cover: ./cover.jpg
 ---
-
 
 November last year a bunch of highschoolers decided to gather all of their friends and put on a big gig. They called it the Big Gig and that it was, with eight acts, five hours of music and a massive, enthusiastic crowd who were surprisingly interested in forming conga lines.
 
 Next weekend sees the much anticipated return of the Big Gig featuring a different but equally big lineup, a new venue, and a boost to audio and lighting situation, all of which should add up to an even bigger turnout according to Alex Cochrane of Bark Like a Dog. He’s organizing it this year with Ayden Crowther-McCaughan of Sugarcoated Bullets.
 
-
-
 **So it looked like the previous one went pretty well?**
 
 A lot better than we expected yeah.
 
-We’re hoping for an even bigger turnout this year. We’ve got Koizilla and Bathsalts on board, because it was originally just  school bands but as we’re getting older we’re trying to change it from just being school bands to being taken seriously with bands in NZ and in Dunedin, and it’s sort of like a halfway point where we have some good well known adult bands and some teenage bands, so it’s just sort of a middleground and then we hope to continue it.
+We’re hoping for an even bigger turnout this year. We’ve got Koizilla and Bathsalts on board, because it was originally just school bands but as we’re getting older we’re trying to change it from just being school bands to being taken seriously with bands in NZ and in Dunedin, and it’s sort of like a halfway point where we have some good well known adult bands and some teenage bands, so it’s just sort of a middleground and then we hope to continue it.
 
 **Did you have any issue with the last one?**
 
@@ -84,7 +78,7 @@ Yeah which is a bit sad that it sort of has to be, but I understand why it needs
 
 **Have you faced any other challenges organizing it this year?**
 
-I mean there’s a lot of organizing that’s gone into it, and a lot of advertising in particular just to get everything out there for everyone to see it. The only thing I think we may have a problem with may be noise because the venue we’ve picked this time is very central, it’s just outside the octagon. It’s not going to be ridiculous stadium level volumes but hopefully there won’t be any complaints from the neighbours… Last time we did get a complaint from the bar downstairs from The Attic. 
+I mean there’s a lot of organizing that’s gone into it, and a lot of advertising in particular just to get everything out there for everyone to see it. The only thing I think we may have a problem with may be noise because the venue we’ve picked this time is very central, it’s just outside the octagon. It’s not going to be ridiculous stadium level volumes but hopefully there won’t be any complaints from the neighbours… Last time we did get a complaint from the bar downstairs from The Attic.
 
 **So who are the new bands playing?**
 

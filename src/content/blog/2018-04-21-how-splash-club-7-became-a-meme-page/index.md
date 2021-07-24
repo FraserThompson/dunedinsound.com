@@ -2,8 +2,8 @@
 title: 'How ＳＰＬＡＳＨ ＣＬＵＢ ７ became a meme page (video)'
 date: 2018-04-20T20:00:00.000Z
 tags:
-    - interview
-    - opinion
+  - Interview
+  - Article
 author: 'Fraser Thompson'
 background_position: center
 background_size: contain
@@ -11,15 +11,13 @@ description: 'I somehow convinced the elusive Jamie Dickson into an interview to
 cover: ./cover.jpg
 ---
 
-
-Way back in 2012 Dunedin local Jamie Dickson started releasing music online. 
+Way back in 2012 Dunedin local Jamie Dickson started releasing music online.
 
 He was inspired by a bubbly, aquatic-themed aesthetic called seapunk, which emerged in online communities such as Tumblr. He called his project SPLASH CLUB 7 after the highly influential 90s pop group S-Club 7.
 
-Fast forward to 2018 and SPLASH CLUB 7 has hundreds of thousands of fans from all across the globe. But for those fans SPLASH CLUB 7 is synonymous with one thing only, and it’s not music. 
+Fast forward to 2018 and SPLASH CLUB 7 has hundreds of thousands of fans from all across the globe. But for those fans SPLASH CLUB 7 is synonymous with one thing only, and it’s not music.
 
 I somehow convinced the elusive Jamie Dickson into an interview to try explain this post-internet tragedy.
-
 
 <div class="youtubeEmbed">
   <iframe src="https://www.youtube.com/embed/3gGA3GC31lE/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
@@ -61,4 +59,3 @@ I ask him whether he’s bitter about it, but he seems more bemused than anythin
 There’s a beautiful irony to the story of a musician who made music celebrating superficiality and had his musical identity stolen by something even more superficial than the music he made. I don’t think he’d have it any other way.
 
 <center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2563621841/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://splash-club-7.bandcamp.com/album/born-to-die-world-is-a-fuck">BORN TO DIE / WORLD IS A FUCK by Splash Club 7</a></iframe></center>
-

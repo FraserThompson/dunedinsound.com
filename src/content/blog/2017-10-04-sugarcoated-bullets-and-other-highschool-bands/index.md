@@ -2,32 +2,21 @@
 title: 'Sugarcoated Bullets and the new wave of Dunedin bands'
 date: 2017-10-03T21:30:00.000Z
 tags:
-    - interview
-    - sugarcoated_bullets
-    - carmina
-    - bark_like_a_dog
-    - imperium
-    - do_speak_louder
-    - trent_hawthorne
+  - Interview
+  - 'Sugarcoated Bullets'
+  - Carmina
+  - 'Bark Like a Dog'
+  - Imperium
+  - 'Do Speak Louder'
+  - 'Trent Hawthorne'
 author: 'Fraser Thompson'
-media:
-    'Sugarcoated Bullets': {machine_name: sugarcoated_bullets}
-    Carmina: {machine_name: carmina}
-    'Bark Like a Dog': {machine_name: bark_like_a_dog}
-    'Sun Animals': {machine_name: sun_animals}
-    Imperium: {machine_name: imperium}
-    'Trent Hawthorne': {machine_name: trent_hawthorne}
-    'Do Speak Louder': {machine_name: do_speak_louder}
 description: 'Dunedin’s high schools are pumping out more fizzy bands than ever before, although you might not know it because most venues are bars, and bars don’t allow highschoolers...'
 cover: ./cover.jpg
 ---
 
-
 Dunedin’s high schools are pumping out more fizzy bands than ever before, although you might not know it because most venues are bars, and bars don’t allow highschoolers...
 
 Luckily we’ve got DIY spaces like The Attic who, next weekend, will be hosting a huge lineup of highschool bands. Not only will it be a hell of a lot of fun, but it'll be a chance for people like me to catch up on what’s been happening in the elusive highschool band scene.
-
-
 
 The idea for the gig started with punk band Sugarcoated Bullets. They play music inspired by the likes of The Dead Kennedy’s with a hint of pop-punk, but also “very quite hardcore” according to vocalist Jack Munroe.
 
@@ -37,7 +26,7 @@ They formed mere weeks before making it to the regional finals of Smokefreerockq
 
 “We came up with this idea for a halloween gig, and we talked to Dallas [Amped Project organizer] about it and then got in contact with Carmina...”
 
-Carmina are another highschool band making waves in Dunedin right now. Their poppy mix of “grungey Nirvana rocky stuff where I scream a bit” and “jazzy stuff with jazz piano and a bit more crooning” led them to win the Smokefreerockquest regional final this year. 
+Carmina are another highschool band making waves in Dunedin right now. Their poppy mix of “grungey Nirvana rocky stuff where I scream a bit” and “jazzy stuff with jazz piano and a bit more crooning” led them to win the Smokefreerockquest regional final this year.
 
 Frontman Barney Conolly recalls the moment he got on board with the gig.
 

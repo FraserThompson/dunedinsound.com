@@ -3,9 +3,9 @@ import { Link } from 'gatsby'
 import styled from '@emotion/styled'
 import { rhythm } from '../utils/typography'
 
-const allowedTagPages = ['interview', 'opinion', 'news', 'events', 'documentary', 'tech']
+const allowedTagPages = ['Interview', 'Article', 'News', 'Events', 'Documentary', 'Tech']
 
-export default React.memo(props => (
+export default React.memo((props) => (
   <Tags>
     {props.blogTags.map(
       ({ fieldValue, totalCount }) =>

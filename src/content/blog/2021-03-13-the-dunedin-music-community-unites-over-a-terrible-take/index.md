@@ -2,7 +2,7 @@
 title: 'The Dunedin music community unites over a terrible opinion'
 date: 2021-03-13T07:00:00.000Z
 tags:
-  - article
+  - Article
 author: Fraser Thompson
 background_position: center
 background_size: contain

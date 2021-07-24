@@ -2,7 +2,10 @@
 title: 'Lines of Flight 2019 Review: Music on the Fringes'
 date: 2019-03-30 09:00:00 +12
 tags:
-  - review
+  - Review
+related_gigs:
+  - 'Lines of Flight Friday'
+  - 'Lines of Flight Thursday'
 cover: ./cover.jpg
 author: Fraser Thompson
 background_position: center top

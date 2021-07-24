@@ -2,20 +2,15 @@
 title: 'Koizilla: Prolific psych-rockers'
 date: 2017-09-29T19:30:00.000Z
 tags:
-    - interview
-    - koizilla
+  - Interview
+  - Koizilla
 description: 'For the third time in a year Dunedin’s one and only surfadelic riff monster ‘Koizilla’ is releasing an EP.'
 author: 'Fraser Thompson'
 background_position: 'center top'
-media:
-    Koizilla: {machine_name: koizilla}
 cover: ./cover.jpg
 ---
 
-
 For the third time in a year Dunedin’s one and only surfadelic riff monster ‘Koizilla’ is releasing an EP.
-
-
 
 <center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1439100457/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://koizilla.bandcamp.com/album/clean-the-kitchen-end-the-world">Clean the Kitchen. end the world by Koizilla</a></iframe></center>
 
@@ -25,7 +20,7 @@ Koizilla are the sort of band who can froth up a crowd of drunk freshers at a Re
 
 Part of the reason for their universal appeal could be Zac’s highly relatable lyrics which evoke hazey memories of drunken nights and hungover mornings, forcing you to consider whether you would prefer “a spicy curry or a chicken kebab”.
 
-Musically they sit somewhere between surf-rock and psychedelic-rock, but aren’t afraid to diverge. 
+Musically they sit somewhere between surf-rock and psychedelic-rock, but aren’t afraid to diverge.
 
 Half way through the song “Escape Rope” on their second EP doomsurfdoom for example they casually drop in some heavenly Brian Wilson-esque vocal harmonies before plummeting straight back into the riff filled land.
 
@@ -45,6 +40,6 @@ This EP was recorded over a weekend, produced and mastered by Steven John Marr a
 
 As with all good modern physical music releases it’s cassette only, and you can pick one up tonight (with a sticker) at the release party in The Attic. Also playing are The Rothmans, Bathsalts and Terrified. Josh promises it’ll be a “classic attic party”.
 
-“We’ll go round all the $2 shops and buy more fairy lights” 
+“We’ll go round all the $2 shops and buy more fairy lights”
 
 In other fizzy doings around Dunedin, DIY art space YYY are holding an afternoon gig featuring an array of exciting acts: Drorgan, Negative Nancies, The Hoolie Buzzes, Mud Death.

@@ -2,9 +2,11 @@
 title: "Jutland Street: The venue which wasn't a venue"
 date: 2020-12-05T07:00:00.000Z
 tags:
-  - article
-  - venues
-  - jutland_street
+  - Article
+  - Venues
+  - 'Jutland Street'
+related_gigs:
+  - 'Jutland st last'
 author: Fraser Thompson
 background_position: center
 background_size: contain

@@ -2,18 +2,13 @@
 title: 'Extended thoughts on L$D Fundraiser and recent events'
 date: 2017-07-03T05:30:00.000Z
 tags:
-    - music
-    - news
-    - opinion
-    - lzd_fundraiser
+  - Article
+  - 'L$D Fundraiser'
 description: 'On the 16th of June, late on a Friday afternoon, central Dunedin was cordoned off and closed down for what was described as a bomb scare. The police flew down the Bomb Disposal Squad to blow up what turned out to be an audio cassette containing StreetNOISE the latest album by Dunedin musician L$D Fundraiser. Read more...'
 author: 'Campbell Walker'
 background_position: center
-media:
-    'L$D Fundraiser': {machine_name: lzd_fundraiser}
 cover: ./cover.jpg
 ---
-
 
 On the 16th of June, late on a Friday afternoon, central Dunedin was cordoned off and closed down for what was described as a bomb scare. The police flew down the Bomb Disposal Squad to blow up what turned out to be an audio cassette containing StreetNOISE the latest album by Dunedin musician L$D Fundraiser. After detonating the cassette and discovering it was not in fact a bomb, local police raided the musician's house, and have since charged him with threatening to destroy property. He'll appear in court this Friday.
 
@@ -22,10 +17,10 @@ This has been a big story internationally, covered in the NME and Spin as well a
 For those of you, especially in other cities, not aware of his work as a musician and multimedia artist, I wanted to post a good example - shot by me at the Atonal Eclipse of the Charts festival at None Gallery in 2012 - and talk a little bit about how I see it, and about some of the misconceptions I've seen and heard about his work, and what happened.
 
 ![NME News Article](./nme.jpg)
-*<a href='http://www.nme.com/news/new-zealand-city-evacuated-noise-rock-cassette-bomb-threat-2091172'>Source</a>*
+_<a href='http://www.nme.com/news/new-zealand-city-evacuated-noise-rock-cassette-bomb-threat-2091172'>Source</a>_
 
 ![NME News Article](./spin.jpg)
-*<a href='http://www.spin.com/2017/06/noise-band-bomb-cassette-lsd-fundraiser/'>Source</a>*
+_<a href='http://www.spin.com/2017/06/noise-band-bomb-cassette-lsd-fundraiser/'>Source</a>_
 
 The artist known as L$D Fundraiser is one of Dunedin's more coherent, sustained and prolific artists. He's had a developing international audience as a noise musician/sound artist, and an underacknowledged local role as Dunedin's sharpest and most critical street artist. However like other experimental Dunedin artists, this is largely through word of mouth. There is very little overground coverage of Dunedin's underground communities even in Dunedin, let alone in the rest of the country. One exception was the local critical culture magazine Point, which was produced for a couple of years but barely seen out side of Dunedin and Christchurch (and which I contributed to, including writing about L$D Fundraiser). The arts and culture institutions of the city are very limited in funds, scope and local knowledge, so both the scenes L$D Fundraiser operates within and the media that seeks to formalise, acknowledge and discuss it are by necessity non-institutional, artist-run, often short term frameworks that also largely operate outside of the limited funding systems available as well.
 
@@ -34,14 +29,14 @@ As a musician, L$D Fundraiser utilises an extensive array of largely pre-digital
 As sound and as music, it's an often buried, introverted sound. The three adjectives I would use to describe the sound of L$D Fundraiser - and I think the music shifts between different clusterings of these three elements through almost all of the work I know - are oppressive, depressive and ecstatic.
 
 ![L$D Fundraiser 1](../../gigs/2017-06-10-cheeto-sun-blood-fest/lzd_fundraiser/P1000535.jpg)
-*L$D Fundraiser at <a title='Cheeto Sun Blood Fest at The Crown' href='/gigs/cheeto-sun-blood-fest/#lzd_fundraiser'>Cheeto Sun Blood Fest at The Crown</a>*
+_L$D Fundraiser at <a title='Cheeto Sun Blood Fest at The Crown' href='/gigs/cheeto-sun-blood-fest/#lzd_fundraiser'>Cheeto Sun Blood Fest at The Crown</a>_
 
 L$D Fundraiser's parallel career as an street artist based in the immediate local environment has a startlingly coherent and really useful relationship to the music. Simply put, it provides the context for the sources of the oppressive and depressive elements of the sound. Through a series of primarily collage poster works equally influenced by surrealism, 19th century political satire, situationism and underground rock n' roll, and an increasingly fearless approach to placement, these are smart, angry, trenchant, often hilarious commentaries on life under late capitalism. In a town whose council makes the claim to be a centre for street art, L$D Fundraiser is by far the most prolific, rigorous and critical local artist currently operating - and as such is generally completely ignored as a street or a visual artist on any official level, more regarded as a jokester than anything else.
 
 The visual works are immediately distinctive both technically and tonally. Oversaturated, rephotographed, deliberately low resolution colour prints, collaged and cut-up, with typewriter addition, by turns snarky and deliberately obscure, constantly mimicking and inverting the language of contemporary political and commercial discourse. Anyone walking the streets of Dunedin should have come across the work of L$D Fundraiser before, perhaps sniggered at it or puzzled over it, maybe wondered what it was doing there, or what it was trying to sell. But L$D Fundraiser isn't really trying to sell you anything. Indeed what he's been arrested for wasn't so much a promotional stunt as a genuine attempt to find a new way to distribute the music to someone other than the same old folks who've been listening for years. Over the last few weeks, about 10 copies of StreetNOISE have been pasted up on walls known as band postering areas around inner city Dunedin, and most of those tapes have been picked up without the police needing to be called. The release of the StreetNOISE album (not a demo tape, as the Otago Daily Times had it, but perhaps they don't realise that tapes are a valid and appropriate release medium now) was really not a publicity stunt for an album release but rather the actual album release itself as a giveaway.
 
 ![L$D Fundraiser 2](../../gigs/2017-06-09-the-blues-nz-tour/lzd_fundraiser/P1000342.jpg)
-*L$D Fundraiser at <a title='The BLUES NZ Tour' href='/gigs/the-blues-nz-tour/#lzd_fundraiser'>The BLUES NZ Tour</a>*
+_L$D Fundraiser at <a title='The BLUES NZ Tour' href='/gigs/the-blues-nz-tour/#lzd_fundraiser'>The BLUES NZ Tour</a>_
 
 It's pretty interesting to see how many people have jumped to attribute selfish motives to the release of StreetNOISE, but for an extreme artist who's been self-releasing music for around a decade, wide, viral publicity isn't necessarily of that much interest. L$D Fundraiser has been postering lively, sometimes even disagreeable content onto the walls of Dunedin for years now. It's often been angry, scabrous political rhetoric that's just sat there - or been unceremoniously pulled down - and this is the first time he's been approached by the police.
 

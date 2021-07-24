@@ -2,26 +2,23 @@
 title: 'Talking to Julie Dunn of trace/untrace records (video)'
 date: 2018-04-06T20:00:00.000Z
 tags:
-    - interview
+  - Interview
+  - The Rothmans
+  - Asta Rangu
+  - Koizilla
 author: 'Fraser Thompson'
 background_position: center
-media:
-    Koizilla: {machine_name: koizilla}
-    'The Rothmans': {machine_name: the_rothmans}
-    'Asta Rangu': {machine_name: asta_rangu}
-description: 'In the first of a video series on cool people doing cool things I spoke to Julie Dunn who runs trace/untrace, a local micro-independent record label, to get the lowdown on the sort of operation she''s running.'
+description: "In the first of a video series on cool people doing cool things I spoke to Julie Dunn who runs trace/untrace, a local micro-independent record label, to get the lowdown on the sort of operation she's running."
 cover: ./cover.jpg
 ---
 
-
 In the first of a video series on cool people doing cool things I spoke to Julie Dunn who runs trace/untrace, a local micro-independent record label to get the lowdown on the sort of operation she's running.
-
 
 <div class="youtubeEmbed">
   <iframe src="https://www.youtube.com/embed/TyJ04bV6hGQ/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
 </div>
 
-Just under a year ago Julie Dunn and Richard Ley-Hamilton decided to start a record label. 
+Just under a year ago Julie Dunn and Richard Ley-Hamilton decided to start a record label.
 
 Their main kaupapa was to support DIY and grassroots efforts within Dunedin. Rather than aspiring towards the hulking money-grabbing monstrosities of yesteryear, they strove to be a “micro-independent” label. They also decided to make cassettes, and they called this project [trace/untrace](https://traceuntracerecords.com).
 
@@ -41,8 +38,6 @@ So far this process has resulted in five cassette releases. The first was The Ro
 
 “I’m happy to release anything if I like it.”
 
-
-
 Releasing music on cassettes isn’t abnormal for the DIY scene but the resurgence of cassettes is perpetually confusing to members of the older generations who view them as those annoying hissy things which broke all the time before CDs came along.
 
 Ironically those are exactly the reasons why people like cassettes today. When digital perfection is so easily attainable people crave things which are flawed. And vinyl is too expensive, so cassettes are the perfect analog medium for independent musicians. Julie buys blank cassettes online and dubs them in her kitchen. She also prints out the labels and J-cards. The final product feels high-quality and worth the $5 or so she charges for them.
@@ -52,8 +47,6 @@ Ironically those are exactly the reasons why people like cassettes today. When d
 “I also really like the lo-fi aspect of cassettes, like it’s pretty hard to get something to sound amazing on cassette but I think the sound that it lends is actually pretty cool, I personally like it.”
 
 “And also I think they look cool. So I really love tapes and I’m happy that’s what ended up happening.”
-
-
 
 Apart from continuing to release tapes, Julie wants to eventually move trace/untrace into other creative realms such as book publishing and 7-inch vinyl releases. But her ambitions for the label are wider than that. She wants to affect change in the community as a whole.
 
@@ -71,13 +64,11 @@ It seems like Julie’s direction for trace/untrace finds a space for a label wh
 
 “But that's again, like I couldn’t see, it’s not a money making plan. So if you’re thinking in terms of record labels making money and finding a space in the current way that things run then I don’t really know what that would look like, but I definitely think that where I want to be situated is kind of just helping bands to do things they might not have the time or energy to do on their own terms because I believe in them basically.”
 
-
-
 I ask what her thoughts are on the Dunedin music community in general.
 
 “I dunno, I feel like people talk about this all the time and I’ve heard so many different opinions about it, some people say the Dunedin music scene is dead, there’s nothing interesting here anymore, some people I’ve heard say we’re about to have a second coming and it’ll be like the 'good old days' and of course recently we had all that dialogue about the Coyote drama...”
 
-“I think the music scene is pretty healthy now. It went through a pretty dark patch after Chicks closed because I think people came to rely on Chicks as like the one and only really good venue that we had here. 
+“I think the music scene is pretty healthy now. It went through a pretty dark patch after Chicks closed because I think people came to rely on Chicks as like the one and only really good venue that we had here.
 
 “But I think we’re starting to get over that now and we’re getting more venues popping up over last year and this year. And I think the music that’s being made here is definitely top notch, like I can’t imagine a small music community that would have a higher level or higher quality of music than we have”
 

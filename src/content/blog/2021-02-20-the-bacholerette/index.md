@@ -2,7 +2,7 @@
 title: 'Dave Borrie, ex Bachelorette hopeful and Radio 1 DJ, tells all'
 date: 2021-02-20T07:00:00.000Z
 tags:
-  - article
+  - Article
 author: Fraser Thompson
 background_position: center
 background_size: contain

@@ -2,21 +2,16 @@
 title: 'Exclusive: Destroy All False Metal does not play metal'
 date: 2018-10-24T21:00:00.000Z
 tags:
-    - interview
-    - destroy_all_false_metal
+  - Interview
+  - 'Destroy All False Metal'
 author: 'Fraser Thompson'
 background_position: center
 background_size: contain
 description: 'Destroy All False Metal might sound like a radical metalhead’s ultimate dictum but it’s actually just a band from Wellington, and tonight they’ll be playing Dunedin.'
-media:
-    'Destroy All False Metal': {machine_name: destroy_all_false_metal}
 cover: ./cover.jpg
 ---
 
-
 Destroy All False Metal might sound like a radical metalhead’s ultimate dictum but it’s actually just a band from Wellington, and tonight they’ll be playing Dunedin.
-
-
 
 Formed when members of Beatcomber, Goya and Mothers Dearest met up for a spontaneous jam, the (super?) group have been kicking around Wellington’s underground for the past few years. Now they’re bringing their new lineup to the South Island for the first time.
 
@@ -34,11 +29,11 @@ In reality it turns out they’re actually more of a punk band.
 
 It’s even harder for me to describe because they haven’t released any studio recorded music yet. Joel reckons their first EP should be out later this year, until then they’re in that cool phase where your only chance to experience them is live.
 
-“A lot of our songs are sort of like tongue in cheek, just real profane songs about… Jesus and stuff, and allowing pandas to f**k in piece.”
+“A lot of our songs are sort of like tongue in cheek, just real profane songs about… Jesus and stuff, and allowing pandas to f\*\*k in piece.”
 
 Joel elaborates on the Panda concept.
 
-“Just this whole idea that you’re sort of like… We’re pushing panda’s into extinction so we’re forcing them to f**k, which they don’t want to do, to stop them from going extinct, which we’re responsible for.”
+“Just this whole idea that you’re sort of like… We’re pushing panda’s into extinction so we’re forcing them to f\*\*k, which they don’t want to do, to stop them from going extinct, which we’re responsible for.”
 
 “They just want to go to sleep.” explains Kelsi.
 

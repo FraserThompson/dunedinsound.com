@@ -2,7 +2,9 @@
 title: 'Say goodbye to Battle of the Bands and hello to Bring the Noise'
 date: 2019-08-16T00:00:00.000Z
 tags:
-  - interview
+  - Interview
+related_gigs:
+  - 'Bring the Noise 2019 Final'
 author: 'Fraser Thompson'
 description: 'This year marks the 23rd iteration of OUSA’s Battle of the Bands competition - and it marks the first (hopefully of many) under the new name “Bring the Noise”. To get the low down on the what and the why I spoke to Jason Schroeder, OUSA Events Manager.'
 cover: ./cover.jpg

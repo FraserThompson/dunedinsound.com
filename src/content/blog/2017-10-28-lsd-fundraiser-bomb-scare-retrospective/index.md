@@ -2,28 +2,22 @@
 title: 'The L$D Fundraiser Bomb Scare: A retrospective'
 date: 2017-10-27T21:30:00.000Z
 tags:
-    - music
-    - opinion
-    - lzd_fundraiser
+  - Article
+  - 'L$D Fundraiser'
 author: 'Fraser Thompson'
-media:
-    'L$D Fundraiser': {machine_name: lzd_fundraiser}
 description: 'In June this year an internationally recognized local sound artist grew tired of asking money for his works and decided to give them away for free. What happened next will shock you.'
 cover: ./cover.jpg
 ---
 
-
-In June this year an internationally recognized local sound artist grew tired of asking money for his works and decided to give them away for free. 
-
-
+In June this year an internationally recognized local sound artist grew tired of asking money for his works and decided to give them away for free.
 
 He was inspired by local photographer and musician Lance Strickland who, the month before, had posted his photos around Dunedin for the public to take. This sound artist planned to do something similar with his latest work.
 
 The work was a music piece and a poem. It tried to encompass the feelings of the disenfranchised, people who are homeless, people who feel ignored and abandoned by the system. People who have “nothing left to lose”.
 
-He typed each poem individually onto pages of an expired passport. The poems were then attached to cassettes which contained the [music component](https://lsdfunraiser.bandcamp.com/album/streetnoise): a harsh and abrasive soundscape, layers of distorted guitar with repetitive phrases desperately trying to fight through the noise. 
+He typed each poem individually onto pages of an expired passport. The poems were then attached to cassettes which contained the [music component](https://lsdfunraiser.bandcamp.com/album/streetnoise): a harsh and abrasive soundscape, layers of distorted guitar with repetitive phrases desperately trying to fight through the noise.
 
-The artist chose to attach his work to thirteen abandoned buildings around the centre city. To someone without a home a building which is unoccupied must feel like an insult. 
+The artist chose to attach his work to thirteen abandoned buildings around the centre city. To someone without a home a building which is unoccupied must feel like an insult.
 
 Ten lucky members of the public found the intriguing packages and took them home. One of the works on Stuart Street was reported to the police as being suspicious, so the responding officer simply removed it and closed the case.
 
@@ -37,8 +31,8 @@ And for some reason they didn’t consider the poem’s threat to "hack into you
 
 In court last Friday a full gallery of artists and musicians watched on incredulously as the prosecution stumbled through an attempt to convince the judge the threats to damage property were serious. Eventually the judge dismissed the charge, ruling that [context mattered and within that context the words did not constitute a threat](https://www.odt.co.nz/news/dunedin/man-found-not-guilty-over-bomb-scare).
 
-My issue is not with the initial response to the “bomb”. I can understand the reasoning behind treating all threats as serious, although it gets a bit murkier when you consider the fact that a previous identical “threat” was not considered serious. 
+My issue is not with the initial response to the “bomb”. I can understand the reasoning behind treating all threats as serious, although it gets a bit murkier when you consider the fact that a previous identical “threat” was not considered serious.
 
-My issue is with the fact that they chose to pursue criminal charges for what was essentially a misunderstanding. They could have engaged with the work and tried to understand it, instead they prosecuted. 
+My issue is with the fact that they chose to pursue criminal charges for what was essentially a misunderstanding. They could have engaged with the work and tried to understand it, instead they prosecuted.
 
 Why? I have no idea, but I’m glad justice has prevailed. Hopefully this resolution will help make Dunedin a city where artists can, as the [DCC arts and culture strategy](http://www.dunedin.govt.nz/__data/assets/pdf_file/0015/522060/Ara-Toi-Viewable.pdf) states, “take risks and bravely champion artistic experimentation that pushes boundaries” without risking a lengthy and expensive court battle.

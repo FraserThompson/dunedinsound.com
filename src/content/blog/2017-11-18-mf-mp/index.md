@@ -2,20 +2,15 @@
 title: 'Talking to Karl Leisky about experimental electronic music'
 date: 2017-11-18T00:00:00.000Z
 tags:
-    - interview
-    - fuckault
+  - Interview
+  - Fuckault
 author: 'Fraser Thompson'
 background_position: 'center top'
-media:
-    Fuckault: {machine_name: fuckault}
 description: 'mf/mp are a hot new semi-local label who’ve already made waves with their lathe cut “Sundrian Editions” which feature pairings of experimental electronic musicians from across the country. I talked with Karl Leisky, one of the label’s founders and artists, about their upcoming release event at Toitū and more.'
 cover: ./cover.jpg
 ---
 
-
 mf/mp are a hot new semi-local label who’ve already made waves with their lathe cut “Sundrian Editions” which feature pairings of experimental electronic musicians from across the country. I talked with Karl Leisky, one of the label’s founders and artists, about their upcoming <a href="https://www.facebook.com/events/1874579299521745/">release event at Toitū</a> and more.
-
-
 
 <center><a href='https://www.facebook.com/events/1874579299521745/'><img alt="Facebook event" src="/assets/img/blog/2017-11-18-mf-mp/poster (Medium).jpg" style="width: 50%;"></a></center>
 
@@ -31,7 +26,7 @@ The label itself is for fringe and peripheral electronic music… Experimental m
 
 ### What do you mean by experimental music?
 
-I guess with electronic music the assumption is that it’s dance music and lots of us do have dance projects as well, but for this label by experimental electronic music we just mean anyone who’s creating music using at least partially electronics, trying to use new methods and new ideas or new sounds. 
+I guess with electronic music the assumption is that it’s dance music and lots of us do have dance projects as well, but for this label by experimental electronic music we just mean anyone who’s creating music using at least partially electronics, trying to use new methods and new ideas or new sounds.
 
 So I think in the widest stretch of the word there’s no reason why we won’t have dance-esque music if it’s particularly weird or pushing the boundaries
 
@@ -45,9 +40,9 @@ We wanted to set up a platform for people who wanted to release physical release
 
 ### So in an era when anyone can sort of record and release stuff themselves would you say a record label is more about creating a community and distribution?
 
-Yeah. We’ve all been putting out stuff, I mean I think I’m the youngest and I’ve only been doing electronic music for three or four years but I’ve put out maybe seven albums. And William has been doing it since the 90s and I still don’t know how long Ducklingmonster’s been doing it, but William’s got countless albums. 
+Yeah. We’ve all been putting out stuff, I mean I think I’m the youngest and I’ve only been doing electronic music for three or four years but I’ve put out maybe seven albums. And William has been doing it since the 90s and I still don’t know how long Ducklingmonster’s been doing it, but William’s got countless albums.
 
-So, you know, releasing them and getting them out is not a problem, especially if you’re just doing digital which costs nothing but it’s really hard to organize tours, and it’s even harder to organize records. So it’s just helping with that. 
+So, you know, releasing them and getting them out is not a problem, especially if you’re just doing digital which costs nothing but it’s really hard to organize tours, and it’s even harder to organize records. So it’s just helping with that.
 
 With these lathe cuts, they’re split, so the idea is to get someone who makes music and try to pair them with someone who we see some sort of connection but they haven’t worked together before. The whole idea with the Sundrian Editions, which is what we’re calling the lathe cuts, is to pair geographically separate artists who have a similar approach, not necessarily in sound but in music and how they write.
 
@@ -55,19 +50,19 @@ With these lathe cuts, they’re split, so the idea is to get someone who makes 
 
 One reason why we chose the lathe cuts is because you can do really small runs and, well compared to the 90s where you could just get a few plays out of them they’re higher quality now but the sound will change when you do repeated plays, whether that’s 100 or 200 or 300. We like the idea that the music is going to, not degrade because I think all of these tracks are built with this in mind, so I think it’s just going to change them, but it kind of burns in this ‘organicness’, which is a term which is not normally associated with electronic music so conceptually sam and I really liked that. And they look cool I guess too.
 
-We did have some conflict at the beginning because we don’t really want to be adding to the glut of objects in the world, but that's kind of why we’re keeping it small run. We’re not aiming to have any extra left over or anything. But every format brings something different to the sound and the listening experience, and music like this, no matter how much it’s planned, is always going to be different. Like my tracks, even though they’re composed with software, I’m always aware that when you’re listening to it if there’s a Tui, you know, singing outside, I want that to change the piece and make it almost a completely different piece to if you’re listening at 2 o'clock in the morning and there’s no sound other than an old car going past. 
+We did have some conflict at the beginning because we don’t really want to be adding to the glut of objects in the world, but that's kind of why we’re keeping it small run. We’re not aiming to have any extra left over or anything. But every format brings something different to the sound and the listening experience, and music like this, no matter how much it’s planned, is always going to be different. Like my tracks, even though they’re composed with software, I’m always aware that when you’re listening to it if there’s a Tui, you know, singing outside, I want that to change the piece and make it almost a completely different piece to if you’re listening at 2 o'clock in the morning and there’s no sound other than an old car going past.
 
-I want to allow for that, and I think pairing it with a lathe cut record kind of includes that idea. Like when people talk about records they talk about the extra ambience it brings. So I think linking those two ideas makes people think about that already, it allows for that, and it just brings extra little sound artifacts which you can’t plan for which I think all of us find really exciting, that idea that every time you play it it’ll be different. 
+I want to allow for that, and I think pairing it with a lathe cut record kind of includes that idea. Like when people talk about records they talk about the extra ambience it brings. So I think linking those two ideas makes people think about that already, it allows for that, and it just brings extra little sound artifacts which you can’t plan for which I think all of us find really exciting, that idea that every time you play it it’ll be different.
 
 That’s why we do cassette, and that’s why we don’t do CDs.
 
 ### It’s kind of like what Brian Eno said about how a medium's flaws as it's pushed to its limits become what gives it character and what draws people to it
 
-Yeah, and I guess pushing those flaws and focusing on them and making music about them is a focus for us. 
+Yeah, and I guess pushing those flaws and focusing on them and making music about them is a focus for us.
 
 William Henry Meung who’s on one of the split with Ducklingmonster, he makes music with circuit-bent toy instruments as well as traditional instruments and things but he pushes those and uses those circuits and home-made synthesizers and really pushes the sound of breaking electronics in that way.
 
-I use a pretty standard dance music software, so all my music is based around trying to make it do things it’s not supposed to do. And trying to use something which is designed to make making music really easy, how to use that to really explore. Like the whole point of Ableton is that it’s used friendly which means 99% of it sounds the same, so pushing that software and finding uses for all the, I guess you’d say patches which come with it, and really playing and trying to find everything you can do with one certain thing. 
+I use a pretty standard dance music software, so all my music is based around trying to make it do things it’s not supposed to do. And trying to use something which is designed to make making music really easy, how to use that to really explore. Like the whole point of Ableton is that it’s used friendly which means 99% of it sounds the same, so pushing that software and finding uses for all the, I guess you’d say patches which come with it, and really playing and trying to find everything you can do with one certain thing.
 
 Like the beginning of this year I released an album of sine works where I used sine waves and delays and that was it, and it was all in G major, and kind of seeing what I could do with that.
 
@@ -79,25 +74,25 @@ Yeah, yeah, so it’s not so much the sound, on the lathe cuts there’s definit
 
 ### What does mf/mp mean anyway?
 
-Mezzo Forte/Mezzo Piano is how I’ve understood it, but knowing Sam it could be something completely different and I've misunderstood it this whole time and the fact that we’ve copied the font from a music textbook could mean nothing, and it could stand for anything. 
+Mezzo Forte/Mezzo Piano is how I’ve understood it, but knowing Sam it could be something completely different and I've misunderstood it this whole time and the fact that we’ve copied the font from a music textbook could mean nothing, and it could stand for anything.
 
 But my official response is that it’s Mezzo Forte and Mezzo Piano, soft loud, loud soft. That comes from the idea that the context in which it’s played will alter the music. The idea is that it can be played at the lowest possible volume so it adds to the surroundings rather than overpower it. But you know in a gig situation you'd be loud and that’s going to be a completely different experience.
 
 ### Yeah, and when played at really low volumes I guess the character on the medium will be different too since like the noise of the record will stay constant…
 
-Yeah totally, and the noise of the room will be more apparent too. When I’m working on my tracks I’ll put my songs on my ipod and  walk around and listen to them to to figure out what needs to change and what’s wrong, and the time of day will completely alter it, sometimes I’ll think they’re overpowering and other times I’ll listen to them and they’ll work with the surroundings perfectly. And that’s why we’re doing the release at Toitu.
+Yeah totally, and the noise of the room will be more apparent too. When I’m working on my tracks I’ll put my songs on my ipod and walk around and listen to them to to figure out what needs to change and what’s wrong, and the time of day will completely alter it, sometimes I’ll think they’re overpowering and other times I’ll listen to them and they’ll work with the surroundings perfectly. And that’s why we’re doing the release at Toitu.
 
 ### So on your event page you say “it's central ambition is to create a platform from which exponents of marginal art can reach a broader audience”. And Toitū, I don’t really associate the place with experimental music… Was that to try reach a different audience?
 
 So the Auckland show is quite a traditional gig, it’s at a venue which has music like that, but playing at the museum, at Toitu, is a really amazing opportunity for lots of reasons.
 
-One is that most of the people that would normally come to these sorts of shows will probably still be sleeping, and I’m hoping that plenty of those people come but most of the audience will just be people coming to the museum with their kids or whatever for a nice cup of coffee on a Sunday afternoon which is great. That’s who we want to play to because I think for all types of music and art in New Zealand it stays in its zone I guess, so sometimes people might see a poster and be interested, but mostly the people who go to, you know, an abstract art exhibition will be people who are into abstract art, people who know all the names of the artists involved. And the same goes for our music, the gigs in The Attic or whatever, there isn’t nearly enough crossover. So playing at Toitu will allow for people who’ve never even heard about it to hear it, to hopefully like it. 
+One is that most of the people that would normally come to these sorts of shows will probably still be sleeping, and I’m hoping that plenty of those people come but most of the audience will just be people coming to the museum with their kids or whatever for a nice cup of coffee on a Sunday afternoon which is great. That’s who we want to play to because I think for all types of music and art in New Zealand it stays in its zone I guess, so sometimes people might see a poster and be interested, but mostly the people who go to, you know, an abstract art exhibition will be people who are into abstract art, people who know all the names of the artists involved. And the same goes for our music, the gigs in The Attic or whatever, there isn’t nearly enough crossover. So playing at Toitu will allow for people who’ve never even heard about it to hear it, to hopefully like it.
 
 Also it’s a beautiful space and the acoustics are going to be amazing. And because it’s during the day that allows for a completely different situation to any of us have played in. Every situation will change our music, and I think the concept is kind of providing a soundtrack for what’s happening. We’ll be playing kind of around the cafe area so I’m hoping that even where I am I’ll be able to hear the coffee machine and chairs squeaking and supply sounds which allow that to be incorporated.
 
-I think all of us have a noise background but the aim here isn’t to be abrasive even if some of the sounds could be abrasive in the right circumstance. Music is often thought of as like, if you go to a gig at The Crown if people are talking the music kind of goes over that and everything gets wiped out and that’s what happens when we play night shows. But this allows us to avoid that, to kind of be ignorable if that’s what people want, but it will change the situation subliminally. 
+I think all of us have a noise background but the aim here isn’t to be abrasive even if some of the sounds could be abrasive in the right circumstance. Music is often thought of as like, if you go to a gig at The Crown if people are talking the music kind of goes over that and everything gets wiped out and that’s what happens when we play night shows. But this allows us to avoid that, to kind of be ignorable if that’s what people want, but it will change the situation subliminally.
 
-I think it’s a really interesting concept, being so passive means if you want to engage with it you really need to actively engage with it, it needs to be a conscious decision. I think it really challenges the idea of what music is.  My grandparents still don’t think it’s music bless them, and that’s fine too.
+I think it’s a really interesting concept, being so passive means if you want to engage with it you really need to actively engage with it, it needs to be a conscious decision. I think it really challenges the idea of what music is. My grandparents still don’t think it’s music bless them, and that’s fine too.
 
 ### It’s such a sunny space, I don’t think I’ve ever heard that sort of music not in the dark
 
@@ -111,11 +106,11 @@ It’s not like we’re going to be in people's faces at all or being loud. It�
 
 ### Was Toitū keen to help support experimental electronic music too?
 
-We had a really good chat with the person who organizes these shows and put them together about what we’re doing and why it fits with the museum, I mean the celebration of all sorts of technology there, and even just the way the museum's built where walking between two rooms there’s a completely different sound even though they’re both silent. It fits with us perfectly, and I think there was some nervousness on both sides that it would be seen as a confrontation or butting of heads but talking about it and planning it I think it goes together really well. 
+We had a really good chat with the person who organizes these shows and put them together about what we’re doing and why it fits with the museum, I mean the celebration of all sorts of technology there, and even just the way the museum's built where walking between two rooms there’s a completely different sound even though they’re both silent. It fits with us perfectly, and I think there was some nervousness on both sides that it would be seen as a confrontation or butting of heads but talking about it and planning it I think it goes together really well.
 
 I think keeping it in the realms of the art gallery or the nighttime dingy gig or someone's basement is a real shame. Like my dad loves my music, dad’s love Brian Eno, and I don’t think there’s a huge difference between someone who can enjoy Discreet Music and someone who can enjoy William fucking around with a rolled up piano.
 
-I think there is a potential for everyone to enjoy this. I think how it’s presented in galleries and shows is inherently confrontational even if you don’t mean it to be, if you go out and there’s loud music you don’t understand there’s an implicit aggression there, and there’s not going to be that here because it’ll be quiet and we’ll be playing conscious of the space. Hopefully that will be eliminated entirely. Even if it’s just background sound I’ve got no problem with being understood as a background sound artist rather than a musician. 
+I think there is a potential for everyone to enjoy this. I think how it’s presented in galleries and shows is inherently confrontational even if you don’t mean it to be, if you go out and there’s loud music you don’t understand there’s an implicit aggression there, and there’s not going to be that here because it’ll be quiet and we’ll be playing conscious of the space. Hopefully that will be eliminated entirely. Even if it’s just background sound I’ve got no problem with being understood as a background sound artist rather than a musician.
 
 So I hope that people will at least think it’s cool or interesting even if they don’t want to go home and listen to it. There’s this stigma around experimental and noise music but it’s meant to be beautiful and it’s meant to be enjoyable.
 

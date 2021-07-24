@@ -94,7 +94,6 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
     useMemo(() => {
       const thing = gigs.map(({ fieldValue, edges }) => {
         const yearSize = edges.length
-        const gridSize = yearSize > 1 ? { xs: 6, sm: 4, lg: 3 } : { xs: 12, sm: 12, lg: 12 }
 
         return (
           <div id={fieldValue} key={fieldValue}>

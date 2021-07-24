@@ -2,7 +2,7 @@
 title: '2020 was a year'
 date: 2020-12-19T07:00:00.000Z
 tags:
-  - article
+  - Article
 author: Fraser Thompson
 background_position: center
 background_size: contain

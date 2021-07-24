@@ -2,7 +2,7 @@
 title: '2019 was a year'
 date: 2019-12-31T07:00:00.000Z
 tags:
-  - article
+  - Article
 author: Fraser Thompson
 background_position: center
 background_size: contain

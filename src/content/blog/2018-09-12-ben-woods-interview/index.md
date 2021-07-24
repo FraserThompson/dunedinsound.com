@@ -2,25 +2,20 @@
 title: 'The mystery of Ben Woods'
 date: 2018-09-11T21:00:00.000Z
 tags:
-    - interview
-    - ben_woods
+  - Interview
+  - 'Ben Woods Group'
 author: 'Fraser Thompson'
 background_position: center
 background_size: contain
 description: 'So far the only Ben Woods release is one song called “Lozenge” on Melted Icecream’s awesome new compilation of Ōtautahi music, Sickest Smashes from Arson City Legacy Edition. It’s a sort of fuzzy lo-fi indie-pop type thing which feels just right as it slides down your earholes. I wouldn’t mind a few more of those.'
-media:
-    'Ben Woods': {machine_name: ben_woods}
 cover: ./cover.jpg
 ---
 
-
 It’s hard to know what to expect from Ben Woods Group.
-
-
 
 So far the only Ben Woods release is one song called “Lozenge” on Melted Icecream’s awesome new compilation of Ōtautahi music, Sickest Smashes from Arson City: Legacy Edition. It’s a sort of fuzzy lo-fi indie-pop type thing which feels just right as it slides down your earholes. I wouldn’t mind a few more of those.
 
-Other than that Ben previously played guitar in  trio of awesome bands: Wurld Series, Salad Boys and Fran. And now he’s doing an eight-date NZ tour as himself with Motte (another Christchurch musician who also had a track on Sickest Smashes) which will place him at The Cook this Friday.
+Other than that Ben previously played guitar in trio of awesome bands: Wurld Series, Salad Boys and Fran. And now he’s doing an eight-date NZ tour as himself with Motte (another Christchurch musician who also had a track on Sickest Smashes) which will place him at The Cook this Friday.
 
 I got him on the phone while he was buying noodles to find out more.
 

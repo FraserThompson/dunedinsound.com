@@ -2,14 +2,12 @@
 title: 'Talking Soaked Oats with Soaked Oats'
 date: 2018-07-01T21:00:00.000Z
 tags:
-  - interview
-  - soaked_oats
+  - Interview
+  - 'Soaked Oats'
 author: 'Fraser Thompson'
 background_position: center
 background_size: cover
 description: 'This was a weird interview.'
-media:
-  'Soaked Oats': { machine_name: soaked_oats }
 cover: ./cover.jpg
 ---
 

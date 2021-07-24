@@ -2,25 +2,20 @@
 title: 'Talking to Julian Temple of Julian Temple Band'
 date: 2018-05-30T20:00:00.000Z
 tags:
-    - interview
-    - julian_temple_band
+  - Interview
+  - Julian Temple Band
 author: 'Fraser Thompson'
 background_position: center
 background_size: contain
 description: 'In 2004 Julian Temple Band slipped quietly into the Dunedin music scene as a humble 3-piece. But what was three gradually become four, and now for their sixth album 14 years later they’ve flourished into a mighty six piece with the addition of Richard Ley-Hamilton of Males (and more) on guitar, Steve Marshall of Left or Right on bass and Logan Hampton of Alizarin Lizard on keys. I caught up with Julian to discuss the new album ahead of the release gig this Friday.'
-media:
-    'Julian Temple Band': {machine_name: julian_temple_band}
 cover: ./cover.jpg
 ---
-
 
 In 2004 Julian Temple Band slipped quietly into the Dunedin music scene as a humble 3-piece.
 
 But what was three gradually become four, and now for their sixth album 14 years later they’ve flourished into a mighty six piece with the addition of Richard Ley-Hamilton of Males (and more) on guitar, Steve Marshall of Left or Right on bass and Logan Hampton of Alizarin Lizard on keys.
 
 I caught up with Julian to discuss the new album ahead of the release gig this Friday.
-
-
 
 **So you’ve added some people to your lineup for this album like Richard Ley Hamilton… How did that happen?**
 
@@ -30,7 +25,7 @@ We also added Steve Marshall who’s the bass player out of Left or Right he’s
 
 **With so many people from other well-known bands do you think you’re a supergroup now?**
 
-A Dunedin supergroup, yeah *laughs*. Yeah well, I mean Dunedin’s kind of like that, and a lot of music scenes are I think.
+A Dunedin supergroup, yeah _laughs_. Yeah well, I mean Dunedin’s kind of like that, and a lot of music scenes are I think.
 
 I was thinking about it the way over here how ego-centric Julian Temple Band sounds. It should be called the Julian Temple Sham because I’m like the worst musician out of the lot. I’ve got this amazing high calibre of musicians in the band and here I am kind of twiddling away on my guitar...
 
@@ -40,7 +35,7 @@ It just kind of developed that way. I was a solo kind of singer songwriter for y
 
 **How did all these new additions to the band change the sound?**
 
-It gave it way more texture… And actually it got harder to record because everyone has so many parts. We have a violinist, Alex, as well. So it’s actually harder to mix and to get sitting right. 
+It gave it way more texture… And actually it got harder to record because everyone has so many parts. We have a violinist, Alex, as well. So it’s actually harder to mix and to get sitting right.
 
 But it’s definitely worth it because live it’s just way bigger you know, it’s way huger and it’s the best thing we’ve ever done. I’ve always kind of had this vision that we’d just grow and grow and grow, start of as solo, then a duo, then a trio, quartet and just keep going until we have a horns section and an orchestra.
 
@@ -92,11 +87,11 @@ So yeah it’s good to see that live music is sort of coming back.
 
 **What’ll the gig be like?**
 
-You’re going to get a wide variety. You’ve got Ana opening the show, from Spinster, Ana Moser, and she’s never really done any solo stuff but she’s got this beautiful voice and she wants to kind of take it to the next level so I’m kind of trying to push her to do it. 
+You’re going to get a wide variety. You’ve got Ana opening the show, from Spinster, Ana Moser, and she’s never really done any solo stuff but she’s got this beautiful voice and she wants to kind of take it to the next level so I’m kind of trying to push her to do it.
 
 And then we’ve got old school Dunedin busking duo called The Patsys and that is Matt Langley and Graham Peters. He’s won the APRA country awards, he’s a songwriter from years back.
 
-And then Koizilla’s going to close it out, so it’s a wide variety of music. Some folky soloey stuff and then the full noise. We’ll probably play all the songs off our new album plus a few oldies. Pretty high energy but pretty accessible for all kinds and once again I’ve gotta say I pinch myself going I don't know why these musicians in my band are playing with me I mean they are next level. The violinist is an insane concert violinist, classically trained, he used to play with the southern symphonia. He’s a next level violinist, everyone who ever sees him goes wow what the hell is that and it's not what you expect, he abuses the thing. Just dirty bluesy but insane, it’s kind of avant garde. 
+And then Koizilla’s going to close it out, so it’s a wide variety of music. Some folky soloey stuff and then the full noise. We’ll probably play all the songs off our new album plus a few oldies. Pretty high energy but pretty accessible for all kinds and once again I’ve gotta say I pinch myself going I don't know why these musicians in my band are playing with me I mean they are next level. The violinist is an insane concert violinist, classically trained, he used to play with the southern symphonia. He’s a next level violinist, everyone who ever sees him goes wow what the hell is that and it's not what you expect, he abuses the thing. Just dirty bluesy but insane, it’s kind of avant garde.
 
 And then obviously the keyboard is kind of Doorsey, real soulful beautiful kind of rhythm and blues.
 
@@ -122,7 +117,7 @@ I’d never go back now, jesus… We tried to go back a few years ago, moved the
 
 **Do you feel like there’s a limit to how far you can go in Dunedin?**
 
-This is the weird thing, I went back and you’d think in the epicenter of the entertainment industry, L.A and all that, I could not find a music scene like this. This is so amazing how there’s all these amazing bands, and we take it for granted, but every weekend there’s a really good band playing that you’ve never even heard of. And I couldn't find that over there, and so I think sure maybe industry wise and monetarily wise yes, but for the soul and to raise the calibre of your own musicianship I think being here is better for my music anyway. 
+This is the weird thing, I went back and you’d think in the epicenter of the entertainment industry, L.A and all that, I could not find a music scene like this. This is so amazing how there’s all these amazing bands, and we take it for granted, but every weekend there’s a really good band playing that you’ve never even heard of. And I couldn't find that over there, and so I think sure maybe industry wise and monetarily wise yes, but for the soul and to raise the calibre of your own musicianship I think being here is better for my music anyway.
 
 And the funding, there’s no funding over there. I’ve never heard of government funding in the states for music, there probably is some sort of scheme but I’ve never heard of it like you have it here. Every two months people are getting thousands of dollars to record, I mean that’s unheard of.
 

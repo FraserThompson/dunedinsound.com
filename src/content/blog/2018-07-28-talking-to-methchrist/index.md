@@ -2,23 +2,18 @@
 title: 'Talking to Methchrist'
 date: 2018-07-27T19:00:00.000Z
 tags:
-    - interview
-    - methchrist
+  - Interview
+  - Methchrist
 author: 'Fraser Thompson'
 background_position: center
 background_size: cover
-description: 'I spoke to the virulent trio over some pints to get the skinny on what they''ve been doing and what they''re doing next.'
-media:
-    Methchrist: {machine_name: methchrist}
+description: "I spoke to the virulent trio over some pints to get the skinny on what they've been doing and what they're doing next."
 cover: ./cover.jpg
 ---
-
 
 If you’re feeling a little itchy it could be because Methchrist haven’t played a gig here since January, but that all changes tonight. In a vile ritual of hatred at the Crown Hotel, the solar anus will expand and from its foul depths spew forth a torrent of pure evil into the expectant mouths of the cult elite. There will be no escape, and only the true will survive.
 
 I spoke to the virulent trio over some pints to get the skinny on what they've been doing and what they're doing next.
-
-
 
 <center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=483929922/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://methchrist.bandcamp.com/album/nomadic-war-machine">Nomadic War Machine by METHCHRIST</a></iframe></center>
 
@@ -28,9 +23,9 @@ Ben: So that was back in September last year… So we’ve played quite a few ou
 
 Ollie: that was like January, February
 
-Ben: And he sort of earmarked us and passed that info on to the promoter, and yeah. So that was absolutely fucking amazing. We basically flew up there and the Blasphemy dudes are just utterly intimidating, really fucking huge guys. Like Black Winds, the lead singer, I thought he was gesturing for a bottle opener but he was actually after a lighter so we followed him out for a durry and he had these speed demon sunglasses on, lifted them up and he was like “You guys are Methchrist… you got any?” 
+Ben: And he sort of earmarked us and passed that info on to the promoter, and yeah. So that was absolutely fucking amazing. We basically flew up there and the Blasphemy dudes are just utterly intimidating, really fucking huge guys. Like Black Winds, the lead singer, I thought he was gesturing for a bottle opener but he was actually after a lighter so we followed him out for a durry and he had these speed demon sunglasses on, lifted them up and he was like “You guys are Methchrist… you got any?”
 
-And we had this really stilted conversation with him aye, we were like uhh so what do you think of New Zealand and he was just like “WHAT?” 
+And we had this really stilted conversation with him aye, we were like uhh so what do you think of New Zealand and he was just like “WHAT?”
 
 Ollie: Couldn’t understand our accent aye.
 
@@ -59,7 +54,7 @@ Ben: And then Blasphemy thirty years. Just getting to see how professional they 
 Daniel: Fuck yeah.
 
 ![Blasphemy in Auckland](./blasphemy.jpg)
-*Blasphemy in Auckland*
+_Blasphemy in Auckland_
 
 **What about since then?**
 
@@ -75,7 +70,7 @@ Ben: I think we probably spent about a total of 8 hours recording that, it was j
 
 Ollie: Yeah we ground that out real fast, and with this we probably spent at least that much time for each instrument part for each song.
 
-Ben: It was an interesting learning experience because we recorded with Audacity and I started to do the mixing side of it and then I discovered that audacity has this flaw called destructive editing… 
+Ben: It was an interesting learning experience because we recorded with Audacity and I started to do the mixing side of it and then I discovered that audacity has this flaw called destructive editing…
 
 **So how did you record it?**
 
@@ -117,7 +112,7 @@ Ben: Well it’s sort of going towards more of an old school feel… Like in tha
 
 Ollie: But also soldiering forward. We wrote the songs from that first release in sort of no time. And one of the main reasons for the sound of it was that we all came out of playing in a kind of grindcore powerviolence band so after that we were just like we want to do something, we want to make it more heavy, more aggressive, faster and shit like that so we just carried on.
 
-Ben: That was one of the things I took away from the shows up north, still like real feral fucking chords and rhythms and stuff but just that added level of sophistication and I think our latest songs, like the ones you hear on the split, I think they’re considerably more sophisticated than our first. 
+Ben: That was one of the things I took away from the shows up north, still like real feral fucking chords and rhythms and stuff but just that added level of sophistication and I think our latest songs, like the ones you hear on the split, I think they’re considerably more sophisticated than our first.
 
 Ollie: Completely.
 
@@ -149,7 +144,7 @@ Ben: But yeah we’d fucking love to go overseas, US or Europe would be great. J
 
 Ollie: It’d help.
 
-Ben: It’s basically just off ourselves and merch and fundraising gigs. I mean this gig we’ve got coming up on Saturday is fundraising to produce our full length. 
+Ben: It’s basically just off ourselves and merch and fundraising gigs. I mean this gig we’ve got coming up on Saturday is fundraising to produce our full length.
 
 Ollie: And doing more merch and stuff too. Because we want to give back to the die hards who follow us and support us and everything too, like the people who bought a t-shirt. It sucks having to be like nah man we’re out we don’t have shit.
 

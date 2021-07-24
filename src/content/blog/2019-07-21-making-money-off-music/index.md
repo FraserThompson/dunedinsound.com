@@ -2,7 +2,7 @@
 title: 'According to these guys you can actually make money off your music'
 date: 2019-07-21T00:00:00.000Z
 tags:
-  - interview
+  - Interview
 author: 'Fraser Thompson'
 description: 'Thanks to capitalism, making money is an essential part of not starving to death. Unfortunately for most musicians though, converting their immense cultural capital into food on the table is a problem the wondrous free market has yet to fully solve.'
 cover: ./cover.jpg

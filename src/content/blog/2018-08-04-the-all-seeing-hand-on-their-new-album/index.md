@@ -2,25 +2,20 @@
 title: 'The All Seeing Hand on their new album and more'
 date: 2018-08-03T19:00:00.000Z
 tags:
-    - interview
-    - the_all_seeing_hand
+  - Interview
+  - The All Seeing Hand
 author: 'Fraser Thompson'
 background_position: center
 background_size: cover
 description: 'At the Cook last Friday Wellington based indescribable trio The All Seeing Hand did what they do best.'
-media:
-    'The All Seeing Hand': {machine_name: the_all_seeing_hand}
 cover: ./cover.jpg
 ---
 
-
 At the Cook last Friday Wellington based indescribable trio The All Seeing Hand did what they do best.
 
-Set to a backdrop of RGB LEDs they transported the audience to a dystopian future of broken systems and syntactical errors. Also in this world was a uniformed commander wearing something reminiscent of an 18th century naval captain, a polyphonic wizard with samplers beneath his palms, and the searing scent of Sichuan peppercorn. 
+Set to a backdrop of RGB LEDs they transported the audience to a dystopian future of broken systems and syntactical errors. Also in this world was a uniformed commander wearing something reminiscent of an 18th century naval captain, a polyphonic wizard with samplers beneath his palms, and the searing scent of Sichuan peppercorn.
 
 It was an experience not to be forgotten, and marks the start of The All Seeing Hands’ national release tour for their fifth album Syntax Error. It continues down the path they’ve been forging since 2011, but it feels thematically almost like the path has become corrupted. Where their 2016 release Sand to Glass was about the growth a civilisation, Syntax Error could be about its downfall. And it feels uncomfortably familiar.
-
-
 
 <center><iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=1396190530/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="http://the-all-seeing-hand.bandcamp.com/album/syntax-error">Syntax Error by The All Seeing Hand</a></iframe></center>
 
@@ -32,10 +27,10 @@ Benjamin Michael Knight (drums) explained to me the concept behind the album
 
 “Like it feels like there’s something gone wrong, it feels like things are not functioning and the systems which seemed pretty stable a few years are broken and there’s absurd comical results. Like when you see politics become bad entertainment television. Things are happening right now which would have seemed inconceivable even five years ago.”
 
-The result is an album which feels very 2018. Compared to Sand to Glass there are fewer moments of peace and instead just sheer turbulent energy. With dozens of social media streams shouting at you about the newest Thing there aren’t many moments of peace anymore. 
+The result is an album which feels very 2018. Compared to Sand to Glass there are fewer moments of peace and instead just sheer turbulent energy. With dozens of social media streams shouting at you about the newest Thing there aren’t many moments of peace anymore.
 
 ![The All Seeing Hand 1](../../gigs/2018-7-27-the-all-seeing-hand-syntax-error-release-tour/the_all_seeing_hand/P1330422_DxO.jpg)
-*The All Seeing Hand At at <a title='The All Seeing Hand Syntax Error Release Tour' href='/gigs/the-all-seeing-hand-syntax-error-release-tour/'>The All Seeing Hand Syntax Error Release Tour, Dunedin</a>*
+_The All Seeing Hand At at <a title='The All Seeing Hand Syntax Error Release Tour' href='/gigs/the-all-seeing-hand-syntax-error-release-tour/'>The All Seeing Hand Syntax Error Release Tour, Dunedin</a>_
 
 And neither were there moments of peace at Fridays gig. Instead of throat singing rituals and gentle bells there was driving, frenetic rhythms and basslines with barely a moment to catch your breath.
 
@@ -48,9 +43,9 @@ For The All Seeing Hand, the live experience has always been important, and they
 “We don’t want to have the world that’s created by the sound to be broken by being snapped back to the reality that it’s just coming out of some instrument in front of me. I dunno, the surrealism of it is appealing to us.”
 
 ![The All Seeing Hand 1](../../gigs/2018-7-27-the-all-seeing-hand-syntax-error-release-tour/the_all_seeing_hand/P1330608_DxO.jpg)
-*The All Seeing Hand At at <a title='The All Seeing Hand Syntax Error Release Tour' href='/gigs/the-all-seeing-hand-syntax-error-release-tour/'>The All Seeing Hand Syntax Error Release Tour, Dunedin</a>*
+_The All Seeing Hand At at <a title='The All Seeing Hand Syntax Error Release Tour' href='/gigs/the-all-seeing-hand-syntax-error-release-tour/'>The All Seeing Hand Syntax Error Release Tour, Dunedin</a>_
 
-While the surrealism on Friday wasn’t quite at blob levels, it was definitely there. The costumes the band wore were imagined and created for the tour by Wellington based musician/artist Cooki M. who performs as Strange Stains. Amazingly the band also deployed original scents created by another artist, Nathan Taare, 
+While the surrealism on Friday wasn’t quite at blob levels, it was definitely there. The costumes the band wore were imagined and created for the tour by Wellington based musician/artist Cooki M. who performs as Strange Stains. Amazingly the band also deployed original scents created by another artist, Nathan Taare,
 
 “He’s got a lab set up at his house with hundreds of vials of super concentrated various molecules and tinctures and extracts and essential oils and he’s really getting into that as a craft.”
 
@@ -62,4 +57,4 @@ Apart from Katy Perry’s 2011-2012 California Dreams Tour it’s the first I’
 
 Next they’ll be finishing their NZ tour in Auckland, Wellington and Whanganui, then heading to Australia.
 
-Listen to the album or buy a cassette on their Bandcamp page: https://the-all-seeing-hand.bandcamp.com 
+Listen to the album or buy a cassette on their Bandcamp page: https://the-all-seeing-hand.bandcamp.com
