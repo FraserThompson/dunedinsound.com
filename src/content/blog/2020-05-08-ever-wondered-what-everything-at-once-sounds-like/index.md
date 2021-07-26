@@ -2,7 +2,7 @@
 title: 'Ever wanted to play your entire music library at once? Well now you can!'
 date: 2020-05-08T07:00:00.000Z
 tags:
-  - Article
+  - Tech
 author: Fraser Thompson
 background_position: center
 background_size: contain

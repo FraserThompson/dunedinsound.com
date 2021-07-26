@@ -2,7 +2,8 @@
 title: 'The L$D Fundraiser Bomb Scare: A retrospective'
 date: 2017-10-27T21:30:00.000Z
 tags:
-  - Article
+  - Opinion
+  - News
   - 'L$D Fundraiser'
 author: 'Fraser Thompson'
 description: 'In June this year an internationally recognized local sound artist grew tired of asking money for his works and decided to give them away for free. What happened next will shock you.'

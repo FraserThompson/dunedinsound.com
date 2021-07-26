@@ -2,7 +2,7 @@
 title: 'Better living online'
 date: 2020-04-24T07:00:00.000Z
 tags:
-  - Article
+  - Review
 related_gigs:
   - 'Better Living Everyone Friday'
 author: Fraser Thompson

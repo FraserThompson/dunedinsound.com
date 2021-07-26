@@ -3,7 +3,7 @@ title: 'Astro Children open up about the new album and the state of the Dunedin 
 date: 2017-08-02T07:30:00.000Z
 tags:
   - Interview
-  - Astro Children
+  - 'Astro Children'
 description: 'Recently I caught up with Millie from Astro Children to discuss their new album, One Direction, and general feelings on the Dunedin music scene.'
 author: 'Fraser Thompson'
 background_position: center

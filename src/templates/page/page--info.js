@@ -1,9 +1,9 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../../components/Layout'
-import BlogContainer from '../../components/BlogContainer'
 import styled from '@emotion/styled'
 import { rhythm } from '../../utils/typography'
+import TextContainer from '../../components/TextContainer'
 
 const Page = React.memo(({ data }) => {
   const post = data.markdownRemark
@@ -51,9 +51,9 @@ const Page = React.memo(({ data }) => {
           </MetadataTable>
         </div>
       </Header>
-      <BlogContainer>
+      <TextContainer>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
-      </BlogContainer>
+      </TextContainer>
     </Layout>
   )
 })

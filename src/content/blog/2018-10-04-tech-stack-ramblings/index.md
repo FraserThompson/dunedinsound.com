@@ -2,8 +2,7 @@
 title: 'Tech stack rundown'
 date: 2018-10-03T21:00:00.000Z
 tags:
-  - tech
-  - Article
+  - Tech
 author: 'Fraser Thompson'
 background_position: center
 background_size: cover

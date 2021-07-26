@@ -2,21 +2,18 @@
 title: 'Dunedinsound.com has a blog 🔥🔥🔥'
 date: 2017-06-20T08:30:00.000Z
 tags:
-    - meta
-description: 'So I decided to add a blog. And I''m looking for content.'
+  - Meta
+description: "So I decided to add a blog. And I'm looking for content."
 author: Fraser
 ---
 
-
-So I decided to add a blog and I'm looking for content. 
+So I decided to add a blog and I'm looking for content.
 
 ### why though?
 
+Basically I think there are interesting things to say regarding the Dunedin gig scene and not many places to say them.
 
-
-Basically I think there are interesting things to say regarding the Dunedin gig scene and not many places to say them. 
-
-Sure there's Facebook, but you're only seeing the good stuff if you happen to be friends with the right people, and Facebook sucks as a reading experience. 
+Sure there's Facebook, but you're only seeing the good stuff if you happen to be friends with the right people, and Facebook sucks as a reading experience.
 
 There are a few other blogs but they're not super active and not very nice reading experiences either. And then there's magazines like Critic who occasionally cover relevant stories, which is awesome, but the barrier to entry seems higher than some random blog.
 
@@ -24,9 +21,9 @@ I want this to be smaller, pretty much as underground as possible.
 
 The sort of content I think would be cool on here:
 
-* Reviews of less-covered albums
-* Artist profiles on less-covered artists
-* Reports on stories of interests (for example the blanking of the gig room at ReFuel)
+- Reviews of less-covered albums
+- Artist profiles on less-covered artists
+- Reports on stories of interests (for example the blanking of the gig room at ReFuel)
 
 And I might sneak in a few nerdy things too. The first real post for example is a post by me comparing my new camera to my old camera. At some point I plan to go over my recording setup too.
 

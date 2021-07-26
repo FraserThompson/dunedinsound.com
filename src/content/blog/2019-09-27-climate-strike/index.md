@@ -2,7 +2,7 @@
 title: 'Media from Strike for the Climate Dunedin'
 date: 2019-09-27T00:00:00.000Z
 tags:
-  - event
+  - Event
 author: 'Fraser Thompson'
 description: 'Photos and video from the 2019 Climate Strike in Dunedin.'
 cover: ./cover.jpg

@@ -122,7 +122,7 @@ const Page = React.memo(({ data }) => {
         backgroundImage={cover}
         customContent={<BannerContent data={data} location={location} />}
       >
-        <HorizontalNav>
+        <HorizontalNav style={{ paddingTop: rhythm(1) }}>
           {data.thisPost.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: data.thisPost.frontmatter.description }}></p>}
           {artistMedia.length == 0 && <LoadingSpinner />}
           {artistMedia.map((artist, index) => {

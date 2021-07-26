@@ -2,7 +2,7 @@
 title: '2020 was a year'
 date: 2020-12-19T07:00:00.000Z
 tags:
-  - Article
+  - 'Year in Review'
 author: Fraser Thompson
 background_position: center
 background_size: contain

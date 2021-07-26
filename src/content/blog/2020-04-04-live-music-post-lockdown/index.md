@@ -2,7 +2,7 @@
 title: 'Live music during a global pandemic'
 date: 2020-04-04T07:00:00.000Z
 tags:
-  - Article
+  - Opinion
 author: Fraser Thompson
 background_position: center
 background_size: contain

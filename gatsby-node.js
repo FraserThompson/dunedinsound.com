@@ -103,19 +103,14 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
-  // Make tag index pages for blog content
-  const allowedTagPages = ['Interview', 'Article', 'News', 'Events', 'Documentary', 'Tech']
-
   result.data.blogsByTag.group.forEach(({ fieldValue }) => {
-    if (allowedTagPages.includes(fieldValue)) {
-      createPage({
-        path: `/blog/tags/${fieldValue}/`,
-        component: layouts.tags,
-        context: {
-          tag: fieldValue,
-        },
-      })
-    }
+    createPage({
+      path: `/blog/tags/${fieldValue}/`,
+      component: layouts.tags,
+      context: {
+        tag: fieldValue,
+      },
+    })
   })
 }
 

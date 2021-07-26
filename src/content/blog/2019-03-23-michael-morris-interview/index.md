@@ -3,7 +3,7 @@ title: 'Catching up with Michael Morris'
 date: 2019-03-22T21:00:00.000Z
 tags:
   - Interview
-  - michael_morris
+  - Michael Morris
 author: 'Fraser Thompson'
 background_position: 'center top'
 background_size: contain

@@ -2,7 +2,7 @@
 title: '“Music has to go somewhere”: The Attic and the value of practice spaces'
 date: 2020-10-10T07:00:00.000Z
 tags:
-  - Article
+  - Opinion
   - Venues
   - The Attic
 related_gigs:

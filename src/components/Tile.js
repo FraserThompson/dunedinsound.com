@@ -181,6 +181,12 @@ const TitleWrapper = styled.div`
 
     @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
       .title {
+        font-size: ${(props) => props.feature && rhythm(2.5)};
+      }
+    }
+
+    @media screen and (min-width: ${(props) => props.theme.breakpoints.lg}) {
+      .title {
         font-size: ${(props) => props.feature && rhythm(4)};
       }
     }

@@ -2,9 +2,9 @@
 title: 'Goodbye None'
 date: 2019-05-25T21:00:00.000Z
 tags:
-  - Article
+  - Opinion
   - Venues
-  - none_gallery
+  - 'None Gallery'
 author: Fraser Thompson
 background_position: center
 background_size: contain

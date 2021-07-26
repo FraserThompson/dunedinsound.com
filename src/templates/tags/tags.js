@@ -2,10 +2,10 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../../components/Layout'
 import styled from '@emotion/styled'
-import BlogContainer from '../../components/BlogContainer'
 import TagCloud from '../../components/TagCloud'
 import Banner from '../../components/Banner'
 import { rhythm } from '../../utils/typography'
+import TextContainer from '../../components/TextContainer'
 
 export default React.memo(({ data, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -41,10 +41,10 @@ export default React.memo(({ data, pageContext }) => {
       title={`Blog | ${siteTitle}`}
       overrideBackgroundColor="white"
     >
-      <BlogContainer>
+      <TextContainer>
         <TagCloud blogTags={blogTags} selected={pageContext.tag} />
         {postElements}
-      </BlogContainer>
+      </TextContainer>
     </Layout>
   )
 })
@@ -58,7 +58,7 @@ const Post = styled.div`
     margin-right: 0px;
   }
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     .banner,
     hr {
       margin-left: -5vw;
@@ -76,7 +76,7 @@ const Post = styled.div`
 `
 
 export const pageQuery = graphql`
-  query($tag: [String]) {
+  query ($tag: [String]) {
     site {
       ...SiteInformation
     }

@@ -2,7 +2,8 @@
 title: '2019 was a year'
 date: 2019-12-31T07:00:00.000Z
 tags:
-  - Article
+  - Opinion
+  - 'Year in review'
 author: Fraser Thompson
 background_position: center
 background_size: contain

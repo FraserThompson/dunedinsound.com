@@ -3,7 +3,7 @@ title: 'Record Store Day 2018 at Relics (video)'
 date: 2018-04-27T20:00:00.000Z
 tags:
   - Interview
-  - opinion
+  - Opinion
 author: 'Fraser Thompson'
 background_position: center
 description: 'Twenty years ago if you wanted music you had to leave your house, go to a record store, talk to some people, part with $30 and return with a CD to pop in your discman. But today we have near instant, near free access to most of the last few hundred years of recorded music. So that makes record stores obsolete, right?'

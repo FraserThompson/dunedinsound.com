@@ -3,7 +3,6 @@ title: 'How ＳＰＬＡＳＨ ＣＬＵＢ ７ became a meme page (video)'
 date: 2018-04-20T20:00:00.000Z
 tags:
   - Interview
-  - Article
 author: 'Fraser Thompson'
 background_position: center
 background_size: contain

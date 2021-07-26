@@ -14,7 +14,7 @@ import styled from '@emotion/styled'
 import { rhythm } from '../utils/typography'
 import BackgroundImage from './BackgroundImage'
 
-export default React.memo(props => (
+export default React.memo((props) => (
   <BannerWrapper className="banner" {...props}>
     {props.backgroundImage && <BackgroundImage image={props.backgroundImage} />}
     {(props.title || props.children) && (
@@ -34,7 +34,7 @@ export default React.memo(props => (
 const BannerWrapper = styled.div`
   background: #40e0d0; /* fallback for old browsers */
   background: radial-gradient(circle, black 0%, rgba(12, 24, 33, 1) 70%);
-  height: ${props => (props.height ? props.height : props.theme.defaultBannerHeight)};
+  height: ${(props) => (props.height ? props.height : props.theme.defaultBannerHeight)};
   overflow: hidden;
   position: relative;
   display: flex;
@@ -61,29 +61,30 @@ const BannerText = styled.div`
   padding: ${rhythm(0.5)};
   height: 100%;
   width: 100%;
+  border: 2px solid ${(props) => props.theme.contrastColor2};
 
   .button {
     background-color: rgba(0, 0, 0, 0.6);
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   }
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     padding: ${rhythm(1)};
     background: rgba(0, 0, 0, 0.8);
-    width: ${props => props.theme.contentContainerWidth};
+    width: ${(props) => props.theme.contentContainerWidth};
     height: auto;
   }
 
   h1 {
-    color: ${props => props.theme.contrastColor};
+    color: ${(props) => props.theme.contrastColor};
   }
 
-  h2, p{
+  h2,
+  p {
     margin-bottom: 0;
   }
 
   .center-content {
-    padding-top: ${rhythm(1)};
     margin-bottom: auto;
     position: relative;
   }

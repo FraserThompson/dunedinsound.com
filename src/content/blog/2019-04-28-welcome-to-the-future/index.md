@@ -2,7 +2,7 @@
 title: 'Welcome to the future'
 date: 2019-04-28T21:00:00.000Z
 tags:
-  - tech
+  - Tech
 author: Fraser Thompson
 background_position: center
 background_size: contain

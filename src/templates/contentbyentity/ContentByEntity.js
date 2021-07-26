@@ -35,6 +35,7 @@ import BackButton from '../../components/BackButton'
 import BackToTop from '../../components/BackToTop'
 import ActiveIndicator from '../../components/ActiveIndicator'
 import { getImage } from 'gatsby-plugin-image'
+import MetadataLinks from './MetadataLinks'
 
 export default React.memo(({ data, pageDescription, parent, background }) => {
   useEffect(() => {
@@ -166,62 +167,8 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
         background={background}
         customContent={<BackButton title={parent.title} to={parent.href} type="up" />}
       >
-        <HorizontalNav>
-          {data.thisPost.frontmatter.lat && (
-            <li>
-              <a
-                title="Google Maps"
-                className="button"
-                rel="noopener"
-                target="_blank"
-                href={`https://www.google.com/maps/search/?api=1&query=${data.thisPost.frontmatter.lat},${data.thisPost.frontmatter.lng}`}
-              >
-                Google Maps
-              </a>
-            </li>
-          )}
-          {data.thisPost.frontmatter.facebook && (
-            <li>
-              <a title="Facebook Page" className="button" rel="noopener" href={data.thisPost.frontmatter.facebook}>
-                Facebook
-              </a>
-            </li>
-          )}
-          {data.thisPost.frontmatter.spotify && (
-            <li>
-              <a title="Listen on Spotify" className="button" rel="noopener" href={data.thisPost.frontmatter.spotify}>
-                Spotify
-              </a>
-            </li>
-          )}
-          {data.thisPost.frontmatter.bandcamp && (
-            <li>
-              <a title="Listen on Bandcamp" className="button" rel="noopener" href={data.thisPost.frontmatter.bandcamp}>
-                Bandcamp
-              </a>
-            </li>
-          )}
-          {data.thisPost.frontmatter.soundcloud && (
-            <li>
-              <a title="Listen on Soundcloud" className="button" rel="noopener" href={data.thisPost.frontmatter.soundcloud}>
-                Soundcloud
-              </a>
-            </li>
-          )}
-          {data.thisPost.frontmatter.website && (
-            <li>
-              <a title="Website" className="button" rel="noopener" href={data.thisPost.frontmatter.website}>
-                Website
-              </a>
-            </li>
-          )}
-          {data.thisPost.frontmatter.audioculture && (
-            <li>
-              <a title="Audioculture article" className="button" rel="noopener" href={data.thisPost.frontmatter.audioculture.link}>
-                Audioculture
-              </a>
-            </li>
-          )}
+        <HorizontalNav style={{ paddingTop: rhythm(1) }}>
+          <MetadataLinks frontmatter={data.thisPost.frontmatter} liClassname="button" />
         </HorizontalNav>
         {data.thisPost.frontmatter.description && (
           <p style={{ marginTop: '1rem' }} dangerouslySetInnerHTML={{ __html: data.thisPost.frontmatter.description }} />

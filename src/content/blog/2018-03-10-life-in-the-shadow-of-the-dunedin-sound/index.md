@@ -2,7 +2,7 @@
 title: 'Life in the shadow of the Dunedin sound'
 date: 2018-03-09T21:00:00.000Z
 tags:
-  - Article
+  - Opinion
   - Coyote
   - 'Ed Sheeran'
   - 'The Chills'

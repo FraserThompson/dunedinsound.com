@@ -2,10 +2,10 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import styled from '@emotion/styled'
-import BlogContainer from '../components/BlogContainer'
 import TagCloud from '../components/TagCloud'
 import Banner from '../components/Banner'
 import { rhythm } from '../utils/typography'
+import TextContainer from '../components/TextContainer'
 
 const Page = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -39,11 +39,11 @@ const Page = ({ data, location }) => {
 
   return (
     <Layout location={location} description={siteDescription} title={`Blog | ${siteTitle}`} overrideBackgroundColor="white">
-      <BlogContainer>
+      <TextContainer>
         <h1>Articles</h1>
         <TagCloud blogTags={blogTags} />
         {postElements}
-      </BlogContainer>
+      </TextContainer>
     </Layout>
   )
 }
@@ -56,7 +56,7 @@ const Post = styled.div`
     margin-right: 0px;
   }
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     .banner,
     hr {
       margin-left: -5vw;
@@ -94,4 +94,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default Page;
+export default Page

@@ -1,12 +1,10 @@
 import styled from '@emotion/styled'
-import Content from './Content'
 import { invert } from 'polished'
 
-export default styled(Content)`
-  max-width: ${props => props.theme.contentContainerWidth};
+export default styled.div`
   height: 100%;
   width: 100%;
-  color: ${props => invert(props.theme.textColor)};
+  color: ${(props) => invert(props.theme.textColor)};
 
   pre {
     background-color: #1e1e1e;
@@ -22,7 +20,7 @@ export default styled(Content)`
   }
 
   a:hover {
-    color: ${props => props.theme.secondaryColor};
+    color: ${(props) => props.theme.secondaryColor};
   }
 
   code {
