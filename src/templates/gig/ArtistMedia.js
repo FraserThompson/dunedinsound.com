@@ -163,16 +163,19 @@ export default React.memo(({ artistMedia, gigTitle }) => {
     return (
       <div key={artist.machineName} id={artist.machineName}>
         <Divider sticky={'header'}>
-          <ArtistDropdownMenu
-            height={rhythm(1)}
-            selected={artistMedia.findIndex((item) => item.machineName == artist.machineName)}
-            list={artistMedia}
-            direction="down"
-            selectCallback={(e, item) => scrollTo(e, item.machineName)}
-            fullWidthMobile={true}
-          >
-            <p style={{ marginRight: rhythm(0.5), textAlign: 'center', width: '100%' }}>{artist.title}</p>
-          </ArtistDropdownMenu>
+          {artistMedia.length > 1 && (
+            <ArtistDropdownMenu
+              height={rhythm(1)}
+              selected={artistMedia.findIndex((item) => item.machineName == artist.machineName)}
+              list={artistMedia}
+              direction="down"
+              selectCallback={(e, item) => scrollTo(e, item.machineName)}
+              fullWidthMobile={true}
+            >
+              <p style={{ marginRight: rhythm(0.5), textAlign: 'center', width: '100%' }}>{artist.title}</p>
+            </ArtistDropdownMenu>
+          )}
+          {artistMedia.length == 1 && <p style={{ marginRight: rhythm(0.5), textAlign: 'center', width: '100%' }}>{artist.title}</p>}
         </Divider>
         <GridContainer xs="12" sm="6" md="6" lg="6">
           {vidElements}

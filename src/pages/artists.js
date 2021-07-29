@@ -15,6 +15,7 @@ const Page = React.memo(({ data, location }) => {
   const [filteredPosts, setFilteredPosts] = useState(null)
 
   const [sortBy, setSortBy] = useState('title')
+  const [hideInactive, setHideInactive] = useState(false)
   const [shuffle, setShuffle] = useState(null)
 
   const element = useRef()
@@ -81,6 +82,10 @@ const Page = React.memo(({ data, location }) => {
     }
   }, [sortBy])
 
+  useEffect(() => {
+    shuffle && shuffle.filter((el) => !hideInactive || el.getAttribute('data-active') == 'true')
+  }, [hideInactive])
+
   const sortByNumberOfGigs = useCallback(() => {
     shuffle && shuffle.sort({ reverse: true, by: (element) => gigMetadataByArtist[element.getAttribute('data-machinename')]['totalCount'] })
   }, [shuffle])
@@ -122,17 +127,25 @@ const Page = React.memo(({ data, location }) => {
         </LoadingWrapper>
       )}
       {filteredPosts && (
-        <Pills>
-          <button className={sortBy === 'title' ? 'active' : ''} onClick={() => setSortBy('title')}>
-            Title
-          </button>
-          <button className={sortBy === 'lastGig' ? 'active' : ''} onClick={() => setSortBy('lastGig')}>
-            Last Played
-          </button>
-          <button className={sortBy === 'numberOfGigs' ? 'active' : ''} onClick={() => setSortBy('numberOfGigs')}>
-            Most Gigs
-          </button>
-        </Pills>
+        <>
+          <Pills>
+            <button className={sortBy === 'title' ? 'active' : ''} onClick={() => setSortBy('title')}>
+              Title
+            </button>
+            <button className={sortBy === 'lastGig' ? 'active' : ''} onClick={() => setSortBy('lastGig')}>
+              Last Played
+            </button>
+            <button className={sortBy === 'numberOfGigs' ? 'active' : ''} onClick={() => setSortBy('numberOfGigs')}>
+              Most Gigs
+            </button>
+          </Pills>
+          <HideInactive>
+            <label>
+              <input name="hideInactive" type="checkbox" checked={hideInactive} onChange={() => setHideInactive(!hideInactive)} />
+              Hide inactive
+            </label>
+          </HideInactive>
+        </>
       )}
       <ArtistGrid fixedWidth ref={element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
         {filteredPosts &&
@@ -159,6 +172,7 @@ const Page = React.memo(({ data, location }) => {
                 to={node.fields.slug}
                 height={filteredPosts.length == 1 ? 'calc(100vh - ' + theme.default.headerHeight + ')' : filteredPosts.length <= 8 ? '40vh' : '20vh'}
                 lastGig={metadata ? metadata.lastGig : 0}
+                active={node.frontmatter.died === null}
               />
             )
           })}
@@ -203,6 +217,14 @@ const Pills = styled(Tabs)`
       background-color: ${(props) => props.theme.foregroundColor};
     }
   }
+`
+
+const HideInactive = styled.div`
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  right: 0px;
+  top: ${(props) => props.theme.headerHeight};
+  z-index: 6;
 `
 
 export const pageQuery = graphql`

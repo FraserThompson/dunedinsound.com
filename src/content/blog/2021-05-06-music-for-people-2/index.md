@@ -3,7 +3,6 @@ title: 'Music for people, not profit'
 date: 2021-05-06T07:00:00.000Z
 tags:
   - Interview
-  - 'Person Will'
 related_gigs:
   - 'Music for People 2 Day'
   - 'Music for People 2 Night'

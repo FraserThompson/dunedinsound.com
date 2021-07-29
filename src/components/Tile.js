@@ -39,6 +39,7 @@ export default ({
   to = null,
   id = null,
   lastGig = null,
+  active = null,
 }) => {
   const tileContent = (
     <>
@@ -63,6 +64,7 @@ export default ({
       data-title={title}
       data-machinename={machineName}
       data-lastgig={lastGig || 0}
+      data-active={active}
       containerWidth={width}
       hoverHeight={hoverHeight}
       className="tile"

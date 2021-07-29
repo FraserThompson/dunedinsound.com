@@ -5,20 +5,20 @@ import { theme } from '../utils/theme'
 import { Link } from 'gatsby'
 import { MdKeyboardArrowUp, MdKeyboardArrowLeft } from 'react-icons/md'
 
-export default React.memo(({ to = '/gigs/', gigSlug, gigYear, type = 'left' }) => {
-  const pathComponents = to && typeof to == `string` && to.split('/').filter(item => item)
+export default React.memo(({ to = '/gigs/', type = 'left' }) => {
+  const pathComponents = to && typeof to == `string` && to.split('/').filter((item) => item)
   const destination = pathComponents && pathComponents.length > 1 ? pathComponents[1].replace(/\_/g, ' ') : pathComponents[0] || 'gigs'
   const destinationText = `Back to ${destination}`
 
   return type == 'left' ? (
     <BackButtonLeft destinationText={destinationText}>
-      <Link style={{ position: 'absolute', left: '0px' }} title={destinationText} to={to} state={{ gigFrom: { slug: gigSlug, year: gigYear } }}>
+      <Link style={{ position: 'absolute', left: '0px' }} title={destinationText} to={to}>
         <MdKeyboardArrowLeft />
       </Link>
     </BackButtonLeft>
   ) : (
     <BackButtonUp>
-      <Link title={destinationText} to={to} state={{ gigFrom: { slug: gigSlug, year: gigYear } }}>
+      <Link title={destinationText} to={to}>
         <p>☝ {destinationText} ☝</p>
         <MdKeyboardArrowUp />
       </Link>
@@ -28,7 +28,7 @@ export default React.memo(({ to = '/gigs/', gigSlug, gigYear, type = 'left' }) =
 
 const BackButtonUp = styled.span`
   ${scale(4)};
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
   position: absolute;
   text-align: center;
   top: -${rhythm(1)};
@@ -60,21 +60,21 @@ const BackButtonLeft = styled.div`
     display: flex;
     align-items: center;
     svg {
-      height: ${props => props.theme.headerHeightMobile};
+      height: ${(props) => props.theme.headerHeightMobile};
       font-size: ${rhythm(1.2)};
-      color: ${props => props.theme.textColor};
-      @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+      color: ${(props) => props.theme.textColor};
+      @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
         font-size: ${rhythm(1.8)};
-        height: ${props => props.theme.headerHeight};
+        height: ${(props) => props.theme.headerHeight};
       }
     }
     &:hover {
       svg {
-        color: ${props => props.theme.secondaryColor};
+        color: ${(props) => props.theme.secondaryColor};
       }
       ::after {
-        background-color: ${props => props.theme.primaryColor};
-        content: '${props => props.destinationText}';
+        background-color: ${(props) => props.theme.primaryColor};
+        content: '${(props) => props.destinationText}';
       }
     }
   }

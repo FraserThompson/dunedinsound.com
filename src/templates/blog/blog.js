@@ -39,7 +39,7 @@ const Page = React.memo(({ data, pageContext }) => {
           </TextContainer>
         </BlogWrapper>
         {post.frontmatter.gallery && <ImageGallery images={data.images['edges']} title={post.frontmatter.title} />}
-        {(data.artist_gigs.edges.length || data.specific_gigs.edges.length) && <h2 style={{ marginBottom: '0' }}>Related Gigs</h2>}
+        {(!!data.artist_gigs.edges.length || !!data.specific_gigs.edges.length) && <h2 style={{ marginBottom: '0' }}>Related Gigs</h2>}
         <FlexGridContainer>
           {[...data.artist_gigs.edges, ...data.specific_gigs.edges].map(({ node }) => (
             <GigTile id={node.fields.slug} node={node} key={node.fields.slug} />

@@ -4,26 +4,27 @@ import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md'
 import styled from '@emotion/styled'
 import { lighten } from 'polished'
 
-export default ({ artistAudio }) => {
+export default ({ artistAudio, audioFeature }) => {
   const [open, setOpen] = useState(false)
 
   return (
-    <PlayerWrapper show={open}>
-      {artistAudio.length > 0 && (
-        <>
+    <>
+      {audioFeature && artistAudio.length > 0 && <Player artistAudio={artistAudio} />}
+      {!audioFeature && artistAudio.length > 0 && (
+        <HiddenPlayerWrapper show={open}>
           <OpenButton show={open}>
             <button title="Audio Player" onClick={() => setOpen(!open)}>
               <small>AUDIO</small> {!open ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
             </button>
           </OpenButton>
           <Player artistAudio={artistAudio} />
-        </>
+        </HiddenPlayerWrapper>
       )}
-    </PlayerWrapper>
+    </>
   )
 }
 
-const PlayerWrapper = styled.div`
+const HiddenPlayerWrapper = styled.div`
   position: fixed;
   bottom: 0px;
   z-index: 11;

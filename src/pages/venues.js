@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import styled from '@emotion/styled'
 import { MapContainer, Popup, TileLayer, Marker } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -76,7 +76,15 @@ const Page = React.memo(({ data, location }) => {
   const [listRefs, setListRefs] = useState([])
   const [markerRefs, setMarkerRefs] = useState([])
 
+  const [hideInactive, setHideInactive] = useState(false)
+
   const [map, setMap] = useState(null)
+
+  // Hide inactive venues when they toggle it
+  useEffect(() => {
+    const filteredPosts = data.allVenues.edges.filter(({ node }) => !hideInactive || node.frontmatter.died === null)
+    setFilteredPosts(filteredPosts)
+  }, [hideInactive])
 
   const select = useCallback(
     (index) => {
@@ -95,7 +103,7 @@ const Page = React.memo(({ data, location }) => {
     [listRefs]
   )
 
-  const filter = useCallback(
+  const searchFilter = useCallback(
     (searchInput) => {
       if (!searchInput || searchInput.length == 0) {
         const filteredPosts = data.allVenues.edges
@@ -134,9 +142,15 @@ const Page = React.memo(({ data, location }) => {
       hideBrandOnMobile={true}
       hideFooter={true}
       isSidebar={true}
-      headerContent={<Search placeholder="Search venues" filter={filter} />}
+      headerContent={<Search placeholder="Search venues" filter={searchFilter} />}
     >
       <Sidebar menuItems={filteredPosts} menuItemClick={select} setRef={setLRefs} selected={selected} />
+      <Filters>
+        <label>
+          <input name="hideInactive" type="checkbox" checked={hideInactive} onChange={() => setHideInactive(!hideInactive)} />
+          Hide inactive
+        </label>
+      </Filters>
       <MapWrapper>
         <MapContainer style={{ height: '100%', width: '100%' }} center={initialMapCenter} zoom={initialZoom} whenCreated={setMap}>
           <TileLayer
@@ -175,7 +189,7 @@ const Page = React.memo(({ data, location }) => {
                 {node.frontmatter.description && <p style={{ marginTop: '10px' }} dangerouslySetInnerHTML={{ __html: node.frontmatter.description }}></p>}
                 <VenueGigsTile>
                   <Link to={node.fields.slug}>
-                    {node.frontmatter.cover && <GatsbyImage image={getImage(node.frontmatter.cover)} alt=""/>}
+                    {node.frontmatter.cover && <GatsbyImage image={getImage(node.frontmatter.cover)} alt="" />}
                     {!node.frontmatter.cover && (
                       <div className="placeholder-image" style={{ backgroundImage: 'url(' + data.placeholder.publicURL + ')' }}></div>
                     )}
@@ -236,6 +250,14 @@ const VenueGigsTile = styled.h4`
       color: ${(props) => lighten(0.5, props.theme.textColor)};
     }
   }
+`
+
+const Filters = styled.div`
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  right: 0px;
+  top: ${(props) => props.theme.headerHeight};
+  z-index: 6;
 `
 
 export const pageQuery = graphql`

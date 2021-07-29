@@ -293,6 +293,8 @@ const PlayerWrapper = styled.div`
 `
 
 const TracklistWrapper = styled(Menu)`
+  overflow-y: auto;
+  max-height: 90vh;
   .title {
     ${scale(1)}
   }

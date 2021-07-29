@@ -79,6 +79,7 @@ const Page = React.memo(({ data, location }) => {
   // Turn the posts sorted by years into two things:
   //    - A list of years and unique months for each year
   //    - A list of posts wrapped by year and month
+  //    - A dict of yera and month by slug
   // Do this in one reduce for performance (albeit slightly worse readability)
   const sortPosts = useCallback((posts) => {
     return posts.reduce(
@@ -90,6 +91,10 @@ const Page = React.memo(({ data, location }) => {
         const month = group.fieldValue.substring(4)
 
         const monthName = monthNames[parseInt(month)]
+
+        // Add year and month for each item by slug to postsBySlug.
+        // This is solely so we can go back from a gig page and scroll to the right place.
+        group.edges.forEach(({ node }) => (obj.postsBySlug[node.fields.slug] = { year: year, month: month }))
 
         if (year != previousYear) {
           obj.menuItems.push({ year: year, count: group.edges.length, months: [monthName] })
@@ -106,11 +111,11 @@ const Page = React.memo(({ data, location }) => {
 
         return obj
       },
-      { menuItems: [], posts: [] }
+      { menuItems: [], posts: [], postsBySlug: {} }
     )
   }, [])
 
-  const { menuItems: allMenuItems, posts: allPostsSorted } = useMemo(() => sortPosts(allPosts), []) //sort all of them and cache it
+  const { menuItems: allMenuItems, posts: allPostsSorted, postsBySlug: postsBySlug } = useMemo(() => sortPosts(allPosts), []) //sort all of them and cache it
 
   const [displayedMenuItems, setDisplayedMenuItems] = useState(allMenuItems)
   const [postsSorted, setPostsSorted] = useState(allPostsSorted)
@@ -118,14 +123,13 @@ const Page = React.memo(({ data, location }) => {
   const [scrollToAnchor, setScrollToAnchor] = useState(null)
   const [gumshoe, setGumshoe] = useState(null)
 
-  const yearPages = { 2019: 0, 2018: 1, 2017: 2, 2016: 3, 2015: 4, 2014: 5 } //should refactor this to be dynamic
-
-  const scrollToGig = useCallback((anchor, year) => {
-    menuItemClick(anchor, yearPages[year])
-  }, [])
-
   useEffect(() => {
-    location.state && location.state.gigFrom && scrollToGig(location.state.gigFrom.slug, location.state.gigFrom.year)
+    // If we came from a previous gig then load up and scroll to it
+    if (typeof window !== `undefined` && window.previousPath) {
+      const previousGigSlug = new URL(window.previousPath).pathname
+      const gigDateData = postsBySlug[previousGigSlug]
+      if (gigDateData) menuItemClick(previousGigSlug, parseInt(gigDateData['year']))
+    }
     setGumshoe(
       new Gumshoe('#sidebarNav a', {
         offset: 120,

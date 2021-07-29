@@ -2,6 +2,7 @@
 title: 'Refuel 28-2-15'
 date: 2015-02-28T05:00:00.000Z
 venue: u-bar
+audioOnly: 'true'
 artists:
   - name: Sorry
     tracklist:

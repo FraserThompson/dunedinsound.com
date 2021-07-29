@@ -16,6 +16,7 @@ import BackToTop from '../../components/BackToTop'
 import { getImage } from 'gatsby-plugin-image'
 
 const Page = React.memo(({ data }) => {
+  const [totalImageCount, setTotalImageCount] = useState(0)
   const [artistMedia, setArtistMedia] = useState([])
   const [artistAudio, setArtistAudio] = useState([])
   const [cover, setCover] = useState(data.thisPost.frontmatter.cover)
@@ -73,6 +74,14 @@ const Page = React.memo(({ data }) => {
       }
     })
 
+    const imageCount = data.images
+      ? data.images.group.reduce((acc, group) => {
+          acc += group.totalCount
+          return acc
+        }, 0)
+      : 0
+    setTotalImageCount(imageCount)
+
     // Set the audio and image blobs to be consumed and displayed later
     setArtistAudio(combinedMedia.filter((thing) => thing.audio && thing.audio.length > 0))
     setArtistMedia(combinedMedia)
@@ -125,20 +134,22 @@ const Page = React.memo(({ data }) => {
         <HorizontalNav style={{ paddingTop: rhythm(1) }}>
           {data.thisPost.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: data.thisPost.frontmatter.description }}></p>}
           {artistMedia.length == 0 && <LoadingSpinner />}
-          {artistMedia.map((artist, index) => {
-            return (
-              <li key={index}>
-                <a className="button" onClick={(e) => scrollTo(e, artist.machineName)} href={'#' + artist.machineName}>
-                  {artist.title}
-                </a>
-              </li>
-            )
-          })}
+          {artistMedia.length > 1 &&
+            !data.thisPost.frontmatter.audioOnly &&
+            artistMedia.map((artist, index) => {
+              return (
+                <li key={index}>
+                  <a className="button" onClick={(e) => scrollTo(e, artist.machineName)} href={'#' + artist.machineName}>
+                    {artist.title}
+                  </a>
+                </li>
+              )
+            })}
         </HorizontalNav>
         {data.thisPost.frontmatter.feature_vid && <YouTubeResponsive videoId={data.thisPost.frontmatter.feature_vid} />}
       </Banner>
-      <GigArtistMedia artistMedia={artistMedia} gigTitle={gigTitle} />
-      <PlayerContainer artistAudio={artistAudio} />
+      <PlayerContainer artistAudio={artistAudio} audioFeature={data.thisPost.frontmatter.audioOnly || totalImageCount < 4} />
+      {!data.thisPost.frontmatter.audioOnly && <GigArtistMedia artistMedia={artistMedia} gigTitle={gigTitle} />}
       <BackToTop />
     </Layout>
   )
@@ -174,6 +185,7 @@ export const pageQuery = graphql`
     ) {
       group(field: relativeDirectory) {
         fieldValue
+        totalCount
         edges {
           node {
             name

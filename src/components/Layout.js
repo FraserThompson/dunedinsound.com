@@ -204,6 +204,7 @@ export const query = graphql`
       venue
       feature_vid
       description
+      audioOnly
       artists {
         name
         tracklist {
