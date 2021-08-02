@@ -144,7 +144,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
     <Layout
       location={parent}
       description={pageDescription}
-      image={cover && getImage(cover)}
+      image={cover && getImage(cover).node.publicURL}
       title={`${data.thisPost.frontmatter.title} | ${data.site.siteMetadata.title}`}
       scrollHeaderOverlay={
         <PageTitle>

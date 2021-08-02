@@ -7,15 +7,18 @@ import FlexGridContainer from '../components/FlexGridContainer'
 import Shuffle from 'shufflejs'
 import { theme } from '../utils/theme'
 import { toMachineName } from '../utils/helper'
-import Tabs from '../components/Tabs'
 import styled from '@emotion/styled'
 import LoadingSpinner from '../components/LoadingSpinner'
+import { rhythm } from '../utils/typography'
 
 const Page = React.memo(({ data, location }) => {
   const [filteredPosts, setFilteredPosts] = useState(null)
 
   const [sortBy, setSortBy] = useState('title')
   const [hideInactive, setHideInactive] = useState(false)
+  const [countryFilter, setCountryFilter] = useState(null)
+  const [artistOrigins, setArtistOrigins] = useState(null)
+  const [searchInput, setSearchInput] = useState(null)
   const [shuffle, setShuffle] = useState(null)
 
   const element = useRef()
@@ -59,19 +62,37 @@ const Page = React.memo(({ data, location }) => {
     []
   )
 
+  // Count of all artist origins by artist
+  const getArtistOrigins = useCallback(
+    () =>
+      filteredPosts &&
+      filteredPosts.reduce((acc, { node }) => {
+        const origin = node.frontmatter.origin || 'Dunedin'
+        if (!acc[origin]) acc[origin] = 0
+        acc[origin]++
+        return acc
+      }, {}),
+    [filteredPosts]
+  )
+
+  // Set the filtered posts on  creation
   useEffect(() => {
     setFilteredPosts(data.allArtists.edges)
   }, [])
 
+  // If the filter changes make a new shuffle board
   useEffect(() => {
+    setArtistOrigins(getArtistOrigins())
     setShuffle(new Shuffle(element.current, { itemSelector: '.tile' }))
   }, [filteredPosts])
 
+  // Update the shuffle when it changes and delete it when it goes
   useEffect(() => {
     shuffle && shuffle.update()
     return () => shuffle && shuffle.destroy()
   }, [shuffle])
 
+  // Sorting toggle
   useEffect(() => {
     if (sortBy === 'title') {
       sortByTitle()
@@ -82,35 +103,37 @@ const Page = React.memo(({ data, location }) => {
     }
   }, [sortBy])
 
+  const getShuffleFilter = useCallback(
+    (el) => {
+      return (
+        (!hideInactive || el.getAttribute('data-active') == 'true') &&
+        (!countryFilter || el.getAttribute('data-origin') === countryFilter) &&
+        (!searchInput || searchInput.length == 0 || el.getAttribute('data-title').toLowerCase().indexOf(searchInput) !== -1)
+      )
+    },
+    [countryFilter, hideInactive, searchInput]
+  )
+
+  // Filters
   useEffect(() => {
-    shuffle && shuffle.filter((el) => !hideInactive || el.getAttribute('data-active') == 'true')
-  }, [hideInactive])
+    if (!shuffle) return
+    shuffle.filter((el) => getShuffleFilter(el))
+  }, [countryFilter, hideInactive, searchInput])
 
   const sortByNumberOfGigs = useCallback(() => {
-    shuffle && shuffle.sort({ reverse: true, by: (element) => gigMetadataByArtist[element.getAttribute('data-machinename')]['totalCount'] })
+    if (!shuffle) return
+    shuffle.sort({ reverse: true, by: (el) => gigMetadataByArtist[el.getAttribute('data-machinename')]['totalCount'] })
   }, [shuffle])
 
   const sortByTitle = useCallback(() => {
-    shuffle && shuffle.sort({ by: (element) => element.getAttribute('data-title').toLowerCase() })
+    if (!shuffle) return
+    shuffle.sort({ by: (el) => el.getAttribute('data-title').toLowerCase() })
   }, [shuffle])
 
   const sortByLastGig = useCallback(() => {
-    shuffle && shuffle.sort({ reverse: true, by: (element) => element.getAttribute('data-lastgig') })
+    if (!shuffle) return
+    shuffle.sort({ reverse: true, by: (el) => el.getAttribute('data-lastgig') })
   }, [shuffle])
-
-  const search = useCallback(
-    (searchInput) => {
-      if (!shuffle) return
-      if (!searchInput || searchInput.length == 0) {
-        shuffle.filter('all')
-      } else {
-        shuffle.filter((element) => {
-          return element.getAttribute('data-title').toLowerCase().indexOf(searchInput) !== -1
-        })
-      }
-    },
-    [shuffle]
-  )
 
   return (
     <Layout
@@ -119,7 +142,7 @@ const Page = React.memo(({ data, location }) => {
       title={`Artists | ${data.site.siteMetadata.title}`}
       hideBrandOnMobile={true}
       hideFooter={true}
-      headerContent={<Search placeholder="Search artists" filter={search} />}
+      headerContent={<Search placeholder="Search artists" filter={(search) => setSearchInput(search)} />}
     >
       {!filteredPosts && (
         <LoadingWrapper>
@@ -127,8 +150,9 @@ const Page = React.memo(({ data, location }) => {
         </LoadingWrapper>
       )}
       {filteredPosts && (
-        <>
-          <Pills>
+        <Filters>
+          <span>Sort by: </span>
+          <div>
             <button className={sortBy === 'title' ? 'active' : ''} onClick={() => setSortBy('title')}>
               Title
             </button>
@@ -138,14 +162,23 @@ const Page = React.memo(({ data, location }) => {
             <button className={sortBy === 'numberOfGigs' ? 'active' : ''} onClick={() => setSortBy('numberOfGigs')}>
               Most Gigs
             </button>
-          </Pills>
+          </div>
           <HideInactive>
             <label>
               <input name="hideInactive" type="checkbox" checked={hideInactive} onChange={() => setHideInactive(!hideInactive)} />
               Hide inactive
             </label>
           </HideInactive>
-        </>
+          <select name="countries" onChange={(e) => setCountryFilter(e.target.value !== 'all' ? e.target.value : null)}>
+            <option value={'all'}>All countries ({filteredPosts.length})</option>
+            {artistOrigins &&
+              Object.keys(artistOrigins).map((country) => (
+                <option key={country} value={country}>
+                  {country} ({artistOrigins[country]})
+                </option>
+              ))}
+          </select>
+        </Filters>
       )}
       <ArtistGrid fixedWidth ref={element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
         {filteredPosts &&
@@ -171,8 +204,11 @@ const Page = React.memo(({ data, location }) => {
                 label={node.frontmatter.date}
                 to={node.fields.slug}
                 height={filteredPosts.length == 1 ? 'calc(100vh - ' + theme.default.headerHeight + ')' : filteredPosts.length <= 8 ? '40vh' : '20vh'}
-                lastGig={metadata ? metadata.lastGig : 0}
-                active={node.frontmatter.died === null}
+                dataAttributes={{
+                  'data-lastgig': metadata ? metadata.lastGig : 0,
+                  'data-active': node.frontmatter.died === null,
+                  'data-origin': node.frontmatter.origin || 'Dunedin',
+                }}
               />
             )
           })}
@@ -191,27 +227,30 @@ const LoadingWrapper = styled.div`
   align-items: center;
 `
 
-const Pills = styled(Tabs)`
-  color: ${(props) => props.theme.foregroundColor};
-  position: fixed;
-  width: auto;
-  z-index: 4;
-  top: auto !important;
-  border-radius: 10px;
+const Filters = styled.div`
+  padding-left: ${rhythm(0.5)};
+  padding-right: ${rhythm(0.5)};
+  display: flex;
+  align-items: center;
+
+  color: black;
+  border-bottom: 1px solid black;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-  opacity: 0.6;
-  transition: opacity 200ms ease-in-out;
 
   font-size: 80%;
+  width: 100%;
+  min-height: 30px;
 
-  &:hover {
-    opacity: 1;
+  background-color: ${(props) => props.theme.contrastColor};
+
+  > div,
+  span {
+    margin-right: ${rhythm(0.5)};
   }
 
   button {
     border: none;
-    border-radius: 10px;
-    height: 100%;
+    background-color: black;
     &.active {
       color: black;
       background-color: ${(props) => props.theme.foregroundColor};
@@ -219,12 +258,10 @@ const Pills = styled(Tabs)`
   }
 `
 
-const HideInactive = styled.div`
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-  position: fixed;
-  right: 0px;
-  top: ${(props) => props.theme.headerHeight};
-  z-index: 6;
+const HideInactive = styled.span`
+  input {
+    margin-right: 5px;
+  }
 `
 
 export const pageQuery = graphql`

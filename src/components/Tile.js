@@ -27,19 +27,18 @@ export default ({
   height = '40vh',
   feature = false,
   backgroundColor = 'radial-gradient(circle, black 0%, rgba(12, 24, 33, 1) 70%)',
-  width = null,
-  hoverHeight = null,
-  machineName = null,
-  label = null,
-  image = null,
-  subtitle = null,
-  title = null,
+  width,
+  hoverHeight,
+  machineName,
+  label,
+  image,
+  subtitle,
+  title,
   children,
-  href = null,
-  to = null,
-  id = null,
-  lastGig = null,
-  active = null,
+  href,
+  to,
+  id,
+  dataAttributes = {},
 }) => {
   const tileContent = (
     <>
@@ -63,12 +62,11 @@ export default ({
       containerHeight={height}
       data-title={title}
       data-machinename={machineName}
-      data-lastgig={lastGig || 0}
-      data-active={active}
       containerWidth={width}
       hoverHeight={hoverHeight}
       className="tile"
       id={id}
+      {...dataAttributes}
     >
       {to && (
         <Link to={to} title={title} state={{ from: typeof window !== `undefined` && window.location.pathname }}>

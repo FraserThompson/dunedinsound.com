@@ -13,6 +13,7 @@ import Search from '../components/Search'
 import HorizontalNav from '../components/HorizontalNav'
 import { lighten } from 'polished'
 import ActiveIndicator from '../components/ActiveIndicator'
+import { rhythm } from '../utils/typography'
 
 // Weird hack to fix leaflet.css importing relative images
 if (typeof L !== 'undefined') {
@@ -145,12 +146,12 @@ const Page = React.memo(({ data, location }) => {
       headerContent={<Search placeholder="Search venues" filter={searchFilter} />}
     >
       <Sidebar menuItems={filteredPosts} menuItemClick={select} setRef={setLRefs} selected={selected} />
-      <Filters>
+      <HideInactive>
         <label>
           <input name="hideInactive" type="checkbox" checked={hideInactive} onChange={() => setHideInactive(!hideInactive)} />
-          Hide inactive
+          Hide defunct
         </label>
-      </Filters>
+      </HideInactive>
       <MapWrapper>
         <MapContainer style={{ height: '100%', width: '100%' }} center={initialMapCenter} zoom={initialZoom} whenCreated={setMap}>
           <TileLayer
@@ -252,12 +253,15 @@ const VenueGigsTile = styled.h4`
   }
 `
 
-const Filters = styled.div`
+const HideInactive = styled.div`
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
   position: fixed;
-  right: 0px;
+  right: ${rhythm(0.5)};
   top: ${(props) => props.theme.headerHeight};
   z-index: 6;
+  input {
+    margin-right: 5px;
+  }
 `
 
 export const pageQuery = graphql`
