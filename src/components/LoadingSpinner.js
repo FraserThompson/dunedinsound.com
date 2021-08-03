@@ -2,61 +2,50 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 const LoadingSpinnerWrapper = styled.div`
-  .lds-ellipsis {
+  .lds-ring {
     display: inline-block;
     position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
     width: 64px;
     height: 64px;
-  }
-  .lds-ellipsis div {
-    position: absolute;
-    top: 27px;
-    width: 11px;
-    height: 11px;
+    margin: 8px;
+    border: 8px solid #fff;
     border-radius: 50%;
-    background: #fff;
-    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
   }
-  .lds-ellipsis div:nth-of-type(1) {
-    left: 6px;
-    animation: lds-ellipsis1 0.6s infinite;
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
   }
-  .lds-ellipsis div:nth-of-type(2) {
-    left: 6px;
-    animation: lds-ellipsis2 0.6s infinite;
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
   }
-  .lds-ellipsis div:nth-of-type(3) {
-    left: 26px;
-    animation: lds-ellipsis2 0.6s infinite;
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
   }
-  .lds-ellipsis div:nth-of-type(4) {
-    left: 45px;
-    animation: lds-ellipsis3 0.6s infinite;
-  }
-  @keyframes lds-ellipsis1 {
+  @keyframes lds-ring {
     0% {
-      transform: scale(0);
+      transform: rotate(0deg);
     }
     100% {
-      transform: scale(1);
-    }
-  }
-  @keyframes lds-ellipsis3 {
-    0% {
-      transform: scale(1);
-    }
-    100% {
-      transform: scale(0);
-    }
-  }
-  @keyframes lds-ellipsis2 {
-    0% {
-      transform: translate(0, 0);
-    }
-    100% {
-      transform: translate(19px, 0);
+      transform: rotate(360deg);
     }
   }
 `
 
-export default () => <LoadingSpinnerWrapper><div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div></LoadingSpinnerWrapper>
+export default () => (
+  <LoadingSpinnerWrapper>
+    <div className="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </LoadingSpinnerWrapper>
+)

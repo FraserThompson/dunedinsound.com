@@ -13,7 +13,7 @@ import styled from '@emotion/styled'
 import { rhythm } from '../../utils/typography'
 import BackButton from '../../components/BackButton'
 import BackToTop from '../../components/BackToTop'
-import { getImage } from 'gatsby-plugin-image'
+import { getSrc } from 'gatsby-plugin-image'
 
 const Page = React.memo(({ data }) => {
   const [totalImageCount, setTotalImageCount] = useState(0)
@@ -94,7 +94,7 @@ const Page = React.memo(({ data }) => {
     <Layout
       location={location}
       description={`Photos, audio and video from ${gigTitle}.`}
-      image={cover && getImage(cover).node.publicURL}
+      image={cover && getSrc(cover)}
       title={`${gigTitle} | ${data.site.siteMetadata.title}`}
       date={data.thisPost.frontmatter.date}
       type="article"

@@ -34,7 +34,7 @@ import { scrollTo } from '../../utils/helper'
 import BackButton from '../../components/BackButton'
 import BackToTop from '../../components/BackToTop'
 import ActiveIndicator from '../../components/ActiveIndicator'
-import { getImage } from 'gatsby-plugin-image'
+import { getSrc } from 'gatsby-plugin-image'
 import MetadataLinks from './MetadataLinks'
 
 export default React.memo(({ data, pageDescription, parent, background }) => {
@@ -144,7 +144,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
     <Layout
       location={parent}
       description={pageDescription}
-      image={cover && getImage(cover).node.publicURL}
+      image={cover && getSrc(cover)}
       title={`${data.thisPost.frontmatter.title} | ${data.site.siteMetadata.title}`}
       scrollHeaderOverlay={
         <PageTitle>

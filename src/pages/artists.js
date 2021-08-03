@@ -12,14 +12,15 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import { rhythm } from '../utils/typography'
 
 const Page = React.memo(({ data, location }) => {
-  const [filteredPosts, setFilteredPosts] = useState(null)
-
+  const [loading, setLoading] = useState(true)
   const [sortBy, setSortBy] = useState('title')
   const [hideInactive, setHideInactive] = useState(false)
   const [countryFilter, setCountryFilter] = useState(null)
   const [artistOrigins, setArtistOrigins] = useState(null)
   const [searchInput, setSearchInput] = useState(null)
   const [shuffle, setShuffle] = useState(null)
+
+  const artists = data.allArtists.edges
 
   const element = useRef()
 
@@ -62,29 +63,23 @@ const Page = React.memo(({ data, location }) => {
     []
   )
 
-  // Count of all artist origins by artist
-  const getArtistOrigins = useCallback(
-    () =>
-      filteredPosts &&
-      filteredPosts.reduce((acc, { node }) => {
-        const origin = node.frontmatter.origin || 'Dunedin'
-        if (!acc[origin]) acc[origin] = 0
-        acc[origin]++
-        return acc
-      }, {}),
-    [filteredPosts]
-  )
-
-  // Set the filtered posts on  creation
+  // Make a shuffle board on load and set the artist origin dropdown
   useEffect(() => {
-    setFilteredPosts(data.allArtists.edges)
+    const origins = artists.reduce((acc, { node }) => {
+      const origin = node.frontmatter.origin || 'Dunedin'
+      if (!acc[origin]) acc[origin] = 0
+      acc[origin]++
+      return acc
+    }, {})
+
+    setArtistOrigins(origins)
+
+    const newShuffle = new Shuffle(element.current, { itemSelector: '.tile' })
+
+    newShuffle.on(Shuffle.EventType.LAYOUT, () => setLoading(false))
+
+    setShuffle(newShuffle)
   }, [])
-
-  // If the filter changes make a new shuffle board
-  useEffect(() => {
-    setArtistOrigins(getArtistOrigins())
-    setShuffle(new Shuffle(element.current, { itemSelector: '.tile' }))
-  }, [filteredPosts])
 
   // Update the shuffle when it changes and delete it when it goes
   useEffect(() => {
@@ -94,6 +89,7 @@ const Page = React.memo(({ data, location }) => {
 
   // Sorting toggle
   useEffect(() => {
+    setLoading(true)
     if (sortBy === 'title') {
       sortByTitle()
     } else if (sortBy === 'numberOfGigs') {
@@ -117,6 +113,7 @@ const Page = React.memo(({ data, location }) => {
   // Filters
   useEffect(() => {
     if (!shuffle) return
+    setLoading(true)
     shuffle.filter((el) => getShuffleFilter(el))
   }, [countryFilter, hideInactive, searchInput])
 
@@ -141,48 +138,45 @@ const Page = React.memo(({ data, location }) => {
       description={data.site.siteMetadata.description}
       title={`Artists | ${data.site.siteMetadata.title}`}
       hideBrandOnMobile={true}
-      hideFooter={true}
       headerContent={<Search placeholder="Search artists" filter={(search) => setSearchInput(search)} />}
     >
-      {!filteredPosts && (
+      {loading && (
         <LoadingWrapper>
           <LoadingSpinner />
         </LoadingWrapper>
       )}
-      {filteredPosts && (
-        <Filters>
-          <span>Sort by: </span>
-          <div>
-            <button className={sortBy === 'title' ? 'active' : ''} onClick={() => setSortBy('title')}>
-              Title
-            </button>
-            <button className={sortBy === 'lastGig' ? 'active' : ''} onClick={() => setSortBy('lastGig')}>
-              Last Played
-            </button>
-            <button className={sortBy === 'numberOfGigs' ? 'active' : ''} onClick={() => setSortBy('numberOfGigs')}>
-              Most Gigs
-            </button>
-          </div>
-          <HideInactive>
-            <label>
-              <input name="hideInactive" type="checkbox" checked={hideInactive} onChange={() => setHideInactive(!hideInactive)} />
-              Hide inactive
-            </label>
-          </HideInactive>
-          <select name="countries" onChange={(e) => setCountryFilter(e.target.value !== 'all' ? e.target.value : null)}>
-            <option value={'all'}>All countries ({filteredPosts.length})</option>
-            {artistOrigins &&
-              Object.keys(artistOrigins).map((country) => (
-                <option key={country} value={country}>
-                  {country} ({artistOrigins[country]})
-                </option>
-              ))}
-          </select>
-        </Filters>
-      )}
+      <Filters>
+        <span>Sort by: </span>
+        <div>
+          <button className={sortBy === 'title' ? 'active' : ''} onClick={() => setSortBy('title')}>
+            Title
+          </button>
+          <button className={sortBy === 'lastGig' ? 'active' : ''} onClick={() => setSortBy('lastGig')}>
+            Last Played
+          </button>
+          <button className={sortBy === 'numberOfGigs' ? 'active' : ''} onClick={() => setSortBy('numberOfGigs')}>
+            Most Gigs
+          </button>
+        </div>
+        <HideInactive>
+          <label>
+            <input name="hideInactive" type="checkbox" checked={hideInactive} onChange={() => setHideInactive(!hideInactive)} />
+            Hide inactive
+          </label>
+        </HideInactive>
+        <select name="countries" onChange={(e) => setCountryFilter(e.target.value !== 'all' ? e.target.value : null)}>
+          <option value={'all'}>All countries ({artists.length})</option>
+          {artistOrigins &&
+            Object.keys(artistOrigins).map((country) => (
+              <option key={country} value={country}>
+                {country} ({artistOrigins[country]})
+              </option>
+            ))}
+        </select>
+      </Filters>
       <ArtistGrid fixedWidth ref={element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
-        {filteredPosts &&
-          filteredPosts.map(({ node }) => {
+        {artists &&
+          artists.map(({ node }) => {
             const metadata = gigMetadataByArtist[node.fields.machine_name]
 
             if (!metadata) {
@@ -203,7 +197,7 @@ const Page = React.memo(({ data, location }) => {
                 image={coverImage}
                 label={node.frontmatter.date}
                 to={node.fields.slug}
-                height={filteredPosts.length == 1 ? 'calc(100vh - ' + theme.default.headerHeight + ')' : filteredPosts.length <= 8 ? '40vh' : '20vh'}
+                height={artists.length == 1 ? 'calc(100vh - ' + theme.default.headerHeight + ')' : artists.length <= 8 ? '40vh' : '20vh'}
                 dataAttributes={{
                   'data-lastgig': metadata ? metadata.lastGig : 0,
                   'data-active': node.frontmatter.died === null,
@@ -219,9 +213,15 @@ const Page = React.memo(({ data, location }) => {
 
 const ArtistGrid = styled(FlexGridContainer)`
   position: relative;
+  overflow: hidden;
 `
 
 const LoadingWrapper = styled.div`
+  width: 100vw;
+  min-height: ${(props) => `calc(100vh - ${props.theme.headerHeight} - 1px)`};
+  position: fixed;
+  top: ${(props) => `calc(${props.theme.headerHeight})`};
+  z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -251,7 +251,8 @@ const Filters = styled.div`
   button {
     border: none;
     background-color: black;
-    &.active {
+    &.active,
+    &:active {
       color: black;
       background-color: ${(props) => props.theme.foregroundColor};
     }
