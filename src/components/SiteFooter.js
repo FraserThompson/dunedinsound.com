@@ -30,7 +30,8 @@ export default () => (
       <Container>
         <Content>
           <p>
-            Obscure and unofficial media from gigs in Dunedin, New Zealand since 2014. <Link to="/page/info/">More Info</Link>
+            Obscure and unofficial media from gigs in Dunedin, New Zealand since 2014. <br />
+            <Link to="/page/info/">More Info</Link>
           </p>
           <div id="footer-social-icons">
             <a title="Facebook" target="_blank" rel="noopener" href="https://facebook.com/dunedinsound/">

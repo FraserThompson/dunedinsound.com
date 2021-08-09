@@ -20,7 +20,7 @@ const Page = ({ data }) => {
   const [playerTarget, setPlayerTarget] = useState(null)
   const [hovered, setHovered] = useState(false)
 
-  const getPlayerTarget = useCallback(target => setPlayerTarget(target), [])
+  const getPlayerTarget = useCallback((target) => setPlayerTarget(target), [])
 
   const bottomContent = (
     <Logo position="bottom">
@@ -40,7 +40,7 @@ const Page = ({ data }) => {
   const leftContent = playerTarget && artistAudio && (
     <VideoControls
       tracklist={artistAudio[0].tracklist}
-      onHover={inOrOut => setHovered(inOrOut)}
+      onHover={(inOrOut) => setHovered(inOrOut)}
       playerTarget={playerTarget}
       fullDownloadLink={artistAudio[0].audio[0]['.mp3'].publicURL}
     />
@@ -79,7 +79,7 @@ const Page = ({ data }) => {
       {
         title: post.frontmatter.title,
         audio: Object.values(audio),
-        tracklist: post.frontmatter.tracklist.map(track => {
+        tracklist: post.frontmatter.tracklist.map((track) => {
           track.seconds = timeToSeconds(track.time)
           return track
         }),
@@ -102,7 +102,7 @@ const Page = ({ data }) => {
           <YouTubeResponsive videoId={post.frontmatter.full_video} getPlayerTarget={getPlayerTarget} vanilla />
         </VideoWrapper>
       </World>
-      {artistAudio && <PlayerContainer artistAudio={artistAudio} />}
+      {artistAudio && <PlayerContainer artistAudio={artistAudio} minimizedAlways={true} />}
     </Layout>
   )
 }
@@ -110,8 +110,8 @@ const Page = ({ data }) => {
 const Logo = styled.div`
   margin: 0 auto;
   position: absolute;
-  top: ${props => props.position == 'top' && '0px'};
-  bottom: ${props => props.position == 'bottom' && '0px'};
+  top: ${(props) => props.position == 'top' && '0px'};
+  bottom: ${(props) => props.position == 'bottom' && '0px'};
   z-index: 2;
   width: 100%;
   img {
@@ -135,7 +135,7 @@ const VideoWrapper = styled.div`
   background-color: black;
   bottom: 0;
   transform-origin: center bottom;
-  transform: translateZ(-50px) translateY(-50%) translateX(-50%) rotateX(${props => (props.hovered ? '90deg' : '0deg')});
+  transform: translateZ(-50px) translateY(-50%) translateX(-50%) rotateX(${(props) => (props.hovered ? '90deg' : '0deg')});
   width: 100vw;
   z-index: 4;
   position: relative;
@@ -145,7 +145,7 @@ const VideoWrapper = styled.div`
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     width: 60vw;
     transform: translateZ(-50px) translateY(-50%) translateX(-50%);
   }
@@ -223,4 +223,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default Page;
+export default Page

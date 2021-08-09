@@ -18,15 +18,15 @@ export default React.memo((props) => (
   <BannerWrapper className="banner" {...props}>
     {props.backgroundImage && <BackgroundImage image={props.backgroundImage} />}
     {(props.title || props.children) && (
-      <BannerText>
+      <BannerContent>
         <Title>
           {props.title && <h1 className="big">{props.title}</h1>}
           {props.subtitle && <h2>{props.subtitle}</h2>}
         </Title>
         {props.children && <div className="center-content">{props.children}</div>}
-      </BannerText>
+      </BannerContent>
     )}
-    {props.background && <div className="background">{props.background}</div>}
+    {props.background && <BackgroundContent>{props.background}</BackgroundContent>}
     {props.customContent}
   </BannerWrapper>
 ))
@@ -34,34 +34,34 @@ export default React.memo((props) => (
 const BannerWrapper = styled.div`
   background: #40e0d0; /* fallback for old browsers */
   background: radial-gradient(circle, black 0%, rgba(12, 24, 33, 1) 70%);
-  height: ${(props) => (props.height ? props.height : props.theme.defaultBannerHeight)};
+  min-height: ${(props) => props.height || props.theme.defaultBannerHeight};
   overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   > * {
     z-index: 1;
   }
-  .background {
-    z-index: 0;
-    width: 100%;
-    height: 100%;
-  }
 `
-const BannerText = styled.div`
+
+const BackgroundContent = styled.div`
   position: absolute;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+`
+
+const BannerContent = styled.div`
+  padding: ${rhythm(0.5)};
+  padding-top: 1em;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   text-align: center;
   justify-content: center;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 20%, rgba(0, 0, 0, 0) 40%);
-  padding: ${rhythm(0.5)};
   height: 100%;
   width: 100%;
-  border: 2px solid ${(props) => props.theme.contrastColor2};
 
   .button {
     background-color: rgba(0, 0, 0, 0.6);
@@ -70,7 +70,7 @@ const BannerText = styled.div`
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     padding: ${rhythm(1)};
-    background: rgba(0, 0, 0, 0.8);
+    padding-top: 4.5em;
     width: ${(props) => props.theme.contentContainerWidth};
     height: auto;
   }

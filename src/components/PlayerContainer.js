@@ -1,58 +1,57 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Player from './Player'
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md'
 import styled from '@emotion/styled'
 import { lighten } from 'polished'
+import { calculateScrollHeaderOffset } from '../utils/helper'
 
-export default ({ artistAudio, audioFeature }) => {
+const scrollHeaderOffset = typeof window !== `undefined` && calculateScrollHeaderOffset(window)
+
+export default ({ artistAudio, minimizedAlways }) => {
   const [open, setOpen] = useState(false)
+  const [minimized, setMinimized] = useState(minimizedAlways || false)
+
+  const onScroll = useCallback(() => {
+    if (minimizedAlways) return
+
+    if (window.pageYOffset >= scrollHeaderOffset) {
+      setMinimized(true)
+    } else {
+      setMinimized(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    // To prompt wavesurfer to redraw the waveform we'll just trick it
+    window.dispatchEvent(new Event('resize'))
+  }, [minimized])
+
+  useEffect(() => {
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
     <>
-      {audioFeature && artistAudio.length > 0 && <Player artistAudio={artistAudio} />}
-      {!audioFeature && artistAudio.length > 0 && (
-        <HiddenPlayerWrapper show={open}>
-          <OpenButton show={open}>
+      {artistAudio.length > 0 && (
+        <PlayerWrapper open={open} minimized={minimized}>
+          <OpenButton>
             <button title="Audio Player" onClick={() => setOpen(!open)}>
               <small>AUDIO</small> {!open ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
             </button>
           </OpenButton>
           <Player artistAudio={artistAudio} />
-        </HiddenPlayerWrapper>
+        </PlayerWrapper>
       )}
     </>
   )
 }
 
-const HiddenPlayerWrapper = styled.div`
-  position: fixed;
-  bottom: 0px;
-  z-index: 11;
-  overflow: visible;
-  margin-top: ${(props) => props.theme.headerHeightNeg};
-  width: 100%;
-
-  pointer-events: ${(props) => (props.show ? 'auto' : 'none')};
-  transform: ${(props) => (props.show ? `translateY(-${props.theme.headerHeightMobile})` : `translateY(100px)`)};
-  transition: transform 150ms ease-in-out;
-
-  .player {
-    pointer-events: ${(props) => (props.show ? 'auto' : 'none')};
-    visibility: ${(props) => (props.show ? '1' : '0')};
-    opacity: ${(props) => (props.show ? '1' : '0')};
-    transition: all 150ms ease-in-out;
-  }
-
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-    transform: ${(props) => (props.show ? `translateY(0)` : `translateY(100px)`)};
-  }
-`
-
 const OpenButton = styled.div`
-  position: ${(props) => (!props.show ? 'absolute' : 'static')};
   text-align: center;
   width: 100%;
   bottom: calc(${(props) => props.theme.headerHeightMobile} + 100px);
+  left: 0px;
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     bottom: 100px;
@@ -86,5 +85,35 @@ const OpenButton = styled.div`
       background-color: ${(props) => lighten(0.2, props.theme.foregroundColor)};
       box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     }
+  }
+`
+
+const PlayerWrapper = styled.div`
+  position: ${(props) => (props.minimized ? 'fixed' : 'static')};
+  bottom: 0px;
+  left: 0px;
+  z-index: 11;
+  overflow: visible;
+  margin-top: ${(props) => (props.minimized ? props.theme.headerHeightNeg : '0px')};
+  width: 100%;
+
+  pointer-events: ${(props) => (!props.minimized || props.open ? 'auto' : 'none')};
+  transform: ${(props) => props.minimized && (!props.open ? `translateY(100px)` : `translateY(-${props.theme.headerHeightMobile})`)};
+  transition: transform 150ms ease-in-out;
+
+  ${OpenButton} {
+    display: ${(props) => (!props.minimized ? 'none' : 'inline-block')};
+    position: ${(props) => (!props.open ? 'absolute' : 'static')};
+  }
+
+  .player {
+    pointer-events: ${(props) => (!props.minimized || props.open ? 'auto' : 'none')};
+    visibility: ${(props) => (!props.minimized || props.open ? '1' : '0')};
+    opacity: ${(props) => (!props.minimized || props.open ? '1' : '0')};
+    transition: all 150ms ease-in-out;
+  }
+
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    transform: ${(props) => props.minimized && (props.open ? `translateY(0)` : `translateY(100px)`)};
   }
 `

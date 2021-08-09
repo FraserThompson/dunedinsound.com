@@ -5,7 +5,7 @@ template: page/page--info.js
 
 ## What is this?
 
-The aim of dunedinsound.com is to document a horizontal slice of the current music scene in Dunedin as it happens.
+The aim of dunedinsound.com is to document a vertical slice of the current music scene in Dunedin as it happens.
 
 Most of that is done by going to gigs, documenting them via photo, video and audio, then archiving them here.
 
@@ -33,12 +33,14 @@ dunedinsound.com is a permanent archive, artists/fans will be able to access it 
 
 ## What equipment do you use?
 
-- Custom binaural headset: Two electret microphones, modified to withstand higher volumes without distorting, shoved into a pair of earplugs, and wired up to a battery box. They go in my ears and record sound with the added benefit of protecting my hearing somewhat. This is how I get decent sounding recordings without any setup.
+In case you're curious.
+
+- Custom binaural headset: Two electret microphones, modified to withstand higher volumes without distorting, shoved into a pair of earplugs, and wired up to a battery box. They go in my ears and record sound with the added benefit of protecting my hearing somewhat. This is how I get decent sounding recordings without setting anything up or talking to the sound person.
 - Panasonic G85 micro four-thirds camera with vintage M42 mount lenses, usually an Asahi Pentax 50mm 1.4 (the one with the radioactive element).
 - Panasonic GX850 as a b-cam for multi-angle video.
 - Roland R-05 portable recorder. Built in mics are okay as a backup.
 
-My recording rig is wearable, which means I can stand in the audience and get a pretty good recording without any setup required. Also unlike a recording from the soundboard my recordings capture exactly what it sounded like from the audience, which can be really good or really bad or anywhere in between.
+My recording rig is wearable, so I can just stand in the audience and get a pretty good recording. Also, unlike a recording from the soundboard my recordings capture exactly what it sounded like from the audience, which can be really good or really bad or anywhere in between.
 
 Most of the recordings are [binaural](https://en.wikipedia.org/wiki/Binaural_recording) so that means they'll sound best on headphones.
 

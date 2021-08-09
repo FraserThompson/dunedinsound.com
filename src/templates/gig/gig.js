@@ -16,7 +16,6 @@ import BackToTop from '../../components/BackToTop'
 import { getSrc } from 'gatsby-plugin-image'
 
 const Page = React.memo(({ data }) => {
-  const [totalImageCount, setTotalImageCount] = useState(0)
   const [artistMedia, setArtistMedia] = useState([])
   const [artistAudio, setArtistAudio] = useState([])
   const [cover, setCover] = useState(data.thisPost.frontmatter.cover)
@@ -74,14 +73,6 @@ const Page = React.memo(({ data }) => {
       }
     })
 
-    const imageCount = data.images
-      ? data.images.group.reduce((acc, group) => {
-          acc += group.totalCount
-          return acc
-        }, 0)
-      : 0
-    setTotalImageCount(imageCount)
-
     // Set the audio and image blobs to be consumed and displayed later
     setArtistAudio(combinedMedia.filter((thing) => thing.audio && thing.audio.length > 0))
     setArtistMedia(combinedMedia)
@@ -128,10 +119,15 @@ const Page = React.memo(({ data }) => {
             </>
           )
         }
+        height="80vh"
         backgroundImage={cover}
-        customContent={<BannerContent data={data} location={location} />}
+        customContent={
+          <>
+            <BannerContent data={data} location={location} />
+          </>
+        }
       >
-        <HorizontalNav style={{ paddingTop: rhythm(1) }}>
+        <HorizontalNav style={{ paddingTop: rhythm(1), paddingBottom: rhythm(1) }}>
           {data.thisPost.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: data.thisPost.frontmatter.description }}></p>}
           {artistMedia.length == 0 && <LoadingSpinner />}
           {artistMedia.length > 1 &&
@@ -146,9 +142,13 @@ const Page = React.memo(({ data }) => {
               )
             })}
         </HorizontalNav>
-        {data.thisPost.frontmatter.feature_vid && <YouTubeResponsive videoId={data.thisPost.frontmatter.feature_vid} />}
+        {data.thisPost.frontmatter.feature_vid && (
+          <FeatureVidWrapper>
+            <YouTubeResponsive videoId={data.thisPost.frontmatter.feature_vid} />
+          </FeatureVidWrapper>
+        )}
+        <PlayerContainer artistAudio={artistAudio} />
       </Banner>
-      <PlayerContainer artistAudio={artistAudio} audioFeature={data.thisPost.frontmatter.audioOnly || totalImageCount < 4} />
       {!data.thisPost.frontmatter.audioOnly && <GigArtistMedia artistMedia={artistMedia} gigTitle={gigTitle} />}
       <BackToTop />
     </Layout>
@@ -164,6 +164,10 @@ const HeaderTitle = styled.a`
       font-size: ${rhythm(1.8)};
     }
   }
+`
+
+const FeatureVidWrapper = styled.div`
+  padding-bottom: ${rhythm(1)};
 `
 
 export const pageQuery = graphql`
