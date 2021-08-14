@@ -38,7 +38,7 @@ export default React.memo(({ artistMedia, gigTitle }) => {
       const newSelectedImage = parseInt(searchParams.get('image'))
 
       // If we've moved to a new artist scroll to it so they're not confused when they close it
-      if (newSelectedArtist != selectedArtist) {
+      if (newSelectedArtist != selectedArtist && artistMedia[newSelectedArtist]) {
         scrollTo(null, artistMedia[newSelectedArtist].machineName)
       }
 

@@ -165,7 +165,7 @@ const Page = React.memo(({ data, location }) => {
           </label>
         </HideInactive>
         <select name="countries" onChange={(e) => setCountryFilter(e.target.value !== 'all' ? e.target.value : null)}>
-          <option value={'all'}>All countries ({artists.length})</option>
+          <option value={'all'}>All origins ({artists.length})</option>
           {artistOrigins &&
             Object.keys(artistOrigins).map((country) => (
               <option key={country} value={country}>

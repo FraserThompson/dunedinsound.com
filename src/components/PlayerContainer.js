@@ -94,7 +94,7 @@ const PlayerWrapper = styled.div`
   left: 0px;
   z-index: 11;
   overflow: visible;
-  margin-top: ${(props) => (props.minimized ? props.theme.headerHeightNeg : '0px')};
+  margin-top: ${(props) => (props.minimized ? props.theme.headerHeightNeg : 'auto')};
   width: 100%;
 
   pointer-events: ${(props) => (!props.minimized || props.open ? 'auto' : 'none')};

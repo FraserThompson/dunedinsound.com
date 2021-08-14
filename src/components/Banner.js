@@ -23,7 +23,7 @@ export default React.memo((props) => (
           {props.title && <h1 className="big">{props.title}</h1>}
           {props.subtitle && <h2>{props.subtitle}</h2>}
         </Title>
-        {props.children && <div className="center-content">{props.children}</div>}
+        {props.children}
       </BannerContent>
     )}
     {props.background && <BackgroundContent>{props.background}</BackgroundContent>}
@@ -53,13 +53,13 @@ const BackgroundContent = styled.div`
 `
 
 const BannerContent = styled.div`
+  flex-grow: 1;
   padding: ${rhythm(0.5)};
   padding-top: 1em;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   text-align: center;
-  justify-content: center;
   height: 100%;
   width: 100%;
 
@@ -90,6 +90,4 @@ const BannerContent = styled.div`
   }
 `
 
-const Title = styled.div`
-  margin-bottom: auto;
-`
+const Title = styled.div``

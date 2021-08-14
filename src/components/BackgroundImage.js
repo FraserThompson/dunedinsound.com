@@ -9,7 +9,11 @@ import styled from '@emotion/styled'
 
 export default ({ image }) => (
   <BackgroundImageWrapper>
-    <GatsbyImage className="backgroundImage" style={{ width: '100%', zIndex: 0, height: '100%' }} image={getImage(image)} alt="" />
+    {!Array.isArray(image) && <GatsbyImage className="backgroundImage" style={{ width: '100%', zIndex: 0, height: '100%' }} image={getImage(image)} alt="" />}
+    {Array.isArray(image) &&
+      image.map((image, i) => (
+        <GatsbyImage key={i} className="backgroundImage" style={{ width: '100%', zIndex: 0, height: '100%' }} image={getImage(image)} alt="" />
+      ))}
   </BackgroundImageWrapper>
 )
 

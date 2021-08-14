@@ -171,7 +171,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
           <MetadataLinks frontmatter={data.thisPost.frontmatter} liClassname="button" />
         </HorizontalNav>
         {data.thisPost.frontmatter.description && (
-          <p style={{ marginTop: '1rem' }} dangerouslySetInnerHTML={{ __html: data.thisPost.frontmatter.description }} />
+          <p style={{ marginTop: 'auto' }} dangerouslySetInnerHTML={{ __html: data.thisPost.frontmatter.description }} />
         )}
       </Banner>
       <ContentTabs

@@ -35,7 +35,7 @@ const Page = React.memo(({ data }) => {
     const imagesByArtist = data.images && graphqlGroupToObject(data.images.group, true, (fieldValue) => fieldValue.split('/')[1])
 
     // Cover image is either one image or all the images in the _header folder
-    imagesByArtist['_header'] && setCover(imagesByArtist['_header'])
+    imagesByArtist['_header'] && setCover(imagesByArtist['_header'].map(({ node }) => node))
 
     // Key-value object of audio files by artist
     const audioByArtist =

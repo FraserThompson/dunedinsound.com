@@ -149,7 +149,6 @@ const GlobalStyle = css`
     padding-left: ${padding};
     color: ${theme.default.textColor};
     background-color: transparent;
-    border-radius: 5px;
     border: 2px solid ${theme.default.foregroundColor};
 
     &.active,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../../components/Layout'
-import BlogContainer from '../../components/BlogContainer'
+import TextContainer from '../../components/TextContainer'
 
 const Page = React.memo(({ data }) => {
   const post = data.markdownRemark
@@ -15,9 +15,9 @@ const Page = React.memo(({ data }) => {
       title={`${post.frontmatter.title} | ${siteTitle}`}
       overrideBackgroundColor="white"
     >
-      <BlogContainer>
+      <TextContainer>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
-      </BlogContainer>
+      </TextContainer>
     </Layout>
   )
 })
@@ -33,4 +33,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default Page;
+export default Page
