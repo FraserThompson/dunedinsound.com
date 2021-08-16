@@ -26,7 +26,7 @@ export default React.memo(({ videoId, odd, vanilla, getPlayerTarget }) => {
   }
 
   const onReady = useCallback(
-    event => {
+    (event) => {
       event.target.setPlaybackQuality('hd720')
       event.target.playVideo() // this doesn't seem to work
       getPlayerTarget && getPlayerTarget(event.target)
@@ -68,8 +68,8 @@ const YouTubeWrapper = styled.div`
   height: 0;
   overflow: hidden;
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    grid-column: ${props => (props.odd ? 'col-start 4 / span 6' : null)};
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    grid-column: ${(props) => (props.odd ? 'col-start 4 / span 6' : null)};
   }
 
   iframe,
@@ -85,8 +85,8 @@ const YouTubeWrapper = styled.div`
 const WatchOnYoutubeLink = styled.a`
   padding: ${rhythm(0.5)};
   position: absolute;
-  top: 0;
-  right: 0;
+  bottom: 0;
+  left: 0;
 `
 
 const PlaceholderContent = styled.div`
@@ -101,7 +101,7 @@ const PlaceholderContent = styled.div`
       outline: 0;
       svg {
         transform: scale(1.1, 1.1);
-        color: ${props => props.theme.foregroundColor};
+        color: ${(props) => props.theme.foregroundColor};
       }
     }
   }
