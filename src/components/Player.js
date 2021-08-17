@@ -5,7 +5,7 @@
 
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import styled from '@emotion/styled'
-import { MdPlayArrow, MdPause, MdSkipNext, MdSkipPrevious, MdFileDownload } from 'react-icons/md'
+import { FaPlayCircle, FaPauseCircle, FaBackward, FaForward, FaDownload } from 'react-icons/fa'
 import { theme } from '../utils/theme'
 import RoundButton from './RoundButton'
 import { scale } from '../utils/typography'
@@ -176,19 +176,17 @@ export default React.memo(({ artistAudio }) => {
   return (
     <div className="player">
       <PlayerWrapper>
-        {ready && (
-          <div>
-            <RoundButton id="prev" size="30px" onClick={previous}>
-              <MdSkipPrevious />
-            </RoundButton>
-            <RoundButton className={playing ? 'active' : ''} size="40px" onClick={() => wavesurfer.playPause()}>
-              {!playing ? <MdPlayArrow /> : <MdPause />}
-            </RoundButton>
-            <RoundButton id="next" size="30px" onClick={next}>
-              <MdSkipNext />
-            </RoundButton>
-          </div>
-        )}
+        <Transport>
+          <TransportButton disabled={!ready} id="prev" onClick={previous}>
+            <FaBackward />
+          </TransportButton>
+          <RoundButton disabled={!ready} className={playing ? 'active' : ''} size="40px" onClick={() => wavesurfer.playPause()}>
+            {!playing ? <FaPlayCircle /> : <FaPauseCircle />}
+          </RoundButton>
+          <TransportButton disabled={!ready} id="next" onClick={next}>
+            <FaForward />
+          </TransportButton>
+        </Transport>
         <WaveWrapper ref={waveformRef}>
           {ready && <LengthWrapper style={{ left: '0px' }}>{formatTime(currentTime)}</LengthWrapper>}
           {ready && <LengthWrapper style={{ right: '0px' }}>{formatTime(duration)}</LengthWrapper>}
@@ -208,7 +206,7 @@ export default React.memo(({ artistAudio }) => {
               </span>
               <span className="listButton">
                 <a title={'Download MP3: ' + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank">
-                  <MdFileDownload />
+                  <FaDownload />
                 </a>
               </span>
             </li>
@@ -291,6 +289,20 @@ const PlayerWrapper = styled.div`
     }
   }
 `
+
+const TransportButton = styled.button`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  padding: 10px;
+  svg {
+    width: 80%;
+    height: 80%auto;
+  }
+`
+
+const Transport = styled.div``
 
 const TracklistWrapper = styled(Menu)`
   overflow-y: auto;

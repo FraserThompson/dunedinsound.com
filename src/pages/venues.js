@@ -4,26 +4,16 @@ import Layout from '../components/Layout'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import styled from '@emotion/styled'
 import { MapContainer, Popup, TileLayer, Marker } from 'react-leaflet'
+import { divIcon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import marker from 'leaflet/dist/images/marker-icon.png'
-import marker2x from 'leaflet/dist/images/marker-icon-2x.png'
-import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 import SidebarNav from '../components/SidebarNav'
 import Search from '../components/Search'
 import HorizontalNav from '../components/HorizontalNav'
 import { lighten } from 'polished'
 import ActiveIndicator from '../components/ActiveIndicator'
 import { rhythm } from '../utils/typography'
-
-// Weird hack to fix leaflet.css importing relative images
-if (typeof L !== 'undefined') {
-  delete L.Icon.Default.prototype._getIconUrl
-  L.Icon.Default.mergeOptions({
-    iconRetinaUrl: marker2x,
-    iconUrl: marker,
-    shadowUrl: markerShadow,
-  })
-}
+import ReactDOMServer from 'react-dom/server'
+import { FaMapMarkerAlt, FaSkull } from 'react-icons/fa'
 
 const Sidebar = React.memo(({ menuItems, menuItemClick, setRef, selected }) => {
   const [open, setOpen] = useState(true)
@@ -78,14 +68,17 @@ const Page = React.memo(({ data, location }) => {
   const [markerRefs, setMarkerRefs] = useState([])
 
   const [hideInactive, setHideInactive] = useState(false)
+  const [hideActive, setHideActive] = useState(false)
 
   const [map, setMap] = useState(null)
 
   // Hide inactive venues when they toggle it
   useEffect(() => {
-    const filteredPosts = data.allVenues.edges.filter(({ node }) => !hideInactive || node.frontmatter.died === null)
+    const filteredPosts = data.allVenues.edges.filter(
+      ({ node }) => (!hideActive && node.frontmatter.died === null) || (!hideInactive && node.frontmatter.died !== null)
+    )
     setFilteredPosts(filteredPosts)
-  }, [hideInactive])
+  }, [hideInactive, hideActive])
 
   const select = useCallback(
     (index) => {
@@ -135,6 +128,16 @@ const Page = React.memo(({ data, location }) => {
     [markerRefs]
   )
 
+  const livingIcon = divIcon({
+    className: 'alive-icon',
+    html: ReactDOMServer.renderToString(<FaMapMarkerAlt />),
+  })
+
+  const deadIcon = divIcon({
+    className: 'dead-icon',
+    html: ReactDOMServer.renderToString(<FaSkull />),
+  })
+
   return (
     <Layout
       description={data.site.siteMetadata.description}
@@ -146,12 +149,16 @@ const Page = React.memo(({ data, location }) => {
       headerContent={<Search placeholder="Search venues" filter={searchFilter} />}
     >
       <Sidebar menuItems={filteredPosts} menuItemClick={select} setRef={setLRefs} selected={selected} />
-      <HideInactive>
+      <HideFilters>
         <label>
           <input name="hideInactive" type="checkbox" checked={hideInactive} onChange={() => setHideInactive(!hideInactive)} />
-          Hide defunct
+          Hide dead
         </label>
-      </HideInactive>
+        <label>
+          <input name="hideActive" type="checkbox" checked={hideActive} onChange={() => setHideActive(!hideActive)} />
+          Hide alive
+        </label>
+      </HideFilters>
       <MapWrapper>
         <MapContainer style={{ height: '100%', width: '100%' }} center={initialMapCenter} zoom={initialZoom} whenCreated={setMap}>
           <TileLayer
@@ -159,7 +166,13 @@ const Page = React.memo(({ data, location }) => {
             attribution='Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
           />
           {filteredPosts.map(({ node }, index) => (
-            <Marker ref={setMRefs} key={index} position={[node.frontmatter.lat, node.frontmatter.lng]} eventHandlers={{ click: () => markerClick(index) }}>
+            <Marker
+              ref={setMRefs}
+              key={index}
+              position={[node.frontmatter.lat, node.frontmatter.lng]}
+              eventHandlers={{ click: () => markerClick(index) }}
+              icon={node.frontmatter.died == undefined ? livingIcon : deadIcon}
+            >
               <Popup>
                 <h3 style={{ marginBottom: '0' }}>{node.frontmatter.title}</h3>
                 <p style={{ marginTop: '0', marginBottom: '10px' }}>
@@ -212,6 +225,20 @@ const MapWrapper = styled.div`
   position: relative;
   z-index: 5;
 
+  .dead-icon {
+    color: #ab0000;
+  }
+
+  .leaflet-marker-icon {
+    width: 20px !important;
+    height: 20px !important;
+    filter: drop-shadow(1px 1px 2px black);
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
   .leaflet-popup-content {
     max-width: 230px;
   }
@@ -253,12 +280,16 @@ const VenueGigsTile = styled.h4`
   }
 `
 
-const HideInactive = styled.div`
+const HideFilters = styled.div`
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
   position: fixed;
   right: ${rhythm(0.5)};
   top: ${(props) => props.theme.headerHeight};
   z-index: 6;
+  label {
+    margin: 5px;
+    display: block;
+  }
   input {
     margin-right: 5px;
   }

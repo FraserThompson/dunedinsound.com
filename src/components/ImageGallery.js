@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import { GatsbyImage, getImage, getSrcSet } from 'gatsby-plugin-image'
 import Lightbox from 'react-image-lightbox'
-import { MdFileDownload } from 'react-icons/md'
+import { FaDownload } from 'react-icons/fa'
 import FlexGridContainer from '../components/FlexGridContainer'
 import { createBrowserHistory } from 'history'
 import { parse } from 'srcset'
@@ -87,7 +87,7 @@ export default React.memo(({ images, gridSize, title, imageCaption }) => {
           onMoveNextRequest={() => gotoLightboxImage(nextImage)}
           toolbarButtons={[
             <LightBoxToolbarButton title="Download" target="_blank" href={getImageSrc(selectedImage, 'full')}>
-              <MdFileDownload />
+              <FaDownload />
             </LightBoxToolbarButton>,
           ]}
           imageTitle={title}

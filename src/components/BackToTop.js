@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react'
 import styled from '@emotion/styled'
-import { MdKeyboardArrowUp } from 'react-icons/md'
+import { FaChevronUp } from 'react-icons/fa'
 
 export default React.memo(() => {
   const [scrolled, setScrolled] = useState(false)
@@ -26,7 +26,7 @@ export default React.memo(() => {
   return (
     scrolled && (
       <BackToTopButton onClick={scrollToTop}>
-        <MdKeyboardArrowUp />
+        <FaChevronUp />
       </BackToTopButton>
     )
   )
@@ -36,17 +36,16 @@ const BackToTopButton = styled.button`
   position: fixed;
   z-index: 6;
   padding: 0;
-  font-size: 1.6em;
-  bottom: ${props => `calc(${props.theme.headerHeightMobile} + 10px)`};
+  bottom: ${(props) => `calc(${props.theme.headerHeightMobile} + 10px)`};
   right: 10px;
   width: 40px;
   height: 40px;
   background-color: rgba(0, 0, 0, 0.6);
   > svg {
-    width: 100%;
+    width: 60%;
     height: 100%;
   }
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     bottom: 10px;
     width: 60px;
     height: 60px;

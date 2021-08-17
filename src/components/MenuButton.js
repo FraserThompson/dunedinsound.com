@@ -4,31 +4,31 @@ import { lighten } from 'polished'
 
 export default styled.button`
   ${scale(1)};
-  width: ${props => props.theme.headerHeightMobile};
-  height: ${props => props.theme.headerHeightMobile};
+  width: ${(props) => props.theme.headerHeightMobile};
+  height: ${(props) => props.theme.headerHeightMobile};
   padding: 0;
   outline: 0;
   z-index: 12;
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
   border: none;
   border-radius: 0px;
-  background-color: ${props => props.theme.primaryColor};
+  background-color: ${(props) => props.theme.primaryColor};
 
   svg {
-    width: 100%;
+    width: 80%;
     height: 100%;
   }
 
   &:hover {
-    background-color: ${props => lighten(0.1, props.theme.primaryColor)};
+    background-color: ${(props) => lighten(0.1, props.theme.primaryColor)};
   }
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
-    display: ${props => props.hideMobile && 'none'};
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
+    display: ${(props) => props.hideMobile && 'none'};
     width: 50px;
   }
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    height: ${props => props.theme.headerHeight};
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    height: ${(props) => props.theme.headerHeight};
   }
 `

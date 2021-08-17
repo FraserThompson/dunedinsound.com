@@ -13,7 +13,7 @@ import { darken, lighten } from 'polished'
 import { Transition } from 'react-transition-group'
 import FadeInOut from './FadeInOut'
 import MenuButton from './MenuButton'
-import { MdMenu } from 'react-icons/md'
+import { FaBars } from 'react-icons/fa'
 
 export default React.memo(({ left, right, width, backgroundColor, open, toggle, children }) => {
   // So because vh units in CSS don't take into account the address bar on mobile we have to get
@@ -32,14 +32,14 @@ export default React.memo(({ left, right, width, backgroundColor, open, toggle, 
     <>
       <MenuButtonWrapper>
         <MenuButton hideMobile={true} onClick={toggle}>
-          <MdMenu />
+          <FaBars />
         </MenuButton>
       </MenuButtonWrapper>
       <SidebarNavWrapper left={left} right={right} width={width} viewportHeight={viewportHeight} backgroundColor={backgroundColor} open={open}>
         <List>{children}</List>
       </SidebarNavWrapper>
       <Transition mountOnEnter={true} unmountOnExit={true} in={!open} timeout={200}>
-        {state => <PageOverlay state={state} onClick={toggle} />}
+        {(state) => <PageOverlay state={state} onClick={toggle} />}
       </Transition>
     </>
   )
@@ -58,40 +58,40 @@ const PageOverlay = styled(FadeInOut)`
 `
 
 const SidebarNavWrapper = styled(Menu)`
-  background-color: ${props => props.backgroundColor || props.theme.primaryColor};
-  height: ${props => `calc(${props.viewportHeight + 'px' || '100vh'} - ${props.theme.headerHeightMobileTwice})`};
+  background-color: ${(props) => props.backgroundColor || props.theme.primaryColor};
+  height: ${(props) => `calc(${props.viewportHeight + 'px' || '100vh'} - ${props.theme.headerHeightMobileTwice})`};
   overflow-x: hidden;
   position: fixed;
-  width: ${props => props.width || DefaultWidth};
-  max-width: ${props => props.width || DefaultWidth};
-  top: ${props => props.theme.headerHeightMobile};
-  left: ${props => props.left && 0};
-  right: ${props => props.right && 0};
+  width: ${(props) => props.width || DefaultWidth};
+  max-width: ${(props) => props.width || DefaultWidth};
+  top: ${(props) => props.theme.headerHeightMobile};
+  left: ${(props) => props.left && 0};
+  right: ${(props) => props.right && 0};
   z-index: 10;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-  border-right: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
+  border-right: 1px solid ${(props) => darken(0.025, props.theme.primaryColor)};
 
-  visibility: ${props => (props.open ? 'hidden' : 'visible')};
-  opacity: ${props => (props.open ? '0' : '1')};
-  transform: ${props => (props.open ? `translateX(${(props.left ? '-' : '') + (props.width || DefaultWidth)})` : `translateX(0)`)};
-  pointer-events: ${props => (props.open ? 'none' : 'auto')};
+  visibility: ${(props) => (props.open ? 'hidden' : 'visible')};
+  opacity: ${(props) => (props.open ? '0' : '1')};
+  transform: ${(props) => (props.open ? `translateX(${(props.left ? '-' : '') + (props.width || DefaultWidth)})` : `translateX(0)`)};
+  pointer-events: ${(props) => (props.open ? 'none' : 'auto')};
 
   transition-property: opacity, transform;
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0, 0, 0, 1.2);
   will-change: transform;
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    height: ${props => `calc(100vh - ${props.theme.headerHeight})`};
-    top: ${props => props.theme.headerHeight};
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    height: ${(props) => `calc(100vh - ${props.theme.headerHeight})`};
+    top: ${(props) => props.theme.headerHeight};
     width: 300px;
   }
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
-    visibility: ${props => (!props.open ? 'hidden' : 'visible')};
-    opacity: ${props => (!props.open ? '0' : '1')};
-    transform: ${props => (!props.open ? `translateX(${(props.left ? '-' : '') + (props.width || DefaultWidth)})` : `translateX(0)`)};
-    pointer-events: ${props => (!props.open ? 'none' : 'auto')};
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
+    visibility: ${(props) => (!props.open ? 'hidden' : 'visible')};
+    opacity: ${(props) => (!props.open ? '0' : '1')};
+    transform: ${(props) => (!props.open ? `translateX(${(props.left ? '-' : '') + (props.width || DefaultWidth)})` : `translateX(0)`)};
+    pointer-events: ${(props) => (!props.open ? 'none' : 'auto')};
   }
 `
 
@@ -111,7 +111,7 @@ const List = styled.div`
   > li {
     &:hover:not(.active-parent) {
       > a {
-        background-color: ${props => lighten(0.1, props.theme.backgroundColor)};
+        background-color: ${(props) => lighten(0.1, props.theme.backgroundColor)};
       }
     }
   }
@@ -122,27 +122,27 @@ const List = styled.div`
     > li {
       border-left: 5px solid transparent;
       &:hover:not(.active-parent) {
-        border-left: 5px solid ${props => lighten(0.3, props.theme.backgroundColor)};
+        border-left: 5px solid ${(props) => lighten(0.3, props.theme.backgroundColor)};
         > a {
           color: white;
-          background-color: ${props => lighten(0.3, props.theme.backgroundColor)};
+          background-color: ${(props) => lighten(0.3, props.theme.backgroundColor)};
         }
       }
       &.active-parent {
-        border-left: 5px solid ${props => props.theme.foregroundColor};
+        border-left: 5px solid ${(props) => props.theme.foregroundColor};
         &:active {
           background-color: transparent !important;
         }
         > a {
           color: black;
-          background-color: ${props => props.theme.foregroundColor};
-          border-bottom: 1px solid ${props => darken(0.2, props.theme.foregroundColor)};
+          background-color: ${(props) => props.theme.foregroundColor};
+          border-bottom: 1px solid ${(props) => darken(0.2, props.theme.foregroundColor)};
         }
       }
       > ul {
         > li {
           &:hover:not(.active) {
-            background-color: ${props => lighten(0.1, props.theme.backgroundColor)};
+            background-color: ${(props) => lighten(0.1, props.theme.backgroundColor)};
           }
         }
       }

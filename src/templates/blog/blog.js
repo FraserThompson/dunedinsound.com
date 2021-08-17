@@ -90,6 +90,7 @@ const BlogTitle = styled.h1`
   overflow: hidden;
   text-transform: uppercase;
   margin-bottom: 0;
+  filter: drop-shadow(1px 2px 10px black);
 
   @media screen and (min-width: ${theme.default.breakpoints.md}) {
     font-size: 3.5em;

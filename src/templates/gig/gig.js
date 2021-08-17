@@ -120,6 +120,7 @@ const Page = React.memo(({ data }) => {
           )
         }
         height="80vh"
+        zIndex="8"
         backgroundImage={cover}
         customContent={
           <>

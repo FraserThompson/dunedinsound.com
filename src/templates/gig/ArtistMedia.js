@@ -3,7 +3,7 @@ import { GatsbyImage, getImage, getSrcSet } from 'gatsby-plugin-image'
 import GridContainer from '../../components/GridContainer'
 import Divider from '../../components/Divider'
 import Lightbox from 'react-image-lightbox'
-import { MdFileDownload } from 'react-icons/md'
+import { FaDownload } from 'react-icons/fa'
 import YouTubeResponsive from '../../components/YouTubeResponsive'
 import { rhythm } from '../../utils/typography'
 import FlexGridContainer from '../../components/FlexGridContainer'
@@ -13,6 +13,7 @@ import { scrollTo } from '../../utils/helper'
 import { createBrowserHistory } from 'history'
 import styled from '@emotion/styled'
 import { parse } from 'srcset'
+import { Link } from 'gatsby'
 
 export default React.memo(({ artistMedia, gigTitle }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false)
@@ -163,19 +164,7 @@ export default React.memo(({ artistMedia, gigTitle }) => {
     return (
       <div key={artist.machineName} id={artist.machineName}>
         <Divider sticky={'header'}>
-          {artistMedia.length > 1 && (
-            <ArtistDropdownMenu
-              height={rhythm(1)}
-              selected={artistMedia.findIndex((item) => item.machineName == artist.machineName)}
-              list={artistMedia}
-              direction="down"
-              selectCallback={(e, item) => scrollTo(e, item.machineName)}
-              fullWidthMobile={true}
-            >
-              <p style={{ marginRight: rhythm(0.5), textAlign: 'center', width: '100%' }}>{artist.title}</p>
-            </ArtistDropdownMenu>
-          )}
-          {artistMedia.length == 1 && <p style={{ marginRight: rhythm(0.5), textAlign: 'center', width: '100%' }}>{artist.title}</p>}
+          <p style={{ marginRight: rhythm(0.5), textAlign: 'center', width: '100%' }}>{artist.title}</p>
         </Divider>
         <GridContainer xs="12" sm="6" md="6" lg="6">
           {vidElements}
@@ -189,6 +178,16 @@ export default React.memo(({ artistMedia, gigTitle }) => {
 
   return artistMedia.length > 0 ? (
     <>
+      {artistMedia.length > 1 && (
+        <ArtistDropdownMenu
+          height={rhythm(1)}
+          selected={artistMedia.findIndex((item) => item.machineName == '')}
+          list={artistMedia}
+          direction="down"
+          selectCallback={(e, item) => scrollTo(e, item.machineName)}
+          fullWidthMobile={true}
+        />
+      )}
       {media}
       {lightboxOpen && (
         <Lightbox
@@ -199,7 +198,7 @@ export default React.memo(({ artistMedia, gigTitle }) => {
           onMovePrevRequest={() => gotoLightboxImage(prevImage())}
           toolbarButtons={[
             <LightBoxToolbarButton title="Download" target="_blank" href={getImageSrc({ selectedImage, selectedArtist }, 'full')}>
-              <MdFileDownload />
+              <FaDownload />
             </LightBoxToolbarButton>,
           ]}
           imageTitle={gigTitle}

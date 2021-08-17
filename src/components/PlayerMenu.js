@@ -3,7 +3,7 @@
 
 import React, { useState, useCallback } from 'react'
 import styled from '@emotion/styled'
-import { MdPlaylistPlay, MdFileDownload } from 'react-icons/md'
+import { FaPlay, FaDownload } from 'react-icons/fa'
 import { scale } from '../utils/typography'
 import Menu from './Menu'
 import MenuButton from './MenuButton'
@@ -13,7 +13,7 @@ export default React.memo(({ list, selected, selectCallback, seekCallback }) => 
   const [open, setOpen] = useState(false)
 
   const toggleMenu = useCallback(
-    e => {
+    (e) => {
       e.stopPropagation()
       e.preventDefault()
       setOpen(!open)
@@ -22,7 +22,7 @@ export default React.memo(({ list, selected, selectCallback, seekCallback }) => 
   )
 
   const select = useCallback(
-    index => {
+    (index) => {
       selectCallback && selectCallback(index)
       setOpen(false)
     },
@@ -40,13 +40,13 @@ export default React.memo(({ list, selected, selectCallback, seekCallback }) => 
               </span>
               <span className="listButton">
                 <a title={'Download MP3: ' + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank">
-                  <MdFileDownload />
+                  <FaDownload />
                 </a>
               </span>
             </li>
             {item.tracklist && (
               <ul className="tracklist">
-                {item.tracklist.map(item => {
+                {item.tracklist.map((item) => {
                   return (
                     <li key={item.title} onClick={() => seekCallback(item.time, index, true)}>
                       {item.title} ({item.time})
@@ -59,7 +59,7 @@ export default React.memo(({ list, selected, selectCallback, seekCallback }) => 
         ))}
       </DropdownMenu>
       <MenuButton className={open ? 'active' : ''} open={open} aria-haspopup="true" onClick={toggleMenu}>
-        <MdPlaylistPlay />
+        <FaPlay />
       </MenuButton>
     </div>
   )
@@ -72,10 +72,10 @@ const DropdownMenu = styled(Menu)`
   left: auto;
   max-height: 80vh;
   overflow-y: auto;
-  visibility: ${props => (props.open ? '1' : '0')};
-  opacity: ${props => (props.open ? '1' : '0')};
-  transform: ${props => (props.open ? 'translateY(0)' : `translateY(${props.theme.headerHeight})`)};
-  pointer-events: ${props => (props.open ? 'auto' : 'none')};
+  visibility: ${(props) => (props.open ? '1' : '0')};
+  opacity: ${(props) => (props.open ? '1' : '0')};
+  transform: ${(props) => (props.open ? 'translateY(0)' : `translateY(${props.theme.headerHeight})`)};
+  pointer-events: ${(props) => (props.open ? 'auto' : 'none')};
   transition-property: all;
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0, 0, 0, 1.2);
@@ -84,7 +84,7 @@ const DropdownMenu = styled(Menu)`
     ${scale(1)}
   }
   > li:hover:not(.active) {
-    background-color: ${props => lighten(0.1, props.theme.backgroundColor)};
+    background-color: ${(props) => lighten(0.1, props.theme.backgroundColor)};
   }
   .tracklist {
     margin-top: 0px;

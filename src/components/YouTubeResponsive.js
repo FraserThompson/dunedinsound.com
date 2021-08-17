@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import styled from '@emotion/styled'
 import YouTube from 'react-youtube'
 import { rhythm } from '../utils/typography'
-import { MdPlayCircleOutline } from 'react-icons/md'
+import { FaRegPlayCircle } from 'react-icons/fa'
 
 export default React.memo(({ videoId, odd, vanilla, getPlayerTarget }) => {
   const APIKey = 'AIzaSyBUlBQysAAKfuSmm4Z92VBMAE9lli3zL58'
@@ -42,7 +42,7 @@ export default React.memo(({ videoId, odd, vanilla, getPlayerTarget }) => {
             <img src={thumbnail} width="100%" height="auto" />
             <div className="overlay">
               <h4>{title}</h4>
-              <MdPlayCircleOutline />
+              <FaRegPlayCircle />
             </div>
           </a>
           <WatchOnYoutubeLink href={`https://www.youtube.com/watch?v=${videoId}`} rel="noopener" target="_blank" title="Watch video on YouTube">

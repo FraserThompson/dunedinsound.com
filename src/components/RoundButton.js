@@ -8,18 +8,18 @@ import { lighten } from 'polished'
 
 export default styled.button`
   z-index: 11;
-  color: ${props => props.theme.secondaryColor};
-  border-color: ${props => props.theme.secondaryColor};
+  color: ${(props) => props.theme.secondaryColor};
+  border-color: ${(props) => props.theme.secondaryColor};
   border-radius: 50%;
   background-color: transparent;
-  height: ${props => props.size};
-  width: ${props => props.size};
+  height: ${(props) => props.size};
+  width: ${(props) => props.size};
   padding: 0;
   outline: 0;
 
   &:hover:not(.active) {
-    color: ${props => lighten(0.2, props.theme.secondaryColor)};
-    border-color: ${props => lighten(0.2, props.theme.secondaryColor)};
+    color: ${(props) => lighten(0.2, props.theme.secondaryColor)};
+    border-color: ${(props) => lighten(0.2, props.theme.secondaryColor)};
   }
 
   svg {

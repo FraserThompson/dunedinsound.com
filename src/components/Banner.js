@@ -40,6 +40,7 @@ const BannerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: ${(props) => props.zIndex || 'auto'};
   > * {
     z-index: 1;
   }
@@ -90,4 +91,6 @@ const BannerContent = styled.div`
   }
 `
 
-const Title = styled.div``
+const Title = styled.div`
+  filter: drop-shadow(1px 2px 10px black);
+`

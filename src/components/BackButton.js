@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { scale, rhythm } from '../utils/typography'
 import { theme } from '../utils/theme'
 import { Link } from 'gatsby'
-import { MdKeyboardArrowUp, MdKeyboardArrowLeft } from 'react-icons/md'
+import { FaChevronUp, FaChevronLeft } from 'react-icons/fa'
 
 export default React.memo(({ to = '/gigs/', type = 'left' }) => {
   const pathComponents = to && typeof to == `string` && to.split('/').filter((item) => item)
@@ -13,32 +13,32 @@ export default React.memo(({ to = '/gigs/', type = 'left' }) => {
   return type == 'left' ? (
     <BackButtonLeft destinationText={destinationText}>
       <Link style={{ position: 'absolute', left: '0px' }} title={destinationText} to={to}>
-        <MdKeyboardArrowLeft />
+        <FaChevronLeft />
       </Link>
     </BackButtonLeft>
   ) : (
     <BackButtonUp>
       <Link title={destinationText} to={to}>
         <p>☝ {destinationText} ☝</p>
-        <MdKeyboardArrowUp />
+        <FaChevronUp />
       </Link>
     </BackButtonUp>
   )
 })
 
 const BackButtonUp = styled.span`
-  ${scale(4)};
+  ${scale(2)};
   color: ${(props) => props.theme.textColor};
   position: absolute;
   text-align: center;
-  top: -${rhythm(1)};
+  top: calc(-1em + 5px);
   transition: all 300ms ease-in-out;
   opacity: 0.5;
   display: none !important;
 
   p {
     ${scale(0.5)};
-    margin-bottom: -${rhythm(1)};
+    margin-bottom: 5px;
     text-transform: uppercase;
   }
 
@@ -59,13 +59,18 @@ const BackButtonLeft = styled.div`
   > a {
     display: flex;
     align-items: center;
+
+    height: ${(props) => props.theme.headerHeightMobile};
+
+    @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+      height: ${(props) => props.theme.headerHeight};
+    }
+
     svg {
-      height: ${(props) => props.theme.headerHeightMobile};
-      font-size: ${rhythm(1.2)};
+      font-size: ${rhythm(0.8)};
       color: ${(props) => props.theme.textColor};
       @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-        font-size: ${rhythm(1.8)};
-        height: ${(props) => props.theme.headerHeight};
+        font-size: ${rhythm(1.2)};
       }
     }
     &:hover {

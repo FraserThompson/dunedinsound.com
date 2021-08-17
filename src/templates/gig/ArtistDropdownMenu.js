@@ -3,9 +3,10 @@
 
 import React, { useState, useCallback } from 'react'
 import styled from '@emotion/styled'
-import { MdExitToApp, MdMenu } from 'react-icons/md'
+import { FaChevronRight, FaBars } from 'react-icons/fa'
 import Menu from '../../components/Menu'
 import { Link } from 'gatsby'
+import { rhythm } from '../../utils/typography'
 
 export default React.memo(({ list, selected, selectCallback, direction = 'up', width, height, fullWidthMobile, textAlign, children }) => {
   const [open, setOpen] = useState(false)
@@ -28,30 +29,49 @@ export default React.memo(({ list, selected, selectCallback, direction = 'up', w
   )
 
   return (
-    <>
+    <DropdownWrapper>
       <DropdownLink open={open} aria-haspopup="true" onClick={toggleMenu}>
         {children}
-        <span className="icon">
-          <MdMenu />
-        </span>
+        <FaBars />
       </DropdownLink>
       <DropdownMenu width={width} textAlign={textAlign} height={height} open={open} direction={direction} fullWidthMobile={fullWidthMobile}>
         {list.map((item, index) => (
-          <li key={index} className={selected == index ? 'active' : ''} onClick={(e) => select(e, item, index)}>
-            {item.title}
-            <span className="goToArtist">
-              {item.details && (
-                <Link title={`More gigs from ${item.title}`} to={item.details.fields.slug}>
-                  <MdExitToApp />
+          <li key={index} className={selected == index ? 'active' : ''}>
+            <div onClick={(e) => select(e, item, index)}>{item.title}</div>
+            <div>
+              {item.details.frontmatter.bandcamp && (
+                <Link to={item.details.frontmatter.bandcamp}>
+                  <small>Bandcamp</small>
                 </Link>
               )}
-            </span>
+              {item.details.frontmatter.facebook && (
+                <Link to={item.details.frontmatter.facebook}>
+                  <small>Facebook</small>
+                </Link>
+              )}
+              <Link to={item.details.fields.slug}>
+                <small>Other gigs</small>
+              </Link>
+            </div>
           </li>
         ))}
       </DropdownMenu>
-    </>
+    </DropdownWrapper>
   )
 })
+
+const DropdownWrapper = styled.div`
+  position: fixed;
+  width: 100%;
+  top: ${(props) => props.theme.headerHeightMobile};
+  z-index: 7;
+  right: 0;
+  height: 30px;
+
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    top: ${(props) => props.theme.headerHeight};
+  }
+`
 
 const DropdownMenu = styled(Menu)`
   position: absolute;
@@ -74,31 +94,27 @@ const DropdownMenu = styled(Menu)`
   text-align: ${(props) => (props.fullWidthMobile ? 'center' : 'auto')};
   width: ${(props) => (props.fullWidthMobile ? '100%' : 'auto')};
 
-  .goToArtist {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-      float: right;
-      position: static;
-    }
+  li {
+    min-height: ${rhythm(1)};
+    padding-left: ${rhythm(0.5)};
+    padding-right: ${rhythm(0.5)};
   }
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-    text-align: auto;
+    text-align: left;
     width: auto;
   }
 `
 
 const DropdownLink = styled.a`
+  display: block;
   width: 100%;
   cursor: pointer;
 
-  .icon {
-    color: ${(props) => props.open && props.theme.secondaryColor};
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    font-size: 1.8em;
+  svg {
+    color: ${(props) => (props.open ? props.theme.secondaryColor : 'black')};
+    width: 30px;
+    height: 30px;
+    float: right;
   }
 `

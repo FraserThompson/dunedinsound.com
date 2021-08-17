@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { scale } from '../../utils/typography'
 import Tile from '../../components/Tile'
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import BackButton from '../../components/BackButton'
 
 export default React.memo(({ data }) => (
@@ -17,7 +17,7 @@ export default React.memo(({ data }) => (
     {data.prevPost && (
       <NextPrevWrapper className="hideMobile" prev>
         <div className="icon">
-          <MdKeyboardArrowRight />
+          <FaChevronRight />
         </div>
         <Tile
           key={data.prevPost.fields.slug}
@@ -32,7 +32,7 @@ export default React.memo(({ data }) => (
     {data.nextPost && (
       <NextPrevWrapper className="hideMobile" next>
         <div className="icon">
-          <MdKeyboardArrowLeft />
+          <FaChevronLeft />
         </div>
         <Tile
           key={data.nextPost.fields.slug}
@@ -48,10 +48,10 @@ export default React.memo(({ data }) => (
 ))
 
 const NextPrevWrapper = styled.div`
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
   position: absolute;
-  right: ${props => (props.prev ? '-10vw' : null)};
-  left: ${props => (props.next ? '-10vw' : null)};
+  right: ${(props) => (props.prev ? '-10vw' : null)};
+  left: ${(props) => (props.next ? '-10vw' : null)};
   z-index: 5;
   height: 100%;
   top: 0px;
@@ -62,14 +62,14 @@ const NextPrevWrapper = styled.div`
   align-items: center;
   justify-content: center;
   .icon {
-    ${scale(4)};
+    ${scale(2)};
     position: absolute;
     z-index: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    right: ${props => (props.prev ? '10vw' : null)};
-    left: ${props => (props.next ? '10vw' : null)};
+    right: ${(props) => (props.prev ? '10vw' : null)};
+    left: ${(props) => (props.next ? '10vw' : null)};
     height: 100%;
   }
   .tile {
@@ -79,9 +79,9 @@ const NextPrevWrapper = styled.div`
     transition: opacity 300ms ease-in-out;
   }
   &:hover {
-    right: ${props => (props.prev ? '0px' : null)};
-    left: ${props => (props.next ? '0px' : null)};
-    box-shadow: ${props => (props.prev ? '-6px 0px 12px rgba(0,0,0,.5)' : '6px 0px 12px rgba(0,0,0,.5)')};
+    right: ${(props) => (props.prev ? '0px' : null)};
+    left: ${(props) => (props.next ? '0px' : null)};
+    box-shadow: ${(props) => (props.prev ? '-6px 0px 12px rgba(0,0,0,.5)' : '6px 0px 12px rgba(0,0,0,.5)')};
     opacity: 1;
     .tile {
       opacity: 1;

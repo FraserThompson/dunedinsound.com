@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import Player from './Player'
-import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md'
+import { FaChevronUp, FaChevronDown } from 'react-icons/fa'
 import styled from '@emotion/styled'
 import { lighten } from 'polished'
 import { calculateScrollHeaderOffset } from '../utils/helper'
@@ -37,7 +37,7 @@ export default ({ artistAudio, minimizedAlways }) => {
         <PlayerWrapper open={open} minimized={minimized}>
           <OpenButton>
             <button title="Audio Player" onClick={() => setOpen(!open)}>
-              <small>AUDIO</small> {!open ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
+              <small>AUDIO</small> {!open ? <FaChevronUp /> : <FaChevronDown />}
             </button>
           </OpenButton>
           <Player artistAudio={artistAudio} />
@@ -59,6 +59,7 @@ const OpenButton = styled.div`
 
   svg {
     font-size: 2em;
+    width: 20px;
     position: relative;
   }
 
@@ -69,11 +70,11 @@ const OpenButton = styled.div`
 
   button {
     pointer-events: auto;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: -2px -1px 3px rgb(0 0 0 / 32%), 3px 1px 3px rgb(0 0 0 / 42%);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
     border: none;
-    padding-right: 5px;
+    padding-right: 13px;
     height: 30px;
     color: black;
     background-color: ${(props) => props.theme.foregroundColor};
