@@ -4,7 +4,6 @@ import Layout from '../components/Layout'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import styled from '@emotion/styled'
 import { MapContainer, Popup, TileLayer, Marker } from 'react-leaflet'
-import { divIcon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import SidebarNav from '../components/SidebarNav'
 import Search from '../components/Search'
@@ -128,15 +127,20 @@ const Page = React.memo(({ data, location }) => {
     [markerRefs]
   )
 
-  const livingIcon = divIcon({
-    className: 'alive-icon',
-    html: ReactDOMServer.renderToString(<FaMapMarkerAlt />),
-  })
+  let livingIcon = null
+  let deadIcon = null
 
-  const deadIcon = divIcon({
-    className: 'dead-icon',
-    html: ReactDOMServer.renderToString(<FaSkull />),
-  })
+  if (typeof L !== 'undefined') {
+    livingIcon = L.divIcon({
+      className: 'alive-icon',
+      html: ReactDOMServer.renderToString(<FaMapMarkerAlt />),
+    })
+
+    deadIcon = L.divIcon({
+      className: 'dead-icon',
+      html: '✝',
+    })
+  }
 
   return (
     <Layout
@@ -225,13 +229,18 @@ const MapWrapper = styled.div`
   position: relative;
   z-index: 5;
 
+  .alive-icon {
+    color: #31a24c;
+  }
+
   .dead-icon {
-    color: #ab0000;
+    color: white;
+    font-size: 2.5em;
   }
 
   .leaflet-marker-icon {
-    width: 20px !important;
-    height: 20px !important;
+    width: 23px !important;
+    height: 23px !important;
     filter: drop-shadow(1px 1px 2px black);
     svg {
       width: 100%;

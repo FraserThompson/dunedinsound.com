@@ -3,12 +3,12 @@
 
 import React, { useState, useCallback } from 'react'
 import styled from '@emotion/styled'
-import { FaChevronRight, FaBars } from 'react-icons/fa'
+import { FaBars } from 'react-icons/fa'
 import Menu from '../../components/Menu'
 import { Link } from 'gatsby'
 import { rhythm } from '../../utils/typography'
 
-export default React.memo(({ list, selected, selectCallback, direction = 'up', width, height, fullWidthMobile, textAlign, children }) => {
+export default React.memo(({ list, selectedArtist, direction = 'up', height, children }) => {
   const [open, setOpen] = useState(false)
 
   const toggleMenu = useCallback(
@@ -20,13 +20,9 @@ export default React.memo(({ list, selected, selectCallback, direction = 'up', w
     [open]
   )
 
-  const select = useCallback(
-    (e, item, index) => {
-      selectCallback && selectCallback(e, item, index)
-      setOpen(false)
-    },
-    [selectCallback]
-  )
+  const select = useCallback(() => {
+    setOpen(false)
+  }, [])
 
   return (
     <DropdownWrapper>
@@ -34,20 +30,22 @@ export default React.memo(({ list, selected, selectCallback, direction = 'up', w
         {children}
         <FaBars />
       </DropdownLink>
-      <DropdownMenu width={width} textAlign={textAlign} height={height} open={open} direction={direction} fullWidthMobile={fullWidthMobile}>
+      <DropdownMenu height={height} open={open} direction={direction}>
         {list.map((item, index) => (
-          <li key={index} className={selected == index ? 'active' : ''}>
-            <div onClick={(e) => select(e, item, index)}>{item.title}</div>
+          <li key={index} className={selectedArtist == item.details.fields.machine_name ? 'active' : ''}>
+            <a onClick={() => select()} href={`#${item.details.fields.machine_name}`}>
+              {item.title}
+            </a>
             <div>
               {item.details.frontmatter.bandcamp && (
-                <Link to={item.details.frontmatter.bandcamp}>
+                <a href={item.details.frontmatter.bandcamp} target="_blank">
                   <small>Bandcamp</small>
-                </Link>
+                </a>
               )}
               {item.details.frontmatter.facebook && (
-                <Link to={item.details.frontmatter.facebook}>
+                <a href={item.details.frontmatter.facebook} target="_blank">
                   <small>Facebook</small>
-                </Link>
+                </a>
               )}
               <Link to={item.details.fields.slug}>
                 <small>Other gigs</small>
@@ -91,8 +89,7 @@ const DropdownMenu = styled(Menu)`
   transition-timing-function: cubic-bezier(0, 0, 0, 1.2);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 
-  text-align: ${(props) => (props.fullWidthMobile ? 'center' : 'auto')};
-  width: ${(props) => (props.fullWidthMobile ? '100%' : 'auto')};
+  width: 100%;
 
   li {
     min-height: ${rhythm(1)};
@@ -101,7 +98,6 @@ const DropdownMenu = styled(Menu)`
   }
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-    text-align: left;
     width: auto;
   }
 `

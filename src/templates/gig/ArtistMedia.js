@@ -13,7 +13,6 @@ import { scrollTo } from '../../utils/helper'
 import { createBrowserHistory } from 'history'
 import styled from '@emotion/styled'
 import { parse } from 'srcset'
-import { Link } from 'gatsby'
 
 export default React.memo(({ artistMedia, gigTitle }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false)
@@ -29,21 +28,28 @@ export default React.memo(({ artistMedia, gigTitle }) => {
     return () => unlisten()
   })
 
+  useEffect(() => {
+    selectedArtist && scrollTo(null, selectedArtist.machineName)
+  }, [selectedArtist])
+
   const handleURLChange = (location) => {
+    if (location.hash) {
+      const newSelectedArtistId = location.hash.substring(1)
+      const newSelectedArtist = artistMedia.find((artist) => artist.machineName == newSelectedArtistId)
+
+      // If we've moved to a new artist scroll to it so they're not confused when they close it
+      if (!selectedArtist || newSelectedArtistId != selectedArtist.machineName) {
+        setSelectedArtist(newSelectedArtist)
+      }
+    }
+
     if (location.search) {
       const searchParams = new URLSearchParams(location.search)
 
       if (!location.state || !location.state.lightboxOpen) setDirectLinked(true) // this won't be set if we come direct to the url
 
-      const newSelectedArtist = parseInt(searchParams.get('artist'))
       const newSelectedImage = parseInt(searchParams.get('image'))
 
-      // If we've moved to a new artist scroll to it so they're not confused when they close it
-      if (newSelectedArtist != selectedArtist && artistMedia[newSelectedArtist]) {
-        scrollTo(null, artistMedia[newSelectedArtist].machineName)
-      }
-
-      setSelectedArtist(newSelectedArtist)
       setSelectedImage(newSelectedImage)
       setLightboxOpen(true)
     } else {
@@ -56,8 +62,9 @@ export default React.memo(({ artistMedia, gigTitle }) => {
   // Goes to the image by updating the URL
   const gotoLightboxImage = ({ selectedImage, selectedArtist }) =>
     history.replace({
-      pathname: history.location.pathname,
-      search: `?image=${selectedImage}&artist=${selectedArtist}`,
+      pathname: `${history.location.pathname}`,
+      hash: '#' + selectedArtist.machineName,
+      search: `?image=${selectedImage}`,
       state: { lightboxOpen: true },
     })
 
@@ -66,12 +73,12 @@ export default React.memo(({ artistMedia, gigTitle }) => {
     let newSelectedImage = false
     let newSelectedArtist = false
 
-    if (selectedImage < artistMedia[selectedArtist].images.length - 1) {
+    if (selectedArtist && selectedImage < selectedArtist.images.length - 1) {
       newSelectedImage = selectedImage + 1
       newSelectedArtist = selectedArtist
-    } else if (selectedArtist < artistMedia.length - 1) {
+    } else if (selectedArtist && selectedArtist.index < artistMedia.length - 1) {
       newSelectedImage = 0
-      newSelectedArtist = selectedArtist + 1
+      newSelectedArtist = artistMedia[selectedArtist.index + 1]
     }
 
     return { selectedArtist: newSelectedArtist, selectedImage: newSelectedImage }
@@ -82,12 +89,12 @@ export default React.memo(({ artistMedia, gigTitle }) => {
     let newSelectedImage = false
     let newSelectedArtist = false
 
-    if (selectedImage != 0) {
+    if (selectedArtist && selectedImage != 0) {
       newSelectedImage = selectedImage - 1
       newSelectedArtist = selectedArtist
-    } else if (selectedArtist > 0) {
-      newSelectedArtist = selectedArtist - 1
-      newSelectedImage = artistMedia[newSelectedArtist].images.length - 1
+    } else if (selectedArtist && selectedArtist.index > 0) {
+      newSelectedArtist = artistMedia[selectedArtist.index - 1]
+      newSelectedImage = newSelectedArtist.images.length - 1
     }
 
     return { selectedArtist: newSelectedArtist, selectedImage: newSelectedImage }
@@ -95,8 +102,8 @@ export default React.memo(({ artistMedia, gigTitle }) => {
 
   // Gets the src of an image based on its location in our array of media
   const getImageSrc = ({ selectedImage, selectedArtist }, size) => {
-    if (selectedArtist !== false && selectedImage !== false) {
-      const images = artistMedia[selectedArtist]['images']
+    if (selectedArtist && selectedImage !== false) {
+      const images = selectedArtist.images
       switch (size) {
         default:
           const srcSet = getSrcSet(images[selectedImage].node)
@@ -107,14 +114,14 @@ export default React.memo(({ artistMedia, gigTitle }) => {
     }
   }
 
-  const lightboxCaption = artistMedia[selectedArtist] && (
+  const lightboxCaption = selectedArtist && (
     <>
-      {artistMedia[selectedArtist].title}
-      {artistMedia[selectedArtist].details && (
+      {selectedArtist.title}
+      {selectedArtist.details && (
         <>
           {' '}
           ●{' '}
-          <a href={artistMedia[selectedArtist].details.fields.slug} title="Go to artist page">
+          <a href={selectedArtist.details.fields.slug} title="Go to artist page">
             More media from this artist
           </a>
         </>
@@ -123,7 +130,7 @@ export default React.memo(({ artistMedia, gigTitle }) => {
   )
 
   // Maps all media from an artist into an array of dividers, images, and videos
-  const media = artistMedia.map((artist, artistIndex) => {
+  const media = artistMedia.map((artist) => {
     const images = artist.images
 
     const gridSize = {
@@ -147,8 +154,9 @@ export default React.memo(({ artistMedia, gigTitle }) => {
     const openLightbox = (imageIndex, event) => {
       event.preventDefault()
       history.push({
-        pathname: history.location.pathname,
-        search: `?image=${imageIndex}&artist=${artistIndex}`,
+        pathname: `${history.location.pathname}`,
+        hash: '#' + artist.machineName,
+        search: `?image=${imageIndex}`,
         state: { lightboxOpen: true },
       })
     }
@@ -179,14 +187,7 @@ export default React.memo(({ artistMedia, gigTitle }) => {
   return artistMedia.length > 0 ? (
     <>
       {artistMedia.length > 1 && (
-        <ArtistDropdownMenu
-          height={rhythm(1)}
-          selected={artistMedia.findIndex((item) => item.machineName == '')}
-          list={artistMedia}
-          direction="down"
-          selectCallback={(e, item) => scrollTo(e, item.machineName)}
-          fullWidthMobile={true}
-        />
+        <ArtistDropdownMenu selectedArtist={selectedArtist && selectedArtist.machineName} height={rhythm(1)} list={artistMedia} direction="down" />
       )}
       {media}
       {lightboxOpen && (

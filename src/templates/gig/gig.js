@@ -5,7 +5,7 @@ import { toMachineName, graphqlGroupToObject, scrollTo } from '../../utils/helpe
 import Banner from '../../components/Banner'
 import HorizontalNav from '../../components/HorizontalNav'
 import PlayerContainer from '../../components/PlayerContainer'
-import GigArtistMedia from './ArtistMedia'
+import ArtistMedia from './ArtistMedia'
 import YouTubeResponsive from '../../components/YouTubeResponsive'
 import LoadingSpinner from '../../components/LoadingSpinner'
 import BannerContent from './BannerContent'
@@ -61,11 +61,12 @@ const Page = React.memo(({ data }) => {
     // Key-value object of details by artist
     const detailsByArtist = data.artists && graphqlGroupToObject(data.artists.group)
 
-    const combinedMedia = data.thisPost.frontmatter.artists.map((artist) => {
+    const combinedMedia = data.thisPost.frontmatter.artists.map((artist, i) => {
       const machineName = toMachineName(artist.name)
       return {
         ...artist,
         machineName,
+        index: i,
         title: detailsByArtist && detailsByArtist[machineName] ? detailsByArtist[machineName][0].node.frontmatter.title : artist.name,
         details: detailsByArtist && detailsByArtist[machineName] && detailsByArtist[machineName][0].node,
         images: imagesByArtist && imagesByArtist[machineName],
@@ -150,7 +151,7 @@ const Page = React.memo(({ data }) => {
         )}
         <PlayerContainer artistAudio={artistAudio} />
       </Banner>
-      {!data.thisPost.frontmatter.audioOnly && <GigArtistMedia artistMedia={artistMedia} gigTitle={gigTitle} />}
+      {!data.thisPost.frontmatter.audioOnly && <ArtistMedia artistMedia={artistMedia} gigTitle={gigTitle} />}
       <BackToTop />
     </Layout>
   )

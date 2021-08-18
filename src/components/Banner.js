@@ -92,5 +92,5 @@ const BannerContent = styled.div`
 `
 
 const Title = styled.div`
-  filter: drop-shadow(1px 2px 10px black);
+  filter: drop-shadow(1px 1px 5px black);
 `

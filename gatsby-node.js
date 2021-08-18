@@ -103,15 +103,15 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
-  result.data.blogsByTag.group.forEach(({ fieldValue }) => {
-    createPage({
-      path: `/blog/tags/${fieldValue}/`,
-      component: layouts.tags,
-      context: {
-        tag: fieldValue,
-      },
-    })
-  })
+  // result.data.blogsByTag.group.forEach(({ fieldValue }) => {
+  //   createPage({
+  //     path: `/blog/tags/${fieldValue}`,
+  //     component: layouts.tags,
+  //     context: {
+  //       tag: fieldValue,
+  //     },
+  //   })
+  // })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
