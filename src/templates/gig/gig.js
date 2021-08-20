@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../../components/Layout'
 import { toMachineName, graphqlGroupToObject, scrollTo } from '../../utils/helper'
@@ -22,10 +22,9 @@ const Page = React.memo(({ data }) => {
   const location = typeof window !== `undefined` && window.location
   const history = typeof window !== `undefined` && window.history
 
+  // On page load
   useEffect(() => {
-    if (location.hash) {
-      scrollTo(null, location.hash.substring(1))
-    } else if (typeof window !== `undefined` && window.previousPath && window.previousPath !== location.href) {
+    if (typeof window !== `undefined` && window.previousPath && window.previousPath !== location.href) {
       // We need to scroll to top manually because we disabled Gatsby's default behavior (see gatsby-browser.js) so our
       // lightbox back button feature works.
       window.scrollTo(0, 0)
@@ -137,7 +136,7 @@ const Page = React.memo(({ data }) => {
             artistMedia.map((artist, index) => {
               return (
                 <li key={index}>
-                  <a className="button" onClick={(e) => scrollTo(e, artist.machineName)} href={'#' + artist.machineName}>
+                  <a className="button" href={'#' + artist.machineName}>
                     {artist.title}
                   </a>
                 </li>

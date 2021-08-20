@@ -19,16 +19,21 @@ const Page = React.memo(({ data, location }) => {
   const [artistOrigins, setArtistOrigins] = useState(null)
   const [searchInput, setSearchInput] = useState(null)
   const [shuffle, setShuffle] = useState(null)
-
-  const artists = data.allArtists.edges
+  const [artistList, setArtistList] = useState([])
 
   const element = useRef()
+  const animationRef = useRef()
 
   const grid = {
     xs: '6',
     sm: '4',
     md: '3',
     lg: '2',
+  }
+
+  const animate = (time) => {
+    setArtistList(data.allArtists.edges)
+    animationRef.current = requestAnimationFrame(animate)
   }
 
   const gigMetadataByArtist = useMemo(
@@ -63,23 +68,30 @@ const Page = React.memo(({ data, location }) => {
     []
   )
 
-  // Make a shuffle board on load and set the artist origin dropdown
+  // To improve immediate page load performance:
+  // - start with a blank list
+  // - wait until the page has rendered
+  // - set the list so it renders the elements
   useEffect(() => {
-    const origins = artists.reduce((acc, { node }) => {
+    animationRef.current = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(animationRef.current)
+  }, [])
+
+  // Make a shuffle board and set the artist origin dropdown
+  useEffect(() => {
+    const newShuffle = new Shuffle(element.current, { itemSelector: '.tile' })
+    newShuffle.on(Shuffle.EventType.LAYOUT, () => setLoading(false))
+    setShuffle(newShuffle)
+
+    const origins = artistList.reduce((acc, { node }) => {
       const origin = node.frontmatter.origin || 'Dunedin'
       if (!acc[origin]) acc[origin] = 0
       acc[origin]++
       return acc
-    }, {})
+    }, [])
 
     setArtistOrigins(origins)
-
-    const newShuffle = new Shuffle(element.current, { itemSelector: '.tile' })
-
-    newShuffle.on(Shuffle.EventType.LAYOUT, () => setLoading(false))
-
-    setShuffle(newShuffle)
-  }, [])
+  }, [artistList])
 
   // Update the shuffle when it changes and delete it when it goes
   useEffect(() => {
@@ -99,6 +111,13 @@ const Page = React.memo(({ data, location }) => {
     }
   }, [sortBy])
 
+  // Filters
+  useEffect(() => {
+    if (!shuffle) return
+    setLoading(true)
+    shuffle.filter((el) => getShuffleFilter(el))
+  }, [countryFilter, hideInactive, searchInput])
+
   const getShuffleFilter = useCallback(
     (el) => {
       return (
@@ -109,13 +128,6 @@ const Page = React.memo(({ data, location }) => {
     },
     [countryFilter, hideInactive, searchInput]
   )
-
-  // Filters
-  useEffect(() => {
-    if (!shuffle) return
-    setLoading(true)
-    shuffle.filter((el) => getShuffleFilter(el))
-  }, [countryFilter, hideInactive, searchInput])
 
   const sortByNumberOfGigs = useCallback(() => {
     if (!shuffle) return
@@ -165,7 +177,7 @@ const Page = React.memo(({ data, location }) => {
           </label>
         </HideInactive>
         <select name="countries" onChange={(e) => setCountryFilter(e.target.value !== 'all' ? e.target.value : null)}>
-          <option value={'all'}>All origins ({artists.length})</option>
+          <option value={'all'}>All origins ({artistList.length})</option>
           {artistOrigins &&
             Object.keys(artistOrigins).map((country) => (
               <option key={country} value={country}>
@@ -175,37 +187,36 @@ const Page = React.memo(({ data, location }) => {
         </select>
       </Filters>
       <ArtistGrid fixedWidth ref={element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
-        {artists &&
-          artists.map(({ node }) => {
-            const metadata = gigMetadataByArtist[node.fields.machine_name]
+        {artistList.map(({ node }) => {
+          const metadata = gigMetadataByArtist[node.fields.machine_name]
 
-            if (!metadata) {
-              console.error('Fatal: Metadata missing for ' + node.fields.machine_name)
-            }
+          if (!metadata) {
+            console.error('Fatal: Metadata missing for ' + node.fields.machine_name)
+          }
 
-            const title = (node.frontmatter.title || node.fields.slug) + (node.frontmatter.origin ? ` (${node.frontmatter.origin})` : '')
-            const coverImage = node.frontmatter.cover
-              ? node.frontmatter.cover
-              : imagesByArtist[node.fields.machine_name] && imagesByArtist[node.fields.machine_name][0].node
+          const title = (node.frontmatter.title || node.fields.slug) + (node.frontmatter.origin ? ` (${node.frontmatter.origin})` : '')
+          const coverImage = node.frontmatter.cover
+            ? node.frontmatter.cover
+            : imagesByArtist[node.fields.machine_name] && imagesByArtist[node.fields.machine_name][0].node
 
-            return (
-              <Tile
-                key={node.fields.slug}
-                title={title}
-                machineName={node.fields.machine_name}
-                subtitle={`${metadata ? metadata.totalCount : 0} gigs`}
-                image={coverImage}
-                label={node.frontmatter.date}
-                to={node.fields.slug}
-                height={artists.length == 1 ? 'calc(100vh - ' + theme.default.headerHeight + ')' : artists.length <= 8 ? '40vh' : '20vh'}
-                dataAttributes={{
-                  'data-lastgig': metadata ? metadata.lastGig : 0,
-                  'data-active': node.frontmatter.died === null,
-                  'data-origin': node.frontmatter.origin || 'Dunedin',
-                }}
-              />
-            )
-          })}
+          return (
+            <Tile
+              key={node.fields.slug}
+              title={title}
+              machineName={node.fields.machine_name}
+              subtitle={`${metadata ? metadata.totalCount : 0} gigs`}
+              image={coverImage}
+              label={node.frontmatter.date}
+              to={node.fields.slug}
+              height={artistList.length == 1 ? 'calc(100vh - ' + theme.default.headerHeight + ')' : artistList.length <= 8 ? '40vh' : '20vh'}
+              dataAttributes={{
+                'data-lastgig': metadata ? metadata.lastGig : 0,
+                'data-active': node.frontmatter.died === null,
+                'data-origin': node.frontmatter.origin || 'Dunedin',
+              }}
+            />
+          )
+        })}
       </ArtistGrid>
     </Layout>
   )

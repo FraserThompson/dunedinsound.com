@@ -1,15 +1,28 @@
 // PlayerMenu.js
 // A menu used by Player.js
 
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import styled from '@emotion/styled'
 import { FaBars } from 'react-icons/fa'
 import Menu from '../../components/Menu'
 import { Link } from 'gatsby'
 import { rhythm } from '../../utils/typography'
 
-export default React.memo(({ list, selectedArtist, direction = 'up', height, children }) => {
+export default React.memo(({ list, history, height, children }) => {
   const [open, setOpen] = useState(false)
+  const [selectedArtist, setSelectedArtist] = useState(null)
+
+  useEffect(() => {
+    const unlisten = history.listen((location) => handleURLChange(location.location))
+    return () => unlisten()
+  }, [])
+
+  const handleURLChange = (location) => {
+    if (location.hash) {
+      const newSelectedArtistId = location.hash.substring(1)
+      setSelectedArtist(newSelectedArtistId)
+    }
+  }
 
   const toggleMenu = useCallback(
     (e) => {
@@ -30,7 +43,7 @@ export default React.memo(({ list, selectedArtist, direction = 'up', height, chi
         {children}
         <FaBars />
       </DropdownLink>
-      <DropdownMenu height={height} open={open} direction={direction}>
+      <DropdownMenu height={height} open={open} direction={'down'}>
         {list.map((item, index) => (
           <li key={index} className={selectedArtist == item.details.fields.machine_name ? 'active' : ''}>
             <a onClick={() => select()} href={`#${item.details.fields.machine_name}`}>
