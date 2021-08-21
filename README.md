@@ -30,14 +30,6 @@ Beware that building from scratch (ie. from no public folder) takes a veeery lon
 
 (previously my custom Jekyll solution was much quicker...)
 
-### Why are we holding back `gatsby-plugin-sharp`?
-
-There's a bug with thumbnail generation in versions later than 2.3.13 where it will basically regenerate all thumbnails every time the build happens. When this is fixed we can move on https://github.com/gatsbyjs/gatsby/issues/20816
-
-We also need to hold back `gatsby-transformer-sharp` and `gatsby-plugin-manifest` otherwise we run into issues with conflicting versions of Sharp.
-
-Also the version of Sharp used by these older versions requires Python2 so we have to install a deprecated version of Python unfortunately.
-
 ### Why are we using our own `gatsby-plugin-s3`?
 
 There's a breaking bug which causes large files to always be reuploaded. We can't switch to the full release until https://github.com/jariz/gatsby-plugin-s3/issues/59 is fixed

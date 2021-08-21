@@ -52,13 +52,19 @@ export default React.memo(({ data }) => (
 const Label = styled.div`
   position: absolute;
   font-weight: bold;
-  left: -50px;
+  left: -60px;
   background-color: white;
   color: black;
-  top: 25px;
+  top: 20px;
   width: 200px;
   text-align: center;
   transform: rotateZ(-40deg);
+  font-size: 60%;
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    left: -50px;
+    top: 25px;
+    font-size: 100%;
+  }
 `
 
 const NextPrevWrapper = styled.div`

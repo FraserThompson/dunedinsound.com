@@ -38,7 +38,7 @@ export default React.memo(({ artistAudio }) => {
     setWaveSurfer(
       WavesurferJS.create({
         container: waveformRef.current,
-        waveColor: theme.default.waveformColor,
+        waveColor: theme.default.contrastColor2,
         height: 60,
         hideScrollbar: true,
         normalize: true,

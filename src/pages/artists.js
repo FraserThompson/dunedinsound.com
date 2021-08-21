@@ -226,7 +226,11 @@ const Page = React.memo(({ data, location }) => {
 const ArtistGrid = styled(FlexGridContainer)`
   position: relative;
   overflow: hidden;
-  top: 30px;
+  top: 76px;
+
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    top: 30px;
+  }
 `
 
 const LoadingWrapper = styled.div`

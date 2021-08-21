@@ -48,7 +48,7 @@ export default React.memo(
         {!hideNav && (
           <HeaderWrapper>
             <MobileNav className="showMobile">
-              <SiteNav backgroundColor={lighten(0.1, theme.default.primaryColor)} height={theme.default.headerHeightMobile} />
+              <SiteNav height={theme.default.headerHeightMobile} />
             </MobileNav>
             <SiteHeader
               scrollHeaderOverlay={scrollHeaderOverlay}

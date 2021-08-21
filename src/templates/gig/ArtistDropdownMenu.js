@@ -34,7 +34,8 @@ export default React.memo(({ list, history, height, children }) => {
     [open]
   )
 
-  const select = useCallback(() => {
+  const select = useCallback((e, machineName) => {
+    scrollTo(e, machineName)
     setOpen(false)
   }, [])
 
@@ -46,8 +47,8 @@ export default React.memo(({ list, history, height, children }) => {
       </DropdownLink>
       <DropdownMenu height={height} open={open} direction={'down'}>
         {list.map((item, index) => (
-          <li key={index} className={selectedArtist == item.details.fields.machine_name ? 'active' : ''}>
-            <ArtistTitle onClick={() => select()} onClick={(e) => scrollTo(e, item.details.fields.machine_name)} href={`#${item.details.fields.machine_name}`}>
+          <li key={index} className={selectedArtist == item.machineName ? 'active' : ''}>
+            <ArtistTitle onClick={(e) => select(e, item.machineName)} href={`#${item.machineName}`}>
               {item.title}
             </ArtistTitle>
             <div>
