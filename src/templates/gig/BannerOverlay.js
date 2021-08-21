@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { scale } from '../../utils/typography'
+import { rhythm, scale } from '../../utils/typography'
 import Tile from '../../components/Tile'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import BackButton from '../../components/BackButton'
@@ -29,7 +29,7 @@ export default React.memo(({ data }) => (
         />
       </NextPrevWrapper>
     )}
-    {data.nextPost && (
+    {data.nextPost ? (
       <NextPrevWrapper className="hideMobile" next>
         <div className="icon">
           <FaChevronLeft />
@@ -43,9 +43,23 @@ export default React.memo(({ data }) => (
           to={data.nextPost.fields.slug}
         />
       </NextPrevWrapper>
+    ) : (
+      <Label>LATEST GIG</Label>
     )}
   </>
 ))
+
+const Label = styled.div`
+  position: absolute;
+  font-weight: bold;
+  left: -50px;
+  background-color: white;
+  color: black;
+  top: 25px;
+  width: 200px;
+  text-align: center;
+  transform: rotateZ(-40deg);
+`
 
 const NextPrevWrapper = styled.div`
   color: ${(props) => props.theme.textColor};

@@ -182,7 +182,7 @@ const Page = React.memo(({ data, location }) => {
                 <p style={{ marginTop: '0', marginBottom: '10px' }}>
                   <ActiveIndicator died={node.frontmatter.died} />
                 </p>
-                <HorizontalNav lineHeight="1">
+                <HorizontalNav lineHeight="1" style={{ marginBottom: '10px' }}>
                   {node.frontmatter.facebook && (
                     <li>
                       <a href={node.frontmatter.facebook}>Facebook</a>
@@ -204,7 +204,7 @@ const Page = React.memo(({ data, location }) => {
                     </li>
                   )}
                 </HorizontalNav>
-                {node.frontmatter.description && <p style={{ marginTop: '10px' }} dangerouslySetInnerHTML={{ __html: node.frontmatter.description }}></p>}
+                {node.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: node.frontmatter.description }}></p>}
                 <VenueGigsTile>
                   <Link to={node.fields.slug}>
                     {node.frontmatter.cover && <GatsbyImage image={getImage(node.frontmatter.cover)} alt="" />}

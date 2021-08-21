@@ -31,11 +31,6 @@ const Page = React.memo(({ data, location }) => {
     lg: '2',
   }
 
-  const animate = (time) => {
-    setArtistList(data.allArtists.edges)
-    animationRef.current = requestAnimationFrame(animate)
-  }
-
   const gigMetadataByArtist = useMemo(
     () =>
       data.gigsByArtist['group'].reduce((obj, item) => {
@@ -67,6 +62,12 @@ const Page = React.memo(({ data, location }) => {
       }, {}),
     []
   )
+
+  // Used below to improve immediate load performance
+  const animate = (time) => {
+    setArtistList(data.allArtists.edges)
+    animationRef.current = requestAnimationFrame(animate)
+  }
 
   // To improve immediate page load performance:
   // - start with a blank list
@@ -208,7 +209,7 @@ const Page = React.memo(({ data, location }) => {
               image={coverImage}
               label={node.frontmatter.date}
               to={node.fields.slug}
-              height={artistList.length == 1 ? 'calc(100vh - ' + theme.default.headerHeight + ')' : artistList.length <= 8 ? '40vh' : '20vh'}
+              height={artistList.length == 1 ? 'calc(100vh - ' + theme.default.headerHeight + ')' : artistList.length <= 8 ? '40vh' : '15vh'}
               dataAttributes={{
                 'data-lastgig': metadata ? metadata.lastGig : 0,
                 'data-active': node.frontmatter.died === null,
@@ -225,6 +226,7 @@ const Page = React.memo(({ data, location }) => {
 const ArtistGrid = styled(FlexGridContainer)`
   position: relative;
   overflow: hidden;
+  top: 30px;
 `
 
 const LoadingWrapper = styled.div`
@@ -239,6 +241,9 @@ const LoadingWrapper = styled.div`
 `
 
 const Filters = styled.div`
+  position: fixed;
+  top: ${(props) => props.theme.headerHeightMobile};
+  z-index: 2;
   padding-left: ${rhythm(0.5)};
   padding-right: ${rhythm(0.5)};
   display: flex;
@@ -267,6 +272,10 @@ const Filters = styled.div`
       color: black;
       background-color: ${(props) => props.theme.foregroundColor};
     }
+  }
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    position: fixed;
+    top: ${(props) => props.theme.headerHeight};
   }
 `
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import GridContainer from '../../components/GridContainer'
 import Divider from '../../components/Divider'
@@ -19,7 +19,7 @@ export default React.memo(({ artistMedia, gigTitle }) => {
     if (!artistElements.length) return
 
     const options = {
-      rootMargin: '0px 0px -100%',
+      rootMargin: '0px 0px -97%',
     }
 
     const callback = (entries) => {

@@ -18,7 +18,6 @@ const scale04 = scale(-0.4)
 const GlobalStyle = css`
   html {
     overflow-y: auto;
-    scroll-behavior: smooth;
   }
   body {
     background-color: ${theme.default.backgroundColor};

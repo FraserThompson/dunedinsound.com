@@ -26,7 +26,9 @@ import { Link } from 'gatsby'
 export default ({
   height = '40vh',
   feature = false,
-  backgroundColor = 'radial-gradient(circle, black 0%, rgba(12, 24, 33, 1) 70%)',
+  backgroundColor,
+  textColor,
+  fontWeight,
   width,
   hoverHeight,
   machineName,
@@ -59,6 +61,8 @@ export default ({
   return (
     <Container
       backgroundColor={backgroundColor}
+      textColor={textColor}
+      fontWeight={fontWeight}
       containerHeight={height}
       data-title={title}
       data-machinename={machineName}
@@ -83,9 +87,10 @@ export default ({
 }
 
 const Container = styled.div`
+  font-weight: ${(props) => props.fontWeight || 'normal'};
   background: ${(props) => props.theme.backgroundColor};
-  background: ${(props) => props.backgroundColor};
-  color: ${(props) => props.theme.textColor};
+  background: ${(props) => props.backgroundColor || `radial-gradient(circle, black 0%, ${props.theme.backgroundColor} 70%)`};
+  color: ${(props) => props.textColor || props.theme.textColor};
   position: relative;
   display: block;
   height: ${(props) => props.containerHeight};
@@ -106,18 +111,19 @@ const Container = styled.div`
   }
 
   a {
+    color: ${(props) => props.textColor || props.theme.textColor};
     &:hover,
     &:focus {
       .title {
-        color: ${(props) => lighten(0.5, props.theme.textColor)};
+        color: ${(props) => lighten(0.5, props.textColor || props.theme.textColor)};
       }
-      color: ${(props) => lighten(0.5, props.theme.textColor)};
+      color: ${(props) => lighten(0.5, props.textColor || props.theme.textColor)};
       text-decoration: none;
     }
 
     &.active {
       background-color: ${(props) => props.theme.foregroundColor2};
-      color: ${(props) => lighten(0.5, props.theme.textColor)};
+      color: ${(props) => lighten(0.5, props.textColor || props.theme.textColor)};
     }
   }
 `
@@ -156,7 +162,7 @@ const TitleWrapper = styled.div`
   width: 100%;
   position: absolute;
   bottom: 0px;
-  background: ${(props) => props.shadowBottom && 'radial-gradient(circle at center, rgba(0,0,0,0), rgba(0,0,0,0.4) 60%)'};
+  background: ${(props) => props.shadowBottom && `radial-gradient(circle at center, rgba(0,0,0,0), rgba(0,0,0,0.4) 60%)`};
   height: 100%;
   display: flex;
   mix-blend-mode: ${(props) => props.feature && 'difference'};

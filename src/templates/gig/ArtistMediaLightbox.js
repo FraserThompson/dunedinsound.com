@@ -113,7 +113,7 @@ export default React.memo(({ gigTitle, artistMedia, history }) => {
           {' '}
           ●{' '}
           <a href={selectedArtist.details.fields.slug} title="Go to artist page">
-            More media from this artist
+            More gigs featuring this artist
           </a>
         </>
       )}

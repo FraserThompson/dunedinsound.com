@@ -8,7 +8,7 @@ import PlayerContainer from '../../components/PlayerContainer'
 import ArtistMedia from './ArtistMedia'
 import YouTubeResponsive from '../../components/YouTubeResponsive'
 import LoadingSpinner from '../../components/LoadingSpinner'
-import BannerContent from './BannerContent'
+import BannerOverlay from './BannerOverlay'
 import styled from '@emotion/styled'
 import { rhythm } from '../../utils/typography'
 import BackButton from '../../components/BackButton'
@@ -122,11 +122,7 @@ const Page = React.memo(({ data }) => {
         height="80vh"
         zIndex="8"
         backgroundImage={cover}
-        customContent={
-          <>
-            <BannerContent data={data} location={location} />
-          </>
-        }
+        customContent={<BannerOverlay data={data} location={location} />}
       >
         <HorizontalNav style={{ paddingTop: rhythm(1), paddingBottom: rhythm(1) }}>
           {data.thisPost.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: data.thisPost.frontmatter.description }}></p>}
@@ -136,7 +132,7 @@ const Page = React.memo(({ data }) => {
             artistMedia.map((artist, index) => {
               return (
                 <li key={index}>
-                  <a className="button" href={'#' + artist.machineName}>
+                  <a className="button" onClick={(e) => scrollTo(e, artist.machineName)} href={`#${artist.machineName}`}>
                     {artist.title}
                   </a>
                 </li>

@@ -7,6 +7,7 @@ import { FaBars } from 'react-icons/fa'
 import Menu from '../../components/Menu'
 import { Link } from 'gatsby'
 import { rhythm } from '../../utils/typography'
+import { scrollTo } from '../../utils/helper'
 
 export default React.memo(({ list, history, height, children }) => {
   const [open, setOpen] = useState(false)
@@ -46,9 +47,9 @@ export default React.memo(({ list, history, height, children }) => {
       <DropdownMenu height={height} open={open} direction={'down'}>
         {list.map((item, index) => (
           <li key={index} className={selectedArtist == item.details.fields.machine_name ? 'active' : ''}>
-            <a onClick={() => select()} href={`#${item.details.fields.machine_name}`}>
+            <ArtistTitle onClick={() => select()} onClick={(e) => scrollTo(e, item.details.fields.machine_name)} href={`#${item.details.fields.machine_name}`}>
               {item.title}
-            </a>
+            </ArtistTitle>
             <div>
               {item.details.frontmatter.bandcamp && (
                 <a href={item.details.frontmatter.bandcamp} target="_blank">
@@ -84,6 +85,10 @@ const DropdownWrapper = styled.div`
   }
 `
 
+const ArtistTitle = styled.a`
+  font-weight: bold;
+`
+
 const DropdownMenu = styled(Menu)`
   position: absolute;
   bottom: ${(props) => props.direction == 'up' && '100%'};
@@ -104,7 +109,7 @@ const DropdownMenu = styled(Menu)`
 
   width: 100%;
 
-  li {
+  a {
     min-height: ${rhythm(1)};
     padding-left: ${rhythm(0.5)};
     padding-right: ${rhythm(0.5)};
