@@ -1,7 +1,7 @@
 ---
 title: 'Pioneer Hall'
-lat: -45.8167761
-lng: 170.6184667
+lat: -45.8161330297786
+lng: 170.62052665396575
 facebook: 'https://www.facebook.com/PortChalmersPioneerHall/'
 cover: ./cover.jpg
 ---

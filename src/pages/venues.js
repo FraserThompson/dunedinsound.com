@@ -12,7 +12,7 @@ import { lighten } from 'polished'
 import ActiveIndicator from '../components/ActiveIndicator'
 import { rhythm } from '../utils/typography'
 import ReactDOMServer from 'react-dom/server'
-import { FaMapMarkerAlt, FaSkull } from 'react-icons/fa'
+import { FaMapMarkerAlt } from 'react-icons/fa'
 
 const Sidebar = React.memo(({ menuItems, menuItemClick, setRef, selected }) => {
   const [open, setOpen] = useState(true)
@@ -138,7 +138,7 @@ const Page = React.memo(({ data, location }) => {
 
     deadIcon = L.divIcon({
       className: 'dead-icon',
-      html: '✝',
+      html: '<span>✝</span>',
     })
   }
 

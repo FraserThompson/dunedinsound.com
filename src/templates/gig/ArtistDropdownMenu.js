@@ -51,21 +51,23 @@ export default React.memo(({ list, history, height, children }) => {
             <ArtistTitle onClick={(e) => select(e, item.machineName)} href={`#${item.machineName}`}>
               {item.title}
             </ArtistTitle>
-            <div>
-              {item.details.frontmatter.bandcamp && (
-                <a href={item.details.frontmatter.bandcamp} target="_blank">
-                  <small>Bandcamp</small>
-                </a>
-              )}
-              {item.details.frontmatter.facebook && (
-                <a href={item.details.frontmatter.facebook} target="_blank">
-                  <small>Facebook</small>
-                </a>
-              )}
-              <Link to={item.details.fields.slug}>
-                <small>Other gigs</small>
-              </Link>
-            </div>
+            {item.details && (
+              <div>
+                {item.details.frontmatter.bandcamp && (
+                  <a href={item.details.frontmatter.bandcamp} target="_blank">
+                    <small>Bandcamp</small>
+                  </a>
+                )}
+                {item.details.frontmatter.facebook && (
+                  <a href={item.details.frontmatter.facebook} target="_blank">
+                    <small>Facebook</small>
+                  </a>
+                )}
+                <Link to={item.details.fields.slug}>
+                  <small>Other gigs</small>
+                </Link>
+              </div>
+            )}
           </li>
         ))}
       </DropdownMenu>

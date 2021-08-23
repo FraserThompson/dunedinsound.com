@@ -1,7 +1,7 @@
 ---
 title: 'Dunedin Public Library'
-lat: -45.8726941
-lng: 170.5035676
+lat: -45.87292350213422
+lng: 170.5033746807956
 facebook: 'https://www.facebook.com/dunedin.public.libraries/'
 cover: ./cover.jpg
 ---

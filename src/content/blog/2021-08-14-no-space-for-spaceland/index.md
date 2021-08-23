@@ -17,7 +17,7 @@ It’s been a winter of discontent for the local music community here in Otepoti
 
 Meanwhile, the council is promising a new medium-sized theatre as part of their 10 year plan, which is nice for medium-sized acts who have the capacity to provide their own equipment and attract medium-sized audiences. But it’s a small consolation for the underground, under threat on all sides by both noise control and capitalism.
 
-Over the last three years we have lost [Jutland Street](/venues/jutland_street), (None Gallery)[/venues/none_gallery], [The Attic](/venues/the_attic), and most recently [Dee’s](venues/dees_cafe_and_venue). Not all of these losses were due to the council (mostly it was property developers’ eternal quest for maximum profit) but, crucially, we have also gained few new venues in this time.
+Over the last three years we have lost [Jutland Street](/venues/jutland_street), [None Gallery](/venues/none_gallery), [The Attic](/venues/the_attic), and most recently [Dee’s](venues/dees_cafe_and_venue). Not all of these losses were due to the council (mostly it was property developers’ eternal quest for maximum profit) but, crucially, we have also gained few new venues in this time.
 
 While the council may not be directly responsible for ending these venues, could they do more to support the creation of new ones?
 

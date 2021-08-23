@@ -1,9 +1,9 @@
 ---
 title: 'The Dungeon'
-lat: -45.8749581
-lng: 170.5016237
+lat: -45.874847920981324
+lng: 170.50376762443122
 facebook: 'https://www.facebook.com/thedungeondunedin/'
-description: 'Located in the Athaneum Basement in the Octagon. No longer does gigs.'
+description: 'Located in the Athaneum Basement in the Octagon, held a number of gigs for a short period in 2016.'
 cover: ./cover.jpg
-died: 0
+died: 2016
 ---
