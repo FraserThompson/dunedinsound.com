@@ -6,9 +6,10 @@ import YouTubeResponsive from '../../components/YouTubeResponsive'
 import { rhythm } from '../../utils/typography'
 import FlexGridContainer from '../../components/FlexGridContainer'
 import LoadingSpinner from '../../components/LoadingSpinner'
-import ArtistDropdownMenu from './ArtistDropdownMenu'
 import { createBrowserHistory } from 'history'
 import ArtistMediaLightbox from './ArtistMediaLightbox'
+import DropdownMenu from '../../components/DropdownMenu'
+import { Link } from 'gatsby'
 
 export default React.memo(({ artistMedia, gigTitle }) => {
   const history = useRef(typeof window !== 'undefined' && createBrowserHistory())
@@ -51,7 +52,7 @@ export default React.memo(({ artistMedia, gigTitle }) => {
     const images = artist.images
 
     const gridSize = {
-      xs: '12',
+      xs: '6',
       sm: '4',
       md: '3',
       lg: images && images.length <= 6 ? '4' : images && images.length <= 16 ? '3' : '2',
@@ -104,7 +105,33 @@ export default React.memo(({ artistMedia, gigTitle }) => {
 
   return artistMedia.length > 0 ? (
     <>
-      {artistMedia.length > 1 && <ArtistDropdownMenu history={history.current} height={rhythm(1)} list={artistMedia} />}
+      {artistMedia.length > 1 && (
+        <DropdownMenu
+          history={history.current}
+          list={artistMedia.map((artist) => ({
+            ...artist,
+            children: (
+              <div>
+                {artist.details.frontmatter.bandcamp && (
+                  <a href={artist.details.frontmatter.bandcamp} target="_blank">
+                    <small>Bandcamp</small>
+                  </a>
+                )}
+                {artist.details.frontmatter.facebook && (
+                  <a href={artist.details.frontmatter.facebook} target="_blank">
+                    <small>Facebook</small>
+                  </a>
+                )}
+                {artist.details && (
+                  <Link to={artist.details.fields.slug}>
+                    <small>Other gigs</small>
+                  </Link>
+                )}
+              </div>
+            ),
+          }))}
+        />
+      )}
       {media}
       {<ArtistMediaLightbox imageTitle={gigTitle} artistMedia={artistMedia} history={history.current} />}
     </>

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../../components/Layout'
 import { toMachineName, graphqlGroupToObject, scrollTo } from '../../utils/helper'
@@ -120,7 +120,6 @@ const Page = React.memo(({ data }) => {
           )
         }
         height="80vh"
-        zIndex="8"
         backgroundImage={cover}
         customContent={<BannerOverlay data={data} location={location} />}
       >

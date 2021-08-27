@@ -4,24 +4,25 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import styled from '@emotion/styled'
 import { FaBars } from 'react-icons/fa'
-import Menu from '../../components/Menu'
-import { Link } from 'gatsby'
-import { rhythm } from '../../utils/typography'
-import { scrollTo } from '../../utils/helper'
+import Menu from './Menu'
+import { scrollTo } from '../utils/helper'
+import { rhythm } from '../utils/typography'
 
-export default React.memo(({ list, history, height, children }) => {
+export default React.memo(({ list, history, children, top }) => {
   const [open, setOpen] = useState(false)
-  const [selectedArtist, setSelectedArtist] = useState(null)
+  const [selectedItem, setSelectedItem] = useState(null)
 
   useEffect(() => {
-    const unlisten = history.listen((location) => handleURLChange(location.location))
-    return () => unlisten()
+    if (history) {
+      const unlisten = history.listen((location) => handleURLChange(location.location))
+      return () => unlisten()
+    }
   }, [])
 
   const handleURLChange = (location) => {
     if (location.hash) {
-      const newSelectedArtistId = location.hash.substring(1)
-      setSelectedArtist(newSelectedArtistId)
+      const newSelectedId = location.hash.substring(1)
+      setSelectedItem(newSelectedId)
     }
   }
 
@@ -40,34 +41,18 @@ export default React.memo(({ list, history, height, children }) => {
   }, [])
 
   return (
-    <DropdownWrapper>
+    <DropdownWrapper top={top}>
       <DropdownLink open={open} aria-haspopup="true" onClick={toggleMenu}>
         {children}
         <FaBars />
       </DropdownLink>
-      <DropdownMenu height={height} open={open} direction={'down'}>
+      <DropdownMenu open={open} direction={'down'}>
         {list.map((item, index) => (
-          <li key={index} className={selectedArtist == item.machineName ? 'active' : ''}>
-            <ArtistTitle onClick={(e) => select(e, item.machineName)} href={`#${item.machineName}`}>
+          <li key={index} className={selectedItem == item.machineName ? 'active' : ''}>
+            <ItemTitle onClick={(e) => select(e, item.machineName)} href={`#${item.machineName}`}>
               {item.title}
-            </ArtistTitle>
-            {item.details && (
-              <div>
-                {item.details.frontmatter.bandcamp && (
-                  <a href={item.details.frontmatter.bandcamp} target="_blank">
-                    <small>Bandcamp</small>
-                  </a>
-                )}
-                {item.details.frontmatter.facebook && (
-                  <a href={item.details.frontmatter.facebook} target="_blank">
-                    <small>Facebook</small>
-                  </a>
-                )}
-                <Link to={item.details.fields.slug}>
-                  <small>Other gigs</small>
-                </Link>
-              </div>
-            )}
+            </ItemTitle>
+            {item.children}
           </li>
         ))}
       </DropdownMenu>
@@ -78,17 +63,17 @@ export default React.memo(({ list, history, height, children }) => {
 const DropdownWrapper = styled.div`
   position: fixed;
   width: 100%;
-  top: ${(props) => props.theme.headerHeightMobile};
+  top: ${(props) => props.top || props.theme.headerHeightMobile};
   z-index: 7;
   right: 0;
   height: 30px;
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-    top: ${(props) => props.theme.headerHeight};
+    top: ${(props) => props.top || props.theme.headerHeight};
   }
 `
 
-const ArtistTitle = styled.a`
+const ItemTitle = styled.a`
   font-weight: bold;
 `
 

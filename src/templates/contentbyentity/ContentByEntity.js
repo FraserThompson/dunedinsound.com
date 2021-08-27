@@ -22,11 +22,7 @@ import React, { useEffect, useMemo } from 'react'
 import Layout from '../../components/Layout'
 import Banner from '../../components/Banner'
 import Tile from '../../components/Tile'
-import Divider from '../../components/Divider'
 import HorizontalNav from '../../components/HorizontalNav'
-import { theme } from '../../utils/theme'
-import FlexGridContainer from '../../components/FlexGridContainer'
-import GigTile from '../../components/GigTile'
 import { scale, rhythm } from '../../utils/typography'
 import styled from '@emotion/styled'
 import ContentTabs from './ContentTabs'
@@ -36,6 +32,7 @@ import BackToTop from '../../components/BackToTop'
 import ActiveIndicator from '../../components/ActiveIndicator'
 import { getSrc } from 'gatsby-plugin-image'
 import MetadataLinks from './MetadataLinks'
+import GigTiles from './GigTiles'
 
 export default React.memo(({ data, pageDescription, parent, background }) => {
   useEffect(() => {
@@ -90,55 +87,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
       []
     )
 
-  const gigTiles =
-    gigs &&
-    useMemo(() => {
-      const thing = gigs.map(({ fieldValue, edges }) => {
-        const yearSize = edges.length
-
-        return (
-          <div id={fieldValue} key={fieldValue}>
-            <Divider backgroundColor={theme.default.foregroundColor} color={'black'} sticky={'headerMobile'}>
-              <a style={{ width: '100%' }} onClick={(e) => scrollTo(e, fieldValue)} href={'#' + fieldValue}>
-                <small>
-                  {fieldValue} ({yearSize})
-                </small>
-              </a>
-            </Divider>
-            <FlexGridContainer>
-              {edges.map(({ node }) => (
-                <GigTile id={node.fields.slug} node={node} key={node.fields.slug} />
-              ))}
-            </FlexGridContainer>
-          </div>
-        )
-      })
-
-      if (data.thisPost.frontmatter.audioculture) {
-        const audioculture = data.thisPost.frontmatter.audioculture
-        thing.push(
-          <FlexGridContainer key={'audioculture'}>
-            <Tile href={audioculture.link}>
-              <Quote>
-                "{audioculture.snippet}" - <span>Audioculture</span>
-              </Quote>
-            </Tile>
-          </FlexGridContainer>
-        )
-      }
-
-      if (thing.length <= 3) {
-        thing.push(
-          <FlexGridContainer key={'contribution'}>
-            <Tile backgroundColor="black" height="50px" to="/page/contribution_guidelines">
-              <small>Can you add to this? 🤔</small>
-            </Tile>
-          </FlexGridContainer>
-        )
-      }
-
-      return thing
-    }, [])
+  const gigTiles = gigs && <GigTiles gigs={gigs} frontmatter={data.thisPost.frontmatter} />
 
   return (
     <Layout
@@ -211,11 +160,13 @@ const PageTitle = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   h1 {
+    display: none;
     color: black;
     font-size: 100%;
+    font-size: ${rhythm(1.8)};
+    line-height: 0.9;
     @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-      font-size: ${rhythm(1.8)};
-      line-height: 0.9;
+      display: block;
     }
   }
 `

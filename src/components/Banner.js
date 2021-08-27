@@ -40,7 +40,7 @@ const BannerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: ${(props) => props.zIndex || 'auto'};
+  z-index: 8;
   > * {
     z-index: 1;
   }
