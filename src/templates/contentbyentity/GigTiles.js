@@ -1,10 +1,13 @@
+import styled from '@emotion/styled'
 import React from 'react'
 import Divider from '../../components/Divider'
 import DropdownMenu from '../../components/DropdownMenu'
 import FlexGridContainer from '../../components/FlexGridContainer'
 import GigTile from '../../components/GigTile'
+import Tile from '../../components/Tile'
 import { scrollTo } from '../../utils/helper'
 import { theme } from '../../utils/theme'
+import { scale } from '../../utils/typography'
 
 export default React.memo(({ gigs, frontmatter }) => {
   const yearList = []
@@ -55,8 +58,26 @@ export default React.memo(({ gigs, frontmatter }) => {
 
   return (
     <>
-      <DropdownMenu top={theme.default.headerHeightMobile} history={history.current} list={yearList} />
+      <DropdownMenu top={theme.default.headerHeightMobile} list={yearList} />
       {gigTiles}
     </>
   )
 })
+
+const Quote = styled.p`
+  ${scale(1)};
+  font-style: italic;
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px #000;
+  > span {
+    transition: color 0.3s ease-in-out;
+    color: white;
+  }
+  &:hover {
+    > span {
+      color: #b4dc7b;
+    }
+  }
+`

@@ -45,7 +45,7 @@ export default React.memo(({ scrollHeaderContent, isSidebar, headerContent, hide
     >
       {!scrolled && (
         <Brand hideOnMobile={hideBrandOnMobile}>
-          <Link to="/">Dunedin Gig Archives</Link>
+          <Link to="/">Ōtepoti Gig Archives</Link>
         </Brand>
       )}
       {scrolled && <HeaderContent>{scrollHeaderContent}</HeaderContent>}
@@ -56,28 +56,28 @@ export default React.memo(({ scrollHeaderContent, isSidebar, headerContent, hide
 })
 
 const Container = styled.div`
-  background-color: ${props => props.backgroundColor || props.theme.primaryColor};
+  background-color: ${(props) => props.backgroundColor || props.theme.primaryColor};
   position: fixed;
   width: 100%;
-  display: ${props => props.hideOnMobile && 'none'};
+  display: ${(props) => props.hideOnMobile && 'none'};
   flex-direction: row;
   justify-items: center;
   top: 0px;
   z-index: 10;
-  height: ${props => props.theme.headerHeightMobile};
-  color: ${props => props.theme.textColor};
+  height: ${(props) => props.theme.headerHeightMobile};
+  color: ${(props) => props.theme.textColor};
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-  border-bottom: 1px solid ${props => darken(0.025, props.theme.primaryColor)};
-  padding-left: ${props => props.isSidebar && props.theme.headerHeightMobile};
+  border-bottom: 1px solid ${(props) => darken(0.025, props.theme.primaryColor)};
+  padding-left: ${(props) => props.isSidebar && props.theme.headerHeightMobile};
 
   h1 {
-    color: ${props => props.theme.textColor};
+    color: ${(props) => props.theme.textColor};
   }
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     display: flex;
     padding-left: 0;
-    height: ${props => props.theme.headerHeight};
+    height: ${(props) => props.theme.headerHeight};
   }
 `
 
@@ -107,23 +107,23 @@ const HeaderContent = styled.div`
 
 const Brand = styled.div`
   margin-right: auto;
-  display: ${props => props.hideOnMobile && 'none'};
-  height: ${props => props.theme.headerHeightMobile};
+  display: ${(props) => props.hideOnMobile && 'none'};
+  height: ${(props) => props.theme.headerHeightMobile};
 
   a {
-    color: ${props => props.theme.textColor};
+    color: ${(props) => props.theme.textColor};
     padding: ${rhythm(0.5)};
-    line-height: ${props => props.theme.headerHeight};
+    line-height: ${(props) => props.theme.headerHeight};
     &:hover {
       text-decoration: none;
-      color: ${props => props.theme.secondaryColor};
+      color: ${(props) => props.theme.secondaryColor};
     }
   }
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
-    height: ${props => props.theme.headerHeight};
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    height: ${(props) => props.theme.headerHeight};
   }
-  @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     display: block;
   }
 `

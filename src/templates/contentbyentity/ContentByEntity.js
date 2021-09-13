@@ -23,7 +23,7 @@ import Layout from '../../components/Layout'
 import Banner from '../../components/Banner'
 import Tile from '../../components/Tile'
 import HorizontalNav from '../../components/HorizontalNav'
-import { scale, rhythm } from '../../utils/typography'
+import { rhythm } from '../../utils/typography'
 import styled from '@emotion/styled'
 import ContentTabs from './ContentTabs'
 import { scrollTo } from '../../utils/helper'
@@ -136,23 +136,6 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
   )
 })
 
-const Quote = styled.p`
-  ${scale(1)};
-  font-style: italic;
-  text-align: center;
-  color: white;
-  background: rgba(0, 0, 0, 0.5);
-  text-shadow: 1px 1px #000;
-  > span {
-    transition: color 0.3s ease-in-out;
-    color: white;
-  }
-  &:hover {
-    > span {
-      color: #b4dc7b;
-    }
-  }
-`
 const PageTitle = styled.span`
   margin-left: auto;
   max-width: 75vw;

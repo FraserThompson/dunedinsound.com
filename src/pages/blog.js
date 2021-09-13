@@ -41,7 +41,7 @@ const Page = ({ data, location }) => {
     <Layout location={location} description={siteDescription} title={`Blog | ${siteTitle}`} overrideBackgroundColor="white">
       <TextContainer>
         <h1>Articles</h1>
-        <TagCloud blogTags={blogTags} />
+        {/* <TagCloud blogTags={blogTags} /> */}
         {postElements}
       </TextContainer>
     </Layout>
