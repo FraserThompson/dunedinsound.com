@@ -119,9 +119,7 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
         <HorizontalNav style={{ paddingTop: rhythm(1) }}>
           <MetadataLinks frontmatter={data.thisPost.frontmatter} liClassname="button" />
         </HorizontalNav>
-        {data.thisPost.frontmatter.description && (
-          <p style={{ marginTop: 'auto' }} dangerouslySetInnerHTML={{ __html: data.thisPost.frontmatter.description }} />
-        )}
+        {data.thisPost.frontmatter.description && <PageDescription dangerouslySetInnerHTML={{ __html: data.thisPost.frontmatter.description }} />}
       </Banner>
       <ContentTabs
         gigTiles={gigTiles}
@@ -152,6 +150,11 @@ const PageTitle = styled.span`
       display: block;
     }
   }
+`
+
+const PageDescription = styled.p`
+  margin-top: auto;
+  filter: drop-shadow(1px 1px 5px black);
 `
 
 const ActiveWrapper = styled.div``

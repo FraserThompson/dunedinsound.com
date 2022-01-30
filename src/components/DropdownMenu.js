@@ -98,6 +98,7 @@ const DropdownMenu = styled(Menu)`
   width: 100%;
 
   a {
+    line-height: 2rem;
     min-height: ${rhythm(1)};
     padding-left: ${rhythm(0.5)};
     padding-right: ${rhythm(0.5)};

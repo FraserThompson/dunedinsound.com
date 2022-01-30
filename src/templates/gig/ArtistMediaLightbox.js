@@ -98,7 +98,14 @@ export default React.memo(({ gigTitle, artistMedia, history }) => {
       switch (size) {
         default:
           const srcSet = getSrcSet(images[selectedImage].node)
-          return parse(srcSet).find((thing) => thing.width === 1600).url
+          const parsed = parse(srcSet)
+
+          // The last image is always the largest, so just return that.
+          // Usually 1600 wide, very rarely 800.
+          const displayed_image = parsed[parsed.length - 1]
+
+          return displayed_image.url
+
         case 'full':
           return images[selectedImage].node.publicURL
       }

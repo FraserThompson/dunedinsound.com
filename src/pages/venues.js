@@ -11,8 +11,8 @@ import HorizontalNav from '../components/HorizontalNav'
 import { lighten } from 'polished'
 import ActiveIndicator from '../components/ActiveIndicator'
 import { rhythm } from '../utils/typography'
-import ReactDOMServer from 'react-dom/server'
-import { FaMapMarkerAlt } from 'react-icons/fa'
+import { deadIcon, livingIcon } from '../templates/venue/MapMarkers'
+import { MapWrapper } from '../components/MapWrapper'
 
 const Sidebar = React.memo(({ menuItems, menuItemClick, setRef, selected }) => {
   const [open, setOpen] = useState(true)
@@ -127,21 +127,6 @@ const Page = React.memo(({ data, location }) => {
     [markerRefs]
   )
 
-  let livingIcon = null
-  let deadIcon = null
-
-  if (typeof L !== 'undefined') {
-    livingIcon = L.divIcon({
-      className: 'alive-icon',
-      html: ReactDOMServer.renderToString(<FaMapMarkerAlt />),
-    })
-
-    deadIcon = L.divIcon({
-      className: 'dead-icon',
-      html: '<span>✝</span>',
-    })
-  }
-
   return (
     <Layout
       description={data.site.siteMetadata.description}
@@ -163,7 +148,7 @@ const Page = React.memo(({ data, location }) => {
           Hide alive
         </label>
       </HideFilters>
-      <MapWrapper>
+      <FullMapWrapper>
         <MapContainer style={{ height: '100%', width: '100%' }} center={initialMapCenter} zoom={initialZoom} whenCreated={setMap}>
           <TileLayer
             url="https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnJhc2VydGhvbXBzb24iLCJhIjoiY2llcnF2ZXlhMDF0cncwa21yY2tyZjB5aCJ9.iVxJbdbZiWVfHItWtZfKPQ"
@@ -218,39 +203,14 @@ const Page = React.memo(({ data, location }) => {
             </Marker>
           ))}
         </MapContainer>
-      </MapWrapper>
+      </FullMapWrapper>
     </Layout>
   )
 })
 
-const MapWrapper = styled.div`
-  width: 100%;
+const FullMapWrapper = styled(MapWrapper)`
   height: ${(props) => `calc(100vh - ${props.theme.headerHeight} - 2px)`};
-  position: relative;
   z-index: 5;
-
-  .alive-icon {
-    color: #31a24c;
-  }
-
-  .dead-icon {
-    color: white;
-    font-size: 2.5em;
-  }
-
-  .leaflet-marker-icon {
-    width: 23px !important;
-    height: 23px !important;
-    filter: drop-shadow(1px 1px 2px black);
-    svg {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .leaflet-popup-content {
-    max-width: 230px;
-  }
 `
 
 const VenueGigsTile = styled.h4`

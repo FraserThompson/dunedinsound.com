@@ -6,6 +6,7 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "baguettebox.js": "^1.11.1",
     "gatsby": "^3.11.1",
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-emotion": "^6.11.0",

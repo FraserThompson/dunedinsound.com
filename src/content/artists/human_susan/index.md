@@ -1,3 +1,5 @@
 ---
 title: Human Susan
+facebook: https://www.facebook.com/shesahuman
+bandcamp: https://humansusan.bandcamp.com/
 ---

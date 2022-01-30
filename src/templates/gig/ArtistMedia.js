@@ -112,12 +112,12 @@ export default React.memo(({ artistMedia, gigTitle }) => {
             ...artist,
             children: (
               <div>
-                {artist.details.frontmatter.bandcamp && (
+                {artist.details?.frontmatter.bandcamp && (
                   <a href={artist.details.frontmatter.bandcamp} target="_blank">
                     <small>Bandcamp</small>
                   </a>
                 )}
-                {artist.details.frontmatter.facebook && (
+                {artist.details?.frontmatter.facebook && (
                   <a href={artist.details.frontmatter.facebook} target="_blank">
                     <small>Facebook</small>
                   </a>

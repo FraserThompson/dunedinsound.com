@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from '@emotion/styled'
 import { Link, graphql } from 'gatsby'
 import Layout from '../../components/Layout'
@@ -6,6 +6,8 @@ import { rhythm } from '../../utils/typography'
 import BlogContainer from '../../components/BlogContainer'
 import Banner from '../../components/Banner'
 import ImageGallery from '../../components/ImageGallery'
+import baguetteBox from 'baguettebox.js'
+import 'baguettebox.js/dist/baguetteBox.min.css'
 import GigTile from '../../components/GigTile'
 import FlexGridContainer from '../../components/FlexGridContainer'
 import { BlogSidebar } from './sidebar'
@@ -17,6 +19,11 @@ const Page = React.memo(({ data, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title
   const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
   const { previous, next } = pageContext
+
+  useEffect(() => {
+    // If we don't have a proper image gallery we still want lightboxes for images
+    if (!post.frontmatter.gallery) baguetteBox.run('.gatsby-resp-image-link')
+  }, [])
 
   return (
     <Layout
