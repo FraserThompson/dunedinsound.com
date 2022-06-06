@@ -4,7 +4,7 @@ import Lightbox from 'react-image-lightbox'
 import { FaDownload } from 'react-icons/fa'
 import { scrollTo } from '../../utils/helper'
 import styled from '@emotion/styled'
-import { parse } from 'srcset'
+import { parseSrcset } from 'srcset'
 
 export default React.memo(({ gigTitle, artistMedia, history }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false)
@@ -98,7 +98,7 @@ export default React.memo(({ gigTitle, artistMedia, history }) => {
       switch (size) {
         default:
           const srcSet = getSrcSet(images[selectedImage].node)
-          const parsed = parse(srcSet)
+          const parsed = parseSrcset(srcSet)
 
           // The last image is always the largest, so just return that.
           // Usually 1600 wide, very rarely 800.

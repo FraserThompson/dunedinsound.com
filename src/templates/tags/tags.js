@@ -6,6 +6,7 @@ import TagCloud from '../../components/TagCloud'
 import Banner from '../../components/Banner'
 import { rhythm } from '../../utils/typography'
 import TextContainer from '../../components/TextContainer'
+import BlogContainer from '../../components/BlogContainer'
 
 export default React.memo(({ data, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -15,9 +16,12 @@ export default React.memo(({ data, pageContext }) => {
 
   const postElements = posts.map(({ node }) => (
     <Post key={node.fields.slug}>
-      <h1>
-        <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
-      </h1>
+      <h2>
+        <Link to={node.fields.slug}>
+          {node.frontmatter.tags.includes('interview') && 'INTERVIEW: '}
+          {node.frontmatter.title}
+        </Link>
+      </h2>
       <h4>{node.frontmatter.date}</h4>
       {node.frontmatter.cover && (
         <Link to={node.fields.slug}>
@@ -41,29 +45,41 @@ export default React.memo(({ data, pageContext }) => {
       title={`Blog | ${siteTitle}`}
       overrideBackgroundColor="white"
     >
-      <TextContainer>
-        <TagCloud blogTags={blogTags} selected={pageContext.tag} />
-        {postElements}
-      </TextContainer>
+      <BlogPageContainer>
+        <Sidebar>
+          <h1>Tags</h1>
+          <TagCloud blogTags={blogTags} selected={pageContext.tag} />
+        </Sidebar>
+        <PostsContainer>
+          <h1>
+            Articles tagged with <em>{pageContext.tag}</em>
+          </h1>
+          {postElements}
+        </PostsContainer>
+      </BlogPageContainer>
     </Layout>
   )
 })
 
+const BlogPageContainer = styled.div`
+  display: flex;
+`
+
+const Sidebar = styled.div`
+  padding: ${rhythm(0.5)};
+  color: #333333;
+  max-width: 350px;
+  display: none;
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
+    display: block;
+  }
+`
 const Post = styled.div`
   margin-top: ${rhythm(1)};
-
   .banner,
   hr {
     margin-left: 0px;
     margin-right: 0px;
-  }
-
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-    .banner,
-    hr {
-      margin-left: -5vw;
-      margin-right: -5vw;
-    }
   }
 
   .banner {
@@ -73,6 +89,12 @@ const Post = styled.div`
   hr {
     margin-top: ${rhythm(1)};
   }
+`
+
+const PostsContainer = styled(BlogContainer)`
+  padding: ${rhythm(0.5)};
+  max-width: ${(props) => props.theme.contentContainerWidth};
+  margin: 0 auto;
 `
 
 export const pageQuery = graphql`

@@ -39,9 +39,13 @@ const Page = React.memo(({ data, pageContext }) => {
             <BlogTitle>{post.frontmatter.title}</BlogTitle>
           </Banner>
         )}
-        <BlogWrapper>
-          <BlogSidebar data={data} />
-          <TextContainer leftAlign={true}>
+        <BlogWrapper featureMode={post.frontmatter.featureMode}>
+          {!post.frontmatter.featureMode && <BlogSidebar data={data} />}
+          <TextContainer
+            leftAlign={!post.frontmatter.featureMode ? true : false}
+            featureMode={post.frontmatter.featureMode}
+            hideCaptions={post.frontmatter.hideCaptions}
+          >
             <div dangerouslySetInnerHTML={{ __html: post.html }} />
           </TextContainer>
         </BlogWrapper>
@@ -84,7 +88,7 @@ const BlogPostNav = styled.ul`
 `
 
 const BlogWrapper = styled(BlogContainer)`
-  max-width: 1680px;
+  max-width: ${(props) => (props.featureMode ? 'auto' : '1680px')};
   margin: 0 auto;
   display: flex;
 `

@@ -192,7 +192,7 @@ const Page = React.memo(({ data, location }) => {
     >
       <Sidebar menuItems={displayedMenuItems} menuItemClick={menuItemClick} />
       <PageContentWrapper>
-        <FutureGigsWrapper>
+        {/* <FutureGigsWrapper>
           <FutureGigs>
             <div className="title">CONGRATULATIONS</div>
             <div className="body">
@@ -215,7 +215,7 @@ const Page = React.memo(({ data, location }) => {
               </div>
             </div>
           </FutureGigs>
-        </FutureGigsWrapper>
+        </FutureGigsWrapper> */}
         <InfiniteScroll
           className="infinite-scroll"
           pageStart={0}
@@ -257,12 +257,12 @@ const PageContentWrapper = styled.div`
   padding-left: 0px;
 
   .infinite-scroll {
-    margin-top: ${(props) => `calc(350px + ${props.theme.headerHeightMobile})`};
+    margin-top: ${(props) => `${props.theme.headerHeightMobile})`};
   }
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     .infinite-scroll {
-      margin-top: ${(props) => `calc(350px + ${props.theme.headerHeight})`};
+      margin-top: ${(props) => `${props.theme.headerHeight})`};
     }
   }
 

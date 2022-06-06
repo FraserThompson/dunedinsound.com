@@ -115,9 +115,9 @@ Here are some 100% crops:
 
 ![](./g85-6k-crop.jpg)
 
-It case it wasn't obvous, top is the S5, bottom is the G85. You can see a pretty stark difference in noise levels and detail retention.
+Top is the S5, bottom is the G85. You can see a pretty stark difference in noise levels and detail retention.
 
-But here's the kicker: The G85 was at ISO 6400 and the S5 was at ISO 25,600.
+But here's the surprise twist: In the above images the G85 was at ISO 6400 and the S5 was at... **ISO 25,600.**
 
 This is what the G85 looks like at ISO 25,600.
 

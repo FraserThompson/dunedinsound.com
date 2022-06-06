@@ -12,7 +12,7 @@ import Tile from './Tile'
 
 export default React.memo(({ node, title, id, width, height, hoverHeight, feature }) => {
   const tileTitle = title || node.frontmatter.title || node.fields.slug
-  const artists = node.frontmatter.artists.map(artist => artist.name).join('<br/> ')
+  const artists = node.frontmatter.artists.map((artist) => artist.name).join('<br/> ')
 
   return (
     <Tile
@@ -27,6 +27,7 @@ export default React.memo(({ node, title, id, width, height, hoverHeight, featur
       hoverHeight={hoverHeight}
       to={node.fields.slug}
       feature={feature}
+      prefix={'GIG: '}
     ></Tile>
   )
 })

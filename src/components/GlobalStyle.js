@@ -133,6 +133,10 @@ const GlobalStyle = css`
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
   }
 
+  h4 {
+    font-weight: 200;
+  }
+
   button,
   .button {
     display: inline-block;

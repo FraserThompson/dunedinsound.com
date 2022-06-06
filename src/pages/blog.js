@@ -5,7 +5,7 @@ import styled from '@emotion/styled'
 import TagCloud from '../components/TagCloud'
 import Banner from '../components/Banner'
 import { rhythm } from '../utils/typography'
-import TextContainer from '../components/TextContainer'
+import BlogContainer from '../components/BlogContainer'
 
 const Page = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -39,14 +39,33 @@ const Page = ({ data, location }) => {
 
   return (
     <Layout location={location} description={siteDescription} title={`Blog | ${siteTitle}`} overrideBackgroundColor="white">
-      <TextContainer>
-        <h1>Articles</h1>
-        {/* <TagCloud blogTags={blogTags} /> */}
-        {postElements}
-      </TextContainer>
+      <BlogPageContainer>
+        <Sidebar>
+          <h1>Tags</h1>
+          <TagCloud blogTags={blogTags} />
+        </Sidebar>
+        <PostsContainer>
+          <h1>Articles</h1>
+          {postElements}
+        </PostsContainer>
+      </BlogPageContainer>
     </Layout>
   )
 }
+
+const BlogPageContainer = styled.div`
+  display: flex;
+`
+
+const Sidebar = styled.div`
+  padding: ${rhythm(0.5)};
+  color: #333333;
+  max-width: 350px;
+  display: none;
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
+    display: block;
+  }
+`
 
 const Post = styled.div`
   margin-top: ${rhythm(1)};
@@ -56,14 +75,6 @@ const Post = styled.div`
     margin-right: 0px;
   }
 
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-    .banner,
-    hr {
-      margin-left: -5vw;
-      margin-right: -5vw;
-    }
-  }
-
   .banner {
     margin-bottom: ${rhythm(1)};
   }
@@ -71,6 +82,12 @@ const Post = styled.div`
   hr {
     margin-top: ${rhythm(1)};
   }
+`
+
+const PostsContainer = styled(BlogContainer)`
+  padding: ${rhythm(0.5)};
+  max-width: ${(props) => props.theme.contentContainerWidth};
+  margin: 0 auto;
 `
 
 export const pageQuery = graphql`

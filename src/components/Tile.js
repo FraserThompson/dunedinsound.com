@@ -20,7 +20,7 @@ import styled from '@emotion/styled'
 import BackgroundImage from './BackgroundImage'
 import Content from './Content'
 import { rhythm } from '../utils/typography'
-import { lighten } from 'polished'
+import { darken, lighten } from 'polished'
 import { Link } from 'gatsby'
 
 export default ({
@@ -36,6 +36,7 @@ export default ({
   image,
   subtitle,
   title,
+  prefix,
   children,
   href,
   to,
@@ -47,8 +48,13 @@ export default ({
       {image && <BackgroundImage image={image} />}
       <TitleWrapper shadowBottom={title || subtitle} feature={feature}>
         <Content>
-          {title && <h2 className="title">{title}</h2>}
-          {label && <h4>{label}</h4>}
+          {title && (
+            <h2 className="title">
+              {prefix && <span className="prefix">{prefix}</span>}
+              {title}
+            </h2>
+          )}
+          {label && <h4 className="label">{label}</h4>}
           {subtitle && <p className="subtitle" dangerouslySetInnerHTML={{ __html: subtitle }} />}
         </Content>
         <TextContent>
@@ -159,15 +165,16 @@ const Label = styled.span`
 
 const TitleWrapper = styled.div`
   z-index: 5;
-  width: 100%;
   position: absolute;
   bottom: 0px;
   background: ${(props) => props.shadowBottom && `radial-gradient(circle at center, rgba(0,0,0,0), rgba(0,0,0,0.4) 60%)`};
   height: 100%;
+  width: 100%;
   display: flex;
   mix-blend-mode: ${(props) => props.feature && 'difference'};
 
   ${Content} {
+    width: 100%;
     margin-left: 0;
     display: flex;
     flex-direction: column;
@@ -183,6 +190,15 @@ const TitleWrapper = styled.div`
       margin: 0px;
       margin-top: auto;
       line-height: 0.9;
+    }
+
+    .prefix {
+      font-weight: 200;
+      color: ${(props) => darken(0.2, props.theme.textColor)};
+    }
+
+    .label {
+      color: ${(props) => darken(0.2, props.theme.textColor)};
     }
 
     @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {

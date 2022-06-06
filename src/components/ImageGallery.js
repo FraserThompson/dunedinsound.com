@@ -5,7 +5,7 @@ import Lightbox from 'react-image-lightbox'
 import { FaDownload } from 'react-icons/fa'
 import FlexGridContainer from '../components/FlexGridContainer'
 import { createBrowserHistory } from 'history'
-import { parse } from 'srcset'
+import { parseSrcset } from 'srcset'
 
 export default React.memo(({ images, gridSize, title, imageCaption }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false)
@@ -58,7 +58,7 @@ export default React.memo(({ images, gridSize, title, imageCaption }) => {
       switch (size) {
         default:
           const srcSet = getSrcSet(images[imageIndex].node)
-          return parse(srcSet).find((thing) => thing.width === 1600 || thing.width === 800).url
+          return parseSrcset(srcSet).find((thing) => thing.width === 1600 || thing.width === 800).url
         case 'full':
           return images[imageIndex].node.publicURL
       }

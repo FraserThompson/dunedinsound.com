@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import styled from '@emotion/styled'
 import World from '../components/World'
 
@@ -19,7 +19,7 @@ const Page = ({ data, location }) => {
     !hoveredNode && speechSynthesis.cancel()
   }, [hoveredNode])
 
-  const speak = useCallback(text => {
+  const speak = useCallback((text) => {
     const msg = new SpeechSynthesisUtterance()
     msg.voiceURI = 'native'
     msg.volume = 1
@@ -30,7 +30,7 @@ const Page = ({ data, location }) => {
     speechSynthesis.speak(msg)
   })
 
-  const thingHover = useCallback(node => {
+  const thingHover = useCallback((node) => {
     setHoveredNode(node)
     setLights('on')
     setPerspective('320px')
@@ -44,11 +44,9 @@ const Page = ({ data, location }) => {
 
   const backContent = (
     <Posts>
-      {hoveredNode && (
-        <div className="background">
-          <GatsbyImage style={{ height: '100%', opacity: '0.6' }} image={getImage(hoveredNode.frontmatter.cover)} alt=""/>
-        </div>
-      )}
+      <div className="background">
+        <GatsbyImage style={{ height: '100%', width: '100%', opacity: '0.6' }} image={hoveredNode && getImage(hoveredNode.frontmatter.cover)} alt="" />
+      </div>
       {posts.map(({ node }) => (
         <Link key={node.fields.slug} onMouseOver={() => thingHover(node)} onMouseOut={thingUnhover} to={node.fields.slug}>
           <article>
@@ -108,8 +106,8 @@ export const pageQuery = graphql`
 const Logo = styled.div`
   margin: 0 auto;
   position: absolute;
-  top: ${props => props.position == 'top' && '0px'};
-  bottom: ${props => props.position == 'bottom' && '0px'};
+  top: ${(props) => props.position == 'top' && '0px'};
+  bottom: ${(props) => props.position == 'bottom' && '0px'};
   z-index: 2;
   width: 100%;
   img {
@@ -139,6 +137,7 @@ const Posts = styled.div`
     width: 100%;
     transition: background-color 0.3s ease-in-out;
     background-color: rgba(0, 0, 0, 0);
+    z-index: 1;
     h2 {
       text-transform: uppercase;
       color: #282828;
@@ -166,4 +165,4 @@ const Description = styled.div`
   }
 `
 
-export default Page;
+export default Page

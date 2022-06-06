@@ -39,7 +39,7 @@ const Page = React.memo(({ data }) => {
 })
 
 export const pageQuery = graphql`
-  query VenuesBySlug($slug: String!, $machine_name: String!) {
+  query VenuesBySlug($slug: String!, $machine_name: String!, $title: String!) {
     site {
       ...SiteInformation
     }
@@ -48,7 +48,7 @@ export const pageQuery = graphql`
     }
     blogs: allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { eq: $machine_name } } }
+      filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { eq: $title } } }
     ) {
       edges {
         node {

@@ -24,7 +24,8 @@ const Page = ({ data, location }) => {
         tile = (
           <Tile
             key={node.fields.slug}
-            title={`${node.frontmatter.tags.includes('Interview') ? 'INTERVIEW: ' : 'ARTICLE: '}${node.frontmatter.title}`}
+            prefix={node.frontmatter.tags.includes('Interview') ? 'INTERVIEW: ' : 'ARTICLE: '}
+            title={node.frontmatter.title}
             image={node.frontmatter.cover}
             label={node.frontmatter.date}
             height={'33vh'}
@@ -37,7 +38,8 @@ const Page = ({ data, location }) => {
             key={node.fields.slug}
             image={node.frontmatter.cover}
             height={'33vh'}
-            title={`VAULT SESSION: ${node.frontmatter.title}`}
+            prefix="VAULT SESSION: "
+            title={node.frontmatter.title}
             to={node.fields.slug}
           />
         )
