@@ -9,6 +9,8 @@ const foregroundColor = theme.default.foregroundColor
 const lightText = lighten(0.5, theme.default.textColor)
 const darkText = invert(theme.default.textColor)
 const contrastColor2 = theme.default.contrastColor2
+const lightContrastColor2 = lighten(0.2, contrastColor2)
+const lightForegroundColor = lighten(0.2, foregroundColor)
 const padding = rhythm(0.5)
 const rhythm1 = rhythm(1)
 const scale2 = scale(2)
@@ -189,10 +191,13 @@ const GlobalStyle = css`
 
     &:hover,
     &:active {
-      color: ${theme.default.secondaryColor};
+      color: ${lightContrastColor2};
       outline: 0;
       .backgroundImage {
         transform: scale(1.02, 1.02);
+      }
+      &.highlighted {
+        color: ${lightForegroundColor};
       }
     }
 

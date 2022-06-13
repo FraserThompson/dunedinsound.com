@@ -5,12 +5,21 @@ import BlogContainer from './BlogContainer'
 export default styled(BlogContainer)`
   padding-top: ${rhythm(0.5)};
   p,
+  h2,
+  h3,
+  h4,
   ul {
-    font-size: ${(props) => (!props.featureMode ? '18px' : '21px')};
     max-width: ${(props) => props.theme.contentContainerWidth};
     margin: ${(props) => (!props.leftAlign ? '20px auto' : '')};
     padding-left: ${rhythm(0.5)};
     padding-right: ${rhythm(0.5)};
+  }
+  ul {
+    padding-left: ${rhythm(1.8)};
+  }
+  p,
+  ul {
+    font-size: ${(props) => (!props.featureMode ? '18px' : '21px')};
 
     @media screen and (min-width: ${(props) => props.theme.breakpoints.lg}) {
       font-size: ${(props) => (!props.featureMode ? '20px' : '24px')};

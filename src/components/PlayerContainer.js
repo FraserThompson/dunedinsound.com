@@ -37,7 +37,7 @@ export default ({ artistAudio, minimizedAlways }) => {
         <PlayerWrapper open={open} minimized={minimized}>
           <OpenButton>
             <button title="Audio Player" onClick={() => setOpen(!open)}>
-              <small>AUDIO</small> {!open ? <FaChevronUp /> : <FaChevronDown />}
+              <span>AUDIO</span> {!open ? <FaChevronUp /> : <FaChevronDown />}
             </button>
           </OpenButton>
           <Player artistAudio={artistAudio} />
@@ -52,6 +52,7 @@ const OpenButton = styled.div`
   width: 100%;
   bottom: calc(${(props) => props.theme.headerHeightMobile} + 100px);
   left: 0px;
+  font-family: monospace;
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     bottom: 100px;
@@ -63,9 +64,9 @@ const OpenButton = styled.div`
     position: relative;
   }
 
-  small {
+  span {
     position: relative;
-    bottom: 12px;
+    bottom: 10px;
   }
 
   button {
@@ -77,7 +78,7 @@ const OpenButton = styled.div`
     padding-right: 13px;
     height: 30px;
     color: black;
-    background-color: ${(props) => props.theme.foregroundColor};
+    background-color: #bfced9;
     border-top-left-radius: 60px;
     border-top-right-radius: 60px;
 
@@ -112,6 +113,8 @@ const PlayerWrapper = styled.div`
     visibility: ${(props) => (!props.minimized || props.open ? '1' : '0')};
     opacity: ${(props) => (!props.minimized || props.open ? '1' : '0')};
     transition: all 150ms ease-in-out;
+    border: 3px groove #585662;
+    background: linear-gradient(to left, #1a1927 0%, #353551 53%, #21212d 100%);
   }
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {

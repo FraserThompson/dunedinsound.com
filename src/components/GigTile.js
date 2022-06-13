@@ -12,7 +12,15 @@ import Tile from './Tile'
 
 export default React.memo(({ node, title, id, width, height, hoverHeight, feature }) => {
   const tileTitle = title || node.frontmatter.title || node.fields.slug
-  const artists = node.frontmatter.artists.map((artist) => artist.name).join('<br/> ')
+  const artists = node.frontmatter.artists
+    .map((artist, i) => {
+      if (i == node.frontmatter.artists.length - 1) {
+        return ' and <strong>' + artist.name + '</strong>'
+      } else {
+        return '<strong>' + artist.name + '</strong>, '
+      }
+    })
+    .join('')
 
   return (
     <Tile

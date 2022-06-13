@@ -13,21 +13,21 @@ Most of that is done by going to gigs, documenting them via photo, video and aud
 
 ## Are you making money?
 
-dunedinsound.com is completely non-commercial, no sponsors, no ads, no money. The intent is to support the music community and not take anything from it. The current cost of hosting everything is around **\$10** a month.
+dunedinsound.com is completely non-commercial, no sponsors, no ads, no money. The intent is to support the music community and not take anything from it. The current cost of hosting everything is around **\$7** a month. I will continue paying this for as long as I can.
 
 All works are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a> meaning you can do whatever you want as long as you mention dunedinsound.com and you're not making loads of money off of it (contact fraser@dunedinsound.com if you want to use it commercially).
 
 I'm not affiliated with any venue or band so consider my audio recordings bootlegs.
 
-## Why not just put stuff on Facebook like everyone else?
+## Why not just put stuff on Facebook or Instagram like everyone else?
 
-Facebook is terrible for archiving.
+Most social media networks are terrible for archiving.
 
-- It's not indexed by Google or other search engines
-- Finding anything is a chore because it's more interested in making money off you than helping you find what you want
-- For photos specifically, the image compression is very aggressive and makes your photos look bad
+- They're not indexed by Google or other search engines
+- Finding anything is a chore because they're more interested in making money off you than helping you find what you want
+- For photos specifically, the image compression can be very aggressive and makes photos look bad
 
-"Anything you put online is there forever" is a common misconception - if you're posting content on someone elses platform there's no gaurantee it will be there tomorrow.
+"Anything you put online is there forever" is a common misconception - if you're posting content on someone elses platform there's no gaurantee it will be there tomorrow. Trusting an advertising and attention driven for-profit entity with the important task of preserving history and culture is unwise.
 
 dunedinsound.com is a permanent archive, artists/fans will be able to access it decades from now, and it should be pretty easy to use and find what they're after.
 
@@ -36,8 +36,8 @@ dunedinsound.com is a permanent archive, artists/fans will be able to access it 
 In case you're curious.
 
 - Custom binaural headset: Two electret microphones, modified to withstand higher volumes without distorting, shoved into a pair of earplugs, and wired up to a battery box. They go in my ears and record sound with the added benefit of protecting my hearing somewhat. This is how I get decent sounding recordings without setting anything up or talking to the sound person.
-- Panasonic G85 micro four-thirds camera with vintage M42 mount lenses, usually an Asahi Pentax 50mm 1.4 (the one with the radioactive element).
-- Panasonic GX850 as a b-cam for multi-angle video.
+- Panasonic S5 camera with an assortment of pocketable lenses, often vintage M42 mount lenses (Asahi Pentax 50mm 1.4 is my favourite).
+- Panasonic GX850 or Panasonic G85 as a b-cam for multi-angle video.
 - Roland R-05 portable recorder. Built in mics are okay as a backup.
 
 My recording rig is wearable, so I can just stand in the audience and get a pretty good recording. Also, unlike a recording from the soundboard my recordings capture exactly what it sounded like from the audience, which can be really good or really bad or anywhere in between.

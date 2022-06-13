@@ -65,8 +65,14 @@ const BannerContent = styled.div`
   width: 100%;
 
   .button {
-    background-color: rgba(0, 0, 0, 0.6);
+    border: 6px inset white;
+    background-color: silver;
+    color: black;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    &:hover {
+      background-color: darkgray;
+      color: black;
+    }
   }
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
@@ -93,4 +99,7 @@ const BannerContent = styled.div`
 
 const Title = styled.div`
   filter: drop-shadow(1px 1px 5px black);
+  background: ${(props) => 'linear-gradient(90deg, black,' + props.theme.foregroundColor + ')'};
+  border: 2px inset;
+  padding: 5px;
 `

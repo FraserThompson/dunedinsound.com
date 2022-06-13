@@ -55,7 +55,7 @@ export default ({
             </h2>
           )}
           {label && <h4 className="label">{label}</h4>}
-          {subtitle && <p className="subtitle" dangerouslySetInnerHTML={{ __html: subtitle }} />}
+          {subtitle && <h4 className="subtitle" dangerouslySetInnerHTML={{ __html: subtitle }} />}
         </Content>
         <TextContent>
           <div>{children}</div>
@@ -146,23 +146,6 @@ const TextContent = styled.div`
   }
 `
 
-const Label = styled.span`
-  position: absolute;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 5;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  line-height: 1;
-  padding-left: ${rhythm(0.5)};
-  padding-right: ${rhythm(0.5)};
-  right: 0px;
-  top: 0px;
-  small {
-    color: ${(props) => props.theme.textColor};
-  }
-`
-
 const TitleWrapper = styled.div`
   z-index: 5;
   position: absolute;
@@ -190,15 +173,16 @@ const TitleWrapper = styled.div`
       margin: 0px;
       margin-top: auto;
       line-height: 0.9;
+      color: ${() => darken(0.2, '#ccc')};
     }
 
     .prefix {
       font-weight: 200;
-      color: ${(props) => darken(0.2, props.theme.textColor)};
+      color: ${() => darken(0.2, '#ccc')};
     }
 
     .label {
-      color: ${(props) => darken(0.2, props.theme.textColor)};
+      color: ${() => darken(0.2, '#ccc')};
     }
 
     @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {

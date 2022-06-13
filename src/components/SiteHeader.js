@@ -66,7 +66,7 @@ const Container = styled.div`
   z-index: 10;
   height: ${(props) => props.theme.headerHeightMobile};
   color: ${(props) => props.theme.textColor};
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   border-bottom: 1px solid ${(props) => darken(0.025, props.theme.primaryColor)};
   padding-left: ${(props) => props.isSidebar && props.theme.headerHeightMobile};
 

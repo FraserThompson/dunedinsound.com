@@ -9,14 +9,14 @@ export const theme = {
     headerHeightWithSubheader: rhythm(3.5),
     headerHeightNeg: rhythm(-2),
     footerHeight: '280px',
-    waveformColor: '#01baef',
-    waveformProgressColor: '#F71735',
+    waveformColor: '#bfced9',
+    waveformProgressColor: '#fffadf',
     backgroundColor: '#08090C', // dark navy
-    primaryColor: '#08090C', // navy
-    foregroundColor: '#F1D302', // yellow
-    secondaryColor: '#F71735', // pink
+    primaryColor: '#0F0E0E', // smoky black
+    foregroundColor: '#3f92f7', // lightblue
+    secondaryColor: '#367e80', // teal
     contrastColor: '#FAF9F9', // ice white
-    contrastColor2: '#2AA3FF', // cyan
+    contrastColor2: '#ABEBD2', // mint
     textColor: '#ccc',
     contentContainerWidth: '740px',
     defaultBannerHeight: '70vh',

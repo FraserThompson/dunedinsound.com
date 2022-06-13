@@ -68,7 +68,7 @@ const SidebarNavWrapper = styled(Menu)`
   left: ${(props) => props.left && 0};
   right: ${(props) => props.right && 0};
   z-index: 10;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   border-right: 1px solid ${(props) => darken(0.025, props.theme.primaryColor)};
 
   visibility: ${(props) => (props.open ? 'hidden' : 'visible')};

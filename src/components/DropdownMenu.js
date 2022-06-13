@@ -93,7 +93,7 @@ const DropdownMenu = styled(Menu)`
   transition-property: visibility, opacity, transform;
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0, 0, 0, 1.2);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 
   width: 100%;
 

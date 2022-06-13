@@ -38,7 +38,7 @@ export default React.memo(({ artistAudio }) => {
     setWaveSurfer(
       WavesurferJS.create({
         container: waveformRef.current,
-        waveColor: theme.default.contrastColor2,
+        waveColor: theme.default.waveformColor,
         height: 60,
         hideScrollbar: true,
         normalize: true,
@@ -175,6 +175,7 @@ export default React.memo(({ artistAudio }) => {
 
   return (
     <div className="player">
+      <Titlebar></Titlebar>
       <PlayerWrapper>
         <Transport>
           <TransportButton disabled={!ready} id="prev" onClick={previous}>
@@ -201,7 +202,7 @@ export default React.memo(({ artistAudio }) => {
         {artistAudio.map((item, index) => (
           <div key={item.title}>
             <li className={selectedArtist == index ? 'active' : ''} onClick={() => selectArtist(index)}>
-              <span id="title">
+              <span className="title">
                 {index + 1}. {item.title}
               </span>
               <span className="listButton">
@@ -230,11 +231,12 @@ export default React.memo(({ artistAudio }) => {
 
 const PlayerWrapper = styled.div`
   box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.25);
-  border-top: 1px solid ${(props) => darken(0.025, props.theme.primaryColor)};
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) => props.theme.primaryColor};
+  margin-left: 5px;
+  margin-right: 5px;
+  border: 3px groove #585662;
 
   region.wavesurfer-region {
     cursor: pointer !important;
@@ -290,12 +292,50 @@ const PlayerWrapper = styled.div`
   }
 `
 
+const Titlebar = styled.div`
+  text-align: left;
+  background-color: #e7d1ab;
+  color: #cccfd6;
+  font-size: 12px;
+  font-family: monospace;
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 10px;
+  border-radius: 2px;
+  &::before {
+    background: -webkit-linear-gradient(top, #fffcdf 0%, #fffcdf 29%, #736c50 32%, #736c50 66%, #d5ceb1 69%, #d5ceb1 100%);
+    content: '';
+    height: 8px;
+    width: 100%;
+    margin-top: 1px;
+    position: absolute;
+    z-index: 0;
+  }
+  &::after {
+    content: 'AUDIO PLAYER';
+    position: absolute;
+    margin-top: -5px;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    z-index: 1;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: #353551;
+  }
+`
+
 const TransportButton = styled.button`
   display: inline-flex;
   justify-content: center;
   align-items: center;
   border: 0;
   padding: 10px;
+  color: #bfced9;
+
   svg {
     width: 80%;
     height: 80%auto;
@@ -307,18 +347,31 @@ const Transport = styled.div``
 const TracklistWrapper = styled(Menu)`
   overflow-y: auto;
   max-height: 90vh;
+  background-color: black;
+  margin: 5px;
+  border: 3px groove #585662;
+
+  li {
+    line-height: 2.5rem;
+  }
+
   .title {
-    ${scale(1)}
+    font-family: monospace;
+    font-size: 18px !important;
+    color: #28da1d;
   }
+
+  .active {
+    background-color: #0818c4 !important;
+  }
+
   > li:hover:not(.active) {
-    background-color: ${(props) => lighten(0.1, props.theme.backgroundColor)};
+    background-color: ${() => lighten(0.1, '#0818c4')};
   }
+
   .tracklist {
     margin-top: 0px;
     margin-bottom: 0px;
-    li {
-      ${scale(-0.5)};
-    }
   }
 `
 
@@ -333,12 +386,14 @@ const WaveWrapper = styled.div`
 const LengthWrapper = styled.div`
   ${scale(-0.8)};
   line-height: 1em;
-  color: ${(props) => props.theme.textColor};
+  color: #28da1d;
   pointer-events: none;
   z-index: 11;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  font-family: monospace;
+  background-color: black;
 `
 
 const TitleWrapper = styled.div`

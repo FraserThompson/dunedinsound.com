@@ -20,7 +20,7 @@ export default React.memo(({ href, color, sticky, backgroundColor, children, cla
   </DividerWrapper>
 ))
 
-const getStickyTopDesktop = props => {
+const getStickyTopDesktop = (props) => {
   switch (props.sticky) {
     case 'header':
       return props.theme.headerHeight
@@ -31,7 +31,7 @@ const getStickyTopDesktop = props => {
   }
 }
 
-const getStickyTopMobile = props => {
+const getStickyTopMobile = (props) => {
   switch (props.sticky) {
     case 'header':
       return props.theme.headerHeightMobile
@@ -43,7 +43,7 @@ const getStickyTopMobile = props => {
 }
 
 export const DividerWrapper = styled.div`
-  color: ${props => props.color || 'black'};
+  color: ${(props) => props.color || 'black'};
   position: relative;
   line-height: ${rhythm(1)};
   vertical-align: middle;
@@ -53,13 +53,13 @@ export const DividerWrapper = styled.div`
   min-height: ${rhythm(1)};
   padding-left: ${rhythm(0.5)};
   padding-right: ${rhythm(0.5)};
-  background-color: ${props => props.backgroundColor || props.theme.contrastColor};
-  border-bottom: 1px solid ${props => darken(0.1, props.backgroundColor || props.theme.contrastColor)};
+  background-color: ${(props) => props.backgroundColor || props.theme.contrastColor};
+  border-bottom: 1px solid ${(props) => darken(0.1, props.backgroundColor || props.theme.contrastColor)};
 
   top: ${getStickyTopMobile};
-  position: ${props => (props.sticky ? 'sticky' : 'relative')};
-  z-index: ${props => (props.sticky ? '6' : '5')};
-  box-shadow: ${props => props.sticky && '0 6px 12px rgba(0,0,0,0.25)'};
+  position: ${(props) => (props.sticky ? 'sticky' : 'relative')};
+  z-index: ${(props) => (props.sticky ? '6' : '5')};
+  box-shadow: ${(props) => props.sticky && '0 6px 12px rgba(0,0,0,0.4)'};
 
   p {
     margin: 0;
@@ -69,14 +69,14 @@ export const DividerWrapper = styled.div`
   }
 
   a {
-    color: ${props => props.color || 'black'};
+    color: ${(props) => props.color || 'black'};
     &:hover,
     &:active {
-      color: ${props => props.color || 'black'};
+      color: ${(props) => props.color || 'black'};
     }
   }
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     top: ${getStickyTopDesktop};
   }
 `

@@ -255,7 +255,7 @@ const Filters = styled.div`
 
   color: black;
   border-bottom: 1px solid black;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 
   font-size: 80%;
   width: 100%;
