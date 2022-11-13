@@ -23,6 +23,13 @@ export default React.memo(({ frontmatter, liClassname }) => {
           </a>
         </li>
       )}
+      {frontmatter.instagram && (
+        <li>
+          <a title="Instagran" className={liClassname} rel="noopener" href={frontmatter.instagram}>
+            Instagram
+          </a>
+        </li>
+      )}
       {frontmatter.spotify && (
         <li>
           <a title="Listen on Spotify" className={liClassname} rel="noopener" href={frontmatter.spotify}>

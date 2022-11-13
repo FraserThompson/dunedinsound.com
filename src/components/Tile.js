@@ -54,7 +54,11 @@ export default ({
               {title}
             </h2>
           )}
-          {label && <h4 className="label">{label}</h4>}
+          {label && (
+            <h4 className="label">
+              <strong>{label}</strong>
+            </h4>
+          )}
           {subtitle && <h4 className="subtitle" dangerouslySetInnerHTML={{ __html: subtitle }} />}
         </Content>
         <TextContent>
@@ -154,7 +158,7 @@ const TitleWrapper = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
-  mix-blend-mode: ${(props) => props.feature && 'difference'};
+  mix-blend-mode: ${(props) => props.feature && 'lighten'};
 
   ${Content} {
     width: 100%;

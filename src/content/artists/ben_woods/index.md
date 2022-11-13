@@ -1,0 +1,7 @@
+---
+title: Ben Woods
+facebook: https://www.facebook.com/oldmateben/
+instagram: https://www.instagram.com/benjameswoods/
+bandcamp: https://babyben.bandcamp.com/
+origin: Christchurch
+---

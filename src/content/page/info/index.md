@@ -25,18 +25,18 @@ Most social media networks are terrible for archiving.
 
 - They're not indexed by Google or other search engines
 - Finding anything is a chore because they're more interested in making money off you than helping you find what you want
-- For photos specifically, the image compression can be very aggressive and makes photos look bad
+- The image and video compression can be very aggressive and makes media look bad
 
-"Anything you put online is there forever" is a common misconception - if you're posting content on someone elses platform there's no gaurantee it will be there tomorrow. Trusting an advertising and attention driven for-profit entity with the important task of preserving history and culture is unwise.
+"Anything you put online is there forever" is a common misconception - if you're posting content on someone elses platform there's no gaurantee it will be there tomorrow. Trusting a for-profit entity who primarily trades in attention with the important task of preserving history and culture is unwise.
 
-dunedinsound.com is a permanent archive, artists/fans will be able to access it decades from now, and it should be pretty easy to use and find what they're after.
+dunedinsound.com is a permanent archive, artists/fans will be able to access it decades from now, and it should be pretty easy to find what they're after.
 
 ## What equipment do you use?
 
 In case you're curious.
 
 - Custom binaural headset: Two electret microphones, modified to withstand higher volumes without distorting, shoved into a pair of earplugs, and wired up to a battery box. They go in my ears and record sound with the added benefit of protecting my hearing somewhat. This is how I get decent sounding recordings without setting anything up or talking to the sound person.
-- Panasonic S5 camera with an assortment of pocketable lenses, often vintage M42 mount lenses (Asahi Pentax 50mm 1.4 is my favourite).
+- Panasonic S5 camera with an assortment of pocketable lenses, often vintage M42 mount lenses (Asahi Pentax 50mm 1.4 is my favourite). (I wrote a blog post about this camera [here](/blog/micro_four_thirds_vs_full_frame_bigger_more_expensive_but_is_it_better))
 - Panasonic GX850 or Panasonic G85 as a b-cam for multi-angle video.
 - Roland R-05 portable recorder. Built in mics are okay as a backup.
 

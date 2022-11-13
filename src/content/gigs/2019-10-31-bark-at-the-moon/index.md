@@ -11,7 +11,7 @@ artists:
   - name: Lucy Hunter
     vid:
       - link: 8KsZ20KHJwA
-  - name: Ben Woods Group
+  - name: Ben Woods
     vid:
       - link: -n9_-iJEhno
       - link: wdlBY-Z5izs

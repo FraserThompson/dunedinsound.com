@@ -1,0 +1,20 @@
+---
+title: 'Conference for Psychics'
+date: 2022-9-9 08:30:00 Z
+venue: crown_hotel
+artists:
+  - name: E-Kare
+    vid:
+      - link: mCe2MHYYrSQ
+  - name: Grvdggr
+    vid:
+      - link: Mjy-9ISYoyU
+  - name: Roadside Picnic
+    vid:
+      - link: eIuTV-BPeUI
+  - name: Ultraspikes
+    vid:
+      - link: rMExcxYh3HI
+      - link: DWlUNr_UOjA
+cover: ./cover.jpg
+---

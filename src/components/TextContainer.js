@@ -15,10 +15,11 @@ export default styled(BlogContainer)`
     padding-right: ${rhythm(0.5)};
   }
   ul {
-    padding-left: ${rhythm(1.8)};
+    padding-left: ${(props) => (!props.featureMode ? rhythm(0.5) : rhythm(2))};
+    margin-left: ${(props) => (!props.featureMode ? rhythm(1.8) : '')};
   }
-  p,
-  ul {
+  p:not(.notBodyText),
+  ul:not(.notBodyText) {
     font-size: ${(props) => (!props.featureMode ? '18px' : '21px')};
 
     @media screen and (min-width: ${(props) => props.theme.breakpoints.lg}) {

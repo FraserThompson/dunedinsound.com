@@ -14,11 +14,14 @@ import { rhythm } from '../../utils/typography'
 import BackButton from '../../components/BackButton'
 import BackToTop from '../../components/BackToTop'
 import { getSrc } from 'gatsby-plugin-image'
+import ImageGallery from '../../components/ImageGallery'
 
 const Page = React.memo(({ data }) => {
   const [artistMedia, setArtistMedia] = useState([])
   const [artistAudio, setArtistAudio] = useState([])
   const [cover, setCover] = useState(data.thisPost.frontmatter.cover)
+  const [uncategorizedImages, setUncategorizedImages] = useState([])
+
   const location = typeof window !== `undefined` && window.location
   const history = typeof window !== `undefined` && window.history
 
@@ -35,6 +38,7 @@ const Page = React.memo(({ data }) => {
 
     // Cover image is either one image or all the images in the _header folder
     imagesByArtist['_header'] && setCover(imagesByArtist['_header'].map(({ node }) => node))
+    imagesByArtist['_uncategorized'] && setUncategorizedImages(imagesByArtist['_uncategorized'])
 
     // Key-value object of audio files by artist
     const audioByArtist =
@@ -145,6 +149,7 @@ const Page = React.memo(({ data }) => {
         )}
         <PlayerContainer artistAudio={artistAudio} />
       </Banner>
+      {uncategorizedImages && <ImageGallery images={uncategorizedImages} masonry={true} title={gigTitle} />}
       {!data.thisPost.frontmatter.audioOnly && <ArtistMedia artistMedia={artistMedia} gigTitle={gigTitle} />}
       <BackToTop />
     </Layout>

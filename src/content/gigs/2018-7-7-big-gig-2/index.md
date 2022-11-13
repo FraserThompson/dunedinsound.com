@@ -1,7 +1,7 @@
 ---
 title: 'Big Gig 2'
 date: 2018-07-07T08:30:00.000Z
-venue: womens_pioneer_hall
+venue: otago_pioneer_womens_hall
 artists:
   - { name: 'Liam Boyne', vid: [{ link: bj1VW7nowJ4 }] }
   - { name: Haven, vid: [{ link: avZgi1EGXAU }, { link: F_yRff9y9W0 }] }

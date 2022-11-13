@@ -173,6 +173,16 @@ const Page = React.memo(({ data, location }) => {
                       <a href={node.frontmatter.facebook}>Facebook</a>
                     </li>
                   )}
+                  {node.frontmatter.instagram && (
+                    <li>
+                      <a href={node.frontmatter.instagram}>Instagram</a>
+                    </li>
+                  )}
+                  {node.frontmatter.spotify && (
+                    <li>
+                      <a href={node.frontmatter.instagram}>Spotify</a>
+                    </li>
+                  )}
                   {node.frontmatter.bandcamp && (
                     <li>
                       <a href={node.frontmatter.bandcamp}>Bandcamp</a>

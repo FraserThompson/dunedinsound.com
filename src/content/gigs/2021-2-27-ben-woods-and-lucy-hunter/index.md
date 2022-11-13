@@ -6,7 +6,7 @@ artists:
   - name: Lucy Hunter
     vid:
       - link: 5Ka38LGRpLM
-  - name: Ben Woods Group
+  - name: Ben Woods
     vid:
       - link: n6oCOZXvL5o
       - link: Y996Kh_8nXY

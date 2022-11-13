@@ -188,6 +188,8 @@ export const query = graphql`
     frontmatter {
       title
       tags
+      featureMode
+      hideCaptions
       gallery
       cover {
         ...LargeImage
@@ -258,6 +260,7 @@ export const query = graphql`
       title
       bandcamp
       facebook
+      instagram
       soundcloud
       spotify
       website

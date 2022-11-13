@@ -35,7 +35,7 @@ export default React.memo(({ node, title, id, width, height, hoverHeight, featur
       hoverHeight={hoverHeight}
       to={node.fields.slug}
       feature={feature}
-      prefix={'GIG: '}
+      prefix={'GIG '}
     ></Tile>
   )
 })

@@ -6,6 +6,7 @@ import TagCloud from '../components/TagCloud'
 import Banner from '../components/Banner'
 import { rhythm } from '../utils/typography'
 import BlogContainer from '../components/BlogContainer'
+import { invert } from 'polished'
 
 const Page = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -55,6 +56,9 @@ const Page = ({ data, location }) => {
 
 const BlogPageContainer = styled.div`
   display: flex;
+  a {
+    color: ${(props) => invert(props.theme.contrastColor2)};
+  }
 `
 
 const Sidebar = styled.div`

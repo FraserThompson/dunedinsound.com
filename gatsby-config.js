@@ -71,6 +71,7 @@ module.exports = {
               showCaptions: true,
               quality: 80,
               withWebp: true,
+              srcSetBreakpoints: [960, 1920, 2880, 3840], // I don't know why it needs this, but it does
             },
           },
           'gatsby-remark-copy-linked-files',

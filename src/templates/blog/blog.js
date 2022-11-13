@@ -47,6 +47,11 @@ const Page = React.memo(({ data, pageContext }) => {
             hideCaptions={post.frontmatter.hideCaptions}
           >
             <div dangerouslySetInnerHTML={{ __html: post.html }} />
+            {post.frontmatter.featureMode && (
+              <p className="notBodyText">
+                <BlogSidebar hideDate={true} data={data} />
+              </p>
+            )}
           </TextContainer>
         </BlogWrapper>
         {post.frontmatter.gallery && <ImageGallery images={data.images['edges']} title={post.frontmatter.title} />}
@@ -153,6 +158,8 @@ export const pageQuery = graphql`
             bandcamp
             facebook
             soundcloud
+            instagram
+            spotify
             origin
             website
           }

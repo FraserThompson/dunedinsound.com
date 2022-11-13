@@ -1,0 +1,17 @@
+---
+title: 'Proteins of Magic Aotearoa Tour'
+date: 2022-10-15 08:30:00 Z
+venue: crown_hotel
+artists:
+  - name: Adelaide Cara
+    vid:
+      - link: q7rHKQY20jw
+      - link: 5ViI0BpNXIs
+      - link: -3CaUbqphQU
+  - name: Proteins of Magic
+    vid:
+      - link: 88mn_yAKPP0
+      - link: JVtmGq66ktg
+      - link: oE34X2suqK4
+cover: ./cover.jpg
+---

@@ -37,6 +37,8 @@ exports.createPages = async ({ graphql, actions }) => {
                   }
                   venue
                   tags
+                  featureMode
+                  hideCaptions
                   related_gigs
                 }
               }

@@ -1,0 +1,18 @@
+---
+title: 'Now Hear This Night 1'
+date: 2022-11-10 08:30:00 Z
+venue: new_athenaeum_theatre
+artists:
+  - name: Crude + Robbie Yeats
+  - name: Dante + Kolya + Cave Circles
+  - name: William Henry Meung + Abigail Aroha Jensen + Citacsy
+    vid:
+      - link: oM7_9dd3sp8
+  - name: Murdabike + E-Kare
+    vid:
+      - link: 2MtGC2EZFLs
+  - name: Wailing Wind Ensemble
+    vid:
+      - link: _1vMZGX4rnY
+cover: ./cover.jpg
+---

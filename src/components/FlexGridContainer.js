@@ -15,29 +15,29 @@ export default styled.div`
   justify-content: center;
 
   > * {
-    flex: 1 1 ${props => (100 * ((props.xs || 6) / 12)) + "%"};
-    width: ${props => props.fixedWidth && ((100 * ((props.xs || 6) / 12)) + "%")};
-    max-width: ${props => props.maxWidth && props.maxWidth};
+    flex: 1 1 ${(props) => 100 * ((props.xs || 6) / 12) + '%'};
+    width: ${(props) => props.fixedWidth && 100 * ((props.xs || 6) / 12) + '%'};
+    max-width: ${(props) => props.maxWidth && props.maxWidth};
   }
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     > * {
-      flex: 1 1 ${props => (100 * ((props.sm || 4) / 12)) + "%"};
-      width: ${props => props.fixedWidth && ((100 * ((props.sm || 4) / 12)) + "%")};
+      flex: 1 1 ${(props) => 100 * ((props.sm || 4) / 12) + '%'};
+      width: ${(props) => props.fixedWidth && 100 * ((props.sm || 4) / 12) + '%'};
     }
   }
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.md}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     > * {
-      flex: 1 1 ${props => (100 * ((props.md || 3) / 12)) + "%"};
-      width: ${props => props.fixedWidth && ((100 * ((props.md || 3) / 12)) + "%")};
+      flex: 1 1 ${(props) => 100 * ((props.md || 3) / 12) + '%'};
+      width: ${(props) => props.fixedWidth && 100 * ((props.md || 3) / 12) + '%'};
     }
   }
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.lg}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.lg}) {
     > * {
-      flex: 1 1 ${props => (100 * ((props.lg || 3) / 12)) + "%"};
-      width: ${props => props.fixedWidth && ((100 * ((props.lg || 3) / 12)) + "%")};
+      flex: 1 1 ${(props) => 100 * ((props.lg || 3) / 12) + '%'};
+      width: ${(props) => props.fixedWidth && 100 * ((props.lg || 3) / 12) + '%'};
     }
   }
 `

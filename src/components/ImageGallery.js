@@ -6,8 +6,9 @@ import { FaDownload } from 'react-icons/fa'
 import FlexGridContainer from '../components/FlexGridContainer'
 import { createBrowserHistory } from 'history'
 import { parseSrcset } from 'srcset'
+import MasonryContainer from './MasonryContainer'
 
-export default React.memo(({ images, gridSize, title, imageCaption }) => {
+export default React.memo(({ images, gridSize, title, imageCaption, masonry }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState(0)
   const [directLinked, setDirectLinked] = useState(false)
@@ -68,16 +69,23 @@ export default React.memo(({ images, gridSize, title, imageCaption }) => {
   const imageElements =
     images &&
     images.map(({ node }, imageIndex) => (
-      <a style={{ cursor: 'pointer', display: 'block', height: '100%', width: '400px' }} key={imageIndex} onClick={(e) => openLightbox(imageIndex, e)}>
+      <a
+        style={{ cursor: 'pointer', display: 'block', height: '100%', width: !masonry ? '400px' : 'auto' }}
+        key={imageIndex}
+        onClick={(e) => openLightbox(imageIndex, e)}
+      >
         <GatsbyImage image={getImage(node)} alt="" />
       </a>
     ))
 
   return (
     <>
-      <FlexGridContainer {...gridSize} maxWidth="600px">
-        {imageElements}
-      </FlexGridContainer>
+      {!masonry && (
+        <FlexGridContainer {...gridSize} maxWidth="600px">
+          {imageElements}
+        </FlexGridContainer>
+      )}
+      {masonry && <MasonryContainer columns={imageElements.length > 6 ? 6 : imageElements.length}>{imageElements}</MasonryContainer>}
       {lightboxOpen && (
         <Lightbox
           mainSrc={getImageSrc(selectedImage)}

@@ -3,7 +3,7 @@ title: 'The mystery of Ben Woods'
 date: 2018-09-11T21:00:00.000Z
 tags:
   - Interview
-  - 'Ben Woods Group'
+  - 'Ben Woods'
 author: 'Fraser Thompson'
 background_position: center
 background_size: contain

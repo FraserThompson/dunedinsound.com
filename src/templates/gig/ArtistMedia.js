@@ -61,12 +61,7 @@ export default React.memo(({ artistMedia, gigTitle }) => {
     const vidElements =
       artist.vid &&
       artist.vid.map((video, vidIndex) => (
-        <YouTubeResponsive
-          key={video.link}
-          videoId={video.link}
-          key={video.link}
-          odd={artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1 ? true : false}
-        />
+        <YouTubeResponsive key={video.link} videoId={video.link} odd={artist.vid.length % 2 !== 0 && vidIndex === artist.vid.length - 1 ? true : false} />
       ))
 
     const openLightbox = (imageIndex, event) => {

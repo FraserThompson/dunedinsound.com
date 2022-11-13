@@ -14,6 +14,13 @@ export default styled.div`
     padding: 0 1em;
   }
 
+  h2 {
+    a:link,
+    a:visited {
+      color: black;
+    }
+  }
+
   a:link,
   a:visited {
     color: #000080;

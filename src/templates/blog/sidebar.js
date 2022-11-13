@@ -5,22 +5,24 @@ import { rhythm } from '../../utils/typography'
 import { theme } from '../../utils/theme'
 import MetadataLinks from '../contentbyentity/MetadataLinks'
 
-export const BlogSidebar = React.memo(({ data }) => {
+export const BlogSidebar = React.memo(({ data, hideDate = false }) => {
   const metadata = ({ node }) => (
     <div key={node.fields.slug}>
       <h4>
         <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
       </h4>
-      <MetadataWrapper>
+      <MetadataWrapper className="notBodyText">
         <MetadataLinks frontmatter={node.frontmatter} />
       </MetadataWrapper>
     </div>
   )
   return (
     <BlogSidebarWrapper>
-      <Date>
-        <small>{data.markdownRemark.frontmatter.date}</small>
-      </Date>
+      {!hideDate && (
+        <Date>
+          <small>{data.markdownRemark.frontmatter.date}</small>
+        </Date>
+      )}
       {!!data.artist_pages.edges.length && (
         <FeaturedLinks>
           <h3>Artists featured in this article</h3>
