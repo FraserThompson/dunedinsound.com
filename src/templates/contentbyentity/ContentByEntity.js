@@ -150,8 +150,11 @@ const PageTitle = styled.span`
 `
 
 const PageDescription = styled.p`
-  margin-top: auto;
   filter: drop-shadow(1px 1px 5px black);
+  background: ${(props) => 'linear-gradient(90deg, black,' + props.theme.backgroundColor + ')'};
+  border: 2px inset;
+  padding: 5px;
+  margin-top: auto;
 `
 
 const ActiveWrapper = styled.div``

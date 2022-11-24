@@ -15,7 +15,7 @@ import { MapWrapper } from '../components/MapWrapper'
 import { SiteHead } from '../components/SiteHead'
 import Map, { Marker, Popup } from 'react-map-gl'
 
-const Sidebar = React.memo(({ menuItems, menuItemClick, setRef, selected }) => {
+const Sidebar = ({ menuItems, menuItemClick, setRef, selected }) => {
   const [open, setOpen] = useState(true)
 
   const toggleSidebar = useCallback(() => {
@@ -46,7 +46,7 @@ const Sidebar = React.memo(({ menuItems, menuItemClick, setRef, selected }) => {
       </ul>
     </SidebarNav>
   )
-})
+}
 
 const Page = React.memo(({ data, location }) => {
   const [filteredPosts, setFilteredPosts] = useState(data.allVenues.edges)
@@ -75,22 +75,26 @@ const Page = React.memo(({ data, location }) => {
     []
   )
 
-  const markers = useMemo(() =>
-    filteredPosts.map(({ node }, index) => (
-      <Marker
-        key={index}
-        latitude={node.frontmatter.lat}
-        longitude={node.frontmatter.lng}
-        color={node.frontmatter.died == undefined ? '#367e80' : 'white'}
-        anchor="bottom"
-        onClick={(e) => {
-          e.originalEvent.stopPropagation()
-          markerClick(index)
-        }}
-      >
-        {node.frontmatter.died != undefined ? deadIcon : null}
-      </Marker>
-    ))
+  const markers = useMemo(
+    () =>
+      filteredPosts.map(({ node }, index) => {
+        return (
+          <Marker
+            key={node.frontmatter.title}
+            latitude={node.frontmatter.lat}
+            longitude={node.frontmatter.lng}
+            color={node.frontmatter.died == null ? '#367e80' : 'white'}
+            anchor="bottom"
+            onClick={(e) => {
+              e.originalEvent.stopPropagation()
+              markerClick(index)
+            }}
+          >
+            {node.frontmatter.died !== null ? deadIcon : null}
+          </Marker>
+        )
+      }),
+    [filteredPosts]
   )
 
   // Hide inactive venues when they toggle it
@@ -179,7 +183,7 @@ const Page = React.memo(({ data, location }) => {
         >
           {markers}
           {selected !== null && (
-            <Popup anchor="top" latitude={selected.frontmatter.lat} longitude={selected.frontmatter.lng} onClose={() => markerClose()}>
+            <Popup anchor="bottom" offset={[0, -40]} latitude={selected.frontmatter.lat} longitude={selected.frontmatter.lng} onClose={() => markerClose()}>
               <h3 style={{ marginBottom: '0' }}>{selected.frontmatter.title}</h3>
               <p style={{ marginTop: '0', marginBottom: '10px' }}>
                 <ActiveIndicator died={selected.frontmatter.died} />

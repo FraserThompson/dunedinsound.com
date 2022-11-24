@@ -28,13 +28,8 @@ const Page = React.memo(({ data }) => {
         mapStyle="mapbox://styles/mapbox/dark-v11"
         interactive={false}
       >
-        <Marker
-          longitude={position.longitude}
-          latitude={position.latitude}
-          color={data.thisPost.frontmatter.died == undefined ? '#367e80' : 'white'}
-          anchor="bottom"
-        >
-          {data.thisPost.frontmatter.died != undefined ? deadIcon : null}
+        <Marker longitude={position.longitude} latitude={position.latitude} color={node.frontmatter.died === null ? '#367e80' : 'white'} anchor="bottom">
+          {data.thisPost.frontmatter.died !== null ? deadIcon : null}
         </Marker>
       </Map>
     </MapWrapper>

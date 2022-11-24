@@ -1,6 +1,7 @@
 import React from 'react'
 import Layout from '../components/Layout'
 import { Link } from 'gatsby'
+import { SiteHead } from '../components/SiteHead'
 
 const Page = ({ location }) => (
   <Layout location={location}>
@@ -14,8 +15,8 @@ const Page = ({ location }) => (
 )
 
 export const Head = (params) => {
-  const title = `${params.data.site.siteMetadata.title}`
-  const description = params.data.site.siteMetadata.description
+  const title = `404 | dunedinsound.com`
+  const description = 'This is a page that does not exist.'
 
   return <SiteHead title={title} description={description} {...params} />
 }

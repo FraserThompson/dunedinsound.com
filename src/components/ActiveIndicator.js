@@ -13,11 +13,9 @@ export default React.memo(({ died, hideText = false, inactiveText = 'Defunct' })
 const ActiveIcon = styled.span`
   color: #31a24c;
   font-size: ${rhythm(0.6)};
-  font-weight: 600;
 `
 
 const DefunctIcon = styled.span`
   color: #ab0000;
   font-size: ${rhythm(0.6)};
-  font-weight: 600;
 `
