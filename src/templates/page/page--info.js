@@ -4,11 +4,10 @@ import Layout from '../../components/Layout'
 import styled from '@emotion/styled'
 import { rhythm } from '../../utils/typography'
 import TextContainer from '../../components/TextContainer'
+import { SiteHead } from '../../components/SiteHead'
 
 const Page = React.memo(({ data }) => {
-  const post = data.markdownRemark
-  const siteTitle = data.site.siteMetadata.title
-  const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
+  const post = data.thisPost
 
   const totalImages = data.files.group.find((group) => group.fieldValue == 'jpg').totalCount.toLocaleString()
   const totalAudio = data.files.group.find((group) => group.fieldValue == 'mp3').totalCount.toLocaleString()
@@ -16,12 +15,7 @@ const Page = React.memo(({ data }) => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <Layout
-      location={typeof window !== `undefined` && window.location}
-      description={siteDescription}
-      title={`${post.frontmatter.title} | ${siteTitle}`}
-      overrideBackgroundColor="white"
-    >
+    <Layout location={typeof window !== `undefined` && window.location} overrideBackgroundColor="white">
       <Header>
         <div className="content">
           <div className="title">
@@ -117,22 +111,29 @@ const MetadataTable = styled.table`
   }
 `
 
+export const Head = (params) => {
+  const title = `${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
+  const description = params.data.thisPost.excerpt ? params.data.thisPost.excerpt : params.data.site.siteMetadata.description
+
+  return <SiteHead title={title} description={description} {...params} />
+}
+
 export const pageQuery = graphql`
   query PageInfoPostBySlug($slug: String!) {
     site {
       ...SiteInformation
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
       ...BlogFrontmatter
     }
     counts: allMarkdownRemark(filter: { fields: { type: { regex: "/gigs|artists|venues$/" } } }) {
-      group(field: fields___type) {
+      group(field: { fields: { type: SELECT } }) {
         fieldValue
         totalCount
       }
     }
     files: allFile(filter: { name: { ne: "cover.jpg" } }) {
-      group(field: extension) {
+      group(field: { extension: SELECT }) {
         fieldValue
         totalCount
       }

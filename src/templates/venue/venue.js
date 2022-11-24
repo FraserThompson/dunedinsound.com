@@ -1,42 +1,61 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import ContentByEntity from '../contentbyentity/ContentByEntity'
-import { MapContainer, Marker, TileLayer } from 'react-leaflet'
-import 'leaflet/dist/leaflet.css'
-import { deadIcon, livingIcon } from './MapMarkers'
+import Map, { Marker } from 'react-map-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
+import { deadIcon } from './MapMarkers'
 import { MapWrapper } from '../../components/MapWrapper'
+import { SiteHead } from '../../components/SiteHead'
 
 const Page = React.memo(({ data }) => {
   const parent = {
     title: 'Venues',
     href: '/venues/',
   }
-  const pageDescription = `See photos, videos and audio recordings of live gigs at ${data.thisPost.frontmatter.title} and heaps of other local venues.`
 
-  const position = [data.thisPost.frontmatter.lat, data.thisPost.frontmatter.lng]
+  const position = {
+    latitude: data.thisPost.frontmatter.lat,
+    longitude: data.thisPost.frontmatter.lng,
+    zoom: 18,
+  }
+
   const background = typeof window !== 'undefined' && (
     <MapWrapper>
-      <MapContainer
-        style={{ height: '100%', width: '100%' }}
-        center={position}
-        zoom={18}
-        zoomControl={false}
-        dragging={false}
-        touchZoom={false}
-        scrollWheelZoom={false}
-        keyboard={false}
+      <Map
+        initialViewState={position}
+        style={{ width: '100%', height: '100%' }}
+        mapboxAccessToken="pk.eyJ1IjoiZnJhc2VydGhvbXBzb24iLCJhIjoiY2llcnF2ZXlhMDF0cncwa21yY2tyZjB5aCJ9.iVxJbdbZiWVfHItWtZfKPQ"
+        mapStyle="mapbox://styles/mapbox/dark-v11"
+        interactive={false}
       >
-        <TileLayer
-          url="https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnJhc2VydGhvbXBzb24iLCJhIjoiY2llcnF2ZXlhMDF0cncwa21yY2tyZjB5aCJ9.iVxJbdbZiWVfHItWtZfKPQ"
-          attribution='Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
-        />
-        <Marker position={position} icon={data.thisPost.frontmatter.died == undefined ? livingIcon : deadIcon} />
-      </MapContainer>
+        <Marker
+          longitude={position.longitude}
+          latitude={position.latitude}
+          color={data.thisPost.frontmatter.died == undefined ? '#367e80' : 'white'}
+          anchor="bottom"
+        >
+          {data.thisPost.frontmatter.died != undefined ? deadIcon : null}
+        </Marker>
+      </Map>
     </MapWrapper>
   )
 
-  return <ContentByEntity pageDescription={pageDescription} parent={parent} data={data} background={background} />
+  return <ContentByEntity parent={parent} data={data} background={background} />
 })
+
+export const Head = (params) => {
+  const cover = params.data.images && params.data.images.edges.length !== 0 && params.data.images.edges[0].node
+  const title = `${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
+
+  return (
+    <SiteHead
+      title={title}
+      description={`See photos, videos and audio recordings of live gigs at ${params.data.thisPost.frontmatter.title} and heaps of other local venues.`}
+      cover={cover}
+      {...params}
+    />
+  )
+}
 
 export const pageQuery = graphql`
   query VenuesBySlug($slug: String!, $machine_name: String!, $title: String!) {
@@ -46,10 +65,7 @@ export const pageQuery = graphql`
     thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
       ...VenueFrontmatter
     }
-    blogs: allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { eq: $title } } }
-    ) {
+    blogs: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { eq: $title } } }) {
       edges {
         node {
           ...BlogFrontmatter
@@ -57,10 +73,10 @@ export const pageQuery = graphql`
       }
     }
     gigs: allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: { fields: { type: { eq: "gigs" } }, frontmatter: { venue: { eq: $machine_name } } }
     ) {
-      group(field: fields___year) {
+      group(field: { fields: { year: SELECT } }) {
         fieldValue
         edges {
           node {

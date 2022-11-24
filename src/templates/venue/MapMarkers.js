@@ -1,19 +1,9 @@
-import { FaMapMarkerAlt } from 'react-icons/fa'
-import ReactDOMServer from 'react-dom/server'
+import React from 'react'
 
-let livingIcon = null
-let deadIcon = null
+const deadIcon = (
+  <div className="dead-icon">
+    <span>✝</span>
+  </div>
+)
 
-if (typeof L !== 'undefined') {
-  livingIcon = L.divIcon({
-    className: 'alive-icon',
-    html: ReactDOMServer.renderToString(<FaMapMarkerAlt />),
-  })
-
-  deadIcon = L.divIcon({
-    className: 'dead-icon',
-    html: '<span>✝</span>',
-  })
-}
-
-export { livingIcon, deadIcon }
+export { deadIcon }

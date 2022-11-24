@@ -10,6 +10,7 @@ import { toMachineName } from '../utils/helper'
 import styled from '@emotion/styled'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { rhythm } from '../utils/typography'
+import { SiteHead } from '../components/SiteHead'
 
 const Page = React.memo(({ data, location }) => {
   const [loading, setLoading] = useState(true)
@@ -146,13 +147,7 @@ const Page = React.memo(({ data, location }) => {
   }, [shuffle])
 
   return (
-    <Layout
-      location={location}
-      description={data.site.siteMetadata.description}
-      title={`Artists | ${data.site.siteMetadata.title}`}
-      hideBrandOnMobile={true}
-      headerContent={<Search placeholder="Search artists" filter={(search) => setSearchInput(search)} />}
-    >
+    <Layout location={location} hideBrandOnMobile={true} headerContent={<Search placeholder="Search artists" filter={(search) => setSearchInput(search)} />}>
       {loading && (
         <LoadingWrapper>
           <LoadingSpinner />
@@ -222,6 +217,13 @@ const Page = React.memo(({ data, location }) => {
     </Layout>
   )
 })
+
+export const Head = (params) => {
+  const title = `Artists | ${params.data.site.siteMetadata.title}`
+  const description = params.data.site.siteMetadata.description
+
+  return <SiteHead title={title} description={description} {...params} />
+}
 
 const ArtistGrid = styled(FlexGridContainer)`
   position: relative;
@@ -294,7 +296,7 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    allArtists: allMarkdownRemark(sort: { fields: [frontmatter___title], order: ASC }, filter: { fields: { type: { eq: "artists" } } }) {
+    allArtists: allMarkdownRemark(sort: { frontmatter: { title: ASC } }, filter: { fields: { type: { eq: "artists" } } }) {
       edges {
         node {
           ...ArtistFrontmatter
@@ -302,7 +304,7 @@ export const pageQuery = graphql`
       }
     }
     imagesByArtist: allFile(filter: { extension: { eq: "jpg" }, fields: { type: { eq: "gigs" } } }) {
-      group(field: fields___parentDir, limit: 1) {
+      group(field: { fields: { parentDir: SELECT } }, limit: 1) {
         fieldValue
         edges {
           node {
@@ -314,8 +316,8 @@ export const pageQuery = graphql`
         }
       }
     }
-    gigsByArtist: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { eq: "gigs" } } }) {
-      group(field: frontmatter___artists___name) {
+    gigsByArtist: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } } }) {
+      group(field: { frontmatter: { artists: { name: SELECT } } }) {
         fieldValue
         totalCount
         edges {

@@ -10,6 +10,7 @@ import Gumshoe from 'gumshoejs/src/js/gumshoe/gumshoe'
 import InfiniteScroll from 'react-infinite-scroller'
 import Divider from '../components/Divider'
 import LoadingSpinner from '../components/LoadingSpinner'
+import { SiteHead } from '../components/SiteHead'
 
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
@@ -181,8 +182,6 @@ const Page = React.memo(({ data, location }) => {
   return (
     <Layout
       location={location}
-      description={data.site.siteMetadata.description}
-      title={`Gigs | ${data.site.siteMetadata.title}`}
       hideBrandOnMobile={true}
       hideFooter={true}
       isSidebar={true}
@@ -386,8 +385,8 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    gigsByDate: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { eq: "gigs" } } }) {
-      group(field: fields___yearAndMonth) {
+    gigsByDate: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } } }) {
+      group(field: { fields: { yearAndMonth: SELECT } }) {
         fieldValue
         edges {
           node {
@@ -398,5 +397,11 @@ export const pageQuery = graphql`
     }
   }
 `
+export const Head = (params) => {
+  const title = `Gigs | ${params.data.site.siteMetadata.title}`
+  const description = params.data.site.siteMetadata.description
+
+  return <SiteHead title={title} description={description} {...params} />
+}
 
 export default Page

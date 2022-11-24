@@ -18,8 +18,8 @@ exports.createPages = async ({ graphql, actions }) => {
   const result = await graphql(
     `
       {
-        allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-          group(field: fields___type) {
+        pages: allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
+          group(field: { fields: { type: SELECT } }) {
             fieldValue
             edges {
               node {
@@ -45,8 +45,8 @@ exports.createPages = async ({ graphql, actions }) => {
             }
           }
         }
-        blogsByTag: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { eq: "blog" } } }) {
-          group(field: frontmatter___tags) {
+        blogsByTag: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
+          group(field: { frontmatter: { tags: SELECT } }) {
             fieldValue
             totalCount
           }
@@ -71,7 +71,9 @@ exports.createPages = async ({ graphql, actions }) => {
     tags: path.resolve('./src/templates/tags/tags.js'),
   }
 
-  result.data.allMarkdownRemark.group.forEach((group) => {
+  console.log('About to start creating pages...')
+
+  result.data.pages.group.forEach((group) => {
     console.log('Creating ' + group.edges.length + ' ' + group.fieldValue)
 
     group.edges.forEach(({ node }, index) => {

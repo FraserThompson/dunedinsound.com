@@ -1,18 +1,19 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react'
+import React, { useState, useCallback, useMemo, useEffect, Fragment } from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import styled from '@emotion/styled'
-import { MapContainer, Popup, TileLayer, Marker } from 'react-leaflet'
-import 'leaflet/dist/leaflet.css'
+import 'mapbox-gl/dist/mapbox-gl.css'
 import SidebarNav from '../components/SidebarNav'
 import Search from '../components/Search'
 import HorizontalNav from '../components/HorizontalNav'
 import { lighten } from 'polished'
 import ActiveIndicator from '../components/ActiveIndicator'
 import { rhythm } from '../utils/typography'
-import { deadIcon, livingIcon } from '../templates/venue/MapMarkers'
+import { deadIcon } from '../templates/venue/MapMarkers'
 import { MapWrapper } from '../components/MapWrapper'
+import { SiteHead } from '../components/SiteHead'
+import Map, { Marker, Popup } from 'react-map-gl'
 
 const Sidebar = React.memo(({ menuItems, menuItemClick, setRef, selected }) => {
   const [open, setOpen] = useState(true)
@@ -48,6 +49,22 @@ const Sidebar = React.memo(({ menuItems, menuItemClick, setRef, selected }) => {
 })
 
 const Page = React.memo(({ data, location }) => {
+  const [filteredPosts, setFilteredPosts] = useState(data.allVenues.edges)
+  const [selected, setSelected] = useState(null)
+  const [selectedIndex, setSelectedIndex] = useState(null)
+  const [listRefs, setListRefs] = useState([])
+
+  const [hideInactive, setHideInactive] = useState(false)
+  const [hideActive, setHideActive] = useState(false)
+
+  const initialViewState = {
+    latitude: -45.8745557,
+    longitude: 170.5016047,
+    zoom: 13,
+  } //the octagon
+
+  const mapRef = React.useRef()
+
   const gigCount = useMemo(
     () =>
       data.gigCountByVenue['group'].reduce((obj, item) => {
@@ -58,18 +75,23 @@ const Page = React.memo(({ data, location }) => {
     []
   )
 
-  const initialMapCenter = [-45.8745557, 170.5016047] //the octagon
-  const initialZoom = 13
-
-  const [filteredPosts, setFilteredPosts] = useState(data.allVenues.edges)
-  const [selected, setSelected] = useState(null)
-  const [listRefs, setListRefs] = useState([])
-  const [markerRefs, setMarkerRefs] = useState([])
-
-  const [hideInactive, setHideInactive] = useState(false)
-  const [hideActive, setHideActive] = useState(false)
-
-  const [map, setMap] = useState(null)
+  const markers = useMemo(() =>
+    filteredPosts.map(({ node }, index) => (
+      <Marker
+        key={index}
+        latitude={node.frontmatter.lat}
+        longitude={node.frontmatter.lng}
+        color={node.frontmatter.died == undefined ? '#367e80' : 'white'}
+        anchor="bottom"
+        onClick={(e) => {
+          e.originalEvent.stopPropagation()
+          markerClick(index)
+        }}
+      >
+        {node.frontmatter.died != undefined ? deadIcon : null}
+      </Marker>
+    ))
+  )
 
   // Hide inactive venues when they toggle it
   useEffect(() => {
@@ -79,22 +101,32 @@ const Page = React.memo(({ data, location }) => {
     setFilteredPosts(filteredPosts)
   }, [hideInactive, hideActive])
 
-  const select = useCallback(
+  // Set selected node when index changes
+  useEffect(() => {
+    selectedIndex !== null && setSelected(filteredPosts[selectedIndex].node)
+  }, [selectedIndex])
+
+  const listClick = useCallback(
     (index) => {
-      setSelected(index)
-      map.setView(markerRefs[index].getLatLng(), 18)
-      markerRefs[index].openPopup()
+      setSelectedIndex(index)
+      const selectedNode = filteredPosts[index].node
+      mapRef.current.panTo({ lat: selectedNode.frontmatter.lat, lng: selectedNode.frontmatter.lng })
     },
-    [map, markerRefs]
+    [mapRef]
   )
 
   const markerClick = useCallback(
     (index) => {
+      setSelectedIndex(index)
       listRefs[index].scrollIntoView({ behavior: 'smooth' })
-      setSelected(index)
     },
     [listRefs]
   )
+
+  const markerClose = useCallback(() => {
+    setSelectedIndex(null)
+    setSelected(null)
+  })
 
   const searchFilter = useCallback(
     (searchInput) => {
@@ -118,26 +150,15 @@ const Page = React.memo(({ data, location }) => {
     [listRefs]
   )
 
-  const setMRefs = useCallback(
-    (ref) => {
-      const newRefs = markerRefs
-      newRefs.push(ref)
-      setMarkerRefs(newRefs)
-    },
-    [markerRefs]
-  )
-
   return (
     <Layout
-      description={data.site.siteMetadata.description}
       location={location}
-      title={`Venues | ${data.site.siteMetadata.title}`}
       hideBrandOnMobile={true}
       hideFooter={true}
       isSidebar={true}
       headerContent={<Search placeholder="Search venues" filter={searchFilter} />}
     >
-      <Sidebar menuItems={filteredPosts} menuItemClick={select} setRef={setLRefs} selected={selected} />
+      <Sidebar menuItems={filteredPosts} menuItemClick={listClick} setRef={setLRefs} selected={selectedIndex} />
       <HideFilters>
         <label>
           <input name="hideInactive" type="checkbox" checked={hideInactive} onChange={() => setHideInactive(!hideInactive)} />
@@ -149,70 +170,65 @@ const Page = React.memo(({ data, location }) => {
         </label>
       </HideFilters>
       <FullMapWrapper>
-        <MapContainer style={{ height: '100%', width: '100%' }} center={initialMapCenter} zoom={initialZoom} whenCreated={setMap}>
-          <TileLayer
-            url="https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnJhc2VydGhvbXBzb24iLCJhIjoiY2llcnF2ZXlhMDF0cncwa21yY2tyZjB5aCJ9.iVxJbdbZiWVfHItWtZfKPQ"
-            attribution='Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
-          />
-          {filteredPosts.map(({ node }, index) => (
-            <Marker
-              ref={setMRefs}
-              key={index}
-              position={[node.frontmatter.lat, node.frontmatter.lng]}
-              eventHandlers={{ click: () => markerClick(index) }}
-              icon={node.frontmatter.died == undefined ? livingIcon : deadIcon}
-            >
-              <Popup>
-                <h3 style={{ marginBottom: '0' }}>{node.frontmatter.title}</h3>
-                <p style={{ marginTop: '0', marginBottom: '10px' }}>
-                  <ActiveIndicator died={node.frontmatter.died} />
-                </p>
-                <HorizontalNav lineHeight="1" style={{ marginBottom: '10px' }}>
-                  {node.frontmatter.facebook && (
-                    <li>
-                      <a href={node.frontmatter.facebook}>Facebook</a>
-                    </li>
+        <Map
+          ref={mapRef}
+          initialViewState={initialViewState}
+          style={{ width: '100%', height: '100%' }}
+          mapboxAccessToken="pk.eyJ1IjoiZnJhc2VydGhvbXBzb24iLCJhIjoiY2llcnF2ZXlhMDF0cncwa21yY2tyZjB5aCJ9.iVxJbdbZiWVfHItWtZfKPQ"
+          mapStyle="mapbox://styles/mapbox/dark-v11"
+        >
+          {markers}
+          {selected !== null && (
+            <Popup anchor="top" latitude={selected.frontmatter.lat} longitude={selected.frontmatter.lng} onClose={() => markerClose()}>
+              <h3 style={{ marginBottom: '0' }}>{selected.frontmatter.title}</h3>
+              <p style={{ marginTop: '0', marginBottom: '10px' }}>
+                <ActiveIndicator died={selected.frontmatter.died} />
+              </p>
+              <HorizontalNav lineHeight="1" style={{ marginBottom: '10px' }}>
+                {selected.frontmatter.facebook && (
+                  <li>
+                    <a href={selected.frontmatter.facebook}>Facebook</a>
+                  </li>
+                )}
+                {selected.frontmatter.instagram && (
+                  <li>
+                    <a href={selected.frontmatter.instagram}>Instagram</a>
+                  </li>
+                )}
+                {selected.frontmatter.spotify && (
+                  <li>
+                    <a href={selected.frontmatter.instagram}>Spotify</a>
+                  </li>
+                )}
+                {selected.frontmatter.bandcamp && (
+                  <li>
+                    <a href={selected.frontmatter.bandcamp}>Bandcamp</a>
+                  </li>
+                )}
+                {selected.frontmatter.soundcloud && (
+                  <li>
+                    <a href={selected.frontmatter.soundcloud}>Soundcloud</a>
+                  </li>
+                )}
+                {selected.frontmatter.Website && (
+                  <li>
+                    <a href={selected.frontmatter.Website}>Website</a>
+                  </li>
+                )}
+              </HorizontalNav>
+              {selected.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: selected.frontmatter.description }}></p>}
+              <VenueGigsTile>
+                <Link to={selected.fields.slug}>
+                  {selected.frontmatter.cover && <GatsbyImage image={getImage(selected.frontmatter.cover)} alt="" />}
+                  {!selected.frontmatter.cover && (
+                    <div className="placeholder-image" style={{ backgroundImage: 'url(' + data.placeholder.publicURL + ')' }}></div>
                   )}
-                  {node.frontmatter.instagram && (
-                    <li>
-                      <a href={node.frontmatter.instagram}>Instagram</a>
-                    </li>
-                  )}
-                  {node.frontmatter.spotify && (
-                    <li>
-                      <a href={node.frontmatter.instagram}>Spotify</a>
-                    </li>
-                  )}
-                  {node.frontmatter.bandcamp && (
-                    <li>
-                      <a href={node.frontmatter.bandcamp}>Bandcamp</a>
-                    </li>
-                  )}
-                  {node.frontmatter.soundcloud && (
-                    <li>
-                      <a href={node.frontmatter.soundcloud}>Soundcloud</a>
-                    </li>
-                  )}
-                  {node.frontmatter.Website && (
-                    <li>
-                      <a href={node.frontmatter.Website}>Website</a>
-                    </li>
-                  )}
-                </HorizontalNav>
-                {node.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: node.frontmatter.description }}></p>}
-                <VenueGigsTile>
-                  <Link to={node.fields.slug}>
-                    {node.frontmatter.cover && <GatsbyImage image={getImage(node.frontmatter.cover)} alt="" />}
-                    {!node.frontmatter.cover && (
-                      <div className="placeholder-image" style={{ backgroundImage: 'url(' + data.placeholder.publicURL + ')' }}></div>
-                    )}
-                    <span>View {gigCount[node.fields.machine_name]} gigs at this venue</span>
-                  </Link>
-                </VenueGigsTile>
-              </Popup>
-            </Marker>
-          ))}
-        </MapContainer>
+                  <span>View {gigCount[selected.fields.machine_name]} gigs at this venue</span>
+                </Link>
+              </VenueGigsTile>
+            </Popup>
+          )}
+        </Map>
       </FullMapWrapper>
     </Layout>
   )
@@ -274,20 +290,27 @@ const HideFilters = styled.div`
   }
 `
 
+export const Head = (params) => {
+  const title = `Venues | ${params.data.site.siteMetadata.title}`
+  const description = params.data.site.siteMetadata.description
+
+  return <SiteHead title={title} description={description} {...params} />
+}
+
 export const pageQuery = graphql`
   query {
     site {
       ...SiteInformation
     }
-    allVenues: allMarkdownRemark(sort: { fields: [frontmatter___title], order: ASC }, filter: { fields: { type: { eq: "venues" } } }) {
+    allVenues: allMarkdownRemark(sort: { frontmatter: { title: ASC } }, filter: { fields: { type: { eq: "venues" } } }) {
       edges {
         node {
           ...VenueFrontmatter
         }
       }
     }
-    gigCountByVenue: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { eq: "gigs" } } }) {
-      group(field: frontmatter___venue) {
+    gigCountByVenue: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } } }) {
+      group(field: { frontmatter: { venue: SELECT } }) {
         fieldValue
         totalCount
       }

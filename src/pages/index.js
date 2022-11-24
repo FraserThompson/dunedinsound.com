@@ -6,10 +6,9 @@ import Tile from '../components/Tile'
 import GridContainer from '../components/GridContainer'
 import GigTile from '../components/GigTile'
 import { theme } from '../utils/theme'
+import { SiteHead } from '../components/SiteHead'
 
 const Page = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata.title
-  const siteDescription = data.site.siteMetadata.description
   const posts = data.allMarkdownRemark.edges
 
   // we get the firstGig in a seperate query so the others can have smaller images
@@ -58,7 +57,7 @@ const Page = ({ data, location }) => {
   )
 
   return (
-    <Layout description={siteDescription} location={location} title={siteTitle}>
+    <Layout location={location}>
       <HomePageGridContainer>
         <div className="featured-gig">
           <GigTile title={firstGig.frontmatter.title} node={firstGig} feature={true} height="66vh" />
@@ -103,6 +102,13 @@ const HomePageGridContainer = styled(GridContainer)`
   }
 `
 
+export const Head = (params) => {
+  const title = `${params.data.site.siteMetadata.title}`
+  const description = params.data.site.siteMetadata.description
+
+  return <SiteHead title={title} description={description} {...params} />
+}
+
 export const pageQuery = graphql`
   query {
     site {
@@ -111,7 +117,7 @@ export const pageQuery = graphql`
     vaultSessionLogo: file(name: { eq: "vslogo" }) {
       publicURL
     }
-    firstGig: allMarkdownRemark(limit: 1, sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { regex: "/gigs$/" } } }) {
+    firstGig: allMarkdownRemark(limit: 1, sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { regex: "/gigs$/" } } }) {
       edges {
         node {
           excerpt
@@ -122,7 +128,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    allMarkdownRemark(limit: 16, sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { regex: "/gigs|blog|vaultsessions$/" } } }) {
+    allMarkdownRemark(limit: 16, sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { regex: "/gigs|blog|vaultsessions$/" } } }) {
       edges {
         node {
           excerpt

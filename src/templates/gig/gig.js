@@ -15,6 +15,7 @@ import BackButton from '../../components/BackButton'
 import BackToTop from '../../components/BackToTop'
 import { getSrc } from 'gatsby-plugin-image'
 import ImageGallery from '../../components/ImageGallery'
+import { SiteHead } from '../../components/SiteHead'
 
 const Page = React.memo(({ data }) => {
   const [artistMedia, setArtistMedia] = useState([])
@@ -88,11 +89,9 @@ const Page = React.memo(({ data }) => {
   return (
     <Layout
       location={location}
-      description={`Photos, audio and video from ${gigTitle}.`}
       image={cover && getSrc(cover)}
       title={`${gigTitle} | ${data.site.siteMetadata.title}`}
       date={data.thisPost.frontmatter.date}
-      type="article"
       hideBrandOnMobile={true}
       scrollHeaderContent={
         <>
@@ -171,6 +170,21 @@ const FeatureVidWrapper = styled.div`
   padding-bottom: ${rhythm(1)};
 `
 
+export const Head = (params) => {
+  const cover = params.data.thisPost.frontmatter.cover
+  const title = `${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
+
+  return (
+    <SiteHead
+      title={title}
+      description={`Photos, audio and video from ${params.data.thisPost.frontmatter.title}.`}
+      date={params.data.thisPost.frontmatter.date}
+      cover={cover}
+      {...params}
+    />
+  )
+}
+
 export const pageQuery = graphql`
   query GigsBySlug($slug: String!, $prevSlug: String, $nextSlug: String, $artists: [String]!, $venue: String!, $parentDir: String!) {
     site {
@@ -188,7 +202,7 @@ export const pageQuery = graphql`
     images: allFile(
       filter: { relativePath: { regex: "/(.jpg)|(.JPG)$/" }, name: { ne: "cover.jpg" }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }
     ) {
-      group(field: relativeDirectory) {
+      group(field: { relativeDirectory: SELECT }) {
         fieldValue
         totalCount
         edges {
@@ -201,7 +215,7 @@ export const pageQuery = graphql`
       }
     }
     audio: allFile(filter: { relativePath: { regex: "/(.json)|(.mp3)$/" }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }) {
-      group(field: relativeDirectory) {
+      group(field: { relativeDirectory: SELECT }) {
         fieldValue
         edges {
           node {
@@ -213,7 +227,7 @@ export const pageQuery = graphql`
       }
     }
     artists: allMarkdownRemark(filter: { fields: { machine_name: { in: $artists }, type: { eq: "artists" } } }) {
-      group(field: fields___machine_name) {
+      group(field: { fields: { machine_name: SELECT } }) {
         fieldValue
         edges {
           node {

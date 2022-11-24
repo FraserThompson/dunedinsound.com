@@ -7,10 +7,9 @@ import Banner from '../components/Banner'
 import { rhythm } from '../utils/typography'
 import BlogContainer from '../components/BlogContainer'
 import { invert } from 'polished'
+import { SiteHead } from '../components/SiteHead'
 
 const Page = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata.title
-  const siteDescription = data.site.siteMetadata.description
   const posts = data.allBlogs.edges
   const blogTags = data.blogTags.group
 
@@ -39,7 +38,7 @@ const Page = ({ data, location }) => {
   ))
 
   return (
-    <Layout location={location} description={siteDescription} title={`Blog | ${siteTitle}`} overrideBackgroundColor="white">
+    <Layout location={location} overrideBackgroundColor="white">
       <BlogPageContainer>
         <Sidebar>
           <h1>Tags</h1>
@@ -93,21 +92,27 @@ const PostsContainer = styled(BlogContainer)`
   max-width: ${(props) => props.theme.contentContainerWidth};
   margin: 0 auto;
 `
+export const Head = (params) => {
+  const title = `Blog | ${params.data.site.siteMetadata.title}`
+  const description = params.data.site.siteMetadata.description
+
+  return <SiteHead title={title} description={description} {...params} />
+}
 
 export const pageQuery = graphql`
   query {
     site {
       ...SiteInformation
     }
-    allBlogs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { eq: "blog" } } }) {
+    allBlogs: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
       edges {
         node {
           ...BlogFrontmatter
         }
       }
     }
-    blogTags: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { eq: "blog" } } }) {
-      group(field: frontmatter___tags) {
+    blogTags: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
+      group(field: { frontmatter: { tags: SELECT } }) {
         fieldValue
         totalCount
       }

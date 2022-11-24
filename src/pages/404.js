@@ -13,4 +13,11 @@ const Page = ({ location }) => (
   </Layout>
 )
 
-export default Page;
+export const Head = (params) => {
+  const title = `${params.data.site.siteMetadata.title}`
+  const description = params.data.site.siteMetadata.description
+
+  return <SiteHead title={title} description={description} {...params} />
+}
+
+export default Page

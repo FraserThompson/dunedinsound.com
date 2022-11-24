@@ -80,12 +80,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-emotion`,
-    {
-      resolve: 'gatsby-plugin-react-leaflet',
-      options: {
-        linkStyles: false, // we want to manually get the CSS so its not on every page
-      },
-    },
     `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-sharp`,
@@ -115,7 +109,6 @@ module.exports = {
       },
     },
     'gatsby-plugin-remove-serviceworker',
-    `gatsby-plugin-react-helmet`,
     {
       resolve: 'gatsby-plugin-typography',
       options: {

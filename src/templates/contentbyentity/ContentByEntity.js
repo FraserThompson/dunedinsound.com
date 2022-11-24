@@ -34,7 +34,7 @@ import { getSrc } from 'gatsby-plugin-image'
 import MetadataLinks from './MetadataLinks'
 import GigTiles from './GigTiles'
 
-export default React.memo(({ data, pageDescription, parent, background }) => {
+export default React.memo(({ data, parent, background }) => {
   useEffect(() => {
     if (typeof window !== `undefined` && window.previousPath) {
       const previousGigSlug = new URL(window.previousPath).pathname
@@ -92,9 +92,6 @@ export default React.memo(({ data, pageDescription, parent, background }) => {
   return (
     <Layout
       location={parent}
-      description={pageDescription}
-      image={cover && getSrc(cover)}
-      title={`${data.thisPost.frontmatter.title} | ${data.site.siteMetadata.title}`}
       scrollHeaderOverlay={
         <PageTitle>
           <h1 className="big">{data.thisPost.frontmatter.title}</h1>

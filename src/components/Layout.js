@@ -6,8 +6,7 @@ import styled from '@emotion/styled'
 import { theme } from '../utils/theme'
 import 'react-image-lightbox/style.css'
 import SiteFooter from './SiteFooter'
-import { lighten, darken } from 'polished'
-import { Helmet } from 'react-helmet'
+import { darken } from 'polished'
 import SiteNav from './SiteNav'
 import Menu from './Menu'
 import GlobalStyle from './GlobalStyle'
@@ -18,11 +17,6 @@ export default React.memo(
     location,
     children,
     overrideBackgroundColor,
-    description,
-    title,
-    type,
-    date,
-    image,
     hideFooter,
     hideNav = false,
     hideBrandOnMobile,
@@ -34,16 +28,6 @@ export default React.memo(
     <ThemeProvider theme={theme.default}>
       <>
         <Global styles={(theme) => GlobalStyle} />
-        <Helmet htmlAttributes={{ lang: 'en' }} title={title}>
-          <meta name="description" content={description} />
-          <meta property="og:site_name" content="dunedinsound" />
-          <meta property="og:url" content={location.href} />
-          <meta property="og:title" content={title} />
-          <meta property="og:description" content={description} />
-          {type && <meta property="og:type" content={type} />}
-          {date && <meta itemprop="datePublished" content={date} />}
-          {image && <meta property="og:image" content={image} />}
-        </Helmet>
         <UpdateYourFrickinBrowser />
         {!hideNav && (
           <HeaderWrapper>

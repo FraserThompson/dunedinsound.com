@@ -7,12 +7,11 @@ import YouTubeResponsive from '../../components/YouTubeResponsive'
 import PlayerContainer from '../../components/PlayerContainer'
 import VideoControls from './VideoControls'
 import { timeToSeconds } from '../../utils/helper'
+import { SiteHead } from '../../components/SiteHead'
 
 const Page = ({ data }) => {
-  const post = data.markdownRemark
+  const post = data.thisPost
 
-  const siteTitle = data.site.siteMetadata.title
-  const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
   const artist = data.artist.edges[0].node
 
   const [lights, setLights] = useState('off')
@@ -90,11 +89,9 @@ const Page = ({ data }) => {
   return (
     <Layout
       location={typeof window !== `undefined` && window.location}
-      description={siteDescription}
       image={post.frontmatter.cover.publicURL}
       hideBrandOnMobile={true}
       hideFooter={true}
-      title={`VAULT SESSION: ${post.frontmatter.title} | ${siteTitle}`}
       overrideBackgroundColor="white"
     >
       <World lights={lights} topContent={topContent} bottomContent={bottomContent} leftContent={leftContent} rightContent={rightContent}>
@@ -105,6 +102,14 @@ const Page = ({ data }) => {
       {artistAudio && <PlayerContainer artistAudio={artistAudio} minimizedAlways={true} />}
     </Layout>
   )
+}
+
+export const Head = (params) => {
+  const cover = params.data.thisPost.frontmatter.cover
+  const title = `VAULT SESSION: ${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
+  const description = params.data.thisPost.excerpt ? params.data.thisPost.excerpt : params.data.site.siteMetadata.description
+
+  return <SiteHead title={title} description={description} date={params.data.thisPost.frontmatter.date} cover={cover} {...params} />
 }
 
 const Logo = styled.div`
@@ -205,7 +210,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
       frontmatter {
         title
         date(formatString: "DD MMMM YYYY")

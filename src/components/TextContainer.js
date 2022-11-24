@@ -10,13 +10,13 @@ export default styled(BlogContainer)`
   h4,
   ul {
     max-width: ${(props) => props.theme.contentContainerWidth};
+    margin-left: 0;
     margin: ${(props) => (!props.leftAlign ? '20px auto' : '')};
     padding-left: ${rhythm(0.5)};
     padding-right: ${rhythm(0.5)};
   }
   ul {
-    padding-left: ${(props) => (!props.featureMode ? rhythm(0.5) : rhythm(2))};
-    margin-left: ${(props) => (!props.featureMode ? rhythm(1.8) : '')};
+    padding-left: ${rhythm(2)};
   }
   p:not(.notBodyText),
   ul:not(.notBodyText) {

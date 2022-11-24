@@ -20,7 +20,7 @@ export const BlogSidebar = React.memo(({ data, hideDate = false }) => {
     <BlogSidebarWrapper>
       {!hideDate && (
         <Date>
-          <small>{data.markdownRemark.frontmatter.date}</small>
+          <small>{data.thisPost.frontmatter.date}</small>
         </Date>
       )}
       {!!data.artist_pages.edges.length && (

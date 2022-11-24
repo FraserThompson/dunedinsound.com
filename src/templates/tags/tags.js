@@ -7,10 +7,9 @@ import Banner from '../../components/Banner'
 import { rhythm } from '../../utils/typography'
 import TextContainer from '../../components/TextContainer'
 import BlogContainer from '../../components/BlogContainer'
+import { SiteHead } from '../../components/SiteHead'
 
 export default React.memo(({ data, pageContext }) => {
-  const siteTitle = data.site.siteMetadata.title
-  const siteDescription = data.site.siteMetadata.description
   const posts = data.allBlogs.edges
   const blogTags = data.blogTags.group
 
@@ -39,12 +38,7 @@ export default React.memo(({ data, pageContext }) => {
   ))
 
   return (
-    <Layout
-      location={typeof window !== `undefined` && window.location}
-      description={siteDescription}
-      title={`Blog | ${siteTitle}`}
-      overrideBackgroundColor="white"
-    >
+    <Layout location={typeof window !== `undefined` && window.location} overrideBackgroundColor="white">
       <BlogPageContainer>
         <Sidebar>
           <h1>Tags</h1>
@@ -60,6 +54,13 @@ export default React.memo(({ data, pageContext }) => {
     </Layout>
   )
 })
+
+export const Head = (params) => {
+  const title = `Blog | ${params.data.site.siteMetadata.title}`
+  const description = params.data.site.siteMetadata.description
+
+  return <SiteHead title={title} description={description} {...params} />
+}
 
 const BlogPageContainer = styled.div`
   display: flex;
@@ -102,18 +103,15 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    allBlogs: allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { in: $tag } } }
-    ) {
+    allBlogs: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { in: $tag } } }) {
       edges {
         node {
           ...BlogFrontmatter
         }
       }
     }
-    blogTags: allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, filter: { fields: { type: { eq: "blog" } } }) {
-      group(field: frontmatter___tags) {
+    blogTags: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
+      group(field: { frontmatter: { tags: SELECT } }) {
         fieldValue
         totalCount
       }

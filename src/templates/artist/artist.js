@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import ContentByEntity from '../contentbyentity/ContentByEntity'
+import { SiteHead } from '../../components/SiteHead'
 
 const Page = React.memo(({ data }) => {
   const parent = {
@@ -8,10 +9,22 @@ const Page = React.memo(({ data }) => {
     href: '/artists/',
   }
 
-  const pageDescription = `See photos, videos and audio recordings of live gigs featuring ${data.thisPost.frontmatter.title} and heaps of other local artists.`
-
-  return <ContentByEntity pageDescription={pageDescription} parent={parent} data={data} />
+  return <ContentByEntity parent={parent} data={data} />
 })
+
+export const Head = (params) => {
+  const cover = params.data.images && params.data.images.edges.length !== 0 && params.data.images.edges[0].node
+  const title = `${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
+
+  return (
+    <SiteHead
+      title={title}
+      description={`See photos, videos and audio recordings of live gigs featuring ${params.data.thisPost.frontmatter.title} and heaps of other local artists.`}
+      cover={cover}
+      {...params}
+    />
+  )
+}
 
 export const pageQuery = graphql`
   query ArtistsBySlug($slug: String!, $machine_name: String!, $title: String!) {
@@ -32,10 +45,10 @@ export const pageQuery = graphql`
       }
     }
     gigs: allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: { fields: { type: { eq: "gigs" } }, frontmatter: { artists: { elemMatch: { name: { eq: $title } } } } }
     ) {
-      group(field: fields___year) {
+      group(field: { fields: { year: SELECT } }) {
         fieldValue
         edges {
           node {
@@ -44,10 +57,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    blogs: allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { eq: $title } } }
-    ) {
+    blogs: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { eq: $title } } }) {
       edges {
         node {
           ...BlogFrontmatter
@@ -55,7 +65,7 @@ export const pageQuery = graphql`
       }
     }
     vaultsessions: allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: { fields: { type: { eq: "vaultsessions" } }, frontmatter: { artist: { eq: $machine_name } } }
     ) {
       edges {

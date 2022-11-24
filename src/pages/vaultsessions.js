@@ -4,14 +4,13 @@ import Layout from '../components/Layout'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import styled from '@emotion/styled'
 import World from '../components/World'
+import { SiteHead } from '../components/SiteHead'
 
 const Page = ({ data, location }) => {
   const [lights, setLights] = useState('off')
   const [hoveredNode, setHoveredNode] = useState(false)
   const [perspective, setPerspective] = useState('300px')
 
-  const siteTitle = data.site.siteMetadata.title
-  const siteDescription = data.site.siteMetadata.description
   const posts = data.allBlogs.edges
 
   useEffect(() => {
@@ -69,7 +68,7 @@ const Page = ({ data, location }) => {
     </Logo>
   )
   return (
-    <Layout location={location} description={siteDescription} hideNav={true} title={`VAULT SESSIONS | ${siteTitle}`} overrideBackgroundColor="white">
+    <Layout location={location} hideNav={true} overrideBackgroundColor="white">
       <World
         perspective={perspective}
         lights={lights}
@@ -94,7 +93,7 @@ export const pageQuery = graphql`
     logoMono: file(name: { eq: "vslogo_mono" }) {
       publicURL
     }
-    allBlogs: allMarkdownRemark(sort: { fields: [frontmatter___date], order: ASC }, filter: { fields: { type: { eq: "vaultsessions" } } }) {
+    allBlogs: allMarkdownRemark(sort: { frontmatter: { date: ASC } }, filter: { fields: { type: { eq: "vaultsessions" } } }) {
       edges {
         node {
           ...BlogFrontmatter
@@ -164,5 +163,12 @@ const Description = styled.div`
     margin-bottom: auto;
   }
 `
+
+export const Head = (params) => {
+  const title = `VAULT SESSIONS | ${params.data.site.siteMetadata.title}`
+  const description = params.data.site.siteMetadata.description
+
+  return <SiteHead title={title} description={description} {...params} />
+}
 
 export default Page

@@ -13,11 +13,11 @@ import FlexGridContainer from '../../components/FlexGridContainer'
 import { BlogSidebar } from './sidebar'
 import { theme } from '../../utils/theme'
 import TextContainer from '../../components/TextContainer'
+import { SiteHead } from '../../components/SiteHead'
 
 const Page = React.memo(({ data, pageContext }) => {
-  const post = data.markdownRemark
-  const siteTitle = data.site.siteMetadata.title
-  const siteDescription = post.excerpt ? post.excerpt : data.site.siteMetadata.description
+  const post = data.thisPost
+
   const { previous, next } = pageContext
 
   useEffect(() => {
@@ -26,13 +26,7 @@ const Page = React.memo(({ data, pageContext }) => {
   }, [])
 
   return (
-    <Layout
-      location={typeof window !== `undefined` && window.location}
-      date={post.frontmatter.date}
-      description={siteDescription}
-      title={`${post.frontmatter.title} | ${siteTitle}`}
-      overrideBackgroundColor="white"
-    >
+    <Layout location={typeof window !== `undefined` && window.location} overrideBackgroundColor="white">
       <BlogContainer>
         {post.frontmatter.cover && (
           <Banner backgroundImage={post.frontmatter.cover}>
@@ -83,6 +77,14 @@ const Page = React.memo(({ data, pageContext }) => {
   )
 })
 
+export const Head = (params) => {
+  const cover = params.data.thisPost.frontmatter.cover
+  const title = `${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
+  const description = params.data.thisPost.excerpt ? params.data.thisPost.excerpt : params.data.site.siteMetadata.description
+
+  return <SiteHead title={title} description={description} date={params.data.thisPost.frontmatter.date} cover={cover} {...params} />
+}
+
 const BlogPostNav = styled.ul`
   display: flex;
   flex-wrap: wrap;
@@ -122,11 +124,11 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
       ...BlogFrontmatter
     }
     specific_gigs: allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: { fields: { type: { eq: "gigs" } }, frontmatter: { title: { in: $related_gigs } } }
     ) {
       edges {
@@ -137,7 +139,7 @@ export const pageQuery = graphql`
     }
     artist_gigs: allMarkdownRemark(
       limit: 3
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: { fields: { type: { eq: "gigs" } }, frontmatter: { artists: { elemMatch: { name: { in: $tags } } } } }
     ) {
       edges {
