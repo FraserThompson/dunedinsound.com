@@ -10,10 +10,10 @@ import BlogContainer from '../../components/BlogContainer'
 import { SiteHead } from '../../components/SiteHead'
 
 export default React.memo(({ data, pageContext }) => {
-  const posts = data.allBlogs.edges
+  const posts = data.allBlogs.nodes
   const blogTags = data.blogTags.group
 
-  const postElements = posts.map(({ node }) => (
+  const postElements = posts.map((node) => (
     <Post key={node.fields.slug}>
       <h2>
         <Link to={node.fields.slug}>
@@ -103,14 +103,12 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    allBlogs: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { in: $tag } } }) {
-      edges {
-        node {
-          ...BlogFrontmatter
-        }
+    allBlogs: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { in: $tag } } }) {
+      nodes {
+        ...BlogFrontmatter
       }
     }
-    blogTags: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
+    blogTags: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
       group(field: { frontmatter: { tags: SELECT } }) {
         fieldValue
         totalCount

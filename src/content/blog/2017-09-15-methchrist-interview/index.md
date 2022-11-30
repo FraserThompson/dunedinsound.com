@@ -107,4 +107,4 @@ Ollie: Maybe, take a moment out of your day to not be sucked into the perpetual 
 
 UNLEASH THE NOMADIC WAR MACHINE.
 
-<center><iframe style="border: 0; width: 350px; height: 720px;" src="https://bandcamp.com/EmbeddedPlayer/album=483929922/size=large/bgcol=ffffff/linkcol=0687f5/transparent=true/" seamless><a href="http://methchrist.bandcamp.com/album/nomadic-war-machine">Nomadic War Machine by METHCHRIST</a></iframe></center>
+<center><iframe style={{border: "0", width: "350px", height: "720px"}} src="https://bandcamp.com/EmbeddedPlayer/album=483929922/size=large/bgcol=ffffff/linkcol=0687f5/transparent=true/" seamless><a href="http://methchrist.bandcamp.com/album/nomadic-war-machine">Nomadic War Machine by METHCHRIST</a></iframe></center>

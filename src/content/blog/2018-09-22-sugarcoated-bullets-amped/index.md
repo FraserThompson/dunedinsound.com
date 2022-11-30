@@ -15,7 +15,7 @@ AMPED Project concluded again this year with a marathon 6 hour gig at Fifty Gori
 
 I spoke to one of the bands who participated, Sugarcoated Bullets. They stand out as being one of the punkier ones to come out of the project, driven by their vocalist, Jack Munro’s, high energy stage presence. Where their peers are inspired by Mac DeMarco and Gus Dapperton, they’re inspired by The Ramones and The Dead Kennedy’s. They've also just released an EP.
 
-<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2447638666/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://sugarcoatedbullets.bandcamp.com/album/numbskull">Numbskull by Sugarcoated Bullets</a></iframe></center>
+<center><iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/album=2447638666/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://sugarcoatedbullets.bandcamp.com/album/numbskull">Numbskull by Sugarcoated Bullets</a></iframe></center>
 
 **So how was amped?**
 

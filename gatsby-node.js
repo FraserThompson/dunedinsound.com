@@ -10,42 +10,39 @@ const toMachineName = (string, space_character) => {
 
 const path = require('path')
 
-const realFs = require('fs')
-const gracefulFs = require('graceful-fs')
-gracefulFs.gracefulify(realFs)
-
 exports.createPages = async ({ graphql, actions }) => {
   const result = await graphql(
     `
       {
-        pages: allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
+        pages: allMdx(sort: { frontmatter: { date: DESC } }) {
           group(field: { fields: { type: SELECT } }) {
             fieldValue
-            edges {
-              node {
-                fields {
-                  slug
-                  type
-                  machine_name
-                  parentDir
+            nodes {
+              fields {
+                slug
+                type
+                machine_name
+                parentDir
+              }
+              internal {
+                contentFilePath
+              }
+              frontmatter {
+                title
+                template
+                artists {
+                  name
                 }
-                frontmatter {
-                  title
-                  template
-                  artists {
-                    name
-                  }
-                  venue
-                  tags
-                  featureMode
-                  hideCaptions
-                  related_gigs
-                }
+                venue
+                tags
+                featureMode
+                hideCaptions
+                related_gigs
               }
             }
           }
         }
-        blogsByTag: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
+        blogsByTag: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
           group(field: { frontmatter: { tags: SELECT } }) {
             fieldValue
             totalCount
@@ -74,11 +71,11 @@ exports.createPages = async ({ graphql, actions }) => {
   console.log('About to start creating pages...')
 
   result.data.pages.group.forEach((group) => {
-    console.log('Creating ' + group.edges.length + ' ' + group.fieldValue)
+    console.log('Creating ' + group.nodes.length + ' ' + group.fieldValue)
 
-    group.edges.forEach(({ node }, index) => {
-      const previous = index === group.edges.length - 1 ? null : group.edges[index + 1].node
-      const next = index === 0 ? null : group.edges[index - 1].node
+    group.nodes.forEach((node, index) => {
+      const previous = index === group.nodes.length - 1 ? null : group.nodes[index + 1]
+      const next = index === 0 ? null : group.nodes[index - 1]
 
       const context = {
         slug: node.fields.slug,
@@ -101,7 +98,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
       createPage({
         path: node.fields.slug,
-        component,
+        component: `${component}?__contentFilePath=${node.internal.contentFilePath}`,
         context: context,
       })
     })
@@ -158,13 +155,13 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     }
   }
   // For the actual gig posts we need to add some fields
-  else if (node.internal.type === `MarkdownRemark`) {
+  else if (node.internal.type === `Mdx`) {
     const parent = getNode(node.parent)
     const nodeType = parent.sourceInstanceName
     const nodeTitle = nodeType === 'gigs' ? toMachineName(node.frontmatter.title, '-') : toMachineName(node.frontmatter.title, '_') // to preserve URLs from old site
     const nodeSlug = '/' + nodeType + '/' + nodeTitle
 
-    const parsedPath = path.parse(node.fileAbsolutePath)
+    const parsedPath = path.parse(node.internal.contentFilePath)
     const parentDir = path.basename(parsedPath.dir)
 
     const date = new Date(node.frontmatter.date)

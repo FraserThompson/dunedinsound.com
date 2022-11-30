@@ -13,7 +13,7 @@ cover: ./cover.jpg
 
 Death and the Maiden’s second album exists in the same shadowy world they created in their self-titled debut but refines it, polishes it down until it’s a smooth black pebble. It’s an enigma, like being at a dance party and realizing part way through you’re actually at some sort of pagan ritual of death.
 
-<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1928753092/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://fishriderrecords.bandcamp.com/album/wisteria">Wisteria by Death And The Maiden</a></iframe></center>
+<center><iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/album=1928753092/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://fishriderrecords.bandcamp.com/album/wisteria">Wisteria by Death And The Maiden</a></iframe></center>
 
 It’s been just over a month since the Port Chalmers three-piece opened the gates to the beautiful dreamworld of Wisteria. I met with the band during a rehearsal for their album release gig on Saturday.
 

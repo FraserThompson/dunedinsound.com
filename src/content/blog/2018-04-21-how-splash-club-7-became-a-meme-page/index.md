@@ -18,7 +18,7 @@ Fast forward to 2018 and SPLASH CLUB 7 has hundreds of thousands of fans from al
 
 I somehow convinced the elusive Jamie Dickson into an interview to try explain this post-internet tragedy.
 
-<div class="youtubeEmbed">
+<div className="youtubeEmbed">
   <iframe src="https://www.youtube.com/embed/3gGA3GC31lE/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
 </div>
 
@@ -57,4 +57,4 @@ I ask him whether he’s bitter about it, but he seems more bemused than anythin
 
 There’s a beautiful irony to the story of a musician who made music celebrating superficiality and had his musical identity stolen by something even more superficial than the music he made. I don’t think he’d have it any other way.
 
-<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2563621841/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://splash-club-7.bandcamp.com/album/born-to-die-world-is-a-fuck">BORN TO DIE / WORLD IS A FUCK by Splash Club 7</a></iframe></center>
+<center><iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/album=2563621841/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://splash-club-7.bandcamp.com/album/born-to-die-world-is-a-fuck">BORN TO DIE / WORLD IS A FUCK by Splash Club 7</a></iframe></center>

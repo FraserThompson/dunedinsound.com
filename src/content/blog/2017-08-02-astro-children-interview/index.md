@@ -79,5 +79,5 @@ It's always a hard question for me. I listen to a lot of pop music. It's like co
 Maybe not Astro Children, but it's on the repulsive woman single.
 
 <p>
-<iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=2780263300/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://repulsivewoman.bandcamp.com/track/happily">Happily by Repulsive Woman</a></iframe>
+<iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/track=2780263300/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://repulsivewoman.bandcamp.com/track/happily">Happily by Repulsive Woman</a></iframe>
 </p>

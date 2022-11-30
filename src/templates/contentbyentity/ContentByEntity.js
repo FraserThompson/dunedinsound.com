@@ -42,16 +42,16 @@ export default React.memo(({ data, parent, background }) => {
     }
   }, [])
 
-  const cover = data.images && data.images.edges.length !== 0 && data.images.edges[0].node
+  const cover = data.images && data.images.nodes.length !== 0 && data.images.nodes[0]
 
   const gigs = data.gigs && useMemo(() => data.gigs.group.slice().reverse()) // it expects them grouped by year in ascending order
-  const blogs = data.blogs && data.blogs.edges
-  const vaultsessions = data.vaultsessions && data.vaultsessions.edges
+  const blogs = data.blogs && data.blogs.nodes
+  const vaultsessions = data.vaultsessions && data.vaultsessions.nodes
 
   const gigCount = useMemo(
     () =>
-      gigs.reduce((acc, { edges }) => {
-        acc += edges.length
+      gigs.reduce((acc, { nodes }) => {
+        acc += nodes.length
         return acc
       }, 0),
     []
@@ -64,7 +64,7 @@ export default React.memo(({ data, parent, background }) => {
     blogs &&
     useMemo(
       () =>
-        blogs.map(({ node }) => {
+        blogs.map((node) => {
           return (
             <Tile
               key={node.fields.slug}
@@ -82,8 +82,7 @@ export default React.memo(({ data, parent, background }) => {
   const vaultsessionTiles =
     vaultsessions &&
     useMemo(
-      () =>
-        vaultsessions.map(({ node }) => <Tile key={node.fields.slug} title={node.frontmatter.title} image={node.frontmatter.cover} href={node.fields.slug} />),
+      () => vaultsessions.map((node) => <Tile key={node.fields.slug} title={node.frontmatter.title} image={node.frontmatter.cover} href={node.fields.slug} />),
       []
     )
 

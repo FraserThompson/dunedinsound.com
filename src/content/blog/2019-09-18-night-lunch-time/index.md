@@ -11,7 +11,7 @@ cover: ./cover.jpg
 
 Known for their intense and enigmatic live performances, Night Lunch have been kicking around the local underground for about a year and have just released their first EP Double Trouble!
 
-<iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=4266599224/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="http://nightlunch666.bandcamp.com/album/double-trouble">Double Trouble! by Night Lunch</a></iframe>
+<iframe style={{ border: 0, width: '350px', height: '470px' }} src="https://bandcamp.com/EmbeddedPlayer/album=4266599224/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="http://nightlunch666.bandcamp.com/album/double-trouble">Double Trouble! by Night Lunch</a></iframe>
 
 I spoke to the combo of Liams which make up the duo, Liam Dorf Clune and Liam Hoffman, to get the skinny on what they are exactly.
 

@@ -10,10 +10,10 @@ import { invert } from 'polished'
 import { SiteHead } from '../components/SiteHead'
 
 const Page = ({ data, location }) => {
-  const posts = data.allBlogs.edges
+  const posts = data.allBlogs.nodes
   const blogTags = data.blogTags.group
 
-  const postElements = posts.map(({ node }) => (
+  const postElements = posts.map((node) => (
     <Post key={node.fields.slug}>
       <h2>
         <Link to={node.fields.slug}>
@@ -104,14 +104,12 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    allBlogs: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
-      edges {
-        node {
-          ...BlogFrontmatter
-        }
+    allBlogs: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
+      nodes {
+        ...BlogFrontmatter
       }
     }
-    blogTags: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
+    blogTags: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
       group(field: { frontmatter: { tags: SELECT } }) {
         fieldValue
         totalCount

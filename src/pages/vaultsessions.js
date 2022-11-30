@@ -11,7 +11,7 @@ const Page = ({ data, location }) => {
   const [hoveredNode, setHoveredNode] = useState(false)
   const [perspective, setPerspective] = useState('300px')
 
-  const posts = data.allBlogs.edges
+  const posts = data.allBlogs.nodes
 
   useEffect(() => {
     hoveredNode && speak(hoveredNode.frontmatter.title)
@@ -46,7 +46,7 @@ const Page = ({ data, location }) => {
       <div className="background">
         <GatsbyImage style={{ height: '100%', width: '100%', opacity: '0.6' }} image={hoveredNode && getImage(hoveredNode.frontmatter.cover)} alt="" />
       </div>
-      {posts.map(({ node }) => (
+      {posts.map((node) => (
         <Link key={node.fields.slug} onMouseOver={() => thingHover(node)} onMouseOut={thingUnhover} to={node.fields.slug}>
           <article>
             <h2>{node.frontmatter.title}</h2>
@@ -76,7 +76,7 @@ const Page = ({ data, location }) => {
         backContent={backContent}
         bottomContent={bottomContent}
         topContent={topContent}
-        leftContent={hoveredNode && <Description dangerouslySetInnerHTML={{ __html: hoveredNode.html }}></Description>}
+        leftContent={hoveredNode && <Description>{hoveredNode.children}</Description>}
       ></World>
     </Layout>
   )
@@ -93,11 +93,9 @@ export const pageQuery = graphql`
     logoMono: file(name: { eq: "vslogo_mono" }) {
       publicURL
     }
-    allBlogs: allMarkdownRemark(sort: { frontmatter: { date: ASC } }, filter: { fields: { type: { eq: "vaultsessions" } } }) {
-      edges {
-        node {
-          ...BlogFrontmatter
-        }
+    allBlogs: allMdx(sort: { frontmatter: { date: ASC } }, filter: { fields: { type: { eq: "vaultsessions" } } }) {
+      nodes {
+        ...BlogFrontmatter
       }
     }
   }

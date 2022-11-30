@@ -12,7 +12,7 @@ cover: ./cover.jpg
 
 For the third time in a year Dunedin’s one and only surfadelic riff monster ‘Koizilla’ is releasing an EP.
 
-<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1439100457/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://koizilla.bandcamp.com/album/clean-the-kitchen-end-the-world">Clean the Kitchen. end the world by Koizilla</a></iframe></center>
+<center><iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/album=1439100457/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://koizilla.bandcamp.com/album/clean-the-kitchen-end-the-world">Clean the Kitchen. end the world by Koizilla</a></iframe></center>
 
 This one’s titled ‘Clean the Kitchen. End the World’, a follow up to June’s ‘doomsurfdoom’ and September’s ‘Blunder Brother’. This prolific release schedule brings to mind the Australian psychrock band King Gizzard and the Lizard Wizard, possibly not a coincidence since Koizilla’s singer, guitarist and principal songwriter Zac Nicholls is apparently a huge fan.
 

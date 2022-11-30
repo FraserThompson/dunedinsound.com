@@ -12,7 +12,7 @@ cover: ./cover.jpg
 
 Bediquette’s new EP YIELD came out about a week ago and it’s good. Really good.
 
-<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3523263680/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://bediquette.bandcamp.com/album/yield">YIELD by bediquette</a></iframe></center>
+<center><iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/album=3523263680/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://bediquette.bandcamp.com/album/yield">YIELD by bediquette</a></iframe></center>
 
 Meaty bleeps and bloops shimmy around arrhythmic, danceable beats. Chewy digital textures forge an atmosphere which is both cold and organic, all while soft whispery vocals guide you through the harsh yet beautiful world.
 

@@ -15,7 +15,7 @@ import { theme } from '../../utils/theme'
 import TextContainer from '../../components/TextContainer'
 import { SiteHead } from '../../components/SiteHead'
 
-const Page = React.memo(({ data, pageContext }) => {
+const Page = React.memo(({ data, pageContext, children }) => {
   const post = data.thisPost
 
   const { previous, next } = pageContext
@@ -40,7 +40,7 @@ const Page = React.memo(({ data, pageContext }) => {
             featureMode={post.frontmatter.featureMode}
             hideCaptions={post.frontmatter.hideCaptions}
           >
-            <div dangerouslySetInnerHTML={{ __html: post.html }} />
+            {children}
             {post.frontmatter.featureMode && (
               <p className="notBodyText">
                 <BlogSidebar hideDate={true} data={data} />
@@ -48,10 +48,10 @@ const Page = React.memo(({ data, pageContext }) => {
             )}
           </TextContainer>
         </BlogWrapper>
-        {post.frontmatter.gallery && <ImageGallery images={data.images['edges']} title={post.frontmatter.title} />}
-        {(!!data.artist_gigs.edges.length || !!data.specific_gigs.edges.length) && <h2 style={{ marginBottom: '0' }}>Related Gigs</h2>}
+        {post.frontmatter.gallery && <ImageGallery images={data.images['nodes']} title={post.frontmatter.title} />}
+        {(!!data.artist_gigs.nodes.length || !!data.specific_gigs.nodes.length) && <h2 style={{ marginBottom: '0' }}>Related Gigs</h2>}
         <FlexGridContainer>
-          {[...data.artist_gigs.edges, ...data.specific_gigs.edges].map(({ node }) => (
+          {[...data.artist_gigs.nodes, ...data.specific_gigs.nodes].map((node) => (
             <GigTile id={node.fields.slug} node={node} key={node.fields.slug} />
           ))}
         </FlexGridContainer>
@@ -124,70 +124,57 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
+    thisPost: mdx(fields: { slug: { eq: $slug } }) {
       ...BlogFrontmatter
     }
-    specific_gigs: allMarkdownRemark(
-      sort: { frontmatter: { date: DESC } }
-      filter: { fields: { type: { eq: "gigs" } }, frontmatter: { title: { in: $related_gigs } } }
-    ) {
-      edges {
-        node {
-          ...GigTileFrontmatter
-        }
+    specific_gigs: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } }, frontmatter: { title: { in: $related_gigs } } }) {
+      nodes {
+        ...GigTileFrontmatter
       }
     }
-    artist_gigs: allMarkdownRemark(
+    artist_gigs: allMdx(
       limit: 3
       sort: { frontmatter: { date: DESC } }
       filter: { fields: { type: { eq: "gigs" } }, frontmatter: { artists: { elemMatch: { name: { in: $tags } } } } }
     ) {
-      edges {
-        node {
-          ...GigTileFrontmatter
+      nodes {
+        ...GigTileFrontmatter
+      }
+    }
+    artist_pages: allMdx(filter: { fields: { type: { eq: "artists" } }, frontmatter: { title: { in: $tags } } }) {
+      nodes {
+        fields {
+          machine_name
+          slug
+        }
+        frontmatter {
+          title
+          bandcamp
+          facebook
+          soundcloud
+          instagram
+          spotify
+          origin
+          website
         }
       }
     }
-    artist_pages: allMarkdownRemark(filter: { fields: { type: { eq: "artists" } }, frontmatter: { title: { in: $tags } } }) {
-      edges {
-        node {
-          fields {
-            machine_name
-            slug
-          }
-          frontmatter {
-            title
-            bandcamp
-            facebook
-            soundcloud
-            instagram
-            spotify
-            origin
-            website
-          }
+    venue_pages: allMdx(filter: { fields: { type: { eq: "venues" } }, frontmatter: { title: { in: $tags } } }) {
+      nodes {
+        fields {
+          machine_name
+          slug
         }
-      }
-    }
-    venue_pages: allMarkdownRemark(filter: { fields: { type: { eq: "venues" } }, frontmatter: { title: { in: $tags } } }) {
-      edges {
-        node {
-          fields {
-            machine_name
-            slug
-          }
-          frontmatter {
-            title
-          }
+        frontmatter {
+          title
         }
       }
     }
     images: allFile(filter: { extension: { in: ["jpg", "JPG"] }, fields: { parentDir: { eq: $parentDir } } }) {
-      edges {
-        node {
-          name
-          publicURL
-          ...MediumImage
-        }
+      nodes {
+        name
+        publicURL
+        ...MediumImage
       }
     }
   }

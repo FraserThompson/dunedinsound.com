@@ -13,7 +13,7 @@ cover: ./cover.jpg
 
 Wellington blackened post-metal-gaze duo Tuscoma released their highly anticipated second album Discourse in April - only to have their national and global tour cancelled due to the ongoing pandemic. I caught up with guitarist and vocalist Kurt Williams to talk about their second attempt at a national tour, but since then COVID has re-emerged and plunged the country into another partial lockdown, forcing them to cancel yet again.
 
-<center><iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=1436212126/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="http://tuscoma.bandcamp.com/album/discourse-2">Discourse by Tuscoma</a></iframe></center>
+<center><iframe style={{ border: 0, width: '350px', height: '470px' }} src="https://bandcamp.com/EmbeddedPlayer/album=1436212126/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="http://tuscoma.bandcamp.com/album/discourse-2">Discourse by Tuscoma</a></iframe></center>
 
 **Your last album released in April, just before lockdown, so how did lockdown affect that?**
 

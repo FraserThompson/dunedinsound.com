@@ -16,7 +16,7 @@ That's because the site has been completely rebuilt from the ground up using sup
 
 Aside from this there's also been a few bonus features implemented along the way:
 
-- <span class="rainbowBackground">Bold</span> new colour scheme
+- <span className="rainbowBackground">Bold</span> new colour scheme
 - See all <a href="/venues/">venues on a map!</a>
 - Artist gigs sorted by year (handy for pages like <a href="/artists/the_rothmans/">this one</a> with like 50 gigs)
 - Improved audio player user experience

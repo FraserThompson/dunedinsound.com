@@ -9,13 +9,13 @@ import { theme } from '../utils/theme'
 import { SiteHead } from '../components/SiteHead'
 
 const Page = ({ data, location }) => {
-  const posts = data.allMarkdownRemark.edges
+  const posts = data.posts.nodes
 
   // we get the firstGig in a seperate query so the others can have smaller images
-  const firstGig = data.firstGig.edges[0].node
+  const firstGig = data.firstGig.nodes[0]
 
   const postSections = posts.reduce(
-    (obj, { node }) => {
+    (obj, node) => {
       let tile = undefined
       if (node.fields.type === 'gigs' && node.fields.machine_name != firstGig.fields.machine_name) {
         tile = <GigTile title={node.frontmatter.title} node={node} height="33vh" key={node.fields.slug} />
@@ -117,25 +117,21 @@ export const pageQuery = graphql`
     vaultSessionLogo: file(name: { eq: "vslogo" }) {
       publicURL
     }
-    firstGig: allMarkdownRemark(limit: 1, sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { regex: "/gigs$/" } } }) {
-      edges {
-        node {
-          excerpt
-          ...GigTileFrontmatter
-          frontmatter {
-            tags
-          }
+    firstGig: allMdx(limit: 1, sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { regex: "/gigs$/" } } }) {
+      nodes {
+        excerpt
+        ...GigTileFrontmatter
+        frontmatter {
+          tags
         }
       }
     }
-    allMarkdownRemark(limit: 16, sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { regex: "/gigs|blog|vaultsessions$/" } } }) {
-      edges {
-        node {
-          excerpt
-          ...GigTileSmallFrontmatter
-          frontmatter {
-            tags
-          }
+    posts: allMdx(limit: 16, sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { regex: "/gigs|blog|vaultsessions$/" } } }) {
+      nodes {
+        excerpt
+        ...GigTileSmallFrontmatter
+        frontmatter {
+          tags
         }
       }
     }

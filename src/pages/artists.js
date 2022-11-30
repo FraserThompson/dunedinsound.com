@@ -36,7 +36,7 @@ const Page = React.memo(({ data, location }) => {
     () =>
       data.gigsByArtist['group'].reduce((obj, item) => {
         const machineName = toMachineName(item.fieldValue)
-        const date = new Date(item['edges'][0]['node'].frontmatter.date).getTime()
+        const date = new Date(item['nodes'][0].frontmatter.date).getTime()
 
         if (!obj[machineName]) {
           obj[machineName] = { totalCount: item.totalCount || 0, lastGig: date }
@@ -58,7 +58,7 @@ const Page = React.memo(({ data, location }) => {
       data.imagesByArtist['group'].reduce((obj, item) => {
         const name = item.fieldValue
         if (!obj[name]) obj[name] = {}
-        obj[name] = item.edges
+        obj[name] = item.nodes
         return obj
       }, {}),
     []
@@ -66,7 +66,7 @@ const Page = React.memo(({ data, location }) => {
 
   // Used below to improve immediate load performance
   const animate = (time) => {
-    setArtistList(data.allArtists.edges)
+    setArtistList(data.allArtists.nodes)
     animationRef.current = requestAnimationFrame(animate)
   }
 
@@ -85,7 +85,7 @@ const Page = React.memo(({ data, location }) => {
     newShuffle.on(Shuffle.EventType.LAYOUT, () => setLoading(false))
     setShuffle(newShuffle)
 
-    const origins = artistList.reduce((acc, { node }) => {
+    const origins = artistList.reduce((acc, node) => {
       const origin = node.frontmatter.origin || 'Dunedin'
       if (!acc[origin]) acc[origin] = 0
       acc[origin]++
@@ -183,7 +183,7 @@ const Page = React.memo(({ data, location }) => {
         </select>
       </Filters>
       <ArtistGrid fixedWidth ref={element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
-        {artistList.map(({ node }) => {
+        {artistList.map((node) => {
           const metadata = gigMetadataByArtist[node.fields.machine_name]
 
           if (!metadata) {
@@ -193,7 +193,7 @@ const Page = React.memo(({ data, location }) => {
           const title = (node.frontmatter.title || node.fields.slug) + (node.frontmatter.origin ? ` (${node.frontmatter.origin})` : '')
           const coverImage = node.frontmatter.cover
             ? node.frontmatter.cover
-            : imagesByArtist[node.fields.machine_name] && imagesByArtist[node.fields.machine_name][0].node
+            : imagesByArtist[node.fields.machine_name] && imagesByArtist[node.fields.machine_name][0]
 
           return (
             <Tile
@@ -296,35 +296,29 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    allArtists: allMarkdownRemark(sort: { frontmatter: { title: ASC } }, filter: { fields: { type: { eq: "artists" } } }) {
-      edges {
-        node {
-          ...ArtistFrontmatter
-        }
+    allArtists: allMdx(sort: { frontmatter: { title: ASC } }, filter: { fields: { type: { eq: "artists" } } }) {
+      nodes {
+        ...ArtistFrontmatter
       }
     }
     imagesByArtist: allFile(filter: { extension: { eq: "jpg" }, fields: { type: { eq: "gigs" } } }) {
       group(field: { fields: { parentDir: SELECT } }, limit: 1) {
         fieldValue
-        edges {
-          node {
-            fields {
-              parentDir
-            }
-            ...SmallImage
+        nodes {
+          fields {
+            parentDir
           }
+          ...SmallImage
         }
       }
     }
-    gigsByArtist: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } } }) {
+    gigsByArtist: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } } }) {
       group(field: { frontmatter: { artists: { name: SELECT } } }) {
         fieldValue
         totalCount
-        edges {
-          node {
-            frontmatter {
-              date
-            }
+        nodes {
+          frontmatter {
+            date
           }
         }
       }

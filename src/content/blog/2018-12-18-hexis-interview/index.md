@@ -17,7 +17,7 @@ The tour has seen them playing non-stop since September everywhere from Sweden t
 
 I spoke to Filip, vocalist and founding member, while he was between gigs in Sydney to try figure out how (and why).
 
-<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1827803169/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://hexisband.bandcamp.com/album/xii">XII by Hexis</a></iframe></center>
+<center><iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/album=1827803169/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://hexisband.bandcamp.com/album/xii">XII by Hexis</a></iframe></center>
 
 **This tour you're embarking on is pretty insane... How do you have the stamina to keep on going?**
 

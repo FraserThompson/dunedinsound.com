@@ -19,7 +19,7 @@ It also marks his first release since parting ways with the American based label
 
 I caught up with him ahead of his return to Dunedin.
 
-<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=582807248/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="https://kanestrang.bandcamp.com/album/happy-to-perform">Happy to Perform by Kane Strang</a></iframe></center>
+<center><iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/album=582807248/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="https://kanestrang.bandcamp.com/album/happy-to-perform">Happy to Perform by Kane Strang</a></iframe></center>
 
 **What made you decide to release your album in that way?**
 

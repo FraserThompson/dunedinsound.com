@@ -93,18 +93,18 @@ const Page = React.memo(({ data, location }) => {
 
         // Add year and month for each item by slug to postsBySlug.
         // This is solely so we can go back from a gig page and scroll to the right place.
-        group.edges.forEach(({ node }) => (obj.postsBySlug[node.fields.slug] = { year: year, month: month }))
+        group.nodes.forEach((node) => (obj.postsBySlug[node.fields.slug] = { year: year, month: month }))
 
         if (year != previousYear) {
-          obj.menuItems.push({ year: year, count: group.edges.length, months: [monthName] })
-          obj.posts.push({ year: year, months: [{ month: monthName, posts: group.edges }] })
+          obj.menuItems.push({ year: year, count: group.nodes.length, months: [monthName] })
+          obj.posts.push({ year: year, months: [{ month: monthName, posts: group.nodes }] })
         } else {
           obj.menuItems[obj.menuItems.length - 1].months.push(monthName)
-          obj.menuItems[obj.menuItems.length - 1].count = obj.menuItems[obj.menuItems.length - 1].count + group.edges.length
+          obj.menuItems[obj.menuItems.length - 1].count = obj.menuItems[obj.menuItems.length - 1].count + group.nodes.length
           if (month != previousMonth) {
-            obj.posts[obj.posts.length - 1].months.push({ month: monthName, posts: group.edges })
+            obj.posts[obj.posts.length - 1].months.push({ month: monthName, posts: group.nodes })
           } else {
-            obj.posts[obj.posts.length - 1].months[obj.posts[obj.posts.length - 1].months.length - 1].posts.push(group.edges)
+            obj.posts[obj.posts.length - 1].months[obj.posts[obj.posts.length - 1].months.length - 1].posts.push(group.nodes)
           }
         }
 
@@ -235,7 +235,7 @@ const Page = React.memo(({ data, location }) => {
                     const id = `${year}-${month}`
                     return (
                       <section data-yearindex={index} key={id} id={id}>
-                        {posts.map(({ node }) => (
+                        {posts.map((node) => (
                           <GigTile id={node.fields.slug} key={node.fields.slug} height="40vh" node={node} />
                         ))}
                       </section>
@@ -385,13 +385,11 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    gigsByDate: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } } }) {
+    gigsByDate: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } } }) {
       group(field: { fields: { yearAndMonth: SELECT } }) {
         fieldValue
-        edges {
-          node {
-            ...GigTileFrontmatter
-          }
+        nodes {
+          ...GigTileFrontmatter
         }
       }
     }

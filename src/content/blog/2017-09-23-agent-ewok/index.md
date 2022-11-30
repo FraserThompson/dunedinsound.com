@@ -24,7 +24,7 @@ Turned out he hadn’t: No cassette playing device, and like any good album rele
 
 “On one of the cassettes H2GO is reversed, so someone will get a real good one.”
 
-<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2600632380/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://agentewok.bandcamp.com/album/deianira-khrushchev">Deianira Khrushchev by Agent Ewok</a></iframe></center>
+<center><iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/album=2600632380/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://agentewok.bandcamp.com/album/deianira-khrushchev">Deianira Khrushchev by Agent Ewok</a></iframe></center>
 
 Agent Ewok are a weird band. They’ve been kicking around the Dunedin gig scene since about 2011 and released roughly three albums. They sound like an indie band who get too involved and end up jamming instead of making songs. The first track on the album for example, H2GO, could almost be an alternative hit from the 90s, but then devolves into twenty minutes of kaleidoscopic audio collage.
 

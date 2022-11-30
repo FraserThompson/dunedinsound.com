@@ -12,7 +12,7 @@ import { SiteHead } from '../../components/SiteHead'
 const Page = ({ data }) => {
   const post = data.thisPost
 
-  const artist = data.artist.edges[0].node
+  const artist = data.artist.nodes[0]
 
   const [lights, setLights] = useState('off')
   const [artistAudio, setArtistAudio] = useState(null)
@@ -67,10 +67,10 @@ const Page = ({ data }) => {
   )
 
   useEffect(() => {
-    const audio = data.audio.edges.reduce((obj, item) => {
-      const name = item.node.name.replace('.mp3', '') // because old audio file JSON has mp3 in the name
+    const audio = data.audio.nodes.reduce((obj, item) => {
+      const name = item.name.replace('.mp3', '') // because old audio file JSON has mp3 in the name
       if (!obj[name]) obj[name] = {}
-      obj[name][item.node.ext] = item.node
+      obj[name][item.ext] = item
       return obj
     }, {})
 
@@ -185,32 +185,28 @@ export const pageQuery = graphql`
       publicURL
     }
     audio: allFile(filter: { extension: { in: ["mp3", "json"] }, fields: { parentDir: { eq: $parentDir }, type: { eq: "vaultsessions" } } }) {
-      edges {
-        node {
-          name
-          publicURL
-          ext
+      nodes {
+        name
+        publicURL
+        ext
+      }
+    }
+    artist: allMdx(filter: { fields: { machine_name: { eq: $parentDir }, type: { eq: "artists" } } }) {
+      nodes {
+        fields {
+          slug
+        }
+        frontmatter {
+          title
+          bandcamp
+          facebook
+          soundcloud
+          origin
+          website
         }
       }
     }
-    artist: allMarkdownRemark(filter: { fields: { machine_name: { eq: $parentDir }, type: { eq: "artists" } } }) {
-      edges {
-        node {
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-            bandcamp
-            facebook
-            soundcloud
-            origin
-            website
-          }
-        }
-      }
-    }
-    thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
+    thisPost: mdx(fields: { slug: { eq: $slug } }) {
       frontmatter {
         title
         date(formatString: "DD MMMM YYYY")

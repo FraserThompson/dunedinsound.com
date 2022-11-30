@@ -17,7 +17,7 @@ It seemed like a mistake, yet it kind of didn’t. “The Erin Simpson Show” w
 
 Turns out however that it was a mistake. Stu who plays guitar and writes the songs for Blindfolded explains.
 
-<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=943634173/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://balttw.bandcamp.com/album/modern-adoxography">Modern Adoxography by Blindfolded and Led to the Woods</a></iframe></center>
+<center><iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/album=943634173/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://balttw.bandcamp.com/album/modern-adoxography">Modern Adoxography by Blindfolded and Led to the Woods</a></iframe></center>
 
 **So you were on the Erin Simpson Show... What happened next?**
 

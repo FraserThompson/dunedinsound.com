@@ -12,7 +12,7 @@ cover: ./cover.jpg
 
 On a chilly August night in 2015 I went to a gig at the Robbie Burns pub and had my mind blown by a band called The Rothmans.
 
-<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3541012277/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://therothmans.bandcamp.com/album/a-s-l">A.S.L by The Rothmans</a></iframe></center>
+<center><iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/album=3541012277/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://therothmans.bandcamp.com/album/a-s-l">A.S.L by The Rothmans</a></iframe></center>
 
 I was there to support my friends in their pop punk band Slothvegas. By the time they’d finished the pub was empty apart from some old guys guzzling Speights and watching the cricket. Despite that I decided I may as well stick around for the next band.
 

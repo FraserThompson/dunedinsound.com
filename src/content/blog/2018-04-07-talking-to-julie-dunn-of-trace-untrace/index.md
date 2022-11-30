@@ -14,7 +14,7 @@ cover: ./cover.jpg
 
 In the first of a video series on cool people doing cool things I spoke to Julie Dunn who runs trace/untrace, a local micro-independent record label to get the lowdown on the sort of operation she's running.
 
-<div class="youtubeEmbed">
+<div className="youtubeEmbed">
   <iframe src="https://www.youtube.com/embed/TyJ04bV6hGQ/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
 </div>
 

@@ -38,7 +38,7 @@ const Page = React.memo(({ data }) => {
     const imagesByArtist = data.images && graphqlGroupToObject(data.images.group, true, (fieldValue) => fieldValue.split('/')[1])
 
     // Cover image is either one image or all the images in the _header folder
-    imagesByArtist['_header'] && setCover(imagesByArtist['_header'].map(({ node }) => node))
+    imagesByArtist['_header'] && setCover(imagesByArtist['_header'])
     imagesByArtist['_uncategorized'] && setUncategorizedImages(imagesByArtist['_uncategorized'])
 
     // Key-value object of audio files by artist
@@ -46,15 +46,15 @@ const Page = React.memo(({ data }) => {
       data.audio &&
       data.audio['group'].reduce((obj, item) => {
         const machineName = item.fieldValue.split('/')[1]
-        const grouped_audio = item.edges.reduce((obj, item) => {
+        const grouped_audio = item.nodes.reduce((obj, item) => {
           // There appears to be a bug in the GraphQL extension filter which sometimes allows images to slip
           // through... So instead of pursuing that we'll just add this check here.
-          if (item.node.ext !== '.json' && item.node.ext !== '.mp3') return obj
+          if (item.ext !== '.json' && item.ext !== '.mp3') return obj
 
-          const name = item.node.name.replace('.mp3', '') // because old audio file JSON has mp3 in the name
+          const name = item.name.replace('.mp3', '') // because old audio file JSON has mp3 in the name
 
           if (!obj[name]) obj[name] = {}
-          obj[name][item.node.ext] = item.node
+          obj[name][item.ext] = item
           return obj
         }, {})
 
@@ -71,8 +71,8 @@ const Page = React.memo(({ data }) => {
         ...artist,
         machineName,
         index: i,
-        title: detailsByArtist && detailsByArtist[machineName] ? detailsByArtist[machineName][0].node.frontmatter.title : artist.name,
-        details: detailsByArtist && detailsByArtist[machineName] && detailsByArtist[machineName][0].node,
+        title: detailsByArtist && detailsByArtist[machineName] ? detailsByArtist[machineName][0].frontmatter.title : artist.name,
+        details: detailsByArtist && detailsByArtist[machineName] && detailsByArtist[machineName][0],
         images: imagesByArtist && imagesByArtist[machineName],
         audio: audioByArtist && audioByArtist[machineName],
       }
@@ -84,7 +84,7 @@ const Page = React.memo(({ data }) => {
   }, [])
 
   const gigTitle = data.thisPost.frontmatter.title
-  const venueDetails = data.venue && data.venue.edges.length > 0 && data.venue.edges[0].node
+  const venueDetails = data.venue && data.venue.nodes.length > 0 && data.venue.nodes[0]
 
   return (
     <Layout
@@ -190,13 +190,13 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
+    thisPost: mdx(fields: { slug: { eq: $slug } }) {
       ...GigFrontmatter
     }
-    nextPost: markdownRemark(fields: { slug: { eq: $nextSlug } }) {
+    nextPost: mdx(fields: { slug: { eq: $nextSlug } }) {
       ...GigTileFrontmatter
     }
-    prevPost: markdownRemark(fields: { slug: { eq: $prevSlug } }) {
+    prevPost: mdx(fields: { slug: { eq: $prevSlug } }) {
       ...GigTileFrontmatter
     }
     images: allFile(
@@ -205,58 +205,50 @@ export const pageQuery = graphql`
       group(field: { relativeDirectory: SELECT }) {
         fieldValue
         totalCount
-        edges {
-          node {
-            name
-            publicURL
-            ...MediumImage
-          }
+        nodes {
+          name
+          publicURL
+          ...MediumImage
         }
       }
     }
     audio: allFile(filter: { relativePath: { regex: "/(.json)|(.mp3)$/" }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }) {
       group(field: { relativeDirectory: SELECT }) {
         fieldValue
-        edges {
-          node {
-            name
-            publicURL
-            ext
-          }
+        nodes {
+          name
+          publicURL
+          ext
         }
       }
     }
-    artists: allMarkdownRemark(filter: { fields: { machine_name: { in: $artists }, type: { eq: "artists" } } }) {
+    artists: allMdx(filter: { fields: { machine_name: { in: $artists }, type: { eq: "artists" } } }) {
       group(field: { fields: { machine_name: SELECT } }) {
         fieldValue
-        edges {
-          node {
-            fields {
-              machine_name
-              slug
-            }
-            frontmatter {
-              title
-              bandcamp
-              facebook
-              soundcloud
-              origin
-              website
-            }
-          }
-        }
-      }
-    }
-    venue: allMarkdownRemark(filter: { fields: { machine_name: { eq: $venue }, type: { eq: "venues" } } }) {
-      edges {
-        node {
+        nodes {
           fields {
             machine_name
             slug
           }
           frontmatter {
             title
+            bandcamp
+            facebook
+            soundcloud
+            origin
+            website
           }
+        }
+      }
+    }
+    venue: allMdx(filter: { fields: { machine_name: { eq: $venue }, type: { eq: "venues" } } }) {
+      nodes {
+        fields {
+          machine_name
+          slug
+        }
+        frontmatter {
+          title
         }
       }
     }

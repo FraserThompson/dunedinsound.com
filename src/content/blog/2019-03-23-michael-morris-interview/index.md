@@ -13,7 +13,7 @@ cover: ./cover.jpg
 
 Until recently Michael Morris was making down and dirty rock n' roll in Dunedin with The River Jesters. He toured both NZ and Australia, released a bunch of records, started a production company... And then last year he moved to Paris and released his first solo album _Slow Loris_.
 
-<p><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=555398865/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://michaelmorrisnz.bandcamp.com/album/slow-loris">Slow Loris by Michael Morris NZ</a></iframe></p>
+<p><iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/album=555398865/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://michaelmorrisnz.bandcamp.com/album/slow-loris">Slow Loris by Michael Morris NZ</a></iframe></p>
 
 I caught up with the man himself while was back in NZ to get the skinny on what's been happening.
 

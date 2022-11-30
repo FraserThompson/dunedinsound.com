@@ -17,7 +17,7 @@ This was 2014, when ReFuel was still ReFuel and going to gigs there wasn’t coo
 
 And then The Mentalist Collective showed up out of nowhere one night and blew me away. Five people in one band has the potential to just be a big mess, but these guys clearly knew how to play together. Each song warmed me up like a shot of positive vibes and I loved it.
 
-<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=38699114/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://thementalistcollective.bandcamp.com/album/mandala-ep">Mandala EP by The Mentalist Collective</a></iframe></center>
+<center><iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/album=38699114/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://thementalistcollective.bandcamp.com/album/mandala-ep">Mandala EP by The Mentalist Collective</a></iframe></center>
 
 Since then they’ve built a bit of a following playing numerous more gigs around the South Island, including a Fringe festival experiment where the audience was blindfolded as the band performed between them. Four years later though they’re still yet to release any recorded material.
 

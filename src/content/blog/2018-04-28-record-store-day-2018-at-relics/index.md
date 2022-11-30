@@ -12,7 +12,7 @@ cover: ./cover.jpg
 
 Twenty years ago if you wanted music you had to leave your house, go to a record store, talk to some people, part with $30 and return with a CD to pop in your discman. But today we have near instant, near free access to most of the last few hundred years of recorded music. So that makes record stores obsolete, right?
 
-<div class="youtubeEmbed">
+<div className="youtubeEmbed">
   <iframe src="https://www.youtube.com/embed/gk8VI5wyGTs/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
 </div>
 

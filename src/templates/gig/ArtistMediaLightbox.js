@@ -97,7 +97,7 @@ export default React.memo(({ gigTitle, artistMedia, history }) => {
       const images = selectedArtist.images
       switch (size) {
         default:
-          const srcSet = getSrcSet(images[selectedImage].node)
+          const srcSet = getSrcSet(images[selectedImage])
           const parsed = parseSrcset(srcSet)
 
           // The last image is always the largest, so just return that.
@@ -107,7 +107,7 @@ export default React.memo(({ gigTitle, artistMedia, history }) => {
           return displayed_image.url
 
         case 'full':
-          return images[selectedImage].node.publicURL
+          return images[selectedImage].publicURL
       }
     }
   }

@@ -12,11 +12,11 @@ cover: ./cover.jpg
 
 mf/mp are a hot new semi-local label who’ve already made waves with their lathe cut “Sundrian Editions” which feature pairings of experimental electronic musicians from across the country. I talked with Karl Leisky, one of the label’s founders and artists, about their upcoming <a href="https://www.facebook.com/events/1874579299521745/">release event at Toitū</a> and more.
 
-<center><a href='https://www.facebook.com/events/1874579299521745/'><img alt="Facebook event" src="/assets/img/blog/2017-11-18-mf-mp/poster (Medium).jpg" style="width: 50%;"></a></center>
+<center><a href='https://www.facebook.com/events/1874579299521745/'><img alt="Facebook event" src="/assets/img/blog/2017-11-18-mf-mp/poster (Medium).jpg" style={{width: "50%"}}/></a></center>
 
 <i>Why not give their latest release a spin while you read?</i>
 
-<p><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1751211877/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://mfmp.bandcamp.com/album/sun003">sun003 by SL / Fuckault</a></iframe></p>
+<p><iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/album=1751211877/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://mfmp.bandcamp.com/album/sun003">sun003 by SL / Fuckault</a></iframe></p>
 
 ### What is it?
 

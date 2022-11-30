@@ -28,7 +28,12 @@ const Page = React.memo(({ data }) => {
         mapStyle="mapbox://styles/mapbox/dark-v11"
         interactive={false}
       >
-        <Marker longitude={position.longitude} latitude={position.latitude} color={node.frontmatter.died === null ? '#367e80' : 'white'} anchor="bottom">
+        <Marker
+          longitude={position.longitude}
+          latitude={position.latitude}
+          color={data.thisPost.frontmatter.died === null ? '#367e80' : 'white'}
+          anchor="bottom"
+        >
           {data.thisPost.frontmatter.died !== null ? deadIcon : null}
         </Marker>
       </Map>
@@ -39,7 +44,7 @@ const Page = React.memo(({ data }) => {
 })
 
 export const Head = (params) => {
-  const cover = params.data.images && params.data.images.edges.length !== 0 && params.data.images.edges[0].node
+  const cover = params.data.images && params.data.images.nodes.length !== 0 && params.data.images.nodes[0]
   const title = `${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
 
   return (
@@ -57,26 +62,19 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
+    thisPost: mdx(fields: { slug: { eq: $slug } }) {
       ...VenueFrontmatter
     }
-    blogs: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { eq: $title } } }) {
-      edges {
-        node {
-          ...BlogFrontmatter
-        }
+    blogs: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { eq: $title } } }) {
+      nodes {
+        ...BlogFrontmatter
       }
     }
-    gigs: allMarkdownRemark(
-      sort: { frontmatter: { date: DESC } }
-      filter: { fields: { type: { eq: "gigs" } }, frontmatter: { venue: { eq: $machine_name } } }
-    ) {
+    gigs: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } }, frontmatter: { venue: { eq: $machine_name } } }) {
       group(field: { fields: { year: SELECT } }) {
         fieldValue
-        edges {
-          node {
-            ...GigTileFrontmatter
-          }
+        nodes {
+          ...GigTileFrontmatter
         }
       }
     }

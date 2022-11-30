@@ -12,7 +12,7 @@ cover: ./cover.jpg
 
 Recently, with no gigs to go to, I decided I wanted to hear what every gig recorded so far playing simultaneously would sound like. You can hear that for yourself [on Bandcamp](https://dunedinsound.bandcamp.com).
 
-<center><iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=1934608119/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="http://dunedinsound.bandcamp.com/album/now-thats-what-i-call-every-dunedinsound-recording-playing-at-the-same-time">NOW THATS WHAT I CALL EVERY DUNEDINSOUND RECORDING PLAYING AT THE SAME TIME by Dunedinsound</a></iframe></center>
+<center><iframe style={{ border: 0, width: '350px', height: '470px' }} src="https://bandcamp.com/EmbeddedPlayer/album=1934608119/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="http://dunedinsound.bandcamp.com/album/now-thats-what-i-call-every-dunedinsound-recording-playing-at-the-same-time">NOW THATS WHAT I CALL EVERY DUNEDINSOUND RECORDING PLAYING AT THE SAME TIME by Dunedinsound</a></iframe></center>
 
 If, for some reason, you're interested in doing something similar then read on.
 

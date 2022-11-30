@@ -12,8 +12,8 @@ import { scale } from '../../utils/typography'
 export default React.memo(({ gigs, frontmatter }) => {
   const yearList = []
 
-  const gigTiles = gigs.map(({ fieldValue, edges }) => {
-    const yearSize = edges.length
+  const gigTiles = gigs.map(({ fieldValue, nodes }) => {
+    const yearSize = nodes.length
     yearList.push({ title: fieldValue, machineName: fieldValue })
     return (
       <div id={fieldValue} key={fieldValue}>
@@ -25,7 +25,7 @@ export default React.memo(({ gigs, frontmatter }) => {
           </a>
         </Divider>
         <FlexGridContainer>
-          {edges.map(({ node }) => (
+          {nodes.map((node) => (
             <GigTile id={node.fields.slug} node={node} key={node.fields.slug} />
           ))}
         </FlexGridContainer>

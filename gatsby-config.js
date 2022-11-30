@@ -9,61 +9,67 @@ module.exports = {
     siteUrl: 'https://dunedinsound.com',
   },
   pathPrefix: '/',
+  flags: {
+    DEV_SSR: true,
+    PRESERVE_WEBPACK_CACHE: true,
+    PRESERVE_FILE_DOWNLOAD_CACHE: true,
+  },
   plugins: [
     'gatsby-plugin-image',
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-source-filesystem-with-queue`,
       options: {
         path: `${__dirname}/src/content/gigs`,
         name: 'gigs',
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-source-filesystem-with-queue`,
       options: {
         path: `${__dirname}/src/content/blog`,
         name: 'blog',
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-source-filesystem-with-queue`,
       options: {
         path: `${__dirname}/src/content/artists`,
         name: 'artists',
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-source-filesystem-with-queue`,
       options: {
         path: `${__dirname}/src/content/venues`,
         name: 'venues',
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-source-filesystem-with-queue`,
       options: {
         path: `${__dirname}/src/content/page`,
         name: 'page',
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-source-filesystem-with-queue`,
       options: {
         path: `${__dirname}/src/content/vaultsessions`,
         name: 'vaultsessions',
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-source-filesystem-with-queue`,
       options: {
         path: `${__dirname}/src/assets`,
         name: 'assets',
       },
     },
     {
-      resolve: `gatsby-transformer-remark`,
+      resolve: `gatsby-plugin-mdx`,
       options: {
-        plugins: [
+        extensions: [`.md`, `.mdx`],
+        gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
             options: {
@@ -86,7 +92,7 @@ module.exports = {
       options: {
         useMozJpeg: true,
         stripMetadata: true, // leaving the metadata increases filesize by about 40kb
-        failOnError: false,
+        failOn: 'none',
         defaultQuality: 80,
       },
     },

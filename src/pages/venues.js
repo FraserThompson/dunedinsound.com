@@ -33,7 +33,7 @@ const Sidebar = ({ menuItems, menuItemClick, setRef, selected }) => {
   return (
     <SidebarNav toggle={toggleSidebar} open={open} left>
       <ul>
-        {menuItems.map(({ node }, index) => (
+        {menuItems.map((node, index) => (
           <li key={index} ref={setRef} className={index === selected ? 'active' : ''}>
             <a onClick={() => click(index)}>
               {node.frontmatter.title}
@@ -49,7 +49,7 @@ const Sidebar = ({ menuItems, menuItemClick, setRef, selected }) => {
 }
 
 const Page = React.memo(({ data, location }) => {
-  const [filteredPosts, setFilteredPosts] = useState(data.allVenues.edges)
+  const [filteredPosts, setFilteredPosts] = useState(data.allVenues.nodes)
   const [selected, setSelected] = useState(null)
   const [selectedIndex, setSelectedIndex] = useState(null)
   const [listRefs, setListRefs] = useState([])
@@ -77,7 +77,7 @@ const Page = React.memo(({ data, location }) => {
 
   const markers = useMemo(
     () =>
-      filteredPosts.map(({ node }, index) => {
+      filteredPosts.map((node, index) => {
         return (
           <Marker
             key={node.frontmatter.title}
@@ -99,21 +99,21 @@ const Page = React.memo(({ data, location }) => {
 
   // Hide inactive venues when they toggle it
   useEffect(() => {
-    const filteredPosts = data.allVenues.edges.filter(
-      ({ node }) => (!hideActive && node.frontmatter.died === null) || (!hideInactive && node.frontmatter.died !== null)
+    const filteredPosts = data.allVenues.nodes.filter(
+      (node) => (!hideActive && node.frontmatter.died === null) || (!hideInactive && node.frontmatter.died !== null)
     )
     setFilteredPosts(filteredPosts)
   }, [hideInactive, hideActive])
 
   // Set selected node when index changes
   useEffect(() => {
-    selectedIndex !== null && setSelected(filteredPosts[selectedIndex].node)
+    selectedIndex !== null && setSelected(filteredPosts[selectedIndex])
   }, [selectedIndex])
 
   const listClick = useCallback(
     (index) => {
       setSelectedIndex(index)
-      const selectedNode = filteredPosts[index].node
+      const selectedNode = filteredPosts[index]
       mapRef.current.panTo({ lat: selectedNode.frontmatter.lat, lng: selectedNode.frontmatter.lng })
     },
     [mapRef]
@@ -135,14 +135,14 @@ const Page = React.memo(({ data, location }) => {
   const searchFilter = useCallback(
     (searchInput) => {
       if (!searchInput || searchInput.length == 0) {
-        const filteredPosts = data.allVenues.edges
+        const filteredPosts = data.allVenues.nodes
         setFilteredPosts(filteredPosts)
       } else {
-        const filteredPosts = data.allVenues.edges.filter(({ node }) => node.frontmatter.title.toLowerCase().includes(searchInput))
+        const filteredPosts = data.allVenues.nodes.filter((node) => node.frontmatter.title.toLowerCase().includes(searchInput))
         setFilteredPosts(filteredPosts)
       }
     },
-    [data.allVenues.edges]
+    [data.allVenues.nodes]
   )
 
   const setLRefs = useCallback(
@@ -306,14 +306,12 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    allVenues: allMarkdownRemark(sort: { frontmatter: { title: ASC } }, filter: { fields: { type: { eq: "venues" } } }) {
-      edges {
-        node {
-          ...VenueFrontmatter
-        }
+    allVenues: allMdx(sort: { frontmatter: { title: ASC } }, filter: { fields: { type: { eq: "venues" } } }) {
+      nodes {
+        ...VenueFrontmatter
       }
     }
-    gigCountByVenue: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } } }) {
+    gigCountByVenue: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } } }) {
       group(field: { frontmatter: { venue: SELECT } }) {
         fieldValue
         totalCount

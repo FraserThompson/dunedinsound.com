@@ -6,7 +6,7 @@ import { rhythm } from '../../utils/typography'
 import TextContainer from '../../components/TextContainer'
 import { SiteHead } from '../../components/SiteHead'
 
-const Page = React.memo(({ data }) => {
+const Page = React.memo(({ data, children }) => {
   const post = data.thisPost
 
   const totalImages = data.files.group.find((group) => group.fieldValue == 'jpg').totalCount.toLocaleString()
@@ -45,9 +45,7 @@ const Page = React.memo(({ data }) => {
           </MetadataTable>
         </div>
       </Header>
-      <TextContainer>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
-      </TextContainer>
+      <TextContainer>{children}</TextContainer>
     </Layout>
   )
 })
@@ -123,10 +121,10 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
+    thisPost: mdx(fields: { slug: { eq: $slug } }) {
       ...BlogFrontmatter
     }
-    counts: allMarkdownRemark(filter: { fields: { type: { regex: "/gigs|artists|venues$/" } } }) {
+    counts: allMdx(filter: { fields: { type: { regex: "/gigs|artists|venues$/" } } }) {
       group(field: { fields: { type: SELECT } }) {
         fieldValue
         totalCount

@@ -15,7 +15,7 @@ If you’re feeling a little itchy it could be because Methchrist haven’t play
 
 I spoke to the virulent trio over some pints to get the skinny on what they've been doing and what they're doing next.
 
-<center><iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=483929922/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://methchrist.bandcamp.com/album/nomadic-war-machine">Nomadic War Machine by METHCHRIST</a></iframe></center>
+<center><iframe style={{border: 0, width: "100%", height: "120px"}} src="https://bandcamp.com/EmbeddedPlayer/album=483929922/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/" seamless><a href="http://methchrist.bandcamp.com/album/nomadic-war-machine">Nomadic War Machine by METHCHRIST</a></iframe></center>
 
 **Since the last album what have you been up to?**
 

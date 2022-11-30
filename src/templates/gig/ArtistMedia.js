@@ -77,7 +77,7 @@ export default React.memo(({ artistMedia, gigTitle }) => {
 
     const imageElements =
       images &&
-      images.map(({ node }, imageIndex) => (
+      images.map((node, imageIndex) => (
         <a style={{ cursor: 'pointer', display: 'block', height: '100%', width: '400px' }} key={imageIndex} onClick={(e) => openLightbox(imageIndex, e)}>
           <GatsbyImage image={getImage(node)} alt="" />
         </a>

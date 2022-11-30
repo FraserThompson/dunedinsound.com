@@ -12,7 +12,7 @@ cover: ./cover.jpg
 
 Prolific post-punkers Die! Die! Die! have released another album, and are returning to Dunedin on Friday for a blistering show at None Gallery. I caught up with Andrew Wilson who’s handled lead vocals and guitar since he formed the band in 2003.
 
-<center><iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=1465622217/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="http://diediedie.bandcamp.com/album/charm-offensive">CHARM.OFFENSIVE by Die! Die! Die!</a></iframe></center>
+<center><iframe style={{ border: 0, width: '350px', height: '470px' }} src="https://bandcamp.com/EmbeddedPlayer/album=1465622217/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="http://diediedie.bandcamp.com/album/charm-offensive">CHARM.OFFENSIVE by Die! Die! Die!</a></iframe></center>
 
 ### So CHARM.OFFENSIVE released last week. How does that feel?
 

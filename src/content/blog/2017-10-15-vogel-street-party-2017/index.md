@@ -23,6 +23,6 @@ Check out the gig page <a title="Vogel Street Party 2017" href="/gigs/vogel-stre
 
 And here's the rest of the media from the event (93 photos and one video)
 
-<div class="youtubeEmbed">
+<div className="youtubeEmbed">
   <iframe src="https://www.youtube.com/embed/fLu5OLM7u68/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
 </div>

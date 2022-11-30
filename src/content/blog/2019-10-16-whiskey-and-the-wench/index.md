@@ -9,7 +9,7 @@ description: 'Whiskey and the Wench are widely regarded as Dunedin’s loudest f
 cover: ./cover.jpg
 ---
 
-<iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=2094510769/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="http://whiskeyandthewench.bandcamp.com/album/after">After... by Whiskey and the Wench</a></iframe>
+<iframe style={{ border: 0, width: '350px', height: '470px' }} src="https://bandcamp.com/EmbeddedPlayer/album=2094510769/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="http://whiskeyandthewench.bandcamp.com/album/after">After... by Whiskey and the Wench</a></iframe>
 
 Whiskey and the Wench are widely regarded as Dunedin’s loudest folk-punk band, with around a decades worth of blistering (sometimes literally) live jams behind them. This Thursday they’ll be adding another one to the pile in the form of a long overdue album release gig!
 

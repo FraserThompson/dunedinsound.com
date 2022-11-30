@@ -6,7 +6,7 @@ import { theme } from '../../utils/theme'
 import MetadataLinks from '../contentbyentity/MetadataLinks'
 
 export const BlogSidebar = React.memo(({ data, hideDate = false }) => {
-  const metadata = ({ node }) => (
+  const metadata = (node) => (
     <div key={node.fields.slug}>
       <h4>
         <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
@@ -23,16 +23,16 @@ export const BlogSidebar = React.memo(({ data, hideDate = false }) => {
           <small>{data.thisPost.frontmatter.date}</small>
         </Date>
       )}
-      {!!data.artist_pages.edges.length && (
+      {!!data.artist_pages.nodes.length && (
         <FeaturedLinks>
           <h3>Artists featured in this article</h3>
-          {data.artist_pages.edges.map(metadata)}
+          {data.artist_pages.nodes.map(metadata)}
         </FeaturedLinks>
       )}
-      {!!data.venue_pages.edges.length && (
+      {!!data.venue_pages.nodes.length && (
         <FeaturedLinks>
           <h3>Venues featured in this article</h3>
-          {data.venue_pages.edges.map(metadata)}
+          {data.venue_pages.nodes.map(metadata)}
         </FeaturedLinks>
       )}
     </BlogSidebarWrapper>

@@ -58,17 +58,17 @@ export default React.memo(({ images, gridSize, title, imageCaption, masonry }) =
     if (imageIndex !== false && images[imageIndex]) {
       switch (size) {
         default:
-          const srcSet = getSrcSet(images[imageIndex].node)
+          const srcSet = getSrcSet(images[imageIndex])
           return parseSrcset(srcSet).find((thing) => thing.width === 1600 || thing.width === 800).url
         case 'full':
-          return images[imageIndex].node.publicURL
+          return images[imageIndex].publicURL
       }
     }
   }
 
   const imageElements =
     images &&
-    images.map(({ node }, imageIndex) => (
+    images.map((node, imageIndex) => (
       <a
         style={{ cursor: 'pointer', display: 'block', height: '100%', width: !masonry ? '400px' : 'auto' }}
         key={imageIndex}

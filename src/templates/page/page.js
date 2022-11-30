@@ -4,14 +4,12 @@ import Layout from '../../components/Layout'
 import TextContainer from '../../components/TextContainer'
 import { SiteHead } from '../../components/SiteHead'
 
-const Page = React.memo(({ data }) => {
+const Page = React.memo(({ data, children }) => {
   const post = data.thisPost
 
   return (
     <Layout location={typeof window !== `undefined` && window.location} overrideBackgroundColor="white">
-      <TextContainer>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
-      </TextContainer>
+      <TextContainer>{children}</TextContainer>
     </Layout>
   )
 })
@@ -28,7 +26,7 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
+    thisPost: mdx(fields: { slug: { eq: $slug } }) {
       ...BlogFrontmatter
     }
   }

@@ -114,7 +114,7 @@ export const query = graphql`
     }
   }
 
-  fragment DefaultFields on MarkdownRemark {
+  fragment DefaultFields on Mdx {
     fields {
       slug
       type
@@ -147,7 +147,7 @@ export const query = graphql`
     }
   }
 
-  fragment VenueFrontmatter on MarkdownRemark {
+  fragment VenueFrontmatter on Mdx {
     ...DefaultFields
     frontmatter {
       title
@@ -165,9 +165,8 @@ export const query = graphql`
     }
   }
 
-  fragment BlogFrontmatter on MarkdownRemark {
+  fragment BlogFrontmatter on Mdx {
     excerpt
-    html
     ...DefaultFields
     frontmatter {
       title
@@ -182,7 +181,7 @@ export const query = graphql`
     }
   }
 
-  fragment GigFrontmatter on MarkdownRemark {
+  fragment GigFrontmatter on Mdx {
     ...DefaultFields
     frontmatter {
       title
@@ -208,7 +207,7 @@ export const query = graphql`
     }
   }
 
-  fragment GigTileFrontmatter on MarkdownRemark {
+  fragment GigTileFrontmatter on Mdx {
     ...DefaultFields
     frontmatter {
       title
@@ -223,7 +222,7 @@ export const query = graphql`
     }
   }
 
-  fragment GigTileSmallFrontmatter on MarkdownRemark {
+  fragment GigTileSmallFrontmatter on Mdx {
     ...DefaultFields
     frontmatter {
       title
@@ -238,7 +237,7 @@ export const query = graphql`
     }
   }
 
-  fragment ArtistFrontmatter on MarkdownRemark {
+  fragment ArtistFrontmatter on Mdx {
     ...DefaultFields
     frontmatter {
       title

@@ -13,7 +13,7 @@ const Page = React.memo(({ data }) => {
 })
 
 export const Head = (params) => {
-  const cover = params.data.images && params.data.images.edges.length !== 0 && params.data.images.edges[0].node
+  const cover = params.data.images && params.data.images.nodes.length !== 0 && params.data.images.nodes[0]
   const title = `${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
 
   return (
@@ -31,54 +31,46 @@ export const pageQuery = graphql`
     site {
       ...SiteInformation
     }
-    thisPost: markdownRemark(fields: { slug: { eq: $slug } }) {
+    thisPost: mdx(fields: { slug: { eq: $slug } }) {
       ...ArtistFrontmatter
     }
     images: allFile(limit: 1, filter: { extension: { in: ["jpg", "JPG"] }, name: { ne: "cover.jpg" }, fields: { parentDir: { eq: $machine_name } } }) {
-      edges {
-        node {
-          fields {
-            parentDir
-          }
-          ...LargeImage
+      nodes {
+        fields {
+          parentDir
         }
+        ...LargeImage
       }
     }
-    gigs: allMarkdownRemark(
+    gigs: allMdx(
       sort: { frontmatter: { date: DESC } }
       filter: { fields: { type: { eq: "gigs" } }, frontmatter: { artists: { elemMatch: { name: { eq: $title } } } } }
     ) {
       group(field: { fields: { year: SELECT } }) {
         fieldValue
-        edges {
-          node {
-            ...GigTileFrontmatter
-          }
+        nodes {
+          ...GigTileFrontmatter
         }
       }
     }
-    blogs: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { eq: $title } } }) {
-      edges {
-        node {
-          ...BlogFrontmatter
-        }
+    blogs: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { eq: $title } } }) {
+      nodes {
+        ...BlogFrontmatter
       }
     }
-    vaultsessions: allMarkdownRemark(
+    vaultsessions: allMdx(
       sort: { frontmatter: { date: DESC } }
       filter: { fields: { type: { eq: "vaultsessions" } }, frontmatter: { artist: { eq: $machine_name } } }
     ) {
-      edges {
-        node {
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-            cover {
-              ...LargeImage
-              publicURL
-            }
+      nodes {
+        fields {
+          slug
+        }
+        frontmatter {
+          title
+          cover {
+            ...LargeImage
+            publicURL
           }
         }
       }

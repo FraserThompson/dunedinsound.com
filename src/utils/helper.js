@@ -55,13 +55,13 @@ export const nodeTypeToHuman = (string) => {
 export const graphqlGroupToObject = (queryResult, sortByName, fieldValueProcessor) => {
   return queryResult.reduce((obj, item) => {
     const fieldValue = fieldValueProcessor ? fieldValueProcessor(item.fieldValue) : item.fieldValue
-    obj[fieldValue] = !sortByName ? item.edges : item.edges.slice().sort((a, b) => (a.node.name < b.node.name ? -1 : 1))
+    obj[fieldValue] = !sortByName ? item.nodes : item.nodes.slice().sort((a, b) => (a.name < b.name ? -1 : 1))
     return obj
   }, {})
 }
 
 export const postFilter = (needle, haystack) => {
-  const filterFunction = ({ node }) => {
+  const filterFunction = (node) => {
     const titleResult = node.frontmatter.title.toLowerCase().includes(needle)
     const artistResult =
       node.frontmatter.artists &&
@@ -73,12 +73,12 @@ export const postFilter = (needle, haystack) => {
     return titleResult || artistResult || venueResult
   }
 
-  if (!haystack[0].edges) {
+  if (!haystack[0].nodes) {
     return haystack.filter(filterFunction)
   } else {
-    return haystack.reduce((arr, { fieldValue, edges }) => {
-      const filteredEdges = edges.filter(filterFunction)
-      const newGroup = { fieldValue, edges: filteredEdges }
+    return haystack.reduce((arr, { fieldValue, nodes }) => {
+      const filteredEdges = nodes.filter(filterFunction)
+      const newGroup = { fieldValue, nodes: filteredEdges }
       if (filteredEdges.length !== 0) arr.push(newGroup)
       return arr
     }, [])
