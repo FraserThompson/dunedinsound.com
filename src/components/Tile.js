@@ -1,39 +1,37 @@
 // Tile.js
 // A cool tile.
 // Props
-//  - href: Path to link to
+//  - href or to: Path to link to (external or internal)
 //  - label
 //  - title
 //  - subtitle
-//  - image
+//  - image OR coverDir: either the cover image, or the directory to get it from
 //  - children (optional)
 //  - width (optional): Width of the tile
 //  - hoverHeight (optional): Height on hover
 //  - backgroundColor (optional)
 //  - height (optional): Defaults to 500px
-//  - shadowBottom(optional) : Whether to show a shadow on the bottom
 //    By default it assumes all images are displayed at 100vw. Check the gridToSizes method
 //    in utility.js and use it to turn an array of grid sizes into something this can use.
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from '@emotion/styled'
 import BackgroundImage from './BackgroundImage'
 import Content from './Content'
 import { rhythm } from '../utils/typography'
 import { darken, lighten } from 'polished'
-import { Link } from 'gatsby'
+import { graphql, Link, useStaticQuery } from 'gatsby'
+import { graphqlGroupToObject } from '../utils/helper'
 
 export default ({
   height = '40vh',
   feature = false,
   backgroundColor,
-  textColor,
-  fontWeight,
   width,
   hoverHeight,
-  machineName,
   label,
   image,
+  coverDir,
   subtitle,
   title,
   prefix,
@@ -43,9 +41,26 @@ export default ({
   id,
   dataAttributes = {},
 }) => {
+  const data = useStaticQuery(graphql`
+    query {
+      covers: allFile(filter: { sourceInstanceName: { eq: "media" }, name: { eq: "cover" } }) {
+        group(field: { fields: { parentDir: SELECT } }) {
+          fieldValue
+          nodes {
+            ...MediumImage
+          }
+        }
+      }
+    }
+  `)
+
+  const covers = useMemo(() => graphqlGroupToObject(data.covers.group))
+
+  const background = image ? image : coverDir && covers[coverDir] ? covers[coverDir][0].childImageSharp : null
+
   const tileContent = (
     <>
-      {image && <BackgroundImage image={image} />}
+      {background && <BackgroundImage image={background} />}
       <TitleWrapper shadowBottom={title || subtitle} feature={feature}>
         <Content>
           {title && (
@@ -71,11 +86,7 @@ export default ({
   return (
     <Container
       backgroundColor={backgroundColor}
-      textColor={textColor}
-      fontWeight={fontWeight}
       containerHeight={height}
-      data-title={title}
-      data-machinename={machineName}
       containerWidth={width}
       hoverHeight={hoverHeight}
       className="tile"
@@ -97,10 +108,9 @@ export default ({
 }
 
 const Container = styled.div`
-  font-weight: ${(props) => props.fontWeight || 'normal'};
   background: ${(props) => props.theme.backgroundColor};
   background: ${(props) => props.backgroundColor || `radial-gradient(circle, black 0%, ${props.theme.backgroundColor} 70%)`};
-  color: ${(props) => props.textColor || props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
   position: relative;
   display: block;
   height: ${(props) => props.containerHeight};
@@ -121,19 +131,19 @@ const Container = styled.div`
   }
 
   a {
-    color: ${(props) => props.textColor || props.theme.textColor};
+    color: ${(props) => props.theme.textColor};
     &:hover,
     &:focus {
       .title {
-        color: ${(props) => lighten(0.5, props.textColor || props.theme.textColor)};
+        color: ${(props) => lighten(0.5, props.theme.textColor)};
       }
-      color: ${(props) => lighten(0.5, props.textColor || props.theme.textColor)};
+      color: ${(props) => lighten(0.5, props.theme.textColor)};
       text-decoration: none;
     }
 
     &.active {
       background-color: ${(props) => props.theme.foregroundColor2};
-      color: ${(props) => lighten(0.5, props.textColor || props.theme.textColor)};
+      color: ${(props) => lighten(0.5, props.theme.textColor)};
     }
   }
 `

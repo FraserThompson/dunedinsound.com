@@ -1,3 +1,0 @@
----
-title: The Swampy Summits
----

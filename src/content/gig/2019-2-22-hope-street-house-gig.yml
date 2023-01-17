@@ -1,0 +1,8 @@
+title: 'Hope Street house gig'
+date: 2019-02-22T08:30:00.000Z
+venue: hope_street
+artists:
+    - {name: 'Oscar and the Groutches', vid: [{link: _GCk-PBgBPM}]}
+    - {name: 'Piss Goblin', vid: [{link: h49epavWwgI}, {link: Dfn5BX9qeOE}]}
+    - {name: 'Night Lunch', vid: [{link: AEjR0NiRuh4}, {link: MXAZTr7_-T0}]}
+cover: ./cover.jpg

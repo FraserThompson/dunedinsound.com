@@ -1,4 +1,0 @@
----
-title: Shellac
-origin: USA
----

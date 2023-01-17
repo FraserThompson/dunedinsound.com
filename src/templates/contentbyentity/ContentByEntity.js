@@ -30,7 +30,6 @@ import { scrollTo } from '../../utils/helper'
 import BackButton from '../../components/BackButton'
 import BackToTop from '../../components/BackToTop'
 import ActiveIndicator from '../../components/ActiveIndicator'
-import { getSrc } from 'gatsby-plugin-image'
 import MetadataLinks from './MetadataLinks'
 import GigTiles from './GigTiles'
 
@@ -81,30 +80,25 @@ export default React.memo(({ data, parent, background }) => {
 
   const vaultsessionTiles =
     vaultsessions &&
-    useMemo(
-      () => vaultsessions.map((node) => <Tile key={node.fields.slug} title={node.frontmatter.title} image={node.frontmatter.cover} href={node.fields.slug} />),
-      []
-    )
+    useMemo(() => vaultsessions.map((node) => <Tile key={node.fields.slug} title={node.title} coverDir={node.fields.fileName} href={node.fields.slug} />), [])
 
-  const gigTiles = gigs && <GigTiles gigs={gigs} frontmatter={data.thisPost.frontmatter} />
+  const gigTiles = gigs && <GigTiles gigs={gigs} frontmatter={data.thisPost} />
 
   return (
     <Layout
       location={parent}
       scrollHeaderOverlay={
         <PageTitle>
-          <h1 className="big">{data.thisPost.frontmatter.title}</h1>
+          <h1 className="big">{data.thisPost.title}</h1>
         </PageTitle>
       }
     >
       <Banner
-        title={
-          (data.thisPost.frontmatter.title || data.thisPost.fields.slug) + (data.thisPost.frontmatter.origin ? ` (${data.thisPost.frontmatter.origin})` : '')
-        }
+        title={(data.thisPost.title || data.thisPost.fields.slug) + (data.thisPost.origin ? ` (${data.thisPost.origin})` : '')}
         subtitle={
-          data.thisPost.frontmatter.died !== undefined && (
+          data.thisPost.died !== undefined && (
             <ActiveWrapper>
-              <ActiveIndicator died={data.thisPost.frontmatter.died} inactiveText={data.thisPost.fields.type === 'artists' ? 'Inactive' : 'Defunct'} />
+              <ActiveIndicator died={data.thisPost.died} inactiveText={data.thisPost.fields.type === 'artist' ? 'Inactive' : 'Defunct'} />
             </ActiveWrapper>
           )
         }
@@ -113,9 +107,9 @@ export default React.memo(({ data, parent, background }) => {
         customContent={<BackButton title={parent.title} to={parent.href} type="up" />}
       >
         <HorizontalNav style={{ paddingTop: rhythm(1) }}>
-          <MetadataLinks frontmatter={data.thisPost.frontmatter} liClassname="button" />
+          <MetadataLinks frontmatter={data.thisPost} liClassname="button" />
         </HorizontalNav>
-        {data.thisPost.frontmatter.description && <PageDescription dangerouslySetInnerHTML={{ __html: data.thisPost.frontmatter.description }} />}
+        {data.thisPost.description && <PageDescription dangerouslySetInnerHTML={{ __html: data.thisPost.description }} />}
       </Banner>
       <ContentTabs
         gigTiles={gigTiles}

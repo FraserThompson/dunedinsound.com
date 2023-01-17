@@ -1,4 +1,0 @@
----
-title: Fuckault
-bandcamp: https://panopticom.bandcamp.com/
----

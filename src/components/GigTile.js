@@ -3,6 +3,7 @@
 //
 // Params:
 //  - node: The gig node.
+//  - title: The title
 //  - width
 //  - height
 //  - id (optional)
@@ -11,10 +12,10 @@ import React from 'react'
 import Tile from './Tile'
 
 export default React.memo(({ node, title, id, width, height, hoverHeight, feature }) => {
-  const tileTitle = title || node.frontmatter.title || node.fields.slug
-  const artists = node.frontmatter.artists
+  const tileTitle = title || node.title || node.fields.slug
+  const artists = node.artists
     .map((artist, i) => {
-      if (i == node.frontmatter.artists.length - 1) {
+      if (i == node.artists.length - 1) {
         return ' and <strong>' + artist.name + '</strong>'
       } else {
         return '<strong>' + artist.name + '</strong>, '
@@ -28,8 +29,8 @@ export default React.memo(({ node, title, id, width, height, hoverHeight, featur
       key={node.fields.slug}
       title={tileTitle}
       subtitle={artists}
-      image={node.frontmatter.cover}
-      label={node.frontmatter.date}
+      coverDir={node.fields.fileName}
+      label={node.date}
       width={width}
       height={height}
       hoverHeight={hoverHeight}

@@ -10,9 +10,7 @@ import { timeToSeconds } from '../../utils/helper'
 import { SiteHead } from '../../components/SiteHead'
 
 const Page = ({ data }) => {
-  const post = data.thisPost
-
-  const artist = data.artist.nodes[0]
+  const post = data?.thisPost
 
   const [lights, setLights] = useState('off')
   const [artistAudio, setArtistAudio] = useState(null)
@@ -31,8 +29,8 @@ const Page = ({ data }) => {
 
   const topContent = (
     <Title>
-      <h2 className="title">{post.frontmatter.title}</h2>
-      <h4 className="subtitle">Recorded on {post.frontmatter.date}</h4>
+      <h2 className="title">{post.title}</h2>
+      <h4 className="subtitle">Recorded on {post.date}</h4>
     </Title>
   )
 
@@ -46,24 +44,28 @@ const Page = ({ data }) => {
   )
 
   const rightContent = (
-    <Metadata onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-      <h3>More from this artist</h3>
-      <ul>
-        <li>
-          <Link to={artist.fields.slug}>Gigs</Link>
-        </li>
-        {artist.frontmatter.facebook && (
-          <li>
-            <a href={artist.frontmatter.facebook}>Facebook</a>
-          </li>
-        )}
-        {artist.frontmatter.bandcamp && (
-          <li>
-            <a href={artist.frontmatter.bandcamp}>Bandcamp</a>
-          </li>
-        )}
-      </ul>
-    </Metadata>
+    <>
+      {data.artist && (
+        <Metadata onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+          <h3>More from this artist</h3>
+          <ul>
+            <li>
+              <Link to={data.artist.fields.slug}>Gigs</Link>
+            </li>
+            {data.artist.facebook && (
+              <li>
+                <a href={data.artist.facebook}>Facebook</a>
+              </li>
+            )}
+            {data.artist.bandcamp && (
+              <li>
+                <a href={data.artist.bandcamp}>Bandcamp</a>
+              </li>
+            )}
+          </ul>
+        </Metadata>
+      )}
+    </>
   )
 
   useEffect(() => {
@@ -76,9 +78,9 @@ const Page = ({ data }) => {
 
     setArtistAudio([
       {
-        title: post.frontmatter.title,
+        title: post.title,
         audio: Object.values(audio),
-        tracklist: post.frontmatter.tracklist.map((track) => {
+        tracklist: post.tracklist.map((track) => {
           track.seconds = timeToSeconds(track.time)
           return track
         }),
@@ -89,14 +91,14 @@ const Page = ({ data }) => {
   return (
     <Layout
       location={typeof window !== `undefined` && window.location}
-      image={post.frontmatter.cover.publicURL}
+      image={data.cover.publicURL}
       hideBrandOnMobile={true}
       hideFooter={true}
       overrideBackgroundColor="white"
     >
       <World lights={lights} topContent={topContent} bottomContent={bottomContent} leftContent={leftContent} rightContent={rightContent}>
         <VideoWrapper hovered={hovered}>
-          <YouTubeResponsive videoId={post.frontmatter.full_video} getPlayerTarget={getPlayerTarget} vanilla />
+          <YouTubeResponsive videoId={post.full_video} getPlayerTarget={getPlayerTarget} vanilla />
         </VideoWrapper>
       </World>
       {artistAudio && <PlayerContainer artistAudio={artistAudio} minimizedAlways={true} />}
@@ -105,11 +107,12 @@ const Page = ({ data }) => {
 }
 
 export const Head = (params) => {
-  const cover = params.data.thisPost.frontmatter.cover
-  const title = `VAULT SESSION: ${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
-  const description = params.data.thisPost.excerpt ? params.data.thisPost.excerpt : params.data.site.siteMetadata.description
+  const cover = params.data.cover
+  const description = params.data.thisPost.excerpt
 
-  return <SiteHead title={title} description={description} date={params.data.thisPost.frontmatter.date} cover={cover} {...params} />
+  return (
+    <SiteHead title={`VAULT SESSIONS: ${params.data.thisPost.title}`} cover={cover} description={description} date={params.data.thisPost.date} {...params} />
+  )
 }
 
 const Logo = styled.div`
@@ -174,9 +177,9 @@ const Metadata = styled.div`
 `
 
 export const pageQuery = graphql`
-  query VaultsessionPostBySlug($slug: String!, $parentDir: String!) {
-    site {
-      ...SiteInformation
+  query Vaultsession($slug: String!, $fileName: String!, $type: String!) {
+    thisPost: vaultsessionYaml(fields: { slug: { eq: $slug } }) {
+      ...VaultsessionFrontmatter
     }
     logo: file(name: { eq: "vslogo" }) {
       publicURL
@@ -184,42 +187,21 @@ export const pageQuery = graphql`
     logoMono: file(name: { eq: "vslogo_mono" }) {
       publicURL
     }
-    audio: allFile(filter: { extension: { in: ["mp3", "json"] }, fields: { parentDir: { eq: $parentDir }, type: { eq: "vaultsessions" } } }) {
+    cover: file(fields: { mediaDir: { eq: $type }, parentDir: { eq: $fileName } }, name: { eq: "cover" }) {
+      publicURL
+      ...MediumImage
+    }
+    audio: allFile(
+      filter: { sourceInstanceName: { eq: "media" }, extension: { in: ["mp3", "json"] }, fields: { mediaDir: { eq: $type }, parentDir: { eq: $fileName } } }
+    ) {
       nodes {
         name
         publicURL
         ext
       }
     }
-    artist: allMdx(filter: { fields: { machine_name: { eq: $parentDir }, type: { eq: "artists" } } }) {
-      nodes {
-        fields {
-          slug
-        }
-        frontmatter {
-          title
-          bandcamp
-          facebook
-          soundcloud
-          origin
-          website
-        }
-      }
-    }
-    thisPost: mdx(fields: { slug: { eq: $slug } }) {
-      frontmatter {
-        title
-        date(formatString: "DD MMMM YYYY")
-        full_video
-        tracklist {
-          title
-          link
-          time
-        }
-        cover {
-          publicURL
-        }
-      }
+    artist: artistYaml(fields: { fileName: { eq: $fileName } }) {
+      ...ArtistFrontmatter
     }
   }
 `

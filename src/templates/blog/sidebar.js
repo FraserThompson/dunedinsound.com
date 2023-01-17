@@ -9,10 +9,10 @@ export const BlogSidebar = React.memo(({ data, hideDate = false }) => {
   const metadata = (node) => (
     <div key={node.fields.slug}>
       <h4>
-        <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
+        <Link to={node.fields.slug}>{node.title}</Link>
       </h4>
       <MetadataWrapper className="notBodyText">
-        <MetadataLinks frontmatter={node.frontmatter} />
+        <MetadataLinks frontmatter={node} />
       </MetadataWrapper>
     </div>
   )

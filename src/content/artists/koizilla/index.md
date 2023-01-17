@@ -1,5 +1,0 @@
----
-title: Koizilla
-facebook: https://www.facebook.com/koizillaband/
-bandcamp: https://koizilla.bandcamp.com/
----

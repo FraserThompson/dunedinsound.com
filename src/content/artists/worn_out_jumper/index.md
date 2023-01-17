@@ -1,3 +1,0 @@
----
-title: Worn Out Jumper
----

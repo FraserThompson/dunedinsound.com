@@ -14,12 +14,10 @@ const Page = React.memo(({ data }) => {
 
 export const Head = (params) => {
   const cover = params.data.images && params.data.images.nodes.length !== 0 && params.data.images.nodes[0]
-  const title = `${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
-
   return (
     <SiteHead
-      title={title}
-      description={`See photos, videos and audio recordings of live gigs featuring ${params.data.thisPost.frontmatter.title} and heaps of other local artists.`}
+      title={params.data.thisPost.title}
+      description={`See photos, videos and audio recordings of live gigs featuring ${params.data.thisPost.title} and heaps of other local artists.`}
       cover={cover}
       {...params}
     />
@@ -27,25 +25,19 @@ export const Head = (params) => {
 }
 
 export const pageQuery = graphql`
-  query ArtistsBySlug($slug: String!, $machine_name: String!, $title: String!) {
-    site {
-      ...SiteInformation
-    }
-    thisPost: mdx(fields: { slug: { eq: $slug } }) {
+  query Artist($slug: String!, $fileName: String!, $title: String!) {
+    thisPost: artistYaml(fields: { slug: { eq: $slug } }) {
       ...ArtistFrontmatter
     }
-    images: allFile(limit: 1, filter: { extension: { in: ["jpg", "JPG"] }, name: { ne: "cover.jpg" }, fields: { parentDir: { eq: $machine_name } } }) {
+    images: allFile(
+      limit: 1
+      filter: { sourceInstanceName: { eq: "media" }, extension: { in: ["jpg", "JPG"] }, name: { ne: "cover.jpg" }, fields: { parentDir: { eq: $fileName } } }
+    ) {
       nodes {
-        fields {
-          parentDir
-        }
         ...LargeImage
       }
     }
-    gigs: allMdx(
-      sort: { frontmatter: { date: DESC } }
-      filter: { fields: { type: { eq: "gigs" } }, frontmatter: { artists: { elemMatch: { name: { eq: $title } } } } }
-    ) {
+    gigs: allGigYaml(sort: { date: DESC }, filter: { artists: { elemMatch: { name: { eq: $title } } } }) {
       group(field: { fields: { year: SELECT } }) {
         fieldValue
         nodes {
@@ -58,21 +50,9 @@ export const pageQuery = graphql`
         ...BlogFrontmatter
       }
     }
-    vaultsessions: allMdx(
-      sort: { frontmatter: { date: DESC } }
-      filter: { fields: { type: { eq: "vaultsessions" } }, frontmatter: { artist: { eq: $machine_name } } }
-    ) {
+    vaultsessions: allVaultsessionYaml(sort: { date: DESC }, filter: { artist: { eq: $fileName } }) {
       nodes {
-        fields {
-          slug
-        }
-        frontmatter {
-          title
-          cover {
-            ...LargeImage
-            publicURL
-          }
-        }
+        ...VaultsessionFrontmatter
       }
     }
   }

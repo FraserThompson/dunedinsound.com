@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import { GatsbyImage, getImage, getSrcSet } from 'gatsby-plugin-image'
-import Lightbox from 'react-image-lightbox'
+import Lightbox from 'react-18-image-lightbox'
 import { FaDownload } from 'react-icons/fa'
 import FlexGridContainer from '../components/FlexGridContainer'
 import { createBrowserHistory } from 'history'

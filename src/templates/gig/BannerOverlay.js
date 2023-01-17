@@ -1,47 +1,33 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { rhythm, scale } from '../../utils/typography'
+import { scale } from '../../utils/typography'
 import Tile from '../../components/Tile'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import BackButton from '../../components/BackButton'
 
-export default React.memo(({ data }) => (
+export default React.memo(({ thisPost, nextPost, prevPost }) => (
   <>
     <BackButton
       to={typeof window !== `undefined` && window.history.state && window.history.state.from ? window.history.state.from : undefined}
       title="Back to Gigs"
-      gigSlug={data.thisPost.fields.slug}
-      gigYear={data.thisPost.frontmatter.date.split(' ')[2]}
+      gigSlug={thisPost.fields.slug}
+      gigYear={thisPost.date.split(' ')[2]}
       type="up"
     />
-    {data.prevPost && (
+    {prevPost && (
       <NextPrevWrapper className="hideMobile" prev>
         <div className="icon">
           <FaChevronRight />
         </div>
-        <Tile
-          key={data.prevPost.fields.slug}
-          title={data.prevPost.frontmatter.title}
-          image={data.prevPost.frontmatter.cover}
-          label={data.prevPost.frontmatter.date}
-          height="100%"
-          to={data.prevPost.fields.slug}
-        />
+        <Tile key={prevPost.fields.slug} title={prevPost.title} type={prevPost.cover} label={prevPost.date} height="100%" to={prevPost.fields.slug} />
       </NextPrevWrapper>
     )}
-    {data.nextPost ? (
+    {nextPost ? (
       <NextPrevWrapper className="hideMobile" next>
         <div className="icon">
           <FaChevronLeft />
         </div>
-        <Tile
-          key={data.nextPost.fields.slug}
-          title={data.nextPost.frontmatter.title}
-          image={data.nextPost.frontmatter.cover}
-          label={data.nextPost.frontmatter.date}
-          height="100%"
-          to={data.nextPost.fields.slug}
-        />
+        <Tile key={nextPost.fields.slug} title={nextPost.title} image={nextPost.cover} label={nextPost.date} height="100%" to={nextPost.fields.slug} />
       </NextPrevWrapper>
     ) : (
       <Label>LATEST GIG</Label>

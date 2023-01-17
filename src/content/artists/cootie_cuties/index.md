@@ -1,4 +1,0 @@
----
-title: Cootie Cuties
-origin: Auckland
----

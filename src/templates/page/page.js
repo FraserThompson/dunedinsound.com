@@ -15,17 +15,12 @@ const Page = React.memo(({ data, children }) => {
 })
 
 export const Head = (params) => {
-  const title = `${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
-  const description = params.data.thisPost.excerpt ? params.data.thisPost.excerpt : params.data.site.siteMetadata.description
-
-  return <SiteHead title={title} description={description} {...params} />
+  const description = params.data.thisPost.excerpt
+  return <SiteHead title={params.data.thisPost.frontmatter.title} description={description} {...params} />
 }
 
 export const pageQuery = graphql`
   query PagePostBySlug($slug: String!) {
-    site {
-      ...SiteInformation
-    }
     thisPost: mdx(fields: { slug: { eq: $slug } }) {
       ...BlogFrontmatter
     }

@@ -1,3 +1,0 @@
----
-title: Black Sale House
----

@@ -1,3 +1,0 @@
----
-title: Crime Hospital
----

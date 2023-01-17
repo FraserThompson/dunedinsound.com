@@ -1,3 +1,0 @@
----
-title: Algal Grind
----

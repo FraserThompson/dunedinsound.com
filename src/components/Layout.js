@@ -4,7 +4,7 @@ import SiteHeader from './SiteHeader'
 import { Global, ThemeProvider } from '@emotion/react'
 import styled from '@emotion/styled'
 import { theme } from '../utils/theme'
-import 'react-image-lightbox/style.css'
+import 'react-18-image-lightbox/style.css'
 import SiteFooter from './SiteFooter'
 import { darken } from 'polished'
 import SiteNav from './SiteNav'
@@ -114,15 +114,6 @@ export const query = graphql`
     }
   }
 
-  fragment DefaultFields on Mdx {
-    fields {
-      slug
-      type
-      machine_name
-      parentDir
-    }
-  }
-
   fragment SmallImage on File {
     childImageSharp {
       gatsbyImageData(placeholder: BLURRED, outputPixelDensities: [0.5, 1, 2], width: 400)
@@ -147,27 +138,26 @@ export const query = graphql`
     }
   }
 
-  fragment VenueFrontmatter on Mdx {
-    ...DefaultFields
-    frontmatter {
-      title
-      description
-      lat
-      lng
-      bandcamp
-      facebook
-      website
-      died
-      soundcloud
-      cover {
-        ...SmallImage
-      }
+  fragment VenueFrontmatter on VenueYaml {
+    fields {
+      slug
+      fileName
     }
+    title
+    description
+    lat
+    lng
+    facebook
+    website
+    died
   }
 
   fragment BlogFrontmatter on Mdx {
     excerpt
-    ...DefaultFields
+    fields {
+      type
+      slug
+    }
     frontmatter {
       title
       tags
@@ -181,82 +171,80 @@ export const query = graphql`
     }
   }
 
-  fragment GigFrontmatter on Mdx {
-    ...DefaultFields
-    frontmatter {
-      title
-      date(formatString: "DD MMMM YYYY")
-      venue
-      feature_vid
-      description
-      audioOnly
-      artists {
-        name
-        tracklist {
-          time
-          title
-        }
-        vid {
-          link
-          title
-        }
-      }
-      cover {
-        ...FullImage
-      }
+  fragment GigFrontmatter on GigYaml {
+    fields {
+      type
+      slug
+      fileName
     }
-  }
-
-  fragment GigTileFrontmatter on Mdx {
-    ...DefaultFields
-    frontmatter {
-      title
-      date(formatString: "DD MMMM YYYY")
-      description
-      artists {
-        name
+    title
+    date(formatString: "DD MMMM YYYY")
+    venue
+    feature_vid
+    description
+    audioOnly
+    artists {
+      name
+      tracklist {
+        time
+        title
       }
-      cover {
-        ...LargeImage
-      }
-    }
-  }
-
-  fragment GigTileSmallFrontmatter on Mdx {
-    ...DefaultFields
-    frontmatter {
-      title
-      date(formatString: "DD MMMM YYYY")
-      description
-      artists {
-        name
-      }
-      cover {
-        ...MediumImage
-      }
-    }
-  }
-
-  fragment ArtistFrontmatter on Mdx {
-    ...DefaultFields
-    frontmatter {
-      title
-      bandcamp
-      facebook
-      instagram
-      soundcloud
-      spotify
-      website
-      origin
-      died
-      audioculture {
+      vid {
         link
-        snippet
-        image
+        title
       }
-      cover {
-        ...SmallImage
-      }
+    }
+  }
+
+  fragment GigTileFrontmatter on GigYaml {
+    fields {
+      type
+      slug
+      fileName
+    }
+    title
+    date(formatString: "DD MMMM YYYY")
+    description
+    artists {
+      name
+    }
+  }
+
+  fragment ArtistFrontmatter on ArtistYaml {
+    fields {
+      slug
+      fileName
+    }
+    title
+    bandcamp
+    facebook
+    instagram
+    soundcloud
+    spotify
+    website
+    origin
+    died
+    audioculture {
+      link
+      snippet
+      image
+    }
+  }
+
+  fragment VaultsessionFrontmatter on VaultsessionYaml {
+    fields {
+      slug
+      fileName
+    }
+    date(formatString: "DD MMMM YYYY")
+    title
+    artist
+    full_video
+    description
+    tracklist {
+      title
+      time
+      link
     }
   }
 `

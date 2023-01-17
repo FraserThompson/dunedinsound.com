@@ -150,7 +150,7 @@ It seems to focus faster and with less hunting when tapping to focus but continu
 I avoid autofocus for video because of this reason, and I avoid Panasonic's autofocus lenses for video because manual focusing is near impossible with the fly-by-wire controls. Having said that the difference between manually focusing on the G85 and the G6 is night and day. Fly by wire focus was always a struggle on the G6 because it felt laggy and unresponsive, those problems are gone on the G85 which almost makes it possible to manually focus accurately.
 
 <div className="youtubeEmbed">
-  <iframe src="https://www.youtube.com/embed/GLJEHuhDjJc/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
+  <iframe src="https://www.youtube.com/embed/GLJEHuhDjJc/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameBorder="0" allowFullscreen="yes"></iframe>
 </div>
 
 For photography autofocus is pretty spot on and I noticed no differences compared to the G6.
@@ -162,13 +162,13 @@ Stabilisation is just awesome. I shoot mostly handheld, with an 80mm equivalent 
 Compare this:
 
 <div className="youtubeEmbed">
-  <iframe src="https://www.youtube.com/embed/mhDKH7xcYKk/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
+  <iframe src="https://www.youtube.com/embed/mhDKH7xcYKk/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameBorder="0" allowFullscreen="yes"></iframe>
 </div>
 
 To this:
 
 <div className="youtubeEmbed">
-  <iframe src="https://www.youtube.com/embed/I4koiJ_EJyI/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
+  <iframe src="https://www.youtube.com/embed/I4koiJ_EJyI/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameBorder="0" allowFullscreen="yes"></iframe>
 </div>
 
 Both were shot handheld on an 80mm equivalent lens, the first on the G85 with stabilisation and the second on the G6 without.
@@ -180,7 +180,7 @@ The 4k test footage I've taken looks amazing. Not only the increase in resolutio
 Here's a 1080p video which compares ISO 3200 and 6400 at 1080p and 4k. There's a slight crop at 4k due to the way it uses the sensor but nothing drastic:
 
 <div className="youtubeEmbed">
-  <iframe src="https://www.youtube.com/embed/tKclCZpXimw/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
+  <iframe src="https://www.youtube.com/embed/tKclCZpXimw/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameBorder="0" allowFullscreen="yes"></iframe>
 </div>
 
 4k at ISO 6400 basically looks cleaner than 1080p at ISO 3200. Unfortunately 4k maxes out at 30fps so I have to choose between sharp video and smooth motion... A tough choice since I really like how 50fps footage looks.

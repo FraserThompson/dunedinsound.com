@@ -1,3 +1,0 @@
----
-title: Maxine Funke
----

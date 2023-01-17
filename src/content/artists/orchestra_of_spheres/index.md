@@ -1,4 +1,0 @@
----
-title: Orchestra of Spheres
-origin: Wellington
----

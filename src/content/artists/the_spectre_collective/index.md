@@ -1,3 +1,0 @@
----
-title: The Spectre Collective
----

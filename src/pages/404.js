@@ -15,10 +15,8 @@ const Page = ({ location }) => (
 )
 
 export const Head = (params) => {
-  const title = `404 | dunedinsound.com`
   const description = 'This is a page that does not exist.'
-
-  return <SiteHead title={title} description={description} {...params} />
+  return <SiteHead title={'404'} description={description} {...params} />
 }
 
 export default Page

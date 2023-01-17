@@ -1,3 +1,0 @@
----
-title: Demons Keep Out
----

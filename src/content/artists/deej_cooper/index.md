@@ -1,3 +1,0 @@
----
-title: Deej Cooper
----

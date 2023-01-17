@@ -1,15 +1,16 @@
 module.exports = {
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   env: {
     browser: true,
     es6: true,
   },
-  plugins: ['react'],
+  plugins: ['@babel/preset-react'],
   globals: {
     graphql: false,
   },
   parserOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 8,
+    requireConfigFile: false,
     sourceType: 'module',
     ecmaFeatures: {
       experimentalObjectRestSpread: true,

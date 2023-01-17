@@ -1,4 +1,0 @@
----
-title: Perry Buoy
-facebook: https://www.facebook.com/PerryBuoyMusic/
----

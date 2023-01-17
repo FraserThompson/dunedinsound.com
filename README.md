@@ -4,7 +4,7 @@ Media from gigs in Dunedin New Zealand and more.
 
 ## Running in development
 
-`gatsby develop`
+`npm start`
 
 ### Using the minimal dev site
 
@@ -24,60 +24,79 @@ These will only copy code and package.json, not assets or any other files.
 
 ## Build
 
-`gatsby build`
+`npm run build`
 
-Beware that building from scratch (ie. from no public folder) takes a veeery long time (like a day or two) because it has to go through all the images and resize/compress them.
-
-(previously my custom Jekyll solution was much quicker...)
+Beware that building from scratch (ie. from no public folder) takes a very long time because it has to go through all the images and resize/compress them.
 
 ### Why are we using our own `gatsby-plugin-s3`?
 
 There's a breaking bug which causes large files to always be reuploaded. We can't switch to the full release until https://github.com/jariz/gatsby-plugin-s3/issues/59 is fixed
 
+## Generating gig files and folder structure
+
+I wrote a script to automate the tedious work of making files and folders.
+
+`npm run generate`
+
 ## Process audio
 
 1. Put audio into ./audio in a subfolder
-2. Run docker-compose up
+2. Run `npm run audio`
 
 ## What have we got here
+
+### Architecture
+
+- We have the following entity types: `Gig`, `Venue`, `Artist`, and `Vaultsession`
+- All entities are stored as YAML files in `src/content/[type]/[name].yml`
+- Media related to entities is stored in `src/media/[type]/[name]` where `name` is the name of the related YAML file
+- We also have the following types of pages which are stored as Markdown in `src/content/[type]/[name]/index.md`: `Blog`, `Page`
+
+Each of these entity types has an associated template in `src/templates` which is used to generate a page in `gatsby-node.js`.
+
+#### Gigs
+
+- Gigs are stored as YAML files in `src/content/gigs/[name].yml`
+- Media from each gig is stored in `src/content/media/gigs/[name]`
+- Artist names in the gig YAML correspond to directories in the gig's media directory: `src/content/media/gigs/[name]/[artist-name]`
+
+### Custom fields
+
+Schema for each type is defined in `gatsby-node.js`. Additionally, we use `createNodeField` to create fields on each GraphQL node.
+
+All Markdown nodes have the following fields:
+
+- slug: The URL slug
+- type: The type eg. gig, blog, etc
+- parentDir: The name of the directory the file is in. Used to query for related media.
+
+All YAML nodes have the following fields:
+
+- slug: The URL slug
+- type: The type eg. gig, blog, etc
+- fileName: The name of the YAML file. Used to query for related media.
+
+Gig YAML nodes have these additional fields used for sorting:
+
+- year: The year
+- month: The month
+- yearAndMonth: The year and month
+- venue: The venue machine name. Used to query for the related venue.
+- artists: The list of artist names. Used to query for related artists.
+
+All File nodes in `src/media` have these fields:
+
+- parentDir: The name of the directory the file is in
+- mediaDir: The name of the media directory eg. gig, blog, etc
 
 ### Components
 
 (Mostly) generic React components which are used in `templates` and `pages`.
 
-### Content
-
-Artists, gigs, venues, blog posts and generic pages in Markdown format. These are rendered through `templates`.
-
 ### Pages
 
 Standalone pages, usually they display links to `content`.
 
-### Templates
-
-Templates used as layouts for `content` to be displayed in
-
-#### Templatetemplates
-
-These are templates used by `templates`. Currently there's only one which is used by `artists` and `venues`.
-
 ### Utils
 
 Random stuff. Theme contains all our theming variables used sitewide.
-
-## How are content turned into pages?
-
-Within `gatsby-node.js` exports.createPages queries all of our markdown and then we iterate over each returned object, do pre-processing, and create a page via `createPage()`.
-
-## Schema
-
-A gig folder in `content/gigs` contains an `index.md` with metadata, zero or more artist folders containing photos and audio for that artist, and a cover image.
-
-**index.md**
-
-- `title` is the name of the gig
-- `date` is the date it happened
-- `artists` is an array of objects with artist `name` and media
-  - `vid` is array of video objects of `link` and `title`
-- `venue` is the machine name of the venue
-- `cover` is the path to the cover, usually ./cover.jpg

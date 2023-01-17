@@ -1,3 +1,0 @@
----
-title: Lost Leader
----

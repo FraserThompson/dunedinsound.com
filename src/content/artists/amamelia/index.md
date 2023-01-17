@@ -1,6 +1,0 @@
----
-title: Amamelia
-origin: Auckland
-facebook: https://www.facebook.com/amamelianz
-soundcloud: https://soundcloud.com/amamelia
----

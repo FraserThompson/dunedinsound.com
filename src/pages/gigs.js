@@ -382,10 +382,7 @@ const FutureGigs = styled.div`
 
 export const pageQuery = graphql`
   query {
-    site {
-      ...SiteInformation
-    }
-    gigsByDate: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } } }) {
+    gigsByDate: allGigYaml(sort: { date: DESC }) {
       group(field: { fields: { yearAndMonth: SELECT } }) {
         fieldValue
         nodes {
@@ -395,11 +392,6 @@ export const pageQuery = graphql`
     }
   }
 `
-export const Head = (params) => {
-  const title = `Gigs | ${params.data.site.siteMetadata.title}`
-  const description = params.data.site.siteMetadata.description
-
-  return <SiteHead title={title} description={description} {...params} />
-}
+export const Head = (params) => <SiteHead title={'Gigs'} {...params} />
 
 export default Page

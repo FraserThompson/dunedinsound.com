@@ -1,4 +1,0 @@
----
-title: Rezzy Crooks
-facebook: https://www.facebook.com/Rezzy-Crooks-345467946328290/
----

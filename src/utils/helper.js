@@ -51,7 +51,14 @@ export const nodeTypeToHuman = (string) => {
       return 'Vault Session'
   }
 }
-
+/**
+ * Turns a Graphql group into a key value dict for easier access.
+ *
+ * @param {array} queryResult the query result eg. data.covers.group
+ * @param {boolean} sortByName whether to sort by name too
+ * @param {Function} fieldValueProcessor optional callback to process the dict key
+ * @returns sorted key value object
+ */
 export const graphqlGroupToObject = (queryResult, sortByName, fieldValueProcessor) => {
   return queryResult.reduce((obj, item) => {
     const fieldValue = fieldValueProcessor ? fieldValueProcessor(item.fieldValue) : item.fieldValue
@@ -62,14 +69,14 @@ export const graphqlGroupToObject = (queryResult, sortByName, fieldValueProcesso
 
 export const postFilter = (needle, haystack) => {
   const filterFunction = (node) => {
-    const titleResult = node.frontmatter.title.toLowerCase().includes(needle)
+    const titleResult = node.title.toLowerCase().includes(needle)
     const artistResult =
-      node.frontmatter.artists &&
-      node.frontmatter.artists
+      node.artists &&
+      node.artists
         .map(({ name }) => name.toLowerCase())
         .join(' ')
         .includes(needle)
-    const venueResult = node.frontmatter.venue && node.frontmatter.venue.replace(/_/g, ' ').includes(needle)
+    const venueResult = node.venue && node.venue.replace(/_/g, ' ').includes(needle)
     return titleResult || artistResult || venueResult
   }
 

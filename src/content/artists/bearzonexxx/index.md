@@ -1,4 +1,0 @@
----
-title: Bearzonexxx
-origin: Wellington
----

@@ -1,5 +1,0 @@
----
-title: Wolfskull
-facebook: https://www.facebook.com/Wolfskull-272544856097178/
-bandcamp: https://wolfskull.bandcamp.com/
----

@@ -1,4 +1,0 @@
----
-title: Vulc
-origin: Auckland
----

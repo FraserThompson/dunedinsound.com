@@ -1,3 +1,0 @@
----
-title: Te Hight
----

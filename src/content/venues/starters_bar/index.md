@@ -1,9 +1,0 @@
----
-title: Starters Bar
-facebook: https://www.facebook.com/startersbardunedin
-lat: -45.8697255
-lng: 170.5142541
-cover: ./cover.jpg
-description: Legendary student bar which was <a href="https://www.critic.co.nz/news/article/7890/ousa-buys-starters-bar" target="_blank">boldly purchased by OUSA in 2018</a>, only to be <a href="https://www.critic.co.nz/news/article/9735/starters-shuts-down-forever" target="_blank">closed permanently in 2021</a> due to earthquake safety concerns.
-died: 2021
----

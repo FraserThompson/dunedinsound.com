@@ -1,5 +1,0 @@
----
-title: Humanoid Shell
-facebook: https://www.facebook.com/HumanoidShell/
-bandcamp: https://humanoidshell.bandcamp.com/
----

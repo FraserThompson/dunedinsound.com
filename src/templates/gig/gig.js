@@ -13,18 +13,19 @@ import styled from '@emotion/styled'
 import { rhythm } from '../../utils/typography'
 import BackButton from '../../components/BackButton'
 import BackToTop from '../../components/BackToTop'
-import { getSrc } from 'gatsby-plugin-image'
 import ImageGallery from '../../components/ImageGallery'
 import { SiteHead } from '../../components/SiteHead'
 
-const Page = React.memo(({ data }) => {
+const Page = React.memo(({ data, pageContext }) => {
   const [artistMedia, setArtistMedia] = useState([])
   const [artistAudio, setArtistAudio] = useState([])
-  const [cover, setCover] = useState(data.thisPost.frontmatter.cover)
+  const [cover, setCover] = useState(null)
   const [uncategorizedImages, setUncategorizedImages] = useState([])
 
   const location = typeof window !== `undefined` && window.location
   const history = typeof window !== `undefined` && window.history
+
+  const { previous, next } = pageContext
 
   // On page load
   useEffect(() => {
@@ -35,17 +36,17 @@ const Page = React.memo(({ data }) => {
     }
 
     // Key-value object of images by artist
-    const imagesByArtist = data.images && graphqlGroupToObject(data.images.group, true, (fieldValue) => fieldValue.split('/')[1])
+    const imagesByArtist = data.images && graphqlGroupToObject(data.images.group, true, (fieldValue) => fieldValue.split('/')[2] || 'cover')
 
     // Cover image is either one image or all the images in the _header folder
-    imagesByArtist['_header'] && setCover(imagesByArtist['_header'])
+    imagesByArtist['_header'] ? setCover(imagesByArtist['_header']) : setCover(data.cover)
     imagesByArtist['_uncategorized'] && setUncategorizedImages(imagesByArtist['_uncategorized'])
 
     // Key-value object of audio files by artist
     const audioByArtist =
       data.audio &&
-      data.audio['group'].reduce((obj, item) => {
-        const machineName = item.fieldValue.split('/')[1]
+      data.audio.group.reduce((obj, item) => {
+        const machineName = item.fieldValue.split('/')[2]
         const grouped_audio = item.nodes.reduce((obj, item) => {
           // There appears to be a bug in the GraphQL extension filter which sometimes allows images to slip
           // through... So instead of pursuing that we'll just add this check here.
@@ -65,16 +66,16 @@ const Page = React.memo(({ data }) => {
     // Key-value object of details by artist
     const detailsByArtist = data.artists && graphqlGroupToObject(data.artists.group)
 
-    const combinedMedia = data.thisPost.frontmatter.artists.map((artist, i) => {
+    const combinedMedia = data.thisPost.artists.map((artist, i) => {
       const machineName = toMachineName(artist.name)
       return {
         ...artist,
         machineName,
         index: i,
-        title: detailsByArtist && detailsByArtist[machineName] ? detailsByArtist[machineName][0].frontmatter.title : artist.name,
-        details: detailsByArtist && detailsByArtist[machineName] && detailsByArtist[machineName][0],
-        images: imagesByArtist && imagesByArtist[machineName],
-        audio: audioByArtist && audioByArtist[machineName],
+        title: artist.name,
+        details: detailsByArtist?.[machineName]?.[0],
+        images: imagesByArtist?.[machineName],
+        audio: audioByArtist?.[machineName],
       }
     })
 
@@ -83,22 +84,19 @@ const Page = React.memo(({ data }) => {
     setArtistMedia(combinedMedia)
   }, [])
 
-  const gigTitle = data.thisPost.frontmatter.title
+  const gigTitle = data.thisPost.title
   const venueDetails = data.venue && data.venue.nodes.length > 0 && data.venue.nodes[0]
 
   return (
     <Layout
       location={location}
-      image={cover && getSrc(cover)}
-      title={`${gigTitle} | ${data.site.siteMetadata.title}`}
-      date={data.thisPost.frontmatter.date}
       hideBrandOnMobile={true}
       scrollHeaderContent={
         <>
           <BackButton
             to={history.state && history.state.from ? history.state.from : undefined}
             gigSlug={data.thisPost.fields.slug}
-            gigYear={data.thisPost.frontmatter.date.split(' ')[2]}
+            gigYear={data.thisPost.date.split(' ')[2]}
           />
           <HeaderTitle onClick={(e) => scrollTo(e, 'top')} href="#top" title="Scroll to top">
             <h1 className="big">{gigTitle}</h1>
@@ -114,23 +112,23 @@ const Page = React.memo(({ data }) => {
             <>
               at{' '}
               <Link to={venueDetails.fields.slug} className="highlighted">
-                {venueDetails.frontmatter.title}
+                {venueDetails.title}
               </Link>
               <p>
-                <small>{data.thisPost.frontmatter.date}</small>
+                <small>{data.thisPost.date}</small>
               </p>
             </>
           )
         }
         height="80vh"
         backgroundImage={cover}
-        customContent={<BannerOverlay data={data} location={location} />}
+        customContent={<BannerOverlay thisPost={data.thisPost} nextPost={next} prevPost={previous} location={location} />}
       >
         <HorizontalNav style={{ paddingTop: rhythm(1), paddingBottom: rhythm(1) }}>
-          {data.thisPost.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: data.thisPost.frontmatter.description }}></p>}
+          {data.thisPost.description && <p dangerouslySetInnerHTML={{ __html: data.thisPost.description }}></p>}
           {artistMedia.length == 0 && <LoadingSpinner />}
           {artistMedia.length > 1 &&
-            !data.thisPost.frontmatter.audioOnly &&
+            !data.thisPost.audioOnly &&
             artistMedia.map((artist, index) => {
               return (
                 <li key={index}>
@@ -141,15 +139,15 @@ const Page = React.memo(({ data }) => {
               )
             })}
         </HorizontalNav>
-        {data.thisPost.frontmatter.feature_vid && (
+        {data.thisPost.feature_vid && (
           <FeatureVidWrapper>
-            <YouTubeResponsive videoId={data.thisPost.frontmatter.feature_vid} />
+            <YouTubeResponsive videoId={data.thisPost.feature_vid} />
           </FeatureVidWrapper>
         )}
         <PlayerContainer artistAudio={artistAudio} />
       </Banner>
       {uncategorizedImages && <ImageGallery images={uncategorizedImages} masonry={true} title={gigTitle} />}
-      {!data.thisPost.frontmatter.audioOnly && <ArtistMedia artistMedia={artistMedia} gigTitle={gigTitle} />}
+      {!data.thisPost.audioOnly && <ArtistMedia artistMedia={artistMedia} gigTitle={gigTitle} />}
       <BackToTop />
     </Layout>
   )
@@ -171,14 +169,13 @@ const FeatureVidWrapper = styled.div`
 `
 
 export const Head = (params) => {
-  const cover = params.data.thisPost.frontmatter.cover
-  const title = `${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
+  const cover = params.data.cover
 
   return (
     <SiteHead
-      title={title}
-      description={`Photos, audio and video from ${params.data.thisPost.frontmatter.title}.`}
-      date={params.data.thisPost.frontmatter.date}
+      title={params.data.thisPost.title}
+      description={`Photos, audio and video from ${params.data.thisPost.title}.`}
+      date={params.data.thisPost.date}
       cover={cover}
       {...params}
     />
@@ -186,21 +183,21 @@ export const Head = (params) => {
 }
 
 export const pageQuery = graphql`
-  query GigsBySlug($slug: String!, $prevSlug: String, $nextSlug: String, $artists: [String]!, $venue: String!, $parentDir: String!) {
-    site {
-      ...SiteInformation
-    }
-    thisPost: mdx(fields: { slug: { eq: $slug } }) {
+  query GigsBySlug($slug: String, $type: String, $artists: [String]!, $venue: String!, $fileName: String!) {
+    thisPost: gigYaml(fields: { slug: { eq: $slug } }) {
       ...GigFrontmatter
     }
-    nextPost: mdx(fields: { slug: { eq: $nextSlug } }) {
-      ...GigTileFrontmatter
-    }
-    prevPost: mdx(fields: { slug: { eq: $prevSlug } }) {
-      ...GigTileFrontmatter
+    cover: file(sourceInstanceName: { eq: "media" }, name: { eq: "cover" }, fields: { mediaDir: { eq: $type }, gigDir: { eq: $fileName } }) {
+      publicURL
+      ...LargeImage
     }
     images: allFile(
-      filter: { relativePath: { regex: "/(.jpg)|(.JPG)$/" }, name: { ne: "cover.jpg" }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }
+      filter: {
+        sourceInstanceName: { eq: "media" }
+        ext: { in: [".jpg", ".JPG"] }
+        name: { ne: "cover" }
+        fields: { mediaDir: { eq: $type }, gigDir: { eq: $fileName } }
+      }
     ) {
       group(field: { relativeDirectory: SELECT }) {
         fieldValue
@@ -212,7 +209,9 @@ export const pageQuery = graphql`
         }
       }
     }
-    audio: allFile(filter: { relativePath: { regex: "/(.json)|(.mp3)$/" }, fields: { gigDir: { eq: $parentDir }, type: { eq: "gigs" } } }) {
+    audio: allFile(
+      filter: { sourceInstanceName: { eq: "media" }, ext: { in: [".json", ".mp3"] }, fields: { mediaDir: { eq: $type }, gigDir: { eq: $fileName } } }
+    ) {
       group(field: { relativeDirectory: SELECT }) {
         fieldValue
         nodes {
@@ -222,34 +221,30 @@ export const pageQuery = graphql`
         }
       }
     }
-    artists: allMdx(filter: { fields: { machine_name: { in: $artists }, type: { eq: "artists" } } }) {
-      group(field: { fields: { machine_name: SELECT } }) {
+    artists: allArtistYaml(filter: { title: { in: $artists } }) {
+      group(field: { fields: { fileName: SELECT } }) {
         fieldValue
         nodes {
           fields {
-            machine_name
+            fileName
             slug
           }
-          frontmatter {
-            title
-            bandcamp
-            facebook
-            soundcloud
-            origin
-            website
-          }
+          title
+          bandcamp
+          facebook
+          soundcloud
+          origin
+          website
         }
       }
     }
-    venue: allMdx(filter: { fields: { machine_name: { eq: $venue }, type: { eq: "venues" } } }) {
+    venue: allVenueYaml(filter: { fields: { fileName: { eq: $venue } } }) {
       nodes {
         fields {
-          machine_name
+          fileName
           slug
         }
-        frontmatter {
-          title
-        }
+        title
       }
     }
   }

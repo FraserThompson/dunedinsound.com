@@ -1,8 +1,0 @@
----
-title: 'Barabajagal at Mou'
-date: 2016-06-26T05:00:00.000Z
-venue: mou_very
-artists:
-    - {name: Barabajagal}
-cover: ./cover.jpg
----

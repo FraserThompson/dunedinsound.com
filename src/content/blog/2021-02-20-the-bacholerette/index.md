@@ -22,7 +22,7 @@ And thus Dave became the first member of Radio 1's 37 year fraternity of esteeme
 
 He's keeping positive though. I caught up with the egg man himself for a beer and to discuss his time on the show, as well as his musical endeavours.
 
-<iframe src="https://open.spotify.com/embed/artist/5JAixRFfpFXSEqBSRHYcAF" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+<iframe src="https://open.spotify.com/embed/artist/5JAixRFfpFXSEqBSRHYcAF" width="300" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
 **How does it feel to be the first Radio1 DJ eliminated from The Bachelorette?**
 

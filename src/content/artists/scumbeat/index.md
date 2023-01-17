@@ -1,4 +1,0 @@
----
-title: Scumbeat
-origin: Auckland
----

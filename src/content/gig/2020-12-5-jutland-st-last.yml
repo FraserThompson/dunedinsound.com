@@ -1,0 +1,26 @@
+title: 'Jutland st last'
+date: 2020-12-5 08:30:00 Z
+venue: jutland_street
+artists:
+  - name: Stephen Kilroy
+    vid:
+      - link: E7sgOX64w_E
+  - name: Mud Death
+    vid:
+      - link: WAnXFJf3U98
+      - link: aet89yqDrmU
+  - name: The Fuck Chairs
+    vid:
+      - link: L-dVannKbvc
+  - name: Algal Grind
+    vid:
+      - link: 9K5knsH-wSQ
+      - link: QJZ_X4_iWqo
+  - name: Crude
+    vid:
+      - link: zpm5bma6P3E
+      - link: JEySAvm9TdA
+  - name: Wolfskull
+    vid:
+      - link: iE2VXnK_icU
+cover: ./cover.jpg

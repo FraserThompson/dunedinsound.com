@@ -1,7 +1,0 @@
----
-title: Jay Clarkson and The Containers
-audioculture:
-  link: https://www.audioculture.co.nz/people/jay-clarkson-band
-  snippet: Jay Clarkson sits uncomfortably in the South Island indie continuum. She didn’t play the folk pop card, thump the garage rock drum or end up shaping sound or free noise. Her path was a determined and singular one.
-  image: https://www.audioculture.co.nz/content/images/2136/modal_j1.jpg
----

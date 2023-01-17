@@ -17,15 +17,15 @@ const machine_name = (string, space_character) => {
 
 const getAudioFiles = () => {
   const source = './audio'
-  return fs.readdirSync(source, { withFileTypes: true }).map(dirent => dirent.name)
+  return fs.readdirSync(source, { withFileTypes: true }).map((dirent) => dirent.name)
 }
 
 const main = () => {
   const audioFiles = getAudioFiles()
-  audioFiles.forEach(filename => {
+  audioFiles.forEach((filename) => {
     const splitted = filename.split(' - ')
     const src = `${process.cwd()}\\audio\\${filename}`
-    const destination = `${process.cwd()}\\src\\content\\gigs\\${getCurrentDatePrefix()}-${machine_name(splitted[0], '-')}\\${machine_name(
+    const destination = `${process.cwd()}\\src\\media\\gig\\${getCurrentDatePrefix()}-${machine_name(splitted[0], '-')}\\${machine_name(
       splitted[1].split('.')[0]
     )}`
     if (fs.existsSync(destination)) {

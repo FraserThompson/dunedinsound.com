@@ -21,7 +21,6 @@ exports.createPages = async ({ graphql, actions }) => {
               fields {
                 slug
                 type
-                machine_name
                 parentDir
               }
               internal {
@@ -30,15 +29,54 @@ exports.createPages = async ({ graphql, actions }) => {
               frontmatter {
                 title
                 template
-                artists {
-                  name
-                }
-                venue
                 tags
-                featureMode
-                hideCaptions
+                gallery
                 related_gigs
               }
+            }
+          }
+        }
+        allGigs: allGigYaml {
+          nodes {
+            title
+            venue
+            artists {
+              name
+            }
+            fields {
+              slug
+              fileName
+              type
+            }
+          }
+        }
+        allVenues: allVenueYaml {
+          nodes {
+            title
+            fields {
+              slug
+              fileName
+              type
+            }
+          }
+        }
+        allArtists: allArtistYaml {
+          nodes {
+            title
+            fields {
+              slug
+              fileName
+              type
+            }
+          }
+        }
+        allVaultsessions: allVaultsessionYaml {
+          nodes {
+            title
+            fields {
+              slug
+              fileName
+              type
             }
           }
         }
@@ -59,20 +97,17 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
   const layouts = {
-    gigs: path.resolve('./src/templates/gig/gig.js'),
+    gig: path.resolve('./src/templates/gig/gig.js'),
     blog: path.resolve('./src/templates/blog/blog.js'),
-    artists: path.resolve('./src/templates/artist/artist.js'),
-    venues: path.resolve('./src/templates/venue/venue.js'),
-    vaultsessions: path.resolve('./src/templates/vaultsession/vaultsession.js'),
+    artist: path.resolve('./src/templates/artist/artist.js'),
+    venue: path.resolve('./src/templates/venue/venue.js'),
+    vaultsession: path.resolve('./src/templates/vaultsession/vaultsession.js'),
     page: path.resolve('./src/templates/page/page.js'),
     tags: path.resolve('./src/templates/tags/tags.js'),
   }
 
-  console.log('About to start creating pages...')
-
-  result.data.pages.group.forEach((group) => {
-    console.log('Creating ' + group.nodes.length + ' ' + group.fieldValue)
-
+  // Markdown pages
+  const createMdx = (group) => {
     group.nodes.forEach((node, index) => {
       const previous = index === group.nodes.length - 1 ? null : group.nodes[index + 1]
       const next = index === 0 ? null : group.nodes[index - 1]
@@ -81,17 +116,12 @@ exports.createPages = async ({ graphql, actions }) => {
         slug: node.fields.slug,
         previous,
         next,
-        prevSlug: previous && previous.fields.slug,
-        nextSlug: next && next.fields.slug,
-        machine_name: node.fields.machine_name,
         parentDir: node.fields.parentDir,
         title: node.frontmatter.title,
         tags: node.frontmatter.tags || [],
         related_gigs: node.frontmatter.related_gigs || [],
+        isGallery: node.frontmatter.gallery ? true : false,
       }
-
-      if (node.frontmatter.artists) context.artists = node.frontmatter.artists.map((artist) => toMachineName(artist.name))
-      if (node.frontmatter.venue) context.venue = node.frontmatter.venue
 
       let component = layouts[node.fields.type]
       if (node.frontmatter.template) component = path.resolve(`./src/templates/${node.frontmatter.template}`)
@@ -102,7 +132,42 @@ exports.createPages = async ({ graphql, actions }) => {
         context: context,
       })
     })
-  })
+  }
+
+  // Yaml entities
+  const createYml = (node, index, nodes) => {
+    const previous = index === nodes.length - 1 ? null : nodes[index + 1]
+    const next = index === 0 ? null : nodes[index - 1]
+
+    const context = {
+      previous,
+      next,
+      slug: node.fields.slug,
+      fileName: node.fields.fileName,
+      type: node.fields.type,
+      title: node.title,
+    }
+
+    if (node.venue) context.venue = node.venue
+    if (node.artists) context.artists = node.artists.map((artist) => artist.name)
+
+    const component = layouts[node.fields.type]
+
+    createPage({
+      path: node.fields.slug,
+      component: `${component}`,
+      context: context,
+    })
+  }
+
+  // Yaml pages
+  result.data.allGigs.nodes.forEach(createYml)
+  result.data.allVenues.nodes.forEach(createYml)
+  result.data.allArtists.nodes.forEach(createYml)
+  result.data.allVaultsessions.nodes.forEach(createYml)
+
+  // Markdown pages
+  result.data.pages.group.forEach(createMdx)
 
   result.data.blogsByTag.group.forEach(({ fieldValue }) => {
     createPage({
@@ -118,83 +183,40 @@ exports.createPages = async ({ graphql, actions }) => {
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
-  // We want to add fields indicating what folder media is in so we add a parentDir field
-  // and a gigDir field if it's media part of gig
-  if (node.internal.type === 'File') {
-    const nodeType = node.sourceInstanceName
-
-    const mediaExts = ['.mp3', '.json', '.jpg', '.JPG']
-
-    if (mediaExts.includes(node.ext)) {
-      const parsedPath = path.parse(node.absolutePath)
-      const parentDir = path.basename(parsedPath.dir)
-
-      createNodeField({
-        name: `parentDir`,
-        node,
-        value: parentDir,
-      })
-
-      createNodeField({
-        name: `type`,
-        node,
-        value: nodeType,
-      })
-
-      if (nodeType === 'gigs') {
-        const pathComponents = node.relativeDirectory.split('/')
-        if (pathComponents.length === 2) {
-          const gigDir = pathComponents[0]
-          createNodeField({
-            name: `gigDir`,
-            node,
-            value: gigDir,
-          })
-        }
-      }
-    }
-  }
-  // For the actual gig posts we need to add some fields
-  else if (node.internal.type === `Mdx`) {
-    const parent = getNode(node.parent)
-    const nodeType = parent.sourceInstanceName
-    const nodeTitle = nodeType === 'gigs' ? toMachineName(node.frontmatter.title, '-') : toMachineName(node.frontmatter.title, '_') // to preserve URLs from old site
-    const nodeSlug = '/' + nodeType + '/' + nodeTitle
-
-    const parsedPath = path.parse(node.internal.contentFilePath)
-    const parentDir = path.basename(parsedPath.dir)
-
-    const date = new Date(node.frontmatter.date)
-    const year = date.getFullYear()
-    const month = date.getMonth()
-
-    // So we can group and sort by these
-    createNodeField({
-      name: `year`,
-      node,
-      value: year,
-    })
-    createNodeField({
-      name: `month`,
-      node,
-      value: month,
-    })
-    createNodeField({
-      name: `yearAndMonth`,
-      node,
-      value: '' + year + (month < 10 ? '0' + month : month),
-    })
+  if (node.sourceInstanceName === 'media') {
+    const pathComponents = node.relativeDirectory.split('/')
+    const mediaDir = pathComponents[0]
+    const parentDir = pathComponents.at(-1)
 
     createNodeField({
-      name: `machine_name`,
+      name: `mediaDir`,
       node,
-      value: toMachineName(node.frontmatter.title, '_'),
+      value: mediaDir,
     })
     createNodeField({
       name: `parentDir`,
       node,
       value: parentDir,
     })
+
+    // Gig media needs to know the parents parent too
+    if (mediaDir === 'gig') {
+      createNodeField({
+        name: `gigDir`,
+        node,
+        value: pathComponents[1],
+      })
+    }
+  } else if (node.internal.type === `Mdx`) {
+    const parent = getNode(node.parent)
+    const pathComponents = parent.relativeDirectory.split('/')
+    const nodeType = pathComponents[0]
+
+    const nodeTitle = toMachineName(node.frontmatter.title, '_')
+    const nodeSlug = '/' + nodeType + '/' + nodeTitle
+
+    const parentDir = pathComponents[1]
+
     createNodeField({
       name: `slug`,
       node,
@@ -205,30 +227,120 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       node,
       value: nodeType,
     })
+    createNodeField({
+      name: `parentDir`,
+      node,
+      value: parentDir,
+    })
+  } else if (node.internal.type.includes(`Yaml`)) {
+    const parentNode = getNode(node.parent)
+    const fileName = parentNode.name
+
+    const nodeType = node.internal.type.split('Yaml')[0].toLowerCase()
+
+    const nodeTitle = nodeType === 'gig' ? toMachineName(node.title, '-') : toMachineName(node.title, '_') // to preserve URLs from old site
+    const nodeSlug = '/' + nodeType + '/' + nodeTitle
+
+    createNodeField({
+      name: `slug`,
+      node,
+      value: nodeSlug,
+    })
+    createNodeField({
+      name: `type`,
+      node,
+      value: nodeType,
+    })
+    createNodeField({
+      name: `fileName`,
+      node,
+      value: fileName,
+    })
+
+    if (nodeType === 'gig') {
+      const date = new Date(node.date)
+      const year = date.getFullYear()
+      const month = date.getMonth()
+
+      // So we can group and sort by these
+      createNodeField({
+        name: `year`,
+        node,
+        value: year,
+      })
+      createNodeField({
+        name: `month`,
+        node,
+        value: month,
+      })
+      createNodeField({
+        name: `yearAndMonth`,
+        node,
+        value: '' + year + (month < 10 ? '0' + month : month),
+      })
+    }
   }
 }
 
-exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
-  // If production JavaScript and CSS build
-  if (stage === 'build-javascript') {
-    // Turn off source maps
-    actions.setWebpackConfig({
-      devtool: false,
-    })
-  } else if (stage === 'build-html') {
-    actions.setWebpackConfig({
-      module: {
-        rules: [
-          {
-            test: /_closest.polyfill/,
-            use: loaders.null(),
-          },
-          {
-            test: /_customEvent.polyfill/,
-            use: loaders.null(),
-          },
-        ],
-      },
-    })
-  }
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+  const typeDefs = `
+    type Audioculture {
+      link: String!
+      snippet: String!
+      image: String
+    }
+    type Track {
+      title: String!
+      time: String!
+      link: String
+    }
+    type GigVid {
+      link: String!
+      title: String
+    }
+    type GigArtist {
+      name: String!
+      vid: [GigVid]
+      tracklist: [Track]
+    }
+    type GigYaml implements Node {
+      title: String!
+      venue: String!
+      artists: [GigArtist!]
+      description: String
+      feature_vid: String
+      audioOnly: Boolean
+    }
+    type ArtistYaml implements Node {
+      title: String!
+      facebook: String
+      bandcamp: String
+      website: String
+      soundcloud: String
+      instagram: String
+      spotify: String
+      origin: String
+      soundcloud: String
+      audioculture: Audioculture
+      died: Int
+    }
+    type VenueYaml implements Node {
+      title: String!
+      lat: Float!
+      lng: Float!
+      description: String
+      facebook: String
+      website: String
+      died: Int
+    }
+    type VaultsessionYaml implements Node {
+      title: String!
+      artist: String!
+      full_video: String!
+      description: String!
+      tracklist: [Track!]
+    }
+  `
+  createTypes(typeDefs)
 }

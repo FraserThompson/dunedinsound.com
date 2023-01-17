@@ -1,4 +1,0 @@
----
-title: The All Seeing Hand
-origin: Wellington
----

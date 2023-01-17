@@ -1,3 +1,0 @@
----
-title: Voice of the Black Pharoah
----

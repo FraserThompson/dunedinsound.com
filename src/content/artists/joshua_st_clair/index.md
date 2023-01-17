@@ -1,3 +1,0 @@
----
-title: Joshua St Clair
----

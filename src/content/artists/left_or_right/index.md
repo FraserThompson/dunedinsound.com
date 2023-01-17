@@ -1,3 +1,0 @@
----
-title: Left or Right
----

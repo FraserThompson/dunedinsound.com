@@ -1,3 +1,0 @@
----
-title: Bum in Face Festival
----

@@ -1,0 +1,21 @@
+title: 'All Hallows Eve'
+date: 2022-10-29 08:30:00 Z
+venue: crown_hotel
+artists:
+  - name: Crime Hospital
+    vid:
+      - link: FPOm5jJg2sE
+      - link: bBZIx1sXhwc
+  - name: Human Susan
+    vid:
+      - link: PSNf2yi8uaI
+      - link: k2uMBUW2wIA
+  - name: Blood Cauldron
+    vid:
+      - link: nCBAoaDxOag
+      - link: KunoiIwDJo8
+  - name: Funeral Burner
+    vid:
+      - link: Ip6c0CncVEg
+      - link: H-AIqJZY6lw
+cover: ./cover.jpg

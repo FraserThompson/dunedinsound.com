@@ -1,8 +1,0 @@
----
-title: Robert Scott
-bandcamp: https://robertscottnz.bandcamp.com/
-audioculture:
-  link: https://www.audioculture.co.nz/people/the-clean
-  snippet: 'The Clean were the first South Island-based post-punk group to gain a national following, on the back of a brace of instantly memorable songs including ‘Tally Ho’, ‘Anything Could Happen’, ‘Beatnik’ and ‘Getting Older’.'
-  image: https://www.audioculture.co.nz/content/images/980/hero_thumb_a1345.jpg
----

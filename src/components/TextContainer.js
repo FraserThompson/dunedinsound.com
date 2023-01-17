@@ -8,6 +8,8 @@ export default styled(BlogContainer)`
   h2,
   h3,
   h4,
+  div,
+  iframe,
   ul {
     max-width: ${(props) => props.theme.contentContainerWidth};
     margin-left: 0;
@@ -35,7 +37,8 @@ export default styled(BlogContainer)`
     font-size: 140%;
     color: ${(props) => props.theme.primaryColor};
   }
-  figure {
+  figure,
+  > div {
     max-width: ${(props) => (!props.featureMode ? props.theme.contentContainerWidth : 'initial')};
     margin-bottom: ${(props) => (!props.featureMode ? '1.61rem' : '0')};
   }

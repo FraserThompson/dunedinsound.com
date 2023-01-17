@@ -13,7 +13,7 @@ cover: ./cover.jpg
 William Henry Meung recently released his [latest of many musical projects](https://williamhenrymeung2.bandcamp.com/album/rotten-rainbows-side-x-devour-the-hands-side-y-spit-out-the-leaves-side-z-bonus-live-recording-at-the-auricle-sonic-arts-gallery). A long time member of the Dunedin "experimental" music scene, he spoke to me about how he defines his music, how he ended up where he is artistically, and the role of public art.
 
 <div className="youtubeEmbed">
-  <iframe src="https://www.youtube.com/embed/F8DrsGOgI_A/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
+  <iframe src="https://www.youtube.com/embed/F8DrsGOgI_A/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameBorder="0" allowFullscreen="yes"></iframe>
 </div>
 
 <p>

@@ -1,3 +1,0 @@
----
-title: Candyfloss Chain
----

@@ -1,4 +1,0 @@
----
-title: Hexis
-origin: Denmark
----

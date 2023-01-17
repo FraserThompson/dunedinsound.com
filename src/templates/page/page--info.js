@@ -7,8 +7,6 @@ import TextContainer from '../../components/TextContainer'
 import { SiteHead } from '../../components/SiteHead'
 
 const Page = React.memo(({ data, children }) => {
-  const post = data.thisPost
-
   const totalImages = data.files.group.find((group) => group.fieldValue == 'jpg').totalCount.toLocaleString()
   const totalAudio = data.files.group.find((group) => group.fieldValue == 'mp3').totalCount.toLocaleString()
 
@@ -23,12 +21,18 @@ const Page = React.memo(({ data, children }) => {
           </div>
           <MetadataTable>
             <tbody>
-              {data.counts.group.map((group) => (
-                <tr key={group.fieldValue}>
-                  <td>{group.fieldValue}</td>
-                  <td>{group.totalCount}</td>
-                </tr>
-              ))}
+              <tr>
+                <td>gigs</td>
+                <td>{data.gigs.totalCount}</td>
+              </tr>
+              <tr>
+                <td>artists</td>
+                <td>{data.artists.totalCount}</td>
+              </tr>
+              <tr>
+                <td>venues</td>
+                <td>{data.venues.totalCount}</td>
+              </tr>
               <tr>
                 <td>photos</td>
                 <td>{totalImages}</td>
@@ -110,27 +114,25 @@ const MetadataTable = styled.table`
 `
 
 export const Head = (params) => {
-  const title = `${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
-  const description = params.data.thisPost.excerpt ? params.data.thisPost.excerpt : params.data.site.siteMetadata.description
-
-  return <SiteHead title={title} description={description} {...params} />
+  const description = params.data.thisPost.excerpt
+  return <SiteHead title={params.data.thisPost.frontmatter.title} description={description} {...params} />
 }
 
 export const pageQuery = graphql`
   query PageInfoPostBySlug($slug: String!) {
-    site {
-      ...SiteInformation
-    }
     thisPost: mdx(fields: { slug: { eq: $slug } }) {
       ...BlogFrontmatter
     }
-    counts: allMdx(filter: { fields: { type: { regex: "/gigs|artists|venues$/" } } }) {
-      group(field: { fields: { type: SELECT } }) {
-        fieldValue
-        totalCount
-      }
+    gigs: allGigYaml {
+      totalCount
     }
-    files: allFile(filter: { name: { ne: "cover.jpg" } }) {
+    artists: allArtistYaml {
+      totalCount
+    }
+    venues: allVenueYaml {
+      totalCount
+    }
+    files: allFile(filter: { sourceInstanceName: { eq: "media" }, name: { ne: "cover.jpg" } }) {
       group(field: { extension: SELECT }) {
         fieldValue
         totalCount

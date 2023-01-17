@@ -1,5 +1,0 @@
----
-title: Killergrams
-facebook: https://www.facebook.com/killergramsmusic/
-website: http://www.killergramsmusic.com/
----

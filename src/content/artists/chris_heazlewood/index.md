@@ -1,7 +1,0 @@
----
-title: Chris Heazlewood
-audioculture:
-  link: https://www.audioculture.co.nz/people/king-loser
-  snippet: Kurt and Courtney, Thurston and Kim, and even Nancy and Lee. Memorable, offbeat alt-rock couples were popular enough in the 1980s and 1990s. And New Zealand wasn’t long in locating its own, in King Loser’s Chris Heazlewood and Celia Pavlova.
-  image: https://www.audioculture.co.nz/content/images/6414/modal_kl3.jpg
----

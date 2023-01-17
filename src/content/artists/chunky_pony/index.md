@@ -1,3 +1,0 @@
----
-title: Chunky Pony
----

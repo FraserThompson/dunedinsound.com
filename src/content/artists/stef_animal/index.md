@@ -1,4 +1,0 @@
----
-title: Stef Animal
-facebook: https://www.facebook.com/Stef-Animal-633226776700327/
----

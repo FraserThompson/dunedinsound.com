@@ -21,7 +21,7 @@ And now, after a summer of wowing crowds across the country, they’re releasing
 
 I took the opportunity to catch up with Damin before he gets too famous and won't talk to me anymore.
 
-<center><iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/347736389&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe></center>
+<center><iframe width="100%" height="300" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/347736389&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe></center>
 
 **I saw you first at battle of the bands about a year ago I was pretty blown away. To me it seemed like you’d come out of nowhere. So where’d you come from? How’d you start out?**
 

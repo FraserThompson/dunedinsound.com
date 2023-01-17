@@ -1,6 +1,0 @@
----
-title: A Y U
-facebook: https://www.facebook.com/ayu.dunedin/
-lat: -45.87828634044961
-lng: 170.5032365048919
----

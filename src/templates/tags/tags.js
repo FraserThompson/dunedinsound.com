@@ -55,12 +55,7 @@ export default React.memo(({ data, pageContext }) => {
   )
 })
 
-export const Head = (params) => {
-  const title = `Blog | ${params.data.site.siteMetadata.title}`
-  const description = params.data.site.siteMetadata.description
-
-  return <SiteHead title={title} description={description} {...params} />
-}
+export const Head = (params) => <SiteHead title={'Blog'} {...params} />
 
 const BlogPageContainer = styled.div`
   display: flex;
@@ -100,9 +95,6 @@ const PostsContainer = styled(BlogContainer)`
 
 export const pageQuery = graphql`
   query ($tag: [String]) {
-    site {
-      ...SiteInformation
-    }
     allBlogs: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { in: $tag } } }) {
       nodes {
         ...BlogFrontmatter

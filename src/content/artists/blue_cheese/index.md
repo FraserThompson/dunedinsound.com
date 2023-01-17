@@ -1,3 +1,0 @@
----
-title: Blue Cheese
----

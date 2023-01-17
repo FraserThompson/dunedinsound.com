@@ -1,4 +1,0 @@
----
-title: NNNC
-origin: Wellington
----

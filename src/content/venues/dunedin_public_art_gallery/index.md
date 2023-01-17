@@ -1,7 +1,0 @@
----
-title: 'Dunedin Public Art Gallery'
-lat: -45.8744863
-lng: 170.5027389
-facebook: 'https://www.facebook.com/pages/Dunedin-Public-Art-Gallery/'
-cover: ./cover.jpg
----

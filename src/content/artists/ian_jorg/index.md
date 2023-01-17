@@ -1,4 +1,0 @@
----
-title: Ian Jorg
-origin: Wellington
----

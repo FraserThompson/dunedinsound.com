@@ -1,3 +1,0 @@
----
-title: Smol Terf Syndrome
----

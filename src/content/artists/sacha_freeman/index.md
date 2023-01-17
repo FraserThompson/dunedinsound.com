@@ -1,3 +1,0 @@
----
-title: Sacha Freeman
----

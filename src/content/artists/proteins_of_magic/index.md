@@ -1,5 +1,0 @@
----
-title: Proteins of Magic
-facebook: https://www.facebook.com/proteinsofmagickelly/
-origin: Auckland
----

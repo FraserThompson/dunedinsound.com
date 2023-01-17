@@ -1,3 +1,0 @@
----
-title: Hedge Fund Trader
----

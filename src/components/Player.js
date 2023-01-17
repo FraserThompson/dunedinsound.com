@@ -1,7 +1,17 @@
-// Player.js
-// An audio player for playing media from one or more artists.
-// Parameters:
-//  - artistAudio: Media to be displayed
+/*
+* Player.js
+* An audio player for playing media from one or more artists.
+* Parameters:
+*  - artistAudio: Media to be displayed. An array of artistMedia objects.
+        title: name of artist (required)
+        audio: array of audio (required)
+          .mp3:
+            publicURL: path to mp3 file
+          .json:
+            publicURL: path to mp3 file
+            data: JSON data (optional, but required if no publicURL)
+        tracklist: timestamped tracklist (optional)
+*/
 
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import styled from '@emotion/styled'
@@ -97,25 +107,32 @@ export default React.memo(({ artistAudio }) => {
 
   // Load media if selected artist changes
   useEffect(() => {
-    wavesurfer && load(artistAudio[selectedArtist].audio[0]['.mp3'].publicURL, artistAudio[selectedArtist].audio[0]['.json'].publicURL)
+    wavesurfer && load(artistAudio[selectedArtist].audio[0]['.mp3'], artistAudio[selectedArtist].audio[0]['.json'])
   }, [artistAudio, selectedArtist, wavesurfer])
 
   // Fetches the file and loads it into wavesurfer
   const load = useCallback(
-    (src, jsonSrc) => {
+    (mp3, json) => {
       setReady(false)
-      if (jsonSrc && !window.cached_json[jsonSrc]) {
-        fetch(jsonSrc.replace('#', '%23'))
-          .then((response) => response.json())
-          .then((data) => {
-            window.cached_json[jsonSrc] = data
-            wavesurfer.load(src, window.cached_json[jsonSrc], 'metadata')
-          })
-          .catch((err) => {
-            console.log('Fetch Error :-S', err)
-          })
+      if (json.publicURL) {
+        if (!window.cached_json[json.publicURL]) {
+          // If we have a URL and no cache we need to fetch it
+          fetch(json.publicURL.replace('#', '%23'))
+            .then((response) => response.json())
+            .then((data) => {
+              window.cached_json[json.publicURL] = data
+              wavesurfer.load(mp3.publicURL, window.cached_json[json.publicURL], 'metadata')
+            })
+            .catch((err) => {
+              console.log('Fetch Error :-S', err)
+            })
+        } else {
+          // Else we can just use the cached one
+          wavesurfer.load(mp3.publicURL, window.cached_json[json.publicURL], 'metadata')
+        }
       } else {
-        wavesurfer.load(src, window.cached_json[jsonSrc], 'metadata')
+        // This means we've got data rather than a URL, so no fetching needed
+        wavesurfer.load(mp3.publicURL, json.data, 'metadata')
       }
     },
     [wavesurfer]
@@ -174,9 +191,9 @@ export default React.memo(({ artistAudio }) => {
   )
 
   return (
-    <div className="player">
+    <PlayerWrapper className="player">
       <Titlebar></Titlebar>
-      <PlayerWrapper>
+      <AudioWrapper>
         <Transport>
           <TransportButton disabled={!ready} id="prev" onClick={previous}>
             <FaBackward />
@@ -197,7 +214,7 @@ export default React.memo(({ artistAudio }) => {
             <LoadingSpinner />
           </LoadingProgress>
         )}
-      </PlayerWrapper>
+      </AudioWrapper>
       <TracklistWrapper>
         {artistAudio.map((item, index) => (
           <div key={item.title}>
@@ -225,11 +242,17 @@ export default React.memo(({ artistAudio }) => {
           </div>
         ))}
       </TracklistWrapper>
-    </div>
+    </PlayerWrapper>
   )
 })
 
 const PlayerWrapper = styled.div`
+  transition: all 150ms ease-in-out;
+  border: 3px groove #585662;
+  background: linear-gradient(to left, #1a1927 0%, #353551 53%, #21212d 100%);
+`
+
+const AudioWrapper = styled.div`
   box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;

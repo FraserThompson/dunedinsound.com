@@ -68,20 +68,12 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 
-# Gig assets
-src/content/gigs/**/*.jpg
-src/content/gigs/**/**/*.jpg
-src/content/gigs/**/**/*.mp3
-src/content/vaultsessions/**/*.jpg
-src/content/vaultsessions/**/*.mp3
-
+# Gig media
+src/media
 audio
 
-# Blog assets
-src/content/blog/**/*.jpg
-src/content/blog/**/*.pdf
-
-# Venue assets
-src/content/venues/**/*.jpg
+# Large files
+*.pdf
+*.mp3
 
 _drafts

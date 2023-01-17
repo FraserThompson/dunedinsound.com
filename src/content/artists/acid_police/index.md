@@ -1,3 +1,0 @@
----
-title: Acid Police
----

@@ -1,4 +1,0 @@
----
-title: indi
-origin: Christchurch
----

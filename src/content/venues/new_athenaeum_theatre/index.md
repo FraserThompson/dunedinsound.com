@@ -1,7 +1,0 @@
----
-title: New Athenaeum Theatre
-lat: -45.8746963
-lng: 170.5037179
-facebook: https://www.facebook.com/NewAthenaeumTheatre
-website: https://newathenaeumtheatre.com/
----

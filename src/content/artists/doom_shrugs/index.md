@@ -1,3 +1,0 @@
----
-title: Doom Shrugs
----

@@ -1,5 +1,0 @@
----
-title: Porpoise
-facebook: https://www.facebook.com/porpoisemusicband
-bandcamp: https://porpoise1.bandcamp.com/
----

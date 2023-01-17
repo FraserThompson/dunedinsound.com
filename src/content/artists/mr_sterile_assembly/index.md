@@ -1,4 +1,0 @@
----
-title: Mr Sterile Assembly
-facebook: https://www.facebook.com/mrsterileassembly
----

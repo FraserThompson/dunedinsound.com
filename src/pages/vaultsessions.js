@@ -1,20 +1,22 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useMemo } from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import styled from '@emotion/styled'
 import World from '../components/World'
 import { SiteHead } from '../components/SiteHead'
+import { graphqlGroupToObject } from '../utils/helper'
 
 const Page = ({ data, location }) => {
   const [lights, setLights] = useState('off')
   const [hoveredNode, setHoveredNode] = useState(false)
   const [perspective, setPerspective] = useState('300px')
 
-  const posts = data.allBlogs.nodes
+  const posts = data.allVaultsessions.nodes
+  const covers = useMemo(() => graphqlGroupToObject(data.covers.group))
 
   useEffect(() => {
-    hoveredNode && speak(hoveredNode.frontmatter.title)
+    hoveredNode && speak(hoveredNode.title)
     !hoveredNode && speechSynthesis.cancel()
   }, [hoveredNode])
 
@@ -44,12 +46,12 @@ const Page = ({ data, location }) => {
   const backContent = (
     <Posts>
       <div className="background">
-        <GatsbyImage style={{ height: '100%', width: '100%', opacity: '0.6' }} image={hoveredNode && getImage(hoveredNode.frontmatter.cover)} alt="" />
+        <GatsbyImage style={{ height: '100%', width: '100%', opacity: '0.6' }} image={hoveredNode && getImage(covers[hoveredNode.fields.fileName][0])} alt="" />
       </div>
       {posts.map((node) => (
         <Link key={node.fields.slug} onMouseOver={() => thingHover(node)} onMouseOut={thingUnhover} to={node.fields.slug}>
           <article>
-            <h2>{node.frontmatter.title}</h2>
+            <h2>{node.title}</h2>
           </article>
         </Link>
       ))}
@@ -67,6 +69,9 @@ const Page = ({ data, location }) => {
       <img style={{ filter: 'invert(80%)' }} src={lights == 'off' ? data.logoMono.publicURL : data.logo.publicURL} />
     </Logo>
   )
+
+  const leftContent = <Description>{hoveredNode.description}</Description>
+
   return (
     <Layout location={location} hideNav={true} overrideBackgroundColor="white">
       <World
@@ -76,30 +81,12 @@ const Page = ({ data, location }) => {
         backContent={backContent}
         bottomContent={bottomContent}
         topContent={topContent}
-        leftContent={hoveredNode && <Description>{hoveredNode.children}</Description>}
+        leftContent={hoveredNode && leftContent}
       ></World>
     </Layout>
   )
 }
 
-export const pageQuery = graphql`
-  query {
-    site {
-      ...SiteInformation
-    }
-    logo: file(name: { eq: "vslogo" }) {
-      publicURL
-    }
-    logoMono: file(name: { eq: "vslogo_mono" }) {
-      publicURL
-    }
-    allBlogs: allMdx(sort: { frontmatter: { date: ASC } }, filter: { fields: { type: { eq: "vaultsessions" } } }) {
-      nodes {
-        ...BlogFrontmatter
-      }
-    }
-  }
-`
 const Logo = styled.div`
   margin: 0 auto;
   position: absolute;
@@ -162,11 +149,30 @@ const Description = styled.div`
   }
 `
 
-export const Head = (params) => {
-  const title = `VAULT SESSIONS | ${params.data.site.siteMetadata.title}`
-  const description = params.data.site.siteMetadata.description
+export const Head = (params) => <SiteHead title={'VAULT SESSIONS'} {...params} />
 
-  return <SiteHead title={title} description={description} {...params} />
-}
+export const pageQuery = graphql`
+  query {
+    allVaultsessions: allVaultsessionYaml(sort: { date: ASC }) {
+      nodes {
+        ...VaultsessionFrontmatter
+      }
+    }
+    covers: allFile(filter: { sourceInstanceName: { eq: "media" }, fields: { mediaDir: { eq: "vaultsession" } }, name: { eq: "cover" } }) {
+      group(field: { fields: { parentDir: SELECT } }) {
+        fieldValue
+        nodes {
+          ...MediumImage
+        }
+      }
+    }
+    logo: file(name: { eq: "vslogo" }) {
+      publicURL
+    }
+    logoMono: file(name: { eq: "vslogo_mono" }) {
+      publicURL
+    }
+  }
+`
 
 export default Page

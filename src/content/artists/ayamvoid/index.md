@@ -1,5 +1,0 @@
----
-title: Ayamvoid
-facebook: https://www.facebook.com/ayamvoid/
-bandcamp: https://ayamvoid.bandcamp.com/
----

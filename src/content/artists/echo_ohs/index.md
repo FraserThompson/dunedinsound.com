@@ -1,6 +1,0 @@
----
-title: Echo Ohs
-origin: Auckland
-bandcamp: https://theechoohs.bandcamp.com/
-facebook: https://www.facebook.com/theEchoOhs/
----

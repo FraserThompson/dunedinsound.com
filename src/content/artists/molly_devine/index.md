@@ -1,3 +1,0 @@
----
-title: Molly Devine
----

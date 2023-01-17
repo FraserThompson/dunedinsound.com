@@ -1,4 +1,0 @@
----
-title: The Bamboo
-origin: Oamaru
----

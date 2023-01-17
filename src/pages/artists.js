@@ -36,7 +36,7 @@ const Page = React.memo(({ data, location }) => {
     () =>
       data.gigsByArtist['group'].reduce((obj, item) => {
         const machineName = toMachineName(item.fieldValue)
-        const date = new Date(item['nodes'][0].frontmatter.date).getTime()
+        const date = new Date(item['nodes'][0].date).getTime()
 
         if (!obj[machineName]) {
           obj[machineName] = { totalCount: item.totalCount || 0, lastGig: date }
@@ -86,7 +86,7 @@ const Page = React.memo(({ data, location }) => {
     setShuffle(newShuffle)
 
     const origins = artistList.reduce((acc, node) => {
-      const origin = node.frontmatter.origin || 'Dunedin'
+      const origin = node.origin || 'Dunedin'
       if (!acc[origin]) acc[origin] = 0
       acc[origin]++
       return acc
@@ -133,7 +133,10 @@ const Page = React.memo(({ data, location }) => {
 
   const sortByNumberOfGigs = useCallback(() => {
     if (!shuffle) return
-    shuffle.sort({ reverse: true, by: (el) => gigMetadataByArtist[el.getAttribute('data-machinename')]['totalCount'] })
+    shuffle.sort({
+      reverse: true,
+      by: (el) => (gigMetadataByArtist[el.getAttribute('data-machinename')] ? gigMetadataByArtist[el.getAttribute('data-machinename')]['totalCount'] : 0),
+    })
   }, [shuffle])
 
   const sortByTitle = useCallback(() => {
@@ -184,31 +187,30 @@ const Page = React.memo(({ data, location }) => {
       </Filters>
       <ArtistGrid fixedWidth ref={element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
         {artistList.map((node) => {
-          const metadata = gigMetadataByArtist[node.fields.machine_name]
+          const metadata = gigMetadataByArtist[node.fields.fileName]
 
           if (!metadata) {
-            console.error('Fatal: Metadata missing for ' + node.fields.machine_name)
+            console.error('Fatal: Metadata missing for ' + node.fields.fileName)
           }
 
-          const title = (node.frontmatter.title || node.fields.slug) + (node.frontmatter.origin ? ` (${node.frontmatter.origin})` : '')
-          const coverImage = node.frontmatter.cover
-            ? node.frontmatter.cover
-            : imagesByArtist[node.fields.machine_name] && imagesByArtist[node.fields.machine_name][0]
+          const title = (node.title || node.fields.slug) + (node.origin ? ` (${node.origin})` : '')
+          const coverImage = imagesByArtist[node.fields.fileName] && imagesByArtist[node.fields.fileName][0]
 
           return (
             <Tile
               key={node.fields.slug}
               title={title}
-              machineName={node.fields.machine_name}
               subtitle={`${metadata ? metadata.totalCount : 0} gigs`}
               image={coverImage}
-              label={node.frontmatter.date}
+              label={node.date}
               to={node.fields.slug}
               height={artistList.length == 1 ? 'calc(100vh - ' + theme.default.headerHeight + ')' : artistList.length <= 8 ? '40vh' : '15vh'}
               dataAttributes={{
+                'data-title': title,
+                'data-machinename': node.fields.fileName,
                 'data-lastgig': metadata ? metadata.lastGig : 0,
-                'data-active': node.frontmatter.died === null,
-                'data-origin': node.frontmatter.origin || 'Dunedin',
+                'data-active': node.died === null,
+                'data-origin': node.origin || 'Dunedin',
               }}
             />
           )
@@ -218,12 +220,7 @@ const Page = React.memo(({ data, location }) => {
   )
 })
 
-export const Head = (params) => {
-  const title = `Artists | ${params.data.site.siteMetadata.title}`
-  const description = params.data.site.siteMetadata.description
-
-  return <SiteHead title={title} description={description} {...params} />
-}
+export const Head = (params) => <SiteHead title={'Artist'} {...params} />
 
 const ArtistGrid = styled(FlexGridContainer)`
   position: relative;
@@ -293,15 +290,12 @@ const HideInactive = styled.span`
 
 export const pageQuery = graphql`
   query {
-    site {
-      ...SiteInformation
-    }
-    allArtists: allMdx(sort: { frontmatter: { title: ASC } }, filter: { fields: { type: { eq: "artists" } } }) {
+    allArtists: allArtistYaml(sort: { title: ASC }) {
       nodes {
         ...ArtistFrontmatter
       }
     }
-    imagesByArtist: allFile(filter: { extension: { eq: "jpg" }, fields: { type: { eq: "gigs" } } }) {
+    imagesByArtist: allFile(filter: { sourceInstanceName: { eq: "media" }, extension: { eq: "jpg" }, fields: { mediaDir: { eq: "gig" } } }) {
       group(field: { fields: { parentDir: SELECT } }, limit: 1) {
         fieldValue
         nodes {
@@ -312,14 +306,12 @@ export const pageQuery = graphql`
         }
       }
     }
-    gigsByArtist: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } } }) {
-      group(field: { frontmatter: { artists: { name: SELECT } } }) {
+    gigsByArtist: allGigYaml(sort: { date: DESC }) {
+      group(field: { artists: { name: SELECT } }) {
         fieldValue
         totalCount
         nodes {
-          frontmatter {
-            date
-          }
+          date
         }
       }
     }

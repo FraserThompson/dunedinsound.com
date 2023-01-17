@@ -1,3 +1,0 @@
----
-title: Lawrence Arabia
----

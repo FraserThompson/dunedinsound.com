@@ -1,6 +1,0 @@
----
-title: Tuscoma
-origin: Wellington
-facebook: https://www.facebook.com/Tuscomaofficial/
-bandcamp: https://tuscoma.bandcamp.com
----

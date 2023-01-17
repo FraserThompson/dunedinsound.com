@@ -1,4 +1,0 @@
----
-title: Ayn Randy
-origin: Wellington
----

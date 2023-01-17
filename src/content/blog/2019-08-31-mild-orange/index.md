@@ -11,7 +11,7 @@ cover: ./cover.jpg
 
 Mild Orange shuffled onto the Dunedin scene in early 2017 with a sultry mix of soft indie-rock and a splash of Mockasin creaminess. And then [an Ukrainian YouTube music influencer shared their first self-produced single, Some Feeling](https://www.youtube.com/watch?v=6I44IYGyB_4), and almost overnight their popularity exploded. Now that single has over 12 million plays.
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/1hrUaOrIQR4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/1hrUaOrIQR4" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullscreen></iframe>
 
 _Listen to Mild Orange's first album, Foreplay._
 
@@ -83,10 +83,10 @@ Been loving Harvest Moon by Neil Young, also actually been listening to a bit of
 
 Well I'd have to recommend my brother... And Heavy Chest? They open for us in Christchurch and Wellington and Auckland, they’re absolutely awesome. I'd also recommend, of course love the Marlin's Dreaming boys. I'm loving Aldous Harding. Actually another New Zealand one I'd recommend, recently there was a collaboration between Hollie Smith and Teeks, I think it’s called Whakaaria Mai?
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/I-xA0htYEn4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/I-xA0htYEn4" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullscreen></iframe>
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/HW4cpb847IU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/HW4cpb847IU" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullscreen></iframe>
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/RO_v5lPP4N0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/RO_v5lPP4N0" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullscreen></iframe>
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/sqoG-znXf7I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/sqoG-znXf7I" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullscreen></iframe>

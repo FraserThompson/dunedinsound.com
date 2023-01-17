@@ -14,8 +14,8 @@ const Page = React.memo(({ data }) => {
   }
 
   const position = {
-    latitude: data.thisPost.frontmatter.lat,
-    longitude: data.thisPost.frontmatter.lng,
+    latitude: data.thisPost.lat,
+    longitude: data.thisPost.lng,
     zoom: 18,
   }
 
@@ -28,13 +28,8 @@ const Page = React.memo(({ data }) => {
         mapStyle="mapbox://styles/mapbox/dark-v11"
         interactive={false}
       >
-        <Marker
-          longitude={position.longitude}
-          latitude={position.latitude}
-          color={data.thisPost.frontmatter.died === null ? '#367e80' : 'white'}
-          anchor="bottom"
-        >
-          {data.thisPost.frontmatter.died !== null ? deadIcon : null}
+        <Marker longitude={position.longitude} latitude={position.latitude} color={data.thisPost.died === null ? '#367e80' : 'white'} anchor="bottom">
+          {data.thisPost.died !== null ? deadIcon : null}
         </Marker>
       </Map>
     </MapWrapper>
@@ -45,12 +40,11 @@ const Page = React.memo(({ data }) => {
 
 export const Head = (params) => {
   const cover = params.data.images && params.data.images.nodes.length !== 0 && params.data.images.nodes[0]
-  const title = `${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
 
   return (
     <SiteHead
-      title={title}
-      description={`See photos, videos and audio recordings of live gigs at ${params.data.thisPost.frontmatter.title} and heaps of other local venues.`}
+      title={params.data.thisPost.title}
+      description={`See photos, videos and audio recordings of live gigs at ${params.data.thisPost.title} and heaps of other local venues.`}
       cover={cover}
       {...params}
     />
@@ -58,11 +52,8 @@ export const Head = (params) => {
 }
 
 export const pageQuery = graphql`
-  query VenuesBySlug($slug: String!, $machine_name: String!, $title: String!) {
-    site {
-      ...SiteInformation
-    }
-    thisPost: mdx(fields: { slug: { eq: $slug } }) {
+  query Venue($slug: String!, $fileName: String!, $title: String!) {
+    thisPost: venueYaml(fields: { slug: { eq: $slug } }) {
       ...VenueFrontmatter
     }
     blogs: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } }, frontmatter: { tags: { eq: $title } } }) {
@@ -70,7 +61,7 @@ export const pageQuery = graphql`
         ...BlogFrontmatter
       }
     }
-    gigs: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } }, frontmatter: { venue: { eq: $machine_name } } }) {
+    gigs: allGigYaml(sort: { date: DESC }, filter: { venue: { eq: $fileName } }) {
       group(field: { fields: { year: SELECT } }) {
         fieldValue
         nodes {

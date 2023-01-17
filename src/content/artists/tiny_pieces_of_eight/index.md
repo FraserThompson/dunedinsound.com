@@ -1,4 +1,0 @@
----
-title: Tiny Pieces of Eight
-facebook: https://www.facebook.com/tinypiecesof8/
----

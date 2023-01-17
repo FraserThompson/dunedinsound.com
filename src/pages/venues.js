@@ -2,6 +2,7 @@ import React, { useState, useCallback, useMemo, useEffect, Fragment } from 'reac
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { graphqlGroupToObject } from '../utils/helper'
 import styled from '@emotion/styled'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import SidebarNav from '../components/SidebarNav'
@@ -36,9 +37,9 @@ const Sidebar = ({ menuItems, menuItemClick, setRef, selected }) => {
         {menuItems.map((node, index) => (
           <li key={index} ref={setRef} className={index === selected ? 'active' : ''}>
             <a onClick={() => click(index)}>
-              {node.frontmatter.title}
+              {node.title}
               <div style={{ position: 'absolute', right: '0px', top: '0px' }}>
-                <ActiveIndicator died={node.frontmatter.died} hideText={true} />
+                <ActiveIndicator died={node.died} hideText={true} />
               </div>
             </a>
           </li>
@@ -75,22 +76,24 @@ const Page = React.memo(({ data, location }) => {
     []
   )
 
+  const covers = useMemo(() => graphqlGroupToObject(data.covers.group))
+
   const markers = useMemo(
     () =>
       filteredPosts.map((node, index) => {
         return (
           <Marker
-            key={node.frontmatter.title}
-            latitude={node.frontmatter.lat}
-            longitude={node.frontmatter.lng}
-            color={node.frontmatter.died == null ? '#367e80' : 'white'}
+            key={node.title}
+            latitude={node.lat}
+            longitude={node.lng}
+            color={node.died == null ? '#367e80' : 'white'}
             anchor="bottom"
             onClick={(e) => {
               e.originalEvent.stopPropagation()
               markerClick(index)
             }}
           >
-            {node.frontmatter.died !== null ? deadIcon : null}
+            {node.died !== null ? deadIcon : null}
           </Marker>
         )
       }),
@@ -99,9 +102,7 @@ const Page = React.memo(({ data, location }) => {
 
   // Hide inactive venues when they toggle it
   useEffect(() => {
-    const filteredPosts = data.allVenues.nodes.filter(
-      (node) => (!hideActive && node.frontmatter.died === null) || (!hideInactive && node.frontmatter.died !== null)
-    )
+    const filteredPosts = data.allVenues.nodes.filter((node) => (!hideActive && node.died === null) || (!hideInactive && node.died !== null))
     setFilteredPosts(filteredPosts)
   }, [hideInactive, hideActive])
 
@@ -114,7 +115,7 @@ const Page = React.memo(({ data, location }) => {
     (index) => {
       setSelectedIndex(index)
       const selectedNode = filteredPosts[index]
-      mapRef.current.panTo({ lat: selectedNode.frontmatter.lat, lng: selectedNode.frontmatter.lng })
+      mapRef.current.panTo({ lat: selectedNode.lat, lng: selectedNode.lng })
     },
     [mapRef]
   )
@@ -138,7 +139,7 @@ const Page = React.memo(({ data, location }) => {
         const filteredPosts = data.allVenues.nodes
         setFilteredPosts(filteredPosts)
       } else {
-        const filteredPosts = data.allVenues.nodes.filter((node) => node.frontmatter.title.toLowerCase().includes(searchInput))
+        const filteredPosts = data.allVenues.nodes.filter((node) => node.title.toLowerCase().includes(searchInput))
         setFilteredPosts(filteredPosts)
       }
     },
@@ -153,7 +154,7 @@ const Page = React.memo(({ data, location }) => {
     },
     [listRefs]
   )
-
+  console.log(selected)
   return (
     <Layout
       location={location}
@@ -183,51 +184,52 @@ const Page = React.memo(({ data, location }) => {
         >
           {markers}
           {selected !== null && (
-            <Popup anchor="bottom" offset={[0, -40]} latitude={selected.frontmatter.lat} longitude={selected.frontmatter.lng} onClose={() => markerClose()}>
-              <h3 style={{ marginBottom: '0' }}>{selected.frontmatter.title}</h3>
+            <Popup anchor="bottom" offset={[0, -40]} latitude={selected.lat} longitude={selected.lng} onClose={() => markerClose()}>
+              <h3 style={{ marginBottom: '0' }}>{selected.title}</h3>
               <p style={{ marginTop: '0', marginBottom: '10px' }}>
-                <ActiveIndicator died={selected.frontmatter.died} />
+                <ActiveIndicator died={selected.died} />
               </p>
               <HorizontalNav lineHeight="1" style={{ marginBottom: '10px' }}>
-                {selected.frontmatter.facebook && (
+                {selected.facebook && (
                   <li>
-                    <a href={selected.frontmatter.facebook}>Facebook</a>
+                    <a href={selected.facebook}>Facebook</a>
                   </li>
                 )}
-                {selected.frontmatter.instagram && (
+                {selected.instagram && (
                   <li>
-                    <a href={selected.frontmatter.instagram}>Instagram</a>
+                    <a href={selected.instagram}>Instagram</a>
                   </li>
                 )}
-                {selected.frontmatter.spotify && (
+                {selected.spotify && (
                   <li>
-                    <a href={selected.frontmatter.instagram}>Spotify</a>
+                    <a href={selected.instagram}>Spotify</a>
                   </li>
                 )}
-                {selected.frontmatter.bandcamp && (
+                {selected.bandcamp && (
                   <li>
-                    <a href={selected.frontmatter.bandcamp}>Bandcamp</a>
+                    <a href={selected.bandcamp}>Bandcamp</a>
                   </li>
                 )}
-                {selected.frontmatter.soundcloud && (
+                {selected.soundcloud && (
                   <li>
-                    <a href={selected.frontmatter.soundcloud}>Soundcloud</a>
+                    <a href={selected.soundcloud}>Soundcloud</a>
                   </li>
                 )}
-                {selected.frontmatter.Website && (
+                {selected.Website && (
                   <li>
-                    <a href={selected.frontmatter.Website}>Website</a>
+                    <a href={selected.Website}>Website</a>
                   </li>
                 )}
               </HorizontalNav>
-              {selected.frontmatter.description && <p dangerouslySetInnerHTML={{ __html: selected.frontmatter.description }}></p>}
+              {selected.description && <p dangerouslySetInnerHTML={{ __html: selected.description }}></p>}
               <VenueGigsTile>
                 <Link to={selected.fields.slug}>
-                  {selected.frontmatter.cover && <GatsbyImage image={getImage(selected.frontmatter.cover)} alt="" />}
-                  {!selected.frontmatter.cover && (
-                    <div className="placeholder-image" style={{ backgroundImage: 'url(' + data.placeholder.publicURL + ')' }}></div>
+                  {covers[selected.fields.fileName] ? (
+                    <GatsbyImage image={getImage(covers[selected.fields.fileName][0].childImageSharp)} alt="" />
+                  ) : (
+                    <div className="placeholder-image"></div>
                   )}
-                  <span>View {gigCount[selected.fields.machine_name]} gigs at this venue</span>
+                  <span>View {gigCount[selected.fields.fileName]} gigs at this venue</span>
                 </Link>
               </VenueGigsTile>
             </Popup>
@@ -251,6 +253,7 @@ const VenueGigsTile = styled.h4`
   width: 230px;
 
   .placeholder-image {
+    background-color: black;
     width: 100%;
     height: 200px;
   }
@@ -294,31 +297,28 @@ const HideFilters = styled.div`
   }
 `
 
-export const Head = (params) => {
-  const title = `Venues | ${params.data.site.siteMetadata.title}`
-  const description = params.data.site.siteMetadata.description
-
-  return <SiteHead title={title} description={description} {...params} />
-}
+export const Head = (params) => <SiteHead title={'Venues'} {...params} />
 
 export const pageQuery = graphql`
   query {
-    site {
-      ...SiteInformation
-    }
-    allVenues: allMdx(sort: { frontmatter: { title: ASC } }, filter: { fields: { type: { eq: "venues" } } }) {
+    allVenues: allVenueYaml(sort: { title: ASC }) {
       nodes {
         ...VenueFrontmatter
       }
     }
-    gigCountByVenue: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } } }) {
-      group(field: { frontmatter: { venue: SELECT } }) {
+    covers: allFile(filter: { sourceInstanceName: { eq: "media" }, fields: { mediaDir: { eq: "venue" } }, name: { eq: "cover" } }) {
+      group(field: { fields: { parentDir: SELECT } }) {
+        fieldValue
+        nodes {
+          ...SmallImage
+        }
+      }
+    }
+    gigCountByVenue: allGigYaml(sort: { date: DESC }) {
+      group(field: { venue: SELECT }) {
         fieldValue
         totalCount
       }
-    }
-    placeholder: file(name: { eq: "venue-placeholder-cat" }) {
-      publicURL
     }
   }
 `

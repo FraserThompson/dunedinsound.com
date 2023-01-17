@@ -1,3 +1,0 @@
----
-title: Pearl Street
----

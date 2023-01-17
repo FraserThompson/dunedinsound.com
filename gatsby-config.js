@@ -9,57 +9,27 @@ module.exports = {
     siteUrl: 'https://dunedinsound.com',
   },
   pathPrefix: '/',
-  flags: {
-    DEV_SSR: true,
-    PRESERVE_WEBPACK_CACHE: true,
-    PRESERVE_FILE_DOWNLOAD_CACHE: true,
-  },
   plugins: [
+    `gatsby-transformer-yaml`,
     'gatsby-plugin-image',
+    'gatsby-plugin-no-sourcemaps',
     {
-      resolve: `gatsby-source-filesystem-with-queue`,
+      resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/src/content/gigs`,
-        name: 'gigs',
+        path: `${__dirname}/src/content`,
+        name: 'content',
       },
     },
     {
-      resolve: `gatsby-source-filesystem-with-queue`,
+      resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/src/content/blog`,
-        name: 'blog',
+        path: `${__dirname}/src/media`,
+        name: 'media',
+        fastHash: true,
       },
     },
     {
-      resolve: `gatsby-source-filesystem-with-queue`,
-      options: {
-        path: `${__dirname}/src/content/artists`,
-        name: 'artists',
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem-with-queue`,
-      options: {
-        path: `${__dirname}/src/content/venues`,
-        name: 'venues',
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem-with-queue`,
-      options: {
-        path: `${__dirname}/src/content/page`,
-        name: 'page',
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem-with-queue`,
-      options: {
-        path: `${__dirname}/src/content/vaultsessions`,
-        name: 'vaultsessions',
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem-with-queue`,
+      resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/src/assets`,
         name: 'assets',

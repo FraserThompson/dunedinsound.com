@@ -92,18 +92,10 @@ const PostsContainer = styled(BlogContainer)`
   max-width: ${(props) => props.theme.contentContainerWidth};
   margin: 0 auto;
 `
-export const Head = (params) => {
-  const title = `Blog | ${params.data.site.siteMetadata.title}`
-  const description = params.data.site.siteMetadata.description
-
-  return <SiteHead title={title} description={description} {...params} />
-}
+export const Head = (params) => <SiteHead title={'Blog'} {...params} />
 
 export const pageQuery = graphql`
   query {
-    site {
-      ...SiteInformation
-    }
     allBlogs: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
       nodes {
         ...BlogFrontmatter

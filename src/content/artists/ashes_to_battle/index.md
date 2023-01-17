@@ -1,3 +1,0 @@
----
-title: Ashes To Battle
----

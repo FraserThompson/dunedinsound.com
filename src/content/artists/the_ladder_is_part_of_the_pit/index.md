@@ -1,5 +1,0 @@
----
-title: The Ladder is Part of the Pit
-facebook: https://www.facebook.com/The-ladder-is-part-of-the-pit-190081514429372/
-bandcamp: https://theladderispartofthepit1.bandcamp.com/
----

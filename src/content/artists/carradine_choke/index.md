@@ -1,5 +1,0 @@
----
-title: Carradine Choke
-origin: Christchurch
-facebook: https://www.facebook.com/carradinechoke/
----

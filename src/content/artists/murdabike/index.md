@@ -1,4 +1,0 @@
----
-title: Murdabike
-facebook: https://www.facebook.com/Murdabike-817649521619771
----

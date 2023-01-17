@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getSrcSet } from 'gatsby-plugin-image'
-import Lightbox from 'react-image-lightbox'
+import Lightbox from 'react-18-image-lightbox'
 import { FaDownload } from 'react-icons/fa'
 import { scrollTo } from '../../utils/helper'
 import styled from '@emotion/styled'

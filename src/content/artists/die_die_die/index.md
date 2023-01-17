@@ -1,6 +1,0 @@
----
-title: Die! Die! Die!
-origin: Auckland
-facebook: https://www.facebook.com/diediedieband/
-bandcamp: https://diediedie.bandcamp.com/
----

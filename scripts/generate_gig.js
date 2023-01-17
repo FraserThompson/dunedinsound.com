@@ -33,34 +33,26 @@ const machine_name = (string, space_character) => {
     .replace(/[$]/g, 'z')
 }
 
-const create_artist_page = artist => {
-  const artistTemplate = `---
-title: ${artist}
----
-`
+const create_artist_page = (artist) => {
+  const artistTemplate = `title: ${artist}`
 
-  const artistDir = `./src/content/artists/${machine_name(artist)}`
+  const artistFile = `./src/content/artist/${machine_name(artist)}.yml`
 
-  if (!fs.existsSync(artistDir)) {
-    fs.ensureDirSync(artistDir)
-    fs.writeFileSync(`${artistDir}/index.md`, artistTemplate)
+  if (!fs.existsSync(artistFile)) {
+    fs.writeFileSync(artistFile, artistTemplate)
     console.log('Created artist page for ' + artist)
   } else {
     console.log('Artist page already exists for ' + artist)
   }
 }
 
-const create_venue_page = venue => {
-  const venueTemplate = `---
-title: ${venue}
----
-`
+const create_venue_page = (venue) => {
+  const venueTemplate = `title: ${venue}`
 
-  const venueDir = `./src/content/venues/${machine_name(venue)}`
-  if (!fs.existsSync(venueDir)) {
-    fs.ensureDirSync(venueDir)
-    fs.writeFileSync(`${venueDir}/index.md`, venueTemplate)
-    console.log('Created venu page for ' + venue + '. You need to manually add co-ordinates, Fraser.')
+  const venueFile = `./src/content/venue/${machine_name(venue)}.yml`
+  if (!fs.existsSync(venueFile)) {
+    fs.writeFileSync(venueFile, venueTemplate)
+    console.log('Created venue page for ' + venue + '. You need to manually add co-ordinates, Fraser.')
   } else {
     console.log('Venue page already exists for ' + venue)
   }
@@ -73,8 +65,7 @@ title: ${venue}
 const create_gig_yaml = (date, gig, venue, artists) => {
   const yamlDate = date + ' 08:30:00 Z'
 
-  const gigTemplate = `---
-title: "${gig}"
+  const gigTemplate = `title: "${gig}"
 date: ${yamlDate}
 venue: ${machine_name(venue)}
 artists:
@@ -87,20 +78,20 @@ artists:
   `.trim()
     )
     .join('\n  ')}
-cover: ./cover.jpg
----
 `
 
-  const gigPath = `./src/content/gigs/${date}-${machine_name(gig, '-')}`
-  fs.ensureDirSync(gigPath)
+  const gigName = `${date}-${machine_name(gig, '-')}`
+  const gigFile = `./src/content/gig/${gigName}.yml`
+  const gigMediaDir = `./src/media/gig/${gigName}`
+  fs.ensureDirSync(gigMediaDir)
 
-  artists.forEach(artist => {
-    const gigArtistDir = `${gigPath}/${machine_name(artist)}`
-    fs.ensureDirSync(gigArtistDir)
+  artists.forEach((artist) => {
+    const artistMediaDir = `${gigMediaDir}/${machine_name(artist)}`
+    fs.ensureDirSync(artistMediaDir)
     create_artist_page(artist)
   })
 
-  fs.writeFileSync(`${gigPath}/index.md`, gigTemplate)
+  fs.writeFileSync(gigFile, gigTemplate)
   console.log('Created directory structure and YAML for ' + gig + ' at ' + venue)
 
   create_venue_page(venue)
@@ -113,18 +104,18 @@ const main = () => {
   console.log('Hello Fraser! Let me help you with that.')
   console.log('------------- GIG METADATA -------------')
 
-  prompts.question('Date (default: ' + default_date + '):', date => {
+  prompts.question('Date (default: ' + default_date + '):', (date) => {
     if (!date) date = default_date
 
-    prompts.question('Title: ', gig => {
+    prompts.question('Title: ', (gig) => {
       if (!gig) console.log("You didn't enter anything...")
 
-      prompts.question('Venue: ', venue => {
+      prompts.question('Venue: ', (venue) => {
         if (!venue) console.log("You didn't enter anything...")
 
-        prompts.question('Artists (comma separated): ', artists => {
+        prompts.question('Artists (comma separated): ', (artists) => {
           artists = artists.split(',')
-          const trimmed_artists = artists.map(s => s.trim())
+          const trimmed_artists = artists.map((s) => s.trim())
           create_gig_yaml(date, gig, venue, trimmed_artists)
           process.exit()
         })

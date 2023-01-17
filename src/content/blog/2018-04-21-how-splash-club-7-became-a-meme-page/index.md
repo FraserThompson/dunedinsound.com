@@ -19,7 +19,7 @@ Fast forward to 2018 and SPLASH CLUB 7 has hundreds of thousands of fans from al
 I somehow convinced the elusive Jamie Dickson into an interview to try explain this post-internet tragedy.
 
 <div className="youtubeEmbed">
-  <iframe src="https://www.youtube.com/embed/3gGA3GC31lE/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameborder="0" allowfullscreen="yes"></iframe>
+  <iframe src="https://www.youtube.com/embed/3gGA3GC31lE/?autoplay=0&amp;autohide=1&amp;vq=hd720&amp;start=" frameBorder="0" allowFullscreen="yes"></iframe>
 </div>
 
 “I originally had a music page for SPLASH CLUB 7 and I got about 2,000 likes somehow” he begins. He’s referring to a Facebook “page” which is a profile made to represent a non-person entity that fans can “like” to receive updates.

@@ -1,8 +1,0 @@
----
-title: U-Bar
-lat: -45.86609222466022
-lng: 170.5126266782119
-facebook: 'https://www.facebook.com/refueldn/'
-description: 'The student bar located on Otago University campus. Ages ago it was called Fuel, then ReFuel until 2018 when it was renamed to U-Bar.'
-cover: ./cover.jpg
----

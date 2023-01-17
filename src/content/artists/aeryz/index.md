@@ -1,4 +1,0 @@
----
-title: Aeryz
-origin: Christchurch
----

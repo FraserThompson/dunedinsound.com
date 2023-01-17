@@ -48,7 +48,7 @@ const Page = React.memo(({ data, pageContext, children }) => {
             )}
           </TextContainer>
         </BlogWrapper>
-        {post.frontmatter.gallery && <ImageGallery images={data.images['nodes']} title={post.frontmatter.title} />}
+        {post.frontmatter.gallery && data.images && <ImageGallery images={data.images['nodes']} title={post.frontmatter.title} />}
         {(!!data.artist_gigs.nodes.length || !!data.specific_gigs.nodes.length) && <h2 style={{ marginBottom: '0' }}>Related Gigs</h2>}
         <FlexGridContainer>
           {[...data.artist_gigs.nodes, ...data.specific_gigs.nodes].map((node) => (
@@ -79,10 +79,11 @@ const Page = React.memo(({ data, pageContext, children }) => {
 
 export const Head = (params) => {
   const cover = params.data.thisPost.frontmatter.cover
-  const title = `${params.data.thisPost.frontmatter.title} | ${params.data.site.siteMetadata.title}`
-  const description = params.data.thisPost.excerpt ? params.data.thisPost.excerpt : params.data.site.siteMetadata.description
+  const description = params.data.thisPost.excerpt
 
-  return <SiteHead title={title} description={description} date={params.data.thisPost.frontmatter.date} cover={cover} {...params} />
+  return (
+    <SiteHead title={params.data.thisPost.frontmatter.title} description={description} date={params.data.thisPost.frontmatter.date} cover={cover} {...params} />
+  )
 }
 
 const BlogPostNav = styled.ul`
@@ -120,57 +121,33 @@ const BlogTitle = styled.h1`
 `
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!, $parentDir: String!, $tags: [String], $related_gigs: [String]) {
-    site {
-      ...SiteInformation
-    }
+  query BlogPostBySlug($slug: String!, $parentDir: String!, $tags: [String], $related_gigs: [String], $isGallery: Boolean!) {
     thisPost: mdx(fields: { slug: { eq: $slug } }) {
       ...BlogFrontmatter
     }
-    specific_gigs: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "gigs" } }, frontmatter: { title: { in: $related_gigs } } }) {
+    specific_gigs: allGigYaml(sort: { date: DESC }, filter: { title: { in: $related_gigs } }) {
       nodes {
         ...GigTileFrontmatter
       }
     }
-    artist_gigs: allMdx(
-      limit: 3
-      sort: { frontmatter: { date: DESC } }
-      filter: { fields: { type: { eq: "gigs" } }, frontmatter: { artists: { elemMatch: { name: { in: $tags } } } } }
-    ) {
+    artist_gigs: allGigYaml(limit: 3, sort: { date: DESC }, filter: { artists: { elemMatch: { name: { in: $tags } } } }) {
       nodes {
         ...GigTileFrontmatter
       }
     }
-    artist_pages: allMdx(filter: { fields: { type: { eq: "artists" } }, frontmatter: { title: { in: $tags } } }) {
+    artist_pages: allArtistYaml(filter: { title: { in: $tags } }) {
       nodes {
-        fields {
-          machine_name
-          slug
-        }
-        frontmatter {
-          title
-          bandcamp
-          facebook
-          soundcloud
-          instagram
-          spotify
-          origin
-          website
-        }
+        ...ArtistFrontmatter
       }
     }
-    venue_pages: allMdx(filter: { fields: { type: { eq: "venues" } }, frontmatter: { title: { in: $tags } } }) {
+    venue_pages: allVenueYaml(filter: { title: { in: $tags } }) {
       nodes {
-        fields {
-          machine_name
-          slug
-        }
-        frontmatter {
-          title
-        }
+        ...VenueFrontmatter
       }
     }
-    images: allFile(filter: { extension: { in: ["jpg", "JPG"] }, fields: { parentDir: { eq: $parentDir } } }) {
+    images: allFile(
+      filter: { sourceInstanceName: { eq: "media" }, extension: { in: ["jpg", "JPG"] }, fields: { mediaDir: { eq: "blog" }, parentDir: { eq: $parentDir } } }
+    ) @include(if: $isGallery) {
       nodes {
         name
         publicURL

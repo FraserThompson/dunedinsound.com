@@ -1,4 +1,0 @@
----
-title: Iskse_
-origin: Auckland
----

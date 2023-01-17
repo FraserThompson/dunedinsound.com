@@ -47,5 +47,5 @@ Within the arts communities I live in, there's been a really diverse response. T
 
 The artist who operates as L$D Fundraiser is in court later this week. He was not approached for comment.
 
-<iframe src="https://player.vimeo.com/video/223014965" width="100%" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<iframe src="https://player.vimeo.com/video/223014965" width="100%" height="480" frameBorder="0" webkitallowFullscreen mozallowFullscreen allowFullscreen></iframe>
 <p><a href="https://vimeo.com/223014965">L$D Fundraiser live at None Gallery</a> from <a href="https://vimeo.com/user4052181">Campbell Walker</a> on <a href="https://vimeo.com">Vimeo</a>.</p>

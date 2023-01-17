@@ -112,9 +112,6 @@ const PlayerWrapper = styled.div`
     pointer-events: ${(props) => (!props.minimized || props.open ? 'auto' : 'none')};
     visibility: ${(props) => (!props.minimized || props.open ? '1' : '0')};
     opacity: ${(props) => (!props.minimized || props.open ? '1' : '0')};
-    transition: all 150ms ease-in-out;
-    border: 3px groove #585662;
-    background: linear-gradient(to left, #1a1927 0%, #353551 53%, #21212d 100%);
   }
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
