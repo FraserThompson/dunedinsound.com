@@ -16,7 +16,7 @@ export const theme = {
     foregroundColor: '#3f92f7', // lightblue
     secondaryColor: '#367e80', // teal
     contrastColor: '#FAF9F9', // ice white
-    contrastColor2: '#ABEBD2', // mint
+    contrastColor2: '#622196', // purple
     textColor: '#ccc',
     contentContainerWidth: '740px',
     defaultBannerHeight: '70vh',

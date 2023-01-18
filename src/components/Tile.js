@@ -181,6 +181,7 @@ const TitleWrapper = styled.div`
       margin-bottom: ${rhythm(0.5)};
       color: #ccc;
       font-size: ${(props) => (props.feature ? rhythm(2) : '1.2em')};
+      text-shadow: 1px 1px 1px black;
     }
 
     .subtitle {
@@ -188,6 +189,7 @@ const TitleWrapper = styled.div`
       margin-top: auto;
       line-height: 0.9;
       color: ${() => darken(0.2, '#ccc')};
+      text-shadow: 1px 1px 1px black;
     }
 
     .prefix {
@@ -197,6 +199,7 @@ const TitleWrapper = styled.div`
 
     .label {
       color: ${() => darken(0.2, '#ccc')};
+      text-shadow: 1px 1px 1px black;
     }
 
     @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {

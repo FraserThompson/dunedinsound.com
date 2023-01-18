@@ -56,7 +56,7 @@ const Page = ({ data, location }) => {
 const BlogPageContainer = styled.div`
   display: flex;
   a {
-    color: ${(props) => invert(props.theme.contrastColor2)};
+    color: ${(props) => props.theme.contrastColor2};
   }
 `
 

@@ -75,11 +75,8 @@ const BannerContent = styled.div`
     }
   }
 
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-    padding: ${rhythm(1)};
-    padding-top: 4.5em;
-    width: ${(props) => props.theme.contentContainerWidth};
-    height: auto;
+  > div {
+    box-shadow: 0 -2px 12px rgb(0 0 0 / 60%);
   }
 
   h1 {
@@ -94,6 +91,13 @@ const BannerContent = styled.div`
   .center-content {
     margin-bottom: auto;
     position: relative;
+  }
+
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    padding: ${rhythm(1)};
+    padding-top: 4.5em;
+    width: ${(props) => props.theme.contentContainerWidth};
+    height: auto;
   }
 `
 

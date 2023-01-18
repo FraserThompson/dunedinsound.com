@@ -36,7 +36,7 @@ exports.createPages = async ({ graphql, actions }) => {
             }
           }
         }
-        allGigs: allGigYaml {
+        allGigs: allGigYaml(sort: { date: DESC }) {
           nodes {
             title
             venue
@@ -238,8 +238,11 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
     const nodeType = node.internal.type.split('Yaml')[0].toLowerCase()
 
-    const nodeTitle = nodeType === 'gig' ? toMachineName(node.title, '-') : toMachineName(node.title, '_') // to preserve URLs from old site
-    const nodeSlug = '/' + nodeType + '/' + nodeTitle
+    // To preserve URLs from old site
+    const nodeTitle = nodeType === 'gig' ? toMachineName(node.title, '-') : toMachineName(node.title, '_')
+    const slugType = nodeType + 's'
+
+    const nodeSlug = '/' + slugType + '/' + nodeTitle
 
     createNodeField({
       name: `slug`,

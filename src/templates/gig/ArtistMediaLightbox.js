@@ -13,6 +13,9 @@ export default React.memo(({ gigTitle, artistMedia, history }) => {
   const [directLinked, setDirectLinked] = useState(false)
 
   useEffect(() => {
+    if (history.location.hash) {
+      scrollTo(null, decodeURIComponent(history.location.hash.substring(1)))
+    }
     handleURLChange(history.location)
     const unlisten = history.listen((location) => handleURLChange(location.location))
     return () => unlisten()
@@ -26,26 +29,25 @@ export default React.memo(({ gigTitle, artistMedia, history }) => {
     const directLinked = !location.state && location.search && location.hash
     if (directLinked) setDirectLinked(true)
 
-    if (directLinked || (location.state && location.state.lightboxOpen && location.hash)) {
-      setLightboxOpen(true)
-
-      const newSelectedArtistId = location.hash.substring(1)
+    if (directLinked || (location.state?.lightboxOpen && location.hash && location.search)) {
+      const newSelectedArtistId = decodeURIComponent(location.hash.substring(1))
       const newSelectedArtist = artistMedia.find((artist) => artist.machineName == newSelectedArtistId)
 
-      if (!selectedArtist || newSelectedArtistId != selectedArtist.machineName) {
-        setSelectedArtist(newSelectedArtist)
-      }
+      setSelectedArtist(newSelectedArtist)
 
-      if (location.search) {
+      // Only open the lightbox if we validated its a real artist
+      if (location.search && newSelectedArtist) {
         const searchParams = new URLSearchParams(location.search)
         const newSelectedImage = parseInt(searchParams.get('image'))
         setSelectedImage(newSelectedImage)
+        setLightboxOpen(true)
       }
     } else {
       setLightboxOpen(false)
     }
   }
 
+  // If someone is already on the site we can use the back button, otherwise it'd send them to where they came from
   const closeLightbox = () => (!directLinked ? history.back() : history.replace({ hash: '#' + selectedArtist.machineName, search: '' }))
 
   // Goes to the image by updating the URL
