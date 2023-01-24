@@ -15,6 +15,7 @@ export default styled.ul`
     line-height: ${(props) => props.lineHeight || '40px'};
     margin: 0;
     padding-right: ${rhythm(0.5)};
+    filter: drop-shadow(2px 2px 10px black);
 
     button,
     .button {

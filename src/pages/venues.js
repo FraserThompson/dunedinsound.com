@@ -117,7 +117,7 @@ const Page = React.memo(({ data, location }) => {
       const selectedNode = filteredPosts[index]
       mapRef.current.panTo({ lat: selectedNode.lat, lng: selectedNode.lng })
     },
-    [mapRef]
+    [mapRef, filteredPosts]
   )
 
   const markerClick = useCallback(
@@ -154,7 +154,7 @@ const Page = React.memo(({ data, location }) => {
     },
     [listRefs]
   )
-  console.log(selected)
+
   return (
     <Layout
       location={location}

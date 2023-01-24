@@ -28,7 +28,7 @@ const ShareButtonWrapper = styled.button`
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   border-color: transparent;
-  box-shadow: 0 -2px 12px rgb(0 0 0 / 60%);
+  filter: drop-shadow(2px 2px 10px black);
   background-color: ${(props) => props.theme.contrastColor2};
   transition: filter 150ms ease-in-out;
 

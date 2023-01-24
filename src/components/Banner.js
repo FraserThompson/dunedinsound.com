@@ -75,10 +75,6 @@ const BannerContent = styled.div`
     }
   }
 
-  > div {
-    box-shadow: 0 -2px 12px rgb(0 0 0 / 60%);
-  }
-
   h1 {
     color: ${(props) => props.theme.contrastColor};
   }
@@ -102,7 +98,7 @@ const BannerContent = styled.div`
 `
 
 const Title = styled.div`
-  filter: drop-shadow(1px 1px 5px black);
+  filter: drop-shadow(2px 2px 10px black);
   background: ${(props) => 'linear-gradient(90deg, black,' + props.theme.foregroundColor + ')'};
   border: 2px inset;
   padding: 5px;

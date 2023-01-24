@@ -109,6 +109,7 @@ const PlayerWrapper = styled.div`
   }
 
   .player {
+    filter: drop-shadow(2px 2px 10px black);
     pointer-events: ${(props) => (!props.minimized || props.open ? 'auto' : 'none')};
     visibility: ${(props) => (!props.minimized || props.open ? '1' : '0')};
     opacity: ${(props) => (!props.minimized || props.open ? '1' : '0')};
