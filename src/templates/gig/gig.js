@@ -15,6 +15,7 @@ import BackButton from '../../components/BackButton'
 import BackToTop from '../../components/BackToTop'
 import ImageGallery from '../../components/ImageGallery'
 import { SiteHead } from '../../components/SiteHead'
+import Divider from '../../components/Divider'
 
 const Page = React.memo(({ data, pageContext }) => {
   const [artistMedia, setArtistMedia] = useState([])
@@ -146,7 +147,15 @@ const Page = React.memo(({ data, pageContext }) => {
         )}
         <PlayerContainer artistAudio={artistAudio} />
       </Banner>
-      {uncategorizedImages && <ImageGallery images={uncategorizedImages} masonry={true} title={gigTitle} />}
+      {(uncategorizedImages.length || data.thisPost.intro) && <Divider sticky={'header'} backgroundColor={'black'} />}
+      {data.thisPost.intro && (
+        <BigIntroWrapper>
+          <BigIntro>
+            <h2 dangerouslySetInnerHTML={{ __html: data.thisPost.intro }} />
+          </BigIntro>
+        </BigIntroWrapper>
+      )}
+      {!!uncategorizedImages.length && <ImageGallery images={uncategorizedImages} masonry={true} title={gigTitle} />}
       {!data.thisPost.audioOnly && <ArtistMedia artistMedia={artistMedia} gigTitle={gigTitle} />}
       <BackToTop />
     </Layout>
@@ -166,6 +175,25 @@ const HeaderTitle = styled.a`
 
 const FeatureVidWrapper = styled.div`
   padding-bottom: ${rhythm(1)};
+`
+
+const BigIntroWrapper = styled.div`
+  background-color: black;
+`
+
+const BigIntro = styled.div`
+  text-align: center;
+  max-width: ${(props) => props.theme.contentContainerWidth};
+  margin: 0 auto;
+  padding: ${rhythm(1)};
+
+  > h2 {
+    font-size: ${rhythm(1.2)};
+    @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+      font-size: ${rhythm(1.5)};
+    }
+    font-family: monospace;
+  }
 `
 
 export const Head = (params) => {
@@ -232,9 +260,7 @@ export const pageQuery = graphql`
           title
           bandcamp
           facebook
-          soundcloud
-          origin
-          website
+          instagram
         }
       }
     }

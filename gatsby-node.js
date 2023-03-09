@@ -312,6 +312,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       venue: String!
       artists: [GigArtist!]
       description: String
+      intro: String
       feature_vid: String
       audioOnly: Boolean
     }

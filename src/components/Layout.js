@@ -182,6 +182,7 @@ export const query = graphql`
     venue
     feature_vid
     description
+    intro
     audioOnly
     artists {
       name

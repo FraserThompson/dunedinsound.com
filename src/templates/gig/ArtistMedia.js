@@ -9,10 +9,33 @@ import LoadingSpinner from '../../components/LoadingSpinner'
 import { createBrowserHistory } from 'history'
 import ArtistMediaLightbox from './ArtistMediaLightbox'
 import DropdownMenu from '../../components/DropdownMenu'
-import { Link } from 'gatsby'
+import { graphql, Link, useStaticQuery } from 'gatsby'
+import { theme } from '../../utils/theme'
+import styled from '@emotion/styled'
+import { FaChevronRight } from 'react-icons/fa'
 
 export default React.memo(({ artistMedia, gigTitle }) => {
   const history = useRef(typeof window !== 'undefined' && createBrowserHistory())
+
+  const icons = useStaticQuery(graphql`
+    query {
+      facebook: file(name: { eq: "fb-icon" }) {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH)
+        }
+      }
+      instagram: file(name: { eq: "instagram-icon" }) {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH)
+        }
+      }
+      bandcamp: file(name: { eq: "bc-icon" }) {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH)
+        }
+      }
+    }
+  `)
 
   // Add the intersectionObserver which highlights the artist they're on in the menu
   useEffect(() => {
@@ -103,26 +126,34 @@ export default React.memo(({ artistMedia, gigTitle }) => {
       {artistMedia.length > 1 && (
         <DropdownMenu
           history={history.current}
+          menuTitle={<span style={{ color: theme.default.contrastColor }}>SKIP TO ARTIST</span>}
           list={artistMedia.map((artist) => ({
             ...artist,
             children: (
-              <div>
+              <ArtistLinksWrapper>
                 {artist.details?.bandcamp && (
-                  <a href={artist.details.bandcamp} target="_blank">
-                    <small>Bandcamp</small>
-                  </a>
+                  <ArtistLinkWrapper href={artist.details.bandcamp} target="_blank">
+                    <GatsbyImage image={getImage(icons.bandcamp)} alt="Bandcamp" />
+                  </ArtistLinkWrapper>
+                )}
+                {artist.details?.instagram && (
+                  <ArtistLinkWrapper href={artist.details.instagram} target="_blank">
+                    <GatsbyImage image={getImage(icons.instagram)} alt="Instagram" />
+                  </ArtistLinkWrapper>
                 )}
                 {artist.details?.facebook && (
-                  <a href={artist.details.facebook} target="_blank">
-                    <small>Facebook</small>
-                  </a>
+                  <ArtistLinkWrapper href={artist.details.facebook} target="_blank">
+                    <GatsbyImage image={getImage(icons.facebook)} alt="Facebook" />
+                  </ArtistLinkWrapper>
                 )}
                 {artist.details && (
-                  <Link to={artist.details.fields.slug}>
-                    <small>Other gigs</small>
-                  </Link>
+                  <ArtistLinkWrapper>
+                    <Link to={artist.details.fields.slug} title="More from this artist">
+                      <FaChevronRight />
+                    </Link>
+                  </ArtistLinkWrapper>
                 )}
-              </div>
+              </ArtistLinksWrapper>
             ),
           }))}
         />
@@ -136,3 +167,18 @@ export default React.memo(({ artistMedia, gigTitle }) => {
     </div>
   )
 })
+
+const ArtistLinksWrapper = styled.span`
+  margin-left: auto;
+  padding-left: ${rhythm(0.5)};
+`
+
+const ArtistLinkWrapper = styled.a`
+  padding-left: ${rhythm(0.25)};
+  padding-right: ${rhythm(0.25)};
+
+  > .gatsby-image-wrapper {
+    width: 25px;
+    display: inline-block;
+  }
+`

@@ -8,7 +8,7 @@ import Menu from './Menu'
 import { scrollTo } from '../utils/helper'
 import { rhythm } from '../utils/typography'
 
-export default React.memo(({ list, history, children, top }) => {
+export default React.memo(({ list, history, menuTitle, children, top }) => {
   const [open, setOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
 
@@ -44,12 +44,15 @@ export default React.memo(({ list, history, children, top }) => {
     <DropdownWrapper top={top}>
       <DropdownLink open={open} aria-haspopup="true" onClick={toggleMenu}>
         {children}
-        <FaBars />
+        <div>
+          {menuTitle}
+          <FaBars />
+        </div>
       </DropdownLink>
       <DropdownMenu open={open} direction={'down'}>
         {list.map((item, index) => (
           <li key={index} className={selectedItem == item.machineName ? 'active' : ''}>
-            <ItemTitle onClick={(e) => select(e, item.machineName)} href={`#${item.machineName}`}>
+            <ItemTitle className="menu-title" onClick={(e) => select(e, item.machineName)} href={`#${item.machineName}`}>
               {item.title}
             </ItemTitle>
             {item.children}
@@ -70,6 +73,10 @@ const DropdownWrapper = styled.div`
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     top: ${(props) => props.top || props.theme.headerHeight};
+  }
+
+  a.menu-title {
+    display: inline !important;
   }
 `
 
@@ -97,7 +104,12 @@ const DropdownMenu = styled(Menu)`
 
   width: 100%;
 
-  a {
+  li {
+    display: flex;
+    align-items: center;
+  }
+
+  a.menu-title {
     line-height: 2rem;
     min-height: ${rhythm(1)};
     padding-left: ${rhythm(0.5)};
@@ -114,10 +126,11 @@ const DropdownLink = styled.a`
   width: 100%;
   cursor: pointer;
 
-  svg {
-    color: ${(props) => (props.open ? props.theme.secondaryColor : 'black')};
-    width: 30px;
+  > div {
     height: 30px;
+    display: flex;
+    align-items: center;
+    color: ${(props) => (props.open ? props.theme.secondaryColor : 'black')};
     float: right;
   }
 `

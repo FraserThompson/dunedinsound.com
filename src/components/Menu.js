@@ -34,8 +34,7 @@ export default styled.div`
     }
   }
 
-  a,
-  span {
+  a.menu-title {
     padding-left: ${rhythm(0.5)};
     padding-right: ${rhythm(0.5)};
   }
@@ -61,12 +60,12 @@ export default styled.div`
   li {
     padding: 0;
 
-    > a {
+    > a.menu-title {
       display: block;
     }
 
     &.active {
-      a {
+      a.menu-title {
         color: ${(props) => lighten(0.5, props.theme.textColor)};
       }
     }

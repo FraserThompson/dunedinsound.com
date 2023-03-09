@@ -50,7 +50,7 @@ const Sidebar = React.memo(({ menuItems, menuItemClick }) => {
       <ul ref={ref} id="sidebarNav">
         {menuItems.map(({ year, months, count }, yearIndex) => (
           <li key={year}>
-            <a onClick={(e) => click(e, year, yearIndex)} href={`#${year}`}>
+            <a onClick={(e) => click(e, year, yearIndex)} className="menu-title" href={`#${year}`}>
               <strong>{year}</strong> <span className="label">({count})</span>
             </a>
             <ul>
@@ -58,7 +58,7 @@ const Sidebar = React.memo(({ menuItems, menuItemClick }) => {
                 const className = `${year}-${month}`
                 return (
                   <li key={month}>
-                    <a onClick={(e) => click(e, className, yearIndex)} href={`#${className}`}>
+                    <a onClick={(e) => click(e, className, yearIndex)} className="menu-title" href={`#${className}`}>
                       {month}
                     </a>
                   </li>
