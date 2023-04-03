@@ -9,27 +9,43 @@
 //  - background (optional): Misc content to display in the background
 //  - customContent (optional): Misc content to display in the foreground
 
-import React from 'react'
+import React, { useEffect, useCallback, useRef } from 'react'
 import styled from '@emotion/styled'
 import { rhythm } from '../utils/typography'
 import BackgroundImage from './BackgroundImage'
 
-export default React.memo((props) => (
-  <BannerWrapper className="banner" {...props}>
-    {props.backgroundImage && <BackgroundImage image={props.backgroundImage} />}
-    {(props.title || props.children) && (
-      <BannerContent>
-        <Title>
-          {props.title && <h1 className="big">{props.title}</h1>}
-          {props.subtitle && <h2>{props.subtitle}</h2>}
-        </Title>
-        {props.children}
-      </BannerContent>
-    )}
-    {props.background && <BackgroundContent>{props.background}</BackgroundContent>}
-    {props.customContent}
-  </BannerWrapper>
-))
+export default React.memo((props) => {
+  const ref = useRef()
+  const fixHeader = useCallback(() => {
+    const el = ref.current
+    if (el) el.style.height = el.offsetHeight + 'px'
+  }, [])
+
+  // Because the banner height grows for large wavesurfer playlists,
+  // we need to fix this height via JS to avoid the page jumping when
+  // the player is moved into floating mode.
+  useEffect(() => {
+    window.addEventListener('wavesurfer_ready', fixHeader, { passive: true })
+    return () => window.removeEventListener('wavesurfer_ready', fixHeader)
+  }, [])
+
+  return (
+    <BannerWrapper className="banner" {...props} ref={ref}>
+      {props.backgroundImage && <BackgroundImage image={props.backgroundImage} />}
+      {(props.title || props.children) && (
+        <BannerContent>
+          <Title>
+            {props.title && <h1 className="big">{props.title}</h1>}
+            {props.subtitle && <h2>{props.subtitle}</h2>}
+          </Title>
+          {props.children}
+        </BannerContent>
+      )}
+      {props.background && <BackgroundContent>{props.background}</BackgroundContent>}
+      {props.customContent}
+    </BannerWrapper>
+  )
+})
 
 const BannerWrapper = styled.div`
   background: #40e0d0; /* fallback for old browsers */

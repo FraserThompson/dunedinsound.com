@@ -72,7 +72,7 @@ const DropdownMenu = styled(Menu)`
   left: auto;
   max-height: 80vh;
   overflow-y: auto;
-  visibility: ${(props) => (props.open ? '1' : '0')};
+  visibility: ${(props) => (props.open ? 'visible' : 'hidden')};
   opacity: ${(props) => (props.open ? '1' : '0')};
   transform: ${(props) => (props.open ? 'translateY(0)' : `translateY(${props.theme.headerHeight})`)};
   pointer-events: ${(props) => (props.open ? 'auto' : 'none')};

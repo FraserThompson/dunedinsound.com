@@ -92,7 +92,7 @@ const DropdownMenu = styled(Menu)`
   left: auto;
   max-height: 80vh;
   overflow-y: auto;
-  visibility: ${(props) => (props.open ? '1' : '0')};
+  visibility: ${(props) => (props.open ? 'visible' : 'hidden')};
   opacity: ${(props) => (props.open ? '1' : '0')};
   transform: ${(props) =>
     props.open ? 'translateY(0)' : props.direction == 'up' ? `translateY(${props.theme.headerHeight})` : `translateY(-${props.theme.headerHeight})`};
@@ -110,7 +110,7 @@ const DropdownMenu = styled(Menu)`
   }
 
   a.menu-title {
-    line-height: 2rem;
+    width: 100%;
     min-height: ${rhythm(1)};
     padding-left: ${rhythm(0.5)};
     padding-right: ${rhythm(0.5)};

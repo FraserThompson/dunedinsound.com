@@ -14,7 +14,10 @@ export default ({ artistAudio, minimizedAlways }) => {
   const onScroll = useCallback(() => {
     if (minimizedAlways) return
 
-    if (window.pageYOffset >= scrollHeaderOffset) {
+    const bannerEl = document.querySelector('#top')
+    const bannerHeight = bannerEl?.offsetHeight ?? scrollHeaderOffset
+
+    if (window.pageYOffset >= bannerHeight) {
       setMinimized(true)
     } else {
       setMinimized(false)

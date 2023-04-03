@@ -3,7 +3,7 @@ title: 'Talking to Julian Temple of Julian Temple Band'
 date: 2018-05-30T20:00:00.000Z
 tags:
   - Interview
-  - Julian Temple Band
+  - Julian Temple
 author: 'Fraser Thompson'
 background_position: center
 background_size: contain

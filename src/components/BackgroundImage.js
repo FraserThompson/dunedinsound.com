@@ -24,7 +24,7 @@ const BackgroundImageWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  max-height: 100vh;
+  //max-height: 100vh;
   .backgroundImage:nth-of-type(2) {
     display: none;
   }

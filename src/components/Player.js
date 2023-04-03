@@ -79,6 +79,10 @@ export default React.memo(({ artistAudio }) => {
   useEffect(() => {
     if (!wavesurfer) return
 
+    // So other components can respond to Wavesurfer being ready
+    const event = new Event('wavesurfer_ready')
+    window.dispatchEvent(event)
+
     setDuration(wavesurfer.getDuration())
     setCurrentTime(wavesurfer.getCurrentTime())
 

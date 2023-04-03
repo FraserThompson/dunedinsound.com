@@ -22,7 +22,10 @@ export default React.memo(({ scrollHeaderContent, isSidebar, headerContent, hide
   const [scrolled, setScrolled] = useState(false)
 
   const onScroll = useCallback(() => {
-    if (window.pageYOffset > scrollHeaderOffset) {
+    const bannerEl = document.querySelector('#top')
+    const bannerHeight = bannerEl?.offsetHeight ?? scrollHeaderOffset
+
+    if (window.pageYOffset >= bannerHeight) {
       setScrolled(true)
     } else {
       setScrolled(false)

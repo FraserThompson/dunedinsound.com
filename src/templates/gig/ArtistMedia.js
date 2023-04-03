@@ -126,7 +126,6 @@ export default React.memo(({ artistMedia, gigTitle }) => {
       {artistMedia.length > 1 && (
         <DropdownMenu
           history={history.current}
-          menuTitle={<span style={{ color: theme.default.contrastColor }}>SKIP TO ARTIST</span>}
           list={artistMedia.map((artist) => ({
             ...artist,
             children: (
