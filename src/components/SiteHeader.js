@@ -16,14 +16,11 @@ import SiteNav from './SiteNav'
 import { darken } from 'polished'
 import { calculateScrollHeaderOffset } from '../utils/helper'
 
-const scrollHeaderOffset = typeof window !== `undefined` && calculateScrollHeaderOffset(window)
-
 export default React.memo(({ scrollHeaderContent, isSidebar, headerContent, hideBrandOnMobile, scrollHeaderOverlay, backgroundColor }) => {
   const [scrolled, setScrolled] = useState(false)
 
   const onScroll = useCallback(() => {
-    const bannerEl = document.querySelector('#top')
-    const bannerHeight = bannerEl?.offsetHeight ?? scrollHeaderOffset
+    const bannerHeight = calculateScrollHeaderOffset(window)
 
     if (window.pageYOffset >= bannerHeight) {
       setScrolled(true)

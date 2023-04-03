@@ -5,8 +5,6 @@ import styled from '@emotion/styled'
 import { lighten } from 'polished'
 import { calculateScrollHeaderOffset } from '../utils/helper'
 
-const scrollHeaderOffset = typeof window !== `undefined` && calculateScrollHeaderOffset(window)
-
 export default ({ artistAudio, minimizedAlways }) => {
   const [open, setOpen] = useState(false)
   const [minimized, setMinimized] = useState(minimizedAlways || false)
@@ -14,8 +12,7 @@ export default ({ artistAudio, minimizedAlways }) => {
   const onScroll = useCallback(() => {
     if (minimizedAlways) return
 
-    const bannerEl = document.querySelector('#top')
-    const bannerHeight = bannerEl?.offsetHeight ?? scrollHeaderOffset
+    const bannerHeight = calculateScrollHeaderOffset(window)
 
     if (window.pageYOffset >= bannerHeight) {
       setMinimized(true)

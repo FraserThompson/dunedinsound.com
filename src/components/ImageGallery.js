@@ -85,7 +85,7 @@ export default React.memo(({ images, gridSize, title, imageCaption, masonry }) =
           {imageElements}
         </FlexGridContainer>
       )}
-      {masonry && <MasonryContainer columns={Math.min(Math.floor(imageElements.length / 2), 6)}>{imageElements}</MasonryContainer>}
+      {masonry && <MasonryContainer columns={Math.max(2, Math.min(Math.floor(imageElements.length / 2), 6))}>{imageElements}</MasonryContainer>}
       {lightboxOpen && (
         <Lightbox
           mainSrc={getImageSrc(selectedImage)}

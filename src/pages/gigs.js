@@ -126,8 +126,12 @@ const Page = React.memo(({ data, location }) => {
     // If we came from a previous gig then load up and scroll to it
     if (typeof window !== `undefined` && window.previousPath) {
       const previousGigSlug = new URL(window.previousPath).pathname
-      const gigDateData = postsBySlug[previousGigSlug]
-      if (gigDateData) menuItemClick(previousGigSlug, parseInt(gigDateData['year']))
+      if (previousGigSlug) {
+        // Need to remove trailing slash
+        const transformedGigSlug = previousGigSlug.slice(0, -1)
+        const gigDateData = postsBySlug[transformedGigSlug]
+        if (gigDateData) menuItemClick(transformedGigSlug, parseInt(gigDateData['year']))
+      }
     }
     setGumshoe(
       new Gumshoe('#sidebarNav a', {

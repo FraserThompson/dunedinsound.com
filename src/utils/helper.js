@@ -97,14 +97,29 @@ export const dateStrToDateObj = (date) => {
   return new Date('20' + splitDate[2], splitDate[1] - 1, splitDate[0])
 }
 
-// Decides when the header should change. On mobile this is the window minus the headerheight * the banner height as a decimal. On desktop it's just the window height * the banner height as a decimal.
+/*
+  Decides when the header should change.
+  If the banner element is on the page, just use the height of it.
+  Otherwise do a calculation:
+  - On mobile this is the window minus the headerheight * the banner height as a decimal.
+  - On desktop it's just the window height * the banner height as a decimal.
+*/
 export const calculateScrollHeaderOffset = (window, modifierDesktop = 0, modifierMobile = 0) => {
+  const bannerEl = document.querySelector('#top')
   const bannerHeight = stripUnit(theme.default.defaultBannerHeight) / 100
   const mobileHeaderHeight = stripUnit(theme.default.headerHeightMobileWithSubheader) * 16
   if (window.innerWidth < stripUnit(theme.default.breakpoints.xs)) {
-    return (window.innerHeight - mobileHeaderHeight + modifierMobile) * bannerHeight
+    if (bannerEl) {
+      return bannerEl.offsetHeight - mobileHeaderHeight + modifierMobile
+    } else {
+      return (window.innerHeight - mobileHeaderHeight + modifierMobile) * bannerHeight
+    }
   } else {
-    return (window.innerHeight + modifierDesktop) * bannerHeight
+    if (bannerEl) {
+      return bannerEl.offsetHeight + modifierDesktop
+    } else {
+      return (window.innerHeight + modifierDesktop) * bannerHeight
+    }
   }
 }
 
