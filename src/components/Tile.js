@@ -51,12 +51,25 @@ export default ({
           }
         }
       }
+      newestCover: allFile(limit: 1, sort: { mtimeMs: DESC }, filter: { sourceInstanceName: { eq: "media" }, name: { eq: "cover" } }) {
+        nodes {
+          ...LargeImage
+        }
+      }
     }
   `)
 
   const covers = useMemo(() => graphqlGroupToObject(data.covers.group))
 
-  const background = image ? image : coverDir && covers[coverDir] ? covers[coverDir][0].childImageSharp : null
+  // Background is either passed image, cover associated with coverDir, or latest cover in large size if feature
+  let background = null
+  if (image) {
+    background = image
+  } else if (feature) {
+    background = data.newestCover.nodes[0].childImageSharp
+  } else if (coverDir && covers[coverDir]) {
+    background = covers[coverDir][0].childImageSharp
+  }
 
   const tileContent = (
     <>

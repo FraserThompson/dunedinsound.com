@@ -13,6 +13,9 @@ export const BlogSidebar = React.memo(({ data, hideDate = false }) => {
       </h4>
       <MetadataWrapper className="notBodyText">
         <MetadataLinks frontmatter={node} />
+        <li>
+          <Link to={node.fields.slug}>Gigs</Link>
+        </li>
       </MetadataWrapper>
     </div>
   )
