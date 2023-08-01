@@ -4,8 +4,7 @@ module.exports = {
   siteMetadata: {
     title: 'dunedinsound.com',
     author: 'Fraser Thompson',
-    description:
-      "Documenting and archiving the Dunedin music scene since 2014. See and hear photos, video, and full set audio from gigs happening right now in Ōtepoti. Relive memories or discover what you've been missing.",
+    description: 'A permanent archive for gigs happening right now in Ōtepoti, Aotearoa.',
     siteUrl: 'https://dunedinsound.com',
   },
   pathPrefix: '/',

@@ -59,6 +59,9 @@
     "prettier": "^2.8.8",
     "yaml": "^2.3.1"
   },
+  "overrides": {
+    "sharp": "0.31.3"
+  },
   "homepage": "https://dunedinsound.com",
   "keywords": [
     "dunedinsound"
@@ -73,10 +76,10 @@
     "audio": "docker-compose up --build && node ./scripts/copy_audio.js",
     "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js' 'src/**/*.md'",
-    "develop": "cross-env NODE_OPTIONS=--max-old-space-size=25000 gatsby develop --port=8000",
+    "develop": "gatsby develop --port=8000",
     "new": "node ./scripts/generate_gig.js",
     "start": "npm run develop",
-    "build": "cross-env GATSBY_CPU_COUNT=4 NODE_OPTIONS=--max-old-space-size=25000 gatsby build --verbose",
+    "build": "gatsby build --verbose",
     "deploy": "node -r dotenv/config ./node_modules/gatsby-plugin-s3/bin.js deploy -y",
     "build-deploy": "npm run build && npm run deploy",
     "copy-to-dev": "node ./scripts/copy-dev.js to",

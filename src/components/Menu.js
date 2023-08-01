@@ -35,8 +35,8 @@ export default styled.div`
   }
 
   a.menu-title {
-    padding-left: ${rhythm(0.5)};
-    padding-right: ${rhythm(0.5)};
+    padding-left: ${rhythm(0.3)};
+    padding-right: ${rhythm(0.3)};
   }
 
   svg {
