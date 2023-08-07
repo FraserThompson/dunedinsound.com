@@ -108,6 +108,10 @@ const List = styled.div`
     margin: 0;
   }
 
+  li a {
+    display: block;
+  }
+
   > li {
     &:hover:not(.active-parent) {
       > a {

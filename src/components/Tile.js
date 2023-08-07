@@ -53,7 +53,7 @@ export default ({
       }
       newestCover: allFile(limit: 1, sort: { mtimeMs: DESC }, filter: { sourceInstanceName: { eq: "media" }, name: { eq: "cover" } }) {
         nodes {
-          ...LargeImage
+          ...FullImage
         }
       }
     }

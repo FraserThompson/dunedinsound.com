@@ -121,12 +121,14 @@ const Page = React.memo(({ data, location }) => {
   const [pageUpTo, setPageUpTo] = useState(1)
   const [scrollToAnchor, setScrollToAnchor] = useState(null)
   const [gumshoe, setGumshoe] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     // If we came from a previous gig then load up and scroll to it
     if (typeof window !== `undefined` && window.previousPath) {
       const previousGigSlug = new URL(window.previousPath).pathname
       if (previousGigSlug) {
+        setLoading(true)
         // Need to remove trailing slash
         const transformedGigSlug = previousGigSlug.slice(0, -1)
         const gigDateData = postsBySlug[transformedGigSlug]
@@ -146,10 +148,14 @@ const Page = React.memo(({ data, location }) => {
     return () => gumshoe && gumshoe.destroy()
   }, [gumshoe])
 
-  useEffect(() => scrollTo(null, scrollToAnchor, 57), [scrollToAnchor])
+  useEffect(() => {
+    scrollTo(null, scrollToAnchor, 57)
+    setLoading(false)
+  }, [scrollToAnchor])
 
   useEffect(() => {
     if (typeof window !== `undefined`) window.scrollTo(0, 0)
+    setLoading(false)
   }, [postsSorted])
 
   useEffect(() => {
@@ -217,6 +223,11 @@ const Page = React.memo(({ data, location }) => {
             </div>
           </FutureGigs>
         </FutureGigsWrapper> */}
+        {loading && (
+          <LoadingWrapper>
+            <LoadingSpinner />
+          </LoadingWrapper>
+        )}
         <InfiniteScroll
           className="infinite-scroll"
           pageStart={0}
@@ -382,6 +393,16 @@ const FutureGigs = styled.div`
       background: linear-gradient(180deg, #cdcac3, #e3e3db 8%, #e5e5de 94%, #f2f2f1);
     }
   }
+`
+const LoadingWrapper = styled.div`
+  width: 100vw;
+  min-height: ${(props) => `calc(100vh - ${props.theme.headerHeight} - 1px)`};
+  position: fixed;
+  top: ${(props) => `calc(${props.theme.headerHeight})`};
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 export const pageQuery = graphql`
