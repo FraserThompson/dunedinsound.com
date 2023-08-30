@@ -5879,8 +5879,8 @@ gatsby-plugin-remove-serviceworker@^1.0.0:
   resolved "https://registry.npmjs.org/gatsby-plugin-remove-serviceworker/-/gatsby-plugin-remove-serviceworker-1.0.0.tgz"
   integrity sha512-8uQ/6PiM718BTZAgmQeEO6ULrJgLugmDVAkUGv5xxF0luBNrbboDgpsG0z1fbsotSDTzLWyULR0zzGNfWZaY7w==
 
-gatsby-plugin-s3@../gatsby-plugin-s3/gatsby-plugin-s3:
-  version "0.3.8"
+"gatsby-plugin-s3@file:../gatsby-plugin-s3/gatsby-plugin-s3":
+  version "0.4.1"
   resolved "file:../gatsby-plugin-s3/gatsby-plugin-s3"
   dependencies:
     "@babel/polyfill" "^7.8.3"
