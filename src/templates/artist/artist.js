@@ -30,11 +30,18 @@ export const pageQuery = graphql`
       ...ArtistFrontmatter
     }
     images: allFile(
-      limit: 1
-      filter: { sourceInstanceName: { eq: "media" }, extension: { in: ["jpg", "JPG"] }, name: { ne: "cover.jpg" }, fields: { parentDir: { eq: $fileName } } }
+      filter: {
+        sourceInstanceName: { eq: "media" }
+        extension: { in: ["jpg", "JPG"] }
+        name: { ne: "cover.jpg" }
+        fields: { mediaDir: { eq: "gig" }, parentDir: { eq: $fileName } }
+      }
     ) {
       nodes {
         ...LargeImage
+        fields {
+          gigDir
+        }
       }
     }
     gigs: allGigYaml(sort: { date: DESC }, filter: { artists: { elemMatch: { name: { eq: $title } } } }) {

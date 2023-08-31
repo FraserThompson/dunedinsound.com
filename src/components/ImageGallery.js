@@ -8,7 +8,7 @@ import { createBrowserHistory } from 'history'
 import { parseSrcset } from 'srcset'
 import MasonryContainer from './MasonryContainer'
 
-export default React.memo(({ images, gridSize, title, imageCaption, masonry }) => {
+export default React.memo(({ images, imageCaptions, gridSize, title, imageCaption, masonry }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState(0)
   const [directLinked, setDirectLinked] = useState(false)
@@ -66,6 +66,10 @@ export default React.memo(({ images, gridSize, title, imageCaption, masonry }) =
     }
   }
 
+  const getImageCaption = (imageIndex) => {
+    return imageCaptions && imageCaptions[imageIndex]
+  }
+
   const imageElements =
     images &&
     images.map((node, imageIndex) => (
@@ -99,7 +103,7 @@ export default React.memo(({ images, gridSize, title, imageCaption, masonry }) =
             </LightBoxToolbarButton>,
           ]}
           imageTitle={title}
-          imageCaption={imageCaption}
+          imageCaption={imageCaptions ? getImageCaption(selectedImage) : imageCaption}
           onCloseRequest={closeLightbox}
         />
       )}

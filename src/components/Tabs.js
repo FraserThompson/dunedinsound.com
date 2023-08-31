@@ -8,9 +8,15 @@ import styled from '@emotion/styled'
 import DividerWrapper from './Divider'
 
 export default styled(DividerWrapper)`
-  height: ${props => props.theme.headerHeightMobile};
+  height: ${(props) => props.theme.headerHeightMobile};
   padding: 0;
   z-index: 7;
+  position: ${(props) => (props.sticky ? 'sticky' : 'block')};
+  top: ${(props) => (props.sticky ? props.theme.headerHeightMobile : 0)} !important;
+
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    top: ${(props) => (props.sticky ? props.theme.headerHeight : 0)} !important;
+  }
 
   button:first-of-type {
     border-left: 0;
@@ -19,10 +25,10 @@ export default styled(DividerWrapper)`
   button {
     padding: 0;
     border-radius: 4px 4px 0 0;
-    color: ${props => invert(props.theme.textColor)};
-    border-left: 1px solid ${props => props.theme.contrastColor};
-    border-right: 1px solid ${props => props.theme.contrastColor};
-    border-bottom: 1px solid ${props => props.theme.contrastColor};
+    color: ${(props) => invert(props.theme.textColor)};
+    border-left: 1px solid ${(props) => props.theme.contrastColor};
+    border-right: 1px solid ${(props) => props.theme.contrastColor};
+    border-bottom: 1px solid ${(props) => props.theme.contrastColor};
     border-bottom-color: transparent;
     border-top: none;
     height: 100%;

@@ -18,7 +18,7 @@
     - images (optional): The first image will be used as the cover.
 */
 
-import React, { useEffect, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import Layout from '../../components/Layout'
 import Banner from '../../components/Banner'
 import Tile from '../../components/Tile'
@@ -32,6 +32,8 @@ import BackToTop from '../../components/BackToTop'
 import ActiveIndicator from '../../components/ActiveIndicator'
 import MetadataLinks from './MetadataLinks'
 import GigTiles from './GigTiles'
+import { shuffler } from '../../utils/shuffling'
+import { Link } from 'gatsby'
 
 export default React.memo(({ data, parent, background }) => {
   useEffect(() => {
@@ -41,11 +43,44 @@ export default React.memo(({ data, parent, background }) => {
     }
   }, [])
 
-  const cover = data.images && data.images.nodes.length !== 0 && data.images.nodes[0]
+  const cover = !background && data.images && data.images.nodes.length !== 0 && data.images.nodes[0]
 
   const gigs = data.gigs && useMemo(() => data.gigs.group.slice().reverse()) // it expects them grouped by year in ascending order
   const blogs = data.blogs && data.blogs.nodes
   const vaultsessions = data.vaultsessions && data.vaultsessions.nodes
+
+  // This is used to get a gig node from a gig image to display a caption
+  const getGigByfileName = useCallback((fileName) =>
+    gigs.reduce((acc, yearGroup) => {
+      const gig = yearGroup.nodes.find((gig) => gig.fields.fileName == fileName)
+      if (gig) acc = gig
+      return acc
+    }, null)
+  )
+
+  const images = useMemo(
+    () =>
+      data.images && (data.images.nodes.length > 1 || (background && data.images.nodes.length > 0)) ? shuffler(data.images.nodes, data.thisPost.title) : null,
+    [data]
+  )
+  const imageCaptions =
+    images &&
+    images.map((image) => {
+      const gig = image.fields?.gigDir && getGigByfileName(image.fields.gigDir)
+      return (
+        <p>
+          {gig && (
+            <>
+              Taken at{' '}
+              <Link to={gig.fields.slug} title={gig.title}>
+                {gig.title}
+              </Link>{' '}
+              on {gig.date}
+            </>
+          )}
+        </p>
+      )
+    })
 
   const gigCount = useMemo(
     () =>
@@ -118,6 +153,8 @@ export default React.memo(({ data, parent, background }) => {
         gigCount={gigCount}
         blogCount={blogCount}
         vaultsessionCount={vaultsessionCount}
+        images={images}
+        imageCaptions={imageCaptions}
       />
       <BackToTop />
     </Layout>

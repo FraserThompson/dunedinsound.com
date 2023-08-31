@@ -55,6 +55,11 @@ const Page = ({ data, location }) => {
           </article>
         </Link>
       ))}
+      <Link to={'https://www.youtube.com/@syrupbois'} style={{ paddingTop: '1.5em' }}>
+        <article>
+          <h3>friends of the vault</h3>
+        </article>
+      </Link>
     </Posts>
   )
 
@@ -127,10 +132,22 @@ const Posts = styled.div`
       color: #282828;
       font-family: monospace;
     }
+    h3 {
+      text-align: center;
+      color: #410000;
+      font-family: serif;
+      font-size: 6vh;
+      @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
+        font-size: 6vh;
+      }
+    }
     &:hover {
       background-color: rgba(255, 255, 255, 0.8);
       cursor: crosshair;
       h2 {
+        color: black;
+      }
+      h3 {
         color: black;
       }
     }

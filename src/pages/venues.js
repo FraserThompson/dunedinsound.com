@@ -1,11 +1,10 @@
-import React, { useState, useCallback, useMemo, useEffect, Fragment } from 'react'
+import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { graphqlGroupToObject } from '../utils/helper'
 import styled from '@emotion/styled'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import SidebarNav from '../components/SidebarNav'
 import Search from '../components/Search'
 import HorizontalNav from '../components/HorizontalNav'
 import { lighten } from 'polished'
@@ -15,39 +14,7 @@ import { deadIcon } from '../templates/venue/MapMarkers'
 import { MapWrapper } from '../components/MapWrapper'
 import { SiteHead } from '../components/SiteHead'
 import Map, { Marker, Popup } from 'react-map-gl'
-
-const Sidebar = ({ menuItems, menuItemClick, setRef, selected }) => {
-  const [open, setOpen] = useState(true)
-
-  const toggleSidebar = useCallback(() => {
-    setOpen(!open)
-  }, [open])
-
-  const click = useCallback(
-    (index) => {
-      setOpen(true)
-      menuItemClick && menuItemClick(index)
-    },
-    [menuItemClick]
-  )
-
-  return (
-    <SidebarNav toggle={toggleSidebar} open={open} left>
-      <ul>
-        {menuItems.map((node, index) => (
-          <li key={index} ref={setRef} className={index === selected ? 'active' : ''}>
-            <a onClick={() => click(index)}>
-              {node.title}
-              <div style={{ position: 'absolute', right: '0px', top: '0px' }}>
-                <ActiveIndicator died={node.died} hideText={true} />
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </SidebarNav>
-  )
-}
+import { VenuesSidebar } from '../components/page/VenuesSidebar'
 
 const Page = React.memo(({ data, location }) => {
   const [filteredPosts, setFilteredPosts] = useState(data.allVenues.nodes)
@@ -163,7 +130,7 @@ const Page = React.memo(({ data, location }) => {
       isSidebar={true}
       headerContent={<Search placeholder="Search venues" filter={searchFilter} />}
     >
-      <Sidebar menuItems={filteredPosts} menuItemClick={listClick} setRef={setLRefs} selected={selectedIndex} />
+      <VenuesSidebar menuItems={filteredPosts} menuItemClick={listClick} setRef={setLRefs} selected={selectedIndex} />
       <HideFilters>
         <label>
           <input name="hideInactive" type="checkbox" checked={hideInactive} onChange={() => setHideInactive(!hideInactive)} />

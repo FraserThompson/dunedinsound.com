@@ -61,6 +61,13 @@ export const pageQuery = graphql`
         ...BlogFrontmatter
       }
     }
+    images: allFile(
+      filter: { sourceInstanceName: { eq: "media" }, extension: { in: ["jpg", "JPG"] }, fields: { mediaDir: { eq: "venue" }, parentDir: { eq: $fileName } } }
+    ) {
+      nodes {
+        ...LargeImage
+      }
+    }
     gigs: allGigYaml(sort: { date: DESC }, filter: { venue: { eq: $fileName } }) {
       group(field: { fields: { year: SELECT } }) {
         fieldValue

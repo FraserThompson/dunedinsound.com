@@ -15,7 +15,7 @@ import FadeInOut from './FadeInOut'
 import MenuButton from './MenuButton'
 import { FaBars } from 'react-icons/fa'
 
-export default React.memo(({ left, right, width, backgroundColor, open, toggle, children }) => {
+export default React.memo(({ left, right, topOffset, width, backgroundColor, open, toggle, children }) => {
   // So because vh units in CSS don't take into account the address bar on mobile we have to get
   // the viewport height in js instead or the nav will be cutoff by the address bar LOL
 
@@ -35,7 +35,15 @@ export default React.memo(({ left, right, width, backgroundColor, open, toggle, 
           <FaBars />
         </MenuButton>
       </MenuButtonWrapper>
-      <SidebarNavWrapper left={left} right={right} width={width} viewportHeight={viewportHeight} backgroundColor={backgroundColor} open={open}>
+      <SidebarNavWrapper
+        left={left}
+        right={right}
+        width={width}
+        topOffset={topOffset}
+        viewportHeight={viewportHeight}
+        backgroundColor={backgroundColor}
+        open={open}
+      >
         <List>{children}</List>
       </SidebarNavWrapper>
       <Transition mountOnEnter={true} unmountOnExit={true} in={!open} timeout={200}>
@@ -64,7 +72,7 @@ const SidebarNavWrapper = styled(Menu)`
   position: fixed;
   width: ${(props) => props.width || DefaultWidth};
   max-width: ${(props) => props.width || DefaultWidth};
-  top: ${(props) => props.theme.headerHeightMobile};
+  top: ${(props) => props.topOffset || props.theme.headerHeightMobile};
   left: ${(props) => props.left && 0};
   right: ${(props) => props.right && 0};
   z-index: 10;
@@ -83,7 +91,7 @@ const SidebarNavWrapper = styled(Menu)`
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     height: ${(props) => `calc(100vh - ${props.theme.headerHeight})`};
-    top: ${(props) => props.theme.headerHeight};
+    top: ${(props) => props.topOffset || props.theme.headerHeight};
     width: 300px;
   }
 
