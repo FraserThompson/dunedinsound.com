@@ -46,7 +46,7 @@ const BlogSidebarWrapper = styled.div`
   padding: ${rhythm(0.5)};
   min-width: 320px;
   display: none;
-  @media screen and (min-width: ${theme.default.breakpoints.xs}) {
+  @media screen and (min-width: ${theme.default.breakpoints.md}) {
     display: block;
   }
 `

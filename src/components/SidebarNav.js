@@ -15,7 +15,7 @@ import FadeInOut from './FadeInOut'
 import MenuButton from './MenuButton'
 import { FaBars } from 'react-icons/fa'
 
-export default React.memo(({ left, right, topOffset, width, backgroundColor, open, toggle, children }) => {
+export default React.memo(({ left, right, topOffsetMobile, topOffset, width, backgroundColor, open, toggle, children }) => {
   // So because vh units in CSS don't take into account the address bar on mobile we have to get
   // the viewport height in js instead or the nav will be cutoff by the address bar LOL
 
@@ -40,6 +40,7 @@ export default React.memo(({ left, right, topOffset, width, backgroundColor, ope
         right={right}
         width={width}
         topOffset={topOffset}
+        topOffsetMobile={topOffsetMobile}
         viewportHeight={viewportHeight}
         backgroundColor={backgroundColor}
         open={open}
@@ -72,7 +73,7 @@ const SidebarNavWrapper = styled(Menu)`
   position: fixed;
   width: ${(props) => props.width || DefaultWidth};
   max-width: ${(props) => props.width || DefaultWidth};
-  top: ${(props) => props.topOffset || props.theme.headerHeightMobile};
+  top: ${(props) => (props.topOffsetMobile ? `calc(${props.topOffsetMobile} + ${props.theme.headerHeightMobile})` : props.theme.headerHeightMobile)};
   left: ${(props) => props.left && 0};
   right: ${(props) => props.right && 0};
   z-index: 10;
@@ -89,13 +90,10 @@ const SidebarNavWrapper = styled(Menu)`
   transition-timing-function: cubic-bezier(0, 0, 0, 1.2);
   will-change: transform;
 
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-    height: ${(props) => `calc(100vh - ${props.theme.headerHeight})`};
-    top: ${(props) => props.topOffset || props.theme.headerHeight};
-    width: 300px;
-  }
-
   @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
+    height: ${(props) => `calc(100vh - ${props.theme.headerHeight})`};
+    top: ${(props) => (props.topOffset ? `calc(${props.topOffset} + ${props.theme.headerHeight})` : props.theme.headerHeight)};
+    width: 300px;
     visibility: ${(props) => (!props.open ? 'hidden' : 'visible')};
     opacity: ${(props) => (!props.open ? '0' : '1')};
     transform: ${(props) => (!props.open ? `translateX(${(props.left ? '-' : '') + (props.width || DefaultWidth)})` : `translateX(0)`)};

@@ -47,7 +47,7 @@ const BackButtonUp = styled.span`
     opacity: 1;
   }
 
-  @media screen and (min-width: ${theme.default.breakpoints.xs}) {
+  @media screen and (min-width: ${theme.default.breakpoints.md}) {
     display: inline-block !important;
   }
 `
@@ -62,14 +62,14 @@ const BackButtonLeft = styled.div`
 
     height: ${(props) => props.theme.headerHeightMobile};
 
-    @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
       height: ${(props) => props.theme.headerHeight};
     }
 
     svg {
       font-size: ${rhythm(0.8)};
       color: ${(props) => props.theme.textColor};
-      @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+      @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
         font-size: ${rhythm(1.2)};
       }
     }

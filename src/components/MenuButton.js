@@ -25,10 +25,7 @@ export default styled.button`
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     display: ${(props) => props.hideMobile && 'none'};
-    width: 50px;
-  }
-
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     height: ${(props) => props.theme.headerHeight};
+    width: 50px;
   }
 `

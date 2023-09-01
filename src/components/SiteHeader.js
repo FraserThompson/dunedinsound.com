@@ -74,7 +74,7 @@ const Container = styled.div`
     color: ${(props) => props.theme.textColor};
   }
 
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     display: flex;
     padding-left: 0;
     height: ${(props) => props.theme.headerHeight};
@@ -120,7 +120,7 @@ const Brand = styled.div`
     }
   }
 
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     height: ${(props) => props.theme.headerHeight};
   }
   @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {

@@ -69,9 +69,9 @@ const DropdownWrapper = styled.div`
   top: ${(props) => props.top || props.theme.headerHeightMobile};
   z-index: 7;
   right: 0;
-  height: 30px;
+  height: ${(props) => props.theme.subheaderHeight};
 
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     top: ${(props) => props.top || props.theme.headerHeight};
   }
 
@@ -127,7 +127,7 @@ const DropdownLink = styled.a`
   cursor: pointer;
 
   > div {
-    height: 30px;
+    height: ${(props) => props.theme.subheaderHeight};
     display: flex;
     align-items: center;
     color: ${(props) => (props.open ? props.theme.secondaryColor : 'black')};

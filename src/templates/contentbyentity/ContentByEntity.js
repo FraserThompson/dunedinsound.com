@@ -34,6 +34,7 @@ import MetadataLinks from './MetadataLinks'
 import GigTiles from './GigTiles'
 import { shuffler } from '../../utils/shuffling'
 import { Link } from 'gatsby'
+import { DividerWrapper } from '../../components/Divider'
 
 export default React.memo(({ data, parent, background }) => {
   useEffect(() => {
@@ -43,19 +44,21 @@ export default React.memo(({ data, parent, background }) => {
     }
   }, [])
 
-  const cover = !background && data.images && data.images.nodes.length !== 0 && data.images.nodes[0]
+  const cover = !background && data.images?.nodes.length !== 0 && data.images.nodes[0]
 
-  const gigs = data.gigs && useMemo(() => data.gigs.group.slice().reverse()) // it expects them grouped by year in ascending order
-  const blogs = data.blogs && data.blogs.nodes
-  const vaultsessions = data.vaultsessions && data.vaultsessions.nodes
+  const gigs = useMemo(() => data.gigs?.group.slice().reverse(), [data]) // it expects them grouped by year in ascending order
+  const blogs = data.blogs?.nodes
+  const vaultsessions = data.vaultsessions?.nodes
 
   // This is used to get a gig node from a gig image to display a caption
-  const getGigByfileName = useCallback((fileName) =>
-    gigs.reduce((acc, yearGroup) => {
-      const gig = yearGroup.nodes.find((gig) => gig.fields.fileName == fileName)
-      if (gig) acc = gig
-      return acc
-    }, null)
+  const getGigByfileName = useCallback(
+    (fileName) =>
+      gigs.reduce((acc, yearGroup) => {
+        const gig = yearGroup.nodes.find((gig) => gig.fields.fileName == fileName)
+        if (gig) acc = gig
+        return acc
+      }, null),
+    [gigs]
   )
 
   const images = useMemo(
@@ -63,24 +66,22 @@ export default React.memo(({ data, parent, background }) => {
       data.images && (data.images.nodes.length > 1 || (background && data.images.nodes.length > 0)) ? shuffler(data.images.nodes, data.thisPost.title) : null,
     [data]
   )
-  const imageCaptions =
-    images &&
-    images.map((image) => {
-      const gig = image.fields?.gigDir && getGigByfileName(image.fields.gigDir)
-      return (
-        <p>
-          {gig && (
-            <>
-              Taken at{' '}
-              <Link to={gig.fields.slug} title={gig.title}>
-                {gig.title}
-              </Link>{' '}
-              on {gig.date}
-            </>
-          )}
-        </p>
-      )
-    })
+  const imageCaptions = images?.map((image) => {
+    const gig = image.fields?.gigDir && getGigByfileName(image.fields.gigDir)
+    return (
+      <p>
+        {gig && (
+          <>
+            Taken at{' '}
+            <Link to={gig.fields.slug} title={gig.title}>
+              {gig.title}
+            </Link>{' '}
+            on {gig.date}
+          </>
+        )}
+      </p>
+    )
+  })
 
   const gigCount = useMemo(
     () =>
@@ -88,34 +89,33 @@ export default React.memo(({ data, parent, background }) => {
         acc += nodes.length
         return acc
       }, 0),
-    []
+    [gigs]
   )
 
   const blogCount = blogs ? blogs.length : 0
   const vaultsessionCount = vaultsessions ? vaultsessions.length : 0
 
-  const blogTiles =
-    blogs &&
-    useMemo(
-      () =>
-        blogs.map((node) => {
-          return (
-            <Tile
-              key={node.fields.slug}
-              title={node.frontmatter.title}
-              subtitle={node.excerpt}
-              image={node.frontmatter.cover}
-              label={node.frontmatter.date}
-              to={node.fields.slug}
-            />
-          )
-        }),
-      []
-    )
+  const blogTiles = useMemo(
+    () =>
+      blogs?.map((node) => {
+        return (
+          <Tile
+            key={node.fields.slug}
+            title={node.frontmatter.title}
+            subtitle={node.excerpt}
+            image={node.frontmatter.cover}
+            label={node.frontmatter.date}
+            to={node.fields.slug}
+          />
+        )
+      }),
+    [blogs]
+  )
 
-  const vaultsessionTiles =
-    vaultsessions &&
-    useMemo(() => vaultsessions.map((node) => <Tile key={node.fields.slug} title={node.title} coverDir={node.fields.fileName} href={node.fields.slug} />), [])
+  const vaultsessionTiles = useMemo(
+    () => vaultsessions?.map((node) => <Tile key={node.fields.slug} title={node.title} coverDir={node.fields.fileName} href={node.fields.slug} />),
+    [vaultsessions]
+  )
 
   const gigTiles = gigs && <GigTiles gigs={gigs} frontmatter={data.thisPost} />
 
@@ -162,19 +162,24 @@ export default React.memo(({ data, parent, background }) => {
 })
 
 const PageTitle = styled.span`
-  margin-left: auto;
-  max-width: 75vw;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: ${(props) => props.theme.headerHeightMobile};
+  display: flex;
+  align-items: center;
+  text-align: right;
+  background-color: transparent;
   h1 {
-    display: none;
+    display: block;
     color: black;
     font-size: 100%;
-    font-size: ${rhythm(1.8)};
-    line-height: 0.9;
-    @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-      display: block;
+    font-size: ${rhythm(1)};
+    @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
+      font-size: 100%;
+      font-size: ${rhythm(1.8)};
+      text-align: center;
     }
   }
 `

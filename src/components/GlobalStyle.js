@@ -71,7 +71,7 @@ const GlobalStyle = css`
     display: none !important;
   }
 
-  @media screen and (min-width: ${theme.default.breakpoints.xs}) {
+  @media screen and (min-width: ${theme.default.breakpoints.md}) {
     .showMobile {
       display: none !important;
     }

@@ -88,7 +88,7 @@ export const GigsTimeline = React.memo(({ data }) => {
   }, [gumshoe])
 
   useEffect(() => {
-    scrollTo(null, scrollToAnchor, 57)
+    scrollTo(null, scrollToAnchor, 85)
     setLoading(false)
   }, [scrollToAnchor])
 
@@ -129,12 +129,12 @@ export const GigsTimeline = React.memo(({ data }) => {
   const loadMore = useCallback((index) => setPageUpTo(index + 1), [])
 
   return (
-    <div>
+    <ContentWrapper>
       <GigsSidebar menuItems={displayedMenuItems} menuItemClick={menuItemClick} />
       <SearchWrapper>
         <Search placeholder="Search gigs by title, artist, or venue..." filter={filter} />
       </SearchWrapper>
-      <PageContentWrapper>
+      <TimelineWrapper>
         {loading && (
           <LoadingWrapper>
             <LoadingSpinner />
@@ -172,21 +172,23 @@ export const GigsTimeline = React.memo(({ data }) => {
               )
           )}
         </InfiniteScroll>
-      </PageContentWrapper>
-    </div>
+      </TimelineWrapper>
+    </ContentWrapper>
   )
 })
 
-const PageContentWrapper = styled.div`
+const ContentWrapper = styled.div``
+
+const TimelineWrapper = styled.div`
   padding-left: 0px;
 
   .infinite-scroll {
-    margin-top: ${(props) => `${props.theme.headerHeightMobile})`};
+    margin-top: ${(props) => `calc(${props.theme.subheaderHeight})`};
   }
 
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     .infinite-scroll {
-      margin-top: ${(props) => `${props.theme.headerHeight})`};
+      margin-top: ${(props) => `calc(${props.theme.headerHeight} + ${props.theme.subheaderHeight})`};
     }
   }
 
@@ -197,19 +199,19 @@ const PageContentWrapper = styled.div`
 
 const SearchWrapper = styled.div`
   position: sticky;
-  margin-left: 43px;
   z-index: 15;
-  top: 0px;
-  width: 100%;
+  top: 3px;
+  margin: 0;
+  width: calc(100% - 45px);
+  margin-left: 45px;
 
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     position: fixed;
+    margin-left: 0px;
     top: 6px;
     z-index: 12;
     left: 300px;
-    width: 30vw;
-    min-width: 350px;
-    max-width: 1200px;
+    width: 40vw;
   }
 `
 

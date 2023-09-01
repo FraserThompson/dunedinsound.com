@@ -227,8 +227,8 @@ const ArtistGrid = styled(FlexGridContainer)`
   overflow: hidden;
   top: 76px;
 
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-    top: 30px;
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
+    top: ${(props) => props.theme.subheaderHeight};
   }
 `
 
@@ -258,7 +258,7 @@ const Filters = styled.div`
 
   font-size: 80%;
   width: 100%;
-  min-height: 30px;
+  min-height: ${(props) => props.theme.subheaderHeight};
 
   background-color: ${(props) => props.theme.contrastColor};
 
@@ -276,7 +276,7 @@ const Filters = styled.div`
       background-color: ${(props) => props.theme.foregroundColor};
     }
   }
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     position: fixed;
     top: ${(props) => props.theme.headerHeight};
   }

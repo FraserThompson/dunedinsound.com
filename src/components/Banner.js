@@ -105,7 +105,7 @@ const BannerContent = styled.div`
     position: relative;
   }
 
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     padding: ${rhythm(1)};
     padding-top: 4.5em;
     width: ${(props) => props.theme.contentContainerWidth};

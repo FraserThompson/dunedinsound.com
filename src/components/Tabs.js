@@ -11,12 +11,6 @@ export default styled(DividerWrapper)`
   height: ${(props) => props.theme.headerHeightMobile};
   padding: 0;
   z-index: 7;
-  position: ${(props) => (props.sticky ? 'sticky' : 'block')};
-  top: ${(props) => (props.sticky ? props.theme.headerHeightMobile : 0)} !important;
-
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
-    top: ${(props) => (props.sticky ? props.theme.headerHeight : 0)} !important;
-  }
 
   button:first-of-type {
     border-left: 0;

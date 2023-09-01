@@ -110,7 +110,7 @@ export default styled.div`
         color: ${(props) => lighten(0.1, props.theme.foregroundColor)};
       }
     }
-    @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+    @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
       line-height: ${(props) => props.height || props.theme.headerHeight};
     }
   }

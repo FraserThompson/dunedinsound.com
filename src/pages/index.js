@@ -96,7 +96,7 @@ const HomePageGridContainer = styled(GridContainer)`
   .everything-else {
     grid-column: span 12;
   }
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     .featured-gig {
       grid-column: span 8;
     }

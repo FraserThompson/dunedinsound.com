@@ -24,7 +24,7 @@ export default styled.ul`
       overflow: hidden;
     }
 
-    @media screen and (min-width: ${theme.default.breakpoints.xs}) {
+    @media screen and (min-width: ${theme.default.breakpoints.md}) {
       filter: drop-shadow(2px 2px 10px black);
       display: inline-block;
     }

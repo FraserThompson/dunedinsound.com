@@ -34,7 +34,7 @@ export const GigsSidebar = React.memo(({ menuItems, menuItemClick }) => {
   )
 
   return (
-    <SidebarNav toggle={toggleSidebar} open={open} left>
+    <SidebarNav toggle={toggleSidebar} open={open} topOffset={theme.default.subheaderHeight} left>
       <ul ref={ref} id="sidebarNav">
         {menuItems.map(({ year, months, count }, yearIndex) => (
           <li key={year}>

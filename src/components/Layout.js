@@ -78,7 +78,7 @@ const SiteContainer = styled.div`
   bottom: 0;
   margin-bottom: ${(props) => !props.hideFooter && `calc(${props.theme.footerHeight} + 30px)`};
   margin-top: ${(props) => props.headerContent && props.theme.headerHeightMobile};
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     margin-top: ${(props) => !props.hideNav && props.theme.headerHeight};
     margin-bottom: ${(props) => !props.hideFooter && props.theme.footerHeight};
   }

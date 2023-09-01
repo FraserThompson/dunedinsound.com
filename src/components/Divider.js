@@ -76,7 +76,7 @@ export const DividerWrapper = styled.div`
     }
   }
 
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     top: ${getStickyTopDesktop};
   }
 `
