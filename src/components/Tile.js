@@ -154,6 +154,7 @@ const Container = styled.div`
       text-decoration: none;
     }
 
+    &:active,
     &.active {
       background-color: ${(props) => props.theme.foregroundColor2};
       color: ${(props) => lighten(0.5, props.theme.textColor)};

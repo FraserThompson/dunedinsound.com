@@ -1,21 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import { SiteHead } from '../components/SiteHead'
 import { GigsTimeline } from '../components/page/GigsTimeline'
 import styled from '@emotion/styled'
 import { rhythm } from '../utils/typography'
+import { GigsJukebox } from '../components/page/GigsJukebox'
 
 const Page = React.memo(({ data, location }) => {
-  const [openTab, setOpenTab] = useState('timeline')
-  const tabs = [{ title: 'Timeline', key: 'timeline' }]
+  const [openTab, setOpenTab] = useState()
+  const tabs = [
+    { title: 'Timeline', key: 'timeline' },
+    { title: 'Shuffle', key: 'shuffle' },
+  ]
+
+  useEffect(() => {
+    if (window.location.hash) {
+      setOpenTab(window.location.hash.slice(1))
+    } else {
+      setOpenTab('timeline')
+    }
+  }, [])
+
+  useEffect(() => {
+    history.replaceState(undefined, undefined, '#' + openTab)
+  }, [openTab])
+
   return (
     <Layout location={location} hideBrandOnMobile={true} hideFooter={true} isSidebar={true}>
       <Subheader>
         <span>Mode: </span>
         <div>
           {tabs.map((tab) => (
-            <button className={openTab === tab.key ? 'active' : ''} onClick={() => setOpenTab(tab.key)}>
+            <button className={openTab === tab.key ? 'active' : ''} href={`#${tab.key}`} onClick={() => setOpenTab(tab.key)}>
               {tab.title}
             </button>
           ))}
@@ -23,7 +40,7 @@ const Page = React.memo(({ data, location }) => {
       </Subheader>
       <TabsContentWrapper>
         {openTab == 'timeline' && <GigsTimeline data={data} />}
-        {openTab == 'jukebox' && <></>}
+        {openTab == 'shuffle' && <GigsJukebox data={data} />}
       </TabsContentWrapper>
     </Layout>
   )

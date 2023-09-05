@@ -26,11 +26,18 @@ export default styled(DividerWrapper)`
     border-bottom-color: transparent;
     border-top: none;
     height: 100%;
-    padding-left: ${rhythm(0.5)};
-    padding-right: ${rhythm(0.5)};
+    padding-left: ${rhythm(0.3)};
+    padding-right: ${rhythm(0.3)};
     text-overflow: clip;
     overflow: hidden;
+
+    @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
+      padding-left: ${rhythm(0.5)};
+      padding-right: ${rhythm(0.5)};
+    }
+
     &:active,
+    &:focus,
     &.active {
       color: white;
       background-color: black;

@@ -128,3 +128,9 @@ export const sortByMonth = (a, b) => {
   const allMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   return allMonths.indexOf(a) > allMonths.indexOf(b)
 }
+
+export const getRandom = (min, max) => {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min) + min)
+}

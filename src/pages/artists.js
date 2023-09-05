@@ -5,12 +5,37 @@ import Tile from '../components/Tile'
 import Search from '../components/Search'
 import FlexGridContainer from '../components/FlexGridContainer'
 import Shuffle from 'shufflejs'
-import { theme } from '../utils/theme'
 import { toMachineName } from '../utils/helper'
 import styled from '@emotion/styled'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { rhythm } from '../utils/typography'
 import { SiteHead } from '../components/SiteHead'
+
+const ArtistGridTile = React.memo(({ node, metadata, coverImage }) => {
+  if (!metadata) {
+    console.error('Fatal: Metadata missing for ' + node.fields.fileName)
+  }
+
+  const title = (node.title || node.fields.slug) + (node.origin ? ` (${node.origin})` : '')
+
+  return (
+    <Tile
+      title={title}
+      subtitle={`${metadata?.totalCount || 0} gigs`}
+      image={coverImage}
+      label={node.date}
+      to={node.fields.slug}
+      height={'15vh'}
+      dataAttributes={{
+        'data-title': title,
+        'data-machinename': node.fields.fileName,
+        'data-lastgig': metadata?.lastGig || 0,
+        'data-active': node.died === null,
+        'data-origin': node.origin || 'Dunedin',
+      }}
+    />
+  )
+})
 
 const Page = React.memo(({ data, location }) => {
   const [loading, setLoading] = useState(true)
@@ -25,12 +50,15 @@ const Page = React.memo(({ data, location }) => {
   const element = useRef()
   const animationRef = useRef()
 
-  const grid = {
-    xs: '6',
-    sm: '4',
-    md: '3',
-    lg: '2',
-  }
+  const grid = useMemo(
+    () => ({
+      xs: '6',
+      sm: '4',
+      md: '3',
+      lg: '2',
+    }),
+    []
+  )
 
   const gigMetadataByArtist = useMemo(
     () =>
@@ -65,10 +93,10 @@ const Page = React.memo(({ data, location }) => {
   )
 
   // Used below to improve immediate load performance
-  const animate = (time) => {
+  const animate = useCallback(() => {
     setArtistList(data.allArtists.nodes)
     animationRef.current = requestAnimationFrame(animate)
-  }
+  }, [data])
 
   // To improve immediate page load performance:
   // - start with a blank list
@@ -77,7 +105,7 @@ const Page = React.memo(({ data, location }) => {
   useEffect(() => {
     animationRef.current = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(animationRef.current)
-  }, [])
+  }, [data])
 
   // Make a shuffle board and set the artist origin dropdown
   useEffect(() => {
@@ -103,7 +131,6 @@ const Page = React.memo(({ data, location }) => {
 
   // Sorting toggle
   useEffect(() => {
-    setLoading(true)
     if (sortBy === 'title') {
       sortByTitle()
     } else if (sortBy === 'numberOfGigs') {
@@ -116,18 +143,14 @@ const Page = React.memo(({ data, location }) => {
   // Filters
   useEffect(() => {
     if (!shuffle) return
-    setLoading(true)
     shuffle.filter((el) => getShuffleFilter(el))
   }, [countryFilter, hideInactive, searchInput])
 
   const getShuffleFilter = useCallback(
-    (el) => {
-      return (
-        (!hideInactive || el.getAttribute('data-active') == 'true') &&
-        (!countryFilter || el.getAttribute('data-origin') === countryFilter) &&
-        (!searchInput || searchInput.length == 0 || el.getAttribute('data-title').toLowerCase().indexOf(searchInput) !== -1)
-      )
-    },
+    (el) =>
+      (!hideInactive || el.getAttribute('data-active') == 'true') &&
+      (!countryFilter || el.getAttribute('data-origin') === countryFilter) &&
+      (!searchInput || searchInput.length == 0 || el.getAttribute('data-title').toLowerCase().indexOf(searchInput) !== -1),
     [countryFilter, hideInactive, searchInput]
   )
 
@@ -149,8 +172,26 @@ const Page = React.memo(({ data, location }) => {
     shuffle.sort({ reverse: true, by: (el) => el.getAttribute('data-lastgig') })
   }, [shuffle])
 
+  // Click callbacks since it has better immediate reponse than using effects
+  const sortByCallback = useCallback((what) => {
+    setLoading(true)
+    setSortBy(what)
+  })
+  const hideInactiveCallback = useCallback((what) => {
+    setLoading(true)
+    setHideInactive(what)
+  })
+  const searchCallback = useCallback((what) => {
+    setLoading(true)
+    setSearchInput(what)
+  })
+  const countryFilterCallback = useCallback((what) => {
+    setLoading(true)
+    setCountryFilter(what)
+  })
+
   return (
-    <Layout location={location} hideBrandOnMobile={true} headerContent={<Search placeholder="Search artists" filter={(search) => setSearchInput(search)} />}>
+    <Layout location={location} hideBrandOnMobile={true} headerContent={<Search placeholder="Search artists" filter={(search) => searchCallback(search)} />}>
       {loading && (
         <LoadingWrapper>
           <LoadingSpinner />
@@ -159,23 +200,23 @@ const Page = React.memo(({ data, location }) => {
       <Filters>
         <span>Sort by: </span>
         <div>
-          <button className={sortBy === 'title' ? 'active' : ''} onClick={() => setSortBy('title')}>
+          <button className={sortBy === 'title' ? 'active' : ''} onMouseDown={() => sortByCallback('title')}>
             Title
           </button>
-          <button className={sortBy === 'lastGig' ? 'active' : ''} onClick={() => setSortBy('lastGig')}>
+          <button className={sortBy === 'lastGig' ? 'active' : ''} onMouseDown={() => sortByCallback('lastGig')}>
             Last Played
           </button>
-          <button className={sortBy === 'numberOfGigs' ? 'active' : ''} onClick={() => setSortBy('numberOfGigs')}>
+          <button className={sortBy === 'numberOfGigs' ? 'active' : ''} onMouseDown={() => sortByCallback('numberOfGigs')}>
             Most Gigs
           </button>
         </div>
         <HideInactive>
           <label>
-            <input name="hideInactive" type="checkbox" checked={hideInactive} onChange={() => setHideInactive(!hideInactive)} />
+            <input name="hideInactive" type="checkbox" checked={hideInactive} onChange={() => hideInactiveCallback(!hideInactive)} />
             Hide inactive
           </label>
         </HideInactive>
-        <select name="countries" onChange={(e) => setCountryFilter(e.target.value !== 'all' ? e.target.value : null)}>
+        <select name="countries" onChange={(e) => countryFilterCallback(e.target.value !== 'all' ? e.target.value : null)}>
           <option value={'all'}>All origins ({artistList.length})</option>
           {artistOrigins &&
             Object.keys(artistOrigins).map((country) => (
@@ -186,35 +227,14 @@ const Page = React.memo(({ data, location }) => {
         </select>
       </Filters>
       <ArtistGrid fixedWidth ref={element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
-        {artistList.map((node) => {
-          const metadata = gigMetadataByArtist[node.fields.fileName]
-
-          if (!metadata) {
-            console.error('Fatal: Metadata missing for ' + node.fields.fileName)
-          }
-
-          const title = (node.title || node.fields.slug) + (node.origin ? ` (${node.origin})` : '')
-          const coverImage = imagesByArtist[node.fields.fileName] && imagesByArtist[node.fields.fileName][0]
-
-          return (
-            <Tile
-              key={node.fields.slug}
-              title={title}
-              subtitle={`${metadata ? metadata.totalCount : 0} gigs`}
-              image={coverImage}
-              label={node.date}
-              to={node.fields.slug}
-              height={artistList.length == 1 ? 'calc(100vh - ' + theme.default.headerHeight + ')' : artistList.length <= 8 ? '40vh' : '15vh'}
-              dataAttributes={{
-                'data-title': title,
-                'data-machinename': node.fields.fileName,
-                'data-lastgig': metadata ? metadata.lastGig : 0,
-                'data-active': node.died === null,
-                'data-origin': node.origin || 'Dunedin',
-              }}
-            />
-          )
-        })}
+        {artistList.map((node) => (
+          <ArtistGridTile
+            key={node.fields.slug}
+            node={node}
+            metadata={gigMetadataByArtist[node.fields.fileName]}
+            coverImage={imagesByArtist[node.fields.fileName] && imagesByArtist[node.fields.fileName][0]}
+          />
+        ))}
       </ArtistGrid>
     </Layout>
   )
@@ -270,6 +290,10 @@ const Filters = styled.div`
   button {
     border: none;
     background-color: black;
+    &:focus {
+      color: black;
+      background-color: ${(props) => props.theme.foregroundColor};
+    }
     &.active,
     &:active {
       color: black;

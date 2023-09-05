@@ -183,7 +183,7 @@ const TimelineWrapper = styled.div`
   padding-left: 0px;
 
   .infinite-scroll {
-    margin-top: ${(props) => `calc(${props.theme.subheaderHeight})`};
+    margin-top: ${(props) => `calc(${props.theme.subheaderHeight} + 5px)`};
   }
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {

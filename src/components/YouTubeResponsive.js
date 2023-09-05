@@ -54,7 +54,7 @@ export default React.memo(({ videoId, odd, vanilla, getPlayerTarget }) => {
         <YouTube
           videoId={videoId}
           onReady={onReady}
-          opts={{ host: 'https://www.youtube-nocookie.com', rel: 0, modestbranding: 1, playerVars: { autoplay: 1 } }}
+          opts={{ host: 'https://www.youtube-nocookie.com', rel: 0, modestbranding: 1, playerVars: { autoplay: 1 }, height: '720', width: '1280' }}
         />
       )}
     </YouTubeWrapper>
@@ -67,6 +67,7 @@ const YouTubeWrapper = styled.div`
   padding-top: 25px;
   height: 0;
   overflow: hidden;
+  width: 100%;
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.xs}) {
     grid-column: ${(props) => (props.odd ? 'col-start 4 / span 6' : null)};

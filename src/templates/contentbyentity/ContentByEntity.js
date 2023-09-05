@@ -34,7 +34,6 @@ import MetadataLinks from './MetadataLinks'
 import GigTiles from './GigTiles'
 import { shuffler } from '../../utils/shuffling'
 import { Link } from 'gatsby'
-import { DividerWrapper } from '../../components/Divider'
 
 export default React.memo(({ data, parent, background }) => {
   useEffect(() => {
@@ -172,11 +171,12 @@ const PageTitle = styled.span`
   text-align: right;
   background-color: transparent;
   h1 {
-    display: block;
+    display: none;
     color: black;
     font-size: 100%;
     font-size: ${rhythm(1)};
     @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
+      display: block;
       font-size: 100%;
       font-size: ${rhythm(1.8)};
       text-align: center;

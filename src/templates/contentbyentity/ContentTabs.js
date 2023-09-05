@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import FlexGridContainer from '../../components/FlexGridContainer'
 import Tabs from '../../components/Tabs'
 import ImageGallery from '../../components/ImageGallery'
+import styled from '@emotion/styled'
 
 export default React.memo(({ gigTiles, blogTiles, vaultsessionTiles, images, imageCaptions, gigCount, blogCount, vaultsessionCount }) => {
   const [openTab, setOpenTab] = useState('gigs')
@@ -23,7 +24,7 @@ export default React.memo(({ gigTiles, blogTiles, vaultsessionTiles, images, ima
         )}
         {vaultsessionCount > 0 && (
           <button className={openTab === 'vaultsessions' ? 'active' : ''} onClick={() => setOpenTab('vaultsessions')}>
-            <span className="rainbowBackground">VAULT SESSION</span>
+            <WrappingText className="rainbowBackground">VAULT SESSION</WrappingText>
           </button>
         )}
       </Tabs>
@@ -34,3 +35,17 @@ export default React.memo(({ gigTiles, blogTiles, vaultsessionTiles, images, ima
     </>
   )
 })
+
+const WrappingText = styled.div`
+  letter-spacing: -0.2px;
+  font-size: 0.8em;
+  text-overflow: initial;
+  width: 60px;
+  line-height: 1;
+  white-space: normal;
+  word-break: break-word;
+  align-items: center;
+  height: 100%;
+  word-wrap: break-word;
+  display: flex;
+`

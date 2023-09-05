@@ -115,7 +115,8 @@ const BannerContent = styled.div`
 
 const Title = styled.div`
   filter: drop-shadow(2px 2px 10px black);
-  background: ${(props) => 'linear-gradient(90deg, black,' + props.theme.foregroundColor + ')'};
+  backdrop-filter: hue-rotate(240deg);
+  background: ${(props) => 'linear-gradient(90deg, rgba(0, 0, 0, 0.8), rgba(63, 146, 247, 0.2))'};
   border: 2px inset;
   padding: 5px;
 `

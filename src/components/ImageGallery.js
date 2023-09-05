@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import styled from '@emotion/styled'
 import { GatsbyImage, getImage, getSrcSet } from 'gatsby-plugin-image'
 import Lightbox from 'react-18-image-lightbox'
@@ -21,7 +21,7 @@ export default React.memo(({ images, imageCaptions, gridSize, title, imageCaptio
     return () => unlisten()
   })
 
-  const handleURLChange = (location) => {
+  const handleURLChange = useCallback((location) => {
     if (location.search) {
       const searchParams = new URLSearchParams(location.search)
       if (!location.state || !location.state.lightboxOpen) setDirectLinked(true) // this won't be set if we come direct to the url
@@ -30,57 +30,67 @@ export default React.memo(({ images, imageCaptions, gridSize, title, imageCaptio
     } else {
       setLightboxOpen(false)
     }
-  }
+  })
 
-  const openLightbox = (imageIndex, event) => {
-    event.preventDefault()
-    history.push({
-      pathname: history.location.pathname,
-      search: `?image=${imageIndex}`,
-      state: { lightboxOpen: true },
-    })
-  }
+  const openLightbox = useCallback(
+    (imageIndex, event) => {
+      event.preventDefault()
+      history.push({
+        pathname: history.location.pathname,
+        search: `?image=${imageIndex}`,
+        state: { lightboxOpen: true },
+      })
+    },
+    [history]
+  )
 
-  const closeLightbox = () => (!directLinked ? history.goBack() : history.replace({ pathname: history.location.pathname, search: '' }))
+  const closeLightbox = useCallback(() => (!directLinked ? history.goBack() : history.replace({ pathname: history.location.pathname, search: '' })), [history])
 
-  const gotoLightboxImage = (imageIndex) =>
-    history.replace({
-      pathname: history.location.pathname,
-      search: `?image=${imageIndex}`,
-      state: { lightboxOpen: true },
-    })
+  const gotoLightboxImage = useCallback(
+    (imageIndex) =>
+      history.replace({
+        pathname: history.location.pathname,
+        search: `?image=${imageIndex}`,
+        state: { lightboxOpen: true },
+      }),
+    [history]
+  )
 
   const nextImage = selectedImage < images.length - 1 ? selectedImage + 1 : false
 
   const prevImage = selectedImage != 0 ? selectedImage - 1 : false
 
-  const getImageSrc = (imageIndex, size) => {
-    if (imageIndex !== false && images[imageIndex]) {
-      switch (size) {
-        default:
-          const srcSet = getSrcSet(images[imageIndex])
-          return parseSrcset(srcSet).find((thing) => thing.width === 1600 || thing.width === 800).url
-        case 'full':
-          return images[imageIndex].publicURL
+  const getImageSrc = useCallback(
+    (imageIndex, size) => {
+      if (imageIndex !== false && images[imageIndex]) {
+        switch (size) {
+          default:
+            const srcSet = getSrcSet(images[imageIndex])
+            return parseSrcset(srcSet).find((thing) => thing.width === 1600 || thing.width === 800).url
+          case 'full':
+            return images[imageIndex].publicURL
+        }
       }
-    }
-  }
+    },
+    [images]
+  )
 
-  const getImageCaption = (imageIndex) => {
-    return imageCaptions && imageCaptions[imageIndex]
-  }
+  const getImageCaption = useCallback((imageIndex) => imageCaptions && imageCaptions[imageIndex], [imageCaptions])
 
-  const imageElements =
-    images &&
-    images.map((node, imageIndex) => (
-      <a
-        style={{ cursor: 'pointer', display: 'block', height: '100%', width: !masonry ? '400px' : 'auto' }}
-        key={imageIndex}
-        onClick={(e) => openLightbox(imageIndex, e)}
-      >
-        <GatsbyImage image={getImage(node)} alt="" />
-      </a>
-    ))
+  const imageElements = useMemo(
+    () =>
+      images &&
+      images.map((node, imageIndex) => (
+        <a
+          style={{ cursor: 'pointer', display: 'block', height: '100%', width: !masonry ? '400px' : 'auto' }}
+          key={imageIndex}
+          onClick={(e) => openLightbox(imageIndex, e)}
+        >
+          <GatsbyImage image={getImage(node)} alt="" />
+        </a>
+      )),
+    [images, openLightbox, getImage]
+  )
 
   return (
     <>
