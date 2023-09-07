@@ -1,75 +1,81 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from '@emotion/styled'
 import YouTubeResponsive from '../YouTubeResponsive'
-import { AudioWrapper, PlayerWrapper, Titlebar, TracklistWrapper, TransportButton } from '../Winamp'
-import { FaBackward, FaForward } from 'react-icons/fa'
+import { AudioWrapper, PlayerWrapper, Titlebar, ToggleButton, TracklistWrapper, Transport, TransportButton } from '../Winamp'
 import { rhythm } from '../../utils/typography'
 import CloudBackground from '../CloudBackground'
-import { getRandom } from '../../utils/helper'
+import { getRandom, graphqlGroupToObject } from '../../utils/helper'
 import { Link } from 'gatsby'
+import Player from '../Player'
+import { shuffler } from '../../utils/shuffling'
 
 export const GigsJukebox = React.memo(({ data }) => {
-  const [gigHistory, setGigHistory] = useState([])
+  const [mode, setMode] = useState('video')
   const [timeTravelIndex, setTimeTravelIndex] = useState(0)
 
-  const [currentGig, setCurrentGig] = useState(null)
+  const [wavesurfer, setWaveSurfer] = useState(null)
 
-  const flatGigs = useMemo(() => data.gigsByDate.group.reduce((acc, group) => [...acc, ...group.nodes], []), [])
+  const audioByGig = useMemo(() => graphqlGroupToObject(data.audio.group), [data.audio])
+  const artistsByTitle = useMemo(() => graphqlGroupToObject(data.artists.group), [data.artists])
+  const venuesById = useMemo(() => graphqlGroupToObject(data.venues.group), [data.venues])
 
-  // Click callbacks
-  const nextGig = useCallback(() => {
-    if (timeTravelIndex < 0) {
-      // If we're currently going back in time
-      const newTimeTravelIndex = timeTravelIndex + 1
-      setTimeTravelIndex(newTimeTravelIndex)
-      setCurrentGig(gigHistory[gigHistory.length - 1 + newTimeTravelIndex])
-    } else {
-      // Otherwise roll the die
-      const newGig = rollTheDie()
-      setGigHistory([...gigHistory, newGig])
-      setCurrentGig(newGig)
-    }
-  }, [currentGig, gigHistory, timeTravelIndex])
+  // Get the audio from an artist
+  const getAudio = useCallback(
+    (gig, artist) => {
+      if (!artist || !gig) return
+      const gigAudio = audioByGig[gig.fields.fileName]
+      if (gigAudio) {
+        const gigAudioObj = gigAudio.reduce(
+          (acc, thing) => {
+            const machineName = thing.relativeDirectory.split('/')[2]
+            if (machineName === artist.fields.fileName) {
+              if (thing.ext === '.mp3') {
+                acc['audio'][0]['.mp3'] = thing
+              } else {
+                acc['audio'][0]['.json'] = thing
+              }
+            }
+            return acc
+          },
+          { title: artist.title, audio: [{ '.mp3': null, '.json': null }] }
+        )
+        return gigAudioObj && gigAudioObj.audio[0]['.mp3'] && gigAudioObj
+      }
+    },
+    [audioByGig]
+  )
 
-  const prevGig = useCallback(() => {
-    const newTimeTravelIndex = timeTravelIndex - 1
-    setTimeTravelIndex(newTimeTravelIndex)
-    setCurrentGig(gigHistory[gigHistory.length - 1 + newTimeTravelIndex])
-  }, [gigHistory, timeTravelIndex])
+  // Shuffled gigs and artists and media
+  const shuffledGigs = useMemo(
+    () =>
+      shuffler(
+        data.gigs.nodes.reduce((acc, gig) => {
+          // We only want artists with audio and video
+          const withVids = gig.artists.filter((artist) => artist.vid)
 
-  // Data processors
-  const getGig = useCallback(() => {
-    const randomNumber = getRandom(0, flatGigs.length)
-    return flatGigs[randomNumber]
-  }, [flatGigs])
+          if (!withVids) return acc
 
-  const getArtist = useCallback((gig) => {
-    if (!gig) return
-    const artistsWithVids = gig.artists.filter((artist) => artist.vid)
-    const randomNumber = getRandom(0, artistsWithVids.length)
-    return artistsWithVids[randomNumber]
-  }, [])
+          let enrichedArtists = withVids.map((gigArtist) => {
+            const artistEntity = artistsByTitle[gigArtist.name] ? artistsByTitle[gigArtist.name][0] : null
+            const audio = artistEntity && getAudio(gig, artistEntity)
+            return { ...gigArtist, audio, artistEntity }
+          })
 
-  const getVideo = useCallback((artist) => {
-    if (!artist) return
-    const randomNumber = getRandom(0, artist.vid.length)
-    return artist.vid[randomNumber].link
-  }, [])
+          enrichedArtists = enrichedArtists.filter((artist) => artist.audio)
 
-  // This one does it all
-  const rollTheDie = useCallback(() => {
-    const gig = getGig()
-    const artist = getArtist(gig)
-    const vid = getVideo(artist)
-    return { gig, artist, vid }
-  }, [getGig, getArtist, getVideo])
+          if (!enrichedArtists.length) return acc
 
-  // And this one kicks things off
-  useEffect(() => {
-    const thing = rollTheDie()
-    setCurrentGig(thing)
-    setGigHistory([...gigHistory, thing])
-  }, [])
+          const gigArtist = enrichedArtists[getRandom(0, enrichedArtists.length)]
+          const vid = gigArtist.vid[getRandom(0, gigArtist.vid.length)].link
+          const audio = gigArtist.audio
+          const artist = gigArtist.artistEntity
+          const venue = venuesById[gig.venue][0]
+
+          return [...acc, { ...gig, artist, venue, vid, audio }]
+        }, [])
+      ),
+    [data.gigs, venuesById, artistsByTitle]
+  )
 
   return (
     <ContentWrapper>
@@ -77,22 +83,46 @@ export const GigsJukebox = React.memo(({ data }) => {
         <PlayerWrapper className="player">
           <GigsTitlebar></GigsTitlebar>
           <AudioWrapper>
-            <TransportButton disabled={!gigHistory[gigHistory.length - 1 + (timeTravelIndex - 1)]} onClick={(e) => prevGig()}>
-              <FaBackward />
-            </TransportButton>
-            {currentGig && <YouTubeResponsive videoId={currentGig.vid} vanilla={true} />}
-            <TransportButton onClick={(e) => nextGig()}>
-              <FaForward />
-            </TransportButton>
+            {mode === 'video' && shuffledGigs[timeTravelIndex] && <YouTubeResponsive videoId={shuffledGigs[timeTravelIndex].vid} vanilla={true} />}
+            {mode === 'audio' && shuffledGigs[timeTravelIndex] && shuffledGigs[timeTravelIndex].audio && (
+              <Player artistAudio={[shuffledGigs[timeTravelIndex].audio]} barebones={true} playOnLoad={true} setWaveSurferCallback={setWaveSurfer} />
+            )}
           </AudioWrapper>
+          <Transport>
+            <TransportButton className="buttonStyle left" disabled={timeTravelIndex - 1 < 0} onClick={(e) => setTimeTravelIndex(timeTravelIndex - 1)} />
+            <TransportButton disabled={mode === 'video' ? true : false} className="buttonStyle play" onClick={(e) => wavesurfer && wavesurfer.play()} />
+            <TransportButton disabled={mode === 'video' ? true : false} className="buttonStyle pause" onClick={(e) => wavesurfer && wavesurfer.pause()} />
+            <TransportButton className="buttonStyle right" onClick={(e) => setTimeTravelIndex(timeTravelIndex + 1)} />
+            <div style={{ float: 'right' }}>
+              <ToggleButton className={mode === 'video' ? 'active' : ''} onClick={() => setMode('video')} style={{ paddingLeft: '5px' }}>
+                Video
+              </ToggleButton>
+              {shuffledGigs[timeTravelIndex]?.audio && (
+                <ToggleButton className={mode === 'audio' ? 'active' : ''} onClick={() => setMode('audio')}>
+                  Audio
+                </ToggleButton>
+              )}
+            </div>
+          </Transport>
           <TracklistWrapper>
-            {currentGig && (
+            {shuffledGigs[timeTravelIndex] && (
               <ul className="tracklist">
-                <li className="title">
-                  Gig: <Link to={currentGig.gig.fields.slug}>{currentGig.gig.title}</Link>
+                <li className="title noHover">
+                  Gig: {shuffledGigs[timeTravelIndex].title}{' '}
+                  <Link to={shuffledGigs[timeTravelIndex].fields.slug} title="Gig page" target="_blank">
+                    (Go to gig)
+                  </Link>
                 </li>
-                <li className="title">Artist: {currentGig.artist.name}</li>
-                <li className="title">Date: {currentGig.gig.date}</li>
+                <li className="title noHover">Date: {shuffledGigs[timeTravelIndex].date}</li>
+                <li className="title noHover">
+                  Artist: {shuffledGigs[timeTravelIndex].artist.title}{' '}
+                  {shuffledGigs[timeTravelIndex].artist.bandcamp && (
+                    <a target="_blank" href={shuffledGigs[timeTravelIndex].artist.bandcamp}>
+                      (Bandcamp)
+                    </a>
+                  )}
+                </li>
+                <li className="title noHover">Venue: {shuffledGigs[timeTravelIndex].venue.title}</li>
               </ul>
             )}
           </TracklistWrapper>
@@ -115,6 +145,10 @@ const ContentWrapper = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  .player {
+    width: 100%;
+  }
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
     margin-top: ${(props) => `calc(${props.theme.headerHeight} + ${props.theme.subheaderHeight})`};

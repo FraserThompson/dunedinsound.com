@@ -33,12 +33,13 @@ function mulberry32(a) {
 }
 
 /**
- * Give it an array and a seed, it'll return the array shuffled.
+ * Give it an array and an optional seed, it'll return the array shuffled.
  * @param {array} a
- * @param {string} seed
+ * @param {string} seed (optional)
  * @returns
  */
 export const shuffler = (a, seed) => {
+  seed = seed || window.crypto.randomUUID()
   const rng = mulberry32(cyrb128(seed)[0])
 
   const rnd = (lo, hi, defaultHi = 1) => {

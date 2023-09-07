@@ -16,7 +16,8 @@ export default styled(DividerWrapper)`
     border-left: 0;
   }
 
-  button {
+  button,
+  .button {
     padding: 0;
     border-radius: 4px 4px 0 0;
     color: ${(props) => invert(props.theme.textColor)};

@@ -11,6 +11,10 @@
             publicURL: path to mp3 file
             data: JSON data (optional, but required if no publicURL)
         tracklist: timestamped tracklist (optional)
+   - barebones: If true it will just render the waveform without tracklist/transport.
+   - playOnLoad: If true it will play the track once it loads.
+   - setWaveSurferCallback: Pass a function and this will return the wavesurfer obj
+     when it sets it, so the parent component can use it.
 */
 
 import React, { useRef, useState, useEffect, useCallback } from 'react'
@@ -21,9 +25,9 @@ import RoundButton from './RoundButton'
 import { scale } from '../utils/typography'
 import LoadingSpinner from './LoadingSpinner'
 import { timeToSeconds } from '../utils/helper'
-import { AudioWrapper, PlayerWrapper, Titlebar, TracklistWrapper, Transport, TransportButton } from './Winamp'
+import { AudioWrapper, PlayerWrapper, Titlebar, TracklistWrapper, TransportButton } from './Winamp'
 
-export default React.memo(({ artistAudio }) => {
+export default React.memo(({ artistAudio, barebones, playOnLoad, setWaveSurferCallback = null }) => {
   const waveformRef = useRef()
 
   const [playing, setPlaying] = useState(false)
@@ -87,6 +91,10 @@ export default React.memo(({ artistAudio }) => {
 
     wavesurfer.clearRegions()
 
+    if (playOnLoad) {
+      wavesurfer.play()
+    }
+
     if (queuePlay) {
       wavesurfer.playPause()
       setQueuePlay(false)
@@ -112,6 +120,10 @@ export default React.memo(({ artistAudio }) => {
   useEffect(() => {
     wavesurfer && load(artistAudio[selectedArtist].audio[0]['.mp3'], artistAudio[selectedArtist].audio[0]['.json'])
   }, [artistAudio, selectedArtist, wavesurfer])
+
+  useEffect(() => {
+    setWaveSurferCallback && setWaveSurferCallback(wavesurfer)
+  }, [wavesurfer])
 
   // Fetches the file and loads it into wavesurfer
   const load = useCallback(
@@ -194,20 +206,22 @@ export default React.memo(({ artistAudio }) => {
   )
 
   return (
-    <PlayerWrapper className="player">
-      <Titlebar></Titlebar>
-      <AudioWrapper>
-        <Transport>
-          <TransportButton disabled={!ready} id="prev" onClick={previous}>
-            <FaBackward />
-          </TransportButton>
-          <RoundButton disabled={!ready} className={playing ? 'active' : ''} size="40px" onClick={() => wavesurfer.playPause()}>
-            {!playing ? <FaPlayCircle /> : <FaPauseCircle />}
-          </RoundButton>
-          <TransportButton disabled={!ready} id="next" onClick={next}>
-            <FaForward />
-          </TransportButton>
-        </Transport>
+    <PlayerWrapper barebones={barebones} className="player">
+      {!barebones && <Titlebar />}
+      <AudioWrapper barebones={barebones}>
+        {!barebones && (
+          <div>
+            <TransportButton disabled={!ready} id="prev" onClick={previous}>
+              <FaBackward />
+            </TransportButton>
+            <RoundButton disabled={!ready} className={playing ? 'active' : ''} size="40px" onClick={() => wavesurfer.playPause()}>
+              {!playing ? <FaPlayCircle /> : <FaPauseCircle />}
+            </RoundButton>
+            <TransportButton disabled={!ready} id="next" onClick={next}>
+              <FaForward />
+            </TransportButton>
+          </div>
+        )}
         <WaveWrapper ref={waveformRef}>
           {ready && <LengthWrapper style={{ left: '0px' }}>{formatTime(currentTime)}</LengthWrapper>}
           {ready && <LengthWrapper style={{ right: '0px' }}>{formatTime(duration)}</LengthWrapper>}
@@ -218,33 +232,36 @@ export default React.memo(({ artistAudio }) => {
           </LoadingProgress>
         )}
       </AudioWrapper>
-      <TracklistWrapper>
-        {artistAudio.map((item, index) => (
-          <div key={item.title}>
-            <li className={selectedArtist == index ? 'active' : ''} onClick={() => selectArtist(index)}>
-              <span className="title">
-                {index + 1}. {item.title}
-              </span>
-              <span className="listButton">
-                <a title={'Download MP3: ' + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank">
-                  <FaDownload />
-                </a>
-              </span>
-            </li>
-            {item.tracklist && (
-              <ul className="tracklist">
-                {item.tracklist.map((item) => {
-                  return (
-                    <li key={item.title} onClick={() => seekToTime(item.time, index, true)}>
-                      {item.title} ({item.time})
-                    </li>
-                  )
-                })}
-              </ul>
-            )}
-          </div>
-        ))}
-      </TracklistWrapper>
+
+      {!barebones && (
+        <TracklistWrapper>
+          {artistAudio.map((item, index) => (
+            <div key={item.title}>
+              <li className={selectedArtist == index ? 'active' : ''} onClick={() => selectArtist(index)}>
+                <span className="title">
+                  {index + 1}. {item.title}
+                </span>
+                <span className="listButton">
+                  <a title={'Download MP3: ' + item.title} href={item.audio[0]['.mp3']['publicURL']} target="_blank">
+                    <FaDownload />
+                  </a>
+                </span>
+              </li>
+              {item.tracklist && (
+                <ul className="tracklist">
+                  {item.tracklist.map((item) => {
+                    return (
+                      <li key={item.title} onClick={() => seekToTime(item.time, index, true)}>
+                        {item.title} ({item.time})
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
+            </div>
+          ))}
+        </TracklistWrapper>
+      )}
     </PlayerWrapper>
   )
 })

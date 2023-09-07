@@ -67,6 +67,30 @@ export const graphqlGroupToObject = (queryResult, sortByName, fieldValueProcesso
   }, {})
 }
 
+/**
+ * Returns a key-value object which sums up the audio in a gig by artist, to be fed to the Player component.
+ * @param {} audio
+ * @returns
+ */
+export const gigAudioToObject = (audio) =>
+  audio.reduce((obj, item) => {
+    const machineName = item.fieldValue.split('/')[2]
+    const grouped_audio = item.nodes.reduce((obj, item) => {
+      // There appears to be a bug in the GraphQL extension filter which sometimes allows images to slip
+      // through... So instead of pursuing that we'll just add this check here.
+      if (item.ext !== '.json' && item.ext !== '.mp3') return obj
+
+      const name = item.name.replace('.mp3', '') // because old audio file JSON has mp3 in the name
+
+      if (!obj[name]) obj[name] = {}
+      obj[name][item.ext] = item
+      return obj
+    }, {})
+
+    obj[machineName] = Object.keys(grouped_audio).map((item) => grouped_audio[item])
+    return obj
+  }, {})
+
 export const postFilter = (needle, haystack) => {
   const filterFunction = (node) => {
     const titleResult = node.title.toLowerCase().includes(needle)

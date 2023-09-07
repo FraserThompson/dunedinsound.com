@@ -69,7 +69,8 @@ const OpenButton = styled.div`
     bottom: 10px;
   }
 
-  button {
+  button,
+  .button {
     pointer-events: auto;
     box-shadow: -2px -1px 3px rgb(0 0 0 / 32%), 3px 1px 3px rgb(0 0 0 / 42%);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);

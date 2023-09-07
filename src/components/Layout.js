@@ -209,9 +209,6 @@ export const query = graphql`
     venue
     artists {
       name
-      vid {
-        link
-      }
     }
   }
 

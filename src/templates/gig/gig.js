@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '../../components/Layout'
-import { toMachineName, graphqlGroupToObject, scrollTo } from '../../utils/helper'
+import { toMachineName, graphqlGroupToObject, scrollTo, gigAudioToObject } from '../../utils/helper'
 import Banner from '../../components/Banner'
 import HorizontalNav from '../../components/HorizontalNav'
 import PlayerContainer from '../../components/PlayerContainer'
@@ -44,25 +44,7 @@ const Page = React.memo(({ data, pageContext }) => {
     imagesByArtist['_uncategorized'] && setUncategorizedImages(imagesByArtist['_uncategorized'])
 
     // Key-value object of audio files by artist
-    const audioByArtist =
-      data.audio &&
-      data.audio.group.reduce((obj, item) => {
-        const machineName = item.fieldValue.split('/')[2]
-        const grouped_audio = item.nodes.reduce((obj, item) => {
-          // There appears to be a bug in the GraphQL extension filter which sometimes allows images to slip
-          // through... So instead of pursuing that we'll just add this check here.
-          if (item.ext !== '.json' && item.ext !== '.mp3') return obj
-
-          const name = item.name.replace('.mp3', '') // because old audio file JSON has mp3 in the name
-
-          if (!obj[name]) obj[name] = {}
-          obj[name][item.ext] = item
-          return obj
-        }, {})
-
-        obj[machineName] = Object.keys(grouped_audio).map((item) => grouped_audio[item])
-        return obj
-      }, {})
+    const audioByArtist = data.audio && gigAudioToObject(data.audio.group)
 
     // Key-value object of details by artist
     const detailsByArtist = data.artists && graphqlGroupToObject(data.artists.group)

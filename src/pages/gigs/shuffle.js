@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
-import Layout from '../components/Layout'
-import { SiteHead } from '../components/SiteHead'
-import { GigsTimeline } from '../components/page/GigsTimeline'
+import Layout from '../../components/Layout'
+import { SiteHead } from '../../components/SiteHead'
 import styled from '@emotion/styled'
-import { rhythm } from '../utils/typography'
+import { rhythm } from '../../utils/typography'
+import { GigsJukebox } from '../../components/page/GigsJukebox'
 
 const Page = React.memo(({ data, location }) => {
   const tabs = [
@@ -13,7 +13,7 @@ const Page = React.memo(({ data, location }) => {
   ]
 
   return (
-    <Layout location={location} hideBrandOnMobile={true} hideFooter={true} isSidebar={true}>
+    <Layout location={location} hideBrandOnMobile={false} hideFooter={true} isSidebar={true}>
       <Subheader>
         <span>Mode: </span>
         <div>
@@ -25,7 +25,7 @@ const Page = React.memo(({ data, location }) => {
         </div>
       </Subheader>
       <TabsContentWrapper>
-        <GigsTimeline data={data} />
+        <GigsJukebox data={data} />
       </TabsContentWrapper>
     </Layout>
   )
@@ -33,17 +33,52 @@ const Page = React.memo(({ data, location }) => {
 
 export const pageQuery = graphql`
   query {
-    gigsByDate: allGigYaml(sort: { date: DESC }) {
-      group(field: { fields: { yearAndMonth: SELECT } }) {
+    gigs: allGigYaml {
+      nodes {
+        ...GigFrontmatter
+      }
+    }
+    audio: allFile(filter: { sourceInstanceName: { eq: "media" }, ext: { in: [".json", ".mp3"] }, fields: { mediaDir: { eq: "gig" } } }) {
+      group(field: { fields: { gigDir: SELECT } }) {
         fieldValue
         nodes {
-          ...GigTileFrontmatter
+          name
+          relativeDirectory
+          publicURL
+          ext
+        }
+      }
+    }
+    artists: allArtistYaml {
+      group(field: { title: SELECT }) {
+        fieldValue
+        nodes {
+          fields {
+            fileName
+            slug
+          }
+          title
+          bandcamp
+          facebook
+          instagram
+        }
+      }
+    }
+    venues: allVenueYaml {
+      group(field: { fields: { fileName: SELECT } }) {
+        fieldValue
+        nodes {
+          fields {
+            fileName
+            slug
+          }
+          title
         }
       }
     }
   }
 `
-export const Head = (params) => <SiteHead title={'Gigs'} {...params} />
+export const Head = (params) => <SiteHead title={'Gig Jukebox'} {...params} />
 
 const TabsContentWrapper = styled.div``
 

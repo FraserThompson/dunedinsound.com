@@ -68,7 +68,7 @@ export default React.memo(({ data, parent, background }) => {
   const imageCaptions = images?.map((image) => {
     const gig = image.fields?.gigDir && getGigByfileName(image.fields.gigDir)
     return (
-      <p>
+      <p key={gig.fields.slug}>
         {gig && (
           <>
             Taken at{' '}

@@ -287,7 +287,8 @@ const Filters = styled.div`
     margin-right: ${rhythm(0.5)};
   }
 
-  button {
+  button,
+  .button {
     border: none;
     background-color: black;
     &:focus {
