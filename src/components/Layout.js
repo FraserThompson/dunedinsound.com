@@ -11,6 +11,7 @@ import SiteNav from './SiteNav'
 import Menu from './Menu'
 import GlobalStyle from './GlobalStyle'
 import UpdateYourFrickinBrowser from './UpdateYourFrickinBrowser'
+import GoatCounter from './GoatCounter'
 
 export default React.memo(
   ({
@@ -27,6 +28,7 @@ export default React.memo(
   }) => (
     <ThemeProvider theme={theme.default}>
       <>
+        <GoatCounter />
         <Global styles={(theme) => GlobalStyle} />
         <UpdateYourFrickinBrowser />
         {!hideNav && (
@@ -218,6 +220,7 @@ export const query = graphql`
       fileName
     }
     title
+    description
     bandcamp
     facebook
     instagram

@@ -10,7 +10,6 @@
     "baguettebox.js": "^1.11.1",
     "gatsby": "^5.10.0",
     "gatsby-plugin-emotion": "^8.10.0",
-    "gatsby-plugin-google-analytics": "^5.10.0",
     "gatsby-plugin-image": "^3.10.0",
     "gatsby-plugin-manifest": "5.10.0",
     "gatsby-plugin-mdx": "^5.10.0",

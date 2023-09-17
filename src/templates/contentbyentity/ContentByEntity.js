@@ -65,10 +65,10 @@ export default React.memo(({ data, parent, background }) => {
       data.images && (data.images.nodes.length > 1 || (background && data.images.nodes.length > 0)) ? shuffler(data.images.nodes, data.thisPost.title) : null,
     [data]
   )
-  const imageCaptions = images?.map((image) => {
+  const imageCaptions = images?.map((image, index) => {
     const gig = image.fields?.gigDir && getGigByfileName(image.fields.gigDir)
     return (
-      <p key={gig.fields.slug}>
+      <p key={gig ? gig.fields.slug : index}>
         {gig && (
           <>
             Taken at{' '}

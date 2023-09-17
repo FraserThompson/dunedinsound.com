@@ -13,8 +13,6 @@ export const AudioWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 5px;
-  margin-right: 5px;
   border: ${(props) => !props.barebones && '3px groove #585662'};
 
   region.wavesurfer-region {
@@ -176,6 +174,10 @@ export const TracklistWrapper = styled(Menu)`
   background-color: black;
   margin: 5px;
   border: 3px groove #585662;
+
+  ul {
+    padding-left: 5px;
+  }
 
   li {
     line-height: 1.5rem;

@@ -13,7 +13,7 @@ const Page = React.memo(({ data, location }) => {
   ]
 
   return (
-    <Layout location={location} hideBrandOnMobile={false} hideFooter={true} isSidebar={true}>
+    <Layout location={location}>
       <Subheader>
         <span>Mode: </span>
         <div>
@@ -84,7 +84,7 @@ const TabsContentWrapper = styled.div``
 
 const Subheader = styled.div`
   position: fixed;
-  top: ${(props) => props.theme.headerHeightMobile};
+  top: 0;
   z-index: 8;
   padding-left: ${rhythm(0.5)};
   padding-right: ${rhythm(0.5)};

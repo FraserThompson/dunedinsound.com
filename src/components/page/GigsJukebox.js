@@ -69,7 +69,7 @@ export const GigsJukebox = React.memo(({ data }) => {
           const vid = gigArtist.vid[getRandom(0, gigArtist.vid.length)].link
           const audio = gigArtist.audio
           const artist = gigArtist.artistEntity
-          const venue = venuesById[gig.venue][0]
+          const venue = venuesById[gig.venue] ? venuesById[gig.venue][0] : null
 
           return [...acc, { ...gig, artist, venue, vid, audio }]
         }, [])
@@ -115,14 +115,14 @@ export const GigsJukebox = React.memo(({ data }) => {
                 </li>
                 <li className="title noHover">Date: {shuffledGigs[timeTravelIndex].date}</li>
                 <li className="title noHover">
-                  Artist: {shuffledGigs[timeTravelIndex].artist.title}{' '}
-                  {shuffledGigs[timeTravelIndex].artist.bandcamp && (
+                  Artist: {shuffledGigs[timeTravelIndex].artist?.title || 'Unknown'}{' '}
+                  {shuffledGigs[timeTravelIndex].artist?.bandcamp && (
                     <a target="_blank" href={shuffledGigs[timeTravelIndex].artist.bandcamp}>
                       (Bandcamp)
                     </a>
                   )}
                 </li>
-                <li className="title noHover">Venue: {shuffledGigs[timeTravelIndex].venue.title}</li>
+                <li className="title noHover">Venue: {shuffledGigs[timeTravelIndex].venue?.title || 'Unknown'}</li>
               </ul>
             )}
           </TracklistWrapper>
@@ -160,7 +160,7 @@ const GigsPlayerWrapper = styled.div`
   z-index: 2;
   position: relative;
   margin: 0 auto;
-  padding: ${rhythm(1)};
+  padding: ${rhythm(0.5)};
   padding-top: 50px;
   max-width: 1200px;
   width: 100%;
@@ -174,6 +174,7 @@ const GigsTitlebar = styled(Titlebar)`
 
 const Bottom = styled.div`
   background-color: green;
+  box-shadow: 0px -150px 1000px white;
   bottom: 0;
   height: 200px;
   width: 100vw;

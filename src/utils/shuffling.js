@@ -39,7 +39,7 @@ function mulberry32(a) {
  * @returns
  */
 export const shuffler = (a, seed) => {
-  seed = seed || window.crypto.randomUUID()
+  seed = seed || (typeof window !== 'undefined' && window.crypto.randomUUID()) || 'this_is_a_seed_lol'
   const rng = mulberry32(cyrb128(seed)[0])
 
   const rnd = (lo, hi, defaultHi = 1) => {

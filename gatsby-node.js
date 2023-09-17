@@ -318,6 +318,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
     type ArtistYaml implements Node {
       title: String!
+      description: String
       facebook: String
       bandcamp: String
       website: String
