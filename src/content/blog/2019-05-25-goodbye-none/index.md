@@ -9,7 +9,7 @@ author: Fraser Thompson
 background_position: center
 background_size: contain
 description:
-cover: ../../venues/none_gallery/cover.jpg
+cover: ./cover.jpg
 ---
 
 A few weeks ago the art and music community received some sad news: [None Gallery](/venues/none_gallery/) had been sold and, since it’s new owners had purchased a cashflow opportunity not an art gallery, the residents had 30 days to collect 16 years of history and get out.
@@ -26,7 +26,7 @@ Over time the original residents moved out, and a steady stream of artists and m
 
 I myself discovered it comparatively late in its existence, but some of my most memorable gigs have been there. The first time I saw [Ov Pain and Negative Nancies in 2016](/gigs/eye-negative-nancies-ov-pain/), Sewage’s [dual saxophone absurdity in late 2017](/gigs/girls-pissing-on-girls-pissing-with-sewage-and-coyote/), watching Brendan Jon Philip deliver a [screaming barrage of noise as he slowly disappeared behind layers of fog…](</gigs/from-kingdom-to-crown-(storm-channels)/>) Even dancier acts like [Disasteradio](/gigs/disasteradio-sweatshop-tour/) felt right at home at None. The space was a blank canvas.
 
-![From Kingdom to Crown (2017)](../../gigs/2017-07-28-from-kingdom-to-crown-storm-channels/cover.jpg)
+![From Kingdom to Crown (2017)](./from-kingdom-to-crown.jpg)
 
 Art flourishes outside of commercial pressures, and while the recent resurgence of venues is great for some, it was nice to go to a venue where the main purpose wasn’t selling alcohol. None Gallery joins The Attic on the list of DIY venues recently snuffed out by external forces.
 
@@ -68,13 +68,13 @@ Hayden sums it up well.
 
 **What was the area like back when it started?**
 
-https://en.wikipedia.org/wiki/History_of_the_Dunedin_urban_area
+['History of the Dunedin urban area' on Wikipedia](https://en.wikipedia.org/wiki/History_of_the_Dunedin_urban_area)
 
 Post-Colonisation era Area pic here >
 
-https://teara.govt.nz/en/photograph/22904/the-exchange-dunedin
+[Photo of 'The Exchange' taken circa 1930](https://teara.govt.nz/en/photograph/22904/the-exchange-dunedin)
 
-The building itself has a colourful history, originally the HQ for Kempthorne Prosser - the leading big pharma / fertiliser company in NZ from 1869 - 1978. https://en.wikipedia.org/wiki/Kempthorne_Prosser
+The building itself has a colourful history, originally the HQ for Kempthorne Prosser - the leading big pharma / fertiliser company in NZ from 1869 - 1978. [Kempthorne Prosser on Wikipedia](https://en.wikipedia.org/wiki/Kempthorne_Prosser)
 
 Some artifacts remained in the building from this era, which we uncovered while digging up the dirt room underneath the adjoining building via the basement. Alistair Gailbraith recalled going there as a child, when it housed a dog food / horse meat processing plant. Then it became California Girls Strip club.
 
@@ -188,7 +188,7 @@ Inside bubble , happy art music environment, surrounded by PC correct people , a
 
 Not particularly feeling anything but I have so many footage of gigs , it’s great chance to make archive
 
-![Motoko performing at None in 2017 with The Ladder is Part of the Pit](../../gigs/2017-07-22-totems-and-iskse-nz-tour/the_ladder_is_part_of_the_pit/P1040150.jpg)
+![Motoko performing at None in 2017 with The Ladder is Part of the Pit](./ladder-pit-1.jpg)
 
 ### Justin Taboo’ulu
 
@@ -279,7 +279,7 @@ so many highs and lows and things that couldn’t be or shouldn’t be published
 just to add. discovering none was like discovering nz's own NOWAVE scene.
 so much underground anti genera diversity and greatness
 
-![William Henry Meung performing at None in 2017 with The Ladder is Part of the Pit](../../gigs/2017-07-22-totems-and-iskse-nz-tour/the_ladder_is_part_of_the_pit/P1040156.jpg)
+![William Henry Meung performing at None in 2017 with The Ladder is Part of the Pit](./ladder-pit-2.jpg)
 
 ### Danny Brady
 
@@ -299,7 +299,7 @@ All things must come to an end. Such spaces are occupied by artists because they
 
 Before I was hosting shows which lent more towards live music there were a lot more exhibitions and performance art, the most memorable being a performance piece by Tim Player. Tim erected a wall with a peep hole closing off a corner of the gallery making it seem like an empty white space, through the peep hole you could observe him lying naked on a bed of Centre blocks. It was the middle of winter and freezing. I loved observing people's reactions. And his dedication and endurance.
 
-![Danny Brady performing at None in 2017 with Death and the Maiden](../../gigs/2017-01-26-the-ruby-suns-at-none-gallery/death_and_the_maiden/P1110603.jpg)
+![Danny Brady performing at None in 2017 with Death and the Maiden](./P1110603.jpg)
 
 ### Christian McNab
 
@@ -323,6 +323,6 @@ I am disappointed the residents are getting kicked out suddenly, and will have t
 
 There have been so many memorable events! I enjoyed a lot of the mixed media art exhibitions I remember going to around 2012ish, "Facebook Nuns" etc. There was always a strong connection between visual art and music at None, through the way shows and events were put together, and the community of people involved. I feel like the last stretch of Nones history was a bit more gig focused. Guitar wolf in the basement would be a highlight, it felt like raw rock n roll, legit basement vibes! As a big fan, Puce Mary was amazing!
 
-![Christian McNab performing at None in 2017 as Acid Police](../../gigs/2017-10-07-hotline-666/acid_police/P1100786.jpg)
+![Christian McNab performing at None in 2017 as Acid Police](./P1100786.jpg)
 
 _Thank you to everyone who answered my questions and to Oscar Francis for helping me track down information and providing photos_

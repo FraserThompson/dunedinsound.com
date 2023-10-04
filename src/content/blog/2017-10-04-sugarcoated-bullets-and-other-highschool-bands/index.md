@@ -8,7 +8,7 @@ tags:
   - 'Bark Like a Dog'
   - Imperium
   - 'Do Speak Louder'
-  - 'Trent Hawthorne'
+  - 'Ruby Hawthorne'
 author: 'Fraser Thompson'
 description: 'Dunedin’s high schools are pumping out more fizzy bands than ever before, although you might not know it because most venues are bars, and bars don’t allow highschoolers...'
 cover: ./cover.jpg
