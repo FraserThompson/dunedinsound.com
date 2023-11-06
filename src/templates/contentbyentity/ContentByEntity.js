@@ -23,7 +23,7 @@ import Layout from '../../components/Layout'
 import Banner from '../../components/Banner'
 import Tile from '../../components/Tile'
 import HorizontalNav from '../../components/HorizontalNav'
-import { rhythm } from '../../utils/typography'
+import { rhythm, scale } from '../../utils/typography'
 import styled from '@emotion/styled'
 import ContentTabs from './ContentTabs'
 import { scrollTo } from '../../utils/helper'
@@ -34,6 +34,7 @@ import MetadataLinks from './MetadataLinks'
 import GigTiles from './GigTiles'
 import { shuffler } from '../../utils/shuffling'
 import { Link } from 'gatsby'
+import FlexGridContainer from '../../components/FlexGridContainer'
 
 export default React.memo(({ data, parent, background }) => {
   useEffect(() => {
@@ -144,6 +145,13 @@ export default React.memo(({ data, parent, background }) => {
           <MetadataLinks frontmatter={data.thisPost} liClassname="button" />
         </HorizontalNav>
         {data.thisPost.description && <PageDescription dangerouslySetInnerHTML={{ __html: data.thisPost.description }} />}
+        {data.thisPost.audioculture && (
+          <QuoteWrapper href={data.thisPost.audioculture.link}>
+            <Quote>
+              "{data.thisPost.audioculture.snippet}" - <span>Audioculture</span>
+            </Quote>
+          </QuoteWrapper>
+        )}
       </Banner>
       <ContentTabs
         gigTiles={gigTiles}
@@ -190,6 +198,31 @@ const PageDescription = styled.p`
   border: 2px inset;
   padding: 5px;
   margin-top: auto;
+`
+
+const QuoteWrapper = styled.a`
+  padding-top: ${rhythm(1)};
+`
+
+const Quote = styled.p`
+  ${scale(0.8)};
+  font-style: italic;
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px #000;
+  > span {
+    transition: color 0.3s ease-in-out;
+    color: white;
+  }
+  &:hover {
+    > span {
+      color: #b4dc7b;
+    }
+  }
+  @media screen and (min-width: ${(props) => props.theme.breakpoints.sm}) {
+    ${scale(1)};
+  }
 `
 
 const ActiveWrapper = styled.div``

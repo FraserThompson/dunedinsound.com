@@ -192,7 +192,7 @@ const TitleWrapper = styled.div`
 
     .title {
       margin-left: 0;
-      margin-bottom: ${rhythm(0.5)};
+      margin-bottom: ${rhythm(0.1)};
       color: #ccc;
       font-size: ${(props) => (props.feature ? rhythm(2) : '1.2em')};
       text-shadow: 1px 1px 1px black;

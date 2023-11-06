@@ -33,19 +33,6 @@ export default React.memo(({ gigs, frontmatter }) => {
     )
   })
 
-  if (frontmatter.audioculture) {
-    const audioculture = frontmatter.audioculture
-    gigTiles.push(
-      <FlexGridContainer key={'audioculture'}>
-        <Tile href={audioculture.link}>
-          <Quote>
-            "{audioculture.snippet}" - <span>Audioculture</span>
-          </Quote>
-        </Tile>
-      </FlexGridContainer>
-    )
-  }
-
   if (gigTiles.length <= 3) {
     gigTiles.push(
       <FlexGridContainer key={'contribution'}>
@@ -63,21 +50,3 @@ export default React.memo(({ gigs, frontmatter }) => {
     </>
   )
 })
-
-const Quote = styled.p`
-  ${scale(1)};
-  font-style: italic;
-  text-align: center;
-  color: white;
-  background: rgba(0, 0, 0, 0.5);
-  text-shadow: 1px 1px #000;
-  > span {
-    transition: color 0.3s ease-in-out;
-    color: white;
-  }
-  &:hover {
-    > span {
-      color: #b4dc7b;
-    }
-  }
-`
