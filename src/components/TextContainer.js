@@ -10,12 +10,17 @@ export default styled(BlogContainer)`
   h4,
   div,
   iframe,
+  span,
   ul {
     max-width: ${(props) => props.theme.contentContainerWidth};
     margin-left: 0;
     margin: ${(props) => (!props.leftAlign ? '20px auto' : '')};
     padding-left: ${rhythm(0.5)};
     padding-right: ${rhythm(0.5)};
+  }
+  .gatsby-resp-image-wrapper {
+    max-width: ${(props) => (!props.featureMode ? props.theme.contentContainerWidth : 'initial')} !important;
+    margin-left: ${(props) => (!props.featureMode ? '0 !important' : 'auto')};
   }
   ul {
     padding-left: ${rhythm(2)};

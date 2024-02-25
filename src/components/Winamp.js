@@ -15,34 +15,32 @@ export const AudioWrapper = styled.div`
   justify-content: center;
   border: ${(props) => !props.barebones && '3px groove #585662'};
 
-  region.wavesurfer-region {
+  #waveform ::part(marker) {
     cursor: pointer !important;
-    width: 2px !important;
+    width: 3px !important;
     z-index: 4 !important;
-    background-color: rgba(255, 255, 255, 0.5) !important;
+    background-color: rgba(0, 0, 0, 0.8) !important;
   }
 
-  region.wavesurfer-region:hover {
-    background-color: rgba(255, 255, 255, 1) !important;
+  #waveform ::part(marker):hover {
+    background-color: rgba(0, 0, 0, 1) !important;
     z-index: 5 !important;
   }
 
-  region.wavesurfer-region:hover::after {
-    background-color: rgba(255, 255, 255, 1);
+  #waveform ::part(region-content):hover {
+    background-color: rgba(0, 0, 0, 1);
     z-index: 5 !important;
     max-width: 1000px;
   }
 
-  region.wavesurfer-region::after {
+  #waveform ::part(region-content) {
     content: attr(data-id);
     z-index: 4 !important;
-    -webkit-transition: background-color 100ms ease-in-out;
-    -moz-transition: background-color 100ms ease-in-out;
     transition: background-color 100ms ease-in-out;
     position: absolute;
     bottom: 0;
-    color: black;
-    background-color: rgba(255, 255, 255, 0.5);
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

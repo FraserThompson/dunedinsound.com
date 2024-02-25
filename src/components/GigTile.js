@@ -15,7 +15,9 @@ export default React.memo(({ node, title, id, width, height, hoverHeight, featur
   const tileTitle = title || node.title || node.fields.slug
   const artists = node.artists
     .map((artist, i) => {
-      if (i == node.artists.length - 1) {
+      if (node.artists.length == 1) {
+        return '<strong>' + artist.name + '</strong>'
+      } else if (i == node.artists.length - 1) {
         return ' and <strong>' + artist.name + '</strong>'
       } else {
         return '<strong>' + artist.name + '</strong>, '

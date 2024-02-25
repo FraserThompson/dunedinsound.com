@@ -3,7 +3,7 @@ date: 2017-07-14T09:30:00.000Z
 venue: u-bar
 artists:
   - { name: 'DJ Gaz', vid: [{ link: AErIECEVjs8 }] }
-  - { name: 'Mild Orange', vid: [{ link: uSZq6koVYtM }] }
+  - { name: 'Mild Orange', vid: [{ link: uSZq6koVYtM }, { link: NJIZcBImYDY }] }
   - {
       name: Mamazita,
       vid: [{ link: D-hcspYQ0JU }, { link: SL2iDpDlDfo }, { title: 'Redbone (Childish Gambino cover)', link: 36xTvbgwzlc }, { link: Dn1VR8KYwI4 }],

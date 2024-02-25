@@ -25,7 +25,7 @@ const devFiles = [
 const args = process.argv.slice(2)
 
 const thisDir = '.'
-const devDir = '../dunedinsound-minimal-dev'
+const devDir = '../dunedinsound-gatsby-test-site'
 
 const sourceDir = args[0] === 'to' ? thisDir : devDir
 const destDir = args[0] === 'to' ? devDir : thisDir

@@ -51,7 +51,11 @@ const Page = React.memo(({ data, pageContext, children }) => {
         {post.frontmatter.gallery && data.images && <ImageGallery images={data.images['nodes']} title={post.frontmatter.title} />}
         {(!!data.artist_gigs.nodes.length || !!data.specific_gigs.nodes.length) && <h2 style={{ marginBottom: '0' }}>Related Gigs</h2>}
         <FlexGridContainer>
-          {[...data.artist_gigs.nodes, ...data.specific_gigs.nodes].map((node) => (
+          {[
+            ...data.artist_gigs.nodes,
+            // Make sure we don't have duplicates
+            ...data.specific_gigs.nodes.filter((node) => !data.artist_gigs.nodes.find((node2) => node.fields.slug == node2.fields.slug)),
+          ].map((node) => (
             <GigTile id={node.fields.slug} node={node} key={node.fields.slug} />
           ))}
         </FlexGridContainer>

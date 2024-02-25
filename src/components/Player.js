@@ -26,6 +26,8 @@ import { scale } from '../utils/typography'
 import LoadingSpinner from './LoadingSpinner'
 import { timeToSeconds } from '../utils/helper'
 import { AudioWrapper, PlayerWrapper, Titlebar, TracklistWrapper, TransportButton } from './Winamp'
+import WaveSurfer from 'wavesurfer.js'
+import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.esm.js'
 
 export default React.memo(({ artistAudio, barebones, playOnLoad, setWaveSurferCallback = null }) => {
   const waveformRef = useRef()
@@ -39,42 +41,39 @@ export default React.memo(({ artistAudio, barebones, playOnLoad, setWaveSurferCa
   const [queueSeek, setQueueSeek] = useState(false)
 
   const [wavesurfer, setWaveSurfer] = useState(undefined)
+  const [regionsPlugin, setRegionsPlugin] = useState(undefined)
 
   // Create instance on mount
   useEffect(() => {
     window.cached_json = window.cached_json || {}
 
-    // because otherwise window is not defined
-    const WavesurferJS = require('wavesurfer.js')
-    const RegionsPlugin = require('wavesurfer.js/dist/plugin/wavesurfer.regions')
+    const ws = WaveSurfer.create({
+      container: waveformRef.current,
+      waveColor: theme.default.waveformColor,
+      height: 60,
+      hideScrollbar: true,
+      normalize: true,
+      progressColor: theme.default.waveformProgressColor,
+      barWidth: '2',
+    })
 
-    setWaveSurfer(
-      WavesurferJS.create({
-        container: waveformRef.current,
-        waveColor: theme.default.waveformColor,
-        height: 60,
-        hideScrollbar: true,
-        normalize: true,
-        responsive: true,
-        backend: 'MediaElement',
-        pixelRatio: '1',
-        forceDecode: false,
-        progressColor: theme.default.waveformProgressColor,
-        barWidth: '2',
-        plugins: [RegionsPlugin.create()],
-      })
-    )
+    const wsRegions = ws.registerPlugin(RegionsPlugin.create())
+
+    setWaveSurfer(ws)
+    setRegionsPlugin(wsRegions)
   }, [])
 
   // Attach callbacks when we have the instance
   useEffect(() => {
     if (!wavesurfer) return
-    wavesurfer.on('ready', () => setReady(true))
-    wavesurfer.on('finish', () => next())
+    wavesurfer.on('ready', (duration) => {
+      setReady(true)
+      setDuration(duration)
+    })
+    wavesurfer.on('finish', () => next(true))
     wavesurfer.on('play', () => setPlaying(true))
     wavesurfer.on('pause', () => setPlaying(false))
-    wavesurfer.on('seek', () => setCurrentTime(wavesurfer.getCurrentTime()))
-    wavesurfer.on('audioprocess', () => setCurrentTime(wavesurfer.getCurrentTime()))
+    wavesurfer.on('timeupdate', (time) => setCurrentTime(time))
     return () => wavesurfer && wavesurfer.destroy()
   }, [wavesurfer])
 
@@ -86,17 +85,18 @@ export default React.memo(({ artistAudio, barebones, playOnLoad, setWaveSurferCa
     const event = new Event('wavesurfer_ready')
     window.dispatchEvent(event)
 
-    setDuration(wavesurfer.getDuration())
     setCurrentTime(wavesurfer.getCurrentTime())
 
-    wavesurfer.clearRegions()
+    regionsPlugin.clearRegions()
 
     if (playOnLoad) {
       wavesurfer.play()
     }
 
+    // So we can trigger these after the player is ready
     if (queuePlay) {
-      wavesurfer.playPause()
+      // We need this timeout for some reason
+      setTimeout(() => wavesurfer.play(), 200)
       setQueuePlay(false)
     }
 
@@ -106,12 +106,14 @@ export default React.memo(({ artistAudio, barebones, playOnLoad, setWaveSurferCa
     }
 
     if (artistAudio[selectedArtist].tracklist) {
-      artistAudio[selectedArtist].tracklist.forEach((region) => {
-        region.drag = false
-        region.resize = false
-        region.start = timeToSeconds(region.time)
-        region.id = region.title
-        wavesurfer.addRegion(region)
+      artistAudio[selectedArtist].tracklist.forEach((track) => {
+        const region = {
+          content: track.title,
+          start: timeToSeconds(track.time),
+          drag: false,
+          resize: false,
+        }
+        regionsPlugin.addRegion(region)
       })
     }
   }, [ready])
@@ -136,18 +138,18 @@ export default React.memo(({ artistAudio, barebones, playOnLoad, setWaveSurferCa
             .then((response) => response.json())
             .then((data) => {
               window.cached_json[json.publicURL] = data
-              wavesurfer.load(mp3.publicURL, window.cached_json[json.publicURL], 'metadata')
+              wavesurfer.load(mp3.publicURL, window.cached_json[json.publicURL])
             })
             .catch((err) => {
               console.log('Fetch Error :-S', err)
             })
         } else {
           // Else we can just use the cached one
-          wavesurfer.load(mp3.publicURL, window.cached_json[json.publicURL], 'metadata')
+          wavesurfer.load(mp3.publicURL, window.cached_json[json.publicURL])
         }
       } else {
         // This means we've got data rather than a URL, so no fetching needed
-        wavesurfer.load(mp3.publicURL, json.data, 'metadata')
+        wavesurfer.load(mp3.publicURL, json.data)
       }
     },
     [wavesurfer]
@@ -179,28 +181,31 @@ export default React.memo(({ artistAudio, barebones, playOnLoad, setWaveSurferCa
 
   const previous = useCallback(() => {
     const newSelectedArtist = Math.max(selectedArtist - 1, 0)
-    setSelectedArtist(newSelectedArtist)
+    selectArtist(newSelectedArtist)
   }, [selectedArtist])
 
-  const next = useCallback(() => {
-    const newSelectedArtist = Math.min(selectedArtist + 1, artistAudio.length - 1)
-    setSelectedArtist(newSelectedArtist)
-  }, [selectedArtist, artistAudio])
+  const next = useCallback(
+    (play) => {
+      const newSelectedArtist = Math.min(selectedArtist + 1, artistAudio.length - 1)
+      selectArtist(newSelectedArtist, play)
+    },
+    [selectedArtist, artistAudio]
+  )
 
   const selectArtist = useCallback(
     (newSelectedArtist, play, seek) => {
+      setQueuePlay(play)
+      setQueueSeek(seek)
+      setSelectedArtist(newSelectedArtist)
+
       // If we're trying to select an artist we already have loaded and we want to play then just do it
-      if (selectedArtist === newSelectedArtist) {
+      if (selectedArtist === newSelectedArtist && wavesurfer) {
         if (play) wavesurfer.playPause()
         return
       }
 
-      wavesurfer.stop()
-      wavesurfer.empty()
-
-      setSelectedArtist(newSelectedArtist)
-      setQueuePlay(play)
-      setQueueSeek(seek)
+      wavesurfer && wavesurfer.stop()
+      wavesurfer && wavesurfer.empty()
     },
     [selectedArtist, wavesurfer]
   )
@@ -211,18 +216,18 @@ export default React.memo(({ artistAudio, barebones, playOnLoad, setWaveSurferCa
       <AudioWrapper barebones={barebones}>
         {!barebones && (
           <div>
-            <TransportButton disabled={!ready} id="prev" onClick={previous}>
+            <TransportButton disabled={!ready} id="prev" onClick={() => previous()}>
               <FaBackward />
             </TransportButton>
             <RoundButton disabled={!ready} className={playing ? 'active' : ''} size="40px" onClick={() => wavesurfer.playPause()}>
               {!playing ? <FaPlayCircle /> : <FaPauseCircle />}
             </RoundButton>
-            <TransportButton disabled={!ready} id="next" onClick={next}>
+            <TransportButton disabled={!ready} id="next" onClick={() => next()}>
               <FaForward />
             </TransportButton>
           </div>
         )}
-        <WaveWrapper ref={waveformRef}>
+        <WaveWrapper id="waveform" ref={waveformRef}>
           {ready && <LengthWrapper style={{ left: '0px' }}>{formatTime(currentTime)}</LengthWrapper>}
           {ready && <LengthWrapper style={{ right: '0px' }}>{formatTime(duration)}</LengthWrapper>}
         </WaveWrapper>
