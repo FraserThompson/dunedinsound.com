@@ -17,7 +17,7 @@ export const Head = (params) => {
   return (
     <SiteHead
       title={params.data.thisPost.title}
-      description={`See photos, videos and audio recordings of live gigs featuring ${params.data.thisPost.title} and heaps of other local artists.`}
+      description={`Discover photos, videos and audio recordings of live gigs featuring ${params.data.thisPost.title} and heaps of other local artists.`}
       cover={cover}
       {...params}
     />

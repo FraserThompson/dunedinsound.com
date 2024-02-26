@@ -154,7 +154,7 @@ const Page = React.memo(({ data, location }) => {
             <Popup anchor="bottom" offset={[0, -40]} latitude={selected.lat} longitude={selected.lng} onClose={() => markerClose()}>
               <h3 style={{ marginBottom: '0' }}>{selected.title}</h3>
               <p style={{ marginTop: '0', marginBottom: '10px' }}>
-                <ActiveIndicator died={selected.died} />
+                <ActiveIndicator died={selected.died} born={selected.date} />
               </p>
               <HorizontalNav lineHeight="1" style={{ marginBottom: '10px' }}>
                 {selected.facebook && (

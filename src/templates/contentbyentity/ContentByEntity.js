@@ -133,7 +133,11 @@ export default React.memo(({ data, parent, background }) => {
         subtitle={
           data.thisPost.died !== undefined && (
             <ActiveWrapper>
-              <ActiveIndicator died={data.thisPost.died} inactiveText={data.thisPost.fields.type === 'artist' ? 'Inactive' : 'Defunct'} />
+              <ActiveIndicator
+                born={data.thisPost.date}
+                died={data.thisPost.died}
+                inactiveText={data.thisPost.fields.type === 'artist' ? 'Inactive' : 'Defunct'}
+              />
             </ActiveWrapper>
           )
         }

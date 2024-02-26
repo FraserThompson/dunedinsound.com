@@ -146,6 +146,7 @@ export const query = graphql`
       fileName
     }
     title
+    date(formatString: "YYYY")
     description
     lat
     lng
