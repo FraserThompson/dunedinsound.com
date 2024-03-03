@@ -91,7 +91,7 @@ const SidebarNavWrapper = styled(Menu)`
   will-change: transform;
 
   @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
-    height: ${(props) => `calc(100vh - ${props.theme.headerHeight})`};
+    height: ${(props) => (props.topOffset ? `calc(100vh - ${props.theme.headerHeight} - ${props.topOffset})` : `calc(100vh - ${props.theme.headerHeight})`)};
     top: ${(props) => (props.topOffset ? `calc(${props.topOffset} + ${props.theme.headerHeight})` : props.theme.headerHeight)};
     width: 300px;
     visibility: ${(props) => (!props.open ? 'hidden' : 'visible')};

@@ -8,8 +8,8 @@ import Shuffle from 'shufflejs'
 import { toMachineName } from '../utils/helper'
 import styled from '@emotion/styled'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { rhythm } from '../utils/typography'
 import { SiteHead } from '../components/SiteHead'
+import Subheader from '../components/Subheader'
 
 const ArtistGridTile = React.memo(({ node, metadata, coverImage }) => {
   if (!metadata) {
@@ -197,7 +197,7 @@ const Page = React.memo(({ data, location }) => {
           <LoadingSpinner />
         </LoadingWrapper>
       )}
-      <Filters>
+      <Subheader>
         <span>Sort by: </span>
         <div>
           <button className={sortBy === 'title' ? 'active' : ''} onMouseDown={() => sortByCallback('title')}>
@@ -225,7 +225,7 @@ const Page = React.memo(({ data, location }) => {
               </option>
             ))}
         </select>
-      </Filters>
+      </Subheader>
       <ArtistGrid fixedWidth ref={element} xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
         {artistList.map((node) => (
           <ArtistGridTile
@@ -261,50 +261,6 @@ const LoadingWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
-
-const Filters = styled.div`
-  position: fixed;
-  top: ${(props) => props.theme.headerHeightMobile};
-  z-index: 2;
-  padding-left: ${rhythm(0.5)};
-  padding-right: ${rhythm(0.5)};
-  display: flex;
-  align-items: center;
-
-  color: black;
-  border-bottom: 1px solid black;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-
-  font-size: 80%;
-  width: 100%;
-  min-height: ${(props) => props.theme.subheaderHeight};
-
-  background-color: ${(props) => props.theme.contrastColor};
-
-  > div,
-  span {
-    margin-right: ${rhythm(0.5)};
-  }
-
-  button,
-  .button {
-    border: none;
-    background-color: black;
-    &:focus {
-      color: black;
-      background-color: ${(props) => props.theme.foregroundColor};
-    }
-    &.active,
-    &:active {
-      color: black;
-      background-color: ${(props) => props.theme.foregroundColor};
-    }
-  }
-  @media screen and (min-width: ${(props) => props.theme.breakpoints.md}) {
-    position: fixed;
-    top: ${(props) => props.theme.headerHeight};
-  }
 `
 
 const HideInactive = styled.span`

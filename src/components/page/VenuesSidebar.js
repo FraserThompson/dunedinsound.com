@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import SidebarNav from '../SidebarNav'
 import ActiveIndicator from '../ActiveIndicator'
+import { theme } from '../../utils/theme'
 
 export const VenuesSidebar = ({ menuItems, menuItemClick, setRef, selected }) => {
   const [open, setOpen] = useState(true)
@@ -18,7 +19,7 @@ export const VenuesSidebar = ({ menuItems, menuItemClick, setRef, selected }) =>
   )
 
   return (
-    <SidebarNav toggle={toggleSidebar} open={open} left>
+    <SidebarNav toggle={toggleSidebar} open={open} topOffset={theme.default.subheaderHeight} left>
       <ul>
         {menuItems.map((node, index) => (
           <li key={index} ref={setRef} className={index === selected ? 'active' : ''}>
