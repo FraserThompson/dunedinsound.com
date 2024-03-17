@@ -6,9 +6,11 @@ export default React.memo(({ died, born, hideText = false, inactiveText = 'Defun
   if (died == undefined) {
     return <ActiveIcon title="Active">⬤ {!hideText && (!born ? 'Active' : `Active since ${born}`)}</ActiveIcon>
   } else {
+    // Workaround for gatsby not picking up the field being date type for some reason
+    const diedYear = new Date(died).getFullYear()
     return (
       <DefunctIcon title="Defunct">
-        ⬤ {!hideText && (died !== 0 ? (!born ? `${inactiveText} since ${died}` : `Active ${born} to ${died}`) : inactiveText)}
+        ⬤ {!hideText && (diedYear !== 1600 ? (!born ? `${inactiveText} since ${diedYear}` : `Active ${born} to ${diedYear}`) : inactiveText)}
       </DefunctIcon>
     )
   }

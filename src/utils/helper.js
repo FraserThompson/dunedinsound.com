@@ -130,8 +130,8 @@ export const dateStrToDateObj = (date) => {
 */
 export const calculateScrollHeaderOffset = (window, modifierDesktop = 0, modifierMobile = 0) => {
   const bannerEl = document.querySelector('#top')
-  const bannerHeight = stripUnit(theme.default.defaultBannerHeight) / 100
-  const mobileHeaderHeight = stripUnit(theme.default.headerHeightMobileWithSubheader) * 16
+  const bannerHeight = stripUnit(theme.default.defaultBannerHeight) / 100 // assumes it's a vh unit
+  const mobileHeaderHeight = stripUnit(theme.default.headerHeightMobile) + stripUnit(theme.default.subheaderHeight) // assumes they're px units
   if (window.innerWidth < stripUnit(theme.default.breakpoints.xs)) {
     if (bannerEl) {
       return bannerEl.offsetHeight - mobileHeaderHeight + modifierMobile

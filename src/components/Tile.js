@@ -43,7 +43,7 @@ export default ({
 }) => {
   const data = useStaticQuery(graphql`
     query {
-      covers: allFile(filter: { sourceInstanceName: { eq: "media" }, name: { eq: "cover" } }) {
+      covers: allFile(filter: { sourceInstanceName: { eq: "media" }, ext: { in: [".jpg", ".JPG"] }, name: { eq: "cover" } }) {
         group(field: { fields: { parentDir: SELECT } }) {
           fieldValue
           nodes {
@@ -51,9 +51,16 @@ export default ({
           }
         }
       }
-      newestCover: allFile(limit: 1, sort: { mtimeMs: DESC }, filter: { sourceInstanceName: { eq: "media" }, name: { eq: "cover" } }) {
-        nodes {
-          ...FullImage
+      newestCover: allFile(
+        limit: 2
+        sort: { mtimeMs: DESC }
+        filter: { sourceInstanceName: { eq: "media" }, ext: { in: [".jpg", ".JPG"] }, name: { eq: "cover" } }
+      ) {
+        group(field: { fields: { parentDir: SELECT } }) {
+          fieldValue
+          nodes {
+            ...FullImage
+          }
         }
       }
     }
@@ -61,12 +68,17 @@ export default ({
 
   const covers = useMemo(() => graphqlGroupToObject(data.covers.group))
 
+  // The way we query for the newest cover is by finding the cover.jpg which was modified most recently.
+  // This can cause problems if an older cover is modified for whatever reason. To help mitigate this,
+  // we query for the last two, find the one which matches, and if it doesn't then fall back to the smaller image.
+  const fullCovers = useMemo(() => graphqlGroupToObject(data.newestCover.group))
+
   // Background is either passed image, cover associated with coverDir, or latest cover in large size if feature
   let background = null
   if (image) {
     background = image
   } else if (feature) {
-    background = data.newestCover.nodes[0].childImageSharp
+    background = fullCovers[coverDir] ? fullCovers[coverDir][0].childImageSharp : covers[coverDir][0].childImageSharp
   } else if (coverDir && covers[coverDir]) {
     background = covers[coverDir][0].childImageSharp
   }

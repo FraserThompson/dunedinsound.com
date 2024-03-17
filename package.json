@@ -43,6 +43,7 @@
     "throttle-debounce": "^5.0.0",
     "typography": "^0.16.24",
     "typography-theme-noriega": "^0.16.19",
+    "vis-timeline": "^7.7.3",
     "wavesurfer.js": "^7.7.3"
   },
   "devDependencies": {

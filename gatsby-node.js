@@ -11,84 +11,82 @@ const toMachineName = (string, space_character) => {
 const path = require('path')
 
 exports.createPages = async ({ graphql, actions }) => {
-  const result = await graphql(
-    `
-      {
-        pages: allMdx(sort: { frontmatter: { date: DESC } }) {
-          group(field: { fields: { type: SELECT } }) {
-            fieldValue
-            nodes {
-              fields {
-                slug
-                type
-                parentDir
-              }
-              internal {
-                contentFilePath
-              }
-              frontmatter {
-                title
-                template
-                tags
-                gallery
-                related_gigs
-              }
-            }
-          }
-        }
-        allGigs: allGigYaml(sort: { date: DESC }) {
+  const result = await graphql(`
+    {
+      pages: allMdx(sort: { frontmatter: { date: DESC } }) {
+        group(field: { fields: { type: SELECT } }) {
+          fieldValue
           nodes {
-            title
-            venue
-            artists {
-              name
-            }
             fields {
               slug
-              fileName
               type
+              parentDir
             }
-          }
-        }
-        allVenues: allVenueYaml {
-          nodes {
-            title
-            fields {
-              slug
-              fileName
-              type
+            internal {
+              contentFilePath
             }
-          }
-        }
-        allArtists: allArtistYaml {
-          nodes {
-            title
-            fields {
-              slug
-              fileName
-              type
+            frontmatter {
+              title
+              template
+              tags
+              gallery
+              related_gigs
             }
-          }
-        }
-        allVaultsessions: allVaultsessionYaml {
-          nodes {
-            title
-            fields {
-              slug
-              fileName
-              type
-            }
-          }
-        }
-        blogsByTag: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
-          group(field: { frontmatter: { tags: SELECT } }) {
-            fieldValue
-            totalCount
           }
         }
       }
-    `
-  )
+      allGigs: allGigYaml(sort: { date: DESC }) {
+        nodes {
+          title
+          venue
+          artists {
+            name
+          }
+          fields {
+            slug
+            fileName
+            type
+          }
+        }
+      }
+      allVenues: allVenueYaml {
+        nodes {
+          title
+          fields {
+            slug
+            fileName
+            type
+          }
+        }
+      }
+      allArtists: allArtistYaml {
+        nodes {
+          title
+          fields {
+            slug
+            fileName
+            type
+          }
+        }
+      }
+      allVaultsessions: allVaultsessionYaml {
+        nodes {
+          title
+          fields {
+            slug
+            fileName
+            type
+          }
+        }
+      }
+      blogsByTag: allMdx(sort: { frontmatter: { date: DESC } }, filter: { fields: { type: { eq: "blog" } } }) {
+        group(field: { frontmatter: { tags: SELECT } }) {
+          fieldValue
+          totalCount
+        }
+      }
+    }
+  `)
 
   if (result.errors) {
     console.log(result.errors)
@@ -328,7 +326,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       origin: String
       soundcloud: String
       audioculture: Audioculture
-      died: Int
+      died: Date
     }
     type VenueYaml implements Node {
       title: String!
@@ -337,7 +335,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       description: String
       facebook: String
       website: String
-      died: Int
+      died: Date
     }
     type VaultsessionYaml implements Node {
       title: String!
