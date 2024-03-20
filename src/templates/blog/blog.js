@@ -29,7 +29,7 @@ const Page = React.memo(({ data, pageContext, children }) => {
     <Layout location={typeof window !== `undefined` && window.location} overrideBackgroundColor="white">
       <BlogContainer>
         {post.frontmatter.cover && (
-          <Banner backgroundImage={post.frontmatter.cover}>
+          <Banner backgroundImage={post.frontmatter.cover} backgroundImageVertical={post.frontmatter.cover_vertical}>
             <BlogTitle>{post.frontmatter.title}</BlogTitle>
           </Banner>
         )}

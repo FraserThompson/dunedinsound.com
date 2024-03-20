@@ -18,9 +18,14 @@ export default styled(BlogContainer)`
     padding-left: ${rhythm(0.5)};
     padding-right: ${rhythm(0.5)};
   }
+  span:has(> span.gatsby-resp-image-wrapper) {
+    padding-left: 0;
+    padding-right: 0;
+  }
   .gatsby-resp-image-wrapper {
     max-width: ${(props) => (!props.featureMode ? props.theme.contentContainerWidth : 'initial')} !important;
     margin-left: ${(props) => (!props.featureMode ? '0 !important' : 'auto')};
+    margin-bottom: ${(props) => (!props.featureMode ? '0.805rem' : 'auto')};
   }
   ul {
     padding-left: ${rhythm(2)};

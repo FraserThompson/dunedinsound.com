@@ -6,6 +6,7 @@
 //  - children: Displayed in a box in the middle.
 //  - height (optional): Height the banner should be
 //  - backgroundImage (optional): Fluid image to use as background
+//  - backgroundImageVertical (optional): Fluid image to use as background on portrait displays
 //  - background (optional): Misc content to display in the background
 //  - customContent (optional): Misc content to display in the foreground
 
@@ -31,13 +32,16 @@ export default React.memo((props) => {
 
   return (
     <BannerWrapper className="banner" {...props} ref={ref}>
-      {props.backgroundImage && <BackgroundImage image={props.backgroundImage} />}
+      {props.backgroundImage && <BackgroundImage image={props.backgroundImage} verticalImage={props.backgroundImageVertical} />}
       {(props.title || props.children) && (
         <BannerContent>
-          <Title>
-            {props.title && <h1 className="big">{props.title}</h1>}
-            {props.subtitle && <h2>{props.subtitle}</h2>}
-          </Title>
+          {props.title ||
+            (props.subtitle && (
+              <Title>
+                {props.title && <h1 className="big">{props.title}</h1>}
+                {props.subtitle && <h2>{props.subtitle}</h2>}
+              </Title>
+            ))}
           {props.children}
         </BannerContent>
       )}

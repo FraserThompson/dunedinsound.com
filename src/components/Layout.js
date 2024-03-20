@@ -170,6 +170,9 @@ export const query = graphql`
       cover {
         ...LargeImage
       }
+      cover_vertical {
+        ...LargeImage
+      }
       date(formatString: "DD MMMM YYYY")
     }
   }
